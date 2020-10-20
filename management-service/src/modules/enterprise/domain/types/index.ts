@@ -1,0 +1,1 @@
+export { IContactPerson } from './IContactPerson';
