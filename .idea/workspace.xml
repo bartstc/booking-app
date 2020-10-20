@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="" />
+    <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/domain/CountryCode.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/domain/CountryCode.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +32,9 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/management-service/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/management-service" />
     </key>
@@ -43,7 +49,8 @@
       <updated>1603214239243</updated>
       <workItem from="1603214240369" duration="567000" />
       <workItem from="1603214844992" duration="16000" />
-      <workItem from="1603215274203" duration="920000" />
+      <workItem from="1603215274203" duration="1995000" />
+      <workItem from="1603222392116" duration="465000" />
     </task>
     <servers />
   </component>

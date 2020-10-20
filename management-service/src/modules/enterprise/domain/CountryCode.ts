@@ -7,6 +7,8 @@ interface IProps {
   value: string;
 }
 
+console.log("test 1");
+
 export class CountryCode extends ValueObject<IProps> {
   get value() {
     return this.props.value;
