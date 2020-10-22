@@ -2,12 +2,12 @@ import { ValueObject } from 'shared/domain';
 import { Guard, Result, TextValidator } from 'shared/core';
 
 interface IProps {
-  url: string;
+  value: string;
 }
 
 export class Link extends ValueObject<IProps> {
-  get url(): string {
-    return this.props.url;
+  get value(): string {
+    return this.props.value;
   }
 
   private constructor(props: IProps) {
@@ -15,15 +15,15 @@ export class Link extends ValueObject<IProps> {
   }
 
   public static create(props: IProps): Result<Link> {
-    const nullGuard = Guard.againstNullOrUndefined(props.url, 'url');
+    const nullGuard = Guard.againstNullOrUndefined(props.value, 'url');
 
     if (!nullGuard.succeeded) {
       return Result.fail(nullGuard);
     }
 
-    if (!TextValidator.validateWebURL(props.url)) {
+    if (!TextValidator.validateWebURL(props.value)) {
       return Result.fail({
-        message: `Url {${props.url}} is not valid.`,
+        message: `Url {${props.value}} is not valid.`,
       });
     }
 
