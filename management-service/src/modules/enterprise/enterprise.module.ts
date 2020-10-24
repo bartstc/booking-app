@@ -4,7 +4,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { EnterpriseRepository } from './adapter';
 import { EnterpriseService } from './application/services';
-import { QueryHandlers } from './application/queries/handlers';
 import { CommandHandlers } from './application/commands/handlers';
 import {
   GetEnterpriseCase,
@@ -27,7 +26,6 @@ import {
     UpdateEnterpriseController,
   ],
   providers: [
-    ...QueryHandlers,
     ...CommandHandlers,
     EnterpriseService,
     GetEnterpriseCase,
