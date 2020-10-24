@@ -20,7 +20,7 @@ export class CountryCode extends ValueObject<IProps> {
     const guardResult = Guard.isOneOf({
       value: props.value,
       argumentName: 'countryCode',
-      validValues: countryCodes,
+      validValues: countryCodes.map(countryCode => countryCode.code),
     });
 
     if (!guardResult.succeeded) {

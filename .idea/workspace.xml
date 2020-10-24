@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="" />
+    <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/application/services/enterprise.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/application/services/enterprise.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/application/useCases/createEnterprise/createEnterprise.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/application/useCases/createEnterprise/createEnterprise.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/application/useCases/getEnterprise/getEnterprise.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/application/useCases/getEnterprise/getEnterprise.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/domain/CountryCode.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/domain/CountryCode.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,14 +27,22 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/PZP/panel-zamawiającego-frontend-2" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/management-service/node_modules/prettier" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/management-service/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/management-service/src/modules/enterprise/application/useCases" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/management-service" />
     </key>
@@ -44,6 +58,8 @@
       <workItem from="1603214240369" duration="567000" />
       <workItem from="1603214844992" duration="16000" />
       <workItem from="1603215274203" duration="920000" />
+      <workItem from="1603379831367" duration="5178000" />
+      <workItem from="1603552847520" duration="6238000" />
     </task>
     <servers />
   </component>
@@ -51,9 +67,18 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="767" y="297" width="424" height="484" key="FileChooserDialogImpl" timestamp="1603214858110">
+    <state x="2417" y="297" width="424" height="484" key="FileChooserDialogImpl" timestamp="1603556688337">
+      <screen x="1680" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2417" y="297" key="FileChooserDialogImpl/1680.0.1920.1080/48.0.1632.1050@1680.0.1920.1080" timestamp="1603556688337" />
+    <state x="767" y="297" width="424" height="484" key="FileChooserDialogImpl/48.0.1872.1080@48.0.1872.1080" timestamp="1603379450982" />
+    <state x="898" y="174" key="SettingsEditor" timestamp="1603378883345">
       <screen x="48" y="0" width="1872" height="1080" />
     </state>
-    <state x="767" y="297" width="424" height="484" key="FileChooserDialogImpl/48.0.1872.1080@48.0.1872.1080" timestamp="1603214858110" />
+    <state x="898" y="174" key="SettingsEditor/48.0.1872.1080@48.0.1872.1080" timestamp="1603378883345" />
+    <state x="1115" y="237" width="672" height="678" key="search.everywhere.popup" timestamp="1603378825612">
+      <screen x="48" y="0" width="1872" height="1080" />
+    </state>
+    <state x="1115" y="237" width="672" height="678" key="search.everywhere.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1603378825612" />
   </component>
 </project>

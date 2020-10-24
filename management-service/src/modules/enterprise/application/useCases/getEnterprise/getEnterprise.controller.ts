@@ -40,7 +40,7 @@ export class GetEnterpriseController extends BaseController {
       this.logger.verbose('Enterprise successfully returned');
       return this.ok(res, result.value.getValue());
     } catch (err) {
-      this.logger.error(err);
+      this.logger.error("Unexpected server error", err);
       return this.fail(res, err);
     }
   }

@@ -1,9 +1,11 @@
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { Injectable } from '@nestjs/common';
 
 import { GetEnterpriseQuery } from '../queries/impl';
 import { CreateEnterpriseCommand } from '../commands/impl';
 import { CreateEnterpriseDto } from '../useCases/createEnterprise';
 
+@Injectable()
 export class EnterpriseService {
   constructor(
     private readonly queryBus: QueryBus,

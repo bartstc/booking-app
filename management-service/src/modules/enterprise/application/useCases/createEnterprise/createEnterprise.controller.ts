@@ -45,7 +45,7 @@ export class CreateEnterpriseController extends BaseController {
       this.logger.verbose('Enterprise successfully created');
       return this.ok(res);
     } catch (err) {
-      this.logger.error(err);
+      this.logger.error("Unexpected server error", err);
       return this.fail(res, err);
     }
   }
