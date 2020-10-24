@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 
 import { EnterpriseMap, EnterpriseRepository } from '../../../adapter';
-import { Enterprise } from '../../../domain';
 import { EnterpriseDto } from '../../dtos';
 import { GetEnterpriseErrors } from './getEnterprise.errors';
 
@@ -22,18 +21,20 @@ export class GetEnterpriseCase
   ) {}
 
   async execute(enterpriseId: string): Promise<GetEnterpriseResponse> {
-    let enterprise: Enterprise;
+    let enterpriseRaw;
 
     try {
       try {
-        enterprise = await this.repository.getEnterpriseById(enterpriseId);
+        enterpriseRaw = await this.repository.getRawEnterpriseById(
+          enterpriseId,
+        );
       } catch {
         return left(
           new GetEnterpriseErrors.EnterpriseDoesNotExistError(enterpriseId),
         );
       }
 
-      return right(Result.ok(EnterpriseMap.toDto(enterprise)));
+      return right(Result.ok(EnterpriseMap.rawToDto(enterpriseRaw)));
     } catch (err) {
       return left(new AppError.UnexpectedError(err));
     }

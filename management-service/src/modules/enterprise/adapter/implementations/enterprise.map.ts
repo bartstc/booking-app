@@ -13,19 +13,27 @@ import { EnterpriseDto } from '../../application/dtos';
 import { EnterpriseEntity } from '../../infra/entities';
 
 export class EnterpriseMap implements Mapper<Enterprise> {
-  public static toDto(enterprise: Enterprise): EnterpriseDto {
+  public static modelToDto(enterprise: Enterprise): EnterpriseDto {
     return {
       enterpriseId: enterprise.enterpriseId.id.toString(),
       enterpriseName: enterprise.enterpriseName.value,
       enterpriseDescription: enterprise.enterpriseDescription.value,
       enterpriseUrl: enterprise.enterpriseUrl.value,
       countryCode: enterprise.countryCode.value,
-      contactPerson: {
-        phone: enterprise.contactPerson.phone,
-        email: enterprise.contactPerson.email,
-        name: enterprise.contactPerson.name,
-        fax: enterprise.contactPerson.fax,
-      },
+      contactPerson: enterprise.contactPerson.allContacts,
+      createdAt: enterprise.createdAt,
+      updatedAt: enterprise.updatedAt,
+    };
+  }
+
+  public static rawToDto(enterprise: EnterpriseEntity): EnterpriseDto {
+    return {
+      enterpriseId: enterprise.enterprise_id,
+      enterpriseName: enterprise.details.name,
+      enterpriseDescription: enterprise.details.description,
+      enterpriseUrl: enterprise.details.url,
+      countryCode: enterprise.details.countryCode,
+      contactPerson: enterprise.details.contactPerson,
       createdAt: enterprise.createdAt,
       updatedAt: enterprise.updatedAt,
     };
