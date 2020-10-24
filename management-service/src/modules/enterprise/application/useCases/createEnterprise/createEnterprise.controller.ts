@@ -18,12 +18,12 @@ export class CreateEnterpriseController extends BaseController {
 
   @Post('enterprises')
   async createEnterprise(
-    @Body() createEnterpriseDto: CreateEnterpriseDto,
+    @Body() dto: CreateEnterpriseDto,
     @Res() res: Response,
   ) {
     try {
       const formErrors = await ValidationTransformer.validateSchema(
-        createEnterpriseDto,
+        dto,
         createEnterpriseSchema,
       );
 
@@ -32,7 +32,7 @@ export class CreateEnterpriseController extends BaseController {
       }
 
       const result: CreateEnterpriseResponse = await this.enterpriseService.createEnterprise(
-        createEnterpriseDto,
+        dto,
       );
 
       if (result.isLeft()) {
@@ -45,7 +45,7 @@ export class CreateEnterpriseController extends BaseController {
       this.logger.verbose('Enterprise successfully created');
       return this.ok(res);
     } catch (err) {
-      this.logger.error("Unexpected server error", err);
+      this.logger.error('Unexpected server error', err);
       return this.fail(res, err);
     }
   }

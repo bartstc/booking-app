@@ -11,6 +11,7 @@ import {
 } from '../../domain';
 import { EnterpriseDto } from '../../application/dtos';
 import { EnterpriseEntity } from '../../infra/entities';
+import { UpdateEnterpriseDto } from '../../application/useCases/updateEnterprise';
 
 export class EnterpriseMap implements Mapper<Enterprise> {
   public static modelToDto(enterprise: Enterprise): EnterpriseDto {
@@ -72,7 +73,7 @@ export class EnterpriseMap implements Mapper<Enterprise> {
     return enterpriseOrError.getValue();
   }
 
-  public static toPersistence(
+  public static modelToPersistence(
     enterprise: Enterprise,
   ): Partial<EnterpriseEntity> {
     return {
@@ -83,6 +84,22 @@ export class EnterpriseMap implements Mapper<Enterprise> {
         url: enterprise.enterpriseUrl.value,
         countryCode: enterprise.countryCode.value,
         contactPerson: enterprise.contactPerson.allContacts,
+      },
+    };
+  }
+
+  public static dtoToPersistence(
+    id: string,
+    dto: UpdateEnterpriseDto,
+  ): Partial<EnterpriseEntity> {
+    return {
+      enterprise_id: id,
+      details: {
+        name: dto.enterpriseName,
+        description: dto.enterpriseDescription,
+        url: dto.enterpriseUrl,
+        countryCode: dto.countryCode,
+        contactPerson: dto.contactPerson,
       },
     };
   }

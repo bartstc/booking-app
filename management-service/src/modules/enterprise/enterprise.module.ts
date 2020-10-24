@@ -14,16 +14,25 @@ import {
   CreateEnterpriseCase,
   CreateEnterpriseController,
 } from './application/useCases/createEnterprise';
+import {
+  UpdateEnterpriseCase,
+  UpdateEnterpriseController,
+} from './application/useCases/updateEnterprise';
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([EnterpriseRepository])],
-  controllers: [GetEnterpriseController, CreateEnterpriseController],
+  controllers: [
+    GetEnterpriseController,
+    CreateEnterpriseController,
+    UpdateEnterpriseController,
+  ],
   providers: [
     ...QueryHandlers,
     ...CommandHandlers,
     EnterpriseService,
     GetEnterpriseCase,
     CreateEnterpriseCase,
+    UpdateEnterpriseCase,
   ],
 })
 export class EnterpriseModule {}

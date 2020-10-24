@@ -50,7 +50,7 @@ export class CreateEnterpriseCase
       }
 
       const enterprise = enterpriseOrError.getValue();
-      await this.repository.persist(enterprise);
+      await this.repository.persistModel(enterprise);
       return right(Result.ok(enterprise));
     } catch (err) {
       return left(new AppError.UnexpectedError(err));
