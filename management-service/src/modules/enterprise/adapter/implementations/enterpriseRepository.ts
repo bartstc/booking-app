@@ -23,4 +23,9 @@ export class EnterpriseRepository extends Repository<EnterpriseEntity>
     if (!enterprise) throw new Error('Enterprise not found');
     return EnterpriseMap.toDomain(enterprise);
   }
+
+  async persist(enterprise: Enterprise): Promise<void> {
+    const enterpriseEntity = await EnterpriseMap.toPersistence(enterprise);
+    await this.create(enterpriseEntity).save();
+  }
 }
