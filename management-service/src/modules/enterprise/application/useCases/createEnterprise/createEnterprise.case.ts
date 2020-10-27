@@ -2,14 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
+import { Link, ContactPerson } from 'shared/domain';
 
 import {
-  ContactPerson,
   CountryCode,
   Enterprise,
   EnterpriseDescription,
   EnterpriseName,
-  Link,
 } from '../../../domain';
 import { EnterpriseMap, EnterpriseRepository } from '../../../adapter';
 import { CreateEnterpriseDto } from './createEnterprise.dto';

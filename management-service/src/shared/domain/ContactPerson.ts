@@ -1,7 +1,5 @@
-import { ValueObject } from 'shared/domain';
+import { IContactPerson, ValueObject } from 'shared/domain/index';
 import { Guard, Result, TextValidator } from 'shared/core';
-
-import { IContactPerson } from './types';
 
 export class ContactPerson extends ValueObject<IContactPerson> {
   public static minLength = 1;

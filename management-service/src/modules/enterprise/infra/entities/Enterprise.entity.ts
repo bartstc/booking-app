@@ -1,8 +1,7 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm/index';
 
 import { AbstractEntity } from 'shared/core';
-
-import { IContactPerson } from '../../domain/types';
+import { IContactPerson } from 'shared/domain';
 
 @Entity('enterprises')
 export class EnterpriseEntity extends AbstractEntity {

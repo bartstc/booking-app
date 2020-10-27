@@ -1,13 +1,11 @@
 import { Mapper } from 'shared/core';
-import { UniqueEntityID } from 'shared/domain';
+import { Link, UniqueEntityID, ContactPerson } from 'shared/domain';
 
 import {
-  ContactPerson,
   CountryCode,
   Enterprise,
   EnterpriseDescription,
   EnterpriseName,
-  Link,
 } from '../../domain';
 import { EnterpriseDto } from '../../application/dtos';
 import { EnterpriseEntity } from '../../infra/entities';

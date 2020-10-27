@@ -1,11 +1,9 @@
-import { Entity, UniqueEntityID } from 'shared/domain';
+import { Entity, UniqueEntityID, Link, ContactPerson } from 'shared/domain';
 import { Result } from 'shared/core';
 
 import { EnterpriseName } from './EnterpriseName';
 import { EnterpriseDescription } from './EnterpriseDescription';
-import { Link } from './Link';
 import { CountryCode } from './CountryCode';
-import { ContactPerson } from './ContactPerson';
 import { EnterpriseId } from './EnterpriseId';
 
 interface IProps {
