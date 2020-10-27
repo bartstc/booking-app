@@ -1,9 +1,9 @@
 import * as yup from 'yup';
+
 import { TextValidator } from 'shared/core';
-import { IContactPerson } from 'shared/domain';
+import { countryCodes, IContactPerson } from 'shared/domain';
 
 import { CreateEnterpriseDto } from './createEnterprise.dto';
-import { countryCodes } from '../../../domain';
 
 export const createEnterpriseSchema = yup.object().shape<CreateEnterpriseDto>({
   enterpriseName: yup

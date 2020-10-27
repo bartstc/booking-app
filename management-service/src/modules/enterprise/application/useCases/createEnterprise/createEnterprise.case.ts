@@ -2,10 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
-import { Link, ContactPerson } from 'shared/domain';
+import { Link, ContactPerson, CountryCode } from 'shared/domain';
 
 import {
-  CountryCode,
   Enterprise,
   EnterpriseDescription,
   EnterpriseName,

@@ -1,8 +1,12 @@
 import { Mapper } from 'shared/core';
-import { Link, UniqueEntityID, ContactPerson } from 'shared/domain';
+import {
+  Link,
+  UniqueEntityID,
+  ContactPerson,
+  CountryCode,
+} from 'shared/domain';
 
 import {
-  CountryCode,
   Enterprise,
   EnterpriseDescription,
   EnterpriseName,
