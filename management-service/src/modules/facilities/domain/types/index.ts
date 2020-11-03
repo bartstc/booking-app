@@ -1,4 +1,4 @@
 export { BusinessCategoryType } from './BusinessCategoryType';
 export { IAddress } from './IAddress';
-export { ContactType } from './ContactType';
-export { IContact } from './IContact';
+export { BusinessCategoryDegreeType } from './BusinessCategoryDegreeType';
+export { EmployeePosition } from './EmployeePosition';
