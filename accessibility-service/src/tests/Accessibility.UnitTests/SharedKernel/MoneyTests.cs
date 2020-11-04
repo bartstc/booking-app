@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Accessibility.UnitTests.SharedKernel
 {
-    public class MoneyTest
+    public class MoneyTests
     {
         [Theory]
         [InlineData("")]
