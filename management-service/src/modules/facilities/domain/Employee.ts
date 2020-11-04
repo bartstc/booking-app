@@ -21,7 +21,7 @@ export class Employee extends Entity<IProps> {
   }
 
   get facilityId() {
-    return this.props.facilityId;
+    return this.props.facilityId.id.toString();
   }
 
   get name() {
@@ -57,10 +57,6 @@ export class Employee extends Entity<IProps> {
       {
         argument: props.employmentDate,
         argumentName: 'employee.employmentDate',
-      },
-      {
-        argument: props.facilityId,
-        argumentName: 'employee.facilityId',
       },
     ]);
 
