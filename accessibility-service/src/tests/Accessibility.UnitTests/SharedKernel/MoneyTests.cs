@@ -26,7 +26,7 @@ namespace Accessibility.UnitTests.SharedKernel
         {
             var money = Money.Of(11, currency);
 
-            Assert.Equal(money.Currency, currency);
+            Assert.Equal(currency, money.Currency);
         }
 
         [Fact]
@@ -37,8 +37,8 @@ namespace Accessibility.UnitTests.SharedKernel
 
             var result = moneyPl1 + moneyPl2;
             
-            Assert.Equal(result.Value, 33);
-            Assert.Equal(result.Currency, "PL");
+            Assert.Equal(33, result.Value);
+            Assert.Equal("PL", result.Currency);
         }
 
         [Fact]
