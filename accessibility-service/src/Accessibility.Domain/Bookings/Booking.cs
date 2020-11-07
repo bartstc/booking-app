@@ -22,15 +22,21 @@ namespace Accessibility.Domain.Bookings
 
             AddDomainEvent(new BookingCreatedEvent(offerId, customerId, date));
         }
-        
+
         public BookingId Id { get; }
         public EmployeeId EmployeeId { get; }
         public CustomerId CustomerId { get; }
         public OfferId OfferId { get; }
         public Money Price { get; }
-        public BookingStatus Status { get; }
+        public BookingStatus Status { get; private set; }
         public DateTime Date { get; }
         public DateTime CreationDate { get; }
         public DateTime? ChangeDate { get; }
+
+        public void ChangeStatus(BookingStatus newStatus)
+        {
+            CheckRule(new NewStatusMustHaveCorrectPreviousStatusRule(Status, newStatus));
+            Status = newStatus;
+        }
     }
 }

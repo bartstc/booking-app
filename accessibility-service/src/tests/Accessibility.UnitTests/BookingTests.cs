@@ -6,6 +6,7 @@ using Accessibility.Domain.SharedKernel;
 using Xunit;
 using Accessibility.Domain.Bookings.Rules;
 using Accessibility.UnitTests.SeedWork;
+using Moq;
 
 namespace Accessibility.UnitTests
 {
@@ -45,6 +46,50 @@ namespace Accessibility.UnitTests
             Assert.Equal(DateTime.Now.ClearMiliseconds(), booking.CreationDate.ClearMiliseconds());
             Assert.Null(booking.ChangeDate);
             AssertDomainEventPublished<BookingCreatedEvent>(booking);
+        }
+
+        [Theory]
+        [InlineData(BookingStatus.Fulfilled)]
+        [InlineData(BookingStatus.Canceled)]
+        public void ChangeStatus_CorrectNewStatus_IsSuccess(BookingStatus newStatus)
+        {
+            var booking = new Booking(
+                new EmployeeId(Guid.NewGuid()),
+                new CustomerId(Guid.NewGuid()),
+                new OfferId(Guid.NewGuid()),
+                Money.Of(50, "PLN"),
+                DateTime.Now.AddDays(1)
+            );
+
+            booking.ChangeStatus(newStatus);
+
+            Assert.Equal(newStatus, booking.Status);
+        }
+
+        [Theory]
+        [InlineData(BookingStatus.Canceled, BookingStatus.Booked)]
+        [InlineData(BookingStatus.Canceled, BookingStatus.Fulfilled)]
+        [InlineData(BookingStatus.Fulfilled, BookingStatus.Booked)]
+        [InlineData(BookingStatus.Fulfilled, BookingStatus.Canceled)]
+        [InlineData(BookingStatus.Booked, BookingStatus.Booked)]
+        public void ChangeStatus_IncorrectNewStatus_BreaksNewStatusMustHaveCorrectPreviousStatusRule(BookingStatus previousStatus, BookingStatus newStatus)
+        {
+            var booking = new Booking(
+                new EmployeeId(Guid.NewGuid()),
+                new CustomerId(Guid.NewGuid()),
+                new OfferId(Guid.NewGuid()),
+                Money.Of(50, "PLN"),
+                DateTime.Now.AddDays(1)
+            );
+
+            Action act = () =>
+            {
+                booking.ChangeStatus(previousStatus);
+                booking.ChangeStatus(newStatus);
+            };
+
+            var result = Assert.Throws<BusinessRuleValidationException>(act);
+            Assert.IsType<NewStatusMustHaveCorrectPreviousStatusRule>(result.Rule);
         }
 
         public static IEnumerable<object[]> DatesNotFromTheFuture = new List<object[]>
