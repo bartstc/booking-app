@@ -1,0 +1,76 @@
+import { ContactPerson, Contacts, Entity } from 'shared/domain';
+
+import { FacilityName } from './FacilityName';
+import { FacilityId } from './FacilityId';
+import { EnterpriseId } from '../../enterprise/domain';
+import { FacilityDescription } from './FacilityDescription';
+import { Address } from './Address';
+import { BusinessCategories } from './BusinessCategories';
+import { Employees } from './Employees';
+import { Offers } from './Offers';
+import { Availability } from './Availability';
+import { Result } from '../../../shared/core';
+
+interface IProps {
+  facilityId: FacilityId;
+  enterpriseId: EnterpriseId;
+  facilityName: FacilityName;
+  facilityDescription: FacilityDescription;
+  contactPerson: ContactPerson;
+  address: Address;
+  businessCategories: BusinessCategories;
+  contacts: Contacts;
+  employees: Employees;
+  offers: Offers;
+  availability: Availability;
+}
+
+export class Facility extends Entity<IProps> {
+  get facilityId() {
+    return FacilityId.create(this._id).getValue();
+  }
+
+  get enterpriseIf() {
+    return this.props.enterpriseId.id.toString();
+  }
+
+  get name() {
+    return this.props.facilityName;
+  }
+
+  get description() {
+    return this.props.facilityDescription;
+  }
+
+  get contactPerson() {
+    return this.props.contactPerson;
+  }
+
+  get address() {
+    return this.props.address;
+  }
+
+  get businessCategories() {
+    return this.props.businessCategories;
+  }
+
+  get contacts() {
+    return this.props.contacts;
+  }
+
+  get employees() {
+    return this.props.employees;
+  }
+
+  get offers() {
+    return this.props.employees;
+  }
+
+  get availability() {
+    return this.props.availability;
+  }
+
+  public static create(props: IProps): Result<Facility> {
+    return Result.ok(new Facility(props));
+  }
+}

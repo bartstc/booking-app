@@ -29,6 +29,11 @@ export class TextValidator {
     return d.toISOString().slice(0, 10) === date;
   }
 
+  public static validateHour(time: string) {
+    const re = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
+    return !!time.match(re);
+  }
+
   public static createRandomNumericString(numberDigits: number): string {
     const chars = '0123456789';
     let value = '';
