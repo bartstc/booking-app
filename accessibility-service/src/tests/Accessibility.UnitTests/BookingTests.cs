@@ -9,7 +9,7 @@ using Accessibility.UnitTests.SeedWork;
 
 namespace Accessibility.UnitTests
 {
-    public class BookingTests
+    public class BookingTests : TestBase
     {
         [Theory]
         [MemberData(nameof(DatesNotFromTheFuture))]
@@ -29,7 +29,7 @@ namespace Accessibility.UnitTests
 
         [Theory]
         [MemberData(nameof(DatesFromTheFuture))]
-        public void Create_DateFromTheFuture_ReturnsBookingWithBookedStatusAndCreationDate(DateTime date)
+        public void Create_DateFromTheFuture_IsSuccess(DateTime date)
         {
             var booking = new Booking(
                 new EmployeeId(Guid.NewGuid()),
@@ -44,6 +44,7 @@ namespace Accessibility.UnitTests
             Assert.Equal(BookingStatus.Booked, booking.Status);
             Assert.Equal(DateTime.Now.ClearMiliseconds(), booking.CreationDate.ClearMiliseconds());
             Assert.Null(booking.ChangeDate);
+            AssertDomainEventPublished<BookingCreatedEvent>(booking);
         }
 
         public static IEnumerable<object[]> DatesNotFromTheFuture = new List<object[]>

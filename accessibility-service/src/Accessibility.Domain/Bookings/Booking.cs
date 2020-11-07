@@ -7,16 +7,6 @@ namespace Accessibility.Domain.Bookings
 {
     public class Booking : Entity, IAggregateRoot
     {
-        public BookingId Id { get; }
-        public EmployeeId EmployeeId { get; }
-        public CustomerId CustomerId { get; }
-        public OfferId OfferId { get; }
-        public Money Price { get; }
-        public BookingStatus Status { get; }
-        public DateTime Date { get; }
-        public DateTime CreationDate { get; }
-        public DateTime? ChangeDate { get; }
-
         public Booking(EmployeeId employeeId, CustomerId customerId, OfferId offerId, Money price, DateTime date)
         {
             CheckRule(new DateMustBeFromTheFutureRule(date));
@@ -29,6 +19,18 @@ namespace Accessibility.Domain.Bookings
             this.Status = BookingStatus.Booked;
             this.Date = date;
             this.CreationDate = DateTime.Now;
+
+            AddDomainEvent(new BookingCreatedEvent(offerId, customerId, date));
         }
+        
+        public BookingId Id { get; }
+        public EmployeeId EmployeeId { get; }
+        public CustomerId CustomerId { get; }
+        public OfferId OfferId { get; }
+        public Money Price { get; }
+        public BookingStatus Status { get; }
+        public DateTime Date { get; }
+        public DateTime CreationDate { get; }
+        public DateTime? ChangeDate { get; }
     }
 }
