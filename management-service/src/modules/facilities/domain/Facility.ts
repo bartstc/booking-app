@@ -1,4 +1,5 @@
 import { ContactPerson, Contacts, Entity } from 'shared/domain';
+import { Result } from 'shared/core';
 
 import { FacilityName } from './FacilityName';
 import { FacilityId } from './FacilityId';
@@ -9,7 +10,6 @@ import { BusinessCategories } from './BusinessCategories';
 import { Employees } from './Employees';
 import { Offers } from './Offers';
 import { Availability } from './Availability';
-import { Result } from '../../../shared/core';
 
 interface IProps {
   facilityId: FacilityId;

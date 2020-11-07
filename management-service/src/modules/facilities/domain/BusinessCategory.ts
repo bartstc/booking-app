@@ -1,14 +1,13 @@
 import { ValueObject } from 'shared/domain';
 import { Guard, Result } from 'shared/core';
 
-import { BusinessCategoryDegreeType, BusinessCategoryType } from './types';
+import {
+  BusinessCategoryDegreeType,
+  BusinessCategoryType,
+  IBusinessCategory,
+} from './types';
 
-interface IProps {
-  type: BusinessCategoryType;
-  degree: BusinessCategoryDegreeType;
-}
-
-export class BusinessCategory extends ValueObject<IProps> {
+export class BusinessCategory extends ValueObject<IBusinessCategory> {
   get type() {
     return this.props.type;
   }
@@ -27,11 +26,7 @@ export class BusinessCategory extends ValueObject<IProps> {
     );
   }
 
-  private constructor(props: IProps) {
-    super(props);
-  }
-
-  public static create(props: IProps): Result<BusinessCategory> {
+  public static create(props: IBusinessCategory): Result<BusinessCategory> {
     const nullGuardResult = Guard.againstNullOrUndefinedBulk([
       {
         argument: props.type,
