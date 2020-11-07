@@ -4,3 +4,5 @@ export { BusinessCategoryDegreeType } from './BusinessCategoryDegreeType';
 export { EmployeePosition } from './EmployeePosition';
 export { PriceModel } from './PriceModel';
 export { IPrice } from './IPrice';
+export { Currency } from './Currency';
+export { IOfferVariant } from './IOfferVariant';
