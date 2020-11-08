@@ -1,4 +1,4 @@
-import { Contacts, Entity } from 'shared/domain';
+import { Contacts, Entity, UniqueEntityID } from 'shared/domain';
 import { Guard, Result, TextValidator } from 'shared/core';
 
 import { EmployeeId } from './EmployeeId';
@@ -7,7 +7,6 @@ import { EmployeeName } from './EmployeeName';
 import { EmployeePosition } from './types';
 
 interface IProps {
-  employeeId: EmployeeId;
   facilityId: FacilityId;
   name: EmployeeName;
   position: EmployeePosition;
@@ -44,7 +43,7 @@ export class Employee extends Entity<IProps> {
     return Object.values(EmployeePosition).some(position => position === value);
   }
 
-  public static create(props: IProps): Result<Employee> {
+  public static create(props: IProps, id?: UniqueEntityID): Result<Employee> {
     const nullGuard = Guard.againstNullOrUndefinedBulk([
       {
         argument: props.name,
@@ -72,6 +71,6 @@ export class Employee extends Entity<IProps> {
       return Result.fail({ message: `employee.employmentDate.invalidFormat` });
     }
 
-    return Result.ok(new Employee(props));
+    return Result.ok(new Employee(props, id));
   }
 }

@@ -1,4 +1,4 @@
-import { ContactPerson, Contacts, Entity } from 'shared/domain';
+import { ContactPerson, Contacts, Entity, UniqueEntityID } from 'shared/domain';
 import { Result } from 'shared/core';
 
 import { FacilityName } from './FacilityName';
@@ -12,14 +12,13 @@ import { Offers } from './Offers';
 import { Availability } from './Availability';
 
 interface IProps {
-  facilityId: FacilityId;
   enterpriseId: EnterpriseId;
-  facilityName: FacilityName;
-  facilityDescription: FacilityDescription;
-  contactPerson: ContactPerson;
+  name: FacilityName;
+  description: FacilityDescription | null;
+  contactPerson: ContactPerson | null;
   address: Address;
   businessCategories: BusinessCategories;
-  contacts: Contacts;
+  contacts: Contacts | null;
   employees: Employees;
   offers: Offers;
   availability: Availability;
@@ -30,16 +29,16 @@ export class Facility extends Entity<IProps> {
     return FacilityId.create(this._id).getValue();
   }
 
-  get enterpriseIf() {
+  get enterpriseId() {
     return this.props.enterpriseId.id.toString();
   }
 
   get name() {
-    return this.props.facilityName;
+    return this.props.name;
   }
 
   get description() {
-    return this.props.facilityDescription;
+    return this.props.description;
   }
 
   get contactPerson() {
@@ -63,14 +62,14 @@ export class Facility extends Entity<IProps> {
   }
 
   get offers() {
-    return this.props.employees;
+    return this.props.offers;
   }
 
   get availability() {
     return this.props.availability;
   }
 
-  public static create(props: IProps): Result<Facility> {
-    return Result.ok(new Facility(props));
+  public static create(props: IProps, id?: UniqueEntityID): Result<Facility> {
+    return Result.ok(new Facility(props, id));
   }
 }

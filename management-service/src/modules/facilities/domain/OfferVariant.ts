@@ -1,14 +1,9 @@
 import { ValueObject } from 'shared/domain';
 import { Guard, Result } from 'shared/core';
 
-import { Price } from './Price';
+import { IOfferVariant } from './types';
 
-interface IProps {
-  duration: number;
-  price: Price;
-}
-
-export class OfferVariant extends ValueObject<IProps> {
+export class OfferVariant extends ValueObject<IOfferVariant> {
   get duration() {
     return this.props.duration;
   }
@@ -17,7 +12,7 @@ export class OfferVariant extends ValueObject<IProps> {
     return this.props.price;
   }
 
-  public static create(props: IProps): Result<OfferVariant> {
+  public static create(props: IOfferVariant): Result<OfferVariant> {
     const nullGuard = Guard.againstNullOrUndefined(
       props.duration,
       'offerVariant.duration',

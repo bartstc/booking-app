@@ -1,4 +1,4 @@
-import { Entity } from 'shared/domain';
+import { Entity, UniqueEntityID } from 'shared/domain';
 import { Result } from 'shared/core';
 
 import { OfferId } from './OfferId';
@@ -7,9 +7,8 @@ import { OfferName } from './OfferName';
 import { OfferVariants } from './OfferVariants';
 
 interface IProps {
-  offerId: OfferId;
   facilityId: FacilityId;
-  offerName: OfferName;
+  name: OfferName;
   variants: OfferVariants;
 }
 
@@ -23,14 +22,14 @@ export class Offer extends Entity<IProps> {
   }
 
   get name() {
-    return this.props.offerName;
+    return this.props.name;
   }
 
   get variants() {
     return this.props.variants;
   }
 
-  public static create(props: IProps): Result<Offer> {
-    return Result.ok(new Offer(props));
+  public static create(props: IProps, id?: UniqueEntityID): Result<Offer> {
+    return Result.ok(new Offer(props, id));
   }
 }
