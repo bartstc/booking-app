@@ -14,8 +14,12 @@ export class EmployeeRepository extends Repository<EmployeeEntity>
     return EmployeeMap.toDomain(employee);
   }
 
-  async getEmployees(ids: string[]): Promise<Employee[]> {
-    const employees = await this.findByIds(ids);
+  async getAllEmployees(facilityId: string): Promise<Employee[]> {
+    const employees = await this.getRawAllEmployees(facilityId);
     return employees.length ? EmployeeMap.toDomainBulk(employees) : [];
+  }
+
+  async getRawAllEmployees(facilityId: string): Promise<EmployeeEntity[]> {
+    return await this.find({ facility_id: facilityId });
   }
 }

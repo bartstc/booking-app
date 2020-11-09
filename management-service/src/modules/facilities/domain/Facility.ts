@@ -18,7 +18,7 @@ interface IProps {
   contactPerson: ContactPerson | null;
   address: Address;
   businessCategories: BusinessCategories;
-  contacts: Contacts | null;
+  contacts: Contacts;
   employees: Employees;
   offers: Offers;
   availability: Availability;

@@ -14,8 +14,12 @@ export class OfferRepository extends Repository<OfferEntity>
     return OfferMap.toDomain(offer);
   }
 
-  async getOffers(ids: string[]): Promise<Offer[]> {
-    const offers = await this.findByIds(ids);
+  async getAllOffers(facilityId: string): Promise<Offer[]> {
+    const offers = await this.getRawAllOffers(facilityId);
     return offers.length ? OfferMap.toDomainBulk(offers) : [];
+  }
+
+  async getRawAllOffers(facilityId: string): Promise<OfferEntity[]> {
+    return await this.find({ facility_id: facilityId });
   }
 }

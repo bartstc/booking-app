@@ -22,6 +22,7 @@ import {
 } from '../../domain';
 import { FacilityEntity } from '../../infra/entities';
 import { EnterpriseId } from '../../../enterprise/domain';
+import { FacilityDto } from '../../application/dtos';
 
 export class FacilityMap implements Mapper<Facility> {
   public static toDomain(
@@ -59,11 +60,11 @@ export class FacilityMap implements Mapper<Facility> {
         contactPerson: contactPerson
           ? ContactPerson.create(contactPerson).getValue()
           : null,
-        contacts: contacts.length
-          ? Contacts.create(
-              contacts.map(contact => Contact.create(contact).getValue()),
-            )
-          : null,
+        contacts: Contacts.create(
+          contacts.length
+            ? contacts.map(contact => Contact.create(contact).getValue())
+            : [],
+        ),
         address: address.getValue(),
         businessCategories,
         availability: availability.getValue(),
@@ -78,6 +79,20 @@ export class FacilityMap implements Mapper<Facility> {
     }
 
     return facilityOrError.getValue();
+  }
+
+  public static rawToDto(facility: FacilityEntity): FacilityDto {
+    return {
+      facilityId: facility.facility_id,
+      enterpriseId: facility.enterprise_id,
+      name: facility.details.name,
+      description: facility.details.description,
+      address: facility.details.address,
+      contactPerson: facility.details.contactPerson,
+      contacts: facility.details.contacts,
+      businessCategories: facility.details.businessCategories,
+      workingDays: facility.workingDays,
+    };
   }
 
   public static modelToPersistence(
