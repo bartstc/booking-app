@@ -13,11 +13,7 @@ export class EmployeeEntity extends AbstractEntity {
   @Column()
   facility_id: string;
 
-  @Column({
-    type: 'jsonb',
-    array: false,
-    nullable: false,
-  })
+  @Column('jsonb')
   details: {
     name: string;
     position: EmployeePosition;

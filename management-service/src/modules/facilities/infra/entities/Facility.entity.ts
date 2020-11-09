@@ -13,11 +13,7 @@ export class FacilityEntity extends AbstractEntity {
   @Column()
   enterprise_id: string;
 
-  @Column({
-    type: 'jsonb',
-    array: false,
-    nullable: false,
-  })
+  @Column('jsonb')
   details: {
     name: string;
     description: string;
@@ -27,12 +23,12 @@ export class FacilityEntity extends AbstractEntity {
     contacts: IContact[];
   };
 
-  @Column('text', { array: true, default: [] })
+  @Column('text', { array: true })
   employeeIds: string[];
 
-  @Column('text', { array: true, default: [] })
+  @Column('text', { array: true })
   offerIds: string[];
 
-  @Column('text', { array: true, default: [] })
+  @Column('text', { array: true })
   workingDays: IWorkingDay[];
 }
