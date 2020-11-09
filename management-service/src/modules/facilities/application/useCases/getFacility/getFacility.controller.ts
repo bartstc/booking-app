@@ -14,7 +14,7 @@ export class GetFacilityController extends BaseController {
   private logger = new Logger('GetFacilityController');
 
   @Get('facilities/:facilityId')
-  async getEnterprise(
+  async getFacility(
     @Param('facilityId') facilityId: string,
     @Res() res: Response,
   ) {

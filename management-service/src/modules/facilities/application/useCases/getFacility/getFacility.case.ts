@@ -8,7 +8,7 @@ import { FacilityDto } from '../../dtos';
 import { FacilityMap, FacilityRepository } from '../../../adapter';
 
 type GetFacilityResponse = Either<
-  GetFacilityErrors.FacilityDoesNotExistError,
+  GetFacilityErrors.FacilityDoesNotExistError | AppError.UnexpectedError,
   Result<FacilityDto>
 >;
 

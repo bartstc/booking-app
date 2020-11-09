@@ -3,6 +3,7 @@ import { Contact, Contacts, UniqueEntityID } from 'shared/domain';
 
 import { Employee, EmployeeName, FacilityId } from '../../domain';
 import { EmployeeEntity } from '../../infra/entities';
+import { EmployeeDto } from '../../application/dtos';
 
 export class EmployeeMap implements Mapper<Employee> {
   public static toDomain(entity: EmployeeEntity): Employee {
@@ -33,6 +34,21 @@ export class EmployeeMap implements Mapper<Employee> {
     }
 
     return employeeOfError.getValue();
+  }
+
+  public static rawToDtoBulk(employees: EmployeeEntity[]): EmployeeDto[] {
+    return employees.map(employee => this.rawToDto(employee));
+  }
+
+  public static rawToDto(employee: EmployeeEntity): EmployeeDto {
+    return {
+      employeeId: employee.employee_id,
+      facilityId: employee.facility_id,
+      name: employee.details.name,
+      position: employee.details.position,
+      employmentDate: employee.details.employmentDate,
+      contacts: employee.details.contacts,
+    };
   }
 
   public static toDomainBulk(entities: EmployeeEntity[]): Employee[] {

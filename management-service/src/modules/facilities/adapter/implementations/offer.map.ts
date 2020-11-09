@@ -9,6 +9,7 @@ import {
   OfferVariants,
 } from '../../domain';
 import { OfferEntity } from '../../infra/entities';
+import { OfferDto } from '../../application/dtos';
 
 export class OfferMap implements Mapper<Offer> {
   public static toDomain(entity: OfferEntity): Offer {
@@ -37,6 +38,19 @@ export class OfferMap implements Mapper<Offer> {
     }
 
     return offerOrError.getValue();
+  }
+
+  public static rawToDtoBulk(offers: OfferEntity[]): OfferDto[] {
+    return offers.map(offer => this.rawToDto(offer));
+  }
+
+  public static rawToDto(offer: OfferEntity): OfferDto {
+    return {
+      offerId: offer.offer_id,
+      facilityId: offer.facility_id,
+      name: offer.details.name,
+      variants: offer.details.variants,
+    };
   }
 
   public static toDomainBulk(entities: OfferEntity[]): Offer[] {
