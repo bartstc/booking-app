@@ -15,6 +15,10 @@ import {
   GetOffersCase,
   GetOffersController,
 } from './application/useCases/getOffers';
+import {
+  GetEmployeesCase,
+  GetEmployeesController,
+} from './application/useCases/getEmployees';
 
 @Module({
   imports: [
@@ -25,7 +29,11 @@ import {
       EmployeeRepository,
     ]),
   ],
-  controllers: [GetFacilityController, GetOffersController],
-  providers: [GetFacilityCase, GetOffersCase],
+  controllers: [
+    GetFacilityController,
+    GetOffersController,
+    GetEmployeesController,
+  ],
+  providers: [GetFacilityCase, GetOffersCase, GetEmployeesCase],
 })
 export class FacilityModule {}
