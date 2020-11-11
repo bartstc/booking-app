@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/accessibility-service/src/tests/Accessibility.UnitTests/Accessibility.UnitTests.csproj",
+                "${workspaceFolder}/accessibility-service/src/Accessibility.Api/Accessibility.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

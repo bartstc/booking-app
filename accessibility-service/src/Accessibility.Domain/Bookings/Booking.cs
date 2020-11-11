@@ -7,11 +7,15 @@ namespace Accessibility.Domain.Bookings
 {
     public class Booking : Entity, IAggregateRoot
     {
+        private Booking()
+        {
+        }
+
         public Booking(EmployeeId employeeId, CustomerId customerId, OfferId offerId, Money price, DateTime date)
         {
             CheckRule(new DateMustBeFromTheFutureRule(date));
 
-            Id = new BookingId(Guid.NewGuid());
+            Id = Guid.NewGuid();
             this.EmployeeId = employeeId;
             this.CustomerId = customerId;
             this.OfferId = offerId;
@@ -23,7 +27,7 @@ namespace Accessibility.Domain.Bookings
             AddDomainEvent(new BookingCreatedEvent(offerId, customerId, date));
         }
 
-        public BookingId Id { get; }
+        public Guid Id { get; }
         public EmployeeId EmployeeId { get; }
         public CustomerId CustomerId { get; }
         public OfferId OfferId { get; }
