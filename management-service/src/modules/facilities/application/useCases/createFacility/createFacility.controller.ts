@@ -1,11 +1,12 @@
 import { Body, Controller, Logger, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 
-import { BaseController } from 'shared/core';
+import { BaseController, ValidationTransformer } from 'shared/core';
 
 import { FacilityService } from '../../services';
 import { CreateFacilityDto } from './createFacility.dto';
 import { CreateFacilityResponse } from './createFacility.case';
+import { createFacilitySchema } from './createFacility.schema';
 
 @Controller()
 export class CreateFacilityController extends BaseController {
@@ -22,14 +23,14 @@ export class CreateFacilityController extends BaseController {
     @Res() res: Response,
   ) {
     try {
-      // const formErrors = await ValidationTransformer.validateSchema(
-      //   dto,
-      //   createEnterpriseSchema,
-      // );
+      const formErrors = await ValidationTransformer.validateSchema(
+        dto,
+        createFacilitySchema,
+      );
 
-      // if (formErrors.isLeft()) {
-      //   return this.clientError(res, formErrors.value.errorValue());
-      // }
+      if (formErrors.isLeft()) {
+        return this.clientError(res, formErrors.value.errorValue());
+      }
 
       const result: CreateFacilityResponse = await this.facilityService.createFacility(
         dto,
