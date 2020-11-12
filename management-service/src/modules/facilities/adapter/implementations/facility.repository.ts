@@ -39,7 +39,9 @@ export class FacilityRepository extends Repository<FacilityEntity>
   }
 
   async getRawFacilityById(facilityId: string): Promise<FacilityEntity> {
-    return await this.findOne({ facility_id: facilityId });
+    const facility = await this.findOne({ facility_id: facilityId });
+    if (!facility) throw new Error('Facility not found');
+    return facility;
   }
 
   async persistModel(facility: Facility): Promise<void> {
