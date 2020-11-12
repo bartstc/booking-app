@@ -43,7 +43,7 @@ export class FacilityMap implements Mapper<Facility> {
     const businessCategories = BusinessCategories.create(categories);
     const workingDays: WorkingDay[] = [];
 
-    entity.workingDays.forEach(day => {
+    entity.details.workingDays.forEach(day => {
       workingDays.push(WorkingDay.create(day).getValue());
     });
     const availability = Availability.create(workingDays);
@@ -91,7 +91,7 @@ export class FacilityMap implements Mapper<Facility> {
       contactPerson: facility.details.contactPerson,
       contacts: facility.details.contacts,
       businessCategories: facility.details.businessCategories,
-      workingDays: facility.workingDays,
+      workingDays: facility.details.workingDays,
     };
   }
 
@@ -107,18 +107,18 @@ export class FacilityMap implements Mapper<Facility> {
       employeeIds: facility.employees
         .getItems()
         .map(employee => employee.employeeId.id.toString()),
-      workingDays: facility.availability
-        .getItems()
-        .map(workingDay => workingDay.props),
       details: {
         name: facility.name.value,
-        description: facility.description.value,
+        description: facility.description?.value ?? null,
         address: facility.address.props,
         contactPerson: facility.contactPerson.allContacts,
         contacts: facility.contacts.getItems().map(contact => contact.props),
         businessCategories: facility.businessCategories
           .getItems()
           .map(category => category.props),
+        workingDays: facility.availability
+          .getItems()
+          .map(workingDay => workingDay.props),
       },
     };
   }

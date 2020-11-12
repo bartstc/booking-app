@@ -51,7 +51,9 @@ export class CreateFacilityCase
         ),
       );
       const contacts = Contacts.create(
-        dto.contacts.map(contact => Contact.create(contact).getValue()),
+        dto.contacts
+          ? dto.contacts.map(contact => Contact.create(contact).getValue())
+          : undefined,
       );
       const availability = Availability.create(
         dto.availability.map(workingDay =>

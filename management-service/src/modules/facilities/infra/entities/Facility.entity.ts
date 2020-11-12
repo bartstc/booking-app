@@ -21,6 +21,7 @@ export class FacilityEntity extends AbstractEntity {
     address: IAddress;
     businessCategories: IBusinessCategory[];
     contacts: IContact[];
+    workingDays: IWorkingDay[];
   };
 
   @Column('text', { array: true })
@@ -28,7 +29,4 @@ export class FacilityEntity extends AbstractEntity {
 
   @Column('text', { array: true })
   offerIds: string[];
-
-  @Column('text', { array: true })
-  workingDays: IWorkingDay[];
 }
