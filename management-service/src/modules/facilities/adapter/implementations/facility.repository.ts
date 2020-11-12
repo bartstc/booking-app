@@ -45,4 +45,12 @@ export class FacilityRepository extends Repository<FacilityEntity>
   async persistModel(facility: Facility): Promise<void> {
     await this.create(FacilityMap.modelToPersistence(facility)).save();
   }
+
+  async deleteFacility(facilityId: string): Promise<void> {
+    const result = await this.delete({ facility_id: facilityId });
+
+    if (result.affected === 0) {
+      throw new Error(`Facility with id ${facilityId} not found`);
+    }
+  }
 }
