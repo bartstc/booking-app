@@ -15,7 +15,7 @@ namespace Accessibility.Domain.Bookings
         {
             CheckRule(new DateMustBeFromTheFutureRule(date));
 
-            Id = Guid.NewGuid();
+            Id = new BookingId(Guid.NewGuid());
             this.EmployeeId = employeeId;
             this.CustomerId = customerId;
             this.OfferId = offerId;
@@ -27,7 +27,7 @@ namespace Accessibility.Domain.Bookings
             AddDomainEvent(new BookingCreatedEvent(offerId, customerId, date));
         }
 
-        public Guid Id { get; }
+        public BookingId Id { get; }
         public EmployeeId EmployeeId { get; }
         public CustomerId CustomerId { get; }
         public OfferId OfferId { get; }

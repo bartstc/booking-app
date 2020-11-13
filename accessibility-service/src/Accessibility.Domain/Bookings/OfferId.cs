@@ -3,7 +3,7 @@ using Accessibility.Domain.SeedWork;
 
 namespace Accessibility.Domain.Bookings
 {
-    public class OfferId : IdBase
+    public class OfferId : StronglyTypedIdBase
     {
         public OfferId(Guid value) : base(value)
         {

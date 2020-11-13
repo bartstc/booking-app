@@ -29,7 +29,7 @@ namespace Accessibility.Application.Bookings.CreateBooking
 
             await repo.CommitAsync();
 
-            return new BookingIdDto { Id = booking.Id };
+            return new BookingIdDto { Id = booking.Id.Value };
         }
     }
 }
