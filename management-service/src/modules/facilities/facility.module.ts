@@ -45,6 +45,10 @@ import {
   AddEmployeeCase,
   AddEmployeeController,
 } from './application/useCases/addEmployee';
+import {
+  RemoveEmployeeCase,
+  RemoveEmployeeController,
+} from './application/useCases/removeEmployee';
 
 @Module({
   imports: [
@@ -64,6 +68,7 @@ import {
     AddOfferController,
     RemoveOfferController,
     AddEmployeeController,
+    RemoveEmployeeController,
   ],
   providers: [
     ...CommandHandlers,
@@ -78,6 +83,7 @@ import {
     AddOfferCase,
     RemoveOfferCase,
     AddEmployeeCase,
+    RemoveEmployeeCase,
   ],
 })
 export class FacilityModule {}

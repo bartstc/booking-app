@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 
-import { AddEmployeeCommand } from '../commands/impl';
+import { AddEmployeeCommand, RemoveEmployeeCommand } from '../commands/impl';
 import { AddEmployeeDto } from '../useCases/addEmployee';
+import { RemoveEmployeeDto } from '../useCases/removeEmployee';
 
 @Injectable()
 export class EmployeeService {
@@ -10,5 +11,9 @@ export class EmployeeService {
 
   async addEmployee(dto: AddEmployeeDto, facilityId: string) {
     return this.commandBus.execute(new AddEmployeeCommand(dto, facilityId));
+  }
+
+  async removeEmployee(dto: RemoveEmployeeDto) {
+    return this.commandBus.execute(new RemoveEmployeeCommand(dto));
   }
 }

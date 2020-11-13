@@ -3,28 +3,28 @@ import { Response } from 'express';
 
 import { BaseController } from 'shared/core';
 
-import { OfferService } from '../../services';
-import { RemoveOfferResponse } from './removeOffer.case';
-import { RemoveOfferErrors } from './removeOffer.errors';
+import { EmployeeService } from '../../services';
+import { RemoveEmployeeResponse } from './removeEmployee.case';
+import { RemoveEmployeeErrors } from './removeEmployee.errors';
 
 @Controller()
-export class RemoveOfferController extends BaseController {
-  constructor(private readonly service: OfferService) {
+export class RemoveEmployeeController extends BaseController {
+  constructor(private readonly service: EmployeeService) {
     super();
   }
 
-  logger = new Logger('RemoveOfferController');
+  logger = new Logger('RemoveEmployeeController');
 
-  @Delete('facilities/:facilityId/offers/:offerId')
-  async removeOffer(
+  @Delete('facilities/:facilityId/employees/:employeeId')
+  async removeEmployee(
     @Param('facilityId') facilityId: string,
-    @Param('offerId') offerId: string,
+    @Param('employeeId') employeeId: string,
     @Res() res: Response,
   ) {
     try {
-      const result: RemoveOfferResponse = await this.service.removeOffer({
+      const result: RemoveEmployeeResponse = await this.service.removeEmployee({
         facilityId,
-        offerId,
+        employeeId,
       });
 
       if (result.isLeft()) {
@@ -32,15 +32,15 @@ export class RemoveOfferController extends BaseController {
         this.logger.error(error.errorValue());
 
         switch (error.constructor) {
-          case RemoveOfferErrors.OfferNotFoundError:
-          case RemoveOfferErrors.FacilityNotFoundError:
+          case RemoveEmployeeErrors.EmployeeNotFoundError:
+          case RemoveEmployeeErrors.FacilityNotFoundError:
             return this.notFound(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
         }
       }
 
-      this.logger.verbose('Offer successfully removed');
+      this.logger.verbose('Employee successfully removed');
       return this.ok(res);
     } catch (err) {
       this.logger.error('Unexpected server error', err);
