@@ -10,6 +10,7 @@ import { BusinessCategories } from './BusinessCategories';
 import { Employees } from './Employees';
 import { Offers } from './Offers';
 import { Availability } from './Availability';
+import { Offer } from './Offer';
 
 interface IProps {
   enterpriseId: EnterpriseId;
@@ -67,6 +68,10 @@ export class Facility extends Entity<IProps> {
 
   get availability() {
     return this.props.availability;
+  }
+
+  public addOffer(offer: Offer) {
+    this.offers.add(offer);
   }
 
   public static create(props: IProps, id?: UniqueEntityID): Result<Facility> {

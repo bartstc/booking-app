@@ -65,7 +65,10 @@ export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
   }),
   contacts: yup.array().of(
     yup.object().shape<IContact>({
-      type: yup.string().required() as yup.Schema<ContactType>,
+      type: yup
+        .string()
+        .required()
+        .oneOf(Object.values(ContactType)) as yup.Schema<ContactType>,
       value: yup
         .string()
         .trim()
@@ -78,8 +81,16 @@ export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
     .min(1)
     .of(
       yup.object().shape<IBusinessCategory>({
-        type: yup.string().required() as yup.Schema<BusinessCategoryType>,
-        degree: yup.string().required() as yup.Schema<
+        type: yup
+          .string()
+          .required()
+          .oneOf(Object.values(BusinessCategoryType)) as yup.Schema<
+          BusinessCategoryType
+        >,
+        degree: yup
+          .string()
+          .required()
+          .oneOf(Object.values(BusinessCategoryDegreeType)) as yup.Schema<
           BusinessCategoryDegreeType
         >,
       }),

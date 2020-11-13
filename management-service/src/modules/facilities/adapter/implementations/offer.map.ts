@@ -56,4 +56,15 @@ export class OfferMap implements Mapper<Offer> {
   public static toDomainBulk(entities: OfferEntity[]): Offer[] {
     return entities.map(entity => this.toDomain(entity));
   }
+
+  public static modelToPersistence(offer: Offer): Partial<OfferEntity> {
+    return {
+      offer_id: offer.offerId.id.toString(),
+      facility_id: offer.facilityId,
+      details: {
+        name: offer.name.value,
+        variants: offer.variants.getItems().map(offer => offer.props),
+      },
+    };
+  }
 }
