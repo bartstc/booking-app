@@ -11,6 +11,7 @@ import { Employees } from './Employees';
 import { Offers } from './Offers';
 import { Availability } from './Availability';
 import { Offer } from './Offer';
+import { Employee } from './Employee';
 
 interface IProps {
   enterpriseId: EnterpriseId;
@@ -76,6 +77,14 @@ export class Facility extends Entity<IProps> {
 
   public removeOffer(offer: Offer) {
     this.offers.remove(offer);
+  }
+
+  public addEmployee(employee: Employee) {
+    this.employees.remove(employee);
+  }
+
+  public removeEmployee(employee: Employee) {
+    this.employees.remove(employee);
   }
 
   public static create(props: IProps, id?: UniqueEntityID): Result<Facility> {

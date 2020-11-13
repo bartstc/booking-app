@@ -3,7 +3,11 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CommandHandlers } from './application/commands/handlers';
-import { FacilityService, OfferService } from './application/services';
+import {
+  EmployeeService,
+  FacilityService,
+  OfferService,
+} from './application/services';
 import {
   EmployeeRepository,
   FacilityRepository,
@@ -37,6 +41,10 @@ import {
   RemoveOfferCase,
   RemoveOfferController,
 } from './application/useCases/removeOffer';
+import {
+  AddEmployeeCase,
+  AddEmployeeController,
+} from './application/useCases/addEmployee';
 
 @Module({
   imports: [
@@ -55,11 +63,13 @@ import {
     DeleteFacilityController,
     AddOfferController,
     RemoveOfferController,
+    AddEmployeeController,
   ],
   providers: [
     ...CommandHandlers,
     FacilityService,
     OfferService,
+    EmployeeService,
     GetFacilityCase,
     GetOffersCase,
     GetEmployeesCase,
@@ -67,6 +77,7 @@ import {
     DeleteFacilityCase,
     AddOfferCase,
     RemoveOfferCase,
+    AddEmployeeCase,
   ],
 })
 export class FacilityModule {}

@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 
-import { contactPersonSchema } from 'shared/domain/schemas';
-import { ContactType, IContact } from 'shared/domain/types';
+import { contactPersonSchema, contactsSchema } from 'shared/domain/schemas';
 import { TextValidator } from 'shared/core';
 
 import { CreateFacilityDto } from './createFacility.dto';
@@ -63,18 +62,7 @@ export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
       .trim()
       .nullable(true),
   }),
-  contacts: yup.array().of(
-    yup.object().shape<IContact>({
-      type: yup
-        .string()
-        .required()
-        .oneOf(Object.values(ContactType)) as yup.Schema<ContactType>,
-      value: yup
-        .string()
-        .trim()
-        .required(),
-    }),
-  ),
+  contacts: contactsSchema,
   businessCategories: yup
     .array()
     .required()

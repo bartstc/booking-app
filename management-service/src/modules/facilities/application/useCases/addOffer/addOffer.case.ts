@@ -37,9 +37,8 @@ export class AddOfferCase
     facilityId: string,
   ): Promise<AddOfferResponse> {
     try {
-      try {
-        await this.facilityRepository.exists(facilityId);
-      } catch {
+      const facilityExists = await this.facilityRepository.exists(facilityId);
+      if (!facilityExists) {
         return left(new AddOfferErrors.FacilityNotFoundError());
       }
 

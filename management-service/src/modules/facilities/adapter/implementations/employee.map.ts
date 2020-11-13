@@ -54,4 +54,19 @@ export class EmployeeMap implements Mapper<Employee> {
   public static toDomainBulk(entities: EmployeeEntity[]): Employee[] {
     return entities.map(entity => this.toDomain(entity));
   }
+
+  public static modelToPersistence(
+    employee: Employee,
+  ): Partial<EmployeeEntity> {
+    return {
+      employee_id: employee.employeeId.id.toString(),
+      facility_id: employee.facilityId,
+      details: {
+        name: employee.name.value,
+        employmentDate: employee.employmentDate,
+        position: employee.position,
+        contacts: employee.contacts.getItems().map(contact => contact.props),
+      },
+    };
+  }
 }
