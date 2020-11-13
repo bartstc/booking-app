@@ -74,6 +74,10 @@ export class Facility extends Entity<IProps> {
     this.offers.add(offer);
   }
 
+  public removeOffer(offer: Offer) {
+    this.offers.remove(offer);
+  }
+
   public static create(props: IProps, id?: UniqueEntityID): Result<Facility> {
     return Result.ok(new Facility(props, id));
   }

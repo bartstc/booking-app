@@ -8,6 +8,14 @@ import { OfferMap } from './offer.map';
 @EntityRepository(OfferEntity)
 export class OfferRepository extends Repository<OfferEntity>
   implements OfferRepo {
+  async exists(offerId: string): Promise<boolean> {
+    const existingOffer = await this.createQueryBuilder(
+      'offer',
+    ).where('offer.offer_id = "offerId', { offerId });
+
+    return !!existingOffer;
+  }
+
   async getOfferById(offerId: string): Promise<Offer> {
     const offer = await this.findOne({ offer_id: offerId });
     if (!offer) throw new Error('Offer not found');
