@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 
@@ -11,10 +10,7 @@ type GetOffersResponse = Either<AppError.UnexpectedError, Result<OfferDto[]>>;
 @Injectable()
 export class GetOffersCase
   implements UseCase<string, Promise<GetOffersResponse>> {
-  constructor(
-    @InjectRepository(OfferRepository)
-    private repository: OfferRepository,
-  ) {}
+  constructor(private repository: OfferRepository) {}
 
   async execute(facilityId: string): Promise<GetOffersResponse> {
     let rawOffers;

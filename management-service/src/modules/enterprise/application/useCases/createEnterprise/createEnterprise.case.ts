@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 import { Link, ContactPerson, CountryCode } from 'shared/domain';
@@ -20,10 +19,7 @@ export type CreateEnterpriseResponse = Either<
 @Injectable()
 export class CreateEnterpriseCase
   implements UseCase<CreateEnterpriseDto, Promise<CreateEnterpriseResponse>> {
-  constructor(
-    @InjectRepository(EnterpriseRepository)
-    private repository: EnterpriseRepository,
-  ) {}
+  constructor(private repository: EnterpriseRepository) {}
 
   async execute(dto: CreateEnterpriseDto): Promise<CreateEnterpriseResponse> {
     try {

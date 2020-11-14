@@ -1,10 +1,9 @@
-import { InjectRepository } from '@nestjs/typeorm';
-
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 
 import { DeleteFacilityErrors } from './deleteFacility.errors';
 import { DeleteFacilityDto } from './deleteFacility.dto';
 import { FacilityRepository } from '../../../adapter';
+import { InjectRepository } from '@nestjs/typeorm';
 
 export type DeleteFacilityResponse = Either<
   AppError.UnexpectedError | DeleteFacilityErrors.FacilityNotFoundError,

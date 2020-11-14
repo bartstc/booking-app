@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 import { UniqueEntityID } from 'shared/domain';
@@ -14,6 +13,7 @@ import {
 import { FacilityRepository, OfferRepository } from '../../../adapter';
 import { AddOfferErrors } from './addOffer.errors';
 import { AddOfferDto } from './addOffer.dto';
+import { FacilityFactory } from '../../factories';
 
 export type AddOfferResponse = Either<
   | AppError.ValidationError
@@ -26,10 +26,9 @@ export type AddOfferResponse = Either<
 export class AddOfferCase
   implements UseCase<AddOfferDto, Promise<AddOfferResponse>> {
   constructor(
-    @InjectRepository(FacilityRepository)
     private facilityRepository: FacilityRepository,
-    @InjectRepository(OfferRepository)
     private offerRepository: OfferRepository,
+    private facilityFactory: FacilityFactory,
   ) {}
 
   async execute(
@@ -60,7 +59,7 @@ export class AddOfferCase
       }
 
       const offer = newOfferOrError.getValue();
-      const facility = await this.facilityRepository.getFacilityById(
+      const facility = await this.facilityFactory.buildFromRepository(
         facilityId,
       );
       facility.addOffer(offer);

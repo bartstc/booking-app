@@ -3,6 +3,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CommandHandlers } from './application/commands/handlers';
+import { FacilityFactory } from './application/factories';
 import {
   EmployeeService,
   FacilityService,
@@ -75,6 +76,7 @@ import {
     FacilityService,
     OfferService,
     EmployeeService,
+    FacilityFactory,
     GetFacilityCase,
     GetOffersCase,
     GetEmployeesCase,

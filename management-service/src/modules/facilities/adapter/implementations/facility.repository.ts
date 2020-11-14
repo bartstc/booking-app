@@ -1,22 +1,14 @@
 import { EntityRepository, Repository } from 'typeorm/index';
-import { InjectRepository } from '@nestjs/typeorm';
 
 import { FacilityEntity } from '../../infra/entities';
 import { FacilityRepo } from '../facilityRepo';
 import { Facility } from '../../domain';
 import { FacilityMap } from './facility.map';
-import { OfferRepository } from './offer.repository';
-import { EmployeeRepository } from './employee.repository';
 
 @EntityRepository(FacilityEntity)
 export class FacilityRepository extends Repository<FacilityEntity>
   implements FacilityRepo {
-  constructor(
-    @InjectRepository(OfferRepository)
-    private offerRepository: OfferRepository,
-    @InjectRepository(EmployeeRepository)
-    private employeeRepository: EmployeeRepository,
-  ) {
+  constructor() {
     super();
   }
 
@@ -28,16 +20,6 @@ export class FacilityRepository extends Repository<FacilityEntity>
     }
 
     return true;
-  }
-
-  async getFacilityById(facilityId: string): Promise<Facility> {
-    const facility = await this.getRawFacilityById(facilityId);
-    if (!facility) throw new Error('Facility not found');
-
-    const employees = await this.employeeRepository.getAllEmployees(facilityId);
-    const offers = await this.offerRepository.getAllOffers(facilityId);
-
-    return FacilityMap.toDomain(facility, employees, offers);
   }
 
   async getRawFacilityById(facilityId: string): Promise<FacilityEntity> {

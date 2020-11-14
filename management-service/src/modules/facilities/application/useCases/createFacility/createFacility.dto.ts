@@ -1,17 +1,3 @@
-import { IContact, IContactPerson } from 'shared/domain/types';
+import { FacilityBuilderDto } from '../../dtos';
 
-import {
-  IAddress,
-  IBusinessCategory,
-  IWorkingDay,
-} from '../../../domain/types';
-
-export interface CreateFacilityDto {
-  facilityName: string;
-  address: IAddress;
-  businessCategories: IBusinessCategory[];
-  contacts: IContact[];
-  availability: IWorkingDay[];
-  facilityDescription?: string;
-  contactPerson?: IContactPerson;
-}
+export interface CreateFacilityDto extends FacilityBuilderDto {}

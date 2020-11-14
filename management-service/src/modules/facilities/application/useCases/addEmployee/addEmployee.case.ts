@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 import { Contact, Contacts, UniqueEntityID } from 'shared/domain';
@@ -8,6 +7,7 @@ import { FacilityId, Employee, EmployeeName } from '../../../domain';
 import { FacilityRepository, EmployeeRepository } from '../../../adapter';
 import { AddEmployeeErrors } from './addEmployee.errors';
 import { AddEmployeeDto } from './addEmployee.dto';
+import { FacilityFactory } from '../../factories';
 
 export type AddEmployeeResponse = Either<
   | AppError.ValidationError
@@ -20,10 +20,9 @@ export type AddEmployeeResponse = Either<
 export class AddEmployeeCase
   implements UseCase<AddEmployeeDto, Promise<AddEmployeeResponse>> {
   constructor(
-    @InjectRepository(FacilityRepository)
     private facilityRepository: FacilityRepository,
-    @InjectRepository(EmployeeRepository)
     private employeeRepository: EmployeeRepository,
+    private facilityFactory: FacilityFactory,
   ) {}
 
   async execute(
@@ -58,7 +57,7 @@ export class AddEmployeeCase
       }
 
       const employee = newEmployeeOrError.getValue();
-      const facility = await this.facilityRepository.getFacilityById(
+      const facility = await this.facilityFactory.buildFromRepository(
         facilityId,
       );
       facility.addEmployee(employee);

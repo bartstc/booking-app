@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 
 import { UpdateEnterpriseErrors } from './updateEnterprise.errors';
@@ -16,10 +16,7 @@ export type UpdateEnterpriseResponse = Either<
 @Injectable()
 export class UpdateEnterpriseCase
   implements UseCase<UpdateEnterpriseDto, Promise<UpdateEnterpriseResponse>> {
-  constructor(
-    @InjectRepository(EnterpriseRepository)
-    private repository: EnterpriseRepository,
-  ) {}
+  constructor(private repository: EnterpriseRepository) {}
 
   async execute(
     dto: UpdateEnterpriseDto,

@@ -1,9 +1,11 @@
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 
 import { FacilityRepository, EmployeeRepository } from '../../../adapter';
 import { RemoveEmployeeErrors } from './removeEmployee.errors';
 import { RemoveEmployeeDto } from './removeEmployee.dto';
+import { FacilityFactory } from '../../factories';
 
 export type RemoveEmployeeResponse = Either<
   | AppError.UnexpectedError
@@ -19,6 +21,7 @@ export class RemoveEmployeeCase
     private facilityRepository: FacilityRepository,
     @InjectRepository(EmployeeRepository)
     private employeeRepository: EmployeeRepository,
+    private facilityFactory: FacilityFactory,
   ) {}
 
   async execute({
@@ -37,7 +40,7 @@ export class RemoveEmployeeCase
       }
 
       const offer = await this.employeeRepository.getEmployeeById(employeeId);
-      const facility = await this.facilityRepository.getFacilityById(
+      const facility = await this.facilityFactory.buildFromRepository(
         facilityId,
       );
       facility.removeEmployee(offer);

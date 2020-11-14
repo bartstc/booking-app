@@ -1,9 +1,11 @@
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 
 import { FacilityRepository, OfferRepository } from '../../../adapter';
 import { RemoveOfferErrors } from './removeOffer.errors';
 import { RemoveOfferDto } from './removeOffer.dto';
+import { FacilityFactory } from '../../factories';
 
 export type RemoveOfferResponse = Either<
   | AppError.UnexpectedError
@@ -19,6 +21,7 @@ export class RemoveOfferCase
     private facilityRepository: FacilityRepository,
     @InjectRepository(OfferRepository)
     private offerRepository: OfferRepository,
+    private facilityFactory: FacilityFactory,
   ) {}
 
   async execute({
@@ -37,7 +40,7 @@ export class RemoveOfferCase
       }
 
       const offer = await this.offerRepository.getOfferById(offerId);
-      const facility = await this.facilityRepository.getFacilityById(
+      const facility = await this.facilityFactory.buildFromRepository(
         facilityId,
       );
       facility.removeOffer(offer);
