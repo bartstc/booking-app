@@ -19,7 +19,7 @@ export const addEmployeeSchema = yup.object().shape<AddEmployeeDto>({
   employmentDate: yup
     .string()
     .required()
-    .test('validDate', 'Invalid date format', date => {
+    .test('validDate', 'invalidDateFormat', date => {
       return TextValidator.validateDate(date);
     }),
   contacts: contactsSchema,

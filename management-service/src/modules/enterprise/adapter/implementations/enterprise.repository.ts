@@ -9,13 +9,13 @@ import { EnterpriseMap } from './enterprise.map';
 export class EnterpriseRepository extends Repository<EnterpriseEntity>
   implements EnterpriseRepo {
   async exists(enterpriseId: string): Promise<boolean> {
-    const existingEnterprise = await this.createQueryBuilder(
-      'enterprise',
-    ).where('enterprise.enterprise_id = :enterpriseId', {
-      enterpriseId,
-    });
+    try {
+      await this.getRawEnterpriseById(enterpriseId);
+    } catch {
+      return false;
+    }
 
-    return !!existingEnterprise;
+    return true;
   }
 
   async getEnterpriseById(enterpriseId: string): Promise<Enterprise> {

@@ -9,11 +9,13 @@ import { OfferMap } from './offer.map';
 export class OfferRepository extends Repository<OfferEntity>
   implements OfferRepo {
   async exists(offerId: string): Promise<boolean> {
-    const existingOffer = await this.createQueryBuilder(
-      'offer',
-    ).where('offer.offer_id = "offerId', { offerId });
+    try {
+      await this.getOfferById(offerId);
+    } catch {
+      return false;
+    }
 
-    return !!existingOffer;
+    return true;
   }
 
   async getOfferById(offerId: string): Promise<Offer> {

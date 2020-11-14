@@ -6,5 +6,5 @@ export interface AddEmployeeDto {
   employeeName: string;
   position: EmployeePosition;
   employmentDate: string;
-  contacts: IContact[];
+  contacts?: IContact[];
 }

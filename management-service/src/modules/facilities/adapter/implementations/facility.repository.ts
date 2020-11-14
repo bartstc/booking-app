@@ -21,11 +21,13 @@ export class FacilityRepository extends Repository<FacilityEntity>
   }
 
   async exists(facilityId: string): Promise<boolean> {
-    const existingFacility = await this.createQueryBuilder(
-      'facility',
-    ).where('facility.facility_id = "facilityId', { facilityId });
+    try {
+      await this.getRawFacilityById(facilityId);
+    } catch {
+      return false;
+    }
 
-    return !!existingFacility;
+    return true;
   }
 
   async getFacilityById(facilityId: string): Promise<Facility> {

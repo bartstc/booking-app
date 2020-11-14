@@ -21,12 +21,9 @@ export class TextValidator {
   }
 
   public static validateDate(date: string) {
-    const re = /^\d{4}-\d{2}-\d{2}$/;
-    if (!date.match(re)) return false; // Invalid format
-    const d = new Date(date);
-    const dNum = d.getTime();
-    if (!dNum && dNum !== 0) return false; // NaN value, Invalid date
-    return d.toISOString().slice(0, 10) === date;
+    // https://ihateregex.io/expr/date/
+    const re = /(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})/;
+    return re.test(date);
   }
 
   public static validateHour(time: string) {

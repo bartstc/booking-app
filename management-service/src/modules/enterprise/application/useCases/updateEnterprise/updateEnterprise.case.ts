@@ -26,9 +26,8 @@ export class UpdateEnterpriseCase
     enterpriseId: string,
   ): Promise<UpdateEnterpriseResponse> {
     try {
-      try {
-        await this.repository.exists(enterpriseId);
-      } catch {
+      const enterpriseExists = await this.repository.exists(enterpriseId);
+      if (!enterpriseExists) {
         return left(
           new UpdateEnterpriseErrors.EnterpriseNotFoundError(enterpriseId),
         );

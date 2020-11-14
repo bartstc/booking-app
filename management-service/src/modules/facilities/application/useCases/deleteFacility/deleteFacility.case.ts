@@ -22,9 +22,8 @@ export class DeleteFacilityCase
     facilityId,
   }: DeleteFacilityDto): Promise<DeleteFacilityResponse> {
     try {
-      try {
-        await this.repository.exists(facilityId);
-      } catch (err) {
+      const facilityExists = await this.repository.exists(facilityId);
+      if (!facilityExists) {
         return left(new DeleteFacilityErrors.FacilityNotFoundError());
       }
 

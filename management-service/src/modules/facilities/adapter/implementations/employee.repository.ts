@@ -9,11 +9,13 @@ import { EmployeeMap } from './employee.map';
 export class EmployeeRepository extends Repository<EmployeeEntity>
   implements EmployeeRepo {
   async exists(employeeId: string): Promise<boolean> {
-    const existingEmployee = await this.createQueryBuilder(
-      'employee',
-    ).where('employee.employee_id = "employeeId', { employeeId });
+    try {
+      await this.getEmployeeById(employeeId);
+    } catch {
+      return false;
+    }
 
-    return !!existingEmployee;
+    return true;
   }
 
   async getEmployeeById(employeeId: string): Promise<Employee> {
