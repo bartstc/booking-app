@@ -50,6 +50,10 @@ import {
   RemoveEmployeeCase,
   RemoveEmployeeController,
 } from './application/useCases/removeEmployee';
+import {
+  GetEmployeeCase,
+  GetEmployeeController,
+} from './application/useCases/getEmployee';
 
 @Module({
   imports: [
@@ -64,6 +68,7 @@ import {
     GetFacilityController,
     GetOffersController,
     GetEmployeesController,
+    GetEmployeeController,
     CreateFacilityController,
     DeleteFacilityController,
     AddOfferController,
@@ -80,6 +85,7 @@ import {
     GetFacilityCase,
     GetOffersCase,
     GetEmployeesCase,
+    GetEmployeeCase,
     CreateFacilityCase,
     DeleteFacilityCase,
     AddOfferCase,
