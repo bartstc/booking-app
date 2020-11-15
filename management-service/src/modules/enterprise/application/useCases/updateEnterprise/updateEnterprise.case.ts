@@ -4,7 +4,7 @@ import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 
 import { UpdateEnterpriseErrors } from './updateEnterprise.errors';
 import { UpdateEnterpriseDto } from './updateEnterprise.dto';
-import { EnterpriseRepository } from '../../../adapter';
+import { EnterpriseMap, EnterpriseRepository } from '../../../adapter';
 
 export type UpdateEnterpriseResponse = Either<
   | AppError.UnexpectedError
@@ -34,7 +34,10 @@ export class UpdateEnterpriseCase
         );
       }
 
-      await this.repository.persistDto(enterpriseId, dto);
+      await this.repository
+        .create(EnterpriseMap.dtoToPersistence(enterpriseId, dto))
+        .save();
+
       return right(Result.ok());
     } catch (err) {
       return left(new AppError.UnexpectedError(err));

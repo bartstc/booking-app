@@ -4,7 +4,6 @@ import { EnterpriseEntity } from '../../infra/entities';
 import { EnterpriseRepo } from '../enterpriseRepo';
 import { Enterprise } from '../../domain';
 import { EnterpriseMap } from './enterprise.map';
-import { UpdateEnterpriseDto } from '../../application/useCases/updateEnterprise';
 
 @EntityRepository(EnterpriseEntity)
 export class EnterpriseRepository extends Repository<EnterpriseEntity>
@@ -29,16 +28,5 @@ export class EnterpriseRepository extends Repository<EnterpriseEntity>
     const enterpriseRaw = await this.findOne({ enterprise_id: enterpriseId });
     if (!enterpriseRaw) throw new Error('Enterprise not found');
     return enterpriseRaw;
-  }
-
-  async persistModel(enterprise: Enterprise): Promise<void> {
-    await this.create(EnterpriseMap.modelToPersistence(enterprise)).save();
-  }
-
-  async persistDto(
-    enterpriseId: string,
-    dto: UpdateEnterpriseDto,
-  ): Promise<void> {
-    await this.create(EnterpriseMap.dtoToPersistence(enterpriseId, dto)).save();
   }
 }

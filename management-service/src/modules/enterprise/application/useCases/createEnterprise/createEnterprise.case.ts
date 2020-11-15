@@ -11,7 +11,7 @@ import {
   EnterpriseName,
   Link,
 } from '../../../domain';
-import { EnterpriseRepository } from '../../../adapter';
+import { EnterpriseMap, EnterpriseRepository } from '../../../adapter';
 import { CreateEnterpriseDto } from './createEnterprise.dto';
 
 export type CreateEnterpriseResponse = Either<
@@ -50,7 +50,10 @@ export class CreateEnterpriseCase
       }
 
       const enterprise = enterpriseOrError.getValue();
-      await this.repository.persistModel(enterprise);
+      await this.repository
+        .create(EnterpriseMap.modelToPersistence(enterprise))
+        .save();
+
       return right(Result.ok(enterprise));
     } catch (err) {
       return left(new AppError.UnexpectedError(err));
