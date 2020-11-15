@@ -6,6 +6,5 @@ export interface EmployeeRepo {
   getEmployeeById(employeeId: string): Promise<Employee>;
   getAllEmployees(facilityId: string): Promise<Employee[]>;
   getRawAllEmployees(facilityId: string): Promise<EmployeeEntity[]>;
-  persistModel(employee: Employee): Promise<void>;
-  deleteEmployee(employeeId: string): Promise<void>;
+  persistModel(employee: Employee): Promise<EmployeeEntity>;
 }

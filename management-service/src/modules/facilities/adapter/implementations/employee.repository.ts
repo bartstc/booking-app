@@ -33,15 +33,7 @@ export class EmployeeRepository extends Repository<EmployeeEntity>
     return await this.find({ facility_id: facilityId });
   }
 
-  async persistModel(employee: Employee): Promise<void> {
-    await this.create(EmployeeMap.modelToPersistence(employee)).save();
-  }
-
-  async deleteEmployee(employeeId: string): Promise<void> {
-    const result = await this.delete({ employee_id: employeeId });
-
-    if (result.affected === 0) {
-      throw new Error(`Employee with id ${employeeId} not found`);
-    }
+  async persistModel(employee: Employee): Promise<EmployeeEntity> {
+    return this.create(EmployeeMap.modelToPersistence(employee));
   }
 }

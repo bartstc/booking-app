@@ -35,7 +35,9 @@ export class CreateFacilityCase
       }
 
       const facility = facilityOrError.getValue();
-      await this.repository.persistModel(facility);
+      const facilityEntity = await this.repository.persistModel(facility);
+      await facilityEntity.save();
+
       return right(Result.ok(facility));
     } catch (err) {
       return left(new AppError.UnexpectedError(err));

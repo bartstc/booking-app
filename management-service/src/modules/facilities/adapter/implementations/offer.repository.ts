@@ -33,15 +33,7 @@ export class OfferRepository extends Repository<OfferEntity>
     return await this.find({ facility_id: facilityId });
   }
 
-  async persistModel(offer: Offer): Promise<void> {
-    await this.create(OfferMap.modelToPersistence(offer)).save();
-  }
-
-  async deleteOffer(offerId: string): Promise<void> {
-    const result = await this.delete({ offer_id: offerId });
-
-    if (result.affected === 0) {
-      throw new Error(`Offer with id ${offerId} not found`);
-    }
+  async persistModel(offer: Offer): Promise<OfferEntity> {
+    return this.create(OfferMap.modelToPersistence(offer));
   }
 }

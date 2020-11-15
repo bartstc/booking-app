@@ -28,8 +28,8 @@ export class FacilityRepository extends Repository<FacilityEntity>
     return facility;
   }
 
-  async persistModel(facility: Facility): Promise<void> {
-    await this.create(FacilityMap.modelToPersistence(facility)).save();
+  async persistModel(facility: Facility): Promise<FacilityEntity> {
+    return this.create(FacilityMap.modelToPersistence(facility));
   }
 
   async deleteFacility(facilityId: string): Promise<void> {

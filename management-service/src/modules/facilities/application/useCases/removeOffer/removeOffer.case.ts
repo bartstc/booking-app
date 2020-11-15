@@ -1,4 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
+import { Connection } from 'typeorm/index';
 
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 
@@ -6,6 +7,7 @@ import { FacilityRepository, OfferRepository } from '../../../adapter';
 import { RemoveOfferErrors } from './removeOffer.errors';
 import { RemoveOfferDto } from './removeOffer.dto';
 import { FacilityFactory } from '../../factories';
+import { EntityName } from '../../../infra/entities';
 
 export type RemoveOfferResponse = Either<
   | AppError.UnexpectedError
@@ -17,6 +19,7 @@ export type RemoveOfferResponse = Either<
 export class RemoveOfferCase
   implements UseCase<RemoveOfferDto, Promise<RemoveOfferResponse>> {
   constructor(
+    private connection: Connection,
     @InjectRepository(FacilityRepository)
     private facilityRepository: FacilityRepository,
     @InjectRepository(OfferRepository)
@@ -28,6 +31,8 @@ export class RemoveOfferCase
     facilityId,
     offerId,
   }: RemoveOfferDto): Promise<RemoveOfferResponse> {
+    const queryRunner = this.connection.createQueryRunner();
+
     try {
       const facilityExists = await this.facilityRepository.exists(facilityId);
       if (!facilityExists) {
@@ -45,12 +50,24 @@ export class RemoveOfferCase
       );
       facility.removeOffer(offer);
 
-      await this.offerRepository.deleteOffer(offerId);
-      await this.facilityRepository.persistModel(facility);
+      await queryRunner.connect();
+      await queryRunner.startTransaction();
+
+      await queryRunner.manager.delete(EntityName.Offer, {
+        offer_id: offerId,
+      });
+      await queryRunner.manager.save(
+        await this.facilityRepository.persistModel(facility),
+      );
+
+      await queryRunner.commitTransaction();
 
       return right(Result.ok());
     } catch (err) {
+      await queryRunner.rollbackTransaction();
       return left(new AppError.UnexpectedError(err));
+    } finally {
+      await queryRunner.release();
     }
   }
 }

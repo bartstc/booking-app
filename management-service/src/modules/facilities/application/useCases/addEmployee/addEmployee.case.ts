@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Connection } from 'typeorm/index';
 
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 import { Contact, Contacts, UniqueEntityID } from 'shared/domain';
@@ -20,6 +21,7 @@ export type AddEmployeeResponse = Either<
 export class AddEmployeeCase
   implements UseCase<AddEmployeeDto, Promise<AddEmployeeResponse>> {
   constructor(
+    private connection: Connection,
     private facilityRepository: FacilityRepository,
     private employeeRepository: EmployeeRepository,
     private facilityFactory: FacilityFactory,
@@ -29,6 +31,8 @@ export class AddEmployeeCase
     dto: AddEmployeeDto,
     facilityId: string,
   ): Promise<AddEmployeeResponse> {
+    const queryRunner = this.connection.createQueryRunner();
+
     try {
       const facilityExists = await this.facilityRepository.exists(facilityId);
       if (!facilityExists) {
@@ -62,16 +66,24 @@ export class AddEmployeeCase
       );
       facility.addEmployee(employee);
 
-      await this.employeeRepository.persistModel(employee);
-      await this.facilityRepository.persistModel(facility);
+      await queryRunner.connect();
+      await queryRunner.startTransaction();
+
+      await queryRunner.manager.save(
+        await this.employeeRepository.persistModel(employee),
+      );
+      await queryRunner.manager.save(
+        await this.facilityRepository.persistModel(facility),
+      );
+
+      await queryRunner.commitTransaction();
 
       return right(Result.ok(employee));
     } catch (err) {
+      await queryRunner.rollbackTransaction();
       return left(new AppError.UnexpectedError(err));
+    } finally {
+      await queryRunner.release();
     }
-  }
-
-  private async rollbackSave(employeeId: string): Promise<void> {
-    await this.employeeRepository.deleteEmployee(employeeId);
   }
 }

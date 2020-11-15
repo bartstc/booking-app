@@ -4,8 +4,9 @@ import { AbstractEntity } from 'shared/core';
 import { IContact, IContactPerson } from 'shared/domain/types';
 
 import { IAddress, IBusinessCategory, IWorkingDay } from '../../domain/types';
+import { EntityName } from './EntityName';
 
-@Entity('facilities')
+@Entity({ name: EntityName.Facility })
 export class FacilityEntity extends AbstractEntity {
   @PrimaryColumn()
   facility_id: string;
