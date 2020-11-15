@@ -1,18 +1,23 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm/index';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+  RelationId,
+} from 'typeorm/index';
 
 import { AbstractEntity } from 'shared/core';
 import { IContact, IContactPerson } from 'shared/domain/types';
 
 import { IAddress, IBusinessCategory, IWorkingDay } from '../../domain/types';
 import { EntityName } from './EntityName';
+import { EnterpriseEntity } from '../../../enterprise/infra/entities';
 
 @Entity({ name: EntityName.Facility })
 export class FacilityEntity extends AbstractEntity {
   @PrimaryColumn()
   facility_id: string;
-
-  @Column()
-  enterprise_id: string;
 
   @Column('jsonb')
   details: {
@@ -30,4 +35,14 @@ export class FacilityEntity extends AbstractEntity {
 
   @Column('text', { array: true })
   offerIds: string[];
+
+  @ManyToOne(
+    () => EnterpriseEntity,
+    enterprise => enterprise.facilities,
+  )
+  @JoinColumn({ name: 'enterprise_id' })
+  enterprise: EnterpriseEntity;
+
+  @Column()
+  enterprise_id: string;
 }

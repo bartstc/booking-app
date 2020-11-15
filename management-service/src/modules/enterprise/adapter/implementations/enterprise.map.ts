@@ -62,6 +62,7 @@ export class EnterpriseMap implements Mapper<Enterprise> {
         enterpriseUrl: url.getValue(),
         countryCode: countryCode.getValue(),
         contactPerson: contactPerson.getValue(),
+        facilityIds: entity.facility_ids,
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
       },

@@ -37,6 +37,7 @@ export class CreateEnterpriseCase
         enterpriseUrl: url.getValue(),
         countryCode: countryCode.getValue(),
         contactPerson: contactPerson.getValue(),
+        facilityIds: [],
       });
 
       if (!enterpriseOrError.isSuccess) {
