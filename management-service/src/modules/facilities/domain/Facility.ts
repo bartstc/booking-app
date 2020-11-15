@@ -80,7 +80,7 @@ export class Facility extends Entity<IProps> {
   }
 
   public addEmployee(employee: Employee) {
-    this.employees.remove(employee);
+    this.employees.add(employee);
   }
 
   public removeEmployee(employee: Employee) {

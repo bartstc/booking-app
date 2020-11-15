@@ -2,17 +2,17 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
   OneToMany,
   PrimaryColumn,
-  RelationId,
 } from 'typeorm/index';
 
 import { AbstractEntity } from 'shared/core';
 import { IContactPerson } from 'shared/domain';
-import { FacilityEntity } from '../../../facilities/infra/entities';
 
-@Entity('enterprises')
+import { FacilityEntity } from '../../../facilities/infra/entities';
+import { EntityName } from './EntityName';
+
+@Entity({ name: EntityName.Enterprise })
 export class EnterpriseEntity extends AbstractEntity {
   @PrimaryColumn()
   enterprise_id: string;
@@ -37,6 +37,6 @@ export class EnterpriseEntity extends AbstractEntity {
   @JoinColumn({ name: 'facility_ids' })
   facilities: FacilityEntity[];
 
-  @Column('text', { array: true, default: "{}" })
+  @Column('text', { array: true, default: '{}' })
   facility_ids: string[];
 }

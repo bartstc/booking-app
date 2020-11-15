@@ -101,10 +101,10 @@ export class FacilityMap implements Mapper<Facility> {
     return {
       facility_id: facility.facilityId.id.toString(),
       enterprise_id: facility.enterpriseId,
-      offerIds: facility.offers
+      offer_ids: facility.offers
         .getItems()
         .map(offer => offer.offerId.id.toString()),
-      employeeIds: facility.employees
+      employee_ids: facility.employees
         .getItems()
         .map(employee => employee.employeeId.id.toString()),
       details: {

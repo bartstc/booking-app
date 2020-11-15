@@ -1,18 +1,22 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm/index';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm/index';
 
 import { AbstractEntity } from 'shared/core';
 import { IContact } from 'shared/domain/types';
 
 import { EmployeePosition } from '../../domain/types';
 import { EntityName } from './EntityName';
+import { FacilityEntity } from './Facility.entity';
 
 @Entity({ name: EntityName.Employee })
 export class EmployeeEntity extends AbstractEntity {
   @PrimaryColumn()
   employee_id: string;
-
-  @Column()
-  facility_id: string;
 
   @Column('jsonb')
   details: {
@@ -21,4 +25,14 @@ export class EmployeeEntity extends AbstractEntity {
     employmentDate: string;
     contacts: IContact[];
   };
+
+  @ManyToOne(
+    () => FacilityEntity,
+    facility => facility.employees,
+  )
+  @JoinColumn({ name: 'facility_id' })
+  facility: FacilityEntity;
+
+  @Column()
+  facility_id: string;
 }

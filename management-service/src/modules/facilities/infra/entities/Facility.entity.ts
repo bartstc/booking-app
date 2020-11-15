@@ -3,8 +3,8 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
-  RelationId,
 } from 'typeorm/index';
 
 import { AbstractEntity } from 'shared/core';
@@ -13,6 +13,8 @@ import { IContact, IContactPerson } from 'shared/domain/types';
 import { IAddress, IBusinessCategory, IWorkingDay } from '../../domain/types';
 import { EntityName } from './EntityName';
 import { EnterpriseEntity } from '../../../enterprise/infra/entities';
+import { EmployeeEntity } from './Employee.entity';
+import { OfferEntity } from './Offer.entity';
 
 @Entity({ name: EntityName.Facility })
 export class FacilityEntity extends AbstractEntity {
@@ -30,11 +32,25 @@ export class FacilityEntity extends AbstractEntity {
     workingDays: IWorkingDay[];
   };
 
-  @Column('text', { array: true })
-  employeeIds: string[];
+  @OneToMany(
+    () => EmployeeEntity,
+    employee => employee.facility,
+  )
+  @JoinColumn({ name: 'employee_ids' })
+  employees: EmployeeEntity[];
 
-  @Column('text', { array: true })
-  offerIds: string[];
+  @Column('text', { array: true, default: '{}' })
+  employee_ids: string[];
+
+  @OneToMany(
+    () => OfferEntity,
+    offer => offer.facility,
+  )
+  @JoinColumn({ name: 'offer_ids' })
+  offers: OfferEntity[];
+
+  @Column('text', { array: true, default: '{}' })
+  offer_ids: string[];
 
   @ManyToOne(
     () => EnterpriseEntity,
