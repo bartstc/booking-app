@@ -1,4 +1,9 @@
-import { ContactPerson, Contacts, Entity, UniqueEntityID } from 'shared/domain';
+import {
+  AggregateRoot,
+  ContactPerson,
+  Contacts,
+  UniqueEntityID,
+} from 'shared/domain';
 import { Result } from 'shared/core';
 
 import { FacilityName } from './FacilityName';
@@ -26,7 +31,7 @@ interface IProps {
   availability: Availability;
 }
 
-export class Facility extends Entity<IProps> {
+export class Facility extends AggregateRoot<IProps> {
   get facilityId() {
     return FacilityId.create(this._id).getValue();
   }

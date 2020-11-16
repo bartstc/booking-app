@@ -29,4 +29,12 @@ export class EnterpriseRepository extends Repository<EnterpriseEntity>
     if (!enterpriseRaw) throw new Error('Enterprise not found');
     return enterpriseRaw;
   }
+
+  async addFacility(enterpriseId: string, facilityId: string): Promise<void> {
+    const enterprise = await this.getRawEnterpriseById(enterpriseId);
+    if (!enterprise) throw new Error('Enterprise not found');
+
+    enterprise.facility_ids.push(facilityId);
+    await enterprise.save();
+  }
 }

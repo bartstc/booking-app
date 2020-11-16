@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { EventPublisher } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 
@@ -6,6 +7,7 @@ import { CreateFacilityDto } from './createFacility.dto';
 import { Facility } from '../../../domain';
 import { FacilityRepository } from '../../../adapter';
 import { FacilityFactory } from '../../factories';
+import { FacilityAddedEvent } from '../../events';
 
 export type CreateFacilityResponse = Either<
   AppError.ValidationError | AppError.UnexpectedError,
@@ -18,6 +20,7 @@ export class CreateFacilityCase
   constructor(
     private repository: FacilityRepository,
     private facilityFactory: FacilityFactory,
+    private readonly publisher: EventPublisher,
   ) {}
 
   async execute(
@@ -34,9 +37,15 @@ export class CreateFacilityCase
         return left(Result.fail(facilityOrError.error));
       }
 
-      const facility = facilityOrError.getValue();
+      let facility = facilityOrError.getValue();
       const facilityEntity = await this.repository.persistModel(facility);
-      await facilityEntity.save();
+      const savedFacility = await facilityEntity.save();
+
+      facility = this.publisher.mergeObjectContext(facility);
+      facility.apply(
+        new FacilityAddedEvent(enterpriseId, savedFacility.facility_id),
+      );
+      facility.commit();
 
       return right(Result.ok(facility));
     } catch (err) {
