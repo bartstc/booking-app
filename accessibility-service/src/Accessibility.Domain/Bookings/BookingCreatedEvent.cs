@@ -10,7 +10,6 @@ namespace Accessibility.Domain.Bookings
             this.Date = date;
             this.OfferId = offerId;
             this.CustomerId = customerId;
-               
         }
 
         public OfferId OfferId { get; }

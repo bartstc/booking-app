@@ -17,10 +17,5 @@ namespace Accessibility.Infrastructure.Domain.Bookings
         {
             await ctx.AddAsync(booking);
         }
-
-        public async Task CommitAsync()
-        {
-            await ctx.SaveChangesAsync();
-        }
     }
 }

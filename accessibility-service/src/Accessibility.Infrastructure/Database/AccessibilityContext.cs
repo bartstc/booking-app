@@ -1,4 +1,5 @@
 using Accessibility.Domain.Bookings;
+using Accessibility.Infrastructure.Utils.Outbox;
 using Microsoft.EntityFrameworkCore;
 
 namespace Accessibility.Infrastructure.Database
@@ -10,6 +11,7 @@ namespace Accessibility.Infrastructure.Database
         }
 
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<OutboxNotification> OutboxNotifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

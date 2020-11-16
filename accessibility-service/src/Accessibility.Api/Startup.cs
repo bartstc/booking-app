@@ -4,10 +4,14 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Accessibility.Application.Bookings.CreateBooking;
+using Accessibility.Application.Configuration.DomainEvents;
 using Accessibility.Domain.Bookings;
+using Accessibility.Domain.SeedWork;
 using Accessibility.Infrastructure.Database;
+using Accessibility.Infrastructure.Domain;
 using Accessibility.Infrastructure.Domain.Bookings;
 using Accessibility.Infrastructure.SeedWork;
+using Accessibility.Infrastructure.Utils;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +35,7 @@ namespace Accessibility.Api
 
         public IConfiguration Configuration { get; }
 
+        // TODO: move registrations to modules
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -39,8 +44,10 @@ namespace Accessibility.Api
                 options
                     .ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>()
                     .UseNpgsql(Configuration.GetConnectionString("Accessibility")));
-            services.AddMediatR(typeof(CreateBookingCommand).Assembly);
+            services.AddMediatR(typeof(BookingCreatedNotification).Assembly, typeof(BookingCreatedEvent).Assembly);
             services.AddTransient<IBookingRepository, BookingRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -14,7 +14,7 @@ namespace Accessibility.Domain.SeedWork
             domainEvents.Add(domainEvent);
         }
 
-        protected void ClearDomainEvents() =>
+        public void ClearDomainEvents() =>
             domainEvents?.Clear();
 
         protected void CheckRule(IBusinessRule rule)
