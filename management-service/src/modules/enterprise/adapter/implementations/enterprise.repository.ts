@@ -37,4 +37,17 @@ export class EnterpriseRepository extends Repository<EnterpriseEntity>
     enterprise.facility_ids.push(facilityId);
     await enterprise.save();
   }
+
+  async removeFacility(
+    enterpriseId: string,
+    facilityId: string,
+  ): Promise<void> {
+    const enterprise = await this.getRawEnterpriseById(enterpriseId);
+    if (!enterprise) throw new Error('Enterprise not found');
+
+    enterprise.facility_ids = enterprise.facility_ids.filter(
+      id => id !== facilityId,
+    );
+    await enterprise.save();
+  }
 }

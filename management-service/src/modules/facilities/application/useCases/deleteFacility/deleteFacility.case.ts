@@ -1,9 +1,13 @@
+import { InjectRepository } from '@nestjs/typeorm';
+import { EventPublisher } from '@nestjs/cqrs';
+
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 
 import { DeleteFacilityErrors } from './deleteFacility.errors';
 import { DeleteFacilityDto } from './deleteFacility.dto';
 import { FacilityRepository } from '../../../adapter';
-import { InjectRepository } from '@nestjs/typeorm';
+import { FacilityFactory } from '../../factories';
+import { FacilityRemovedEvent } from '../../../../enterprise/application/events';
 
 export type DeleteFacilityResponse = Either<
   AppError.UnexpectedError | DeleteFacilityErrors.FacilityNotFoundError,
@@ -15,6 +19,8 @@ export class DeleteFacilityCase
   constructor(
     @InjectRepository(FacilityRepository)
     private repository: FacilityRepository,
+    private factory: FacilityFactory,
+    private publisher: EventPublisher,
   ) {}
 
   async execute({
@@ -26,7 +32,15 @@ export class DeleteFacilityCase
         return left(new DeleteFacilityErrors.FacilityNotFoundError());
       }
 
+      const model = await this.factory.buildFromRepository(facilityId);
+
       await this.repository.deleteFacility(facilityId);
+
+      const facility = this.publisher.mergeObjectContext(model);
+      facility.apply(
+        new FacilityRemovedEvent(facility.enterpriseId, facilityId),
+      );
+      facility.commit();
 
       return right(Result.ok());
     } catch (err) {

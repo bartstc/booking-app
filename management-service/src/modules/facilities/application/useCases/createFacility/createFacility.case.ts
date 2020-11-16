@@ -7,7 +7,7 @@ import { CreateFacilityDto } from './createFacility.dto';
 import { Facility } from '../../../domain';
 import { FacilityRepository } from '../../../adapter';
 import { FacilityFactory } from '../../factories';
-import { FacilityAddedEvent } from '../../events';
+import { FacilityAddedEvent } from '../../../../enterprise/application/events';
 
 export type CreateFacilityResponse = Either<
   AppError.ValidationError | AppError.UnexpectedError,
@@ -20,7 +20,7 @@ export class CreateFacilityCase
   constructor(
     private repository: FacilityRepository,
     private facilityFactory: FacilityFactory,
-    private readonly publisher: EventPublisher,
+    private publisher: EventPublisher,
   ) {}
 
   async execute(

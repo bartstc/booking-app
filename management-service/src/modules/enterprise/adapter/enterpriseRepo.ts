@@ -6,4 +6,5 @@ export interface EnterpriseRepo {
   getEnterpriseById(enterpriseId: string): Promise<Enterprise>;
   getRawEnterpriseById(enterpriseId: string): Promise<EnterpriseEntity>;
   addFacility(enterpriseId: string, facilityId: string): Promise<void>;
+  removeFacility(enterpriseId: string, facilityId: string): Promise<void>;
 }
