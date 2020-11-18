@@ -2,7 +2,7 @@ using Accessibility.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Accessibility.Infrastructure.Utils.Outbox
+namespace Accessibility.Infrastructure.Processing.Outbox
 {
     public class OutboxMessageEntityTypeConfiguration : IEntityTypeConfiguration<OutboxNotification>
     {

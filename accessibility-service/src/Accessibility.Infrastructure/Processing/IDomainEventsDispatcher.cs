@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Accessibility.Infrastructure.Utils
+namespace Accessibility.Infrastructure.Processing
 {
     public interface IDomainEventsDispatcher
     {

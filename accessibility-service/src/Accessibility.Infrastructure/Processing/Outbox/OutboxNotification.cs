@@ -1,6 +1,6 @@
 using System;
 
-namespace Accessibility.Infrastructure.Utils.Outbox
+namespace Accessibility.Infrastructure.Processing.Outbox
 {
     public class OutboxNotification
     {

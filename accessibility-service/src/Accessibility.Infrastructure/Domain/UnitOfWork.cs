@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.SeedWork;
 using Accessibility.Infrastructure.Database;
-using Accessibility.Infrastructure.Utils;
+using Accessibility.Infrastructure.Processing;
 
 namespace Accessibility.Infrastructure.Domain
 {

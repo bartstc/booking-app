@@ -1,6 +1,7 @@
 using System;
 using Accessibility.Application.Configuration.DomainEvents;
 using Accessibility.Domain.Bookings;
+using Newtonsoft.Json;
 
 namespace Accessibility.Application.Bookings.CreateBooking
 {
@@ -11,6 +12,14 @@ namespace Accessibility.Application.Bookings.CreateBooking
             OfferId = domainEvent.OfferId;
             CustomerId = domainEvent.CustomerId;
             Date = domainEvent.Date;
+        }
+
+        [JsonConstructor]
+        public BookingCreatedNotification(OfferId offerId, CustomerId customerId, DateTime date) : base(null)
+        {
+            OfferId = offerId;
+            CustomerId = customerId;
+            Date = date;
         }
 
         public OfferId OfferId { get; }

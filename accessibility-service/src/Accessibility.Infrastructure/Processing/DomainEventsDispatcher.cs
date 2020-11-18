@@ -6,11 +6,10 @@ using Accessibility.Infrastructure.Database;
 using Accessibility.Application.Configuration.DomainEvents;
 using System;
 using MediatR;
-using Accessibility.Infrastructure.Utils.Outbox;
+using Accessibility.Infrastructure.Processing.Outbox;
 using Newtonsoft.Json;
-using Accessibility.Application.Bookings.CreateBooking;
 
-namespace Accessibility.Infrastructure.Utils
+namespace Accessibility.Infrastructure.Processing
 {
     public class DomainEventsDispatcher : IDomainEventsDispatcher
     {
@@ -47,12 +46,12 @@ namespace Accessibility.Infrastructure.Utils
                 Type notifiType = typeof(IDomainEventNotification<>);
                 var notifiGenericType = notifiType.MakeGenericType(domainEvent.GetType());
 
-                // TODO: resolve instance from di container
-                // TODO: get assembly from constructor
-                var type = typeof(BookingCreatedNotification).Assembly.GetExportedTypes()
+                // TODO: get assembly from somewhere else
+                var type = Assemblies.Application.GetExportedTypes()
                     .Where(t => !t.IsInterface && !t.IsAbstract && notifiGenericType.IsAssignableFrom(t))
                     .FirstOrDefault();
 
+                // TODO: resolve instance from di container
                 var notifi = Activator.CreateInstance(type, domainEvent);
 
                 if (notifi != null)

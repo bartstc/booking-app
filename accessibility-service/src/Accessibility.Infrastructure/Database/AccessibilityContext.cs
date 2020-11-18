@@ -1,5 +1,5 @@
 using Accessibility.Domain.Bookings;
-using Accessibility.Infrastructure.Utils.Outbox;
+using Accessibility.Infrastructure.Processing.Outbox;
 using Microsoft.EntityFrameworkCore;
 
 namespace Accessibility.Infrastructure.Database
