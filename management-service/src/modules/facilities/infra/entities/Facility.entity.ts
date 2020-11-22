@@ -12,9 +12,11 @@ import { IContact, IContactPerson } from 'shared/domain/types';
 
 import { IAddress, IBusinessCategory, IWorkingDay } from '../../domain/types';
 import { EntityName } from './EntityName';
-import { EnterpriseEntity } from '../../../enterprise/infra/entities';
 import { EmployeeEntity } from './Employee.entity';
 import { OfferEntity } from './Offer.entity';
+
+import { EnterpriseEntity } from '../../../enterprise/infra/entities';
+import { CustomerEntity } from '../../../customers/infra/entities';
 
 @Entity({ name: EntityName.Facility })
 export class FacilityEntity extends AbstractEntity {
@@ -54,6 +56,16 @@ export class FacilityEntity extends AbstractEntity {
 
   @Column('text', { array: true, default: '{}' })
   offer_ids: string[];
+
+  @OneToMany(
+    () => CustomerEntity,
+    customer => customer.facility,
+  )
+  @JoinColumn({ name: 'customer_ids' })
+  customers: CustomerEntity[];
+
+  @Column('text', { array: true, default: '{}' })
+  customer_ids: string[];
 
   @ManyToOne(
     () => EnterpriseEntity,
