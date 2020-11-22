@@ -3,37 +3,34 @@ import { Response } from 'express';
 
 import { BaseController } from 'shared/core';
 
-import { GetEmployeeCase } from './getEmployee.case';
-import { GetEmployeeErrors } from './getEmployee.errors';
+import { GetOfferCase } from './getOffer.case';
+import { GetOfferErrors } from './getOffer.errors';
 
 @Controller()
-export class GetEmployeeController extends BaseController {
-  constructor(private readonly getEmployeeCase: GetEmployeeCase) {
+export class GetOfferController extends BaseController {
+  constructor(private readonly getOfferCase: GetOfferCase) {
     super();
   }
 
-  private logger = new Logger('GetEmployeeController');
+  private logger = new Logger('GetOfferController');
 
-  @Get('facilities/:facilityId/employees/:employeeId')
-  async getEmployee(
-    @Param('employeeId') employeeId: string,
-    @Res() res: Response,
-  ) {
+  @Get('facilities/:facilityId/offers/:offerId')
+  async getOffer(@Param('offerId') offerId: string, @Res() res: Response) {
     try {
-      const result = await this.getEmployeeCase.execute(employeeId);
+      const result = await this.getOfferCase.execute(offerId);
 
       if (result.isLeft()) {
         const error = result.value;
         this.logger.error(error.errorValue());
         switch (error.constructor) {
-          case GetEmployeeErrors.EmployeeDoesNotExistError:
+          case GetOfferErrors.OfferDoesNotExistError:
             return this.notFound(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
         }
       }
 
-      this.logger.verbose('Employee successfully returned');
+      this.logger.verbose('Offer successfully returned');
       return this.ok(res, result.value.getValue());
     } catch (err) {
       this.logger.error('Unexpected server error', err);

@@ -18,9 +18,14 @@ export class OfferRepository extends Repository<OfferEntity>
     return true;
   }
 
-  async getOfferById(offerId: string): Promise<Offer> {
+  async getRawOfferById(offerId: string): Promise<OfferEntity> {
     const offer = await this.findOne({ offer_id: offerId });
     if (!offer) throw new Error('Offer not found');
+    return offer;
+  }
+
+  async getOfferById(offerId: string): Promise<Offer> {
+    const offer = await this.getRawOfferById(offerId);
     return OfferMap.toDomain(offer);
   }
 

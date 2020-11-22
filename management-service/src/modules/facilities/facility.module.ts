@@ -54,6 +54,10 @@ import {
   GetEmployeeCase,
   GetEmployeeController,
 } from './application/useCases/getEmployee';
+import {
+  GetOfferCase,
+  GetOfferController,
+} from './application/useCases/getOffer';
 
 @Module({
   imports: [
@@ -66,6 +70,7 @@ import {
   ],
   controllers: [
     GetFacilityController,
+    GetOfferController,
     GetOffersController,
     GetEmployeesController,
     GetEmployeeController,
@@ -83,6 +88,7 @@ import {
     EmployeeService,
     FacilityFactory,
     GetFacilityCase,
+    GetOfferCase,
     GetOffersCase,
     GetEmployeesCase,
     GetEmployeeCase,
