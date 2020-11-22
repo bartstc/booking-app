@@ -4,7 +4,12 @@ import { Connection } from 'typeorm/index';
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 import { Contact, Contacts, UniqueEntityID } from 'shared/domain';
 
-import { FacilityId, Employee, EmployeeName } from '../../../domain';
+import {
+  FacilityId,
+  Employee,
+  EmployeeName,
+  EmployeePosition,
+} from '../../../domain';
 import { FacilityRepository, EmployeeRepository } from '../../../adapter';
 import { AddEmployeeErrors } from './addEmployee.errors';
 import { AddEmployeeDto } from './addEmployee.dto';
@@ -40,6 +45,7 @@ export class AddEmployeeCase
       }
 
       const name = EmployeeName.create({ value: dto.employeeName });
+      const position = EmployeePosition.create({ value: dto.position });
       const contacts = Contacts.create(
         dto.contacts
           ? dto.contacts.map(contact => Contact.create(contact).getValue())
@@ -51,8 +57,7 @@ export class AddEmployeeCase
           new UniqueEntityID(facilityId),
         ).getValue(),
         name: name.getValue(),
-        position: dto.position,
-        employmentDate: dto.employmentDate,
+        position: position.getValue(),
         contacts,
       });
 

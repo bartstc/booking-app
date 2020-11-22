@@ -37,6 +37,7 @@ export class TextValidator {
     const b =
       'aaaaaaaaacccddeeeeeeegghiiiiilmnnnnooooooprrsssssttuuuuuuuuuwxyyzzz------';
     const p = new RegExp(a.split('').join('|'), 'g');
+
     return url
       .toString()
       .toLowerCase()

@@ -9,7 +9,6 @@ import {
 import { AbstractEntity } from 'shared/core';
 import { IContact } from 'shared/domain/types';
 
-import { EmployeePosition } from '../../domain/types';
 import { EntityName } from './EntityName';
 import { FacilityEntity } from './Facility.entity';
 
@@ -21,8 +20,7 @@ export class EmployeeEntity extends AbstractEntity {
   @Column('jsonb')
   details: {
     name: string;
-    position: EmployeePosition;
-    employmentDate: string;
+    position: string;
     contacts: IContact[];
   };
 

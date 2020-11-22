@@ -29,10 +29,12 @@ export class CreateFacilityCase
     enterpriseId: string,
   ): Promise<CreateFacilityResponse> {
     try {
-      try {
-        const slug = Slug.create({ value: dto.slug });
-        await this.repository.getRawFacilityBySlug(slug.getValue().value);
-      } catch {
+      const slug = Slug.create({ value: dto.slug });
+      const slugExists = await this.repository.slugExists(
+        slug.getValue().value,
+      );
+
+      if (slugExists) {
         return left(new CreateFacilityErrors.SlugAlreadyExistsError());
       }
 

@@ -4,6 +4,7 @@ export { BusinessCategories } from './BusinessCategories';
 export { Employee } from './Employee';
 export { EmployeeId } from './EmployeeId';
 export { EmployeeName } from './EmployeeName';
+export { EmployeePosition } from './EmployeePosition';
 export { Offer } from './Offer';
 export { OfferId } from './OfferId';
 export { OfferName } from './OfferName';

@@ -1,9 +1,7 @@
 import * as yup from 'yup';
 
-import { TextValidator } from 'shared/core';
 import { contactsSchema } from 'shared/domain/schemas';
 
-import { EmployeePosition } from '../../../domain/types';
 import { AddEmployeeDto } from './addEmployee.dto';
 
 export const addEmployeeSchema = yup.object().shape<AddEmployeeDto>({
@@ -15,12 +13,7 @@ export const addEmployeeSchema = yup.object().shape<AddEmployeeDto>({
   position: yup
     .string()
     .required()
-    .oneOf(Object.values(EmployeePosition)),
-  employmentDate: yup
-    .string()
-    .required()
-    .test('validDate', 'invalidDateFormat', date => {
-      return TextValidator.validateDate(date);
-    }),
+    .min(1)
+    .max(999),
   contacts: contactsSchema,
 });

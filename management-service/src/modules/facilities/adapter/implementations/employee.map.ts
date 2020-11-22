@@ -1,13 +1,21 @@
 import { Mapper } from 'shared/core/Mapper';
 import { Contact, Contacts, UniqueEntityID } from 'shared/domain';
 
-import { Employee, EmployeeName, FacilityId } from '../../domain';
+import {
+  Employee,
+  EmployeeName,
+  EmployeePosition,
+  FacilityId,
+} from '../../domain';
 import { EmployeeEntity } from '../../infra/entities';
 import { EmployeeDto } from '../../application/dtos';
 
 export class EmployeeMap implements Mapper<Employee> {
   public static toDomain(entity: EmployeeEntity): Employee {
     const name = EmployeeName.create({ value: entity.details.name });
+    const position = EmployeePosition.create({
+      value: entity.details.position,
+    });
     const contactList: Contact[] = [];
 
     entity.details.contacts.forEach(contact => {
@@ -22,9 +30,8 @@ export class EmployeeMap implements Mapper<Employee> {
           new UniqueEntityID(entity.facility_id),
         ).getValue(),
         name: name.getValue(),
+        position: position.getValue(),
         contacts,
-        employmentDate: entity.details.employmentDate,
-        position: entity.details.position,
       },
       new UniqueEntityID(entity.employee_id),
     );
@@ -46,7 +53,6 @@ export class EmployeeMap implements Mapper<Employee> {
       facilityId: employee.facility_id,
       name: employee.details.name,
       position: employee.details.position,
-      employmentDate: employee.details.employmentDate,
       contacts: employee.details.contacts,
     };
   }
@@ -63,8 +69,7 @@ export class EmployeeMap implements Mapper<Employee> {
       facility_id: employee.facilityId,
       details: {
         name: employee.name.value,
-        employmentDate: employee.employmentDate,
-        position: employee.position,
+        position: employee.position.value,
         contacts: employee.contacts.getItems().map(contact => contact.props),
       },
     };
