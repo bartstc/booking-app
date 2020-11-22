@@ -21,6 +21,9 @@ export class FacilityEntity extends AbstractEntity {
   @PrimaryColumn()
   facility_id: string;
 
+  @Column({ unique: true })
+  slug: string;
+
   @Column('jsonb')
   details: {
     name: string;

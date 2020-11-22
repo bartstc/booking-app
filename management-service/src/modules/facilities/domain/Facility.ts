@@ -17,10 +17,12 @@ import { Offers } from './Offers';
 import { Availability } from './Availability';
 import { Offer } from './Offer';
 import { Employee } from './Employee';
+import { Slug } from './Slug';
 
 interface IProps {
   enterpriseId: EnterpriseId;
   name: FacilityName;
+  slug: Slug;
   description: FacilityDescription | null;
   contactPerson: ContactPerson | null;
   address: Address;
@@ -46,6 +48,10 @@ export class Facility extends AggregateRoot<IProps> {
 
   get description() {
     return this.props.description;
+  }
+
+  get slug() {
+    return this.props.slug;
   }
 
   get contactPerson() {

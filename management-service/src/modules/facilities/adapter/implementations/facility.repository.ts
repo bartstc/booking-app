@@ -22,6 +22,12 @@ export class FacilityRepository extends Repository<FacilityEntity>
     return true;
   }
 
+  async getRawFacilityBySlug(slug: string): Promise<FacilityEntity> {
+    const facility = await this.findOne({ slug });
+    if (!facility) throw new Error('Facility not found');
+    return facility;
+  }
+
   async getRawFacilityById(facilityId: string): Promise<FacilityEntity> {
     const facility = await this.findOne({ facility_id: facilityId });
     if (!facility) throw new Error('Facility not found');

@@ -6,6 +6,7 @@ export class FacilityDto {
   facilityId: string;
   enterpriseId: string;
   name: string;
+  slug: string;
   description: string | null;
   contactPerson: IContactPerson | null;
   address: IAddress;

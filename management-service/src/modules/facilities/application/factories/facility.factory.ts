@@ -18,6 +18,7 @@ import {
   FacilityDescription,
   FacilityName,
   Offers,
+  Slug,
   WorkingDay,
 } from '../../domain';
 import { EnterpriseId } from '../../../enterprise/domain';
@@ -42,6 +43,7 @@ export class FacilityFactory {
     enterpriseId: string,
   ): Result<Facility> {
     const name = FacilityName.create({ value: dto.facilityName });
+    const slug = Slug.create({ value: dto.slug });
     const address = Address.create(dto.address);
     const businessCategories = BusinessCategories.create(
       dto.businessCategories.map(category =>
@@ -69,6 +71,7 @@ export class FacilityFactory {
             value: dto.facilityDescription,
           }).getValue()
         : null,
+      slug: slug.getValue(),
       contactPerson: dto.contactPerson
         ? ContactPerson.create(dto.contactPerson).getValue()
         : null,

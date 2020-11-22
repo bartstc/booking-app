@@ -18,6 +18,7 @@ import {
   FacilityName,
   Offer,
   Offers,
+  Slug,
   WorkingDay,
 } from '../../domain';
 import { FacilityEntity } from '../../infra/entities';
@@ -33,6 +34,7 @@ export class FacilityMap implements Mapper<Facility> {
     const { description, contactPerson, contacts } = entity.details;
 
     const name = FacilityName.create({ value: entity.details.name });
+    const slug = Slug.create({ value: entity.slug });
     const address = Address.create(entity.details.address);
     const categories: BusinessCategory[] = [];
 
@@ -57,6 +59,7 @@ export class FacilityMap implements Mapper<Facility> {
         description: description
           ? FacilityDescription.create({ value: description }).getValue()
           : null,
+        slug: slug.getValue(),
         contactPerson: contactPerson
           ? ContactPerson.create(contactPerson).getValue()
           : null,
@@ -87,6 +90,7 @@ export class FacilityMap implements Mapper<Facility> {
       enterpriseId: facility.enterprise_id,
       name: facility.details.name,
       description: facility.details.description,
+      slug: facility.slug,
       address: facility.details.address,
       contactPerson: facility.details.contactPerson,
       contacts: facility.details.contacts,
@@ -101,6 +105,7 @@ export class FacilityMap implements Mapper<Facility> {
     return {
       facility_id: facility.facilityId.id.toString(),
       enterprise_id: facility.enterpriseId,
+      slug: facility.slug.value,
       offer_ids: facility.offers
         .getItems()
         .map(offer => offer.offerId.id.toString()),

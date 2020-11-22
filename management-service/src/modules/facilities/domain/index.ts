@@ -18,3 +18,4 @@ export { FacilityDescription } from './FacilityDescription';
 export { WorkingDay } from './WorkingDay';
 export { Availability } from './Availability';
 export { Facility } from './Facility';
+export { Slug } from './Slug';

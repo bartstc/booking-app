@@ -4,10 +4,11 @@ import { EventPublisher } from '@nestjs/cqrs';
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 
 import { CreateFacilityDto } from './createFacility.dto';
-import { Facility } from '../../../domain';
+import { Facility, Slug } from '../../../domain';
 import { FacilityRepository } from '../../../adapter';
 import { FacilityFactory } from '../../factories';
 import { FacilityAddedEvent } from '../../../../enterprise/application/events';
+import { CreateFacilityErrors } from './createFacility.errors';
 
 export type CreateFacilityResponse = Either<
   AppError.ValidationError | AppError.UnexpectedError,
@@ -28,6 +29,13 @@ export class CreateFacilityCase
     enterpriseId: string,
   ): Promise<CreateFacilityResponse> {
     try {
+      try {
+        const slug = Slug.create({ value: dto.slug });
+        await this.repository.getRawFacilityBySlug(slug.getValue().value);
+      } catch {
+        return left(new CreateFacilityErrors.SlugAlreadyExistsError());
+      }
+
       const facilityOrError = this.facilityFactory.buildFromDto(
         dto,
         enterpriseId,

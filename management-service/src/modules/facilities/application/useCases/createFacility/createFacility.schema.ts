@@ -24,6 +24,11 @@ export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
     .string()
     .min(1)
     .max(9999),
+  slug: yup
+    .string()
+    .required()
+    .min(1)
+    .max(50),
   contactPerson: contactPersonSchema,
   address: yup.object().shape<IAddress>({
     street: yup
