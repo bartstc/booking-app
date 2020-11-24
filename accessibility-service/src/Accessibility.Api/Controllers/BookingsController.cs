@@ -1,7 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using Accessibility.Application.Bookings;
-using Accessibility.Application.Bookings.CreateBooking;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 
@@ -21,7 +20,7 @@ namespace Accessibility.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(BookingIdDto), (int)HttpStatusCode.Created)]
-        public async Task<IActionResult> CreateBooking([FromBody] BookingDto booking)
+        public async Task<IActionResult> CreateBooking([FromBody] BookingServiceDto booking)
         {
             var bookingId = await mediator.Send(new CreateBookingCommand(booking));
             return Created("", bookingId);

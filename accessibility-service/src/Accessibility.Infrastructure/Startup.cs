@@ -24,7 +24,7 @@ namespace Accessibility.Infrastructure
                 options
                     .ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>()
                     .UseNpgsql(connectionString))
-                .AddMediatR(typeof(BookingCreatedNotification).Assembly, typeof(BookingCreatedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
+                .AddMediatR(typeof(BookingCreatedNotification).Assembly, typeof(BookedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
                 .AddTransient<IBookingRepository, BookingRepository>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()

@@ -20,7 +20,7 @@ namespace Accessibility.Domain.SeedWork
         protected void CheckRule(IBusinessRule rule)
         {
             if (rule.IsBroken())
-            throw new BusinessRuleValidationException(rule);
+                throw new BusinessRuleValidationException(rule);
         }
     }
 }

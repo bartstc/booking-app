@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Accessibility.Domain.SeedWork;
+using Xunit;
 
 namespace Accessibility.UnitTests.SeedWork
 {
@@ -14,6 +15,12 @@ namespace Accessibility.UnitTests.SeedWork
                 throw new Exception($"{typeof(TEvent).Name} event not published");
             
             return result;
+        }
+
+        protected void AssertBusinessRuleBroke<TRule>(Action act)
+        {
+            var result = Assert.Throws<BusinessRuleValidationException>(act);
+            Assert.IsType<TRule>(result.Rule);
         }
     }
 }

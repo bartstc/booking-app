@@ -1,6 +1,6 @@
 using System;
 
-namespace Accessibility.Application.Bookings.CreateBooking
+namespace Accessibility.Application.Bookings.Book
 {
     public class BookingIdDto
     {

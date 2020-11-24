@@ -1,7 +1,8 @@
 using System;
-using Accessibility.Domain.Bookings.Rules;
+using System.Collections.Generic;
+using System.Linq;
+using Accessibility.Domain.Bookings.BookingServices;
 using Accessibility.Domain.SeedWork;
-using Accessibility.Domain.SharedKernel;
 
 namespace Accessibility.Domain.Bookings
 {
@@ -9,38 +10,60 @@ namespace Accessibility.Domain.Bookings
     {
         private Booking()
         {
+            bookingServices = new List<BookingService>();
         }
 
-        public Booking(EmployeeId employeeId, CustomerId customerId, OfferId offerId, Money price, DateTime date)
+        private Booking(CustomerId customerId, FacilityId facilityId, List<BookingServiceData> services) : this()
         {
-            CheckRule(new DateMustBeFromTheFutureRule(date));
-
             Id = new BookingId(Guid.NewGuid());
-            this.EmployeeId = employeeId;
-            this.CustomerId = customerId;
-            this.OfferId = offerId;
-            this.Price = price;
+            this.customerId = customerId;
+            this.facilityId = facilityId;
+            this.creationDate = DateTime.Now;
             this.Status = BookingStatus.Booked;
-            this.Date = date;
-            this.CreationDate = DateTime.Now;
 
-            AddDomainEvent(new BookingCreatedEvent(offerId, customerId, date));
+            foreach (var service in services)
+            {
+                var bookingService = new BookingService(
+                    service.EmployeeId,
+                    service.OfferId,
+                    service.Price,
+                    service.Date,
+                    service.DurationInMinutes
+                );
+
+                bookingServices.Add(bookingService);
+                
+                AddDomainEvent(new BookedEvent(
+                    bookingService.Id,
+                    customerId,
+                    facilityId,
+                    service.OfferId
+                ));
+            }
         }
 
         public BookingId Id { get; }
-        public EmployeeId EmployeeId { get; }
-        public CustomerId CustomerId { get; }
-        public OfferId OfferId { get; }
-        public Money Price { get; }
-        public BookingStatus Status { get; private set; }
-        public DateTime Date { get; }
-        public DateTime CreationDate { get; }
-        public DateTime? ChangeDate { get; }
+        private CustomerId customerId;
+        private FacilityId facilityId;
+        private List<BookingService> bookingServices;
+        private DateTime? creationDate;
+        
+        public BookingStatus Status { get; }
+        public bool IsFinished => bookingServices.All(s => s.IsFinished);
 
-        public void ChangeStatus(BookingStatus newStatus)
+        public static Booking CreateBooked(CustomerId customerId, FacilityId facilityId, List<BookingServiceData> services)
         {
-            CheckRule(new NewStatusMustHaveCorrectPreviousStatusRule(Status, newStatus));
-            Status = newStatus;
+            return new Booking(customerId, facilityId, services);
+        }
+
+        public void ChangeServiceStatus(BookingServiceId serviceId, BookingServiceStatus serviceStatus)
+        {
+            bookingServices
+                .First(s => s.Id == serviceId)
+                .ChangeStatus(serviceStatus);
+            
+            if (IsFinished)
+                AddDomainEvent(new BookingFinishedEvent(Id));
         }
     }
 }
