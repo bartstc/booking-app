@@ -1,26 +1,36 @@
-import { CustomDecorator } from '@nestjs/common';
-
 import { Contacts, Entity, UniqueEntityID } from 'shared/domain';
 import { Guard, Result } from 'shared/core';
 
 import { FullName } from './FullName';
 import { Address } from './Address';
+import { CustomerId } from './CustomerId';
+import { CustomerDescription } from './CustomerDescription';
+import { FacilityId } from '../../facilities/domain';
 
 interface IProps {
+  facilityId: FacilityId;
   fullName: FullName;
-  description: CustomDecorator;
-  birthDate: string;
   contacts: Contacts;
   address: Address;
+  description: CustomerDescription | null;
+  birthDate: string;
 }
 
 export class Customer extends Entity<IProps> {
+  get customerId() {
+    return CustomerId.create(this._id).getValue();
+  }
+
+  get facilityId() {
+    return FacilityId.create(this._id).getValue();
+  }
+
   get fullName() {
     return this.props.fullName;
   }
 
   get description() {
-    return this.props.description;
+    return this.props.description ? this.props.description : null;
   }
 
   get birthDate() {
