@@ -19,7 +19,7 @@ namespace Accessibility.Domain.Bookings
             this.customerId = customerId;
             this.facilityId = facilityId;
             this.creationDate = DateTime.Now;
-            this.Status = BookingStatus.Booked;
+            this.status = BookingStatus.Booked;
 
             foreach (var service in services)
             {
@@ -46,9 +46,9 @@ namespace Accessibility.Domain.Bookings
         private CustomerId customerId;
         private FacilityId facilityId;
         private List<BookingService> bookingServices;
+        private BookingStatus status;
         private DateTime creationDate;
         
-        public BookingStatus Status { get; }
         public bool IsFinished => bookingServices.All(s => s.IsFinished);
 
         public static Booking CreateBooked(CustomerId customerId, FacilityId facilityId, List<BookingServiceData> services)
@@ -63,7 +63,10 @@ namespace Accessibility.Domain.Bookings
                 .ChangeStatus(serviceStatus);
             
             if (IsFinished)
+            {
+                status = BookingStatus.Finished;
                 AddDomainEvent(new BookingFinishedEvent(Id));
+            }
         }
     }
 }

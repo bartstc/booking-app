@@ -7,6 +7,7 @@ CREATE TABLE accessibility.bookings (
     booking_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     customer_id uuid NOT NULL,
     facility_id uuid NOT NULL,
+    status smallint NOT NULL,
     creation_date timestamp
 );
 

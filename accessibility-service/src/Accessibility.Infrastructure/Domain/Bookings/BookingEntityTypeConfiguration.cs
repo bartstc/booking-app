@@ -22,6 +22,7 @@ namespace Accessibility.Infrastructure.Domain.Bookings
             builder.OwnsOne<FacilityId>("facilityId", e =>
                 e.Property(p => p.Value).HasColumnName("facility_id"));
 
+            builder.Property("status").HasConversion(new EnumToNumberConverter<BookingStatus, short>());
             builder.Property("creationDate").HasColumnName("creation_date");
 
             builder.OwnsMany<BookingService>("bookingServices", x =>
