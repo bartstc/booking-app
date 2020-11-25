@@ -1,4 +1,3 @@
-using Accessibility.Application.Bookings.CreateBooking;
 using Accessibility.Application.Configuration.Database;
 using Accessibility.Domain.Bookings;
 using Accessibility.Domain.SeedWork;
@@ -12,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
+using Accessibility.Domain.Bookings.BookingServices;
+using Accessibility.Application.Bookings.Book;
 
 namespace Accessibility.Infrastructure
 {
@@ -24,7 +25,7 @@ namespace Accessibility.Infrastructure
                 options
                     .ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>()
                     .UseNpgsql(connectionString))
-                .AddMediatR(typeof(BookingCreatedNotification).Assembly, typeof(BookedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
+                .AddMediatR(typeof(BookedNotification).Assembly, typeof(BookedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
                 .AddTransient<IBookingRepository, BookingRepository>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()

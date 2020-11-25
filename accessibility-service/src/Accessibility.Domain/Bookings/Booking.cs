@@ -46,7 +46,7 @@ namespace Accessibility.Domain.Bookings
         private CustomerId customerId;
         private FacilityId facilityId;
         private List<BookingService> bookingServices;
-        private DateTime? creationDate;
+        private DateTime creationDate;
         
         public BookingStatus Status { get; }
         public bool IsFinished => bookingServices.All(s => s.IsFinished);

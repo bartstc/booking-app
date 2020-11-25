@@ -8,6 +8,10 @@ namespace Accessibility.Domain.Bookings.BookingServices
 {
     public class BookingService : Entity
     {
+        private BookingService()
+        {
+        }
+
         internal BookingService(EmployeeId employeeId, OfferId offerId, Money price, DateTime date, short durationInMinutes)
         {
             CheckRule(new DateMustBeFromTheFutureRule(date));

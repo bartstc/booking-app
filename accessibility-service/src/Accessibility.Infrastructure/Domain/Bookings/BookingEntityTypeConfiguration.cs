@@ -1,4 +1,5 @@
 using Accessibility.Domain.Bookings;
+using Accessibility.Domain.Bookings.BookingServices;
 using Accessibility.Domain.SharedKernel;
 using Accessibility.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
@@ -14,25 +15,39 @@ namespace Accessibility.Infrastructure.Domain.Bookings
             builder.ToTable("bookings", SchemaNames.Accessibility);
 
             builder.HasKey(b => b.Id);
-            builder.Property(b => b.Id).HasColumnName("id");
+            builder.Property(b => b.Id).HasColumnName("booking_id");
 
-            builder.OwnsOne<EmployeeId>(p => p.EmployeeId, e =>
-                e.Property(p => p.Value).HasColumnName("employeeid"));
-            builder.OwnsOne<CustomerId>(p => p.CustomerId, e =>
-                e.Property(p => p.Value).HasColumnName("customerid"));
-            builder.OwnsOne<OfferId>(p => p.OfferId, e =>
-                e.Property(p => p.Value).HasColumnName("offerid"));
+            builder.OwnsOne<CustomerId>("customerId", e =>
+                e.Property(p => p.Value).HasColumnName("customer_id"));
+            builder.OwnsOne<FacilityId>("facilityId", e =>
+                e.Property(p => p.Value).HasColumnName("facility_id"));
 
-            builder.OwnsOne<Money>("Price", m =>
+            builder.Property("creationDate").HasColumnName("creation_date");
+
+            builder.OwnsMany<BookingService>("bookingServices", x =>
             {
-                m.Property(p => p.Value).HasColumnName("price");
-                m.Property(p => p.Currency).HasColumnName("currency");
-            });
+                x.WithOwner().HasForeignKey("booking_id");
+                x.ToTable("booking_services", SchemaNames.Accessibility);
 
-            builder.Property(p => p.Status).HasColumnName("status").HasConversion(new EnumToNumberConverter<BookingStatus, short>());
-            builder.Property(p => p.Date).HasColumnName("date");
-            builder.Property(p => p.CreationDate).HasColumnName("creationdate");
-            builder.Property(p => p.ChangeDate).HasColumnName("changedate");
+                x.HasKey("Id");
+                x.Property("Id").HasColumnName("booking_service_id");
+
+                x.OwnsOne<EmployeeId>("employeeId", e =>
+                    e.Property(p => p.Value).HasColumnName("employee_id"));
+                x.OwnsOne<OfferId>("offerId", e =>
+                    e.Property(p => p.Value).HasColumnName("offer_id"));
+                
+                x.OwnsOne<Money>("price", m =>
+                {
+                    m.Property(p => p.Value).HasColumnName("price");
+                    m.Property(p => p.Currency).HasColumnName("currency");
+                });
+
+                x.Property("date");
+                x.Property("durationInMinutes").HasColumnName("duration");
+                x.Property("status").HasConversion(new EnumToNumberConverter<BookingServiceStatus, short>());
+                x.Property("changeDate").HasColumnName("change_date");
+            });
         }
     }
 }

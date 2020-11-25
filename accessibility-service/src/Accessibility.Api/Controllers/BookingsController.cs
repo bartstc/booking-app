@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using Accessibility.Application.Bookings;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
+using Accessibility.Application.Bookings.Book;
+using System;
+using System.Collections.Generic;
 
 namespace Accessibility.Api.Controllers
 {
@@ -18,11 +21,15 @@ namespace Accessibility.Api.Controllers
             this.mediator = mediator;
         }
 
-        [HttpPost]
+        // TODO: customerId from request JWT
+        [HttpPost("{customerId}/{facilityId}")]
         [ProducesResponseType(typeof(BookingIdDto), (int)HttpStatusCode.Created)]
-        public async Task<IActionResult> CreateBooking([FromBody] BookingServiceDto booking)
+        public async Task<IActionResult> CreateBooking(
+            [FromRoute] Guid customerId,
+            [FromRoute] Guid facilityId,
+            [FromBody] List<BookingServiceDto> services)
         {
-            var bookingId = await mediator.Send(new CreateBookingCommand(booking));
+            var bookingId = await mediator.Send(new BookCommand(customerId, facilityId, services));
             return Created("", bookingId);
         }
     }
