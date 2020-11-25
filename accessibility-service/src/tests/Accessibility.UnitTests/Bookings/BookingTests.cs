@@ -29,7 +29,6 @@ namespace Accessibility.UnitTests.Bookings
         {
             var booking = BookingFactory.CreateBooked(date, 60);
 
-            Assert.Equal(BookingStatus.Booked, booking.Status);
             AssertDomainEventPublished<BookedEvent>(booking);
         }
 
