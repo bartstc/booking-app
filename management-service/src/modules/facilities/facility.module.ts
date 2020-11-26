@@ -9,6 +9,7 @@ import {
   FacilityService,
   OfferService,
 } from './application/services';
+import { FacilitySagas } from './application/sagas';
 import {
   EmployeeRepository,
   FacilityRepository,
@@ -87,6 +88,7 @@ import {
     OfferService,
     EmployeeService,
     FacilityFactory,
+    FacilitySagas,
     GetFacilityCase,
     GetOfferCase,
     GetOffersCase,

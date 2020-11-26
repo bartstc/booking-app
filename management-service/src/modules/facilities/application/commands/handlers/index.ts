@@ -4,6 +4,7 @@ import { AddOfferHandler } from './addOffer.handler';
 import { RemoveOfferHandler } from './removeOffer.handler';
 import { AddEmployeeHandler } from './addEmployee.handler';
 import { RemoveEmployeeHandler } from './removeEmployee.handler';
+import { AddCustomerHandler } from './addCustomer.handler';
 
 export const CommandHandlers = [
   CreateFacilityHandler,
@@ -12,4 +13,5 @@ export const CommandHandlers = [
   RemoveOfferHandler,
   AddEmployeeHandler,
   RemoveEmployeeHandler,
+  AddCustomerHandler,
 ];

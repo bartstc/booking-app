@@ -1,4 +1,4 @@
-import { Contacts, Entity, UniqueEntityID } from 'shared/domain';
+import { AggregateRoot, Contacts, Entity, UniqueEntityID } from 'shared/domain';
 import { Guard, Result } from 'shared/core';
 
 import { FullName } from './FullName';
@@ -16,7 +16,7 @@ interface IProps {
   birthDate: string;
 }
 
-export class Customer extends Entity<IProps> {
+export class Customer extends AggregateRoot<IProps> {
   get customerId() {
     return CustomerId.create(this._id).getValue();
   }

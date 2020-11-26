@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { EventPublisher } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right, UseCase } from 'shared/core';
 import { Contact, Contacts, UniqueEntityID } from 'shared/domain';
@@ -14,6 +15,7 @@ import { AddCustomerErrors } from './addCustomer.errors';
 import { AddCustomerDto } from './addCustomer.dto';
 import { FacilityRepository } from '../../../../facilities/adapter';
 import { FacilityId } from '../../../../facilities/domain';
+import { CustomerAddedEvent } from '../../../../facilities/application/events';
 
 export type AddCustomerResponse = Either<
   | AppError.ValidationError
@@ -28,6 +30,7 @@ export class AddCustomerCase
   constructor(
     private customerRepository: CustomerRepository,
     private facilityRepository: FacilityRepository,
+    private publisher: EventPublisher,
   ) {}
 
   async execute(
@@ -72,9 +75,15 @@ export class AddCustomerCase
         return left(Result.fail(newCustomerOrError.error));
       }
 
-      const customer = newCustomerOrError.getValue();
+      let customer = newCustomerOrError.getValue();
       const entity = await this.customerRepository.persistModel(customer);
-      await entity.save();
+      const savedCustomer = await entity.save();
+
+      customer = this.publisher.mergeObjectContext(customer);
+      customer.apply(
+        new CustomerAddedEvent(facilityId, savedCustomer.customer_id),
+      );
+      customer.commit();
 
       return right(Result.ok(customer));
     } catch (err) {

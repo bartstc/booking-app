@@ -8,4 +8,5 @@ export interface FacilityRepo {
   getRawFacilityById(facilityId: string): Promise<FacilityEntity>;
   persistModel(facility: Facility): Promise<FacilityEntity>;
   deleteFacility(facilityId: string): Promise<void>;
+  addCustomer(facilityId: string, customerId: string): Promise<void>;
 }

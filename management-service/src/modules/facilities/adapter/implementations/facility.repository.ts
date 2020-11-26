@@ -55,4 +55,10 @@ export class FacilityRepository extends Repository<FacilityEntity>
       throw new Error(`Facility with id ${facilityId} not found`);
     }
   }
+
+  async addCustomer(facilityId: string, customerId: string): Promise<void> {
+    const facility = await this.getRawFacilityById(facilityId);
+    facility.customer_ids.push(customerId);
+    await facility.save();
+  }
 }
