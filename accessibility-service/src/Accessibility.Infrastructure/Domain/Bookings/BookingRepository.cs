@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Accessibility.Domain.Bookings;
 using Accessibility.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Accessibility.Infrastructure.Domain.Bookings
 {
@@ -17,5 +18,9 @@ namespace Accessibility.Infrastructure.Domain.Bookings
         {
             await ctx.AddAsync(booking);
         }
+
+        public async Task<Booking> GetByIdAsync(BookingId id) =>
+            await ctx.Bookings
+                .FirstAsync(b => b.Id == id);
     }
 }

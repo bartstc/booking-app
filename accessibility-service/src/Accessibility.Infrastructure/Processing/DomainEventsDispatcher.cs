@@ -51,6 +51,9 @@ namespace Accessibility.Infrastructure.Processing
                     .Where(t => !t.IsInterface && !t.IsAbstract && notifiGenericType.IsAssignableFrom(t))
                     .FirstOrDefault();
 
+                if (type == null)
+                    continue;
+
                 // TODO: resolve instance from di container
                 var notifi = Activator.CreateInstance(type, domainEvent);
 
