@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
-using Accessibility.Domain.Bookings.BookingServices;
+using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Application.Bookings.Book;
 
 namespace Accessibility.Infrastructure

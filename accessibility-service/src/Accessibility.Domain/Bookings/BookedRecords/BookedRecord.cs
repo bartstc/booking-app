@@ -1,45 +1,45 @@
 using System;
-using Accessibility.Domain.Bookings.BookingServices.Rules;
+using Accessibility.Domain.Bookings.BookedRecords.Rules;
 using Accessibility.Domain.BookingServices.Rules;
 using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
 
-namespace Accessibility.Domain.Bookings.BookingServices
+namespace Accessibility.Domain.Bookings.BookedRecords
 {
-    public class BookingService : Entity
+    public class BookedRecord : Entity
     {
-        private BookingService()
+        private BookedRecord()
         {
         }
 
-        internal BookingService(EmployeeId employeeId, OfferId offerId, Money price, DateTime date, short durationInMinutes)
+        internal BookedRecord(EmployeeId employeeId, OfferId offerId, Money price, DateTime date, short durationInMinutes)
         {
             CheckRule(new DateMustBeFromTheFutureRule(date));
 
-            this.Id = new BookingServiceId(Guid.NewGuid());
+            this.Id = new BookedRecordId(Guid.NewGuid());
             this.employeeId = employeeId;
             this.offerId = offerId;
             this.price = price;
             this.date = date;
             this.durationInMinutes = durationInMinutes;
-            this.status = BookingServiceStatus.Booked;
+            this.status = BookedRecordStatus.Booked;
         }
 
-        internal BookingServiceId Id;
+        internal BookedRecordId Id;
         private EmployeeId employeeId;
         private OfferId offerId;
         private Money price;
         private DateTime date;
         private short durationInMinutes;
-        private BookingServiceStatus status;
+        private BookedRecordStatus status;
         private DateTime? changeDate;
 
         internal bool IsFinished =>
-            status == BookingServiceStatus.Canceled || status == BookingServiceStatus.Fulfilled;
+            status == BookedRecordStatus.Canceled || status == BookedRecordStatus.Fulfilled;
 
-        internal void ChangeStatus(BookingServiceStatus newStatus)
+        internal void ChangeStatus(BookedRecordStatus newStatus)
         {
-            CheckRule(new BookingServiceToBeChangedMustBeUnfinishedRule(this));
+            CheckRule(new BookedRecordToBeChangedMustBeUnfinishedRule(this));
 
             status = newStatus;
             changeDate = DateTime.Now;

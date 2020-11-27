@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Accessibility.Domain.Bookings;
-using Accessibility.Domain.Bookings.BookingServices;
+using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SharedKernel;
 
 namespace Accessibility.UnitTests.Bookings
@@ -18,7 +18,7 @@ namespace Accessibility.UnitTests.Bookings
             Booking.CreateBooked(
                 new CustomerId(Guid.NewGuid()),
                 new FacilityId(Guid.NewGuid()),
-                services.Select(s => new BookingServiceData(
+                services.Select(s => new BookedRecordData(
                     new EmployeeId(Guid.NewGuid()),
                         new OfferId(Guid.NewGuid()),
                         Money.Of(50, "PLN"),

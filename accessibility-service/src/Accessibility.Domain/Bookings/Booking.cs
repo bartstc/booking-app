@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Accessibility.Domain.Bookings.BookingServices;
+using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SeedWork;
 
 namespace Accessibility.Domain.Bookings
@@ -10,10 +10,10 @@ namespace Accessibility.Domain.Bookings
     {
         private Booking()
         {
-            bookingServices = new List<BookingService>();
+            bookedRecords = new List<BookedRecord>();
         }
 
-        private Booking(CustomerId customerId, FacilityId facilityId, List<BookingServiceData> services) : this()
+        private Booking(CustomerId customerId, FacilityId facilityId, List<BookedRecordData> records) : this()
         {
             Id = new BookingId(Guid.NewGuid());
             this.customerId = customerId;
@@ -21,9 +21,9 @@ namespace Accessibility.Domain.Bookings
             this.creationDate = DateTime.Now;
             this.status = BookingStatus.Booked;
 
-            foreach (var service in services)
+            foreach (var service in records)
             {
-                var bookingService = new BookingService(
+                var bookingService = new BookedRecord(
                     service.EmployeeId,
                     service.OfferId,
                     service.Price,
@@ -31,7 +31,7 @@ namespace Accessibility.Domain.Bookings
                     service.DurationInMinutes
                 );
 
-                bookingServices.Add(bookingService);
+                bookedRecords.Add(bookingService);
                 
                 AddDomainEvent(new BookedEvent(
                     bookingService.Id,
@@ -45,22 +45,22 @@ namespace Accessibility.Domain.Bookings
         public BookingId Id { get; }
         private CustomerId customerId;
         private FacilityId facilityId;
-        private List<BookingService> bookingServices;
+        private List<BookedRecord> bookedRecords;
         private BookingStatus status;
         private DateTime creationDate;
         
-        public bool IsFinished => bookingServices.All(s => s.IsFinished);
+        public bool IsFinished => bookedRecords.All(s => s.IsFinished);
 
-        public static Booking CreateBooked(CustomerId customerId, FacilityId facilityId, List<BookingServiceData> services)
+        public static Booking CreateBooked(CustomerId customerId, FacilityId facilityId, List<BookedRecordData> records)
         {
-            return new Booking(customerId, facilityId, services);
+            return new Booking(customerId, facilityId, records);
         }
 
-        public void ChangeServiceStatus(BookingServiceId serviceId, BookingServiceStatus serviceStatus)
+        public void ChangeRecordStatus(BookedRecordId serviceId, BookedRecordStatus recordStatus)
         {
-            bookingServices
+            bookedRecords
                 .First(s => s.Id == serviceId)
-                .ChangeStatus(serviceStatus);
+                .ChangeStatus(recordStatus);
             
             if (IsFinished)
             {

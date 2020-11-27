@@ -6,7 +6,7 @@ namespace Accessibility.Application.Bookings.Book
 {
     public class BookCommand : IRequest<BookingIdDto>
     {
-        public BookCommand(Guid customerId, Guid facilityId, List<BookingServiceDto> bookingServices)
+        public BookCommand(Guid customerId, Guid facilityId, List<BookedRecordDto> bookingServices)
         {
             CustomerId = customerId;
             FacilityId = facilityId;
@@ -15,6 +15,6 @@ namespace Accessibility.Application.Bookings.Book
 
         public Guid CustomerId { get; }
         public Guid FacilityId { get; }
-        public List<BookingServiceDto> BookingServices { get; }
+        public List<BookedRecordDto> BookingServices { get; }
     }
 }

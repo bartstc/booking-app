@@ -2,7 +2,7 @@ using System;
 
 namespace Accessibility.Application.Bookings
 {
-    public class BookingServiceDto
+    public class BookedRecordDto
     {
         public Guid EmployeeId { get; set; }
         public Guid OfferId { get; set; }

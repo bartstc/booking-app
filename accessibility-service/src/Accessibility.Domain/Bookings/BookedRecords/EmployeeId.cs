@@ -1,7 +1,7 @@
 using System;
 using Accessibility.Domain.SeedWork;
 
-namespace Accessibility.Domain.Bookings.BookingServices
+namespace Accessibility.Domain.Bookings.BookedRecords
 {
     public class EmployeeId : StronglyTypedIdBase
     {

@@ -7,7 +7,7 @@ using Accessibility.Application.Bookings.Book;
 using System;
 using System.Collections.Generic;
 using Accessibility.Application.Bookings.SetBookedRecordStatus;
-using Accessibility.Domain.Bookings.BookingServices;
+using Accessibility.Domain.Bookings.BookedRecords;
 
 namespace Accessibility.Api.Controllers
 {
@@ -29,7 +29,7 @@ namespace Accessibility.Api.Controllers
         public async Task<IActionResult> CreateBooking(
             [FromRoute] Guid customerId,
             [FromRoute] Guid facilityId,
-            [FromBody] List<BookingServiceDto> services)
+            [FromBody] List<BookedRecordDto> services)
         {
             var bookingId = await mediator.Send(new BookCommand(customerId, facilityId, services));
             return Created("", bookingId);
@@ -45,7 +45,7 @@ namespace Accessibility.Api.Controllers
             await mediator.Send(new SetBookedRecordStatusCommand(
                 bookingId,
                 bookedRecordId,
-                BookingServiceStatus.Fulfilled));
+                BookedRecordStatus.Fulfilled));
             return Ok();
         }
 
@@ -59,7 +59,7 @@ namespace Accessibility.Api.Controllers
             await mediator.Send(new SetBookedRecordStatusCommand(
                 bookingId,
                 bookedRecordId,
-                BookingServiceStatus.Canceled));
+                BookedRecordStatus.Canceled));
             return Ok();
         }
     }

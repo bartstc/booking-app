@@ -1,18 +1,18 @@
 using Accessibility.Domain.SeedWork;
 
-namespace Accessibility.Domain.Bookings.BookingServices
+namespace Accessibility.Domain.Bookings.BookedRecords
 {
     public class BookedEvent : DomainEventBase
     {
-        public BookedEvent(BookingServiceId bookingServiceId, CustomerId customerId, FacilityId facilityId, OfferId offerId) 
+        public BookedEvent(BookedRecordId bookedRecordId, CustomerId customerId, FacilityId facilityId, OfferId offerId) 
         {
-            BookingServiceId = bookingServiceId;
+            BookedRecordId = bookedRecordId;
             CustomerId = customerId;
             FacilityId = facilityId;
             OfferId = offerId;
         }
 
-        public BookingServiceId BookingServiceId { get; }
+        public BookedRecordId BookedRecordId { get; }
         public CustomerId CustomerId { get; }
         public FacilityId FacilityId { get; }
         public OfferId OfferId { get; }

@@ -11,8 +11,8 @@ CREATE TABLE accessibility.bookings (
     creation_date timestamp
 );
 
-CREATE TABLE accessibility.booking_services (
-    booking_service_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+CREATE TABLE accessibility.booked_records (
+    booked_record_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     booking_id uuid,
     employee_id uuid NOT NULL,
     offer_id uuid NOT NULL,

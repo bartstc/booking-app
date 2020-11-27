@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.Bookings;
-using Accessibility.Domain.Bookings.BookingServices;
+using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SeedWork;
 using MediatR;
 
@@ -22,7 +22,7 @@ namespace Accessibility.Application.Bookings.SetBookedRecordStatus
         {
             var booking = await repo.GetByIdAsync(new BookingId(request.BookingId));
 
-            booking.ChangeServiceStatus(new BookingServiceId(request.BookedRecordId), request.Status);
+            booking.ChangeRecordStatus(new BookedRecordId(request.BookedRecordId), request.Status);
 
             await unitOfWork.CommitAsync();
 

@@ -1,5 +1,5 @@
 using Accessibility.Domain.Bookings;
-using Accessibility.Domain.Bookings.BookingServices;
+using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SharedKernel;
 using Accessibility.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
@@ -25,13 +25,13 @@ namespace Accessibility.Infrastructure.Domain.Bookings
             builder.Property("status").HasConversion(new EnumToNumberConverter<BookingStatus, short>());
             builder.Property("creationDate").HasColumnName("creation_date");
 
-            builder.OwnsMany<BookingService>("bookingServices", x =>
+            builder.OwnsMany<BookedRecord>("bookedRecords", x =>
             {
                 x.WithOwner().HasForeignKey("booking_id");
-                x.ToTable("booking_services", SchemaNames.Accessibility);
+                x.ToTable("booked_records", SchemaNames.Accessibility);
 
                 x.HasKey("Id");
-                x.Property("Id").HasColumnName("booking_service_id");
+                x.Property("Id").HasColumnName("booked_record_id");
 
                 x.OwnsOne<EmployeeId>("employeeId", e =>
                     e.Property(p => p.Value).HasColumnName("employee_id"));
@@ -46,7 +46,7 @@ namespace Accessibility.Infrastructure.Domain.Bookings
 
                 x.Property("date");
                 x.Property("durationInMinutes").HasColumnName("duration");
-                x.Property("status").HasConversion(new EnumToNumberConverter<BookingServiceStatus, short>());
+                x.Property("status").HasConversion(new EnumToNumberConverter<BookedRecordStatus, short>());
                 x.Property("changeDate").HasColumnName("change_date");
             });
         }

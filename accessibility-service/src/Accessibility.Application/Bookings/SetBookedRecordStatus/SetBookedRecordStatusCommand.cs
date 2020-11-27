@@ -1,12 +1,12 @@
 using System;
-using Accessibility.Domain.Bookings.BookingServices;
+using Accessibility.Domain.Bookings.BookedRecords;
 using MediatR;
 
 namespace Accessibility.Application.Bookings.SetBookedRecordStatus
 {
     public class SetBookedRecordStatusCommand : IRequest
     {
-        public SetBookedRecordStatusCommand(Guid bookingId, Guid bookedRecordId, BookingServiceStatus status)
+        public SetBookedRecordStatusCommand(Guid bookingId, Guid bookedRecordId, BookedRecordStatus status)
         {
             BookingId = bookingId;
             BookedRecordId = bookedRecordId;
@@ -15,6 +15,6 @@ namespace Accessibility.Application.Bookings.SetBookedRecordStatus
 
         public Guid BookingId { get; }
         public Guid BookedRecordId { get; }
-        public BookingServiceStatus Status { get; }
+        public BookedRecordStatus Status { get; }
     }
 }

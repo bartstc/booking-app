@@ -5,9 +5,9 @@ using Accessibility.Domain.SeedWork;
 using Xunit;
 using Accessibility.UnitTests.SeedWork;
 using Accessibility.Domain.BookingServices.Rules;
-using Accessibility.Domain.Bookings.BookingServices;
+using Accessibility.Domain.Bookings.BookedRecords;
 using System.Linq;
-using Accessibility.Domain.Bookings.BookingServices.Rules;
+using Accessibility.Domain.Bookings.BookedRecords.Rules;
 
 namespace Accessibility.UnitTests.Bookings
 {
@@ -34,12 +34,12 @@ namespace Accessibility.UnitTests.Bookings
 
         [Theory]
         [MemberData(nameof(FinishedBookingServiceStatuses))]
-        public void ChangeServiceStatus_FinishedAllServices_IsFinished(BookingServiceStatus serviceStatus)
+        public void ChangeRecordStatus_FinishedAllBookedRecords_IsFinished(BookedRecordStatus serviceStatus)
         {
             var booking = BookingFactory.CreateBooked(DateTime.Now.AddDays(1), 60);
-            var serviceId = booking.DomainEvents.OfType<BookedEvent>().Single().BookingServiceId;
+            var serviceId = booking.DomainEvents.OfType<BookedEvent>().Single().BookedRecordId;
 
-            booking.ChangeServiceStatus(serviceId, serviceStatus);
+            booking.ChangeRecordStatus(serviceId, serviceStatus);
 
             Assert.True(booking.IsFinished);
             AssertDomainEventPublished<BookingFinishedEvent>(booking);
@@ -47,15 +47,15 @@ namespace Accessibility.UnitTests.Bookings
 
         [Theory]
         [MemberData(nameof(UnfinishedBookingServiceStatuses))]
-        public void ChangeServiceStatus_NotAllServicesFinished_IsNotFinished(BookingServiceStatus serviceStatus)
+        public void ChangeRecordStatus_NotAllBookedRecordsFinished_IsNotFinished(BookedRecordStatus serviceStatus)
         {
             var booking = BookingFactory.CreateBooked(new List<(DateTime, short)> {
                 (DateTime.Now.AddDays(1), 60),
                 (DateTime.Now.AddDays(2), 60)
             });
-            var serviceId = booking.DomainEvents.OfType<BookedEvent>().First().BookingServiceId;
+            var serviceId = booking.DomainEvents.OfType<BookedEvent>().First().BookedRecordId;
 
-            booking.ChangeServiceStatus(serviceId, serviceStatus);
+            booking.ChangeRecordStatus(serviceId, serviceStatus);
 
             Assert.False(booking.IsFinished);
         }
@@ -74,18 +74,18 @@ namespace Accessibility.UnitTests.Bookings
         // }
 
         [Fact]
-        public void ChangeServiceStatus_ServiceIsFinished_BreaksBookingServiceToBeChangedMustBeUnfinishedRule()
+        public void ChangeRecordStatus_BookedRecordIsFinished_BreaksBookingServiceToBeChangedMustBeUnfinishedRule()
         {
             var booking = BookingFactory.CreateBooked(new List<(DateTime, short)> {
                 (DateTime.Now.AddDays(1), 60),
                 (DateTime.Now.AddDays(2), 60)
             });
-            var serviceId = booking.DomainEvents.OfType<BookedEvent>().First().BookingServiceId;
-            booking.ChangeServiceStatus(serviceId, BookingServiceStatus.Fulfilled);
+            var serviceId = booking.DomainEvents.OfType<BookedEvent>().First().BookedRecordId;
+            booking.ChangeRecordStatus(serviceId, BookedRecordStatus.Fulfilled);
 
-            Action act = () => booking.ChangeServiceStatus(serviceId, BookingServiceStatus.Canceled);
+            Action act = () => booking.ChangeRecordStatus(serviceId, BookedRecordStatus.Canceled);
             
-            AssertBusinessRuleBroke<BookingServiceToBeChangedMustBeUnfinishedRule>(act);
+            AssertBusinessRuleBroke<BookedRecordToBeChangedMustBeUnfinishedRule>(act);
         }
 
         public static IEnumerable<object[]> DatesNotFromTheFuture = new List<object[]>
@@ -104,13 +104,13 @@ namespace Accessibility.UnitTests.Bookings
 
         public static IEnumerable<object[]> UnfinishedBookingServiceStatuses = new List<object[]>
         {
-            new object[] { BookingServiceStatus.Booked }
+            new object[] { BookedRecordStatus.Booked }
         };
 
         public static IEnumerable<object[]> FinishedBookingServiceStatuses = new List<object[]>
         {
-            new object[] { BookingServiceStatus.Fulfilled },
-            new object[] { BookingServiceStatus.Canceled }
+            new object[] { BookedRecordStatus.Fulfilled },
+            new object[] { BookedRecordStatus.Canceled }
         };
     }
 }

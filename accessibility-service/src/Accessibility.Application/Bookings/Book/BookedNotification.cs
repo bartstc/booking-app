@@ -1,6 +1,6 @@
 using Accessibility.Application.Configuration.DomainEvents;
 using Accessibility.Domain.Bookings;
-using Accessibility.Domain.Bookings.BookingServices;
+using Accessibility.Domain.Bookings.BookedRecords;
 using Newtonsoft.Json;
 
 namespace Accessibility.Application.Bookings.Book

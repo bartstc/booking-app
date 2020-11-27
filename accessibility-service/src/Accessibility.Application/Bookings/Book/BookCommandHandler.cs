@@ -2,7 +2,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.Bookings;
-using Accessibility.Domain.Bookings.BookingServices;
+using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
@@ -25,7 +25,7 @@ namespace Accessibility.Application.Bookings.Book
             var booking = Booking.CreateBooked(
                 new CustomerId(request.CustomerId),
                 new FacilityId(request.FacilityId),
-                request.BookingServices.Select(s => new BookingServiceData(
+                request.BookingServices.Select(s => new BookedRecordData(
                     new EmployeeId(s.EmployeeId),
                     new OfferId(s.OfferId),
                     Money.Of(50, "PLN"),
