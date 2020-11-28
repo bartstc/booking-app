@@ -7,6 +7,7 @@ import { FacilityService } from '../../services';
 import { CreateFacilityDto } from './createFacility.dto';
 import { CreateFacilityResponse } from './createFacility.case';
 import { createFacilitySchema } from './createFacility.schema';
+import { CreateFacilityErrors } from './createFacility.errors';
 
 @Controller()
 export class CreateFacilityController extends BaseController {
@@ -39,8 +40,7 @@ export class CreateFacilityController extends BaseController {
 
       if (result.isLeft()) {
         const error = result.value;
-        this.logger.error(error.getValue());
-
+        this.logger.error(error.errorValue());
         return this.fail(res, error.errorValue());
       }
 

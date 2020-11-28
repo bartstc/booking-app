@@ -57,8 +57,19 @@ export class FacilityRepository extends Repository<FacilityEntity>
   }
 
   async addCustomer(facilityId: string, customerId: string): Promise<void> {
+    console.log("KURWAAAAAAAAAAAAAAa")
     const facility = await this.getRawFacilityById(facilityId);
     facility.customer_ids.push(customerId);
+    await facility.save();
+  }
+
+  async deleteCustomer(facilityId: string, customerId: string): Promise<void> {
+    const facility = await this.getRawFacilityById(facilityId);
+    if (!facility) throw new Error('Facility not found');
+
+    facility.customer_ids = facility.customer_ids.filter(
+      id => id !== customerId,
+    );
     await facility.save();
   }
 }

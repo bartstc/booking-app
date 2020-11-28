@@ -1,4 +1,4 @@
-import { AggregateRoot, Contacts, Entity, UniqueEntityID } from 'shared/domain';
+import { AggregateRoot, Contacts, UniqueEntityID } from 'shared/domain';
 import { Guard, Result } from 'shared/core';
 
 import { FullName } from './FullName';
@@ -22,7 +22,7 @@ export class Customer extends AggregateRoot<IProps> {
   }
 
   get facilityId() {
-    return FacilityId.create(this._id).getValue();
+    return this.props.facilityId.id.toString();
   }
 
   get fullName() {

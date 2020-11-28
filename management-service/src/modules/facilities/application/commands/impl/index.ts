@@ -4,4 +4,5 @@ export { AddOfferCommand } from './addOffer.command';
 export { RemoveOfferCommand } from './removeOffer.command';
 export { AddEmployeeCommand } from './addEmployee.command';
 export { RemoveEmployeeCommand } from './removeEmployee.command';
-export { AddCustomerCommand } from './addCustomer.command';
+export { AddCustomerToFacilityCommand } from './addCustomerToFacility.command';
+export { DeleteCustomerFromFacilityCommand } from './deleteCustomerFromFacility.command';

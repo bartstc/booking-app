@@ -9,4 +9,5 @@ export interface FacilityRepo {
   persistModel(facility: Facility): Promise<FacilityEntity>;
   deleteFacility(facilityId: string): Promise<void>;
   addCustomer(facilityId: string, customerId: string): Promise<void>;
+  deleteCustomer(facilityId: string, customerId: string): Promise<void>;
 }

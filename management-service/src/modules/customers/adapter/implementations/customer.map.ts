@@ -64,13 +64,13 @@ export class CustomerMap implements Mapper<Customer> {
   ): Partial<CustomerEntity> {
     return {
       customer_id: customer.customerId.id.toString(),
-      facility_id: customer.facilityId.id.toString(),
+      facility_id: customer.facilityId,
       details: {
         fullName: customer.fullName.value,
         description: customer.description ? customer.description.value : null,
         birthDate: customer.birthDate,
         address: customer.address.props,
-        contacts: customer.contacts.getItems(),
+        contacts: customer.contacts.getItems().map(contact => contact.props),
       },
     };
   }

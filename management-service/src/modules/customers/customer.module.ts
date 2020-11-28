@@ -10,13 +10,22 @@ import {
   AddCustomerCase,
   AddCustomerController,
 } from './application/useCases/addCustomer';
+import {
+  DeleteCustomerCase,
+  DeleteCustomerController,
+} from './application/useCases/deleteCustomer';
 
 @Module({
   imports: [
     CqrsModule,
     TypeOrmModule.forFeature([FacilityRepository, CustomerRepository]),
   ],
-  controllers: [AddCustomerController],
-  providers: [...CommandHandlers, CustomerService, AddCustomerCase],
+  controllers: [AddCustomerController, DeleteCustomerController],
+  providers: [
+    ...CommandHandlers,
+    CustomerService,
+    AddCustomerCase,
+    DeleteCustomerCase,
+  ],
 })
 export class CustomerModule {}
