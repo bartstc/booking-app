@@ -1,27 +1,9 @@
-import { ValueObject } from 'shared/domain';
+import { IContactPerson, ValueObject } from 'shared/domain/index';
 import { Guard, Result, TextValidator } from 'shared/core';
-
-import { IContactPerson } from './types';
 
 export class ContactPerson extends ValueObject<IContactPerson> {
   public static minLength = 1;
   public static maxLength = 999;
-
-  get name() {
-    return this.props.name;
-  }
-
-  get phone() {
-    return this.props.phone;
-  }
-
-  get fax() {
-    return this.props.fax;
-  }
-
-  get email() {
-    return this.props.email;
-  }
 
   get allContacts() {
     return this.props;
@@ -31,19 +13,19 @@ export class ContactPerson extends ValueObject<IContactPerson> {
     const nullGuard = Guard.againstNullOrUndefinedBulk([
       {
         argument: props.name,
-        argumentName: 'contactName',
+        argumentName: 'contactPerson.name',
       },
       {
         argument: props.phone,
-        argumentName: 'contactPhone',
+        argumentName: 'contactPerson.phone',
       },
       {
         argument: props.fax,
-        argumentName: 'contactFax',
+        argumentName: 'contactPerson.fax',
       },
       {
         argument: props.email,
-        argumentName: 'contactEmail',
+        argumentName: 'contactPerson.email',
       },
     ]);
 
@@ -54,12 +36,12 @@ export class ContactPerson extends ValueObject<IContactPerson> {
     const minGuardResult = Guard.againstAtLeast({
       numChars: this.minLength,
       argument: props.name,
-      argumentName: 'contactName',
+      argumentName: 'contactPerson.name',
     });
     const maxGuardResult = Guard.againstAtMost({
       numChars: this.maxLength,
       argument: props.name,
-      argumentName: 'contactName',
+      argumentName: 'contactPerson.name',
     });
 
     if (!minGuardResult.succeeded) {

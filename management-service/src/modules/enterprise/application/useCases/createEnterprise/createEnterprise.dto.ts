@@ -1,4 +1,4 @@
-import { IContactPerson } from '../../../domain/types';
+import { IContactPerson } from 'shared/domain';
 
 export interface CreateEnterpriseDto {
   enterpriseName: string;

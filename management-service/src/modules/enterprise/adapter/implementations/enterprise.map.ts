@@ -1,13 +1,15 @@
 import { Mapper } from 'shared/core';
-import { UniqueEntityID } from 'shared/domain';
-
 import {
+  Link,
+  UniqueEntityID,
   ContactPerson,
   CountryCode,
+} from 'shared/domain';
+
+import {
   Enterprise,
   EnterpriseDescription,
   EnterpriseName,
-  Link,
 } from '../../domain';
 import { EnterpriseDto } from '../../application/dtos';
 import { EnterpriseEntity } from '../../infra/entities';
@@ -60,6 +62,7 @@ export class EnterpriseMap implements Mapper<Enterprise> {
         enterpriseUrl: url.getValue(),
         countryCode: countryCode.getValue(),
         contactPerson: contactPerson.getValue(),
+        facilityIds: entity.facility_ids,
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
       },

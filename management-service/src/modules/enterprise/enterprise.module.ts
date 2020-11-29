@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EnterpriseRepository } from './adapter';
 import { EnterpriseService } from './application/services';
 import { CommandHandlers } from './application/commands/handlers';
+import { EnterpriseSagas } from './application/sagas';
 import {
   GetEnterpriseCase,
   GetEnterpriseController,
@@ -27,6 +28,7 @@ import {
   ],
   providers: [
     ...CommandHandlers,
+    EnterpriseSagas,
     EnterpriseService,
     GetEnterpriseCase,
     CreateEnterpriseCase,

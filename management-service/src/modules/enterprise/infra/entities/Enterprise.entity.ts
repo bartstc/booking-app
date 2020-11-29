@@ -1,16 +1,21 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm/index';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm/index';
 
 import { AbstractEntity } from 'shared/core';
+import { IContactPerson } from 'shared/domain';
 
-import { IContactPerson } from '../../domain/types';
+import { FacilityEntity } from '../../../facilities/infra/entities';
+import { EntityName } from './EntityName';
 
-@Entity('enterprises')
+@Entity({ name: EntityName.Enterprise })
 export class EnterpriseEntity extends AbstractEntity {
   @PrimaryColumn()
   enterprise_id: string;
-
-  // @Column()
-  // active: boolean;
 
   @Column({
     type: 'jsonb',
@@ -24,4 +29,14 @@ export class EnterpriseEntity extends AbstractEntity {
     countryCode: string;
     contactPerson: IContactPerson;
   };
+
+  @OneToMany(
+    () => FacilityEntity,
+    facility => facility.enterprise,
+  )
+  @JoinColumn({ name: 'facility_ids' })
+  facilities: FacilityEntity[];
+
+  @Column('text', { array: true, default: '{}' })
+  facility_ids: string[];
 }

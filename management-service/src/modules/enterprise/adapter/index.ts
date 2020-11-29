@@ -1,3 +1,3 @@
 export { EnterpriseRepo } from './enterpriseRepo';
 export { EnterpriseMap } from './implementations/enterprise.map';
-export { EnterpriseRepository } from './implementations/enterpriseRepository';
+export { EnterpriseRepository } from './implementations/enterprise.repository';
