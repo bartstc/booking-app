@@ -23,6 +23,10 @@ export class ContactPerson extends ValueObject<IContactPerson> {
     return this.props.email;
   }
 
+  get allContacts() {
+    return this.props;
+  }
+
   public static create(props: IContactPerson): Result<ContactPerson> {
     const nullGuard = Guard.againstNullOrUndefinedBulk([
       {
