@@ -7,7 +7,7 @@ import { DeleteFacilityErrors } from './deleteFacility.errors';
 import { DeleteFacilityDto } from './deleteFacility.dto';
 import { FacilityRepository } from '../../../adapter';
 import { FacilityFactory } from '../../factories';
-import { FacilityRemovedEvent } from '../../../../enterprise/application/events';
+import { FacilityRemovedEvent } from '../../../../enterprise/domain/events';
 
 export type DeleteFacilityResponse = Either<
   AppError.UnexpectedError | DeleteFacilityErrors.FacilityNotFoundError,

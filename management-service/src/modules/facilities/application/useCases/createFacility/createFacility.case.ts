@@ -7,8 +7,8 @@ import { CreateFacilityDto } from './createFacility.dto';
 import { Facility, Slug } from '../../../domain';
 import { FacilityRepository } from '../../../adapter';
 import { FacilityFactory } from '../../factories';
-import { FacilityAddedEvent } from '../../../../enterprise/application/events';
 import { CreateFacilityErrors } from './createFacility.errors';
+import { FacilityAddedEvent } from '../../../../enterprise/domain/events';
 
 export type CreateFacilityResponse = Either<
   AppError.ValidationError | AppError.UnexpectedError,

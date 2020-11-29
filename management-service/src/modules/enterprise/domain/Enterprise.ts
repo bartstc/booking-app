@@ -18,7 +18,6 @@ interface IProps {
   enterpriseUrl: Link;
   countryCode: CountryCode;
   contactPerson: ContactPerson;
-  facilityIds: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -26,10 +25,6 @@ interface IProps {
 export class Enterprise extends Entity<IProps> {
   get enterpriseId() {
     return EnterpriseId.create(this._id).getValue();
-  }
-
-  get facilityIds() {
-    return this.props.facilityIds;
   }
 
   get enterpriseName() {

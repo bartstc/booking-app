@@ -10,9 +10,9 @@ import {
 import { AbstractEntity } from 'shared/core';
 import { IContact, IContactPerson } from 'shared/domain/types';
 
+import { EnterpriseEntity } from '../../../enterprise/infra';
 import { IAddress, IBusinessCategory, IWorkingDay } from '../../domain/types';
 import { EntityName } from './EntityName';
-import { EnterpriseEntity } from '../../../enterprise/infra/entities';
 import { EmployeeEntity } from './Employee.entity';
 import { OfferEntity } from './Offer.entity';
 

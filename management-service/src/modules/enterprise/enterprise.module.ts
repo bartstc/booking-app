@@ -2,37 +2,36 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { EnterpriseRepository } from './adapter';
-import { EnterpriseService } from './application/services';
-import { CommandHandlers } from './application/commands/handlers';
-import { EnterpriseSagas } from './application/sagas';
+import { EnterpriseQuery, EnterpriseRepository } from './infra';
+import { EnterpriseSaga } from './application/saga';
 import {
-  GetEnterpriseCase,
-  GetEnterpriseController,
-} from './application/useCases/getEnterprise';
-import {
-  CreateEnterpriseCase,
+  CreateEnterpriseHandler,
   CreateEnterpriseController,
 } from './application/useCases/createEnterprise';
 import {
-  UpdateEnterpriseCase,
+  UpdateEnterpriseHandler,
   UpdateEnterpriseController,
 } from './application/useCases/updateEnterprise';
+import { AddFacilityHandler } from './application/useCases/addFacility';
+import { RemoveFacilityHandler } from './application/useCases/removeFacility';
+import { GetEnterpriseController } from './application/query/getEnterprise';
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([EnterpriseRepository])],
+  imports: [
+    CqrsModule,
+    TypeOrmModule.forFeature([EnterpriseRepository, EnterpriseQuery]),
+  ],
   controllers: [
     GetEnterpriseController,
     CreateEnterpriseController,
     UpdateEnterpriseController,
   ],
   providers: [
-    ...CommandHandlers,
-    EnterpriseSagas,
-    EnterpriseService,
-    GetEnterpriseCase,
-    CreateEnterpriseCase,
-    UpdateEnterpriseCase,
+    EnterpriseSaga,
+    CreateEnterpriseHandler,
+    UpdateEnterpriseHandler,
+    AddFacilityHandler,
+    RemoveFacilityHandler,
   ],
 })
 export class EnterpriseModule {}
