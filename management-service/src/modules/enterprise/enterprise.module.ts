@@ -7,13 +7,13 @@ import { EnterpriseSaga } from './application/saga';
 import {
   CreateEnterpriseHandler,
   CreateEnterpriseController,
-} from './application/useCases/createEnterprise';
+} from './application/command/createEnterprise';
 import {
   UpdateEnterpriseHandler,
   UpdateEnterpriseController,
-} from './application/useCases/updateEnterprise';
-import { AddFacilityHandler } from './application/useCases/addFacility';
-import { RemoveFacilityHandler } from './application/useCases/removeFacility';
+} from './application/command/updateEnterprise';
+import { AddFacilityHandler } from './application/command/addFacility';
+import { RemoveFacilityHandler } from './application/command/removeFacility';
 import { GetEnterpriseController } from './application/query/getEnterprise';
 
 @Module({

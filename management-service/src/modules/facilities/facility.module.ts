@@ -13,27 +13,27 @@ import {
 import {
   CreateFacilityHandler,
   CreateFacilityController,
-} from './application/useCases/createFacility';
+} from './application/command/createFacility';
 import {
   RemoveFacilityHandler,
   RemoveFacilityController,
-} from './application/useCases/removeFacility';
+} from './application/command/removeFacility';
 import {
   AddOfferHandler,
   AddOfferController,
-} from './application/useCases/addOffer';
+} from './application/command/addOffer';
 import {
   RemoveOfferHandler,
   RemoveOfferController,
-} from './application/useCases/removeOffer';
+} from './application/command/removeOffer';
 import {
   AddEmployeeHandler,
   AddEmployeeController,
-} from './application/useCases/addEmployee';
+} from './application/command/addEmployee';
 import {
   RemoveEmployeeHandler,
   RemoveEmployeeController,
-} from './application/useCases/removeEmployee';
+} from './application/command/removeEmployee';
 import { GetFacilityByIdController } from './application/query/getFacilityById';
 import { GetFacilityBySlugController } from './application/query/getFacilityBySlug';
 import { GetOfferController } from './application/query/getOffer';

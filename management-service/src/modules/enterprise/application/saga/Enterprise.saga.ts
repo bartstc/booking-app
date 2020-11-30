@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { FacilityAddedEvent, FacilityRemovedEvent } from '../../domain/events';
-import { AddFacilityCommand } from '../useCases/addFacility';
-import { RemoveFacilityCommand } from '../useCases/removeFacility';
+import { AddFacilityCommand } from '../command/addFacility';
+import { RemoveFacilityCommand } from '../command/removeFacility';
 
 @Injectable()
 export class EnterpriseSaga {
