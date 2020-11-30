@@ -62,5 +62,19 @@ namespace Accessibility.Api.Controllers
                 BookedRecordStatus.Canceled));
             return Ok();
         }
+
+        [HttpPut("{bookingId}/records/{bookedRecordId}/set-not-realized")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<IActionResult> SetBookedRecordAsNotRealized(
+            [FromRoute] Guid bookingId,
+            [FromRoute] Guid bookedRecordId
+        )
+        {
+            await mediator.Send(new SetBookedRecordStatusCommand(
+                bookingId,
+                bookedRecordId,
+                BookedRecordStatus.NotRealized));
+            return Ok();
+        }
     }
 }

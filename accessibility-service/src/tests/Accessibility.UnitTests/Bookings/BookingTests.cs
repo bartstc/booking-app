@@ -110,7 +110,8 @@ namespace Accessibility.UnitTests.Bookings
         public static IEnumerable<object[]> FinishedBookingServiceStatuses = new List<object[]>
         {
             new object[] { BookedRecordStatus.Fulfilled },
-            new object[] { BookedRecordStatus.Canceled }
+            new object[] { BookedRecordStatus.Canceled },
+            new object[] { BookedRecordStatus.NotRealized }
         };
     }
 }

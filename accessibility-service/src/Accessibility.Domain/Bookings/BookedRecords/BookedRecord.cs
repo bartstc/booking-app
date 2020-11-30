@@ -35,7 +35,7 @@ namespace Accessibility.Domain.Bookings.BookedRecords
         private DateTime? changeDate;
 
         internal bool IsFinished =>
-            status == BookedRecordStatus.Canceled || status == BookedRecordStatus.Fulfilled;
+            status == BookedRecordStatus.Canceled || status == BookedRecordStatus.Fulfilled || status == BookedRecordStatus.NotRealized;
 
         internal void ChangeStatus(BookedRecordStatus newStatus)
         {
