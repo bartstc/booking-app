@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Accessibility.Infrastructure;
+using Accessibility.Application.Bookings.Book;
 
 namespace Accessibility.Api
 {
@@ -19,7 +20,9 @@ namespace Accessibility.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.ConfigureAccessibility(Configuration.GetConnectionString("Accessibility"));
+            services.ConfigureAccessibility(
+                Configuration.GetConnectionString("Accessibility"),
+                typeof(BookedNotification).Assembly);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

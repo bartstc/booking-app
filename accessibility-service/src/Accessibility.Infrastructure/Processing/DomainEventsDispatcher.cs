@@ -15,11 +15,13 @@ namespace Accessibility.Infrastructure.Processing
     {
         private readonly AccessibilityContext ctx;
         private readonly IMediator mediator;
+        private readonly IAssemblyProvider assemblyProvider;
 
-        public DomainEventsDispatcher(AccessibilityContext ctx, IMediator mediator)
+        public DomainEventsDispatcher(AccessibilityContext ctx, IMediator mediator, IAssemblyProvider assemblyProvider)
         {
             this.ctx = ctx;
             this.mediator = mediator;
+            this.assemblyProvider = assemblyProvider;
         }
 
         public async Task DispatchAsync()
@@ -46,8 +48,7 @@ namespace Accessibility.Infrastructure.Processing
                 Type notifiType = typeof(IDomainEventNotification<>);
                 var notifiGenericType = notifiType.MakeGenericType(domainEvent.GetType());
 
-                // TODO: get assembly from somewhere else
-                var type = Assemblies.Application.GetExportedTypes()
+                var type = assemblyProvider.Application.GetExportedTypes()
                     .Where(t => !t.IsInterface && !t.IsAbstract && notifiGenericType.IsAssignableFrom(t))
                     .FirstOrDefault();
 

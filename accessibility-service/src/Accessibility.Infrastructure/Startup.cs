@@ -13,13 +13,14 @@ using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Application.Bookings.Book;
+using System.Reflection;
 
 namespace Accessibility.Infrastructure
 {
     public static class Startup
     {
         // TODO: split registrations into modules
-        public static IServiceCollection ConfigureAccessibility(this IServiceCollection services, string connectionString)
+        public static IServiceCollection ConfigureAccessibility(this IServiceCollection services, string connectionString, Assembly applicationAssembly)
         {
             services.AddDbContext<AccessibilityContext>(options =>
                 options
@@ -30,7 +31,8 @@ namespace Accessibility.Infrastructure
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()
                 .AddHostedService<ProcessOutboxHostedService>()
-                .AddScoped<ISqlConnectionFactory>(x => new SqlConnectionFactory(connectionString));
+                .AddScoped<ISqlConnectionFactory>(x => new SqlConnectionFactory(connectionString))
+                .AddSingleton<IAssemblyProvider>(x => new AssemblyProvider(applicationAssembly));
 
             return services;
         }
