@@ -22,7 +22,8 @@ namespace Accessibility.Api
             services.AddControllers();
             services.ConfigureAccessibility(
                 Configuration.GetConnectionString("Accessibility"),
-                typeof(BookedNotification).Assembly);
+                typeof(BookedNotification).Assembly)
+            .AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -31,6 +32,13 @@ namespace Accessibility.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Accessibility API V1");
+            });
 
             app.UseHttpsRedirection();
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Accessibility.Application.Bookings.GetBookedRecordsOfFacility;
 using MediatR;
@@ -19,6 +20,7 @@ namespace Accessibility.Api.Controllers
         }
 
         [HttpGet("{facilityId}/booked-records")]
+        [ProducesResponseType(typeof(List<BookedRecordOfFacilityDto>), (int)HttpStatusCode.OK)]
         public async Task<List<BookedRecordOfFacilityDto>> GetBookedRecords(
             [FromRoute] Guid facilityId,
             [FromQuery] DateTime dateFrom,
