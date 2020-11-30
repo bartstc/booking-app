@@ -13,7 +13,7 @@ namespace Accessibility.Api.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("bookings")]
     public class BookingsController : ControllerBase
     {
         private readonly IMediator mediator;

@@ -27,6 +27,30 @@ CREATE TABLE accessibility.booked_records (
         REFERENCES accessibility.bookings(booking_id)
 );
 
+--Set Returning Functions
+
+CREATE OR REPLACE FUNCTION accessibility.booked_records_of_facility(facility_id uuid, date_from timestamp, date_to timestamp)
+    RETURNS TABLE (BookingId uuid, EmployeeId uuid, OfferId uuid, Price numeric, Currency varchar(5), Status smallint, Date timestamp, Duration smallint)
+AS
+$$
+SELECT
+    b.booking_id,
+    r.employee_id,
+    r.offer_id,
+    r.price,
+    r.currency,
+    r.status,
+    r.date,
+    r.duration
+FROM
+    accessibility.bookings b INNER JOIN
+    accessibility.booked_records r ON b.booking_id = r.booking_id
+WHERE
+    b.facility_id = $1 AND
+    r.date BETWEEN $2::timestamp AND $3::timestamp
+$$
+LANGUAGE sql;
+
 CREATE TABLE app.outbox_notifications (
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     type varchar(200) NOT NULL,
