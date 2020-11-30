@@ -2,102 +2,78 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CommandHandlers } from './application/commands/handlers';
-import { FacilityFactory } from './application/factories';
 import {
-  EmployeeService,
-  FacilityService,
-  OfferService,
-} from './application/services';
-import {
+  EmployeeQuery,
   EmployeeRepository,
+  FacilityQuery,
   FacilityRepository,
+  OfferQuery,
   OfferRepository,
-} from './adapter';
+} from './infra';
 import {
-  GetFacilityCase,
-  GetFacilityController,
-} from './application/useCases/getFacility';
-import {
-  GetOffersCase,
-  GetOffersController,
-} from './application/useCases/getOffers';
-import {
-  GetEmployeesCase,
-  GetEmployeesController,
-} from './application/useCases/getEmployees';
-import {
-  CreateFacilityCase,
+  CreateFacilityHandler,
   CreateFacilityController,
 } from './application/useCases/createFacility';
 import {
-  DeleteFacilityCase,
-  DeleteFacilityController,
-} from './application/useCases/deleteFacility';
+  RemoveFacilityHandler,
+  RemoveFacilityController,
+} from './application/useCases/removeFacility';
 import {
-  AddOfferCase,
+  AddOfferHandler,
   AddOfferController,
 } from './application/useCases/addOffer';
 import {
-  RemoveOfferCase,
+  RemoveOfferHandler,
   RemoveOfferController,
 } from './application/useCases/removeOffer';
 import {
-  AddEmployeeCase,
+  AddEmployeeHandler,
   AddEmployeeController,
 } from './application/useCases/addEmployee';
 import {
-  RemoveEmployeeCase,
+  RemoveEmployeeHandler,
   RemoveEmployeeController,
 } from './application/useCases/removeEmployee';
-import {
-  GetEmployeeCase,
-  GetEmployeeController,
-} from './application/useCases/getEmployee';
-import {
-  GetOfferCase,
-  GetOfferController,
-} from './application/useCases/getOffer';
+import { GetFacilityByIdController } from './application/query/getFacilityById';
+import { GetFacilityBySlugController } from './application/query/getFacilityBySlug';
+import { GetOfferController } from './application/query/getOffer';
+import { GetOffersController } from './application/query/getOffers';
+import { GetEmployeesController } from './application/query/getEmployees';
+import { GetEmployeeController } from './application/query/getEmployee';
 
 @Module({
   imports: [
     CqrsModule,
     TypeOrmModule.forFeature([
       FacilityRepository,
+      FacilityQuery,
       OfferRepository,
+      OfferQuery,
       EmployeeRepository,
+      EmployeeQuery,
     ]),
   ],
   controllers: [
-    GetFacilityController,
-    GetOfferController,
-    GetOffersController,
-    GetEmployeesController,
-    GetEmployeeController,
     CreateFacilityController,
-    DeleteFacilityController,
+    RemoveFacilityController,
     AddOfferController,
     RemoveOfferController,
     AddEmployeeController,
     RemoveEmployeeController,
+    GetFacilityByIdController,
+    GetFacilityBySlugController,
+    GetOfferController,
+    GetOffersController,
+    GetEmployeesController,
+    GetEmployeeController,
   ],
   providers: [
-    ...CommandHandlers,
-    FacilityService,
-    OfferService,
-    EmployeeService,
-    FacilityFactory,
-    GetFacilityCase,
-    GetOfferCase,
-    GetOffersCase,
-    GetEmployeesCase,
-    GetEmployeeCase,
-    CreateFacilityCase,
-    DeleteFacilityCase,
-    AddOfferCase,
-    RemoveOfferCase,
-    AddEmployeeCase,
-    RemoveEmployeeCase,
+    CreateFacilityHandler,
+    RemoveFacilityHandler,
+    AddOfferHandler,
+    RemoveOfferHandler,
+    AddEmployeeHandler,
+    RemoveEmployeeHandler,
   ],
 })
 export class FacilityModule {}

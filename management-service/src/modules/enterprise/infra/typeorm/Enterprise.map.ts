@@ -11,7 +11,7 @@ import {
   EnterpriseDescription,
   EnterpriseName,
 } from '../../domain';
-import { BuildEnterpriseDto } from './BuildEnterprise.dto';
+import { BuildEnterpriseDto } from '../BuildEnterprise.dto';
 
 export class EnterpriseMap implements Mapper<Enterprise> {
   public static dtoToDomain<T extends BuildEnterpriseDto>(

@@ -1,7 +1,2 @@
-export { RemoveEmployeeDto } from './removeEmployee.dto';
-export { RemoveEmployeeErrors } from './removeEmployee.errors';
-export { RemoveEmployeeController } from './removeEmployee.controller';
-export {
-  RemoveEmployeeResponse,
-  RemoveEmployeeCase,
-} from './removeEmployee.case';
+export { RemoveEmployeeController } from './RemoveEmployee.controller';
+export { RemoveEmployeeHandler } from './RemoveEmployee.handler';
