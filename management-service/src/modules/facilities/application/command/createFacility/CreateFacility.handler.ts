@@ -4,12 +4,17 @@ import { AppError, Either, left, Result, right } from 'shared/core';
 
 import { Slug } from '../../../domain';
 import { FacilityMap, FacilityRepository } from '../../../infra';
-import { FacilityAddedEvent } from '../../../../enterprise/domain/events';
 import { CreateFacilityCommand } from './CreateFacility.command';
 import { CreateFacilityErrors } from './CreateFacility.errors';
 
+import { FacilityAddedEvent } from '../../../../enterprise/domain/events';
+import { EnterpriseRepository } from '../../../../enterprise/infra';
+
 export type CreateFacilityResponse = Either<
-  AppError.ValidationError | AppError.UnexpectedError,
+  | AppError.ValidationError
+  | AppError.UnexpectedError
+  | CreateFacilityErrors.SlugAlreadyExistsError
+  | CreateFacilityErrors.EnterpriseDoesNotExist,
   Result<void>
 >;
 
@@ -17,7 +22,8 @@ export type CreateFacilityResponse = Either<
 export class CreateFacilityHandler
   implements ICommandHandler<CreateFacilityCommand, CreateFacilityResponse> {
   constructor(
-    private repository: FacilityRepository,
+    private facilityRepository: FacilityRepository,
+    private enterpriseRepository: EnterpriseRepository,
     private publisher: EventPublisher,
   ) {}
 
@@ -26,8 +32,15 @@ export class CreateFacilityHandler
     enterpriseId,
   }: CreateFacilityCommand): Promise<CreateFacilityResponse> {
     try {
+      const enterpriseExists = await this.enterpriseRepository.exists(enterpriseId);
+      if (!enterpriseExists) {
+        return left(new CreateFacilityErrors.EnterpriseDoesNotExist());
+      }
+
       const slug = Slug.create({ value: dto.slug });
-      const slugExists = await this.repository.slugExists(slug.getValue());
+      const slugExists = await this.facilityRepository.slugExists(
+        slug.getValue(),
+      );
 
       if (slugExists) {
         return left(new CreateFacilityErrors.SlugAlreadyExistsError());
@@ -40,7 +53,7 @@ export class CreateFacilityHandler
       }
 
       let facility = facilityOrError.getValue();
-      const facilityEntity = await this.repository.persist(facility);
+      const facilityEntity = await this.facilityRepository.persist(facility);
       const savedFacility = await facilityEntity.save();
 
       facility = this.publisher.mergeObjectContext(facility);

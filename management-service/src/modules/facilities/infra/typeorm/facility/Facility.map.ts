@@ -27,7 +27,6 @@ import { BuildFacilityDto } from '../../BuildFacility.dto';
 export class FacilityMap {
   public static entityToDomain(entity: any): Facility {
     const { description, contactPerson, contacts } = entity.details;
-    console.log(entity.offers);
 
     const name = FacilityName.create({ value: entity.details.name });
     const slug = Slug.create({ value: entity.slug });
@@ -60,7 +59,7 @@ export class FacilityMap {
           ? ContactPerson.create(contactPerson).getValue()
           : null,
         contacts: Contacts.create(
-          contacts.length
+          contacts?.length
             ? contacts.map(contact => Contact.create(contact).getValue())
             : [],
         ),
@@ -122,7 +121,7 @@ export class FacilityMap {
         ? ContactPerson.create(dto.contactPerson).getValue()
         : null,
       contacts: Contacts.create(
-        dto.contacts.length
+        dto.contacts?.length
           ? dto.contacts.map(contact => Contact.create(contact).getValue())
           : [],
       ),

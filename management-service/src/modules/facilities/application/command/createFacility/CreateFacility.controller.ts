@@ -39,7 +39,7 @@ export class CreateFacilityController extends BaseController {
 
       if (result.isLeft()) {
         const error = result.value;
-        this.logger.error(error.getValue());
+        this.logger.error(error.errorValue());
 
         return this.fail(res, error.errorValue());
       }

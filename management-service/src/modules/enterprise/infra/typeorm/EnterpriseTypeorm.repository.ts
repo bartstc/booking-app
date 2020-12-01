@@ -8,8 +8,13 @@ import { EnterpriseMap } from './Enterprise.map';
 export class EnterpriseTypeormRepository extends Repository<EnterpriseEntity>
   implements EnterpriseRepository {
   async exists(enterpriseId: string): Promise<boolean> {
-    const enterprise = await this.getRawEnterpriseById(enterpriseId);
-    return !!enterprise;
+    try {
+      await this.getRawEnterpriseById(enterpriseId);
+    } catch {
+      return false;
+    }
+
+    return true;
   }
 
   async getEnterpriseById(enterpriseId: string): Promise<Enterprise> {

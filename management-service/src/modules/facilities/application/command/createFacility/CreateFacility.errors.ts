@@ -8,4 +8,12 @@ export namespace CreateFacilityErrors {
       });
     }
   }
+
+  export class EnterpriseDoesNotExist extends Result<UseCaseError> {
+    constructor() {
+      super(false, {
+        message: 'enterpriseDoesNotExist',
+      });
+    }
+  }
 }

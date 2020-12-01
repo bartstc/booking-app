@@ -33,5 +33,6 @@ import { GetEnterpriseController } from './application/query/getEnterprise';
     AddFacilityHandler,
     RemoveFacilityHandler,
   ],
+  exports: [TypeOrmModule.forFeature([EnterpriseRepository])],
 })
 export class EnterpriseModule {}

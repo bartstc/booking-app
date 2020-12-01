@@ -19,11 +19,12 @@ export class RemoveFacilityController extends BaseController {
   @Delete('enterprises/:enterpriseId/facilities/:facilityId')
   async deleteFacility(
     @Param('facilityId') facilityId: string,
+    @Param('enterpriseId') enterpriseId: string,
     @Res() res: Response,
   ) {
     try {
       const result: RemoveFacilityResponse = await this.commandBus.execute(
-        new RemoveFacilityCommand(facilityId),
+        new RemoveFacilityCommand(facilityId, enterpriseId),
       );
 
       if (result.isLeft()) {

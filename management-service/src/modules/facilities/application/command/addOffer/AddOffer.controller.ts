@@ -40,7 +40,8 @@ export class AddOfferController extends BaseController {
 
       if (result.isLeft()) {
         const error = result.value;
-        this.logger.error(error.getValue());
+        console.log(error);
+        this.logger.error(error.errorValue());
 
         switch (error.constructor) {
           case AddOfferErrors.FacilityNotFoundError:

@@ -40,6 +40,7 @@ import { GetOfferController } from './application/query/getOffer';
 import { GetOffersController } from './application/query/getOffers';
 import { GetEmployeesController } from './application/query/getEmployees';
 import { GetEmployeeController } from './application/query/getEmployee';
+import { EnterpriseModule } from '../enterprise/enterprise.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { GetEmployeeController } from './application/query/getEmployee';
       EmployeeRepository,
       EmployeeQuery,
     ]),
+    EnterpriseModule,
   ],
   controllers: [
     CreateFacilityController,
