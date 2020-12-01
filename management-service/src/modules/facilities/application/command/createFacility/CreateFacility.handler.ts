@@ -7,8 +7,8 @@ import { FacilityMap, FacilityRepository } from '../../../infra';
 import { CreateFacilityCommand } from './CreateFacility.command';
 import { CreateFacilityErrors } from './CreateFacility.errors';
 
-import { FacilityAddedEvent } from '../../../../enterprise/domain/events';
 import { EnterpriseRepository } from '../../../../enterprise/infra';
+import { FacilityAddedEvent } from '../../../domain/events';
 
 export type CreateFacilityResponse = Either<
   | AppError.ValidationError
@@ -32,7 +32,9 @@ export class CreateFacilityHandler
     enterpriseId,
   }: CreateFacilityCommand): Promise<CreateFacilityResponse> {
     try {
-      const enterpriseExists = await this.enterpriseRepository.exists(enterpriseId);
+      const enterpriseExists = await this.enterpriseRepository.exists(
+        enterpriseId,
+      );
       if (!enterpriseExists) {
         return left(new CreateFacilityErrors.EnterpriseDoesNotExist());
       }

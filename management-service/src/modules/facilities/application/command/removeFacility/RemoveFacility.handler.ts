@@ -8,8 +8,8 @@ import { RemoveFacilityCommand } from './RemoveFacility.command';
 import { FacilityRepository } from '../../../infra';
 import { Facility } from '../../../domain';
 
-import { FacilityRemovedEvent } from '../../../../enterprise/domain/events';
 import { EnterpriseRepository } from '../../../../enterprise/infra';
+import { FacilityRemovedEvent } from '../../../domain/events';
 
 export type RemoveFacilityResponse = Either<
   AppError.UnexpectedError | RemoveFacilityErrors.FacilityNotFoundError,

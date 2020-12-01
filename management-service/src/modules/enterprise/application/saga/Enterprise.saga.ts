@@ -3,9 +3,12 @@ import { ICommand, ofType, Saga } from '@nestjs/cqrs';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { FacilityAddedEvent, FacilityRemovedEvent } from '../../domain/events';
-import { AddFacilityCommand } from '../command/addFacility';
-import { RemoveFacilityCommand } from '../command/removeFacility';
+import {
+  FacilityAddedEvent,
+  FacilityRemovedEvent,
+} from '../../../facilities/domain/events';
+import { AddFacilityCommand } from '../eventHandlers/addFacility';
+import { RemoveFacilityCommand } from '../eventHandlers/removeFacility';
 
 @Injectable()
 export class EnterpriseSaga {

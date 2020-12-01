@@ -12,9 +12,9 @@ import {
   UpdateEnterpriseHandler,
   UpdateEnterpriseController,
 } from './application/command/updateEnterprise';
-import { AddFacilityHandler } from './application/command/addFacility';
-import { RemoveFacilityHandler } from './application/command/removeFacility';
 import { GetEnterpriseController } from './application/query/getEnterprise';
+import { AddFacilityHandler } from './application/eventHandlers/addFacility';
+import { RemoveFacilityHandler } from './application/eventHandlers/removeFacility';
 
 @Module({
   imports: [
@@ -22,9 +22,9 @@ import { GetEnterpriseController } from './application/query/getEnterprise';
     TypeOrmModule.forFeature([EnterpriseRepository, EnterpriseQuery]),
   ],
   controllers: [
-    GetEnterpriseController,
     CreateEnterpriseController,
     UpdateEnterpriseController,
+    GetEnterpriseController,
   ],
   providers: [
     EnterpriseSaga,
