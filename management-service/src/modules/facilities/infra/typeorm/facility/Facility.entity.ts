@@ -19,6 +19,7 @@ import { EntityName } from '../../EntityName';
 import { EmployeeEntity } from '../employee';
 import { OfferEntity } from '../offer';
 import { EnterpriseEntity } from '../../../../enterprise/infra';
+import { CustomerEntity } from '../../../../customers/infra/typeorm';
 
 @Entity({ name: EntityName.Facility })
 export class FacilityEntity extends AbstractEntity {
@@ -60,6 +61,16 @@ export class FacilityEntity extends AbstractEntity {
 
   @Column('text', { array: true, default: '{}' })
   offer_ids: string[];
+
+  @OneToMany(
+    () => CustomerEntity,
+    customer => customer.facility,
+  )
+  @JoinColumn({ name: 'customer_ids' })
+  customers: CustomerEntity[];
+
+  @Column('text', { array: true, default: '{}' })
+  customer_ids: string[];
 
   @ManyToOne(
     () => EnterpriseEntity,
