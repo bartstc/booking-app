@@ -49,6 +49,21 @@ export class FacilityTypeormRepository extends Repository<FacilityEntity>
     }
   }
 
+  async addCustomer(facilityId: string, customerId: string): Promise<void> {
+    const facility = await this.getRawFacilityById(facilityId);
+    facility.customer_ids.push(customerId);
+    await facility.save();
+  }
+
+  async removeCustomer(facilityId: string, customerId: string): Promise<void> {
+    const facility = await this.getRawFacilityById(facilityId);
+
+    facility.customer_ids = facility.customer_ids.filter(
+      id => id !== customerId,
+    );
+    await facility.save();
+  }
+
   private async getRawFacilityBySlug(slug: string): Promise<FacilityEntity> {
     const facility = await this.findOne({ slug });
     if (!facility) throw new Error('Facility not found');
