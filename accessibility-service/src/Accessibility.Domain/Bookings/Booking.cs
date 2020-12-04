@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SeedWork;
+using Accessibility.Domain.SharedKernel;
 
 namespace Accessibility.Domain.Bookings
 {

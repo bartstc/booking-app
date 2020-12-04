@@ -32,6 +32,7 @@ namespace Accessibility.Domain.Bookings.BookedRecords
         private DateTime date;
         private short durationInMinutes;
         private BookedRecordStatus status;
+        // TODO: change to modifyDate
         private DateTime? changeDate;
 
         internal bool IsFinished =>
