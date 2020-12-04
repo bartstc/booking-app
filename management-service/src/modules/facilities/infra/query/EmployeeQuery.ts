@@ -1,4 +1,4 @@
-import { EmployeeDto } from '../application/dto';
+import { EmployeeDto } from '../../application/dto';
 
 export interface EmployeeQuery {
   getEmployeeById(employeeId: string): Promise<EmployeeDto>;

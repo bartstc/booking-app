@@ -1,9 +1,9 @@
 import { EntityRepository, Repository } from 'typeorm/index';
 
 import { EmployeeEntity } from './Employee.entity';
-import { EmployeeQuery } from '../../EmployeeQuery';
 import { EmployeeDto } from '../../../application/dto';
 import { EmployeeTypeormTransformer } from './EmployeeTypeorm.transformer';
+import { EmployeeQuery } from '../../query';
 
 @EntityRepository(EmployeeEntity)
 export class EmployeeTypeormQuery extends Repository<EmployeeEntity>

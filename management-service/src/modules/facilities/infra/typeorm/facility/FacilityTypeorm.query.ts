@@ -1,9 +1,9 @@
 import { EntityRepository, Repository } from 'typeorm/index';
 
 import { FacilityEntity } from './Facility.entity';
-import { FacilityQuery } from '../../FacilityQuery';
 import { FacilityDto } from '../../../application/dto';
 import { FacilityTypeormTransformer } from './FacilityTypeorm.transformer';
+import { FacilityQuery } from '../../query';
 
 @EntityRepository(FacilityEntity)
 export class FacilityTypeormQuery extends Repository<FacilityEntity>
