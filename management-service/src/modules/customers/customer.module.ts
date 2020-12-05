@@ -8,13 +8,17 @@ import {
   AddCustomerController,
   AddCustomerHandler,
 } from './application/command/addCustomer';
+import {
+  RemoveCustomerController,
+  RemoveCustomerHandler,
+} from './application/command/removeCustomer';
 
 @Module({
   imports: [
     CqrsModule,
     TypeOrmModule.forFeature([FacilityRepository, CustomerRepository]),
   ],
-  controllers: [AddCustomerController],
-  providers: [AddCustomerHandler],
+  controllers: [AddCustomerController, RemoveCustomerController],
+  providers: [AddCustomerHandler, RemoveCustomerHandler],
 })
 export class CustomerModule {}
