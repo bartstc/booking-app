@@ -26,6 +26,14 @@ export class CustomerTypeormRepository extends Repository<CustomerEntity>
     return this.create(CustomerMap.toPersistence(customer));
   }
 
+  async removeCustomer(customerId: string): Promise<void> {
+    const result = await this.delete({ customer_id: customerId });
+
+    if (result.affected === 0) {
+      throw new Error(`Customer with id ${customerId} not found`);
+    }
+  }
+
   private async getRawCustomerById(
     customerId: string,
   ): Promise<CustomerEntity> {

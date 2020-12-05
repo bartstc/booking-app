@@ -1,3 +1,6 @@
 export class RemoveCustomerCommand {
-  constructor(public readonly customerId: string) {}
+  constructor(
+    public readonly facilityId: string,
+    public readonly customerId: string,
+  ) {}
 }

@@ -3,6 +3,7 @@ import { CommandBus } from '@nestjs/cqrs';
 import { Controller, Delete, Logger, Param, Res } from '@nestjs/common';
 
 import { BaseController } from 'shared/core';
+
 import { RemoveCustomerCommand } from './RemoveCustomer.command';
 import { RemoveCustomerErrors } from './RemoveCustomer.errors';
 
@@ -17,11 +18,12 @@ export class RemoveCustomerController extends BaseController {
   @Delete('facilities/:facilityId/customers/:customerId')
   async deleteCustomer(
     @Param('customerId') customerId: string,
+    @Param('facilityId') facilityId: string,
     @Res() res: Response,
   ) {
     try {
       const result = await this.commandBus.execute(
-        new RemoveCustomerCommand(customerId),
+        new RemoveCustomerCommand(facilityId, customerId),
       );
 
       if (result.isLeft()) {
@@ -29,6 +31,7 @@ export class RemoveCustomerController extends BaseController {
         this.logger.error(error.errorValue());
 
         switch (error.constructor) {
+          case RemoveCustomerErrors.FacilityNotFoundError:
           case RemoveCustomerErrors.CustomerNotFoundError:
             return this.notFound(res, error.errorValue());
           default:
