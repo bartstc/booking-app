@@ -1,9 +1,11 @@
+import { EntityRepository, Repository } from 'typeorm/index';
+
 import { CustomerQuery } from '../query';
-import { Repository } from 'typeorm/index';
 import { CustomerEntity } from './Customer.entity';
 import { CustomerDto } from '../../application/dto';
 import { CustomerTypeormTransformer } from './CustomerTypeorm.transformer';
 
+@EntityRepository(CustomerEntity)
 export class CustomerTypeormQuery extends Repository<CustomerEntity>
   implements CustomerQuery {
   async getCustomerById(customerId: string): Promise<CustomerDto> {
