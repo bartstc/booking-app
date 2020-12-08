@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/application/services/enterprise.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/application/services/enterprise.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/application/useCases/getEnterprise/getEnterprise.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/application/useCases/getEnterprise/getEnterprise.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/enterprise.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/enterprise.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/infra/typeorm/facility/Facility.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/infra/typeorm/facility/Facility.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/infra/typeorm/facility/Facility.map.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/infra/typeorm/facility/Facility.map.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

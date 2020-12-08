@@ -138,12 +138,6 @@ export class FacilityMap {
       facility_id: facility.facilityId.id.toString(),
       enterprise_id: facility.enterpriseId,
       slug: facility.slug.value,
-      offer_ids: facility.offers
-        .getItems()
-        .map(offer => offer.offerId.id.toString()),
-      employee_ids: facility.employees
-        .getItems()
-        .map(employee => employee.employeeId.id.toString()),
       details: {
         name: facility.name.value,
         description: facility.description?.value ?? null,

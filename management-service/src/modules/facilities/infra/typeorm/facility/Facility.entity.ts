@@ -43,24 +43,16 @@ export class FacilityEntity extends AbstractEntity {
   @OneToMany(
     () => EmployeeEntity,
     employee => employee.facility,
-    { eager: true },
+    { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true },
   )
-  @JoinColumn({ name: 'employee_ids' })
   employees: EmployeeEntity[];
-
-  @Column('text', { array: true, default: '{}' })
-  employee_ids: string[];
 
   @OneToMany(
     () => OfferEntity,
     offer => offer.facility,
-    { eager: true },
+    { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true },
   )
-  @JoinColumn({ name: 'offer_ids' })
   offers: OfferEntity[];
-
-  @Column('text', { array: true, default: '{}' })
-  offer_ids: string[];
 
   @OneToMany(
     () => CustomerEntity,
