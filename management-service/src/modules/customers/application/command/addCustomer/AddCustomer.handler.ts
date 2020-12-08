@@ -1,15 +1,12 @@
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
-import { UniqueEntityID } from 'shared/domain';
 
 import { CustomerMap, CustomerRepository } from '../../../infra';
 import { Customer } from '../../../domain';
-import { CustomerAddedEvent } from '../../../domain/events';
 import { FacilityRepository } from '../../../../facilities/infra';
 import { AddCustomerCommand } from './AddCustomer.command';
 import { AddCustomerErrors } from './AddCustomer.errors';
-import { FacilityId } from '../../../../facilities/domain';
 
 export type AddCustomerResponse = Either<
   | AppError.ValidationError
@@ -24,7 +21,6 @@ export class AddCustomerHandler
   constructor(
     private customerRepository: CustomerRepository,
     private facilityRepository: FacilityRepository,
-    private publisher: EventPublisher,
   ) {}
 
   async execute({
@@ -43,18 +39,9 @@ export class AddCustomerHandler
         return left(Result.fail(customerOrError.error));
       }
 
-      let customer = customerOrError.getValue();
+      const customer = customerOrError.getValue();
       const entity = await this.customerRepository.persist(customer);
       await entity.save();
-
-      customer = this.publisher.mergeObjectContext(customer);
-      customer.apply(
-        new CustomerAddedEvent(
-          FacilityId.create(new UniqueEntityID(facilityId)).getValue(),
-          customer.customerId,
-        ),
-      );
-      customer.commit();
 
       return right(Result.ok(customer));
     } catch (err) {

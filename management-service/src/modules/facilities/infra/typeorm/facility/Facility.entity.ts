@@ -65,12 +65,9 @@ export class FacilityEntity extends AbstractEntity {
   @OneToMany(
     () => CustomerEntity,
     customer => customer.facility,
+    { onDelete: 'CASCADE', onUpdate: 'CASCADE' },
   )
-  @JoinColumn({ name: 'customer_ids' })
   customers: CustomerEntity[];
-
-  @Column('text', { array: true, default: '{}' })
-  customer_ids: string[];
 
   @ManyToOne(
     () => EnterpriseEntity,

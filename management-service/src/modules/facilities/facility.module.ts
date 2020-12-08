@@ -41,10 +41,6 @@ import { GetOffersController } from './application/query/getOffers';
 import { GetEmployeesController } from './application/query/getEmployees';
 import { GetEmployeeController } from './application/query/getEmployee';
 import { EnterpriseModule } from '../enterprise/enterprise.module';
-import {
-  CustomerAddedHandler,
-  CustomerRemovedHandler,
-} from './application/eventHandlers';
 
 @Module({
   imports: [
@@ -80,8 +76,6 @@ import {
     RemoveOfferHandler,
     AddEmployeeHandler,
     RemoveEmployeeHandler,
-    CustomerAddedHandler,
-    CustomerRemovedHandler,
   ],
 })
 export class FacilityModule {}
