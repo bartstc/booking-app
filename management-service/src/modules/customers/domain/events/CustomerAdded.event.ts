@@ -1,6 +1,9 @@
+import { FacilityId } from '../../../facilities/domain';
+import { CustomerId } from '../CustomerId';
+
 export class CustomerAddedEvent {
   constructor(
-    public readonly facilityId: string,
-    public readonly customerId: string,
+    public readonly facilityId: FacilityId,
+    public readonly customerId: CustomerId,
   ) {}
 }

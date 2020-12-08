@@ -2,6 +2,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
+import { UniqueEntityID } from 'shared/domain';
 
 import { Customer } from '../../../domain';
 import { CustomerRepository } from '../../../infra';
@@ -9,6 +10,7 @@ import { CustomerRemovedEvent } from '../../../domain/events';
 import { RemoveCustomerErrors } from './RemoveCustomer.errors';
 import { RemoveCustomerCommand } from './RemoveCustomer.command';
 import { FacilityRepository } from '../../../../facilities/infra';
+import { FacilityId } from '../../../../facilities/domain';
 
 export type RemoveCustomerResponse = Either<
   AppError.UnexpectedError | RemoveCustomerErrors.CustomerNotFoundError,
@@ -47,7 +49,12 @@ export class RemoveCustomerHandler
       await this.customerRepository.removeCustomer(customerId);
 
       const customer = this.publisher.mergeObjectContext(model);
-      customer.apply(new CustomerRemovedEvent(customer.facilityId, customerId));
+      customer.apply(
+        new CustomerRemovedEvent(
+          FacilityId.create(new UniqueEntityID(facilityId)).getValue(),
+          customer.customerId,
+        ),
+      );
       customer.commit();
 
       return right(Result.ok());
