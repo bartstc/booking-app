@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Accessibility.Domain.Schedules.Availabilities;
+using Accessibility.Domain.Schedules.Rules;
 using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
 
@@ -20,8 +21,11 @@ namespace Accessibility.Domain.Schedules
         private DateTime? modifyDate;
 
         public Schedule(
+            ISchedulePeriodOfTimeChecker schedulePeriodOfTimeChecker,
             FacilityId facilityId, string name, DateTime startDate, DateTime endDate, List<AvailabilityData> availabilities, EmployeeId creatorId)
         {
+            CheckRule(new NewSchedulePeriodOfTimeMustBeAvailableRule(schedulePeriodOfTimeChecker, facilityId, startDate, endDate));
+
             this.facilityId = facilityId;
             this.name = name;
             this.startDate = startDate;
