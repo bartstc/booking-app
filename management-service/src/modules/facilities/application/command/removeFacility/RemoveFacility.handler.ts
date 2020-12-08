@@ -1,15 +1,13 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
 import { RemoveFacilityErrors } from './RemoveFacility.errors';
 import { RemoveFacilityCommand } from './RemoveFacility.command';
 import { FacilityRepository } from '../../../infra';
-import { Facility } from '../../../domain';
 
 import { EnterpriseRepository } from '../../../../enterprise/infra';
-import { FacilityRemovedEvent } from '../../../domain/events';
 
 export type RemoveFacilityResponse = Either<
   AppError.UnexpectedError | RemoveFacilityErrors.FacilityNotFoundError,
@@ -23,15 +21,12 @@ export class RemoveFacilityHandler
     @InjectRepository(FacilityRepository)
     private facilityRepository: FacilityRepository,
     private enterpriseRepository: EnterpriseRepository,
-    private publisher: EventPublisher,
   ) {}
 
   async execute({
     facilityId,
     enterpriseId,
   }: RemoveFacilityCommand): Promise<RemoveFacilityResponse> {
-    let model: Facility;
-
     try {
       const enterpriseExists = await this.enterpriseRepository.exists(
         enterpriseId,
@@ -40,19 +35,12 @@ export class RemoveFacilityHandler
         return left(new RemoveFacilityErrors.EnterpriseDoesNotExist());
       }
 
-      try {
-        model = await this.facilityRepository.getFacilityById(facilityId);
-      } catch {
+      const facilityExists = await this.facilityRepository.exists(facilityId);
+      if (!facilityExists) {
         return left(new RemoveFacilityErrors.FacilityNotFoundError());
       }
 
       await this.facilityRepository.deleteFacility(facilityId);
-
-      const facility = this.publisher.mergeObjectContext(model);
-      facility.apply(
-        new FacilityRemovedEvent(facility.enterpriseId, facilityId),
-      );
-      facility.commit();
 
       return right(Result.ok());
     } catch (err) {

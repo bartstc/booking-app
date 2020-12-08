@@ -1,4 +1,4 @@
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
@@ -8,7 +8,6 @@ import { CreateFacilityCommand } from './CreateFacility.command';
 import { CreateFacilityErrors } from './CreateFacility.errors';
 
 import { EnterpriseRepository } from '../../../../enterprise/infra';
-import { FacilityAddedEvent } from '../../../domain/events';
 
 export type CreateFacilityResponse = Either<
   | AppError.ValidationError
@@ -24,7 +23,6 @@ export class CreateFacilityHandler
   constructor(
     private facilityRepository: FacilityRepository,
     private enterpriseRepository: EnterpriseRepository,
-    private publisher: EventPublisher,
   ) {}
 
   async execute({
@@ -54,15 +52,9 @@ export class CreateFacilityHandler
         return left(Result.fail(facilityOrError.error));
       }
 
-      let facility = facilityOrError.getValue();
+      const facility = facilityOrError.getValue();
       const facilityEntity = await this.facilityRepository.persist(facility);
-      const savedFacility = await facilityEntity.save();
-
-      facility = this.publisher.mergeObjectContext(facility);
-      facility.apply(
-        new FacilityAddedEvent(enterpriseId, savedFacility.facility_id),
-      );
-      facility.commit();
+      await facilityEntity.save();
 
       return right(Result.ok());
     } catch (err) {

@@ -33,10 +33,7 @@ export class EnterpriseEntity extends AbstractEntity {
   @OneToMany(
     () => FacilityEntity,
     facility => facility.enterprise,
+    { onDelete: 'CASCADE', onUpdate: 'CASCADE' },
   )
-  @JoinColumn({ name: 'facility_ids' })
   facilities: FacilityEntity[];
-
-  @Column('text', { array: true, default: '{}' })
-  facility_ids: string[];
 }

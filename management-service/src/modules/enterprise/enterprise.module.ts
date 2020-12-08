@@ -3,7 +3,6 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { EnterpriseQuery, EnterpriseRepository } from './infra';
-import { EnterpriseSaga } from './application/saga';
 import {
   CreateEnterpriseHandler,
   CreateEnterpriseController,
@@ -13,8 +12,6 @@ import {
   UpdateEnterpriseController,
 } from './application/command/updateEnterprise';
 import { GetEnterpriseController } from './application/query/getEnterprise';
-import { AddFacilityHandler } from './application/eventHandlers/addFacility';
-import { RemoveFacilityHandler } from './application/eventHandlers/removeFacility';
 
 @Module({
   imports: [
@@ -26,13 +23,7 @@ import { RemoveFacilityHandler } from './application/eventHandlers/removeFacilit
     UpdateEnterpriseController,
     GetEnterpriseController,
   ],
-  providers: [
-    EnterpriseSaga,
-    CreateEnterpriseHandler,
-    UpdateEnterpriseHandler,
-    AddFacilityHandler,
-    RemoveFacilityHandler,
-  ],
+  providers: [CreateEnterpriseHandler, UpdateEnterpriseHandler],
   exports: [TypeOrmModule.forFeature([EnterpriseRepository])],
 })
 export class EnterpriseModule {}
