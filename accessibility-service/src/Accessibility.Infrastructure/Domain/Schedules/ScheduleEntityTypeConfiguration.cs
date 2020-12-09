@@ -33,8 +33,8 @@ namespace Accessibility.Infrastructure.Domain.Schedules
                 x.WithOwner().HasForeignKey("schedule_id");
                 x.ToTable("availability", SchemaNames.Accessibility);
 
-                x.HasKey("id");
-                x.Property("id").HasColumnName("availability_id");
+                x.HasKey("Id");
+                x.Property("Id").HasColumnName("availability_id");
 
                 builder.OwnsOne<EmployeeId>("employeeId", e =>
                     e.Property(p => p.Value).HasColumnName("employee_id"));

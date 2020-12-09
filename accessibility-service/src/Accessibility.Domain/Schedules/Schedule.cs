@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Accessibility.Domain.Schedules.Availabilities;
+using Accessibility.Domain.Schedules.Events;
 using Accessibility.Domain.Schedules.Rules;
 using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
@@ -24,6 +25,7 @@ namespace Accessibility.Domain.Schedules
             ISchedulePeriodOfTimeChecker schedulePeriodOfTimeChecker,
             FacilityId facilityId, string name, DateTime startDate, DateTime endDate, List<AvailabilityData> availabilities, EmployeeId creatorId)
         {
+            // check if any availabilities are included
             CheckRule(new NewSchedulePeriodOfTimeMustBeAvailableRule(schedulePeriodOfTimeChecker, facilityId, startDate, endDate));
             CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(availabilities));
 
@@ -41,6 +43,18 @@ namespace Accessibility.Domain.Schedules
             )).ToList();
 
             AddDomainEvent(new ScheduleCreatedEvent(Id));
+        }
+
+        public void CreateCorrection(AvailabilityData correction)
+        {
+            var availability = Availability.CreateCorrection(correction.EmployeeId,
+                correction.StartTime,
+                correction.EndTime,
+                correction.EmployeeId,
+                (short)(availabilities.Max(a => a.Priority) + 1));
+            availabilities.Add(availability);
+
+            AddDomainEvent(new ScheduleCorrectedEvent(Id, availability.Id));
         }
     }
 }

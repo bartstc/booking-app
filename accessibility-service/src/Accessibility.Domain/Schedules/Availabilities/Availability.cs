@@ -6,7 +6,7 @@ namespace Accessibility.Domain.Schedules.Availabilities
 {
     public class Availability : Entity
     {
-        private AvailabilityId id;
+        internal AvailabilityId Id;
         private EmployeeId employeeId;
         private DateTime startTime;
         private DateTime endTime;

@@ -16,6 +16,6 @@ namespace Accessibility.Domain.Schedules.Availabilities
         public EmployeeId EmployeeId { get; }
         public DateTime StartTime { get; }
         public DateTime EndTime { get; }
-        public EmployeeId CreatorId { get; set; }
+        public EmployeeId CreatorId { get; }
     }
 }
