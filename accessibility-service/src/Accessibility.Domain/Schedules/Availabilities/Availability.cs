@@ -4,32 +4,33 @@ using Accessibility.Domain.SharedKernel;
 
 namespace Accessibility.Domain.Schedules.Availabilities
 {
-    internal class Availability : Entity
+    public class Availability : Entity
     {
         private AvailabilityId id;
         private EmployeeId employeeId;
-        private TimeSpan startTime;
-        private TimeSpan endTime;
-        public short Priority { get; }
+        private DateTime startTime;
+        private DateTime endTime;
+        internal short Priority { get; }
         private EmployeeId creatorId;
         private DateTime creationDate;
         // TODO: employeeComment
 
-        private Availability(EmployeeId employeeId, TimeSpan startTime, TimeSpan endTime, EmployeeId creatorId, short priority)
+        private Availability(EmployeeId employeeId, DateTime startTime, DateTime endTime, EmployeeId creatorId, short priority)
         {
             this.employeeId = employeeId;
             this.startTime = startTime;
             this.endTime = endTime;
             this.creatorId = creatorId;
             this.Priority = priority;
+            creationDate = DateTime.Now;
         }
 
-        internal static Availability Create(EmployeeId employeeId, TimeSpan startTime, TimeSpan endTime, EmployeeId creatorId)
+        internal static Availability Create(EmployeeId employeeId, DateTime startTime, DateTime endTime, EmployeeId creatorId)
         {
             return new Availability(employeeId, startTime, endTime, creatorId, 0);
         }
 
-        internal static Availability CreateCorrection(EmployeeId employeeId, TimeSpan startTime, TimeSpan endTime, EmployeeId creatorId, short priority)
+        internal static Availability CreateCorrection(EmployeeId employeeId, DateTime startTime, DateTime endTime, EmployeeId creatorId, short priority)
         {
             return new Availability(employeeId, startTime, endTime, creatorId, priority);
         }

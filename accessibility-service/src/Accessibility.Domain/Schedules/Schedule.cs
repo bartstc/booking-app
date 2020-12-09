@@ -32,12 +32,15 @@ namespace Accessibility.Domain.Schedules
             this.startDate = startDate;
             this.endDate = endDate;
             this.creatorId = creatorId;
+            creationDate = DateTime.Now;
             this.availabilities = availabilities.Select(a => Availability.Create(
                 a.EmployeeId,
                 a.StartTime,
                 a.EndTime,
                 a.EmployeeId
             )).ToList();
+
+            AddDomainEvent(new ScheduleCreatedEvent(Id));
         }
     }
 }

@@ -13,7 +13,7 @@ CREATE TABLE accessibility.bookings (
 
 CREATE TABLE accessibility.booked_records (
     booked_record_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-    booking_id uuid,
+    booking_id uuid NOT NULL,
     employee_id uuid NOT NULL,
     offer_id uuid NOT NULL,
     price numeric NOT NULL,
@@ -25,6 +25,31 @@ CREATE TABLE accessibility.booked_records (
     CONSTRAINT fk_booking
         FOREIGN KEY(booking_id)
         REFERENCES accessibility.bookings(booking_id)
+);
+
+CREATE TABLE accessibility.schedules (
+    schedule_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    facility_id uuid NOT NULL,
+    name varchar(100) NOT NULL,
+    start_date timestamp NOT NULL,
+    end_date timestamp NOT NULL,
+    creator_id uuid NOT NULL,
+    creation_date timestamp NOT NULL,
+    modify_date timestamp
+);
+
+CREATE TABLE accessibility.availabilities (
+    availability_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    schedule_id uuid NOT NULL,
+    employee_id uuid NOT NULL,
+    start_time timestamp NOT NULL,
+    end_time timestamp NOT NULL,
+    priority smallint NOT NULL DEFAULT 0,
+    creator_id uuid NOT NULL,
+    creation_date timestamp NOT NULL,
+    CONSTRAINT fk_schedule
+        FOREIGN KEY(schedule_id)
+        REFERENCES accessibility.schedules(schedule_id)
 );
 
 --Set Returning Functions

@@ -5,7 +5,7 @@ namespace Accessibility.Domain.Schedules.Availabilities
 {
     public class AvailabilityData
     {
-        public AvailabilityData(EmployeeId employeeId, TimeSpan startTime, TimeSpan endTime, EmployeeId creatorId)
+        public AvailabilityData(EmployeeId employeeId, DateTime startTime, DateTime endTime, EmployeeId creatorId)
         {
             EmployeeId = employeeId;
             StartTime = startTime;
@@ -14,8 +14,8 @@ namespace Accessibility.Domain.Schedules.Availabilities
         }
 
         public EmployeeId EmployeeId { get; }
-        public TimeSpan StartTime { get; }
-        public TimeSpan EndTime { get; }
+        public DateTime StartTime { get; }
+        public DateTime EndTime { get; }
         public EmployeeId CreatorId { get; set; }
     }
 }

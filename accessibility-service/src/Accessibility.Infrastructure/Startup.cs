@@ -16,6 +16,7 @@ using Accessibility.Application.Bookings.Book;
 using System.Reflection;
 using Accessibility.Domain.Schedules;
 using Accessibility.Application.Schedules.DomainServices;
+using Accessibility.Infrastructure.Domain.Schedules;
 
 namespace Accessibility.Infrastructure
 {
@@ -30,6 +31,7 @@ namespace Accessibility.Infrastructure
                     .UseNpgsql(connectionString))
                 .AddMediatR(typeof(BookedNotification).Assembly, typeof(BookedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
                 .AddTransient<IBookingRepository, BookingRepository>()
+                .AddTransient<IScheduleRepository, ScheduleRepository>()
                 .AddTransient<ISchedulePeriodOfTimeChecker, SchedulePeriodOfTimeChecker>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()
