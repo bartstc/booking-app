@@ -1,9 +1,10 @@
 import { EntityRepository, Repository } from 'typeorm/index';
 
 import { FacilityRepository } from '../../../domain/repositories';
-import { Facility, Slug } from '../../../domain';
+import { Facility, FacilityId, Slug } from '../../../domain';
 import { FacilityMap } from './Facility.map';
 import { FacilityEntity } from './Facility.entity';
+import { CustomerId } from '../../../../customers/domain';
 
 @EntityRepository(FacilityEntity)
 export class FacilityTypeormRepository extends Repository<FacilityEntity>
@@ -49,17 +50,23 @@ export class FacilityTypeormRepository extends Repository<FacilityEntity>
     }
   }
 
-  async addCustomer(facilityId: string, customerId: string): Promise<void> {
-    const facility = await this.getRawFacilityById(facilityId);
-    facility.customer_ids.push(customerId);
+  async addCustomer(
+    facilityId: FacilityId,
+    customerId: CustomerId,
+  ): Promise<void> {
+    const facility = await this.getRawFacilityById(facilityId.id.toString());
+    facility.customer_ids.push(customerId.id.toString());
     await facility.save();
   }
 
-  async removeCustomer(facilityId: string, customerId: string): Promise<void> {
-    const facility = await this.getRawFacilityById(facilityId);
+  async removeCustomer(
+    facilityId: FacilityId,
+    customerId: CustomerId,
+  ): Promise<void> {
+    const facility = await this.getRawFacilityById(facilityId.id.toString());
 
     facility.customer_ids = facility.customer_ids.filter(
-      id => id !== customerId,
+      id => id !== customerId.id.toString(),
     );
     await facility.save();
   }

@@ -1,6 +1,7 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
+import { UniqueEntityID } from 'shared/domain';
 
 import { CustomerMap, CustomerRepository } from '../../../infra';
 import { Customer } from '../../../domain';
@@ -8,6 +9,7 @@ import { CustomerAddedEvent } from '../../../domain/events';
 import { FacilityRepository } from '../../../../facilities/infra';
 import { AddCustomerCommand } from './AddCustomer.command';
 import { AddCustomerErrors } from './AddCustomer.errors';
+import { FacilityId } from '../../../../facilities/domain';
 
 export type AddCustomerResponse = Either<
   | AppError.ValidationError
@@ -43,11 +45,14 @@ export class AddCustomerHandler
 
       let customer = customerOrError.getValue();
       const entity = await this.customerRepository.persist(customer);
-      const savedCustomer = await entity.save();
+      await entity.save();
 
       customer = this.publisher.mergeObjectContext(customer);
       customer.apply(
-        new CustomerAddedEvent(facilityId, savedCustomer.customer_id),
+        new CustomerAddedEvent(
+          FacilityId.create(new UniqueEntityID(facilityId)).getValue(),
+          customer.customerId,
+        ),
       );
       customer.commit();
 
