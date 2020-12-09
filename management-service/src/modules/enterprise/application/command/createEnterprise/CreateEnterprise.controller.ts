@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import { Body, Controller, Logger, Post, Res } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController, ValidationTransformer } from 'shared/core';
 
@@ -18,6 +19,9 @@ export class CreateEnterpriseController extends BaseController {
   logger = new Logger('CreateEnterpriseController');
 
   @Post('enterprises')
+  @ApiTags('Enterprises')
+  @ApiResponse({ status: 201, description: 'Enterprise successfully created' })
+  @ApiResponse({ status: 400, description: 'Validation error' })
   async createEnterprise(
     @Body() dto: CreateEnterpriseDto,
     @Res() res: Response,

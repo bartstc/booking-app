@@ -1,3 +1,3 @@
 import { BuildEnterpriseDto } from '../../../infra';
 
-export interface UpdateEnterpriseDto extends BuildEnterpriseDto {}
+export class UpdateEnterpriseDto extends BuildEnterpriseDto {}

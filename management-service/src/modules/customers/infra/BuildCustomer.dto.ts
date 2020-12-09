@@ -1,11 +1,21 @@
-import { IContact } from 'shared/domain/types';
+import { ApiProperty } from '@nestjs/swagger';
 
-import { IAddress } from '../domain/types';
+import { ContactDto } from 'shared/domain/dto';
+import { AddressDto } from '../application/dto';
 
-export interface BuildCustomerDto {
+export class BuildCustomerDto {
+  @ApiProperty()
   fullName: string;
+
+  @ApiProperty()
   birthDate: string;
-  address: IAddress;
-  contacts: IContact[];
+
+  @ApiProperty()
+  address: AddressDto;
+
+  @ApiProperty({ type: [ContactDto] })
+  contacts: ContactDto[];
+
+  @ApiProperty()
   description?: string;
 }

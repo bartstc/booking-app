@@ -1,6 +1,7 @@
 import { Body, Controller, Logger, Param, Put, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { CommandBus } from '@nestjs/cqrs';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController, ValidationTransformer } from 'shared/core';
 
@@ -19,6 +20,9 @@ export class UpdateEnterpriseController extends BaseController {
   logger = new Logger('UpdateEnterpriseController');
 
   @Put('enterprises/:enterpriseId')
+  @ApiTags('Enterprises')
+  @ApiResponse({ status: 201, description: 'Enterprise successfully updated' })
+  @ApiResponse({ status: 400, description: 'Validation error' })
   async updateEnterprise(
     @Param('enterpriseId') enterpriseId: string,
     @Body() dto: UpdateEnterpriseDto,

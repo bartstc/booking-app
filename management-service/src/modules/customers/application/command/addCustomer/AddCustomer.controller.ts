@@ -1,6 +1,7 @@
 import { Body, Controller, Logger, Param, Post, Res } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { Response } from 'express';
+import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController, ValidationTransformer } from 'shared/core';
 
@@ -18,6 +19,9 @@ export class AddCustomerController extends BaseController {
   logger = new Logger('AddCustomerController');
 
   @Post('facilities/:facilityId/customers')
+  @ApiTags('Customers')
+  @ApiOkResponse()
+  @ApiNotFoundResponse({ description: 'Facility not found' })
   async addCustomer(
     @Param('facilityId') facilityId: string,
     @Body() dto: AddCustomerDto,

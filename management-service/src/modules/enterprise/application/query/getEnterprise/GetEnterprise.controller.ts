@@ -1,5 +1,6 @@
 import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
+import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import {
   AppError,
@@ -28,6 +29,9 @@ export class GetEnterpriseController extends BaseController {
   private logger = new Logger('GetEnterpriseController');
 
   @Get('enterprises/:enterpriseId')
+  @ApiTags('Enterprises')
+  @ApiOkResponse({ type: EnterpriseDto })
+  @ApiNotFoundResponse()
   async getEnterprise(
     @Param('enterpriseId') enterpriseId: string,
     @Res() res: Response,
