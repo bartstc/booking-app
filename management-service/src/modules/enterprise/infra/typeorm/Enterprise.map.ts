@@ -1,4 +1,4 @@
-import { Mapper, Result } from 'shared/core';
+import { Result } from 'shared/core';
 import {
   Link,
   UniqueEntityID,
@@ -13,7 +13,7 @@ import {
 } from '../../domain';
 import { BuildEnterpriseDto } from '../BuildEnterprise.dto';
 
-export class EnterpriseMap implements Mapper<Enterprise> {
+export class EnterpriseMap {
   public static dtoToDomain<T extends BuildEnterpriseDto>(
     dto: T,
     enterpriseId?: string,

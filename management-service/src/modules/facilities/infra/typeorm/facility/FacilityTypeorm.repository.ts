@@ -1,10 +1,9 @@
 import { EntityRepository, Repository } from 'typeorm/index';
 
 import { FacilityRepository } from '../../../domain/repositories';
-import { Facility, FacilityId, Slug } from '../../../domain';
+import { Facility, Slug } from '../../../domain';
 import { FacilityMap } from './Facility.map';
 import { FacilityEntity } from './Facility.entity';
-import { CustomerId } from '../../../../customers/domain';
 
 @EntityRepository(FacilityEntity)
 export class FacilityTypeormRepository extends Repository<FacilityEntity>
@@ -48,27 +47,6 @@ export class FacilityTypeormRepository extends Repository<FacilityEntity>
     if (result.affected === 0) {
       throw new Error(`Facility with id ${facilityId} not found`);
     }
-  }
-
-  async addCustomer(
-    facilityId: FacilityId,
-    customerId: CustomerId,
-  ): Promise<void> {
-    const facility = await this.getRawFacilityById(facilityId.id.toString());
-    facility.customer_ids.push(customerId.id.toString());
-    await facility.save();
-  }
-
-  async removeCustomer(
-    facilityId: FacilityId,
-    customerId: CustomerId,
-  ): Promise<void> {
-    const facility = await this.getRawFacilityById(facilityId.id.toString());
-
-    facility.customer_ids = facility.customer_ids.filter(
-      id => id !== customerId.id.toString(),
-    );
-    await facility.save();
   }
 
   private async getRawFacilityBySlug(slug: string): Promise<FacilityEntity> {

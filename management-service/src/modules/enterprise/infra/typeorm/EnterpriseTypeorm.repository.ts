@@ -22,23 +22,6 @@ export class EnterpriseTypeormRepository extends Repository<EnterpriseEntity>
     return EnterpriseMap.entityToDomain(enterprise);
   }
 
-  async addFacility(enterpriseId: string, facilityId: string): Promise<void> {
-    const enterprise = await this.getRawEnterpriseById(enterpriseId);
-    enterprise.facility_ids.push(facilityId);
-    await enterprise.save();
-  }
-
-  async removeFacility(
-    enterpriseId: string,
-    facilityId: string,
-  ): Promise<void> {
-    const enterprise = await this.getRawEnterpriseById(enterpriseId);
-    enterprise.facility_ids = enterprise.facility_ids.filter(
-      id => id !== facilityId,
-    );
-    await enterprise.save();
-  }
-
   async persist(model: Enterprise): Promise<EnterpriseEntity> {
     return this.create(EnterpriseMap.toPersistence(model));
   }
