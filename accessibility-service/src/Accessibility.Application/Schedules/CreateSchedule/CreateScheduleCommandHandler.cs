@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.Schedules;
+using Accessibility.Domain.Schedules.Availabilities;
 using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
@@ -29,8 +31,13 @@ namespace Accessibility.Application.Schedules.CreateSchedule
                 request.Name,
                 request.StartDate,
                 request.EndDate,
-                request.Availabilities,
-                request.CreatorId
+                request.Availabilities.Select(a => new AvailabilityData(
+                    new EmployeeId(a.EmployeeId),
+                    a.StartTime,
+                    a.EndTime,
+                    new EmployeeId(a.CreatorId)
+                )).ToList(),
+                new EmployeeId(request.CreatorId)
             );
 
             await repository.AddAsync(schedule);

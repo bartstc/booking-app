@@ -15,15 +15,13 @@ namespace Accessibility.Infrastructure.Domain.Schedules
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("schedule_id");
 
-            builder.OwnsOne<FacilityId>("facilityId", e =>
-                e.Property(p => p.Value).HasColumnName("facility_id"));
+            builder.Property<FacilityId>("facilityId").HasColumnName("facility_id");
 
             builder.Property("name");
             builder.Property("startDate").HasColumnName("start_date");
             builder.Property("endDate").HasColumnName("end_date");
             
-            builder.OwnsOne<FacilityId>("creatorId", e =>
-                e.Property(p => p.Value).HasColumnName("creator_id"));
+            builder.Property<EmployeeId>("creatorId").HasColumnName("creator_id");
             
             builder.Property("creationDate").HasColumnName("creation_date");
             builder.Property("modifyDate").HasColumnName("modify_date");
@@ -31,22 +29,20 @@ namespace Accessibility.Infrastructure.Domain.Schedules
             builder.OwnsMany<Availability>("availabilities", x =>
             {
                 x.WithOwner().HasForeignKey("schedule_id");
-                x.ToTable("availability", SchemaNames.Accessibility);
+                x.ToTable("availabilities", SchemaNames.Accessibility);
 
                 x.HasKey("Id");
                 x.Property("Id").HasColumnName("availability_id");
 
-                builder.OwnsOne<EmployeeId>("employeeId", e =>
-                    e.Property(p => p.Value).HasColumnName("employee_id"));
+                x.Property<EmployeeId>("employeeId").HasColumnName("employee_id");
                 
-                builder.Property("startTime").HasColumnName("start_time");
-                builder.Property("endTime").HasColumnName("end_time");
-                builder.Property("Priority").HasColumnName("priority");
+                x.Property("startTime").HasColumnName("start_time");
+                x.Property("endTime").HasColumnName("end_time");
+                x.Property("Priority").HasColumnName("priority");
 
-                builder.OwnsOne<EmployeeId>("creatorId", e =>
-                    e.Property(p => p.Value).HasColumnName("creator_id"));
+                x.Property<EmployeeId>("creatorId").HasColumnName("creator_id");
 
-                builder.Property("creationDate").HasColumnName("creation_date");
+                x.Property("creationDate").HasColumnName("creation_date");
             });
         }
     }

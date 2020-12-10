@@ -21,14 +21,19 @@ namespace Accessibility.Domain.Schedules
         private DateTime creationDate;
         private DateTime? modifyDate;
 
+        public Schedule()
+        {
+        }
+
         public Schedule(
             ISchedulePeriodOfTimeChecker schedulePeriodOfTimeChecker,
             FacilityId facilityId, string name, DateTime startDate, DateTime endDate, List<AvailabilityData> availabilities, EmployeeId creatorId)
         {
-            // check if any availabilities are included
+            // TODO: check if any availabilities are included
             CheckRule(new NewSchedulePeriodOfTimeMustBeAvailableRule(schedulePeriodOfTimeChecker, facilityId, startDate, endDate));
             CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(availabilities));
 
+            Id = new ScheduleId(Guid.NewGuid());
             this.facilityId = facilityId;
             this.name = name;
             this.startDate = startDate;
@@ -45,16 +50,23 @@ namespace Accessibility.Domain.Schedules
             AddDomainEvent(new ScheduleCreatedEvent(Id));
         }
 
-        public void CreateCorrection(AvailabilityData correction)
+        public void CreateCorrection(List<AvailabilityData> corrections)
         {
-            var availability = Availability.CreateCorrection(correction.EmployeeId,
+            // TODO: check if corrections are not in the same period of time (exclude old availabilities)
+            var currentPriority = availabilities.Max(a => a.Priority);
+            var nextPriority = (short)(currentPriority + 1);
+
+            availabilities.AddRange(corrections.Select(correction => Availability.CreateCorrection(
+                correction.EmployeeId,
                 correction.StartTime,
                 correction.EndTime,
                 correction.EmployeeId,
-                (short)(availabilities.Max(a => a.Priority) + 1));
-            availabilities.Add(availability);
+                nextPriority
+            )));
 
-            AddDomainEvent(new ScheduleCorrectedEvent(Id, availability.Id));
+            modifyDate = DateTime.Now;
+
+            AddDomainEvent(new ScheduleCorrectedEvent(Id));
         }
     }
 }

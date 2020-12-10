@@ -1,23 +1,21 @@
 using System;
+using System.Collections.Generic;
+using Accessibility.Application.Schedules.CreateSchedule;
 using MediatR;
 
 namespace Accessibility.Application.Schedules.CorrectSchedule
 {
     public class CorrectScheduleCommand : IRequest
     {
-        public CorrectScheduleCommand(Guid scheduleId, Guid employeeId, DateTime startTime, DateTime endTime, Guid creatorId)
+        public CorrectScheduleCommand(Guid facilityId, Guid scheduleId, List<AvailabilityDto> availabilities)
         {
+            Availabilities = availabilities;
+            FacilityId = facilityId;
             ScheduleId = scheduleId;
-            EmployeeId = employeeId;
-            StartTime = startTime;
-            EndTime = endTime;
-            CreatorId = creatorId;
         }
 
+        public Guid FacilityId { get; set; }
         public Guid ScheduleId { get; set; }
-        public Guid EmployeeId { get; }
-        public DateTime StartTime { get; }
-        public DateTime EndTime { get; }
-        public Guid CreatorId { get; }
+        public List<AvailabilityDto> Availabilities { get; }
     }
 }

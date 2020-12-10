@@ -21,7 +21,7 @@ namespace Accessibility.Application.Schedules.DomainServices
 
             var result = connection.QuerySingleOrDefault<int?>(
                 @"SELECT 1
-                FROM Schedule
+                FROM accessibility.schedules
                 WHERE
                     facility_id = @FacilityId AND
                     (

@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Accessibility.Domain.Schedules.Availabilities;
-using Accessibility.Domain.SharedKernel;
 using MediatR;
 
 namespace Accessibility.Application.Schedules.CreateSchedule
 {
     public class CreateScheduleCommand : IRequest<Guid>
     {
-        public CreateScheduleCommand(Guid facilityId, string name, DateTime startDate, DateTime endDate, List<AvailabilityData> availabilities, EmployeeId creatorId)
+        public CreateScheduleCommand(Guid facilityId, string name, DateTime startDate, DateTime endDate, List<AvailabilityDto> availabilities, Guid creatorId)
         {
             FacilityId = facilityId;
             Name = name;
@@ -22,7 +20,7 @@ namespace Accessibility.Application.Schedules.CreateSchedule
         public string Name { get; }
         public DateTime StartDate { get; }
         public DateTime EndDate { get; }
-        public List<AvailabilityData> Availabilities { get; }
-        public EmployeeId CreatorId { get; }
+        public List<AvailabilityDto> Availabilities { get; }
+        public Guid CreatorId { get; }
     }
 }

@@ -6,7 +6,7 @@ namespace Accessibility.Domain.Schedules.Availabilities
 {
     public class Availability : Entity
     {
-        internal AvailabilityId Id;
+        internal AvailabilityId Id { get; }
         private EmployeeId employeeId;
         private DateTime startTime;
         private DateTime endTime;
@@ -15,8 +15,13 @@ namespace Accessibility.Domain.Schedules.Availabilities
         private DateTime creationDate;
         // TODO: employeeComment
 
+        public Availability()
+        {
+        }
+
         private Availability(EmployeeId employeeId, DateTime startTime, DateTime endTime, EmployeeId creatorId, short priority)
         {
+            Id = new AvailabilityId(Guid.NewGuid());
             this.employeeId = employeeId;
             this.startTime = startTime;
             this.endTime = endTime;

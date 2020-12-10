@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.Schedules;
@@ -22,12 +23,12 @@ namespace Accessibility.Application.Schedules.CorrectSchedule
         {
             var schedule = await repository.GetByIdAsync(new ScheduleId(request.ScheduleId));
 
-            schedule.CreateCorrection(new Domain.Schedules.Availabilities.AvailabilityData(
-                new EmployeeId(request.EmployeeId),
-                request.StartTime,
-                request.EndTime,
-                new EmployeeId(request.CreatorId)
-            ));
+            schedule.CreateCorrection(request.Availabilities.Select(a => new Domain.Schedules.Availabilities.AvailabilityData(
+                new EmployeeId(a.EmployeeId),
+                a.StartTime,
+                a.EndTime,
+                new EmployeeId(a.CreatorId))).ToList()
+            );
 
             await unitOfWork.CommitAsync();
 
