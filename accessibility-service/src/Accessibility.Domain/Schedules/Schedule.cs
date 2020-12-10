@@ -29,7 +29,7 @@ namespace Accessibility.Domain.Schedules
             ISchedulePeriodOfTimeChecker schedulePeriodOfTimeChecker,
             FacilityId facilityId, string name, DateTime startDate, DateTime endDate, List<AvailabilityData> availabilities, EmployeeId creatorId)
         {
-            // TODO: check if any availabilities are included
+            CheckRule(new ScheduleMustHaveAtLeastOneAvailabilityRule(availabilities));
             CheckRule(new NewSchedulePeriodOfTimeMustBeAvailableRule(schedulePeriodOfTimeChecker, facilityId, startDate, endDate));
             CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(availabilities));
 
@@ -52,7 +52,8 @@ namespace Accessibility.Domain.Schedules
 
         public void CreateCorrection(List<AvailabilityData> corrections)
         {
-            // TODO: check if corrections are not in the same period of time (exclude old availabilities)
+            CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(corrections));
+            
             var currentPriority = availabilities.Max(a => a.Priority);
             var nextPriority = (short)(currentPriority + 1);
 
