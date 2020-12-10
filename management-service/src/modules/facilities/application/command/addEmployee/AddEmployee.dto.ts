@@ -1,3 +1,3 @@
 import { BuildEmployeeDto } from '../../../infra';
 
-export interface AddEmployeeDto extends BuildEmployeeDto {}
+export class AddEmployeeDto extends BuildEmployeeDto {}

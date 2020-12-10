@@ -1,5 +1,6 @@
 import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
+import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import {
   AppError,
@@ -28,6 +29,9 @@ export class GetFacilityBySlugController extends BaseController {
   private logger = new Logger('GetFacilityBySlugController');
 
   @Get('facilities/:slug')
+  @ApiTags('Facilities')
+  @ApiOkResponse({ type: FacilityDto })
+  @ApiNotFoundResponse({ description: 'Facility not found' })
   async getFacility(@Param('slug') slug: string, @Res() res: Response) {
     try {
       const result = await this.handler(slug);

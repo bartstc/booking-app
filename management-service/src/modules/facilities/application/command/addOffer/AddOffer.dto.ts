@@ -1,3 +1,3 @@
 import { BuildOfferDto } from '../../../infra';
 
-export interface AddOfferDto extends BuildOfferDto {}
+export class AddOfferDto extends BuildOfferDto {}

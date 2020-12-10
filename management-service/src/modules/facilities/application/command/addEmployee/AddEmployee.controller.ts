@@ -1,6 +1,7 @@
 import { CommandBus } from '@nestjs/cqrs';
 import { Body, Controller, Logger, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
+import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController, ValidationTransformer } from 'shared/core';
 
@@ -19,6 +20,9 @@ export class AddEmployeeController extends BaseController {
   logger = new Logger('AddEmployeeController');
 
   @Post('facilities/:facilityId/employees')
+  @ApiTags('Employees')
+  @ApiOkResponse()
+  @ApiNotFoundResponse({ description: 'Facility not found' })
   async addEmployee(
     @Param('facilityId') facilityId: string,
     @Body() dto: AddEmployeeDto,

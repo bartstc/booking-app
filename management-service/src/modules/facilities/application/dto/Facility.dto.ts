@@ -1,16 +1,38 @@
-import { IContact, IContactPerson } from 'shared/domain/types';
+import { ApiProperty } from '@nestjs/swagger';
 
-import { IAddress, IBusinessCategory, IWorkingDay } from '../../domain/types';
+import { ContactDto, ContactPersonDto } from 'shared/domain/dto';
+import { AddressDto } from './Address.dto';
+import { BusinessCategoryDto } from './BusinessCategory.dto';
+import { WorkingDayDto } from './WorkingDay.dto';
 
 export class FacilityDto {
+  @ApiProperty()
   facilityId: string;
+
+  @ApiProperty()
   enterpriseId: string;
+
+  @ApiProperty()
   name: string;
+
+  @ApiProperty()
   slug: string;
+
+  @ApiProperty()
   description: string | null;
-  contactPerson: IContactPerson | null;
-  address: IAddress;
-  businessCategories: IBusinessCategory[];
-  contacts: IContact[];
-  workingDays: IWorkingDay[];
+
+  @ApiProperty()
+  contactPerson: ContactPersonDto | null;
+
+  @ApiProperty()
+  address: AddressDto;
+
+  @ApiProperty({ type: [BusinessCategoryDto] })
+  businessCategories: BusinessCategoryDto[];
+
+  @ApiProperty({ type: [ContactDto] })
+  contacts: ContactDto[];
+
+  @ApiProperty({ type: [WorkingDayDto] })
+  workingDays: WorkingDayDto[];
 }

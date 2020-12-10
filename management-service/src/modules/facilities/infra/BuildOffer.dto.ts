@@ -1,6 +1,11 @@
-import { IOfferVariant } from '../domain/types';
+import { ApiProperty } from '@nestjs/swagger';
 
-export interface BuildOfferDto {
+import { OfferVariantDto } from '../application/dto';
+
+export class BuildOfferDto {
+  @ApiProperty()
   offerName: string;
-  variants: IOfferVariant[];
+
+  @ApiProperty({ type: [OfferVariantDto] })
+  variants: OfferVariantDto[];
 }

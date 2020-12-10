@@ -1,6 +1,7 @@
 import { CommandBus } from '@nestjs/cqrs';
 import { Controller, Delete, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
+import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController } from 'shared/core';
 
@@ -17,6 +18,10 @@ export class RemoveOfferController extends BaseController {
   logger = new Logger('RemoveOfferController');
 
   @Delete('facilities/:facilityId/offers/:offerId')
+  @ApiTags('Offers')
+  @ApiOkResponse()
+  @ApiNotFoundResponse({ description: 'Facility not found' })
+  @ApiNotFoundResponse({ description: 'Offer not found' })
   async removeOffer(
     @Param('facilityId') facilityId: string,
     @Param('offerId') offerId: string,

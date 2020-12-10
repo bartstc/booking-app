@@ -1,5 +1,6 @@
 import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
+import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import {
   AppError,
@@ -28,6 +29,10 @@ export class GetEmployeeController extends BaseController {
   private logger = new Logger('GetEmployeeController');
 
   @Get('facilities/:facilityId/employees/:employeeId')
+  @ApiTags('Employees')
+  @ApiOkResponse({ type: EmployeeDto })
+  @ApiNotFoundResponse({ description: 'Facility not found' })
+  @ApiNotFoundResponse({ description: 'Employee not found' })
   async getEmployee(
     @Param('employeeId') employeeId: string,
     @Res() res: Response,
