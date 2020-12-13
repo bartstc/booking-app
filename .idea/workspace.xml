@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/management-service/src/modules/customers/application/dto/CustomerCollection.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management-service/src/shared/core/QueryParams.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management-service/src/shared/core/dto/Meta.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management-service/src/shared/core/dto/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management-service/src/shared/core/typeorm/BaseQuery.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management-service/src/shared/core/typeorm/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/infra/typeorm/facility/Facility.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/infra/typeorm/facility/Facility.entity.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/infra/typeorm/facility/Facility.map.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/infra/typeorm/facility/Facility.map.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/customers/application/dto/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/customers/application/dto/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/customers/application/query/getCustomers/GetCustomers.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/customers/application/query/getCustomers/GetCustomers.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/customers/infra/query/CustomerQuery.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/customers/infra/query/CustomerQuery.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/customers/infra/typeorm/CustomerTypeorm.query.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/customers/infra/typeorm/CustomerTypeorm.query.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/shared/core/AbstractEntity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/shared/core/typeorm/AbstractEntity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/shared/core/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/shared/core/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +35,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getOffers" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -38,11 +48,15 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/management-service/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/management-service/src/modules/enterprise/application/useCases" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getOffers" />
+      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getEmployees" />
+      <recent name="$PROJECT_DIR$/management-service/src/modules/customers/application/query/getCustomers" />
       <recent name="$PROJECT_DIR$/management-service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/management-service/src/shared/core/typeorm" />
+      <recent name="$PROJECT_DIR$/management-service/src/modules/enterprise/application/useCases" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -60,6 +74,11 @@
       <workItem from="1603552847520" duration="7242000" />
       <workItem from="1603565878473" duration="4468000" />
       <workItem from="1603570374368" duration="412000" />
+      <workItem from="1607528722739" duration="19000" />
+      <workItem from="1607531700775" duration="3833000" />
+      <workItem from="1607609684084" duration="3660000" />
+      <workItem from="1607662322393" duration="104000" />
+      <workItem from="1607862963874" duration="10744000" />
     </task>
     <servers />
   </component>
@@ -67,18 +86,23 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2417" y="297" width="424" height="484" key="FileChooserDialogImpl" timestamp="1603566743407">
-      <screen x="1680" y="0" width="1920" height="1080" />
+    <state x="675" y="289" width="379" height="471" key="FileChooserDialogImpl" timestamp="1607662417613">
+      <screen x="48" y="0" width="1632" height="1050" />
     </state>
     <state x="2417" y="297" width="424" height="484" key="FileChooserDialogImpl/1680.0.1920.1080/48.0.1632.1050@1680.0.1920.1080" timestamp="1603566743407" />
-    <state x="767" y="297" width="424" height="484" key="FileChooserDialogImpl/48.0.1872.1080@48.0.1872.1080" timestamp="1603379450982" />
+    <state x="675" y="289" width="379" height="471" key="FileChooserDialogImpl/1680.2.1920.1080/48.0.1632.1050@48.0.1632.1050" timestamp="1607662417613" />
+    <state x="767" y="297" width="424" height="484" key="FileChooserDialogImpl/48.0.1872.1080@48.0.1872.1080" timestamp="1607528739684" />
     <state x="898" y="174" key="SettingsEditor" timestamp="1603378883345">
       <screen x="48" y="0" width="1872" height="1080" />
     </state>
     <state x="898" y="174" key="SettingsEditor/48.0.1872.1080@48.0.1872.1080" timestamp="1603378883345" />
-    <state x="1115" y="237" width="672" height="678" key="search.everywhere.popup" timestamp="1603378825612">
+    <state x="676" y="262" width="779" height="554" key="find.popup" timestamp="1607611848191">
       <screen x="48" y="0" width="1872" height="1080" />
     </state>
-    <state x="1115" y="237" width="672" height="678" key="search.everywhere.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1603378825612" />
+    <state x="676" y="262" width="779" height="554" key="find.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1607611848191" />
+    <state x="1115" y="237" width="672" height="678" key="search.everywhere.popup" timestamp="1607610819609">
+      <screen x="48" y="0" width="1872" height="1080" />
+    </state>
+    <state x="1115" y="237" width="672" height="678" key="search.everywhere.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1607610819609" />
   </component>
 </project>

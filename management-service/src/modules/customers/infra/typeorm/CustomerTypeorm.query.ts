@@ -1,4 +1,6 @@
-import { EntityRepository, Repository } from 'typeorm/index';
+import { EntityRepository } from 'typeorm/index';
+
+import { BaseQuery, QueryListResult, QueryParams } from 'shared/core';
 
 import { CustomerQuery } from '../query';
 import { CustomerEntity } from './Customer.entity';
@@ -6,7 +8,7 @@ import { CustomerDto } from '../../application/dto';
 import { CustomerTypeormTransformer } from './CustomerTypeorm.transformer';
 
 @EntityRepository(CustomerEntity)
-export class CustomerTypeormQuery extends Repository<CustomerEntity>
+export class CustomerTypeormQuery extends BaseQuery<CustomerEntity>
   implements CustomerQuery {
   async getCustomerById(customerId: string): Promise<CustomerDto> {
     const customer = await this.findOne({ customer_id: customerId });
@@ -14,10 +16,25 @@ export class CustomerTypeormQuery extends Repository<CustomerEntity>
     return CustomerTypeormTransformer.toDto(customer);
   }
 
-  async getFacilityCustomers(facilityId: string): Promise<CustomerDto[]> {
-    const customers = await this.find({ facility_id: facilityId });
-    return customers.length
-      ? CustomerTypeormTransformer.toDtoBulk(customers)
-      : [];
+  async getCustomers(
+    facilityId: string,
+    { query = '', limit = 10, offset = 0 }: QueryParams,
+  ): Promise<QueryListResult<CustomerDto>> {
+    const [collection, total] = await this.paginatedQueryBuilder('customer', {
+      limit,
+      offset,
+    })
+      .where('customer.facility_id = :facilityId', { facilityId })
+      .andWhere(`customer.details::jsonb->>'fullName' ilike '%${query}%'`)
+      .getManyAndCount();
+
+    return {
+      collection: CustomerTypeormTransformer.toDtoBulk(collection),
+      meta: {
+        total,
+        offset,
+        limit,
+      },
+    };
   }
 }
