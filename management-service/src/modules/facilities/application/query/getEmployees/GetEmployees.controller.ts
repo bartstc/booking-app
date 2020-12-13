@@ -11,8 +11,9 @@ import {
   right,
 } from 'shared/core';
 
-import { EmployeeQuery } from '../../../infra';
+import { EmployeeQuery, FacilityRepository } from '../../../infra';
 import { EmployeeDto } from '../../dto';
+import { GetEmployeesErrors } from './GetEmployees.errors';
 
 type GetEmployeesResponse = Either<
   AppError.UnexpectedError,
@@ -21,7 +22,10 @@ type GetEmployeesResponse = Either<
 
 @Controller()
 export class GetEmployeesController extends BaseController {
-  constructor(private readonly employeeQuery: EmployeeQuery) {
+  constructor(
+    private readonly employeeQuery: EmployeeQuery,
+    private readonly facilityRepository: FacilityRepository,
+  ) {
     super();
   }
 
@@ -42,7 +46,12 @@ export class GetEmployeesController extends BaseController {
         const error = result.value;
         this.logger.error(error.errorValue());
 
-        return this.fail(res, error.errorValue());
+        switch (error.constructor) {
+          case GetEmployeesErrors.FacilityNotFoundError:
+            return this.notFound(res, error.errorValue());
+          default:
+            return this.fail(res, error.errorValue());
+        }
       }
 
       this.logger.verbose('Employees successfully returned');
@@ -57,6 +66,11 @@ export class GetEmployeesController extends BaseController {
     let dto;
 
     try {
+      const facilityExists = await this.facilityRepository.exists(facilityId);
+      if (!facilityExists) {
+        return left(new GetEmployeesErrors.FacilityNotFoundError(facilityId));
+      }
+
       try {
         dto = await this.employeeQuery.getFacilityEmployees(facilityId);
       } catch (err) {

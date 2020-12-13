@@ -10,7 +10,9 @@ import { FacilityRepository } from '../../../infra';
 import { EnterpriseRepository } from '../../../../enterprise/infra';
 
 export type RemoveFacilityResponse = Either<
-  AppError.UnexpectedError | RemoveFacilityErrors.FacilityNotFoundError,
+  | AppError.UnexpectedError
+  | RemoveFacilityErrors.FacilityNotFoundError
+  | RemoveFacilityErrors.EnterpriseNotFoundError,
   Result<void>
 >;
 
@@ -32,7 +34,7 @@ export class RemoveFacilityHandler
         enterpriseId,
       );
       if (!enterpriseExists) {
-        return left(new RemoveFacilityErrors.EnterpriseDoesNotExist());
+        return left(new RemoveFacilityErrors.EnterpriseNotFoundError());
       }
 
       const facilityExists = await this.facilityRepository.exists(facilityId);

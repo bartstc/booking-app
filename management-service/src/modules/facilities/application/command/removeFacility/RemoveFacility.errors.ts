@@ -9,7 +9,7 @@ export namespace RemoveFacilityErrors {
     }
   }
 
-  export class EnterpriseDoesNotExist extends Result<UseCaseError> {
+  export class EnterpriseNotFoundError extends Result<UseCaseError> {
     constructor() {
       super(false, {
         message: 'enterpriseDoesNotExist',

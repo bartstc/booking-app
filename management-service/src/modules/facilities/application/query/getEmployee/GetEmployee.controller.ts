@@ -12,7 +12,7 @@ import {
 } from 'shared/core';
 
 import { GetEmployeeErrors } from './GetEmployee.errors';
-import { EmployeeQuery } from '../../../infra';
+import { EmployeeQuery, FacilityRepository } from '../../../infra';
 import { EmployeeDto } from '../../dto';
 
 type GetEmployeeResponse = Either<
@@ -22,7 +22,10 @@ type GetEmployeeResponse = Either<
 
 @Controller()
 export class GetEmployeeController extends BaseController {
-  constructor(private readonly employeeQuery: EmployeeQuery) {
+  constructor(
+    private readonly employeeQuery: EmployeeQuery,
+    private readonly facilityRepository: FacilityRepository,
+  ) {
     super();
   }
 
@@ -35,16 +38,19 @@ export class GetEmployeeController extends BaseController {
   @ApiNotFoundResponse({ description: 'Employee not found' })
   async getEmployee(
     @Param('employeeId') employeeId: string,
+    @Param('facilityId') facilityId: string,
     @Res() res: Response,
   ) {
     try {
-      const result = await this.handler(employeeId);
+      const result = await this.handler(employeeId, facilityId);
 
       if (result.isLeft()) {
         const error = result.value;
         this.logger.error(error.errorValue());
+
         switch (error.constructor) {
           case GetEmployeeErrors.EmployeeDoesNotExistError:
+          case GetEmployeeErrors.FacilityNotFoundError:
             return this.notFound(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
@@ -59,10 +65,18 @@ export class GetEmployeeController extends BaseController {
     }
   }
 
-  private async handler(employeeId: string): Promise<GetEmployeeResponse> {
+  private async handler(
+    employeeId: string,
+    facilityId: string,
+  ): Promise<GetEmployeeResponse> {
     let dto;
 
     try {
+      const facilityExists = await this.facilityRepository.exists(facilityId);
+      if (!facilityExists) {
+        return left(new GetEmployeeErrors.FacilityNotFoundError(facilityId));
+      }
+
       try {
         dto = await this.employeeQuery.getEmployeeById(employeeId);
       } catch {

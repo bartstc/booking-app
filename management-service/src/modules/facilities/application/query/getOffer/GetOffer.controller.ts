@@ -13,7 +13,7 @@ import {
 
 import { GetOfferErrors } from './GetOffer.errors';
 import { OfferDto } from '../../dto';
-import { OfferQuery } from '../../../infra';
+import { FacilityRepository, OfferQuery } from '../../../infra';
 
 type GetOfferResponse = Either<
   AppError.UnexpectedError | GetOfferErrors.OfferDoesNotExistError,
@@ -22,7 +22,10 @@ type GetOfferResponse = Either<
 
 @Controller()
 export class GetOfferController extends BaseController {
-  constructor(private readonly offerQuery: OfferQuery) {
+  constructor(
+    private readonly offerQuery: OfferQuery,
+    private readonly facilityRepository: FacilityRepository,
+  ) {
     super();
   }
 
@@ -33,15 +36,20 @@ export class GetOfferController extends BaseController {
   @ApiOkResponse({ type: OfferDto })
   @ApiNotFoundResponse({ description: 'Facility not found' })
   @ApiNotFoundResponse({ description: 'Offer not found' })
-  async getOffer(@Param('offerId') offerId: string, @Res() res: Response) {
+  async getOffer(
+    @Param('offerId') offerId: string,
+    @Param('facilityId') facilityId: string,
+    @Res() res: Response,
+  ) {
     try {
-      const result = await this.handler(offerId);
+      const result = await this.handler(offerId, facilityId);
 
       if (result.isLeft()) {
         const error = result.value;
         this.logger.error(error.errorValue());
         switch (error.constructor) {
           case GetOfferErrors.OfferDoesNotExistError:
+          case GetOfferErrors.FacilityNotFoundError:
             return this.notFound(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
@@ -56,10 +64,18 @@ export class GetOfferController extends BaseController {
     }
   }
 
-  private async handler(offerId: string): Promise<GetOfferResponse> {
+  private async handler(
+    offerId: string,
+    facilityId: string,
+  ): Promise<GetOfferResponse> {
     let dto;
 
     try {
+      const facilityExists = await this.facilityRepository.exists(facilityId);
+      if (!facilityExists) {
+        return left(new GetOfferErrors.FacilityNotFoundError(facilityId));
+      }
+
       try {
         dto = await this.offerQuery.getOfferById(offerId);
       } catch {

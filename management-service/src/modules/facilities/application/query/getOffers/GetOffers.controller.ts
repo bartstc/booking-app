@@ -11,14 +11,18 @@ import {
   right,
 } from 'shared/core';
 
-import { OfferQuery } from '../../../infra';
+import { FacilityRepository, OfferQuery } from '../../../infra';
 import { OfferDto } from '../../dto';
+import { GetOffersErrors } from './GetOffers.errors';
 
 type GetOffersResponse = Either<AppError.UnexpectedError, Result<OfferDto[]>>;
 
 @Controller()
 export class GetOffersController extends BaseController {
-  constructor(private readonly offerQuery: OfferQuery) {
+  constructor(
+    private readonly offerQuery: OfferQuery,
+    private readonly facilityRepository: FacilityRepository,
+  ) {
     super();
   }
 
@@ -39,7 +43,12 @@ export class GetOffersController extends BaseController {
         const error = result.value;
         this.logger.error(error.errorValue());
 
-        return this.fail(res, error.errorValue());
+        switch (error.constructor) {
+          case GetOffersErrors.FacilityNotFoundError:
+            return this.notFound(res, error.errorValue());
+          default:
+            return this.fail(res, error.errorValue());
+        }
       }
 
       this.logger.verbose('Offers successfully returned');
@@ -54,6 +63,11 @@ export class GetOffersController extends BaseController {
     let dto;
 
     try {
+      const facilityExists = await this.facilityRepository.exists(facilityId);
+      if (!facilityExists) {
+        return left(new GetOffersErrors.FacilityNotFoundError(facilityId));
+      }
+
       try {
         dto = await this.offerQuery.getFacilityOffers(facilityId);
       } catch (err) {

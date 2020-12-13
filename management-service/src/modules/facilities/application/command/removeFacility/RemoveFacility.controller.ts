@@ -38,6 +38,7 @@ export class RemoveFacilityController extends BaseController {
 
         switch (error.constructor) {
           case RemoveFacilityErrors.FacilityNotFoundError:
+          case RemoveFacilityErrors.EnterpriseNotFoundError:
             return this.notFound(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
