@@ -77,5 +77,6 @@ import { EnterpriseModule } from '../enterprise/enterprise.module';
     AddEmployeeHandler,
     RemoveEmployeeHandler,
   ],
+  exports: [TypeOrmModule.forFeature([FacilityRepository])],
 })
 export class FacilityModule {}

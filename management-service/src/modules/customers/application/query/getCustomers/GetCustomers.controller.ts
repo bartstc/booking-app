@@ -13,6 +13,8 @@ import {
 
 import { CustomerDto } from '../../dto';
 import { CustomerQuery } from '../../../infra';
+import { FacilityRepository } from '../../../../facilities/infra';
+import { GetCustomersErrors } from './GetCustomers.errors';
 
 type GetCustomersResponse = Either<
   AppError.UnexpectedError,
@@ -21,7 +23,10 @@ type GetCustomersResponse = Either<
 
 @Controller()
 export class GetCustomersController extends BaseController {
-  constructor(private readonly customerQuery: CustomerQuery) {
+  constructor(
+    private readonly customerQuery: CustomerQuery,
+    private readonly facilityRepository: FacilityRepository,
+  ) {
     super();
   }
 
@@ -57,6 +62,13 @@ export class GetCustomersController extends BaseController {
     let dto;
 
     try {
+      const facilityExists = await this.facilityRepository.exists(facilityId);
+      if (!facilityExists) {
+        return left(
+          new GetCustomersErrors.FacilityDoesNotExistError(facilityId),
+        );
+      }
+
       try {
         dto = await this.customerQuery.getFacilityCustomers(facilityId);
       } catch (err) {

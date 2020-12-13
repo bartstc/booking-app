@@ -14,15 +14,21 @@ import {
 import { GetCustomerErrors } from './GetCustomer.errors';
 import { CustomerDto } from '../../dto';
 import { CustomerQuery } from '../../../infra';
+import { FacilityRepository } from '../../../../facilities/infra';
 
 type GetCustomerResponse = Either<
-  AppError.UnexpectedError | GetCustomerErrors.CustomerDoesNotExistError,
+  | AppError.UnexpectedError
+  | GetCustomerErrors.CustomerDoesNotExistError
+  | GetCustomerErrors.FacilityDoesNotExistError,
   Result<CustomerDto>
 >;
 
 @Controller()
 export class GetCustomerController extends BaseController {
-  constructor(private readonly customerQuery: CustomerQuery) {
+  constructor(
+    private readonly customerQuery: CustomerQuery,
+    private readonly facilityRepository: FacilityRepository,
+  ) {
     super();
   }
 
@@ -34,17 +40,19 @@ export class GetCustomerController extends BaseController {
   @ApiNotFoundResponse({ description: 'Facility not found' })
   @ApiNotFoundResponse({ description: 'Customer not found' })
   async getCustomer(
+    @Param('facilityId') facilityId: string,
     @Param('customerId') customerId: string,
     @Res() res: Response,
   ) {
     try {
-      const result = await this.handler(customerId);
+      const result = await this.handler(customerId, facilityId);
 
       if (result.isLeft()) {
         const error = result.value;
         this.logger.error(error.errorValue());
         switch (error.constructor) {
           case GetCustomerErrors.CustomerDoesNotExistError:
+          case GetCustomerErrors.FacilityDoesNotExistError:
             return this.notFound(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
@@ -59,10 +67,20 @@ export class GetCustomerController extends BaseController {
     }
   }
 
-  private async handler(customerId: string): Promise<GetCustomerResponse> {
+  private async handler(
+    customerId: string,
+    facilityId: string,
+  ): Promise<GetCustomerResponse> {
     let dto;
 
     try {
+      const facilityExists = await this.facilityRepository.exists(facilityId);
+      if (!facilityExists) {
+        return left(
+          new GetCustomerErrors.FacilityDoesNotExistError(facilityId),
+        );
+      }
+
       try {
         dto = await this.customerQuery.getCustomerById(customerId);
       } catch {

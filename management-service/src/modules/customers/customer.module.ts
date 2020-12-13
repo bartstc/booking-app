@@ -14,6 +14,7 @@ import {
 } from './application/command/removeCustomer';
 import { GetCustomerController } from './application/query/getCustomer';
 import { GetCustomersController } from './application/query/getCustomers';
+import { FacilityModule } from '../facilities/facility.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { GetCustomersController } from './application/query/getCustomers';
       CustomerRepository,
       CustomerQuery,
     ]),
+    FacilityModule,
   ],
   controllers: [
     AddCustomerController,
