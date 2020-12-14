@@ -6,6 +6,7 @@ using Accessibility.Api.Schedules;
 using Accessibility.Application.Bookings.GetBookedRecordsOfFacility;
 using Accessibility.Application.Schedules.CorrectSchedule;
 using Accessibility.Application.Schedules.CreateSchedule;
+using Accessibility.Application.Schedules.GetScheduleById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,16 @@ namespace Accessibility.Api.Controllers
         )
         {
             return await mediator.Send(new GetBookedRecordsOfFacilityQuery(facilityId, dateFrom, dateTo));
+        }
+
+        [HttpGet("{facilityId}/schedules/{scheduleId}")]
+        [ProducesResponseType(typeof(ScheduleDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetScheduleById(
+            [FromRoute] Guid scheduleId
+        )
+        {
+            var schedule = await mediator.Send(new GetScheduleByIdQuery(scheduleId));
+            return Ok(schedule);
         }
 
         [HttpPost("{facilityId}/schedules")]
