@@ -1,6 +1,11 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import {
   AppError,
@@ -11,14 +16,14 @@ import {
   right,
 } from 'shared/core';
 
-import { CustomerDto } from '../../dto';
+import { CustomerCollectionDto } from '../../dto';
 import { CustomerQuery } from '../../../infra';
 import { FacilityRepository } from '../../../../facilities/infra';
 import { GetCustomersErrors } from './GetCustomers.errors';
 
 type GetCustomersResponse = Either<
   AppError.UnexpectedError,
-  Result<CustomerDto[]>
+  Result<CustomerCollectionDto>
 >;
 
 @Controller()
@@ -34,14 +39,18 @@ export class GetCustomersController extends BaseController {
 
   @Get('facilities/:facilityId/customers')
   @ApiTags('Customers')
-  @ApiOkResponse({ type: CustomerDto, isArray: true })
+  @ApiOkResponse({ type: CustomerCollectionDto })
   @ApiNotFoundResponse({ description: 'Facility not found' })
+  @ApiQuery({ name: 'offset', type: 'number', required: false })
+  @ApiQuery({ name: 'limit', type: 'number', required: false })
+  @ApiQuery({ name: 'query', type: 'string', required: false })
   async getCustomers(
     @Param('facilityId') facilityId: string,
+    @Query() params: any,
     @Res() res: Response,
   ) {
     try {
-      const result = await this.handler(facilityId);
+      const result = await this.handler(facilityId, params);
 
       if (result.isLeft()) {
         const error = result.value;
@@ -58,7 +67,10 @@ export class GetCustomersController extends BaseController {
     }
   }
 
-  private async handler(facilityId: string): Promise<GetCustomersResponse> {
+  private async handler(
+    facilityId: string,
+    params: any,
+  ): Promise<GetCustomersResponse> {
     let dto;
 
     try {
@@ -70,7 +82,7 @@ export class GetCustomersController extends BaseController {
       }
 
       try {
-        dto = await this.customerQuery.getFacilityCustomers(facilityId);
+        dto = await this.customerQuery.getCustomers(facilityId, params);
       } catch (err) {
         return left(new AppError.UnexpectedError(err));
       }
