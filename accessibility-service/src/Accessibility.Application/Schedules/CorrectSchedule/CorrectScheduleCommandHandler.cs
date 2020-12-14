@@ -30,6 +30,8 @@ namespace Accessibility.Application.Schedules.CorrectSchedule
                 new EmployeeId(a.CreatorId))).ToList()
             );
 
+            schedule.IncreaseVersion();
+
             await unitOfWork.CommitAsync();
 
             return Unit.Value;

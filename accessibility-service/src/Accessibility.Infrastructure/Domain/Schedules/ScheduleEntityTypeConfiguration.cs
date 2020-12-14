@@ -25,6 +25,7 @@ namespace Accessibility.Infrastructure.Domain.Schedules
             
             builder.Property("creationDate").HasColumnName("creation_date");
             builder.Property("modifyDate").HasColumnName("modify_date");
+            builder.Property("version").IsConcurrencyToken();
 
             builder.OwnsMany<Availability>("availabilities", x =>
             {

@@ -9,7 +9,7 @@ using Accessibility.Domain.SharedKernel;
 
 namespace Accessibility.Domain.Schedules
 {
-    public class Schedule : Entity, IAggregateRoot
+    public class Schedule : AggregateRootBase
     {
         public ScheduleId Id { get; }
         private FacilityId facilityId;
@@ -66,6 +66,7 @@ namespace Accessibility.Domain.Schedules
             )));
 
             modifyDate = DateTime.Now;
+            IncreaseVersion();
 
             AddDomainEvent(new ScheduleCorrectedEvent(Id));
         }

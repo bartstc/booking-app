@@ -35,7 +35,8 @@ CREATE TABLE accessibility.schedules (
     end_date timestamp NOT NULL,
     creator_id uuid NOT NULL,
     creation_date timestamp NOT NULL,
-    modify_date timestamp
+    modify_date timestamp,
+    version integer NOT NULL
 );
 
 CREATE TABLE accessibility.availabilities (
