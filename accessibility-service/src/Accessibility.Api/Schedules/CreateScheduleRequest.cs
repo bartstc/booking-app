@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Accessibility.Application.Schedules.CreateSchedule;
-using Accessibility.Domain.Schedules.Availabilities;
 
 namespace Accessibility.Api.Schedules
 {

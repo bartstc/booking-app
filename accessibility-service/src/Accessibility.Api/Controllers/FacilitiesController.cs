@@ -49,10 +49,10 @@ namespace Accessibility.Api.Controllers
         public async Task<IActionResult> CorrectSchedule(
             [FromRoute] Guid facilityId,
             [FromRoute] Guid scheduleId,
-            [FromBody] List<AvailabilityDto> availabilities
+            [FromBody] CorrectScheduleRequest request
         )
         {
-            await mediator.Send(new CorrectScheduleCommand(facilityId, scheduleId, availabilities));
+            await mediator.Send(new CorrectScheduleCommand(facilityId, scheduleId, request.Availabilities));
             return Ok();
         }
     }
