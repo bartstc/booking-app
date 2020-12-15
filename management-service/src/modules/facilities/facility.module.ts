@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { EnterpriseModule } from '../enterprise/enterprise.module';
 import {
   EmployeeQuery,
   EmployeeRepository,
@@ -40,7 +41,7 @@ import { GetOfferController } from './application/query/getOffer';
 import { GetOffersController } from './application/query/getOffers';
 import { GetEmployeesController } from './application/query/getEmployees';
 import { GetEmployeeController } from './application/query/getEmployee';
-import { EnterpriseModule } from '../enterprise/enterprise.module';
+import { GetBookingDataController } from './application/query/getBookingData';
 
 @Module({
   imports: [
@@ -68,6 +69,7 @@ import { EnterpriseModule } from '../enterprise/enterprise.module';
     GetOffersController,
     GetEmployeesController,
     GetEmployeeController,
+    GetBookingDataController,
   ],
   providers: [
     CreateFacilityHandler,
