@@ -1,13 +1,15 @@
-import { InjectRepository } from '@nestjs/typeorm';
+import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
 import { RemoveFacilityErrors } from './RemoveFacility.errors';
 import { RemoveFacilityCommand } from './RemoveFacility.command';
-import { FacilityRepository } from '../../../infra';
 
-import { EnterpriseRepository } from '../../../../enterprise/infra';
+import { EnterpriseKeys } from '../../../../enterprise/EnterpriseKeys';
+import { FacilityKeys } from '../../../FacilityKeys';
+import { FacilityRepository } from '../../../domain';
+import { EnterpriseRepository } from '../../../../enterprise/domain';
 
 export type RemoveFacilityResponse = Either<
   | AppError.UnexpectedError
@@ -20,8 +22,9 @@ export type RemoveFacilityResponse = Either<
 export class RemoveFacilityHandler
   implements ICommandHandler<RemoveFacilityCommand, RemoveFacilityResponse> {
   constructor(
-    @InjectRepository(FacilityRepository)
+    @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
+    @Inject(EnterpriseKeys.EnterpriseRepository)
     private enterpriseRepository: EnterpriseRepository,
   ) {}
 

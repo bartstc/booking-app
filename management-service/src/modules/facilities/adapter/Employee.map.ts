@@ -6,8 +6,8 @@ import {
   EmployeeName,
   EmployeePosition,
   FacilityId,
-} from '../../../domain';
-import { BuildEmployeeDto } from '../../BuildEmployee.dto';
+} from '../domain';
+import { BuildEmployeeDto } from './BuildEmployee.dto';
 
 export class EmployeeMap {
   public static dtoToDomain<T extends BuildEmployeeDto>(

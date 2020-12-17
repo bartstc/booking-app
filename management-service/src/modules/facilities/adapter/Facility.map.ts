@@ -18,11 +18,11 @@ import {
   Offers,
   Slug,
   WorkingDay,
-} from '../../../domain';
-import { EnterpriseId } from '../../../../enterprise/domain';
-import { EmployeeMap } from '../employee';
-import { OfferMap } from '../offer';
-import { BuildFacilityDto } from '../../BuildFacility.dto';
+} from '../domain';
+import { EnterpriseId } from '../../enterprise/domain';
+import { EmployeeMap } from './Employee.map';
+import { OfferMap } from './Offer.map';
+import { BuildFacilityDto } from './BuildFacility.dto';
 
 export class FacilityMap {
   public static entityToDomain(entity: any): Facility {

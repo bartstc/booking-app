@@ -10,7 +10,7 @@ import { AbstractEntity } from 'shared/core';
 import { IContact } from 'shared/domain/types';
 
 import { FacilityEntity } from '../facility';
-import { EntityName } from '../../EntityName';
+import { EntityName } from '../../../adapter';
 
 @Entity({ name: EntityName.Employee })
 export class EmployeeEntity extends AbstractEntity {

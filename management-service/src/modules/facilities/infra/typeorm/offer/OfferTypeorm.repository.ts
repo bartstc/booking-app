@@ -3,7 +3,7 @@ import { EntityRepository, Repository } from 'typeorm/index';
 import { OfferEntity } from './Offer.entity';
 import { OfferRepository } from '../../../domain/repositories';
 import { Offer } from '../../../domain';
-import { OfferMap } from './Offer.map';
+import { OfferMap } from '../../../adapter';
 
 @EntityRepository(OfferEntity)
 export class OfferTypeormRepository extends Repository<OfferEntity>

@@ -1,4 +1,4 @@
-import { FacilityDto } from '../../application/dto';
+import { FacilityDto } from '../application/dto';
 
 export interface FacilityQuery {
   getFacilityById(facilityId: string): Promise<FacilityDto>;

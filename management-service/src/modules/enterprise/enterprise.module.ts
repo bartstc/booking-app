@@ -1,29 +1,26 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { EnterpriseQuery, EnterpriseRepository } from './infra';
 import {
-  CreateEnterpriseHandler,
   CreateEnterpriseController,
+  CreateEnterpriseHandler,
 } from './application/command/createEnterprise';
 import {
-  UpdateEnterpriseHandler,
   UpdateEnterpriseController,
+  UpdateEnterpriseHandler,
 } from './application/command/updateEnterprise';
 import { GetEnterpriseController } from './application/query/getEnterprise';
+import { DbModule } from '../../db.module';
+import { providers } from './enterprise.providers';
 
 @Module({
-  imports: [
-    CqrsModule,
-    TypeOrmModule.forFeature([EnterpriseRepository, EnterpriseQuery]),
-  ],
+  imports: [CqrsModule, DbModule],
   controllers: [
     CreateEnterpriseController,
     UpdateEnterpriseController,
     GetEnterpriseController,
   ],
-  providers: [CreateEnterpriseHandler, UpdateEnterpriseHandler],
-  exports: [TypeOrmModule.forFeature([EnterpriseRepository])],
+  providers: [CreateEnterpriseHandler, UpdateEnterpriseHandler, ...providers],
+  exports: [providers[0]],
 })
 export class EnterpriseModule {}

@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
@@ -13,8 +13,10 @@ import {
 
 import { GetCustomerErrors } from './GetCustomer.errors';
 import { CustomerDto } from '../../dto';
-import { CustomerQuery } from '../../../infra';
-import { FacilityRepository } from '../../../../facilities/infra';
+import { CustomerKeys } from '../../../CustomerKeys';
+import { FacilityKeys } from '../../../../facilities/FacilityKeys';
+import { CustomerQuery } from '../../../adapter';
+import { FacilityRepository } from '../../../../facilities/domain';
 
 type GetCustomerResponse = Either<
   | AppError.UnexpectedError
@@ -26,7 +28,9 @@ type GetCustomerResponse = Either<
 @Controller()
 export class GetCustomerController extends BaseController {
   constructor(
+    @Inject(CustomerKeys.CustomerQuery)
     private readonly customerQuery: CustomerQuery,
+    @Inject(FacilityKeys.FacilityRepository)
     private readonly facilityRepository: FacilityRepository,
   ) {
     super();

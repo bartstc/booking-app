@@ -1,3 +1,3 @@
-import { BuildOfferDto } from '../../../infra';
+import { BuildOfferDto } from '../../../adapter';
 
 export class AddOfferDto extends BuildOfferDto {}

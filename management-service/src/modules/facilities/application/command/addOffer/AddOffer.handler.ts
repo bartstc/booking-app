@@ -1,12 +1,14 @@
+import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Connection } from 'typeorm/index';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
-import { Facility } from '../../../domain';
+import { Facility, FacilityRepository, OfferRepository } from '../../../domain';
 import { AddOfferErrors } from './AddOffer.errors';
 import { AddOfferCommand } from './AddOffer.command';
-import { FacilityRepository, OfferMap, OfferRepository } from '../../../infra';
+import { OfferMap } from '../../../adapter';
+import { FacilityKeys } from '../../../FacilityKeys';
 
 export type AddOfferResponse = Either<
   | AppError.ValidationError
@@ -20,7 +22,9 @@ export class AddOfferHandler
   implements ICommandHandler<AddOfferCommand, AddOfferResponse> {
   constructor(
     private connection: Connection,
+    @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
+    @Inject(FacilityKeys.OfferRepository)
     private offerRepository: OfferRepository,
   ) {}
 

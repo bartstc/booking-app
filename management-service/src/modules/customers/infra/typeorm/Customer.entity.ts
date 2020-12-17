@@ -10,8 +10,8 @@ import { IContact } from 'shared/domain/types';
 import { AbstractEntity } from 'shared/core';
 
 import { IAddress } from '../../domain/types';
-import { EntityName } from '../EntityName';
 import { FacilityEntity } from '../../../facilities/infra/typeorm/facility';
+import { EntityName } from '../../adapter';
 
 @Entity({ name: EntityName.Customer })
 export class CustomerEntity extends AbstractEntity {

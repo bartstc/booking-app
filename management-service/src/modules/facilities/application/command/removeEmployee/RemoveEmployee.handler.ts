@@ -1,17 +1,19 @@
+import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Connection } from 'typeorm/index';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
 import { RemoveEmployeeErrors } from './RemoveEmployee.errors';
 import { RemoveEmployeeCommand } from './RemoveEmployee.command';
-import { Employee, Facility } from '../../../domain';
 import {
+  Employee,
   EmployeeRepository,
-  EntityName,
+  Facility,
   FacilityRepository,
-} from '../../../infra';
+} from '../../../domain';
+import { EntityName } from '../../../adapter';
+import { FacilityKeys } from '../../../FacilityKeys';
 
 export type RemoveEmployeeResponse = Either<
   | AppError.UnexpectedError
@@ -25,9 +27,9 @@ export class RemoveEmployeeHandler
   implements ICommandHandler<RemoveEmployeeCommand, RemoveEmployeeResponse> {
   constructor(
     private connection: Connection,
-    @InjectRepository(FacilityRepository)
+    @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
-    @InjectRepository(EmployeeRepository)
+    @Inject(FacilityKeys.EmployeeRepository)
     private employeeRepository: EmployeeRepository,
   ) {}
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
@@ -12,8 +12,9 @@ import {
 } from 'shared/core';
 
 import { GetEnterpriseErrors } from './GetEnterprise.errors';
-import { EnterpriseQuery } from '../../../infra';
 import { EnterpriseDto } from '../../dto';
+import { EnterpriseKeys } from '../../../EnterpriseKeys';
+import { EnterpriseQuery } from '../../../adapter';
 
 type GetEnterpriseResponse = Either<
   GetEnterpriseErrors.EnterpriseDoesNotExistError,
@@ -22,7 +23,10 @@ type GetEnterpriseResponse = Either<
 
 @Controller()
 export class GetEnterpriseController extends BaseController {
-  constructor(private readonly enterpriseQuery: EnterpriseQuery) {
+  constructor(
+    @Inject(EnterpriseKeys.EnterpriseQuery)
+    private enterpriseQuery: EnterpriseQuery,
+  ) {
     super();
   }
 

@@ -1,4 +1,4 @@
-import { EnterpriseDto } from '../../application/dto';
+import { EnterpriseDto } from '../application/dto';
 
 export interface EnterpriseQuery {
   exists(enterpriseId: string): Promise<boolean>;

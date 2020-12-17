@@ -3,7 +3,7 @@ import { EntityRepository, Repository } from 'typeorm/index';
 import { OfferEntity } from './Offer.entity';
 import { OfferTypeormTransformer } from './OfferTypeorm.transformer';
 import { OfferDto } from '../../../application/dto';
-import { OfferQuery } from '../../query';
+import { OfferQuery } from '../../../adapter';
 
 @EntityRepository(OfferEntity)
 export class OfferTypeormQuery extends Repository<OfferEntity>

@@ -1,12 +1,14 @@
-import { InjectRepository } from '@nestjs/typeorm';
+import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
-import { CustomerRepository } from '../../../infra';
 import { RemoveCustomerErrors } from './RemoveCustomer.errors';
 import { RemoveCustomerCommand } from './RemoveCustomer.command';
-import { FacilityRepository } from '../../../../facilities/infra';
+import { CustomerKeys } from '../../../CustomerKeys';
+import { CustomerRepository } from '../../../domain';
+import { FacilityKeys } from '../../../../facilities/FacilityKeys';
+import { FacilityRepository } from '../../../../facilities/domain';
 
 export type RemoveCustomerResponse = Either<
   AppError.UnexpectedError | RemoveCustomerErrors.CustomerNotFoundError,
@@ -17,9 +19,9 @@ export type RemoveCustomerResponse = Either<
 export class RemoveCustomerHandler
   implements ICommandHandler<RemoveCustomerCommand, RemoveCustomerResponse> {
   constructor(
-    @InjectRepository(CustomerRepository)
+    @Inject(CustomerKeys.CustomerRepository)
     private customerRepository: CustomerRepository,
-    @InjectRepository(FacilityRepository)
+    @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
   ) {}
 

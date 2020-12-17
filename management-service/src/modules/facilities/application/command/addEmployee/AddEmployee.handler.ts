@@ -1,16 +1,18 @@
+import { Inject } from '@nestjs/common';
 import { Connection } from 'typeorm/index';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
-import { Facility } from '../../../domain';
+import {
+  EmployeeRepository,
+  Facility,
+  FacilityRepository,
+} from '../../../domain';
 import { AddEmployeeErrors } from './AddEmployee.errors';
 import { AddEmployeeCommand } from './AddEmployee.command';
-import {
-  EmployeeMap,
-  EmployeeRepository,
-  FacilityRepository,
-} from '../../../infra';
+import { EmployeeMap } from '../../../adapter';
+import { FacilityKeys } from '../../../FacilityKeys';
 
 export type AddEmployeeResponse = Either<
   | AppError.ValidationError
@@ -24,7 +26,9 @@ export class AddEmployeeHandler
   implements ICommandHandler<AddEmployeeCommand, AddEmployeeResponse> {
   constructor(
     private connection: Connection,
+    @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
+    @Inject(FacilityKeys.EmployeeRepository)
     private employeeRepository: EmployeeRepository,
   ) {}
 

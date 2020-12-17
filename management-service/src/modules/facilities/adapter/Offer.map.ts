@@ -7,8 +7,8 @@ import {
   OfferName,
   OfferVariant,
   OfferVariants,
-} from '../../../domain';
-import { BuildOfferDto } from '../../BuildOffer.dto';
+} from '../domain';
+import { BuildOfferDto } from './BuildOffer.dto';
 
 export class OfferMap {
   public static dtoToDomain(

@@ -1,12 +1,15 @@
+import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
-import { CustomerMap, CustomerRepository } from '../../../infra';
-import { Customer } from '../../../domain';
-import { FacilityRepository } from '../../../../facilities/infra';
+import { CustomerMap } from '../../../adapter';
+import { Customer, CustomerRepository } from '../../../domain';
+import { FacilityRepository } from '../../../../facilities/domain';
 import { AddCustomerCommand } from './AddCustomer.command';
 import { AddCustomerErrors } from './AddCustomer.errors';
+import { CustomerKeys } from '../../../CustomerKeys';
+import { FacilityKeys } from '../../../../facilities/FacilityKeys';
 
 export type AddCustomerResponse = Either<
   | AppError.ValidationError
@@ -19,7 +22,9 @@ export type AddCustomerResponse = Either<
 export class AddCustomerHandler
   implements ICommandHandler<AddCustomerCommand, AddCustomerResponse> {
   constructor(
+    @Inject(CustomerKeys.CustomerRepository)
     private customerRepository: CustomerRepository,
+    @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
   ) {}
 

@@ -2,7 +2,7 @@ import { EntityRepository, Repository } from 'typeorm/index';
 
 import { Customer, CustomerRepository } from '../../domain';
 import { CustomerEntity } from './Customer.entity';
-import { CustomerMap } from './Customer.map';
+import { CustomerMap } from '../../adapter';
 
 @EntityRepository(CustomerEntity)
 export class CustomerTypeormRepository extends Repository<CustomerEntity>

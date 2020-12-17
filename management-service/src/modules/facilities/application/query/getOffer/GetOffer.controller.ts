@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
@@ -13,7 +13,9 @@ import {
 
 import { GetOfferErrors } from './GetOffer.errors';
 import { OfferDto } from '../../dto';
-import { FacilityRepository, OfferQuery } from '../../../infra';
+import { FacilityKeys } from '../../../FacilityKeys';
+import { OfferQuery } from '../../../adapter';
+import { FacilityRepository } from '../../../domain';
 
 type GetOfferResponse = Either<
   AppError.UnexpectedError | GetOfferErrors.OfferDoesNotExistError,
@@ -23,8 +25,10 @@ type GetOfferResponse = Either<
 @Controller()
 export class GetOfferController extends BaseController {
   constructor(
-    private readonly offerQuery: OfferQuery,
-    private readonly facilityRepository: FacilityRepository,
+    @Inject(FacilityKeys.OfferQuery)
+    private offerQuery: OfferQuery,
+    @Inject(FacilityKeys.FacilityRepository)
+    private facilityRepository: FacilityRepository,
   ) {
     super();
   }

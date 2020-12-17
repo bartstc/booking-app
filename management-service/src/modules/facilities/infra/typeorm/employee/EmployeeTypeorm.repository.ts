@@ -2,8 +2,8 @@ import { EntityRepository, Repository } from 'typeorm/index';
 
 import { EmployeeRepository } from '../../../domain/repositories';
 import { Employee } from '../../../domain';
-import { EmployeeMap } from './Employee.map';
 import { EmployeeEntity } from './Employee.entity';
+import { EmployeeMap } from '../../../adapter';
 
 @EntityRepository(EmployeeEntity)
 export class EmployeeTypeormRepository extends Repository<EmployeeEntity>

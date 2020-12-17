@@ -1,1 +1,0 @@
-export { EnterpriseQuery } from './EnterpriseQuery';

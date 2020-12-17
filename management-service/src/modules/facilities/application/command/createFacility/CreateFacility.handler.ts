@@ -1,13 +1,16 @@
+import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
-import { Slug } from '../../../domain';
-import { FacilityMap, FacilityRepository } from '../../../infra';
+import { Slug, FacilityRepository } from '../../../domain';
 import { CreateFacilityCommand } from './CreateFacility.command';
 import { CreateFacilityErrors } from './CreateFacility.errors';
 
-import { EnterpriseRepository } from '../../../../enterprise/infra';
+import { FacilityMap } from '../../../adapter';
+import { EnterpriseKeys } from '../../../../enterprise/EnterpriseKeys';
+import { EnterpriseRepository } from '../../../../enterprise/domain';
+import { FacilityKeys } from '../../../FacilityKeys';
 
 export type CreateFacilityResponse = Either<
   | AppError.ValidationError
@@ -21,7 +24,9 @@ export type CreateFacilityResponse = Either<
 export class CreateFacilityHandler
   implements ICommandHandler<CreateFacilityCommand, CreateFacilityResponse> {
   constructor(
+    @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
+    @Inject(EnterpriseKeys.EnterpriseRepository)
     private enterpriseRepository: EnterpriseRepository,
   ) {}
 

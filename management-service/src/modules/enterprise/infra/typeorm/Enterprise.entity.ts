@@ -1,16 +1,10 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  PrimaryColumn,
-} from 'typeorm/index';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm/index';
 
 import { AbstractEntity } from 'shared/core';
 import { IContactPerson } from 'shared/domain';
 
 import { FacilityEntity } from '../../../facilities/infra';
-import { EntityName } from '../EntityName';
+import { EntityName } from '../../adapter';
 
 @Entity({ name: EntityName.Enterprise })
 export class EnterpriseEntity extends AbstractEntity {
