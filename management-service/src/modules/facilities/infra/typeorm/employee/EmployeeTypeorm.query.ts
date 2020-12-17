@@ -3,7 +3,7 @@ import { EntityRepository, Repository } from 'typeorm/index';
 import { EmployeeEntity } from './Employee.entity';
 import { EmployeeDto } from '../../../application/dto';
 import { EmployeeTypeormTransformer } from './EmployeeTypeorm.transformer';
-import { EmployeeQuery } from '../../query';
+import { EmployeeQuery } from '../../../adapter';
 
 @EntityRepository(EmployeeEntity)
 export class EmployeeTypeormQuery extends Repository<EmployeeEntity>

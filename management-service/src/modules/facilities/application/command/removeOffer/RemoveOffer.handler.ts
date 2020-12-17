@@ -1,5 +1,5 @@
+import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Connection } from 'typeorm/index';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
@@ -7,11 +7,13 @@ import { AppError, Either, left, Result, right } from 'shared/core';
 import { RemoveOfferErrors } from './RemoveOffer.errors';
 import { RemoveOfferCommand } from './RemoveOffer.command';
 import {
-  EntityName,
+  Facility,
   FacilityRepository,
+  Offer,
   OfferRepository,
-} from '../../../infra';
-import { Facility, Offer } from '../../../domain';
+} from '../../../domain';
+import { EntityName } from '../../../adapter';
+import { FacilityKeys } from '../../../FacilityKeys';
 
 export type RemoveOfferResponse = Either<
   | AppError.UnexpectedError
@@ -25,9 +27,9 @@ export class RemoveOfferHandler
   implements ICommandHandler<RemoveOfferCommand, RemoveOfferResponse> {
   constructor(
     private connection: Connection,
-    @InjectRepository(FacilityRepository)
+    @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
-    @InjectRepository(OfferRepository)
+    @Inject(FacilityKeys.OfferRepository)
     private offerRepository: OfferRepository,
   ) {}
 

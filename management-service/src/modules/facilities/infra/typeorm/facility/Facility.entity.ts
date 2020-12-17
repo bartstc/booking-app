@@ -15,11 +15,11 @@ import {
   IBusinessCategory,
   IWorkingDay,
 } from '../../../domain/types';
-import { EntityName } from '../../EntityName';
 import { EmployeeEntity } from '../employee';
 import { OfferEntity } from '../offer';
 import { EnterpriseEntity } from '../../../../enterprise/infra';
 import { CustomerEntity } from '../../../../customers/infra/typeorm';
+import { EntityName } from '../../../adapter';
 
 @Entity({ name: EntityName.Facility })
 export class FacilityEntity extends AbstractEntity {

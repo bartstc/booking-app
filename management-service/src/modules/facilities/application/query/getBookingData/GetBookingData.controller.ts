@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
@@ -11,9 +11,10 @@ import {
   right,
 } from 'shared/core';
 
-import { EmployeeQuery, OfferQuery, FacilityQuery } from '../../../infra';
 import { BookingDataDto, EmployeeDto, FacilityDto, OfferDto } from '../../dto';
 import { GetBookingDataErrors } from './GetBookingData.errors';
+import { FacilityKeys } from '../../../FacilityKeys';
+import { EmployeeQuery, FacilityQuery, OfferQuery } from '../../../adapter';
 
 type GetBookingDataResponse = Either<
   | AppError.UnexpectedError
@@ -26,9 +27,12 @@ type GetBookingDataResponse = Either<
 @Controller()
 export class GetBookingDataController extends BaseController {
   constructor(
-    private readonly facilityQuery: FacilityQuery,
-    private readonly employeeQuery: EmployeeQuery,
-    private readonly offerQuery: OfferQuery,
+    @Inject(FacilityKeys.FacilityQuery)
+    private facilityQuery: FacilityQuery,
+    @Inject(FacilityKeys.EmployeeQuery)
+    private employeeQuery: EmployeeQuery,
+    @Inject(FacilityKeys.OfferQuery)
+    private offerQuery: OfferQuery,
   ) {
     super();
   }

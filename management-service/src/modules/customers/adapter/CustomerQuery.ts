@@ -1,5 +1,5 @@
-import { CustomerDto } from '../../application/dto';
-import { QueryListResult, QueryParams } from '../../../../shared/core';
+import { QueryListResult, QueryParams } from 'shared/core';
+import { CustomerDto } from '../application/dto';
 
 export interface CustomerQuery {
   getCustomerById(customerId: string): Promise<CustomerDto>;

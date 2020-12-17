@@ -1,3 +1,3 @@
-import { BuildEnterpriseDto } from '../../../infra';
+import { BuildEnterpriseDto } from '../../../adapter';
 
 export class CreateEnterpriseDto extends BuildEnterpriseDto {}

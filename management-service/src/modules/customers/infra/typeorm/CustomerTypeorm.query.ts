@@ -2,10 +2,10 @@ import { EntityRepository } from 'typeorm/index';
 
 import { BaseQuery, QueryListResult, QueryParams } from 'shared/core';
 
-import { CustomerQuery } from '../query';
 import { CustomerEntity } from './Customer.entity';
 import { CustomerDto } from '../../application/dto';
 import { CustomerTypeormTransformer } from './CustomerTypeorm.transformer';
+import { CustomerQuery } from '../../adapter';
 
 @EntityRepository(CustomerEntity)
 export class CustomerTypeormQuery extends BaseQuery<CustomerEntity>

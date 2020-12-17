@@ -1,39 +1,30 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { EnterpriseModule } from '../enterprise/enterprise.module';
 import {
-  EmployeeQuery,
-  EmployeeRepository,
-  FacilityQuery,
-  FacilityRepository,
-  OfferQuery,
-  OfferRepository,
-} from './infra';
-import {
-  CreateFacilityHandler,
   CreateFacilityController,
+  CreateFacilityHandler,
 } from './application/command/createFacility';
 import {
-  RemoveFacilityHandler,
   RemoveFacilityController,
+  RemoveFacilityHandler,
 } from './application/command/removeFacility';
 import {
-  AddOfferHandler,
   AddOfferController,
+  AddOfferHandler,
 } from './application/command/addOffer';
 import {
-  RemoveOfferHandler,
   RemoveOfferController,
+  RemoveOfferHandler,
 } from './application/command/removeOffer';
 import {
-  AddEmployeeHandler,
   AddEmployeeController,
+  AddEmployeeHandler,
 } from './application/command/addEmployee';
 import {
-  RemoveEmployeeHandler,
   RemoveEmployeeController,
+  RemoveEmployeeHandler,
 } from './application/command/removeEmployee';
 import { GetFacilityByIdController } from './application/query/getFacilityById';
 import { GetFacilityBySlugController } from './application/query/getFacilityBySlug';
@@ -42,20 +33,11 @@ import { GetOffersController } from './application/query/getOffers';
 import { GetEmployeesController } from './application/query/getEmployees';
 import { GetEmployeeController } from './application/query/getEmployee';
 import { GetBookingDataController } from './application/query/getBookingData';
+import { DbModule } from '../../db.module';
+import { providers } from './facility.providers';
 
 @Module({
-  imports: [
-    CqrsModule,
-    TypeOrmModule.forFeature([
-      FacilityRepository,
-      FacilityQuery,
-      OfferRepository,
-      OfferQuery,
-      EmployeeRepository,
-      EmployeeQuery,
-    ]),
-    EnterpriseModule,
-  ],
+  imports: [CqrsModule, EnterpriseModule, DbModule],
   controllers: [
     CreateFacilityController,
     RemoveFacilityController,
@@ -78,7 +60,8 @@ import { GetBookingDataController } from './application/query/getBookingData';
     RemoveOfferHandler,
     AddEmployeeHandler,
     RemoveEmployeeHandler,
+    ...providers,
   ],
-  exports: [TypeOrmModule.forFeature([FacilityRepository])],
+  exports: [providers[0]],
 })
 export class FacilityModule {}

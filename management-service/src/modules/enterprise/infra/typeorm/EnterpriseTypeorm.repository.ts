@@ -1,8 +1,8 @@
 import { EntityRepository, Repository } from 'typeorm/index';
 
-import { Enterprise, EnterpriseRepository } from '../../domain';
 import { EnterpriseEntity } from './Enterprise.entity';
-import { EnterpriseMap } from './Enterprise.map';
+import { Enterprise, EnterpriseRepository } from '../../domain';
+import { EnterpriseMap } from '../../adapter';
 
 @EntityRepository(EnterpriseEntity)
 export class EnterpriseTypeormRepository extends Repository<EnterpriseEntity>

@@ -1,13 +1,12 @@
 import { Contact, Contacts, UniqueEntityID } from 'shared/domain';
 import { Result } from 'shared/core';
 
-import { Address, Customer, CustomerDescription, FullName } from '../../domain';
-import { CustomerEntity } from './Customer.entity';
-import { FacilityId } from '../../../facilities/domain';
-import { BuildCustomerDto } from '../BuildCustomer.dto';
+import { Address, Customer, CustomerDescription, FullName } from '../domain';
+import { BuildCustomerDto } from './BuildCustomer.dto';
+import { FacilityId } from '../../facilities/domain';
 
 export class CustomerMap {
-  public static entityToDomain(entity: CustomerEntity): Customer {
+  public static entityToDomain(entity: any): Customer {
     const facilityId = FacilityId.create(
       new UniqueEntityID(entity.facility_id),
     ).getValue();
@@ -78,7 +77,7 @@ export class CustomerMap {
     });
   }
 
-  public static toPersistence(customer: Customer): Partial<CustomerEntity> {
+  public static toPersistence(customer: Customer): Partial<any> {
     return {
       customer_id: customer.customerId.id.toString(),
       facility_id: customer.facilityId,

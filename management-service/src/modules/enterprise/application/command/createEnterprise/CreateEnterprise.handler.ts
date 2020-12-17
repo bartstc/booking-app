@@ -1,10 +1,12 @@
+import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
-import { Enterprise } from '../../../domain';
-import { EnterpriseMap, EnterpriseRepository } from '../../../infra';
+import { Enterprise, EnterpriseRepository } from '../../../domain';
+import { EnterpriseMap } from '../../../adapter';
 import { CreateEnterpriseCommand } from './CreateEnterprise.command';
+import { EnterpriseKeys } from '../../../EnterpriseKeys';
 
 export type CreateEnterpriseResponse = Either<
   AppError.ValidationError | AppError.UnexpectedError,
@@ -15,7 +17,10 @@ export type CreateEnterpriseResponse = Either<
 export class CreateEnterpriseHandler
   implements
     ICommandHandler<CreateEnterpriseCommand, CreateEnterpriseResponse> {
-  constructor(private repository: EnterpriseRepository) {}
+  constructor(
+    @Inject(EnterpriseKeys.EnterpriseRepository)
+    private repository: EnterpriseRepository,
+  ) {}
 
   async execute({
     createEnterpriseDto: dto,

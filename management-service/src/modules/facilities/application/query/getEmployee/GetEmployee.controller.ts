@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
@@ -12,8 +12,10 @@ import {
 } from 'shared/core';
 
 import { GetEmployeeErrors } from './GetEmployee.errors';
-import { EmployeeQuery, FacilityRepository } from '../../../infra';
 import { EmployeeDto } from '../../dto';
+import { FacilityKeys } from '../../../FacilityKeys';
+import { EmployeeQuery } from '../../../adapter';
+import { FacilityRepository } from '../../../domain';
 
 type GetEmployeeResponse = Either<
   AppError.UnexpectedError | GetEmployeeErrors.EmployeeDoesNotExistError,
@@ -23,8 +25,10 @@ type GetEmployeeResponse = Either<
 @Controller()
 export class GetEmployeeController extends BaseController {
   constructor(
-    private readonly employeeQuery: EmployeeQuery,
-    private readonly facilityRepository: FacilityRepository,
+    @Inject(FacilityKeys.EmployeeQuery)
+    private employeeQuery: EmployeeQuery,
+    @Inject(FacilityKeys.FacilityRepository)
+    private facilityRepository: FacilityRepository,
   ) {
     super();
   }

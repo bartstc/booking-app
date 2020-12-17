@@ -2,8 +2,8 @@ import { EntityRepository, Repository } from 'typeorm/index';
 
 import { FacilityRepository } from '../../../domain/repositories';
 import { Facility, Slug } from '../../../domain';
-import { FacilityMap } from './Facility.map';
 import { FacilityEntity } from './Facility.entity';
+import { FacilityMap } from '../../../adapter';
 
 @EntityRepository(FacilityEntity)
 export class FacilityTypeormRepository extends Repository<FacilityEntity>

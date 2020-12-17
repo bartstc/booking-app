@@ -3,7 +3,7 @@ import { EntityRepository, Repository } from 'typeorm/index';
 import { EnterpriseEntity } from './Enterprise.entity';
 import { EnterpriseDto } from '../../application/dto';
 import { EnterpriseTypeormTransformer } from './EnterpriseTypeorm.transformer';
-import { EnterpriseQuery } from '../query';
+import { EnterpriseQuery } from '../../adapter';
 
 @EntityRepository(EnterpriseEntity)
 export class EnterpriseTypeormQuery extends Repository<EnterpriseEntity>

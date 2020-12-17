@@ -1,3 +1,3 @@
-import { BuildCustomerDto } from '../../../infra';
+import { BuildCustomerDto } from '../../../adapter';
 
 export class AddCustomerDto extends BuildCustomerDto {}

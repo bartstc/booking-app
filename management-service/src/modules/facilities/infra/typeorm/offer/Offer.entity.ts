@@ -8,9 +8,9 @@ import {
 
 import { AbstractEntity } from 'shared/core';
 
-import { EntityName } from '../../EntityName';
 import { IOfferVariant } from '../../../domain/types';
 import { FacilityEntity } from '../facility';
+import { EntityName } from '../../../adapter';
 
 @Entity({ name: EntityName.Offer })
 export class OfferEntity extends AbstractEntity {

@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
@@ -12,8 +12,9 @@ import {
 } from 'shared/core';
 
 import { FacilityDto } from '../../dto';
-import { FacilityQuery } from '../../../infra';
 import { GetFacilityBySlugErrors } from './GetFacilityBySlug.errors';
+import { FacilityKeys } from '../../../FacilityKeys';
+import { FacilityQuery } from '../../../adapter';
 
 type GetFacilityResponse = Either<
   GetFacilityBySlugErrors.FacilityDoesNotExistError | AppError.UnexpectedError,
@@ -22,7 +23,9 @@ type GetFacilityResponse = Either<
 
 @Controller()
 export class GetFacilityBySlugController extends BaseController {
-  constructor(private readonly facilityQuery: FacilityQuery) {
+  constructor(
+    @Inject(FacilityKeys.FacilityQuery) private facilityQuery: FacilityQuery,
+  ) {
     super();
   }
 

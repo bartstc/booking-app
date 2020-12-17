@@ -6,12 +6,8 @@ import {
   CountryCode,
 } from 'shared/domain';
 
-import {
-  Enterprise,
-  EnterpriseDescription,
-  EnterpriseName,
-} from '../../domain';
-import { BuildEnterpriseDto } from '../BuildEnterprise.dto';
+import { Enterprise, EnterpriseDescription, EnterpriseName } from '../domain';
+import { BuildEnterpriseDto } from './BuildEnterprise.dto';
 
 export class EnterpriseMap {
   public static dtoToDomain<T extends BuildEnterpriseDto>(
