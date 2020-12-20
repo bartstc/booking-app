@@ -9,6 +9,7 @@ import { AddOfferErrors } from './AddOffer.errors';
 import { AddOfferCommand } from './AddOffer.command';
 import { OfferMap } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
+import { DB_CONNECTION } from '../../../../../constants';
 
 export type AddOfferResponse = Either<
   | AppError.ValidationError
@@ -21,6 +22,7 @@ export type AddOfferResponse = Either<
 export class AddOfferHandler
   implements ICommandHandler<AddOfferCommand, AddOfferResponse> {
   constructor(
+    @Inject(DB_CONNECTION)
     private connection: Connection,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,

@@ -14,6 +14,7 @@ import {
 } from '../../../domain';
 import { EntityName } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
+import { DB_CONNECTION } from '../../../../../constants';
 
 export type RemoveEmployeeResponse = Either<
   | AppError.UnexpectedError
@@ -26,6 +27,7 @@ export type RemoveEmployeeResponse = Either<
 export class RemoveEmployeeHandler
   implements ICommandHandler<RemoveEmployeeCommand, RemoveEmployeeResponse> {
   constructor(
+    @Inject(DB_CONNECTION)
     private connection: Connection,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
