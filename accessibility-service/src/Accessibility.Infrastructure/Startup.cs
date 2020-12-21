@@ -30,7 +30,7 @@ namespace Accessibility.Infrastructure
                 .AddTransient<IBookingRepository, BookingRepository>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()
-                .AddHostedService<ProcessOutboxHostedService>()
+                //.AddHostedService<ProcessOutboxHostedService>()
                 .AddScoped<ISqlConnectionFactory>(x => new SqlConnectionFactory(connectionString))
                 .AddSingleton<IAssemblyProvider>(x => new AssemblyProvider(applicationAssembly));
 
