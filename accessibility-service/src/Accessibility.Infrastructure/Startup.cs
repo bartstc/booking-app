@@ -35,7 +35,7 @@ namespace Accessibility.Infrastructure
                 .AddTransient<ISchedulePeriodOfTimeChecker, SchedulePeriodOfTimeChecker>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()
-                .AddHostedService<ProcessOutboxHostedService>()
+                //.AddHostedService<ProcessOutboxHostedService>()
                 .AddScoped<ISqlConnectionFactory>(x => new SqlConnectionFactory(connectionString))
                 .AddSingleton<IAssemblyProvider>(x => new AssemblyProvider(applicationAssembly));
 

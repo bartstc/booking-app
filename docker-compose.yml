@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./accessibility-service/InitializeDb.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_PASSWORD: pg
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  
+  accessibility:
+    image: accessibility
+    build:
+      context: .
+      dockerfile: accessibility-service/Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - ConnectionStrings:Accessibility=Host=db;Database=postgres;Username=postgres;Password=pg

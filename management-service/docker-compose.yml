@@ -26,7 +26,7 @@ services:
       - webnet
     depends_on:
       - booking-app-management-postgres
-    command: npm run start:dev
+#    command: npm run start:dev
 
   booking-app-management-postgres:
     container_name: booking-app-management-postgres

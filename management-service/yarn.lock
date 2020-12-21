@@ -567,10 +567,15 @@
     tslib "2.0.1"
     uuid "8.3.0"
 
-"@nestjs/mapped-types@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-0.1.0.tgz#248435b4af4305bf6d1214d228c84926be56125a"
-  integrity sha512-FfQsZK5K1OvvGqjPHCJtrNTLlKLg7bLuphtCRTFb5K2P98JTfslauMbT7bS8huOoK/86HMNmNoHR/EVLAd4FzA==
+"@nestjs/cqrs@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/cqrs/-/cqrs-7.0.1.tgz#35b1137ad8fa54329c8ee4cea035ff55d9c2a98a"
+  integrity sha512-4UJAH3ryJvT+SDeuB5ls1OpJsPr3xqsyiuWCfVd1oyzCLazuxl04t/xup005HtWdxczwLgaAau7SIAb+XZotBQ==
+
+"@nestjs/mapped-types@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-0.1.1.tgz#2fa9ff0f1ddbe66d5d1c80ae59df21c0ed0d1361"
+  integrity sha512-FROYmmZ2F+tLJP/aHasPMX40iUHQPtEAzOAcfAp21baebN5iLUrdyTuphoXjIqubfPFSwtnAGpVm9kLJjQ//ig==
 
 "@nestjs/platform-express@^7.0.0":
   version "7.4.4"
@@ -593,12 +598,12 @@
     fs-extra "9.0.1"
     pluralize "8.0.0"
 
-"@nestjs/swagger@^4.6.1":
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-4.6.1.tgz#dab7d09ed2579b05b42d1a724de6008745d1d36c"
-  integrity sha512-ClJmY7w70fhS0ET3O84IGTyFzKult9T0BlwjyfFeyd9Y02bsX4vYNuJ3YXoOgiHJYsFPUBqpc8DAi4k6AkCdfw==
+"@nestjs/swagger@^4.7.5":
+  version "4.7.5"
+  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-4.7.5.tgz#3f1ef36a81921decbbc384e46be2c515c63ce438"
+  integrity sha512-Qoj7lnvWoCIdJL50b85fdc+v2X9OY8HXaN9ngbBxAAfqLch0YfHgGdU95oBAtV6GYKbAGBqMCsmogr1TzWENwQ==
   dependencies:
-    "@nestjs/mapped-types" "0.1.0"
+    "@nestjs/mapped-types" "0.1.1"
     lodash "4.17.20"
     path-to-regexp "3.2.0"
 
@@ -6725,6 +6730,18 @@ supports-hyperlinks@^2.0.0:
   dependencies:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
+
+swagger-ui-dist@^3.18.1:
+  version "3.37.2"
+  resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-3.37.2.tgz#b250ae8d0b3b5ee15b6eb7a53aa9b69cd5888ad3"
+  integrity sha512-XIT4asxgeL4GUNPPsqpEqLt20M/u6OhFYqTh42IoEAvAyv5e9EGw5uhP9dLAD10opcMYqdkJ5qU+MpN2HZ5xyA==
+
+swagger-ui-express@^4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/swagger-ui-express/-/swagger-ui-express-4.1.5.tgz#114f3ce017ca6d6069d960ea8ffef677784b6f2f"
+  integrity sha512-hs9OqBu2jwmhYyFUhdTiwurvbZC+bq2XnWmmbYymVdwhgJCcGkLdnqymX24ZYUve2nkYSvKPEDCo20ZF+vyw9A==
+  dependencies:
+    swagger-ui-dist "^3.18.1"
 
 symbol-observable@1.2.0:
   version "1.2.0"

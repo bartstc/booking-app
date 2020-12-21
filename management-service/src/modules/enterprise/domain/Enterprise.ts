@@ -1,11 +1,14 @@
-import { Entity, UniqueEntityID } from 'shared/domain';
+import {
+  Entity,
+  UniqueEntityID,
+  Link,
+  ContactPerson,
+  CountryCode,
+} from 'shared/domain';
 import { Result } from 'shared/core';
 
 import { EnterpriseName } from './EnterpriseName';
 import { EnterpriseDescription } from './EnterpriseDescription';
-import { Link } from './Link';
-import { CountryCode } from './CountryCode';
-import { ContactPerson } from './ContactPerson';
 import { EnterpriseId } from './EnterpriseId';
 
 interface IProps {
@@ -15,6 +18,8 @@ interface IProps {
   enterpriseUrl: Link;
   countryCode: CountryCode;
   contactPerson: ContactPerson;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export class Enterprise extends Entity<IProps> {
@@ -40,6 +45,14 @@ export class Enterprise extends Entity<IProps> {
 
   get contactPerson() {
     return this.props.contactPerson;
+  }
+
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
   }
 
   public static create(props: IProps, id?: UniqueEntityID): Result<Enterprise> {
