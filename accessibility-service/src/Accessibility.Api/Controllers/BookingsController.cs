@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using Accessibility.Application.Bookings.SetBookedRecordStatus;
 using Accessibility.Domain.Bookings.BookedRecords;
+using Accessibility.Application.Bookings.GetBookedRecordsOfFacility;
+using Accessibility.Application.Bookings.AnyUnfinishedBookingOfOffer;
+using Accessibility.Application.Bookings.AnyUnfinishedBookingOfEmployee;
 
 namespace Accessibility.Api.Controllers
 {
@@ -75,6 +78,38 @@ namespace Accessibility.Api.Controllers
                 bookedRecordId,
                 BookedRecordStatus.NotRealized));
             return Ok();
+        }
+        
+        
+        [HttpGet("{facilityId}/booked-records")]
+        [ProducesResponseType(typeof(List<BookedRecordOfFacilityDto>), (int)HttpStatusCode.OK)]
+        public async Task<List<BookedRecordOfFacilityDto>> GetBookedRecords(
+            [FromRoute] Guid facilityId,
+            [FromQuery] DateTime dateFrom,
+            [FromQuery] DateTime dateTo
+        )
+        {
+            return await mediator.Send(new GetBookedRecordsOfFacilityQuery(facilityId, dateFrom, dateTo));
+        }
+
+        [HttpHead("any-unfinished")]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        public async Task<IActionResult> AnyUnfinishedBookedRecords(
+            [FromRoute] Guid facilityId,
+            [FromQuery] Guid offerId,
+            [FromQuery] Guid employeeId)
+        {
+            if (offerId != Guid.Empty && employeeId == Guid.Empty)
+            {
+                if ((await mediator.Send(new AnyUnfinishedBookingOfOfferQuery(facilityId, offerId))))
+                    return Ok();
+            }
+            else if (offerId == Guid.Empty && employeeId != Guid.Empty)
+            {
+                if (await mediator.Send(new AnyUnfinishedBookingOfEmployeeQuery(facilityId, employeeId)))
+                    return Ok();
+            }
+            return NotFound();
         }
     }
 }
