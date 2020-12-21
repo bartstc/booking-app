@@ -26,7 +26,8 @@ namespace Accessibility.Api
             services.ConfigureAccessibility(
                 Configuration.GetConnectionString("Accessibility"),
                 typeof(BookedNotification).Assembly)
-            .AddSwaggerGen();
+            .AddSwaggerGen(options =>
+                    options.CustomSchemaIds(x => x.FullName));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
