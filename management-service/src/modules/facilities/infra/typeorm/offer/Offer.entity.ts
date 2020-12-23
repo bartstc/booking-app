@@ -17,6 +17,9 @@ export class OfferEntity extends AbstractEntity {
   @PrimaryColumn()
   offer_id: string;
 
+  @Column({ default: true })
+  is_active: boolean;
+
   @Column('jsonb')
   details: {
     name: string;

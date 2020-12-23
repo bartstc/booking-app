@@ -30,6 +30,7 @@ export class OfferMap {
         facilityId: FacilityId.create(
           new UniqueEntityID(facilityId),
         ).getValue(),
+        isActive: true,
         name: name.getValue(),
         variants,
       },
@@ -52,6 +53,7 @@ export class OfferMap {
         facilityId: FacilityId.create(
           new UniqueEntityID(entity.facility_id),
         ).getValue(),
+        isActive: entity.is_active,
         name: name.getValue(),
         variants,
       },
@@ -73,6 +75,7 @@ export class OfferMap {
     return {
       offer_id: offer.offerId.id.toString(),
       facility_id: offer.facilityId,
+      is_active: offer.isActive,
       details: {
         name: offer.name.value,
         variants: offer.variants.getItems().map(offer => offer.props),

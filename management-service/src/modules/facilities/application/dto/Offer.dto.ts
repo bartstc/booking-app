@@ -10,6 +10,9 @@ export class OfferDto {
   facilityId: string;
 
   @ApiProperty()
+  isActive: boolean;
+
+  @ApiProperty()
   name: string;
 
   @ApiProperty({ type: [OfferVariantDto] })
