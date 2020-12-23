@@ -1,7 +1,7 @@
 using System;
 using Accessibility.Domain.SeedWork;
 
-namespace Accessibility.Domain.Bookings.BookedRecords
+namespace Accessibility.Domain.SharedKernel
 {
     public class EmployeeId : StronglyTypedIdBase
     {

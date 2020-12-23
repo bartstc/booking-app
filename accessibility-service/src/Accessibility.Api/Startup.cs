@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Accessibility.Infrastructure;
 using Accessibility.Application.Bookings.Book;
+using FluentValidation.AspNetCore;
 
 namespace Accessibility.Api
 {
@@ -19,7 +20,9 @@ namespace Accessibility.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<Startup>());
+            
             services.ConfigureAccessibility(
                 Configuration.GetConnectionString("Accessibility"),
                 typeof(BookedNotification).Assembly)
