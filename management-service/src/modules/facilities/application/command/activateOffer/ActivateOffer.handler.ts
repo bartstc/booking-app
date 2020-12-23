@@ -8,12 +8,13 @@ import { ActivateOfferCommand } from './ActivateOffer.command';
 import { FacilityRepository, Offer, OfferRepository } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { OfferStatus } from '../../../domain/types';
+import { OfferIsAlreadyActiveGuard } from '../../../domain/guards';
 
 export type ActivateOfferResponse = Either<
   | AppError.UnexpectedError
   | ActivateOfferErrors.FacilityNotFoundError
   | ActivateOfferErrors.OfferNotFoundError
-  | ActivateOfferErrors.OfferIsAlreadyActiveError,
+  | OfferIsAlreadyActiveGuard,
   Result<void>
 >;
 
@@ -46,7 +47,7 @@ export class ActivateOfferHandler
       }
 
       if (offer.status === OfferStatus.Active) {
-        return left(new ActivateOfferErrors.OfferIsAlreadyActiveError());
+        return left(new OfferIsAlreadyActiveGuard());
       }
 
       offer.activate();

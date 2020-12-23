@@ -16,12 +16,4 @@ export namespace DeactivateOfferErrors {
       });
     }
   }
-
-  export class OfferIsAlreadyInactiveError extends Result<UseCaseError> {
-    constructor() {
-      super(false, {
-        message: `offerIsAlreadyInactive`,
-      });
-    }
-  }
 }

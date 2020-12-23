@@ -8,12 +8,13 @@ import { DeactivateOfferCommand } from './DeactivateOffer.command';
 import { FacilityRepository, Offer, OfferRepository } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { OfferStatus } from '../../../domain/types';
+import { OfferIsAlreadyInactiveGuard } from '../../../domain/guards';
 
 export type DeactivateOfferResponse = Either<
   | AppError.UnexpectedError
   | DeactivateOfferErrors.FacilityNotFoundError
   | DeactivateOfferErrors.OfferNotFoundError
-  | DeactivateOfferErrors.OfferIsAlreadyInactiveError,
+  | OfferIsAlreadyInactiveGuard,
   Result<void>
 >;
 
@@ -46,7 +47,7 @@ export class DeactivateOfferHandler
       }
 
       if (offer.status === OfferStatus.Inactive) {
-        return left(new DeactivateOfferErrors.OfferIsAlreadyInactiveError());
+        return left(new OfferIsAlreadyInactiveGuard());
       }
 
       offer.deactivate();

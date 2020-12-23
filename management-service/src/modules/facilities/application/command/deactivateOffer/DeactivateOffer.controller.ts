@@ -13,6 +13,7 @@ import { BaseController } from 'shared/core';
 import { DeactivateOfferResponse } from './DeactivateOffer.handler';
 import { DeactivateOfferErrors } from './DeactivateOffer.errors';
 import { DeactivateOfferCommand } from './DeactivateOffer.command';
+import { OfferIsAlreadyInactiveGuard } from '../../../domain/guards';
 
 @Controller()
 export class DeactivateOfferController extends BaseController {
@@ -46,7 +47,7 @@ export class DeactivateOfferController extends BaseController {
           case DeactivateOfferErrors.OfferNotFoundError:
           case DeactivateOfferErrors.FacilityNotFoundError:
             return this.notFound(res, error.errorValue());
-          case DeactivateOfferErrors.OfferIsAlreadyInactiveError:
+          case OfferIsAlreadyInactiveGuard:
             return this.methodNotAllowed(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
