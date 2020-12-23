@@ -24,7 +24,7 @@ namespace Accessibility.Api
                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<Startup>());
             
             services.ConfigureAccessibility(
-                Configuration.GetConnectionString("Accessibility"),
+                Configuration,
                 typeof(BookedNotification).Assembly)
             .AddSwaggerGen(options =>
                     options.CustomSchemaIds(x => x.FullName));
