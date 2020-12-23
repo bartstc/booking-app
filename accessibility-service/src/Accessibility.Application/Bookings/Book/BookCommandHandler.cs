@@ -1,7 +1,9 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Application.Bookings.Book.EventBus;
 using Accessibility.Domain.Bookings;
+using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
@@ -23,7 +25,16 @@ namespace Accessibility.Application.Bookings.Book
 
         public Task<Unit> Handle(BookCommand request, CancellationToken cancellationToken)
         {
-            eventBus.Publish(new BookingOrderMessage(), new FacilityId(request.FacilityId));
+            eventBus.Publish(
+                new BookingOrderMessage(
+                    new CustomerId(request.CustomerId),
+                    request.BookedRecords.Select(r => new BookedRecordMessage(
+                        new EmployeeId(r.EmployeeId),
+                        new OfferId(r.OfferId),
+                        r.Date
+                    )).ToList()
+                ),
+                new FacilityId(request.FacilityId));
 
             return Unit.Task;
         }

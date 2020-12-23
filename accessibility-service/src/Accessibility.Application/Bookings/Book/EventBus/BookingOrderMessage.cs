@@ -1,11 +1,17 @@
+using System.Collections.Generic;
+using Accessibility.Domain.Bookings;
+
 namespace Accessibility.Application.Bookings.Book.EventBus
 {
     public class BookingOrderMessage
     {
-        public BookingOrderMessage()
+        public BookingOrderMessage(CustomerId customerId, List<BookedRecordMessage> bookedRecords)
         {
-            Test = "Booking test";
+            CustomerId = customerId;
+            BookedRecords = bookedRecords;
         }
-        public string Test { get; set; }
+
+        public CustomerId CustomerId { get; }
+        public List<BookedRecordMessage> BookedRecords { get; }
     }
 }
