@@ -9,10 +9,11 @@ import {
   OfferIsAlreadyActiveGuard,
   OfferIsAlreadyInactiveGuard,
 } from './guards';
+import { OfferStatus } from './types';
 
 interface IProps {
   facilityId: FacilityId;
-  isActive: boolean;
+  status: OfferStatus;
   name: OfferName;
   variants: OfferVariants;
 }
@@ -26,8 +27,8 @@ export class Offer extends Entity<IProps> {
     return this.props.facilityId.id.toString();
   }
 
-  get isActive() {
-    return this.props.isActive;
+  get status() {
+    return this.props.status;
   }
 
   get name() {
@@ -39,23 +40,23 @@ export class Offer extends Entity<IProps> {
   }
 
   public activate() {
-    if (this.isActive) {
+    if (this.status === OfferStatus.Active) {
       throw new OfferIsAlreadyActiveGuard();
     }
 
-    this.props.isActive = true;
+    this.props.status = OfferStatus.Active;
   }
 
   public deactivate() {
-    if (!this.isActive) {
+    if (this.status === OfferStatus.Inactive) {
       throw new OfferIsAlreadyInactiveGuard();
     }
 
-    this.props.isActive = false;
+    this.props.status = OfferStatus.Inactive;
   }
 
   public static create(props: IProps, id?: UniqueEntityID): Result<Offer> {
-    const nullGuard = Guard.againstNullOrUndefined(props.isActive, 'isActive');
+    const nullGuard = Guard.againstNullOrUndefined(props.status, 'status');
 
     if (!nullGuard.succeeded) {
       return Result.fail(nullGuard);

@@ -9,3 +9,4 @@ export { WeekDay } from './WeekDay';
 export { IWorkingDay } from './IWorkingDay';
 export { IWorkingHours } from './IWorkingHours';
 export { IBusinessCategory } from './IBusinessCategory';
+export { OfferStatus } from './OfferStatus';

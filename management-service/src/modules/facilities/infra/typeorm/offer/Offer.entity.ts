@@ -8,7 +8,7 @@ import {
 
 import { AbstractEntity } from 'shared/core';
 
-import { IOfferVariant } from '../../../domain/types';
+import { IOfferVariant, OfferStatus } from '../../../domain/types';
 import { FacilityEntity } from '../facility';
 import { EntityName } from '../../../adapter';
 
@@ -17,8 +17,8 @@ export class OfferEntity extends AbstractEntity {
   @PrimaryColumn()
   offer_id: string;
 
-  @Column({ default: true })
-  is_active: boolean;
+  @Column()
+  status: OfferStatus;
 
   @Column('jsonb')
   details: {

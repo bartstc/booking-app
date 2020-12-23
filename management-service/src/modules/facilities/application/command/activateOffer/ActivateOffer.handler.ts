@@ -7,6 +7,7 @@ import { ActivateOfferErrors } from './ActivateOffer.errors';
 import { ActivateOfferCommand } from './ActivateOffer.command';
 import { FacilityRepository, Offer, OfferRepository } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
+import { OfferStatus } from '../../../domain/types';
 
 export type ActivateOfferResponse = Either<
   | AppError.UnexpectedError
@@ -44,13 +45,14 @@ export class ActivateOfferHandler
         return left(new ActivateOfferErrors.OfferNotFoundError());
       }
 
-      if (offer.isActive) {
+      if (offer.status === OfferStatus.Active) {
         return left(new ActivateOfferErrors.OfferIsAlreadyActiveError());
       }
 
       offer.activate();
 
-      await this.offerRepository.persist(offer);
+      const entity = await this.offerRepository.persist(offer);
+      await entity.save();
 
       return right(Result.ok());
     } catch (err) {
