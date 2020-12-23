@@ -26,6 +26,14 @@ import {
   RemoveEmployeeController,
   RemoveEmployeeHandler,
 } from './application/command/removeEmployee';
+import {
+  ActivateOfferController,
+  ActivateOfferHandler,
+} from './application/command/activateOffer';
+import {
+  DeactivateOfferController,
+  DeactivateOfferHandler,
+} from './application/command/deactivateOffer';
 import { GetFacilityByIdController } from './application/query/getFacilityById';
 import { GetFacilityBySlugController } from './application/query/getFacilityBySlug';
 import { GetOfferController } from './application/query/getOffer';
@@ -45,6 +53,8 @@ import { providers } from './facility.providers';
     RemoveOfferController,
     AddEmployeeController,
     RemoveEmployeeController,
+    ActivateOfferController,
+    DeactivateOfferController,
     GetFacilityByIdController,
     GetFacilityBySlugController,
     GetOfferController,
@@ -60,6 +70,8 @@ import { providers } from './facility.providers';
     RemoveOfferHandler,
     AddEmployeeHandler,
     RemoveEmployeeHandler,
+    ActivateOfferHandler,
+    DeactivateOfferHandler,
     ...providers,
   ],
   exports: [providers[0]],
