@@ -1,13 +1,19 @@
 import { Contacts, Entity, UniqueEntityID } from 'shared/domain';
-import { Guard, Result, TextValidator } from 'shared/core';
+import { Guard, Result } from 'shared/core';
 
 import { EmployeeId } from './EmployeeId';
 import { FacilityId } from './FacilityId';
 import { EmployeeName } from './EmployeeName';
 import { EmployeePosition } from './EmployeePosition';
+import { EmployeeStatus } from './types';
+import {
+  EmployeeIsAlreadyActiveGuard,
+  EmployeeIsAlreadyInactiveGuard,
+} from './guards';
 
 interface IProps {
   facilityId: FacilityId;
+  status: EmployeeStatus;
   name: EmployeeName;
   position: EmployeePosition;
   contacts: Contacts;
@@ -22,6 +28,10 @@ export class Employee extends Entity<IProps> {
     return this.props.facilityId.id.toString();
   }
 
+  get status() {
+    return this.props.status;
+  }
+
   get name() {
     return this.props.name;
   }
@@ -34,6 +44,22 @@ export class Employee extends Entity<IProps> {
     return this.props.contacts;
   }
 
+  public activate() {
+    if (this.status === EmployeeStatus.Active) {
+      throw new EmployeeIsAlreadyActiveGuard();
+    }
+
+    this.props.status = EmployeeStatus.Active;
+  }
+
+  public deactivate() {
+    if (this.status === EmployeeStatus.Inactive) {
+      throw new EmployeeIsAlreadyInactiveGuard();
+    }
+
+    this.props.status = EmployeeStatus.Inactive;
+  }
+
   public static create(props: IProps, id?: UniqueEntityID): Result<Employee> {
     const nullGuard = Guard.againstNullOrUndefinedBulk([
       {
@@ -43,6 +69,10 @@ export class Employee extends Entity<IProps> {
       {
         argument: props.position,
         argumentName: 'employee.position',
+      },
+      {
+        argument: props.status,
+        argumentName: 'employee.status',
       },
     ]);
 

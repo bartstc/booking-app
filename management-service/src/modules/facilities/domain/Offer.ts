@@ -56,7 +56,7 @@ export class Offer extends Entity<IProps> {
   }
 
   public static create(props: IProps, id?: UniqueEntityID): Result<Offer> {
-    const nullGuard = Guard.againstNullOrUndefined(props.status, 'status');
+    const nullGuard = Guard.againstNullOrUndefined(props.status, 'offer.status');
 
     if (!nullGuard.succeeded) {
       return Result.fail(nullGuard);
