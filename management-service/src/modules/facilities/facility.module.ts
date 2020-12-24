@@ -34,6 +34,14 @@ import {
   DeactivateOfferController,
   DeactivateOfferHandler,
 } from './application/command/deactivateOffer';
+import {
+  ActivateEmployeeController,
+  ActivateEmployeeHandler,
+} from './application/command/activateEmployee';
+import {
+  DeactivateEmployeeController,
+  DeactivateEmployeeHandler,
+} from './application/command/deactivateEmployee';
 import { GetFacilityByIdController } from './application/query/getFacilityById';
 import { GetFacilityBySlugController } from './application/query/getFacilityBySlug';
 import { GetOfferController } from './application/query/getOffer';
@@ -43,10 +51,6 @@ import { GetEmployeeController } from './application/query/getEmployee';
 import { GetBookingDataController } from './application/query/getBookingData';
 import { DbModule } from '../../db.module';
 import { providers } from './facility.providers';
-import {
-  ActivateEmployeeController,
-  ActivateEmployeeHandler,
-} from './application/command/activateEmployee';
 
 @Module({
   imports: [CqrsModule, EnterpriseModule, DbModule],
@@ -60,6 +64,7 @@ import {
     ActivateOfferController,
     DeactivateOfferController,
     ActivateEmployeeController,
+    DeactivateEmployeeController,
     GetFacilityByIdController,
     GetFacilityBySlugController,
     GetOfferController,
@@ -78,6 +83,7 @@ import {
     ActivateOfferHandler,
     DeactivateOfferHandler,
     ActivateEmployeeHandler,
+    DeactivateEmployeeHandler,
     ...providers,
   ],
   exports: [providers[0]],

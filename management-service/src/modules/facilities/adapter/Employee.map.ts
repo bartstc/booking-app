@@ -22,9 +22,11 @@ export class EmployeeMap {
     });
     const contactList: Contact[] = [];
 
-    dto.contacts.forEach(contact => {
-      contactList.push(Contact.create(contact).getValue());
-    });
+    if (dto.contacts?.length) {
+      dto.contacts.forEach(contact => {
+        contactList.push(Contact.create(contact).getValue());
+      });
+    }
 
     const contacts = Contacts.create(contactList);
 
