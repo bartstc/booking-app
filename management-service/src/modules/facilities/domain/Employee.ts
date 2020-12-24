@@ -7,6 +7,7 @@ import { EmployeeName } from './EmployeeName';
 import { EmployeePosition } from './EmployeePosition';
 import { EmployeeStatus } from './types';
 import {
+  CannotRemoveActiveEmployeeGuard,
   EmployeeIsAlreadyActiveGuard,
   EmployeeIsAlreadyInactiveGuard,
 } from './guards';
@@ -17,6 +18,7 @@ interface IProps {
   name: EmployeeName;
   position: EmployeePosition;
   contacts: Contacts;
+  isRemoved?: boolean;
 }
 
 export class Employee extends Entity<IProps> {
@@ -44,8 +46,12 @@ export class Employee extends Entity<IProps> {
     return this.props.contacts;
   }
 
+  get isActive() {
+    return this.status === EmployeeStatus.Active;
+  }
+
   public activate() {
-    if (this.status === EmployeeStatus.Active) {
+    if (this.isActive) {
       throw new EmployeeIsAlreadyActiveGuard();
     }
 
@@ -53,11 +59,19 @@ export class Employee extends Entity<IProps> {
   }
 
   public deactivate() {
-    if (this.status === EmployeeStatus.Inactive) {
+    if (!this.isActive) {
       throw new EmployeeIsAlreadyInactiveGuard();
     }
 
     this.props.status = EmployeeStatus.Inactive;
+  }
+
+  public remove() {
+    if (this.isActive) {
+      throw new CannotRemoveActiveEmployeeGuard();
+    }
+
+    this.props.isRemoved = true;
   }
 
   public static create(props: IProps, id?: UniqueEntityID): Result<Employee> {

@@ -11,7 +11,6 @@ import {
   FacilityRepository,
 } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { EmployeeStatus } from '../../../domain/types';
 import { EmployeeIsAlreadyActiveGuard } from '../../../domain/guards';
 
 export type ActivateEmployeeResponse = Either<
@@ -51,7 +50,7 @@ export class ActivateEmployeeHandler
         return left(new ActivateEmployeeErrors.EmployeeNotFoundError());
       }
 
-      if (employee.status === EmployeeStatus.Active) {
+      if (employee.isActive) {
         return left(new EmployeeIsAlreadyActiveGuard());
       }
 

@@ -6,6 +6,7 @@ import { FacilityId } from './FacilityId';
 import { OfferName } from './OfferName';
 import { OfferVariants } from './OfferVariants';
 import {
+  CannotRemoveActiveOfferGuard,
   OfferIsAlreadyActiveGuard,
   OfferIsAlreadyInactiveGuard,
 } from './guards';
@@ -16,6 +17,7 @@ interface IProps {
   status: OfferStatus;
   name: OfferName;
   variants: OfferVariants;
+  isRemoved?: boolean;
 }
 
 export class Offer extends Entity<IProps> {
@@ -39,8 +41,12 @@ export class Offer extends Entity<IProps> {
     return this.props.variants;
   }
 
+  get isActive() {
+    return this.status === OfferStatus.Active;
+  }
+
   public activate() {
-    if (this.status === OfferStatus.Active) {
+    if (this.isActive) {
       throw new OfferIsAlreadyActiveGuard();
     }
 
@@ -48,15 +54,26 @@ export class Offer extends Entity<IProps> {
   }
 
   public deactivate() {
-    if (this.status === OfferStatus.Inactive) {
+    if (!this.isActive) {
       throw new OfferIsAlreadyInactiveGuard();
     }
 
     this.props.status = OfferStatus.Inactive;
   }
 
+  public remove() {
+    if (this.isActive) {
+      throw new CannotRemoveActiveOfferGuard();
+    }
+
+    this.props.isRemoved = true;
+  }
+
   public static create(props: IProps, id?: UniqueEntityID): Result<Offer> {
-    const nullGuard = Guard.againstNullOrUndefined(props.status, 'offer.status');
+    const nullGuard = Guard.againstNullOrUndefined(
+      props.status,
+      'offer.status',
+    );
 
     if (!nullGuard.succeeded) {
       return Result.fail(nullGuard);

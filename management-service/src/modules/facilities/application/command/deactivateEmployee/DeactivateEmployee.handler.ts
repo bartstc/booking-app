@@ -51,7 +51,7 @@ export class DeactivateEmployeeHandler
         return left(new DeactivateEmployeeErrors.EmployeeNotFoundError());
       }
 
-      if (employee.status === EmployeeStatus.Inactive) {
+      if (!employee.isActive) {
         return left(new EmployeeIsAlreadyInactiveGuard());
       }
 

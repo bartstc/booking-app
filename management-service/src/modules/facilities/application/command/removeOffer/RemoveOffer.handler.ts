@@ -15,6 +15,7 @@ import {
 import { EntityName } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { DB_CONNECTION } from '../../../../../constants';
+import { CannotRemoveActiveOfferGuard } from '../../../domain/guards';
 
 export type RemoveOfferResponse = Either<
   | AppError.UnexpectedError
@@ -55,6 +56,10 @@ export class RemoveOfferHandler
         offer = await this.offerRepository.getOfferById(offerId);
       } catch {
         return left(new RemoveOfferErrors.OfferNotFoundError());
+      }
+
+      if (offer.isActive) {
+        return left(new CannotRemoveActiveOfferGuard());
       }
 
       facility.removeOffer(offer);

@@ -88,6 +88,7 @@ export class FacilityMap {
   public static dtoToDomain<T extends BuildFacilityDto>(
     dto: T,
     enterpriseId: string,
+    facilityId?: string,
   ): Result<Facility> {
     const name = FacilityName.create({ value: dto.facilityName });
     const slug = Slug.create({ value: dto.slug });
@@ -106,31 +107,34 @@ export class FacilityMap {
     });
     const availability = Availability.create(workingDays);
 
-    return Facility.create({
-      enterpriseId: EnterpriseId.create(
-        new UniqueEntityID(enterpriseId),
-      ).getValue(),
-      name: name.getValue(),
-      description: dto.facilityDescription
-        ? FacilityDescription.create({
-            value: dto.facilityDescription,
-          }).getValue()
-        : null,
-      slug: slug.getValue(),
-      contactPerson: dto.contactPerson
-        ? ContactPerson.create(dto.contactPerson).getValue()
-        : null,
-      contacts: Contacts.create(
-        dto.contacts?.length
-          ? dto.contacts.map(contact => Contact.create(contact).getValue())
-          : [],
-      ),
-      address: address.getValue(),
-      businessCategories,
-      availability: availability.getValue(),
-      employees: Employees.create(),
-      offers: Offers.create(),
-    });
+    return Facility.create(
+      {
+        enterpriseId: EnterpriseId.create(
+          new UniqueEntityID(enterpriseId),
+        ).getValue(),
+        name: name.getValue(),
+        description: dto.facilityDescription
+          ? FacilityDescription.create({
+              value: dto.facilityDescription,
+            }).getValue()
+          : null,
+        slug: slug.getValue(),
+        contactPerson: dto.contactPerson
+          ? ContactPerson.create(dto.contactPerson).getValue()
+          : null,
+        contacts: Contacts.create(
+          dto.contacts?.length
+            ? dto.contacts.map(contact => Contact.create(contact).getValue())
+            : [],
+        ),
+        address: address.getValue(),
+        businessCategories,
+        availability: availability.getValue(),
+        employees: Employees.create(),
+        offers: Offers.create(),
+      },
+      new UniqueEntityID(facilityId),
+    );
   }
 
   public static toPersistence(facility: Facility): Partial<any> {
