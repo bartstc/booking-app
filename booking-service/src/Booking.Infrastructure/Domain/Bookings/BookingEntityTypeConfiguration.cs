@@ -12,7 +12,7 @@ namespace Booking.Infrastructure.Domain.Bookings
     {
         public void Configure(EntityTypeBuilder<Booking.Domain.Bookings.Booking> builder)
         {
-            builder.ToTable("bookings", SchemaNames.Accessibility);
+            builder.ToTable("bookings", SchemaNames.Booking);
 
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("booking_id");
@@ -28,7 +28,7 @@ namespace Booking.Infrastructure.Domain.Bookings
             builder.OwnsMany<BookedRecord>("bookedRecords", x =>
             {
                 x.WithOwner().HasForeignKey("booking_id");
-                x.ToTable("booked_records", SchemaNames.Accessibility);
+                x.ToTable("booked_records", SchemaNames.Booking);
 
                 x.HasKey("Id");
                 x.Property("Id").HasColumnName("booked_record_id");
