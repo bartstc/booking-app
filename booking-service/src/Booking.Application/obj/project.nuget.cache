@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "578KczMWH5e6X+YEaElM3zCWZzKm24MpygWfR367/VDWSeSevccH9BFAmRZq2/2+WKgcG23yglbU1SMWmLfUcQ==",
+  "success": true,
+  "projectFilePath": "/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Application/Booking.Application.csproj",
+  "expectedPackageFiles": [
+    "/home/kgniazdowski/.nuget/packages/dapper/2.0.78/dapper.2.0.78.nupkg.sha512",
+    "/home/kgniazdowski/.nuget/packages/mediatr/9.0.0/mediatr.9.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

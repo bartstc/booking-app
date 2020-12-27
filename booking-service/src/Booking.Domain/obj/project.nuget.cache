@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "jCfJGZNsHjAmOniRYX993WKWe0X35uPQtsOVP6xIEvc9R++Gg7I/a2qjJTDyOUdcm60G2El1NEAe886USfQIVQ==",
+  "success": true,
+  "projectFilePath": "/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Domain/Booking.Domain.csproj",
+  "expectedPackageFiles": [
+    "/home/kgniazdowski/.nuget/packages/mediatr/9.0.0/mediatr.9.0.0.nupkg.sha512",
+    "/home/kgniazdowski/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/home/kgniazdowski/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

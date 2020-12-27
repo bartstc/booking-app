@@ -1,0 +1,17 @@
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/obj/Debug/net5.0/Booking.Infrastructure.csprojAssemblyReference.cache
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/obj/Debug/net5.0/Booking.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/obj/Debug/net5.0/Booking.Infrastructure.AssemblyInfoInputs.cache
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/obj/Debug/net5.0/Booking.Infrastructure.AssemblyInfo.cs
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/obj/Debug/net5.0/Booking.Infrastructure.csproj.CoreCompileInputs.cache
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/bin/Debug/net5.0/Booking.Infrastructure.deps.json
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/bin/Debug/net5.0/Booking.Infrastructure.dll
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/bin/Debug/net5.0/ref/Booking.Infrastructure.dll
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/bin/Debug/net5.0/Booking.Infrastructure.pdb
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/bin/Debug/net5.0/Booking.Application.dll
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/bin/Debug/net5.0/Booking.Domain.dll
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/bin/Debug/net5.0/Booking.Domain.pdb
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/bin/Debug/net5.0/Booking.Application.pdb
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/obj/Debug/net5.0/Booking.Infrastructure.csproj.CopyComplete
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/obj/Debug/net5.0/Booking.Infrastructure.dll
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/obj/Debug/net5.0/ref/Booking.Infrastructure.dll
+/home/kgniazdowski/dev/booking-app/booking-service/src/Booking.Infrastructure/obj/Debug/net5.0/Booking.Infrastructure.pdb
