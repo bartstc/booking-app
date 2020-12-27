@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { OfferVariantDto } from './OfferVariant.dto';
+import { OfferStatus } from '../../domain/types';
 
 export class OfferDto {
   @ApiProperty()
@@ -8,6 +9,9 @@ export class OfferDto {
 
   @ApiProperty()
   facilityId: string;
+
+  @ApiProperty({ enum: OfferStatus })
+  status: OfferStatus;
 
   @ApiProperty()
   name: string;

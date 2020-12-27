@@ -2,14 +2,14 @@ import { Test } from '@nestjs/testing';
 
 import { AddCustomerHandler } from './AddCustomer.handler';
 import { CustomerKeys } from '../../../CustomerKeys';
-import { CustomerRepositoryMock } from '../../fixtures';
 
 import { FacilityKeys } from '../../../../facilities/FacilityKeys';
-import { FacilityRepositoryMock } from '../../../../facilities/application/fixtures';
 import { AddCustomerDto } from './AddCustomer.dto';
 import { AddCustomerCommand } from './AddCustomer.command';
 import { AddCustomerErrors } from './AddCustomer.errors';
 import { ContactType } from '../../../../../shared/domain/types';
+import { CustomerRepositoryMock } from '../../../../../../fixtures/customers';
+import { FacilityRepositoryMock } from '../../../../../../fixtures/facilities';
 
 describe('AddCustomerHandler', () => {
   let addCustomerHandler: AddCustomerHandler;

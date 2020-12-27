@@ -11,11 +11,15 @@ import { IContact } from 'shared/domain/types';
 
 import { FacilityEntity } from '../facility';
 import { EntityName } from '../../../adapter';
+import { EmployeeStatus } from '../../../domain/types';
 
 @Entity({ name: EntityName.Employee })
 export class EmployeeEntity extends AbstractEntity {
   @PrimaryColumn()
   employee_id: string;
+
+  @Column()
+  status: EmployeeStatus;
 
   @Column('jsonb')
   details: {

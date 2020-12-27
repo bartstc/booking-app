@@ -9,6 +9,7 @@ import {
   OfferVariants,
 } from '../domain';
 import { BuildOfferDto } from './BuildOffer.dto';
+import { OfferStatus } from '../domain/types';
 
 export class OfferMap {
   public static dtoToDomain(
@@ -30,6 +31,7 @@ export class OfferMap {
         facilityId: FacilityId.create(
           new UniqueEntityID(facilityId),
         ).getValue(),
+        status: OfferStatus.Active,
         name: name.getValue(),
         variants,
       },
@@ -52,6 +54,7 @@ export class OfferMap {
         facilityId: FacilityId.create(
           new UniqueEntityID(entity.facility_id),
         ).getValue(),
+        status: entity.status,
         name: name.getValue(),
         variants,
       },
@@ -73,6 +76,7 @@ export class OfferMap {
     return {
       offer_id: offer.offerId.id.toString(),
       facility_id: offer.facilityId,
+      status: offer.status,
       details: {
         name: offer.name.value,
         variants: offer.variants.getItems().map(offer => offer.props),

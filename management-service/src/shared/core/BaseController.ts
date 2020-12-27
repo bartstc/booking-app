@@ -49,6 +49,12 @@ export abstract class BaseController {
     });
   }
 
+  public methodNotAllowed(res: express.Response, { message }: JsonBody) {
+    return BaseController.jsonResponse(res, 405, {
+      message: message ?? 'Method not allowed',
+    });
+  }
+
   public conflict(res: express.Response, { message }: JsonBody) {
     return BaseController.jsonResponse(res, 409, {
       message: message ?? 'Conflict',

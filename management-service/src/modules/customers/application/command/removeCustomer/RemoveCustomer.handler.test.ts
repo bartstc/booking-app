@@ -2,12 +2,11 @@ import { Test } from '@nestjs/testing';
 
 import { RemoveCustomerHandler } from './RemoveCustomer.handler';
 import { CustomerKeys } from '../../../CustomerKeys';
-import { CustomerRepositoryMock } from '../../fixtures';
 import { RemoveCustomerCommand } from './RemoveCustomer.command';
 import { RemoveCustomerErrors } from './RemoveCustomer.errors';
-
 import { FacilityKeys } from '../../../../facilities/FacilityKeys';
-import { FacilityRepositoryMock } from '../../../../facilities/application/fixtures';
+import { CustomerRepositoryMock } from '../../../../../../fixtures/customers';
+import { FacilityRepositoryMock } from '../../../../../../fixtures/facilities';
 
 describe('RemoveCustomerHandler', () => {
   let removeCustomerHandler: RemoveCustomerHandler;
