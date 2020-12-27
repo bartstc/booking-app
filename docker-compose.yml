@@ -6,7 +6,8 @@ services:
     image: postgres
     restart: always
     volumes:
-      - ./accessibility-service/InitializeDb.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./accessibility-service/InitializeDb.sql:/docker-entrypoint-initdb.d/init-accessibility.sql
+      - ./booking-service/InitializeDb.sql:/docker-entrypoint-initdb.d/init-booking.sql
     environment:
       POSTGRES_PASSWORD: pg
 
@@ -15,6 +16,12 @@ services:
     restart: always
     ports:
       - 8080:8080
+  
+  rabbit:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - 8081:15672
   
   accessibility:
     image: accessibility
@@ -25,3 +32,14 @@ services:
       - "80:80"
     environment:
       - ConnectionStrings:Accessibility=Host=db;Database=postgres;Username=postgres;Password=pg
+  
+  booking:
+    image: booking
+    build:
+      context: .
+      dockerfile: booking-service/Dockerfile
+    ports:
+      - "81:80"
+    environment:
+      - ConnectionStrings:Booking=Host=db;Database=postgres;Username=postgres;Password=pg
+      - RabbitMQ:Hostname=rabbit
