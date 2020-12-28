@@ -4,17 +4,17 @@ using MediatR;
 
 namespace Accessibility.Application.Bookings.Book
 {
-    public class BookCommand : IRequest<BookingIdDto>
+    public class BookCommand : IRequest
     {
-        public BookCommand(Guid customerId, Guid facilityId, List<BookedRecordDto> bookingServices)
+        public BookCommand(Guid customerId, Guid facilityId, List<BookedRecordDto> bookedRecords)
         {
             CustomerId = customerId;
             FacilityId = facilityId;
-            BookingServices = bookingServices;
+            BookedRecords = bookedRecords;
         }
 
         public Guid CustomerId { get; }
         public Guid FacilityId { get; }
-        public List<BookedRecordDto> BookingServices { get; }
+        public List<BookedRecordDto> BookedRecords { get; }
     }
 }

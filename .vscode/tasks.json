@@ -39,6 +39,18 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "booking-build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/booking-service/src/Booking.Api/Booking.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+        {
             "type": "docker-build",
             "label": "docker-build: debug",
             "dependsOn": [

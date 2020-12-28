@@ -28,14 +28,14 @@ namespace Accessibility.Api.Controllers
 
         // TODO: customerId from request JWT
         [HttpPost("{customerId}/{facilityId}")]
-        [ProducesResponseType(typeof(BookingIdDto), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(BookingIdDto), (int)HttpStatusCode.Accepted)]
         public async Task<IActionResult> CreateBooking(
             [FromRoute] Guid customerId,
             [FromRoute] Guid facilityId,
             [FromBody] List<BookedRecordDto> services)
         {
             var bookingId = await mediator.Send(new BookCommand(customerId, facilityId, services));
-            return Created("", bookingId);
+            return Accepted();
         }
 
         [HttpPut("{bookingId}/records/{bookedRecordId}/fulfill")]
