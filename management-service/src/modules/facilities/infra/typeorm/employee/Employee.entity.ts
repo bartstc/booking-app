@@ -13,7 +13,7 @@ import { FacilityEntity } from '../facility';
 import { EntityName } from '../../../adapter';
 import { EmployeeStatus } from '../../../domain/types';
 
-@Entity({ name: EntityName.Employee })
+@Entity({ name: EntityName.Employee, schema: 'management' })
 export class EmployeeEntity extends AbstractEntity {
   @PrimaryColumn()
   employee_id: string;

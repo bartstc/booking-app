@@ -21,7 +21,7 @@ import { EnterpriseEntity } from '../../../../enterprise/infra';
 import { CustomerEntity } from '../../../../customers/infra/typeorm';
 import { EntityName } from '../../../adapter';
 
-@Entity({ name: EntityName.Facility })
+@Entity({ name: EntityName.Facility, schema: 'management' })
 export class FacilityEntity extends AbstractEntity {
   @PrimaryColumn()
   facility_id: string;

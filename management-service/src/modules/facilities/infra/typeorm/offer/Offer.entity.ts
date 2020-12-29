@@ -12,7 +12,7 @@ import { IOfferVariant, OfferStatus } from '../../../domain/types';
 import { FacilityEntity } from '../facility';
 import { EntityName } from '../../../adapter';
 
-@Entity({ name: EntityName.Offer })
+@Entity({ name: EntityName.Offer, schema: 'management' })
 export class OfferEntity extends AbstractEntity {
   @PrimaryColumn()
   offer_id: string;

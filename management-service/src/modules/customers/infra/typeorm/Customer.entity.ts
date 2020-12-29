@@ -13,7 +13,7 @@ import { IAddress } from '../../domain/types';
 import { FacilityEntity } from '../../../facilities/infra/typeorm/facility';
 import { EntityName } from '../../adapter';
 
-@Entity({ name: EntityName.Customer })
+@Entity({ name: EntityName.Customer, schema: 'management' })
 export class CustomerEntity extends AbstractEntity {
   @PrimaryColumn()
   customer_id: string;
