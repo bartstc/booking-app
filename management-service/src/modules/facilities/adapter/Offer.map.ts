@@ -24,7 +24,7 @@ export class OfferMap {
       variantList.push(OfferVariant.create(variant).getValue());
     });
 
-    const variants = OfferVariants.create(variantList);
+    const variants = OfferVariants.create(variantList).getValue();
 
     return Offer.create(
       {
@@ -47,7 +47,7 @@ export class OfferMap {
       variantList.push(OfferVariant.create(variant).getValue());
     });
 
-    const variants = OfferVariants.create(variantList);
+    const variants = OfferVariants.create(variantList).getValue();
 
     const offerOrError = Offer.create(
       {
