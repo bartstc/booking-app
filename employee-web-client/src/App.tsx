@@ -1,22 +1,35 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import * as Yup from 'yup';
+import { VStack, Box } from '@chakra-ui/react';
+
+import { Form, SubmitButton } from './shared/Form';
+import { InputField } from './shared/Form/InputField';
+import { useRequiredFieldMessage } from './shared/Form/messages';
 
 function App() {
+  const requiredMsg = useRequiredFieldMessage();
+  const schema = Yup.object().shape({
+    test1: Yup.string().required(requiredMsg),
+    test2: Yup.string().required(requiredMsg),
+  });
+
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <p>
-          <FormattedMessage
-            id='app.title'
-            defaultMessage='Edit {path} and save to reload. Now with {what} !'
-            values={{ what: 'react-intl', path: <code>src/App.js</code> }}
-          />
-        </p>
-        <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-          <FormattedMessage id='app.subtitle' defaultMessage='Learn React' description='Link on react page' />
-        </a>
-      </header>
-    </div>
+    <Box maxW='500px' m='0 auto' mt={10}>
+      <Form
+        onSubmit={model => alert(JSON.stringify(model, null, 2))}
+        schema={schema}
+        defaultValues={{
+          test1: '',
+          test2: '',
+        }}
+      >
+        <VStack>
+          <InputField name='test1' label='Test field 1' id='test-field-1' tip='test tip' />
+          <InputField name='test2' label='Test field 2' id='test-field-2' />
+          <SubmitButton />
+        </VStack>
+      </Form>
+    </Box>
   );
 }
 
