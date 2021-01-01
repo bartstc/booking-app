@@ -2,9 +2,8 @@ import React from 'react';
 import { Input, InputGroup, InputRightElement, Interpolation } from '@chakra-ui/react';
 import { mdiAlertCircle, mdiCheckCircle } from '@mdi/js';
 
-import { FieldPrototype } from './Builders';
+import { FieldPrototype, FieldPrototypeProps } from './Builders';
 import { Icon } from '../Icon';
-import { FieldPrototypeProps } from './Builders/FieldPrototype';
 
 type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> & FieldPrototypeProps;
 

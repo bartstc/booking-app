@@ -5,6 +5,8 @@ import { VStack, Box } from '@chakra-ui/react';
 import { DateField, Form, SubmitButton } from './shared/Form';
 import { InputField } from './shared/Form/InputField';
 import { useRequiredFieldMessage } from './shared/Form/messages';
+import { ContactType } from './types';
+import { ContactSelectField } from './shared/Form/Implementations';
 
 function App() {
   const requiredMsg = useRequiredFieldMessage();
@@ -12,6 +14,7 @@ function App() {
     test1: Yup.string().required(requiredMsg),
     test2: Yup.string().required(requiredMsg),
     date: Yup.string().required(requiredMsg).nullable(true),
+    select: Yup.string().required(requiredMsg),
   });
 
   return (
@@ -23,12 +26,14 @@ function App() {
           test1: '',
           test2: '',
           date: '',
+          select: ContactType.Phone,
         }}
       >
         <VStack>
           <InputField name='test1' label='Test field 1' id='test-field-1' tip='test tip' />
           <InputField name='test2' label='Test field 2' id='test-field-2' />
           <DateField name='date' label='Test date field' id='test-date-field' />
+          <ContactSelectField name='select' id='select' label='Contact field' />
           <SubmitButton />
         </VStack>
       </Form>

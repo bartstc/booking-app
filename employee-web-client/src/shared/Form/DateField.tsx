@@ -2,9 +2,8 @@ import React from 'react';
 import { Interpolation, useTheme } from '@chakra-ui/react';
 import { ReactDatePickerProps } from 'react-datepicker';
 
-import { FieldPrototype } from './Builders';
+import { FieldPrototype, FieldPrototypeProps } from './Builders';
 import { DatePicker } from '../Date';
-import { FieldPrototypeProps } from './Builders/FieldPrototype';
 
 type IProps = Omit<ReactDatePickerProps, 'onChange'> & FieldPrototypeProps;
 
