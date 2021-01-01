@@ -2,11 +2,9 @@ import React from 'react';
 import * as Yup from 'yup';
 import { VStack, Box } from '@chakra-ui/react';
 
-import { DateField, Form, SubmitButton } from './shared/Form';
-import { InputField } from './shared/Form/InputField';
-import { useRequiredFieldMessage } from './shared/Form/messages';
+import { DateField, Form, MaskedInputField, SubmitButton, ContactSelectField, InputField, masks } from './shared/Form';
 import { ContactType } from './types';
-import { ContactSelectField } from './shared/Form/Implementations';
+import { useRequiredFieldMessage } from './messages';
 
 function App() {
   const requiredMsg = useRequiredFieldMessage();
@@ -15,6 +13,9 @@ function App() {
     test2: Yup.string().required(requiredMsg),
     date: Yup.string().required(requiredMsg).nullable(true),
     select: Yup.string().required(requiredMsg),
+    phone: Yup.string()
+      .required(requiredMsg)
+      .matches(/^[\W\S_]\d{2} \d{9}$/, 'Invalid format'),
   });
 
   return (
@@ -27,6 +28,7 @@ function App() {
           test2: '',
           date: '',
           select: ContactType.Phone,
+          phone: '',
         }}
       >
         <VStack>
@@ -34,6 +36,7 @@ function App() {
           <InputField name='test2' label='Test field 2' id='test-field-2' />
           <DateField name='date' label='Test date field' id='test-date-field' />
           <ContactSelectField name='select' id='select' label='Contact field' />
+          <MaskedInputField label='Phone number' name='phone' id='phone' guide mask={masks.phone} />
           <SubmitButton />
         </VStack>
       </Form>

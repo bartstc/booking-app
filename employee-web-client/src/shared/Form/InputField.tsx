@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { ElementType } from 'react';
 import { Input, InputGroup, InputRightElement, Interpolation } from '@chakra-ui/react';
 import { mdiAlertCircle, mdiCheckCircle } from '@mdi/js';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
 import { Icon } from '../Icon';
 
-type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> & FieldPrototypeProps;
+export type InputFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> & FieldPrototypeProps & { as?: ElementType };
 
-const InputField = ({ name, label, required, disabled, helperText, id, tip, css, ...props }: Props) => {
+const InputField = ({ name, label, required, disabled, helperText, id, tip, css, ...props }: InputFieldProps) => {
   return (
     <FieldPrototype
       name={name}
