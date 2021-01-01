@@ -6,7 +6,7 @@ import { SystemStyleObject } from '@chakra-ui/styled-system';
 import { FieldPrototype } from './Builders';
 import { Icon } from '../Icon';
 
-export interface InputFieldProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface IProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   name: string;
   label: ReactNode | string;
   id: string;
@@ -19,7 +19,7 @@ export interface InputFieldProps extends Omit<React.InputHTMLAttributes<HTMLInpu
   // fast?: boolean;
 }
 
-const InputField = ({ name, label, required, disabled, helperText, id, tip, css, ...props }: InputFieldProps) => {
+const InputField = ({ name, label, required, disabled, helperText, id, tip, css, ...props }: IProps) => {
   return (
     <FieldPrototype
       name={name}

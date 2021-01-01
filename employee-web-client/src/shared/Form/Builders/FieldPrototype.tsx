@@ -9,7 +9,6 @@ interface IProps extends Omit<IFieldControlProps, 'children' | 'errorText'> {
 
 const FieldPrototype = ({ children, name, isRequired = true, ...props }: IProps) => {
   const methods = useFormContext();
-  console.log(methods);
   const isInvalid = Boolean(methods.errors[name]);
 
   // todo: form read mode
