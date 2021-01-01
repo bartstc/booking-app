@@ -29,6 +29,6 @@ export const DatePickerStyles = styled(Box)<{ borderColor: string; focusColor: s
   .react-datepicker__close-icon::after {
     width: 22px;
     height: 22px;
-    font-size: 1.05rem;
+    font-size: 1.2rem;
   }
 `;

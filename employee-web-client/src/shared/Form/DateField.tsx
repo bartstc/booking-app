@@ -1,22 +1,12 @@
-import React, { ReactNode, ElementType } from 'react';
+import React from 'react';
 import { Interpolation, useTheme } from '@chakra-ui/react';
-import { SystemStyleObject } from '@chakra-ui/styled-system';
 import { ReactDatePickerProps } from 'react-datepicker';
 
 import { FieldPrototype } from './Builders';
 import { DatePicker } from '../Date';
+import { FieldPrototypeProps } from './Builders/FieldPrototype';
 
-interface IProps extends Omit<ReactDatePickerProps, 'onChange'> {
-  name: string;
-  label: ReactNode | string;
-  id: string;
-  as?: ElementType;
-  required?: boolean;
-  disabled?: boolean;
-  tip?: ReactNode | string;
-  helperText?: ReactNode;
-  css?: SystemStyleObject;
-}
+type IProps = Omit<ReactDatePickerProps, 'onChange'> & FieldPrototypeProps;
 
 const DateField = ({ name, label, required, disabled, helperText, id, tip, css, ...props }: IProps) => {
   const { colors } = useTheme();
