@@ -4,7 +4,7 @@ import { EntityName } from '../../adapter';
 import { DictionaryType } from '../../domain';
 
 @Entity({ name: EntityName.Dictionary, schema: 'management' })
-export class DictionaryTypeormEntity extends BaseEntity {
+export class DictionaryEntity extends BaseEntity {
   @PrimaryColumn()
   dictionary_id: string;
 

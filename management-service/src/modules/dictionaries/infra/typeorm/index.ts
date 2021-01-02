@@ -1,1 +1,2 @@
-export { DictionaryTypeormEntity } from './DictionaryTypeorm.entity';
+export { DictionaryEntity } from './DictionaryTypeorm.entity';
+export { DictionaryTypeormQuery } from './DictionaryTypeorm.query';
