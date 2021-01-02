@@ -1,5 +1,5 @@
 import React from 'react';
-import { Interpolation, useTheme } from '@chakra-ui/react';
+import { Interpolation } from '@chakra-ui/react';
 import { ReactDatePickerProps } from 'react-datepicker';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
@@ -8,8 +8,6 @@ import { DatePicker } from '../Date';
 type IProps = Omit<ReactDatePickerProps, 'onChange'> & FieldPrototypeProps;
 
 const DateField = ({ name, label, required, disabled, helperText, id, tip, css, ...props }: IProps) => {
-  const { colors } = useTheme();
-
   return (
     <FieldPrototype
       name={name}
@@ -24,15 +22,7 @@ const DateField = ({ name, label, required, disabled, helperText, id, tip, css, 
       {({ formState: { errors } }, fieldProps) => {
         const isInvalid = Boolean(errors[name]);
 
-        return (
-          <DatePicker
-            borderColor={isInvalid ? colors.red[500] : colors.gray[200]}
-            focusColor={colors.blue[500]}
-            isInvalid={isInvalid}
-            {...props}
-            {...fieldProps}
-          />
-        );
+        return <DatePicker isInvalid={isInvalid} {...props} {...fieldProps} />;
       }}
     </FieldPrototype>
   );

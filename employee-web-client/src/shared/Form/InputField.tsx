@@ -1,5 +1,5 @@
 import React, { ElementType } from 'react';
-import { Input, InputGroup, InputRightElement, Interpolation } from '@chakra-ui/react';
+import { Input, InputGroup, InputRightElement, Interpolation, useColorModeValue } from '@chakra-ui/react';
 import { mdiAlertCircle, mdiCheckCircle } from '@mdi/js';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
@@ -8,6 +8,9 @@ import { Icon } from '../Icon';
 export type InputFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> & FieldPrototypeProps & { as?: ElementType };
 
 const InputField = ({ name, label, required, disabled, helperText, id, tip, css, ...props }: InputFieldProps) => {
+  const invalidColor = useColorModeValue('red.500', 'red.300');
+  const validColor = useColorModeValue('green.500', 'green.300');
+
   return (
     <FieldPrototype
       name={name}
@@ -28,7 +31,7 @@ const InputField = ({ name, label, required, disabled, helperText, id, tip, css,
             {touched[name] && (
               <InputRightElement>
                 <div>
-                  <Icon path={isInvalid ? mdiAlertCircle : mdiCheckCircle} color={isInvalid ? 'red.500' : 'green.500'} size='24px' />
+                  <Icon path={isInvalid ? mdiAlertCircle : mdiCheckCircle} color={isInvalid ? invalidColor : validColor} size='24px' />
                 </div>
               </InputRightElement>
             )}

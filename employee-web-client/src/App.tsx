@@ -1,12 +1,14 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { VStack, Box } from '@chakra-ui/react';
+import { VStack, Box, useColorMode, Button } from '@chakra-ui/react';
 
 import { DateField, Form, MaskedInputField, SubmitButton, ContactSelectField, InputField, masks } from './shared/Form';
 import { ContactType } from './types';
 import { useRequiredFieldMessage } from './messages';
 
 function App() {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   const requiredMsg = useRequiredFieldMessage();
   const schema = Yup.object().shape({
     test1: Yup.string().required(requiredMsg),
@@ -20,6 +22,11 @@ function App() {
 
   return (
     <Box maxW='500px' m='0 auto' mt={10}>
+      <header>
+        <Button mb={6} onClick={toggleColorMode}>
+          Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+        </Button>
+      </header>
       <Form
         onSubmit={model => alert(JSON.stringify(model, null, 2))}
         schema={schema}

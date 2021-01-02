@@ -1,7 +1,13 @@
 import styled from '@emotion/styled';
 import { Box } from '@chakra-ui/react';
 
-export const DatePickerStyles = styled(Box)<{ borderColor: string; focusColor: string; isInvalid: boolean }>`
+export const DatePickerStyles = styled(Box)<{
+  borderColor: string;
+  focusColor: string;
+  isInvalid: boolean;
+  clearBtnColor: string;
+  clearBtnBackground: string;
+}>`
   .react-datepicker-wrapper,
   .react-datepicker__input-container {
     display: block;
@@ -27,8 +33,10 @@ export const DatePickerStyles = styled(Box)<{ borderColor: string; focusColor: s
   }
 
   .react-datepicker__close-icon::after {
-    width: 22px;
-    height: 22px;
-    font-size: 1.2rem;
+    width: 21px;
+    height: 21px;
+    background-color: ${props => props.clearBtnBackground};
+    color: ${props => props.clearBtnColor};
+    font-size: 1.3rem;
   }
 `;
