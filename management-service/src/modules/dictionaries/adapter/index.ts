@@ -1,0 +1,1 @@
+export { EntityName } from './EntityName';
