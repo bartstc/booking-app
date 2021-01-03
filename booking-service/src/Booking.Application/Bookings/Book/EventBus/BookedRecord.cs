@@ -4,9 +4,9 @@ using Booking.Domain.SharedKernel;
 
 namespace Booking.Application.Bookings.Book.EventBus
 {
-    public class BookedRecordMessage
+    public class BookedRecord
     {
-        public BookedRecordMessage(EmployeeId employeeId, OfferId offerId, DateTime date)
+        public BookedRecord(EmployeeId employeeId, OfferId offerId, DateTime date)
         {
             EmployeeId = employeeId;
             OfferId = offerId;
