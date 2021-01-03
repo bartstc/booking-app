@@ -19,9 +19,7 @@ const DateField = ({ name, label, required, disabled, helperText, id, tip, css, 
       label={label}
       css={css as Interpolation<Record<string, unknown>>}
     >
-      {({ formState: { errors } }, fieldProps) => {
-        const isInvalid = Boolean(errors[name]);
-
+      {(_, fieldProps, isInvalid) => {
         return <DatePicker isInvalid={isInvalid} {...props} {...fieldProps} />;
       }}
     </FieldPrototype>

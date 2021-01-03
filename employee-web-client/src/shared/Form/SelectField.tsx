@@ -90,13 +90,13 @@ const SelectField = ({
       label={label}
       css={css as Interpolation<Record<string, unknown>>}
     >
-      {({ formState: { isSubmitting, errors }, setValue, clearErrors, setError }, { value, ...fieldProps }) => (
+      {({ formState: { isSubmitting }, setValue, clearErrors, setError }, { value, ...fieldProps }, isInvalid) => (
         <Select
           isDisabled={isSubmitting}
           {...fieldProps}
           {...selectProps}
           isMulti={isMulti}
-          isInvalid={Boolean(errors[name])}
+          isInvalid={isInvalid}
           options={options}
           value={isMulti ? findOptions(getValue(value, true), options) : findOption(getValue(value, false), options)}
           onChange={(option: ValueType<OptionType, boolean> | null | undefined) => {

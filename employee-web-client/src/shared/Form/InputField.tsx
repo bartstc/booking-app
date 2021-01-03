@@ -22,9 +22,7 @@ const InputField = ({ name, label, required, disabled, helperText, id, tip, css,
       label={label}
       css={css as Interpolation<Record<string, unknown>>}
     >
-      {({ formState: { touched, errors } }, fieldProps) => {
-        const isInvalid = Boolean(errors[name]);
-
+      {({ formState: { touched } }, fieldProps, isInvalid) => {
         return (
           <InputGroup>
             <Input {...fieldProps} {...props} id={name} />

@@ -19,6 +19,7 @@ const Select = ({ isInvalid, isClearable = true, ...props }: SelectProps) => {
   const listBgColor = useColorModeValue(colors.white, colors.gray[700]);
   const selectedBgColor = useColorModeValue(colors.blue[500], colors.blue[300]);
   const invalidColor = useColorModeValue(colors.red[500], colors.red[300]);
+  const placeholderColor = useColorModeValue(colors.gray[400], colors.gray[600]);
 
   return (
     <ReactSelect
@@ -38,7 +39,6 @@ const Select = ({ isInvalid, isClearable = true, ...props }: SelectProps) => {
         control: (base, { isFocused }) => ({
           ...base,
           backgroundColor: 'transparent',
-          color: 'red !important',
           border: 'none',
           outline: 'none',
           boxShadow: `0 0 0 ${isFocused || isInvalid ? '2px' : '1px'} ${
@@ -60,6 +60,10 @@ const Select = ({ isInvalid, isClearable = true, ...props }: SelectProps) => {
         menu: base => ({
           ...base,
           backgroundColor: listBgColor,
+        }),
+        placeholder: base => ({
+          ...base,
+          color: placeholderColor,
         }),
       }}
     />
