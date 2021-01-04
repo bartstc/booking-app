@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDate, { ReactDatePickerProps, registerLocale } from 'react-datepicker';
 import dayjs from 'dayjs';
-import { Input } from '@chakra-ui/react';
+import { Input, useColorModeValue, useTheme } from '@chakra-ui/react';
 
 import en from 'date-fns/locale/en-GB';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -11,16 +11,26 @@ import { DatePickerStyles } from './DatePickerStyles';
 registerLocale('en-GB', en);
 
 interface IProps extends ReactDatePickerProps {
-  borderColor: string;
-  focusColor: string;
   isInvalid: boolean;
 }
 
-const DatePicker = ({ borderColor, focusColor, isInvalid, value, onChange, ...props }: IProps) => {
+const DatePicker = ({ isInvalid, value, onChange, ...props }: IProps) => {
+  const { colors } = useTheme();
+  const invalidColor = useColorModeValue(colors.red[500], colors.red[300]);
+  const validColor = useColorModeValue(colors.gray[200], colors.gray[600]);
+  const clearBtnBackground = useColorModeValue(colors.blue[500], colors.blue[300]);
+  const clearBtnColor = useColorModeValue(colors.white, colors.gray[900]);
+
   const dateFormat = (props.dateFormat as string) ?? 'YYYY-MM-DDTHH:mm:ssZ';
 
   return (
-    <DatePickerStyles isInvalid={isInvalid} borderColor={borderColor} focusColor={focusColor}>
+    <DatePickerStyles
+      isInvalid={isInvalid}
+      borderColor={isInvalid ? invalidColor : validColor}
+      focusColor={colors.blue[500]}
+      clearBtnColor={clearBtnColor}
+      clearBtnBackground={clearBtnBackground}
+    >
       <Input
         as={ReactDate}
         autoComplete='off'

@@ -1,5 +1,14 @@
 import React, { ReactNode } from 'react';
-import { FormHelperText, FormErrorMessage, FormLabel, FormControl, FormControlProps, HStack, chakra } from '@chakra-ui/react';
+import {
+  FormHelperText,
+  FormErrorMessage,
+  FormLabel,
+  FormControl,
+  FormControlProps,
+  HStack,
+  chakra,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { mdiInformation } from '@mdi/js';
 
 import { Icon } from '../../Icon';
@@ -15,6 +24,8 @@ export interface IFieldControlProps extends Omit<FormControlProps, 'helperText' 
 }
 
 const FieldControl = ({ errorText, helperText, label, children, tip, name, id, css, ...props }: IFieldControlProps) => {
+  const infoIconColor = useColorModeValue('blue.500', 'blue.300');
+
   return (
     <FormControl mb={4} {...css} id={id} {...props}>
       <HStack spacing={0}>
@@ -22,14 +33,14 @@ const FieldControl = ({ errorText, helperText, label, children, tip, name, id, c
         {tip && (
           <Tooltip label={tip}>
             <chakra.div mb='8px'>
-              <Icon path={mdiInformation} size='17px' color='blue.500' />
+              <Icon path={mdiInformation} size='17px' color={infoIconColor} />
             </chakra.div>
           </Tooltip>
         )}
       </HStack>
       {children}
-      <FormErrorMessage lineHeight='13px'>{errorText}</FormErrorMessage>
-      <FormHelperText lineHeight='13px'>{helperText}</FormHelperText>
+      <FormErrorMessage lineHeight='1rem'>{errorText}</FormErrorMessage>
+      <FormHelperText lineHeight='1rem'>{helperText}</FormHelperText>
     </FormControl>
   );
 };
