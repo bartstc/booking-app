@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Booking.Application.Bookings.Book.EventBus;
+using Booking.Application.Bookings.EventBus.ProcessingBookingOrder;
 using Booking.Domain.Bookings;
 using Booking.Domain.Bookings.BookedRecords;
 using Booking.Domain.SharedKernel;
@@ -27,7 +27,7 @@ namespace Booking.Application.Bookings.Book
             await sendEndpoint.Send(new ProcessBookingOrder(
                 new FacilityId(request.FacilityId),    
                 new CustomerId(request.CustomerId),
-                request.BookedRecords.Select(r => new EventBus.BookedRecord(
+                request.BookedRecords.Select(r => new Booking.Application.Bookings.EventBus.ProcessingBookingOrder.BookedRecord(
                     new EmployeeId(r.EmployeeId),
                     new OfferId(r.OfferId),
                     r.Date)).ToList()

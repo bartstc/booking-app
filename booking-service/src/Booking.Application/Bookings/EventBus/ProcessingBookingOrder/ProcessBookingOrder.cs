@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Booking.Domain.Bookings;
 using Booking.Domain.SharedKernel;
 
-namespace Booking.Application.Bookings.Book.EventBus
+namespace Booking.Application.Bookings.EventBus.ProcessingBookingOrder
 {
     public class ProcessBookingOrder
     {

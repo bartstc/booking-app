@@ -1,6 +1,5 @@
-using System;
 using System.Reflection;
-using Booking.Application.Bookings.Book.EventBus;
+using Booking.Application.Bookings.EventBus.ProcessingBookingOrder;
 using Booking.Application.Configuration.Database;
 using Booking.Domain.Bookings;
 using Booking.Domain.SeedWork;
@@ -39,20 +38,25 @@ namespace Booking.Infrastructure
                 //.AddHostedService<ProcessOutboxHostedService>()
                 .AddScoped<ISqlConnectionFactory>(x => new SqlConnectionFactory(connectionString))
                 .AddSingleton<IAssemblyProvider>(x => new AssemblyProvider(applicationAssembly))
-                .ConfigureRabbitMQ(configuration);
+                .ConfigureEventBus(configuration);
             
             return services;
         }
 
-        private static IServiceCollection ConfigureRabbitMQ(this IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection ConfigureEventBus(this IServiceCollection services, IConfiguration configuration)
         {
-            EndpointConvention.Map<ProcessBookingOrder>(
-                new Uri("exchange:booking-orders-listener")
-            );
-
             return services.AddMassTransit(x =>
             {
-                x.UsingRabbitMq();
+                x.AddConsumer<ProcessBookingOrderConsumer>()
+                    .Endpoint(e => e.ConcurrentMessageLimit = 1);
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(configuration["RabbitMQ:HostName"]);
+                    
+                    cfg.ReceiveEndpoint("booking-orders-listener", e =>
+                        e.ConfigureConsumer<ProcessBookingOrderConsumer>(context));
+                });
             })
             .AddMassTransitHostedService();
         }

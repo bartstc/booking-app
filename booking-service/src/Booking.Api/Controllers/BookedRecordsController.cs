@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Booking.Api.Controllers
 {
     [ApiController]
-    [Route("bookings")]
+    [Route("facilities/{facilityId}/bookings")]
     public class BookedRecordsController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -68,7 +68,7 @@ namespace Booking.Api.Controllers
         }
         
         
-        [HttpGet("{facilityId}/booked-records")]
+        [HttpGet("records")]
         [ProducesResponseType(typeof(List<BookedRecordOfFacilityDto>), (int)HttpStatusCode.OK)]
         public async Task<List<BookedRecordOfFacilityDto>> GetBookedRecords(
             [FromRoute] Guid facilityId,
@@ -77,26 +77,6 @@ namespace Booking.Api.Controllers
         )
         {
             return await mediator.Send(new GetBookedRecordsOfFacilityQuery(facilityId, dateFrom, dateTo));
-        }
-
-        [HttpHead("any-unfinished")]
-        [ProducesResponseType((int) HttpStatusCode.OK)]
-        public async Task<IActionResult> AnyUnfinishedBookedRecords(
-            [FromRoute] Guid facilityId,
-            [FromQuery] Guid offerId,
-            [FromQuery] Guid employeeId)
-        {
-            if (offerId != Guid.Empty && employeeId == Guid.Empty)
-            {
-                if ((await mediator.Send(new AnyUnfinishedBookingOfOfferQuery(facilityId, offerId))))
-                    return Ok();
-            }
-            else if (offerId == Guid.Empty && employeeId != Guid.Empty)
-            {
-                if (await mediator.Send(new AnyUnfinishedBookingOfEmployeeQuery(facilityId, employeeId)))
-                    return Ok();
-            }
-            return NotFound();
         }
     }
 }

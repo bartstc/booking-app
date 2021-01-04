@@ -23,7 +23,7 @@ CREATE TABLE booking.booked_records (
     change_date timestamp,
     CONSTRAINT fk_booking
         FOREIGN KEY(booking_id)
-        REFERENCES accessibility.bookings(booking_id)
+        REFERENCES booking.bookings(booking_id)
 );
 
 CREATE TABLE booking.outbox_notifications (
@@ -50,8 +50,8 @@ SELECT
     r.date,
     r.duration
 FROM
-    accessibility.bookings b INNER JOIN
-    accessibility.booked_records r ON b.booking_id = r.booking_id
+    booking.bookings b INNER JOIN
+    booking.booked_records r ON b.booking_id = r.booking_id
 WHERE
     b.facility_id = $1 AND
     r.date BETWEEN $2::timestamp AND $3::timestamp
