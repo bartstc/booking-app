@@ -15,6 +15,7 @@ import {
 import { EntityName } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { DB_CONNECTION } from '../../../../../constants';
+import { CannotRemoveActiveEmployeeGuard } from '../../../domain/guards';
 
 export type RemoveEmployeeResponse = Either<
   | AppError.UnexpectedError
@@ -55,6 +56,10 @@ export class RemoveEmployeeHandler
         employee = await this.employeeRepository.getEmployeeById(employeeId);
       } catch {
         return left(new RemoveEmployeeErrors.EmployeeNotFoundError());
+      }
+
+      if (employee.isActive) {
+        return left(new CannotRemoveActiveEmployeeGuard());
       }
 
       facility.removeEmployee(employee);

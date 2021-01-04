@@ -1,7 +1,8 @@
-import { countryCodes, ValueObject } from 'shared/domain';
+import { ValueObject } from 'shared/domain';
 import { Guard, Result } from 'shared/core';
 
 import { IAddress } from './types';
+import { countryCodes } from '../../../resources/countryCodes';
 
 export class Address extends ValueObject<IAddress> {
   public static create(props: IAddress): Result<Address> {
@@ -39,7 +40,7 @@ export class Address extends ValueObject<IAddress> {
     const countryCodeGuard = Guard.isOneOf({
       value: props.countryCode,
       argumentName: 'address.countryCode',
-      validValues: countryCodes.map(countryCode => countryCode.code),
+      validValues: countryCodes.map((countryCode) => countryCode.code),
     });
 
     if (!countryCodeGuard.succeeded) {

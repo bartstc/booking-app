@@ -18,6 +18,7 @@ export const addOfferSchema = yup.object().shape<AddOfferDto>({
     .array()
     .required()
     .min(1)
+    .max(1)
     .of(
       yup.object().shape<IOfferVariant>({
         duration: yup

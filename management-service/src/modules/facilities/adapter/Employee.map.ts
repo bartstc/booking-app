@@ -8,6 +8,7 @@ import {
   FacilityId,
 } from '../domain';
 import { BuildEmployeeDto } from './BuildEmployee.dto';
+import { EmployeeStatus } from '../domain/types';
 
 export class EmployeeMap {
   public static dtoToDomain<T extends BuildEmployeeDto>(
@@ -21,9 +22,11 @@ export class EmployeeMap {
     });
     const contactList: Contact[] = [];
 
-    dto.contacts.forEach(contact => {
-      contactList.push(Contact.create(contact).getValue());
-    });
+    if (dto.contacts?.length) {
+      dto.contacts.forEach(contact => {
+        contactList.push(Contact.create(contact).getValue());
+      });
+    }
 
     const contacts = Contacts.create(contactList);
 
@@ -32,6 +35,7 @@ export class EmployeeMap {
         facilityId: FacilityId.create(
           new UniqueEntityID(facilityId),
         ).getValue(),
+        status: EmployeeStatus.Active,
         name: name.getValue(),
         position: position.getValue(),
         contacts,
@@ -58,6 +62,7 @@ export class EmployeeMap {
         facilityId: FacilityId.create(
           new UniqueEntityID(entity.facility_id),
         ).getValue(),
+        status: entity.status,
         name: name.getValue(),
         position: position.getValue(),
         contacts,
@@ -80,6 +85,7 @@ export class EmployeeMap {
     return {
       employee_id: employee.employeeId.id.toString(),
       facility_id: employee.facilityId,
+      status: employee.status,
       details: {
         name: employee.name.value,
         position: employee.position.value,

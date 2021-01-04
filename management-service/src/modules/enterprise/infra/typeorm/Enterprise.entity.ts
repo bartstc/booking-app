@@ -6,7 +6,7 @@ import { IContactPerson } from 'shared/domain';
 import { FacilityEntity } from '../../../facilities/infra';
 import { EntityName } from '../../adapter';
 
-@Entity({ name: EntityName.Enterprise })
+@Entity({ name: EntityName.Enterprise, schema: 'management' })
 export class EnterpriseEntity extends AbstractEntity {
   @PrimaryColumn()
   enterprise_id: string;

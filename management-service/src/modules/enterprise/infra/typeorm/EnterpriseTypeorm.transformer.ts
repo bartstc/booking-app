@@ -10,8 +10,8 @@ export class EnterpriseTypeormTransformer {
       enterpriseUrl: enterprise.details.url,
       countryCode: enterprise.details.countryCode,
       contactPerson: enterprise.details.contactPerson,
-      createdAt: enterprise.createdAt,
-      updatedAt: enterprise.updatedAt,
+      createdAt: enterprise.created_at,
+      updatedAt: enterprise.updated_at,
     };
   }
 }

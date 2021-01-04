@@ -1,0 +1,1 @@
+export { DictionaryType } from './DictionaryType';

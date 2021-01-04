@@ -1,13 +1,11 @@
-import { Repository } from 'typeorm/index';
-
-import { AbstractEntity } from './AbstractEntity';
+import { Repository, BaseEntity } from 'typeorm/index';
 
 interface PaginationProps {
   limit?: number;
   offset?: number;
 }
 
-export class BaseQuery<T extends AbstractEntity> extends Repository<T> {
+export class BaseQuery<T extends BaseEntity> extends Repository<T> {
   protected paginatedQueryBuilder = (
     alias: string,
     { limit, offset }: PaginationProps,

@@ -87,6 +87,7 @@ export class Facility extends AggregateRoot<IProps> {
   }
 
   public removeOffer(offer: Offer) {
+    offer.remove();
     this.offers.remove(offer);
   }
 
@@ -95,6 +96,7 @@ export class Facility extends AggregateRoot<IProps> {
   }
 
   public removeEmployee(employee: Employee) {
+    employee.remove();
     this.employees.remove(employee);
   }
 

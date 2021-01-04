@@ -10,6 +10,7 @@ export class OfferTypeormTransformer {
     return {
       offerId: offer.offer_id,
       facilityId: offer.facility_id,
+      status: offer.status,
       name: offer.details.name,
       variants: offer.details.variants,
     };

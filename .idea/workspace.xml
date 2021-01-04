@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/application/dto/BookingData.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getBookingData/GetBookingData.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getBookingData/GetBookingData.errors.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getBookingData/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/application/dto/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/application/dto/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/facility.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/facility.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/main.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +29,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/management-service/src/modules/facilities/application/query" />
+    <property name="last_opened_file_path" value="$USER_HOME$/PZP/api" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -37,21 +37,24 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/management-service/node_modules/prettier" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/employee-web-client/node_modules/prettier" />
     <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/management-service/node_modules/typescript/lib" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/employee-web-client/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/management-service/src/shared/core/typeorm" />
-      <recent name="$PROJECT_DIR$/management-service/src/modules/enterprise/application/useCases" />
+      <recent name="$PROJECT_DIR$/management-service/src/modules/dictionaries/infra" />
+      <recent name="$PROJECT_DIR$/management-service/src/modules/dictionaries/typeorm" />
+      <recent name="$PROJECT_DIR$/management-service/src/resources" />
+      <recent name="$PROJECT_DIR$/management-service" />
+      <recent name="$PROJECT_DIR$/management-service/src/fixtures/customers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/application/query" />
-      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getOffers" />
-      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getEmployees" />
-      <recent name="$PROJECT_DIR$/management-service/src/modules/customers/application/query/getCustomers" />
-      <recent name="$PROJECT_DIR$/management-service" />
+      <recent name="$PROJECT_DIR$/management-service/src/modules/dictionaries/application/query/getDictionaries" />
+      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/application/command/removeEmployee" />
+      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/domain/guards" />
+      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/application/command" />
+      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/application/command/activateEmployee" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -74,6 +77,13 @@
       <workItem from="1607609684084" duration="3660000" />
       <workItem from="1607662322393" duration="104000" />
       <workItem from="1607862963874" duration="11463000" />
+      <workItem from="1608737472281" duration="8817000" />
+      <workItem from="1608794847051" duration="10412000" />
+      <workItem from="1609139130610" duration="3174000" />
+      <workItem from="1609142326657" duration="1394000" />
+      <workItem from="1609191817722" duration="334000" />
+      <workItem from="1609573790122" duration="10676000" />
+      <workItem from="1609589396797" duration="12342000" />
     </task>
     <servers />
   </component>
@@ -81,23 +91,38 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="675" y="289" width="379" height="471" key="FileChooserDialogImpl" timestamp="1607662417613">
-      <screen x="48" y="0" width="1632" height="1050" />
+    <state x="1728" y="332" width="626" height="416" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1609591140313">
+      <screen x="48" y="0" width="3552" height="1082" />
+    </state>
+    <state x="2347" y="333" width="623" height="416" key="#com.intellij.fileTypes.FileTypeChooser/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1608739851093" />
+    <state x="1728" y="332" width="626" height="416" key="#com.intellij.fileTypes.FileTypeChooser/48.0.3552.1082@48.0.3552.1082" timestamp="1609591140313" />
+    <state x="1728" y="298" width="424" height="484" key="FileChooserDialogImpl" timestamp="1609594204038">
+      <screen x="48" y="0" width="3552" height="1082" />
     </state>
     <state x="2417" y="297" width="424" height="484" key="FileChooserDialogImpl/1680.0.1920.1080/48.0.1632.1050@1680.0.1920.1080" timestamp="1603566743407" />
+    <state x="2418" y="299" width="424" height="484" key="FileChooserDialogImpl/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1609536744056" />
     <state x="675" y="289" width="379" height="471" key="FileChooserDialogImpl/1680.2.1920.1080/48.0.1632.1050@48.0.1632.1050" timestamp="1607662417613" />
-    <state x="767" y="297" width="424" height="484" key="FileChooserDialogImpl/48.0.1872.1080@48.0.1872.1080" timestamp="1607528739684" />
-    <state x="898" y="174" key="SettingsEditor" timestamp="1603378883345">
-      <screen x="48" y="0" width="1872" height="1080" />
+    <state x="767" y="297" width="424" height="484" key="FileChooserDialogImpl/48.0.1872.1080@48.0.1872.1080" timestamp="1609139949630" />
+    <state x="1728" y="298" width="424" height="484" key="FileChooserDialogImpl/48.0.3552.1082@48.0.3552.1082" timestamp="1609594204038" />
+    <state x="2090" y="141" key="SettingsEditor" timestamp="1609142310968">
+      <screen x="48" y="0" width="3552" height="1082" />
     </state>
     <state x="898" y="174" key="SettingsEditor/48.0.1872.1080@48.0.1872.1080" timestamp="1603378883345" />
-    <state x="676" y="262" width="779" height="554" key="find.popup" timestamp="1607611848191">
-      <screen x="48" y="0" width="1872" height="1080" />
+    <state x="2090" y="141" key="SettingsEditor/48.0.3552.1082@48.0.3552.1082" timestamp="1609142310968" />
+    <state x="1910" y="124" width="1558" height="831" key="find.popup" timestamp="1609579580578">
+      <screen x="48" y="0" width="3552" height="1082" />
     </state>
-    <state x="676" y="262" width="779" height="554" key="find.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1607611848191" />
-    <state x="1115" y="237" width="672" height="678" key="search.everywhere.popup" timestamp="1607610819609">
-      <screen x="48" y="0" width="1872" height="1080" />
+    <state x="2324" y="264" width="826" height="554" key="find.popup/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1608743973401" />
+    <state x="676" y="262" width="821" height="554" key="find.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1608806550430" />
+    <state x="1910" y="124" width="1558" height="831" key="find.popup/48.0.3552.1082@48.0.3552.1082" timestamp="1609579580578" />
+    <state x="2073" y="237" width="1276" height="680" key="search.everywhere.popup" timestamp="1609142280546">
+      <screen x="48" y="0" width="3552" height="1082" />
     </state>
     <state x="1115" y="237" width="672" height="678" key="search.everywhere.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1607610819609" />
+    <state x="2073" y="237" width="1276" height="680" key="search.everywhere.popup/48.0.3552.1082@48.0.3552.1082" timestamp="1609142280546" />
+    <state x="2389" y="448" width="540" height="186" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1609597634384">
+      <screen x="48" y="0" width="3552" height="1082" />
+    </state>
+    <state x="2389" y="448" width="540" height="186" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/48.0.3552.1082@48.0.3552.1082" timestamp="1609597634384" />
   </component>
 </project>

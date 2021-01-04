@@ -8,6 +8,5 @@ export { IContactPerson } from './types/IContactPerson';
 export { ContactPerson } from './ContactPerson';
 export { Link } from './Link';
 export { CountryCode } from './CountryCode';
-export { countryCodes } from './countryCodes';
 export { Contact } from './Contact';
 export { Contacts } from './Contacts';
