@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { VStack, Box, useColorMode, Button } from '@chakra-ui/react';
+import { VStack, Box, useColorMode, Button, Heading } from '@chakra-ui/react';
 
 import {
   DateField,
@@ -57,8 +57,11 @@ function App() {
   });
 
   return (
-    <Box maxW='500px' m='0 auto' mt={10}>
+    <Box maxW='500px' m='0 auto' my={10}>
       <header>
+        <Heading as='h2' color='primary.500' mb={6}>
+          Booking App
+        </Heading>
         <Button mb={6} onClick={toggleColorMode}>
           Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
         </Button>
