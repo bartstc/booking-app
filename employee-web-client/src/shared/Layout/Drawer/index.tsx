@@ -3,14 +3,16 @@ import { mdiAccountMultiple, mdiBookMultiple, mdiCalendar, mdiClose, mdiCogs, md
 import { HStack, useColorModeValue, VStack } from '@chakra-ui/react';
 import { useIntl } from 'react-intl';
 
-import { useToggle } from 'hooks';
-
 import { DrawerIconButton } from './DrawerIconButton';
 import { DrawerButton } from './DrawerButton';
 import { ToggleThemeButton } from './ToggleThemeButton';
 
-const Drawer = () => {
-  const [extended, toggleNavigation] = useToggle();
+interface IProps {
+  extended: boolean;
+  toggle: () => void;
+}
+
+const Drawer = ({ extended, toggle }: IProps) => {
   const { formatMessage } = useIntl();
 
   const links = [
@@ -61,13 +63,14 @@ const Drawer = () => {
   return (
     <VStack
       w={extended ? '250px' : '70px'}
+      h='100vh'
       transition='all .25s ease-in-out'
-      position='relative'
+      position='fixed'
       backgroundColor={background}
       overflow='hidden'
     >
       <DrawerIconButton
-        onClick={toggleNavigation}
+        onClick={toggle}
         title={formatMessage({ id: 'toggle-menu', defaultMessage: 'Toggle menu' })}
         position='absolute'
         top='16px'
