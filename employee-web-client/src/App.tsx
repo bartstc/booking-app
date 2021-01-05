@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { VStack, Box, useColorMode, Button, Heading } from '@chakra-ui/react';
+import { VStack, Box, Heading } from '@chakra-ui/react';
 
 import {
   DateField,
@@ -12,10 +12,10 @@ import {
   masks,
   SelectField,
   CurrencySelectField,
+  MoneyInputField,
 } from './shared/Form';
 import { OptionType } from './types';
 import { useRequiredFieldMessage } from './messages';
-import { MoneyInputField } from './shared/Form/MoneyInputField';
 import { Layout } from './shared/Layout';
 
 const options: OptionType[] = [
@@ -38,8 +38,6 @@ const options: OptionType[] = [
 ];
 
 function App() {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   const requiredMsg = useRequiredFieldMessage();
   const schema = Yup.object().shape({
     test1: Yup.string().required(requiredMsg),
@@ -59,14 +57,11 @@ function App() {
 
   return (
     <Layout>
-      <Box maxW='500px' m='0 auto' my={10}>
+      <Box width='500px' m='0 auto' my={10}>
         <header>
           <Heading as='h2' color='primary.500' mb={6}>
             Booking App
           </Heading>
-          <Button mb={6} onClick={toggleColorMode}>
-            Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-          </Button>
         </header>
         <Form
           onSubmit={model => alert(JSON.stringify(model, null, 2))}
