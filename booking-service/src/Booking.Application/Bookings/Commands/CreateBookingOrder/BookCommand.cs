@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using MediatR;
 
-namespace Booking.Application.Bookings.Commands.Book
+namespace Booking.Application.Bookings.Commands.CreateBookingOrder
 {
     public class BookCommand : IRequest
     {

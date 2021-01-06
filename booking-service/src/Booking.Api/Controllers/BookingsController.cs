@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Booking.Application.Bookings;
-using Booking.Application.Bookings.Commands.Book;
+using Booking.Application.Bookings.Commands.CreateBookingOrder;
 using Booking.Application.Bookings.Queries.AnyUnfinishedBookingOfEmployee;
 using Booking.Application.Bookings.Queries.AnyUnfinishedBookingOfOffer;
 using MediatR;

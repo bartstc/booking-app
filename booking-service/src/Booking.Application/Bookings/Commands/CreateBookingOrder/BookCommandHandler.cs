@@ -9,7 +9,7 @@ using Booking.Domain.SharedKernel;
 using MassTransit;
 using MediatR;
 
-namespace Booking.Application.Bookings.Commands.Book
+namespace Booking.Application.Bookings.Commands.CreateBookingOrder
 {
     public class BookCommandHandler : IRequestHandler<BookCommand>
     {
