@@ -17,6 +17,7 @@ const MoneyInput = ({ hasError, value, ...props }: MoneyInputProps) => {
   };
 
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     <Input
       as={NumberFormat}
