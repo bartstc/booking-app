@@ -1,9 +1,7 @@
 using Accessibility.Application.Configuration.Database;
-using Accessibility.Domain.Bookings;
 using Accessibility.Domain.SeedWork;
 using Accessibility.Infrastructure.Database;
 using Accessibility.Infrastructure.Domain;
-using Accessibility.Infrastructure.Domain.Bookings;
 using Accessibility.Infrastructure.Processing;
 using Accessibility.Infrastructure.Processing.Outbox;
 using Accessibility.Infrastructure.SeedWork;
@@ -11,8 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
-using Accessibility.Domain.Bookings.BookedRecords;
-using Accessibility.Application.Bookings.Book;
 using System.Reflection;
 using Accessibility.Domain.Schedules;
 using Accessibility.Application.Schedules.DomainServices;
@@ -20,8 +16,8 @@ using Accessibility.Infrastructure.Domain.Schedules;
 using Microsoft.Extensions.ObjectPool;
 using RabbitMQ.Client;
 using Accessibility.Infrastructure.Processing.EventBus.RabbitMQ;
-using Accessibility.Application.Bookings.Book.EventBus;
 using Microsoft.Extensions.Configuration;
+using Accessibility.Application.Schedules.Commands.CreateSchedule;
 
 namespace Accessibility.Infrastructure
 {
@@ -36,8 +32,7 @@ namespace Accessibility.Infrastructure
                 options
                     .ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>()
                     .UseNpgsql(connectionString))
-                .AddMediatR(typeof(BookedNotification).Assembly, typeof(BookedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
-                .AddTransient<IBookingRepository, BookingRepository>()
+                .AddMediatR(typeof(CreateScheduleCommand).Assembly, typeof(ScheduleCreatedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
                 .AddTransient<IScheduleRepository, ScheduleRepository>()
                 .AddTransient<ISchedulePeriodOfTimeChecker, SchedulePeriodOfTimeChecker>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
@@ -54,7 +49,6 @@ namespace Accessibility.Infrastructure
                     var policy = serviceProvider.GetRequiredService<IPooledObjectPolicy<IModel>>();
                     return provider.Create(policy);
                 })
-                .AddTransient<IBookEventBus, BookRabbitEventBus>()
                 .Configure<RabbitMQOptions>(configuration.GetSection("RabbitMQ"));
 
             return services;

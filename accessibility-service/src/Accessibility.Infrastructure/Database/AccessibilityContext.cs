@@ -1,4 +1,3 @@
-using Accessibility.Domain.Bookings;
 using Accessibility.Domain.Schedules;
 using Accessibility.Infrastructure.Processing.Outbox;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,6 @@ namespace Accessibility.Infrastructure.Database
         {
         }
 
-        public DbSet<Booking> Bookings { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<OutboxNotification> OutboxNotifications { get; set; }
 

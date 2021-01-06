@@ -4,8 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Accessibility.Infrastructure;
-using Accessibility.Application.Bookings.Book;
 using FluentValidation.AspNetCore;
+using Accessibility.Application.Schedules.Commands.CreateSchedule;
 
 namespace Accessibility.Api
 {
@@ -25,7 +25,7 @@ namespace Accessibility.Api
             
             services.ConfigureAccessibility(
                 Configuration,
-                typeof(BookedNotification).Assembly)
+                typeof(CreateScheduleCommand).Assembly)
             .AddSwaggerGen(options =>
                     options.CustomSchemaIds(x => x.FullName));
         }
