@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
 import reportWebVitals from './reportWebVitals';
 import { Providers } from './Providers';
+import { PublicRoutes } from './shared/Routes';
 
 ReactDOM.render(
   <React.StrictMode>
     <Providers>
-      <App />
+      <PublicRoutes />
     </Providers>
   </React.StrictMode>,
   document.getElementById('root'),

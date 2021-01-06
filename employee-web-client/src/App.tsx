@@ -16,7 +16,6 @@ import {
 } from './shared/Form';
 import { OptionType } from './types';
 import { useRequiredFieldMessage } from './messages';
-import { Layout } from './shared/Layout';
 
 const options: OptionType[] = [
   {
@@ -56,46 +55,44 @@ function App() {
   });
 
   return (
-    <Layout>
-      <Box width='500px' m='0 auto' my={10}>
-        <header>
-          <Heading as='h2' color='primary.500' mb={6}>
-            Booking App
-          </Heading>
-        </header>
-        <Form
-          onSubmit={model => alert(JSON.stringify(model, null, 2))}
-          schema={schema}
-          defaultValues={{
-            test1: '',
-            test2: '',
-            date: '',
-            select: null,
-            multiSelect: null,
-            phone: '',
-            money: '',
-            moneyWithCurrency: {
-              value: '',
-              currency: null,
-            },
-          }}
-        >
-          <VStack>
-            <InputField name='test1' label='Input field' id='test-field-1' tip='test tip' />
-            <InputField name='test2' label='Password field' id='test-field-2' type='password' />
-            <MoneyInputField label='Money field' name='money' id='money-field' />
-            <MoneyInputField label='Money with currency field' name='moneyWithCurrency.value' id='money-with-currency-field'>
-              <CurrencySelectField name='moneyWithCurrency.currency' moneyName='moneyWithCurrency.value' />
-            </MoneyInputField>
-            <DateField name='date' label='Date field' id='test-date-field' />
-            <ContactSelectField name='select' id='select' label='Select field' />
-            <SelectField options={options} label='Multi select field' name='multiSelect' id='multi-select-field' isMulti={true} />
-            <MaskedInputField label='Masked input field' name='phone' id='phone' guide mask={masks.phone} />
-            <SubmitButton />
-          </VStack>
-        </Form>
-      </Box>
-    </Layout>
+    <Box width='500px' m='0 auto' my={10}>
+      <header>
+        <Heading as='h2' color='primary.500' mb={6}>
+          Booking App
+        </Heading>
+      </header>
+      <Form
+        onSubmit={model => alert(JSON.stringify(model, null, 2))}
+        schema={schema}
+        defaultValues={{
+          test1: '',
+          test2: '',
+          date: '',
+          select: null,
+          multiSelect: null,
+          phone: '',
+          money: '',
+          moneyWithCurrency: {
+            value: '',
+            currency: null,
+          },
+        }}
+      >
+        <VStack>
+          <InputField name='test1' label='Input field' id='test-field-1' tip='test tip' />
+          <InputField name='test2' label='Password field' id='test-field-2' type='password' />
+          <MoneyInputField label='Money field' name='money' id='money-field' />
+          <MoneyInputField label='Money with currency field' name='moneyWithCurrency.value' id='money-with-currency-field'>
+            <CurrencySelectField name='moneyWithCurrency.currency' moneyName='moneyWithCurrency.value' />
+          </MoneyInputField>
+          <DateField name='date' label='Date field' id='test-date-field' />
+          <ContactSelectField name='select' id='select' label='Select field' />
+          <SelectField options={options} label='Multi select field' name='multiSelect' id='multi-select-field' isMulti={true} />
+          <MaskedInputField label='Masked input field' name='phone' id='phone' guide mask={masks.phone} />
+          <SubmitButton />
+        </VStack>
+      </Form>
+    </Box>
   );
 }
 

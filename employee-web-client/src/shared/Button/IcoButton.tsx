@@ -1,13 +1,14 @@
 import React from 'react';
-import { IconButton as ChakraIconButton, IconButtonProps } from '@chakra-ui/react';
+import { IconButton as ChakraIconButton, IconButtonProps as ChakraIconButtonProps } from '@chakra-ui/react';
 import { mdiAlertCircle } from '@mdi/js';
 
 import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
 
-interface IProps extends Omit<IconButtonProps, 'aria-label' | 'title'> {
+export interface IconButtonProps extends Omit<ChakraIconButtonProps, 'aria-label' | 'title'> {
   title: string;
   path?: string;
+  withoutTooltip?: boolean;
 }
 
 const IconButton = ({
@@ -18,10 +19,11 @@ const IconButton = ({
   title,
   id,
   onClick,
+  withoutTooltip = false,
   ...props
-}: IProps) => {
+}: IconButtonProps) => {
   return (
-    <Tooltip label={title}>
+    <Tooltip label={withoutTooltip ? '' : title}>
       <ChakraIconButton
         variant={variant}
         colorScheme={colorScheme}
