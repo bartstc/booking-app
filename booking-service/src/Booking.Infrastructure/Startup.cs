@@ -1,5 +1,5 @@
 using System.Reflection;
-using Booking.Application.Bookings.Book.EventBus;
+using Booking.Application.Bookings.EventBus.ProcessingBookingOrder;
 using Booking.Application.Configuration.Database;
 using Booking.Domain.Bookings;
 using Booking.Domain.SeedWork;
@@ -7,15 +7,13 @@ using Booking.Infrastructure.Database;
 using Booking.Infrastructure.Domain;
 using Booking.Infrastructure.Domain.Bookings;
 using Booking.Infrastructure.Processing;
-using Booking.Infrastructure.Processing.EventBus.RabbitMQ;
 using Booking.Infrastructure.SeedWork;
+using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.ObjectPool;
-using RabbitMQ.Client;
 
 namespace Booking.Infrastructure
 {
@@ -40,24 +38,27 @@ namespace Booking.Infrastructure
                 //.AddHostedService<ProcessOutboxHostedService>()
                 .AddScoped<ISqlConnectionFactory>(x => new SqlConnectionFactory(connectionString))
                 .AddSingleton<IAssemblyProvider>(x => new AssemblyProvider(applicationAssembly))
-                .ConfigureRabbitMQ(configuration);
+                .ConfigureEventBus(configuration);
             
             return services;
         }
 
-        private static IServiceCollection ConfigureRabbitMQ(this IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection ConfigureEventBus(this IServiceCollection services, IConfiguration configuration)
         {
-            return services
-                .AddSingleton<ObjectPoolProvider, DefaultObjectPoolProvider>()
-                .AddSingleton<IPooledObjectPolicy<IModel>, RabbitMQChannelPooledObjectPolicy>()
-                .AddSingleton<ObjectPool<IModel>>(serviceProvider =>
+            return services.AddMassTransit(x =>
+            {
+                x.AddConsumer<ProcessBookingOrderConsumer>()
+                    .Endpoint(e => e.ConcurrentMessageLimit = 1);
+
+                x.UsingRabbitMq((context, cfg) =>
                 {
-                    var provider = serviceProvider.GetRequiredService<ObjectPoolProvider>();
-                    var policy = serviceProvider.GetRequiredService<IPooledObjectPolicy<IModel>>();
-                    return provider.Create(policy);
-                })
-                .AddTransient<IBookEventBus, BookRabbitEventBus>()
-                .Configure<RabbitMQOptions>(configuration.GetSection("RabbitMQ"));
+                    cfg.Host(configuration["RabbitMQ:HostName"]);
+                    
+                    cfg.ReceiveEndpoint("booking-orders-listener", e =>
+                        e.ConfigureConsumer<ProcessBookingOrderConsumer>(context));
+                });
+            })
+            .AddMassTransitHostedService();
         }
     }
 }

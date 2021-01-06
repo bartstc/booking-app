@@ -21,7 +21,7 @@ namespace Booking.Application.Bookings.GetBookedRecordsOfFacility
             var connection = sqlConnectionFactory.GetConnection();
 
             return (await connection.QueryAsync<BookedRecordOfFacilityDto>(
-                "SELECT * FROM accessibility.booked_records_of_facility(@facilityId, @dateFrom, @dateTo);",
+                "SELECT * FROM booking.booked_records_of_facility(@facilityId, @dateFrom, @dateTo);",
                 new
                 {
                     request.FacilityId,
