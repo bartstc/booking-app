@@ -4,18 +4,18 @@ using Booking.Application.Configuration.Database;
 using MediatR;
 using Dapper;
 
-namespace Booking.Application.Bookings.AnyUnfinishedBookingOfOffer
+namespace Booking.Application.Bookings.Queries.AnyUnfinishedBookingOfEmployee
 {
-    public class AnyUnfinishedBookingOfOfferQueryHandler : IRequestHandler<AnyUnfinishedBookingOfOfferQuery, bool>
+    public class AnyUnfinishedBookingOfEmployeeQueryHandler : IRequestHandler<AnyUnfinishedBookingOfEmployeeQuery, bool>
     {
         private readonly ISqlConnectionFactory sqlConnectionFactory;
 
-        public AnyUnfinishedBookingOfOfferQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
+        public AnyUnfinishedBookingOfEmployeeQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
         {
             this.sqlConnectionFactory = sqlConnectionFactory;
         }
 
-        public async Task<bool> Handle(AnyUnfinishedBookingOfOfferQuery request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(AnyUnfinishedBookingOfEmployeeQuery request, CancellationToken cancellationToken)
         {
             var connection = sqlConnectionFactory.GetConnection();
 
@@ -25,12 +25,12 @@ namespace Booking.Application.Bookings.AnyUnfinishedBookingOfOffer
                     accessibility.booked_records r INNER JOIN accessibility.bookings b
                     ON r.booking_id = b.booking_id
                 WHERE
-                    r.offer_id = @OfferId AND
+                    r.employee_id = @EmployeeId AND
                     b.facility_id = @FacilityId AND
                     r.status = 0
                 LIMIT 1;",
                 new {
-                    request.OfferId,
+                    request.EmployeeId,
                     request.FacilityId
                 })).HasValue;
         }

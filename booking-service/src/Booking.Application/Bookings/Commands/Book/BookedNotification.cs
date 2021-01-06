@@ -4,7 +4,7 @@ using Booking.Domain.Bookings;
 using Booking.Domain.Bookings.BookedRecords;
 using Booking.Domain.SharedKernel;
 
-namespace Booking.Application.Bookings.Book
+namespace Booking.Application.Bookings.Commands.Book
 {
     public class BookedNotification : DomainNotificationBase<BookedEvent>
     {

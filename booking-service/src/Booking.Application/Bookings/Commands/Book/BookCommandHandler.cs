@@ -2,14 +2,14 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Booking.Application.Bookings.EventBus.ProcessingBookingOrder;
+using Booking.Application.Bookings.IntegrationEvents.Events;
 using Booking.Domain.Bookings;
 using Booking.Domain.Bookings.BookedRecords;
 using Booking.Domain.SharedKernel;
 using MassTransit;
 using MediatR;
 
-namespace Booking.Application.Bookings.Book
+namespace Booking.Application.Bookings.Commands.Book
 {
     public class BookCommandHandler : IRequestHandler<BookCommand>
     {
@@ -27,7 +27,7 @@ namespace Booking.Application.Bookings.Book
             await sendEndpoint.Send(new ProcessBookingOrder(
                 new FacilityId(request.FacilityId),    
                 new CustomerId(request.CustomerId),
-                request.BookedRecords.Select(r => new Booking.Application.Bookings.EventBus.ProcessingBookingOrder.BookedRecord(
+                request.BookedRecords.Select(r => new Booking.Application.Bookings.IntegrationEvents.Events.BookedRecord(
                     new EmployeeId(r.EmployeeId),
                     new OfferId(r.OfferId),
                     r.Date)).ToList()

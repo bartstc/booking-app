@@ -1,4 +1,4 @@
-using Booking.Application.Bookings.AnyUnfinishedBookingOfEmployee;
+using Booking.Application.Bookings.Queries.AnyUnfinishedBookingOfEmployee;
 using Booking.Domain.SeedWork;
 using Booking.Infrastructure;
 using FluentValidation.AspNetCore;

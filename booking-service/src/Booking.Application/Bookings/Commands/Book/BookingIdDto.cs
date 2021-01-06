@@ -1,6 +1,6 @@
 using System;
 
-namespace Booking.Application.Bookings.Book
+namespace Booking.Application.Bookings.Commands.Book
 {
     public class BookingIdDto
     {

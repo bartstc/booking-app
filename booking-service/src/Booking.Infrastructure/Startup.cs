@@ -1,5 +1,5 @@
 using System.Reflection;
-using Booking.Application.Bookings.EventBus.ProcessingBookingOrder;
+using Booking.Application.Bookings.IntegrationEvents.EventHandling;
 using Booking.Application.Configuration.Database;
 using Booking.Domain.Bookings;
 using Booking.Domain.SeedWork;

@@ -1,6 +1,6 @@
 using System;
 
-namespace Booking.Application.Bookings.GetBookedRecordsOfFacility
+namespace Booking.Application.Bookings.Queries.GetBookedRecordsOfFacility
 {
     public class BookedRecordOfFacilityDto
     {

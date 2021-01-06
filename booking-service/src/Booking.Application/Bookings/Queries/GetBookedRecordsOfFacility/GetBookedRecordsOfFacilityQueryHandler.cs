@@ -5,7 +5,7 @@ using MediatR;
 using Dapper;
 using System.Collections.Generic;
 
-namespace Booking.Application.Bookings.GetBookedRecordsOfFacility
+namespace Booking.Application.Bookings.Queries.GetBookedRecordsOfFacility
 {
     public class GetBookedRecordsOfFacilityQueryHandler : IRequestHandler<GetBookedRecordsOfFacilityQuery, List<BookedRecordOfFacilityDto>>
     {

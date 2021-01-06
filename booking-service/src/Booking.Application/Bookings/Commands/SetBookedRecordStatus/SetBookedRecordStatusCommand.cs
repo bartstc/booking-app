@@ -2,7 +2,7 @@ using System;
 using Booking.Domain.Bookings.BookedRecords;
 using MediatR;
 
-namespace Booking.Application.Bookings.SetBookedRecordStatus
+namespace Booking.Application.Bookings.Commands.SetBookedRecordStatus
 {
     public class SetBookedRecordStatusCommand : IRequest
     {

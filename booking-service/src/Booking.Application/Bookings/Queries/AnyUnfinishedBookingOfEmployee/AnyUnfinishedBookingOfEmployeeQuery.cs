@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace Booking.Application.Bookings.AnyUnfinishedBookingOfEmployee
+namespace Booking.Application.Bookings.Queries.AnyUnfinishedBookingOfEmployee
 {
     public class AnyUnfinishedBookingOfEmployeeQuery : IRequest<bool>
     {

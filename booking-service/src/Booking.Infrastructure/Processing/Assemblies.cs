@@ -1,5 +1,5 @@
 using System.Reflection;
-using Booking.Application.Bookings.Book;
+using Booking.Application.Bookings.Commands.Book;
 
 namespace Booking.Infrastructure.Processing
 {

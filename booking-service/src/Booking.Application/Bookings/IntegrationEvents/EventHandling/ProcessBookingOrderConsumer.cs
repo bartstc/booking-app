@@ -1,12 +1,13 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Booking.Application.Bookings.IntegrationEvents.Events;
 using Booking.Domain.Bookings;
 using Booking.Domain.Bookings.BookedRecords;
 using Booking.Domain.SeedWork;
 using Booking.Domain.SharedKernel;
 using MassTransit;
 
-namespace Booking.Application.Bookings.EventBus.ProcessingBookingOrder
+namespace Booking.Application.Bookings.IntegrationEvents.EventHandling
 {
     public class ProcessBookingOrderConsumer : IConsumer<ProcessBookingOrder>
     {
