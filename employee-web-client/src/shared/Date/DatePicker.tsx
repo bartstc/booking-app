@@ -20,6 +20,10 @@ const DatePicker = ({ isInvalid, value, onChange, ...props }: IProps) => {
   const validColor = useColorModeValue(colors.gray[200], colors.gray[600]);
   const clearBtnBackground = useColorModeValue(colors.blue[500], colors.blue[300]);
   const clearBtnColor = useColorModeValue(colors.white, colors.gray[900]);
+  const calendarBackground = useColorModeValue(colors.white, colors.gray[700]);
+  const calendarColor = useColorModeValue(colors.gray[700], colors.white);
+  const calendarSelectedBackground = useColorModeValue(colors.blue[500], colors.blue[300]);
+  const calendarDayHover = useColorModeValue(colors.gray[200], colors.gray[600]);
 
   const dateFormat = (props.dateFormat as string) ?? 'YYYY-MM-DDTHH:mm:ssZ';
 
@@ -30,6 +34,10 @@ const DatePicker = ({ isInvalid, value, onChange, ...props }: IProps) => {
       focusColor={colors.blue[500]}
       clearBtnColor={clearBtnColor}
       clearBtnBackground={clearBtnBackground}
+      calendarBackground={calendarBackground}
+      calendarColor={calendarColor}
+      calendarSelectedBackground={calendarSelectedBackground}
+      calendarDayHover={calendarDayHover}
     >
       <Input
         as={ReactDate}

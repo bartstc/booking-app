@@ -7,3 +7,4 @@ export { DateField } from './DateField';
 export { SelectField } from './SelectField';
 export { ContactSelectField } from './Implementations';
 export { CurrencySelectField } from './CurrencySelectField';
+export { MoneyInputField } from './MoneyInputField';

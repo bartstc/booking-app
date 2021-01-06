@@ -1,6 +1,9 @@
 import React, { ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
 import { ChakraProvider } from '@chakra-ui/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import { theme } from './theme';
 
 interface IProps {
   children: ReactNode;
@@ -8,9 +11,11 @@ interface IProps {
 
 const Providers = ({ children }: IProps) => {
   return (
-    <ChakraProvider>
-      <IntlProvider locale='en'>{children}</IntlProvider>
-    </ChakraProvider>
+    <Router>
+      <ChakraProvider theme={theme}>
+        <IntlProvider locale='en'>{children}</IntlProvider>
+      </ChakraProvider>
+    </Router>
   );
 };
 

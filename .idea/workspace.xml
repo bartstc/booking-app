@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Money/MoneyInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Money/MoneyInput.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +26,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/PZP/api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/employee-web-client/src/shared/States" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -42,19 +39,19 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/employee-web-client/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/employee-web-client/src/shared/States" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/assets/images" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/containers" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/containers/Customers" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/hooks" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/employee-web-client/src/shared/Layout" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/assets" />
+      <recent name="$PROJECT_DIR$/employee-web-client/public" />
       <recent name="$PROJECT_DIR$/management-service/src/modules/dictionaries/infra" />
       <recent name="$PROJECT_DIR$/management-service/src/modules/dictionaries/typeorm" />
-      <recent name="$PROJECT_DIR$/management-service/src/resources" />
-      <recent name="$PROJECT_DIR$/management-service" />
-      <recent name="$PROJECT_DIR$/management-service/src/fixtures/customers" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/management-service/src/modules/dictionaries/application/query/getDictionaries" />
-      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/application/command/removeEmployee" />
-      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/domain/guards" />
-      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/application/command" />
-      <recent name="$PROJECT_DIR$/management-service/src/modules/facilities/application/command/activateEmployee" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -84,6 +81,11 @@
       <workItem from="1609191817722" duration="334000" />
       <workItem from="1609573790122" duration="10676000" />
       <workItem from="1609589396797" duration="12342000" />
+      <workItem from="1609786164180" duration="7899000" />
+      <workItem from="1609858618812" duration="9462000" />
+      <workItem from="1609878132281" duration="4951000" />
+      <workItem from="1609915198044" duration="9529000" />
+      <workItem from="1609925803716" duration="2442000" />
     </task>
     <servers />
   </component>
@@ -96,24 +98,28 @@
     </state>
     <state x="2347" y="333" width="623" height="416" key="#com.intellij.fileTypes.FileTypeChooser/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1608739851093" />
     <state x="1728" y="332" width="626" height="416" key="#com.intellij.fileTypes.FileTypeChooser/48.0.3552.1082@48.0.3552.1082" timestamp="1609591140313" />
-    <state x="1728" y="298" width="424" height="484" key="FileChooserDialogImpl" timestamp="1609594204038">
-      <screen x="48" y="0" width="3552" height="1082" />
+    <state x="717" y="288" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1609788359970">
+      <screen x="48" y="0" width="1872" height="1080" />
+    </state>
+    <state x="717" y="288" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/48.0.1872.1080@48.0.1872.1080" timestamp="1609788359970" />
+    <state x="767" y="297" width="424" height="484" key="FileChooserDialogImpl" timestamp="1609786243614">
+      <screen x="48" y="0" width="1872" height="1080" />
     </state>
     <state x="2417" y="297" width="424" height="484" key="FileChooserDialogImpl/1680.0.1920.1080/48.0.1632.1050@1680.0.1920.1080" timestamp="1603566743407" />
     <state x="2418" y="299" width="424" height="484" key="FileChooserDialogImpl/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1609536744056" />
     <state x="675" y="289" width="379" height="471" key="FileChooserDialogImpl/1680.2.1920.1080/48.0.1632.1050@48.0.1632.1050" timestamp="1607662417613" />
-    <state x="767" y="297" width="424" height="484" key="FileChooserDialogImpl/48.0.1872.1080@48.0.1872.1080" timestamp="1609139949630" />
+    <state x="767" y="297" width="424" height="484" key="FileChooserDialogImpl/48.0.1872.1080@48.0.1872.1080" timestamp="1609786243614" />
     <state x="1728" y="298" width="424" height="484" key="FileChooserDialogImpl/48.0.3552.1082@48.0.3552.1082" timestamp="1609594204038" />
     <state x="2090" y="141" key="SettingsEditor" timestamp="1609142310968">
       <screen x="48" y="0" width="3552" height="1082" />
     </state>
     <state x="898" y="174" key="SettingsEditor/48.0.1872.1080@48.0.1872.1080" timestamp="1603378883345" />
     <state x="2090" y="141" key="SettingsEditor/48.0.3552.1082@48.0.3552.1082" timestamp="1609142310968" />
-    <state x="1910" y="124" width="1558" height="831" key="find.popup" timestamp="1609579580578">
-      <screen x="48" y="0" width="3552" height="1082" />
+    <state x="676" y="262" width="821" height="554" key="find.popup" timestamp="1609928224325">
+      <screen x="48" y="0" width="1872" height="1080" />
     </state>
     <state x="2324" y="264" width="826" height="554" key="find.popup/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1608743973401" />
-    <state x="676" y="262" width="821" height="554" key="find.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1608806550430" />
+    <state x="676" y="262" width="821" height="554" key="find.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1609928224325" />
     <state x="1910" y="124" width="1558" height="831" key="find.popup/48.0.3552.1082@48.0.3552.1082" timestamp="1609579580578" />
     <state x="2073" y="237" width="1276" height="680" key="search.everywhere.popup" timestamp="1609142280546">
       <screen x="48" y="0" width="3552" height="1082" />

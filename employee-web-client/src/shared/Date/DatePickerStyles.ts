@@ -7,6 +7,10 @@ export const DatePickerStyles = styled(Box)<{
   isInvalid: boolean;
   clearBtnColor: string;
   clearBtnBackground: string;
+  calendarBackground: string;
+  calendarColor: string;
+  calendarSelectedBackground: string;
+  calendarDayHover: string;
 }>`
   .react-datepicker-wrapper,
   .react-datepicker__input-container {
@@ -38,5 +42,23 @@ export const DatePickerStyles = styled(Box)<{
     background-color: ${props => props.clearBtnBackground};
     color: ${props => props.clearBtnColor};
     font-size: 1.3rem;
+  }
+
+  .react-datepicker__month-container,
+  .react-datepicker__header {
+    background: ${props => props.calendarBackground};
+    * {
+      color: ${props => props.calendarColor};
+    }
+
+    .react-datepicker__day:hover {
+      background: ${props => props.calendarDayHover};
+    }
+
+    .react-datepicker__day--selected {
+      color: white;
+      background: ${props => props.calendarSelectedBackground};
+      font-weight: bold;
+    }
   }
 `;

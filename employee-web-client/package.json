@@ -23,12 +23,14 @@
     "query-string": "^6.13.7",
     "react": "^17.0.1",
     "react-datepicker": "^3.3.0",
+    "react-device-detect": "^1.15.0",
     "react-dom": "^17.0.1",
     "react-error-boundary": "^3.1.0",
     "react-hook-form": "^6.13.1",
     "react-intl": "^5.10.9",
     "react-number-format": "^4.4.1",
     "react-query": "^3.5.5",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-select": "^3.1.1",
     "react-text-mask": "^5.4.3",
@@ -37,7 +39,7 @@
     "yup": "^0.32.8"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -70,6 +72,7 @@
   },
   "devDependencies": {
     "@types/react-datepicker": "^3.1.2",
+    "@types/react-router-dom": "^5.1.7",
     "@types/react-select": "^3.1.2",
     "@types/react-text-mask": "^5.4.6",
     "@types/yup": "^0.29.11",
