@@ -1,9 +1,9 @@
 using System;
-using Accessibility.Domain.SeedWork;
-using Accessibility.Domain.SharedKernel;
+using Booking.Domain.SeedWork;
+using Booking.Domain.SharedKernel;
 using Xunit;
 
-namespace Accessibility.UnitTests.SharedKernel
+namespace Booking.UnitTests.SharedKernel
 {
     public class MoneyTests
     {

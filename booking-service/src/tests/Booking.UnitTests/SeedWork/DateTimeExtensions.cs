@@ -1,6 +1,6 @@
 using System;
 
-namespace Accessibility.UnitTests.SeedWork
+namespace Booking.UnitTests.SeedWork
 {
     public static class DateTimeExtensions
     {

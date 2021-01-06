@@ -1,21 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Accessibility.Domain.Bookings;
-using Accessibility.Domain.Bookings.BookedRecords;
-using Accessibility.Domain.SharedKernel;
+using Booking.Domain.Bookings;
+using Booking.Domain.Bookings.BookedRecords;
+using Booking.Domain.SharedKernel;
 
-namespace Accessibility.UnitTests.Bookings
+namespace Booking.UnitTests.Bookings
 {
     internal static class BookingFactory
     {
-        internal static Booking CreateBooked(DateTime date, short duration) =>
+        internal static Booking.Domain.Bookings.Booking CreateBooked(DateTime date, short duration) =>
             CreateBooked(new List<(DateTime, short)>{
                 (date, duration)
             });
         
-        internal static Booking CreateBooked(List<(DateTime date, short duration)> services) =>
-            Booking.CreateBooked(
+        internal static Booking.Domain.Bookings.Booking CreateBooked(List<(DateTime date, short duration)> services) =>
+            Booking.Domain.Bookings.Booking.CreateBooked(
                 new CustomerId(Guid.NewGuid()),
                 new FacilityId(Guid.NewGuid()),
                 services.Select(s => new BookedRecordData(

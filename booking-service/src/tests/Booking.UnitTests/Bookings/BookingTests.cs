@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using Accessibility.Domain.Bookings;
-using Accessibility.Domain.SeedWork;
 using Xunit;
-using Accessibility.UnitTests.SeedWork;
-using Accessibility.Domain.BookingServices.Rules;
-using Accessibility.Domain.Bookings.BookedRecords;
+using Booking.UnitTests.SeedWork;
 using System.Linq;
-using Accessibility.Domain.Bookings.BookedRecords.Rules;
+using Booking.Domain.SeedWork;
+using Booking.Domain.BookingServices.Rules;
+using Booking.Domain.Bookings.BookedRecords;
+using Booking.Domain.Bookings;
+using Booking.Domain.Bookings.BookedRecords.Rules;
 
-namespace Accessibility.UnitTests.Bookings
+namespace Booking.UnitTests.Bookings
 {
     public class BookingTests : TestBase
     {
@@ -17,7 +17,7 @@ namespace Accessibility.UnitTests.Bookings
         [MemberData(nameof(DatesNotFromTheFuture))]
         public void CreateBooked_ServiceDateNotFromTheFuture_BreaksDateMustBeFromTheFutureRule(DateTime date)
         {
-            Func<Booking> act = () => BookingFactory.CreateBooked(date, 60);
+            Func<Booking.Domain.Bookings.Booking> act = () => BookingFactory.CreateBooked(date, 60);
             
             var result = Assert.Throws<BusinessRuleValidationException>(act);
             Assert.IsType<DateMustBeFromTheFutureRule>(result.Rule);
