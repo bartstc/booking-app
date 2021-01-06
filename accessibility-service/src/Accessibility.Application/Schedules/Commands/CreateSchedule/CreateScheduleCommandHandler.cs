@@ -8,7 +8,7 @@ using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
 
-namespace Accessibility.Application.Schedules.CreateSchedule
+namespace Accessibility.Application.Schedules.Commands.CreateSchedule
 {
     public class CreateScheduleCommandHandler : IRequestHandler<CreateScheduleCommand, Guid>
     {

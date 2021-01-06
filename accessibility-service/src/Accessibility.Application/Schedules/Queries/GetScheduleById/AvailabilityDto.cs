@@ -1,6 +1,6 @@
 using System;
 
-namespace Accessibility.Application.Schedules.GetScheduleById
+namespace Accessibility.Application.Schedules.Queries.GetScheduleById
 {
     public class AvailabilityDto
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Accessibility.Application.Schedules.GetScheduleById
+namespace Accessibility.Application.Schedules.Queries.GetScheduleById
 {
     public class ScheduleDto
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Accessibility.Application.Schedules.CreateSchedule
+namespace Accessibility.Application.Schedules.Commands.CreateSchedule
 {
     public class AvailabilityDto
     {

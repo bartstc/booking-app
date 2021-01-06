@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Accessibility.Application.Schedules.CreateSchedule;
+using Accessibility.Application.Schedules.Commands.CreateSchedule;
 using MediatR;
 
-namespace Accessibility.Application.Schedules.CorrectSchedule
+namespace Accessibility.Application.Schedules.Commands.CorrectSchedule
 {
     public class CorrectScheduleCommand : IRequest
     {

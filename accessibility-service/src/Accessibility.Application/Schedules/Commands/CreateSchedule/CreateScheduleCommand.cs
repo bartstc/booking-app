@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using MediatR;
 
-namespace Accessibility.Application.Schedules.CreateSchedule
+namespace Accessibility.Application.Schedules.Commands.CreateSchedule
 {
     public class CreateScheduleCommand : IRequest<Guid>
     {

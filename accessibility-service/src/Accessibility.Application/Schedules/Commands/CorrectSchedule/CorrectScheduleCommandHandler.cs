@@ -6,7 +6,7 @@ using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
 
-namespace Accessibility.Application.Schedules.CorrectSchedule
+namespace Accessibility.Application.Schedules.Commands.CorrectSchedule
 {
     public class CorrectScheduleCommandHandler : IRequestHandler<CorrectScheduleCommand>
     {

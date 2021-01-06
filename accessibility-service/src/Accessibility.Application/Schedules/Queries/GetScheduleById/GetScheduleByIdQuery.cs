@@ -1,7 +1,7 @@
 using System;
 using MediatR;
 
-namespace Accessibility.Application.Schedules.GetScheduleById
+namespace Accessibility.Application.Schedules.Queries.GetScheduleById
 {
     public class GetScheduleByIdQuery : IRequest<ScheduleDto>
     {

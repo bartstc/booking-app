@@ -2,9 +2,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Accessibility.Api.Schedules;
-using Accessibility.Application.Schedules.CorrectSchedule;
-using Accessibility.Application.Schedules.CreateSchedule;
-using Accessibility.Application.Schedules.GetScheduleById;
+using Accessibility.Application.Schedules.Commands.CorrectSchedule;
+using Accessibility.Application.Schedules.Commands.CreateSchedule;
+using Accessibility.Application.Schedules.Queries.GetScheduleById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

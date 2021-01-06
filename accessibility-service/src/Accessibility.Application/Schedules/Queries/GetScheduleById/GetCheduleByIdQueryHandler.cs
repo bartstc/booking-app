@@ -4,7 +4,7 @@ using Accessibility.Application.Configuration.Database;
 using MediatR;
 using Dapper;
 
-namespace Accessibility.Application.Schedules.GetScheduleById
+namespace Accessibility.Application.Schedules.Queries.GetScheduleById
 {
     public class GetCheduleByIdQueryHandler : IRequestHandler<GetScheduleByIdQuery, ScheduleDto>
     {
