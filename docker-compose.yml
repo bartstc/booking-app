@@ -69,9 +69,6 @@ services:
   employee-web-client:
     build:
       context: ./employee-web-client
-    volumes:
-      - ./employee-web-client:/frontend
-      - /frontend/node_modules
     ports:
       - 3001:3001
     depends_on:

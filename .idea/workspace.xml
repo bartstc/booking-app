@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/employee-web-client/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Money/MoneyInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Money/MoneyInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +85,8 @@
       <workItem from="1609878132281" duration="4951000" />
       <workItem from="1609915198044" duration="9529000" />
       <workItem from="1609925803716" duration="2442000" />
+      <workItem from="1609960890118" duration="485000" />
+      <workItem from="1610033452860" duration="140000" />
     </task>
     <servers />
   </component>
@@ -126,9 +127,10 @@
     </state>
     <state x="1115" y="237" width="672" height="678" key="search.everywhere.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1607610819609" />
     <state x="2073" y="237" width="1276" height="680" key="search.everywhere.popup/48.0.3552.1082@48.0.3552.1082" timestamp="1609142280546" />
-    <state x="2389" y="448" width="540" height="186" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1609597634384">
-      <screen x="48" y="0" width="3552" height="1082" />
+    <state x="1282" y="447" width="480" height="186" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1609960512205">
+      <screen x="48" y="0" width="1872" height="1080" />
     </state>
+    <state x="1282" y="447" width="480" height="186" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/48.0.1872.1080@48.0.1872.1080" timestamp="1609960512205" />
     <state x="2389" y="448" width="540" height="186" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/48.0.3552.1082@48.0.3552.1082" timestamp="1609597634384" />
   </component>
 </project>
