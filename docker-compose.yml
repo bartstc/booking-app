@@ -6,7 +6,7 @@ services:
     restart: always
     volumes:
       - ./accessibility-service/InitializeDb.sql:/docker-entrypoint-initdb.d/init-accessibility.sql
-      - ./booking-service/InitializeDb.sql:/docker-entrypoint-initdb.d/init-booking.sql
+      - ./booking-service/db/booking-db-initialize.sh:/docker-entrypoint-initdb.d/booking-db-initialize.sh
       - pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: pg
@@ -43,7 +43,7 @@ services:
     ports:
       - "81:80"
     environment:
-      - ConnectionStrings:Booking=Host=db;Database=postgres;Username=postgres;Password=pg
+      - ConnectionStrings:Booking=Host=db;Database=booking;Username=postgres;Password=pg
       - RabbitMQ:Hostname=rabbit
 
   management:
@@ -66,7 +66,7 @@ services:
       - db
     command: npm run start:dev
 
-  employee-web-client:
+    employee-web-client:
     build:
       context: ./employee-web-client
     volumes:
