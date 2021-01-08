@@ -1,9 +1,8 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { State } from './State';
 import image from '../../assets/images/server-error.png';
-import { HomeButton } from './HomeButton';
+import { HomeButton, State } from './components';
 
 const ServerErrorState = () => {
   const { formatMessage } = useIntl();
@@ -22,7 +21,6 @@ const ServerErrorState = () => {
           defaultMessage='An unexpected error has occurred on the server side. Contact the administrators for more information.'
         />
       }
-      mt={{ base: 20, md: 40, lg: 20 }}
     >
       <HomeButton mt={4} />
     </State>

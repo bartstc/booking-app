@@ -2,13 +2,12 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Image, useBreakpointValue } from '@chakra-ui/react';
 
-import { State } from './State';
 import image from '../../assets/images/not-found.png';
-import { HomeButton } from './HomeButton';
+import { HomeButton, State } from './components';
 
 const NotFoundState = () => {
   const { formatMessage } = useIntl();
-  const size = useBreakpointValue({ base: '280px', md: '560px', lg: '840px' });
+  const size = useBreakpointValue({ base: '260px', md: '500px', lg: '670px' });
 
   return (
     <State

@@ -2,13 +2,12 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Image, useBreakpointValue } from '@chakra-ui/react';
 
-import { State } from './State';
 import image from '../../assets/images/client-error.png';
-import { HomeButton } from './HomeButton';
+import { HomeButton, State } from './components';
 
 const ClientErrorState = () => {
   const { formatMessage } = useIntl();
-  const size = useBreakpointValue({ base: '200px', md: '480px', lg: '620px' });
+  const size = useBreakpointValue({ base: '190px', md: '400px', lg: '520px' });
 
   return (
     <State
@@ -29,7 +28,6 @@ const ClientErrorState = () => {
           defaultMessage='An unexpected error has occurred on the client side. Contact the administrators for more information.'
         />
       }
-      mt={{ base: 20, md: 40, lg: 20 }}
     >
       <HomeButton mt={4} />
     </State>

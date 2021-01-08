@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { ChakraProps } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-import { Button } from '../Button';
+import { Button } from '../../Button';
 
 const HomeButton = (props: ChakraProps) => {
   return (

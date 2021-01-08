@@ -10,15 +10,15 @@ interface IProps extends ChakraProps {
 }
 
 const State = ({ description, header, image, alt, children, ...props }: IProps) => {
-  const size = useBreakpointValue({ base: '300px', md: '740px', lg: '980px' });
+  const size = useBreakpointValue({ base: '280px', md: '640px', lg: '800px' });
   const color = useColorModeValue('primary.500', 'primary.300');
 
   return (
     <VStack width='100%' margin='0 auto' spacing={4} mt={{ base: 12, md: 20 }} {...props}>
-      <Heading textAlign='center' as='h2' color={color} fontSize={{ base: '2xl', md: '6xl' }} fontWeight='900'>
+      <Heading textAlign='center' as='h2' color={color} fontSize={{ base: '2xl', md: '5xl' }} fontWeight='900'>
         {header}
       </Heading>
-      <Text textAlign='center' fontSize={{ base: 'sm', md: 'xl' }} maxWidth={{ base: '300px', md: '540px' }}>
+      <Text textAlign='center' fontSize={{ base: 'sm', md: 'xl' }} maxWidth={{ base: '300px', md: '640px' }}>
         {description}
       </Text>
       {children}

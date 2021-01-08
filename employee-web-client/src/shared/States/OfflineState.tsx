@@ -1,14 +1,13 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-
-import { State } from './State';
-import image from '../../assets/images/offline.png';
-import { HomeButton } from './HomeButton';
 import { Image, useBreakpointValue } from '@chakra-ui/react';
+
+import image from '../../assets/images/offline.png';
+import { HomeButton, State } from './components';
 
 const OfflineState = () => {
   const { formatMessage } = useIntl();
-  const size = useBreakpointValue({ base: '240px', md: '480px', lg: '640px' });
+  const size = useBreakpointValue({ base: '220px', md: '420px', lg: '560px' });
 
   return (
     <State
