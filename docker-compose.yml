@@ -5,7 +5,7 @@ services:
     image: postgres
     restart: always
     volumes:
-      - ./accessibility-service/InitializeDb.sql:/docker-entrypoint-initdb.d/init-accessibility.sql
+      - ./accessibility-service/db/accessibility-db-initialize.sh:/docker-entrypoint-initdb.d/accessibility-db-initialize.sh
       - ./booking-service/db/booking-db-initialize.sh:/docker-entrypoint-initdb.d/booking-db-initialize.sh
       - pgdata:/var/lib/postgresql/data
     environment:
@@ -66,7 +66,7 @@ services:
       - db
     command: npm run start:dev
 
-    employee-web-client:
+  employee-web-client:
     build:
       context: ./employee-web-client
     ports:
