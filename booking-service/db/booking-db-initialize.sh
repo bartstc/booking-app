@@ -9,6 +9,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname booking <<-EOSQL
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
     CREATE SCHEMA booking;
+    CREATE SCHEMA app;
 
     CREATE TABLE booking.bookings (
         booking_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -32,5 +33,13 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname booking <<-EOSQL
         CONSTRAINT fk_booking
             FOREIGN KEY(booking_id)
             REFERENCES booking.bookings(booking_id)
+    );
+
+    CREATE TABLE app.outbox_notifications (
+        id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+        type varchar(200) NOT NULL,
+        occured_date timestamp NOT NULL,
+        processed_date timestamp NULL,
+        data text NOT NULL
     );
 EOSQL
