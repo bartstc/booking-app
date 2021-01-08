@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Accessibility.Api.Controllers
 {
     [ApiController]
-    [Route("facilities")]
+    [Route("facilities/{facilityId}/schedules")]
     public class SchedulesController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -21,7 +21,7 @@ namespace Accessibility.Api.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet("{facilityId}/schedules/{scheduleId}")]
+        [HttpGet("{scheduleId}")]
         [ProducesResponseType(typeof(ScheduleDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetScheduleById(
             [FromRoute] Guid scheduleId
@@ -31,7 +31,7 @@ namespace Accessibility.Api.Controllers
             return Ok(schedule);
         }
 
-        [HttpPost("{facilityId}/schedules")]
+        [HttpPost]
         [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> CreateSchedule(
             [FromRoute] Guid facilityId,
@@ -42,7 +42,7 @@ namespace Accessibility.Api.Controllers
             return Created(string.Empty, id);
         }
 
-        [HttpPut("{facilityId}/schedules/{scheduleId}")]
+        [HttpPut("{scheduleId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> CorrectSchedule(
             [FromRoute] Guid facilityId,
