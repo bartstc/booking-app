@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { Grid } from 'shared/Grid';
+import { Customer } from 'modules/customers/types';
+import { ContactType } from 'types';
+import { Pagination } from 'shared/Pagination';
 
 import { Header } from './Header';
 import { Row } from './Row';
-import { Customer } from '../../../modules/customers/types';
-import { ContactType } from '../../../types';
 
 const mockedCustomer: Customer = {
   customerId: '1',
@@ -32,17 +33,18 @@ const mockedCustomer: Customer = {
   fullName: 'John Doe',
 };
 
-const mockedCustomers = Array.from(Array(55).keys()).map(() => mockedCustomer);
+const mockedCustomers = Array.from(Array(145).keys()).map(() => mockedCustomer);
 
 const Table = () => {
   return (
     <>
-      <Grid itemsCount={mockedCustomers.length} rowGap={1} templateColumns='80px repeat(5, 1fr)'>
+      <Grid itemsCount={mockedCustomers.length} rowGap={1} templateColumns='80px repeat(5, 1fr)' mb={4}>
         <Header />
         {mockedCustomers.map((customer, index) => (
           <Row index={index + 1} key={index} customer={customer} />
         ))}
       </Grid>
+      <Pagination limit={10} total={mockedCustomers.length} />
     </>
   );
 };
