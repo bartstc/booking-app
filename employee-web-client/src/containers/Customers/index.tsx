@@ -5,9 +5,11 @@ import { Button } from '../../shared/Button';
 import { Icon } from '../../shared/Icon';
 import { mdiAccount, mdiFilter, mdiMagnify } from '@mdi/js';
 import { Table } from './Table';
+import { useQueryParams } from '../../shared/Params';
 
 const Customers = () => {
   const { formatMessage } = useIntl();
+  const { resetPagination, add } = useQueryParams();
 
   return (
     <VStack spacing={16} w='100%' mt={{ base: 4, md: 10 }} px={{ base: 4, md: 8 }} maxW='1280px' margin='0 auto'>
@@ -20,7 +22,7 @@ const Customers = () => {
             <FormattedMessage id='customers-subheading' defaultMessage='Manage your customer list' />
           </Text>
         </VStack>
-        <Button colorScheme='primary' leftIcon={<Icon path={mdiAccount} />}>
+        <Button colorScheme='primary' leftIcon={<Icon path={mdiAccount} />} onClick={() => add('test', 'test')}>
           <FormattedMessage id='add-customer' defaultMessage='Add customer' />
         </Button>
       </Flex>
@@ -39,7 +41,7 @@ const Customers = () => {
               })}...`}
             />
           </InputGroup>
-          <Button colorScheme='gray' leftIcon={<Icon path={mdiFilter} />}>
+          <Button colorScheme='gray' leftIcon={<Icon path={mdiFilter} />} onClick={() => resetPagination('test3')}>
             <FormattedMessage id='filters' defaultMessage='Filters' />
           </Button>
         </Flex>

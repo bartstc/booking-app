@@ -31,7 +31,7 @@ const GridItem = ({ children, onClick, ...props }: IProps) => {
 const Item = styled(chakra.div)<{ colors: any; cellBackground: string; cellHover: string }>`
   .cell:first-of-type {
     padding-left: 1rem;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .cell:last-of-type {
