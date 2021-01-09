@@ -10,7 +10,7 @@ const Header = () => {
       <HeaderCell>
         <FormattedMessage id='lp-label' defaultMessage='Lp' />
       </HeaderCell>
-      <HeaderCell>
+      <HeaderCell name='test'>
         <FormattedMessage id='customers-full-name' defaultMessage='Full name' />
       </HeaderCell>
       <HeaderCell>
