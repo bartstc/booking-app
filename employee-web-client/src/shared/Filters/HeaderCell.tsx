@@ -24,12 +24,13 @@ const SortableCell = ({ children, name, ...props }: ISortableCellProps) => {
   const { currentSortType, change } = useSort(name);
   const { colors } = useTheme();
   const textColor = useColorModeValue('gray.700', 'gray.400');
+  const borderColor = useColorModeValue(colors.gray[200], colors.gray[500]);
 
   const isActive = currentSortType !== SortingType.DEFAULT;
 
   return (
     <HStack
-      borderBottom={isActive ? `2px solid ${colors.primary[500]}` : `1px solid ${colors.gray[200]}`}
+      borderBottom={isActive ? `2px solid ${colors.primary[500]}` : `1px solid ${borderColor}`}
       onClick={change}
       {...props}
       cursor='pointer'
@@ -42,7 +43,7 @@ const SortableCell = ({ children, name, ...props }: ISortableCellProps) => {
         path={currentSortType === SortingType.DEFAULT ? mdiMenuSwap : mdiMenuUp}
         size='24px'
         rotate={currentSortType === SortingType.ASC ? 0 : 180}
-        color={isActive ? colors.primary[500] : colors.gray[700]}
+        color={isActive ? colors.primary[500] : colors.gray[400]}
       />
     </HStack>
   );

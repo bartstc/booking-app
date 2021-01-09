@@ -7,11 +7,12 @@ export enum SortingType {
 }
 
 export const useSort = (name: string, key = 'order') => {
-  const { params, change } = useQueryParams<{ [k: string]: string }>();
+  const { params, change, remove } = useQueryParams<{ [k: string]: string }>();
   const order = params[key];
 
   const getSortType = (): SortingType => {
     if (!order) {
+      remove(key);
       return SortingType.DEFAULT;
     }
 

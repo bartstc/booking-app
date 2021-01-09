@@ -1,10 +1,11 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { VStack, Flex, Heading, Text, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import { VStack, Flex, Heading, Text, HStack } from '@chakra-ui/react';
 import { Button } from '../../shared/Button';
 import { Icon } from '../../shared/Icon';
-import { mdiAccount, mdiFilter, mdiMagnify } from '@mdi/js';
+import { mdiAccount, mdiFilter } from '@mdi/js';
 import { Table } from './Table';
+import { FiltersInput, ClearFiltersIconButton } from '../../shared/Filters';
 
 const Customers = () => {
   const { formatMessage } = useIntl();
@@ -26,22 +27,19 @@ const Customers = () => {
       </Flex>
       <VStack w='100%' maxW='1080px'>
         <Flex justify='space-between' w='100%' mb={4}>
-          <InputGroup maxW='350px'>
-            <InputLeftElement pointerEvents='none'>
-              <div>
-                <Icon path={mdiMagnify} color='gray.500' size='26px' />
-              </div>
-            </InputLeftElement>
-            <Input
-              placeholder={`${formatMessage({
-                id: 'search-customer-name',
-                defaultMessage: `Type customer's name`,
-              })}...`}
-            />
-          </InputGroup>
-          <Button colorScheme='gray' leftIcon={<Icon path={mdiFilter} />}>
-            <FormattedMessage id='filters' defaultMessage='Filters' />
-          </Button>
+          <FiltersInput
+            filterName='customerName'
+            placeholder={`${formatMessage({
+              id: 'search-customer-name',
+              defaultMessage: `Type customer's name`,
+            })}...`}
+          />
+          <HStack>
+            <ClearFiltersIconButton />
+            <Button colorScheme='gray' leftIcon={<Icon path={mdiFilter} />}>
+              <FormattedMessage id='filters' defaultMessage='Filters' />
+            </Button>
+          </HStack>
         </Flex>
         <Table />
       </VStack>
