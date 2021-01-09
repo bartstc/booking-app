@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { IconButtonProps } from '@chakra-ui/react';
-import { mdiFilterOffOutline } from '@mdi/js';
+import { mdiFilterOff } from '@mdi/js';
 
 import { DefaultQueryParams } from 'types';
 import { DEFAULT_PARAMS } from 'constant';
@@ -20,7 +20,7 @@ const ClearFiltersIconButton = <Params extends DefaultQueryParams>({ defaultPara
   return (
     <IconButton
       title={formatMessage({ id: 'clear-filters', defaultMessage: 'Clear filters' })}
-      path={mdiFilterOffOutline}
+      path={mdiFilterOff}
       variant='solid'
       onClick={() => set(defaultParams ?? DEFAULT_PARAMS)}
       {...props}

@@ -13,7 +13,6 @@ const Panel = () => {
   return (
     <Flex justify='space-between' w='100%' mb={4}>
       <FiltersInput
-        filterName='customerName'
         placeholder={`${formatMessage({
           id: 'search-customer-name',
           defaultMessage: `Type customer's name`,

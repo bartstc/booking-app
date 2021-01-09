@@ -23,7 +23,6 @@ export const useFilterInput = (filterName: string, delay = 300) => {
   useEffect(() => {
     if (!state) {
       setState('');
-      resetPagination(filterName);
       remove(filterName);
     }
   }, [state]);
