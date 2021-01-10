@@ -8,7 +8,7 @@ export interface FetchSuspenseProps<Data> extends FetchSourceProps<Data> {
   fallback?: ReactNode;
 }
 
-function FetchSuspense<Data>({ fallback = <Spinner margin={32} />, ...restProps }: FetchSuspenseProps<Data>) {
+function FetchSuspense<Data>({ fallback = <Spinner margin={32} mt={10} />, ...restProps }: FetchSuspenseProps<Data>) {
   return (
     <Suspense fallback={fallback}>
       <FetchSource {...restProps} />

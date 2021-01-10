@@ -22,7 +22,7 @@ const State = ({ description, header, image, alt, children, ...props }: IProps) 
         {description}
       </Text>
       {children}
-      <Box>{typeof image === 'string' ? <Image mt={10} src={image} alt={alt} width={size} /> : image}</Box>
+      <Box>{typeof image === 'string' ? <Image mt={4} src={image} alt={alt} width={size} /> : image}</Box>
     </VStack>
   );
 };

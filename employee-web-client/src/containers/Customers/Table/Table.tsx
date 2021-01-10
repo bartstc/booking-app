@@ -19,7 +19,12 @@ const Table = () => {
     <FetchBoundary<CustomerCollection> queryKey={getCustomersKey(facilityId, params)} queryFn={() => getCustomers(facilityId, params)}>
       {({ data: { collection, meta } }) => (
         <>
-          <Grid itemsCount={collection.length} rowGap={1} templateColumns='80px repeat(5, 1fr)' mb={4}>
+          <Grid
+            itemsCount={collection.length}
+            rowGap={1}
+            templateColumns={{ base: '80px repeat(3, 1fr) max(120px)', md: '80px repeat(4, 1fr) max(120px)' }}
+            mb={4}
+          >
             <Header />
             {collection.map((customer, index) => (
               <Row index={index + 1} key={index} customer={customer} />

@@ -19,7 +19,7 @@ const Header = () => {
       <HeaderCell>
         <FormattedMessage id='customers-phone' defaultMessage='Phone number' />
       </HeaderCell>
-      <HeaderCell>
+      <HeaderCell display={{ base: 'none', md: 'block' }}>
         <FormattedMessage id='customers-email' defaultMessage='Email' />
       </HeaderCell>
       <HeaderCell>{''}</HeaderCell>

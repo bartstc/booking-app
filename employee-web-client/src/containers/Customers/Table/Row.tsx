@@ -1,7 +1,7 @@
 import React from 'react';
 import { Badge } from '@chakra-ui/react';
 
-import { GridItem } from 'shared/Grid';
+import { GridItem, TruncatedCell } from 'shared/Grid';
 import { Customer } from 'modules/customers/types';
 import { ContactType } from 'types';
 
@@ -17,14 +17,14 @@ const Row = ({ index, customer }: IProps) => {
   return (
     <GridItem>
       <div className='cell'>{index}</div>
-      <div className='cell'>{customer.fullName}</div>
+      <TruncatedCell>{customer.fullName}</TruncatedCell>
       <div className='cell'>
         <Badge variant='solid' colorScheme='gray'>
           0 pending
         </Badge>
       </div>
-      <div className='cell'>{phone}</div>
-      <div className='cell'>{email}</div>
+      <TruncatedCell>{phone}</TruncatedCell>
+      <TruncatedCell display={{ base: 'none', md: 'flex' }}>{email}</TruncatedCell>
       <div className='cell'>{''}</div>
     </GridItem>
   );
