@@ -30,7 +30,6 @@ const EmptyState = () => {
           defaultMessage='Enter other search parameters. If you think there is a problem, please contact our administrator.'
         />
       }
-      mt={{ base: 20, md: 40, lg: 20 }}
     >
       <ClearFiltersButton />
     </State>

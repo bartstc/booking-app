@@ -24,8 +24,8 @@ const ToggleThemeButton = ({ extended, ...props }: IProps) => {
 
   if (isMobile || extended) {
     return (
-      <NavButton path={path} onClick={toggleColorMode} fontSize='xl' {...props}>
-        <Text pl={2} fontWeight='700'>
+      <NavButton path={path} onClick={toggleColorMode} fontSize='lg' {...props}>
+        <Text pl={1} fontWeight='700'>
           {label}
         </Text>
       </NavButton>

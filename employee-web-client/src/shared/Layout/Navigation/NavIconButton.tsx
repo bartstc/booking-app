@@ -16,7 +16,7 @@ const NavIconButton = ({ path, ...props }: IProps) => {
   return (
     <StyledIconButton
       hoverColor={colors.gray[800]}
-      icon={<Icon path={path} color='white' size={isMobile ? '24px' : '32px'} />}
+      icon={<Icon path={path} color='white' size={isMobile ? '24px' : '28px'} />}
       {...props}
     />
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { HStack, Text, useColorModeValue, VStack } from '@chakra-ui/react';
+import { HStack, Text, useColorModeValue, VStack, useTheme } from '@chakra-ui/react';
 import { mdiClose } from '@mdi/js';
 import { useHistory } from 'react-router-dom';
 
@@ -14,7 +14,8 @@ interface IProps {
 const MobileDrawer = ({ toggle, extended }: IProps) => {
   const { formatMessage } = useIntl();
   const { push } = useHistory();
-  const background = useColorModeValue('gray.800', 'gray.700');
+  const { colors } = useTheme();
+  const background = useColorModeValue('gray.600', 'gray.700');
   const links = useGetLinks();
 
   return (
@@ -22,11 +23,13 @@ const MobileDrawer = ({ toggle, extended }: IProps) => {
       w='250px'
       h='100vh'
       transition='all .25s ease-in-out'
-      position='absolute'
+      position='fixed'
       top={0}
       right={0}
       transform={extended ? 'none' : 'translateX(100%)'}
       backgroundColor={background}
+      zIndex={6}
+      borderLeft={`1px solid ${colors.gray[500]}`}
     >
       <NavIconButton
         onClick={toggle}

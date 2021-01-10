@@ -18,7 +18,7 @@ const NavButton = ({ path, children, ...props }: IProps) => {
       hoverColor={colors.gray[800]}
       color='white'
       variant='ghost'
-      leftIcon={<Icon path={path} color='white' size={isMobile ? '24px' : '32px'} />}
+      leftIcon={<Icon path={path} color='white' size={isMobile ? '24px' : '28px'} />}
       {...props}
     >
       {children}
