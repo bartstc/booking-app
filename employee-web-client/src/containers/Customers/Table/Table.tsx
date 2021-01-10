@@ -22,7 +22,11 @@ const Table = () => {
           <Grid
             itemsCount={collection.length}
             rowGap={1}
-            templateColumns={{ base: '80px repeat(3, 1fr) max(120px)', md: '80px repeat(4, 1fr) max(120px)' }}
+            templateColumns={{
+              base: '80px repeat(2, 1fr) max(120px)',
+              md: '80px repeat(4, 1fr) max(120px)',
+              lg: '80px repeat(5, 1fr) max(120px)',
+            }}
             mb={4}
           >
             <Header />

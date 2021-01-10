@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { chakra, Text, Flex, ChakraProps } from '@chakra-ui/react';
+import { Text, Flex, ChakraProps } from '@chakra-ui/react';
 
 interface IProps extends ChakraProps {
   children: ReactNode | string;

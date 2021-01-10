@@ -13,13 +13,16 @@ const Header = () => {
       <HeaderCell name='test'>
         <FormattedMessage id='customers-full-name' defaultMessage='Full name' />
       </HeaderCell>
-      <HeaderCell>
+      <HeaderCell display={{ base: 'none', md: 'block' }}>
         <FormattedMessage id='customers-bookings' defaultMessage='Bookings' />
+      </HeaderCell>
+      <HeaderCell display={{ base: 'none', md: 'block' }}>
+        <FormattedMessage id='customers-address' defaultMessage='Address' />
       </HeaderCell>
       <HeaderCell>
         <FormattedMessage id='customers-phone' defaultMessage='Phone number' />
       </HeaderCell>
-      <HeaderCell display={{ base: 'none', md: 'block' }}>
+      <HeaderCell display={{ base: 'none', lg: 'block' }}>
         <FormattedMessage id='customers-email' defaultMessage='Email' />
       </HeaderCell>
       <HeaderCell>{''}</HeaderCell>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge } from '@chakra-ui/react';
+import { Badge, Flex } from '@chakra-ui/react';
 
 import { GridItem, TruncatedCell } from 'shared/Grid';
 import { Customer } from 'modules/customers/types';
@@ -13,19 +13,21 @@ interface IProps {
 const Row = ({ index, customer }: IProps) => {
   const phone = customer.contacts.find(contact => contact.type === ContactType.Phone)?.value ?? '---';
   const email = customer.contacts.find(contact => contact.type === ContactType.Email)?.value ?? '---';
+  const address = `${customer.address.city}, ${customer.address.street} ${customer.address.houseNumber}`;
 
   return (
     <GridItem>
-      <div className='cell'>{index}</div>
+      <TruncatedCell>{index}</TruncatedCell>
       <TruncatedCell>{customer.fullName}</TruncatedCell>
-      <div className='cell'>
+      <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
         <Badge variant='solid' colorScheme='gray'>
           0 pending
         </Badge>
-      </div>
+      </Flex>
+      <TruncatedCell display={{ base: 'none', md: 'flex' }}>{address}</TruncatedCell>
       <TruncatedCell>{phone}</TruncatedCell>
-      <TruncatedCell display={{ base: 'none', md: 'flex' }}>{email}</TruncatedCell>
-      <div className='cell'>{''}</div>
+      <TruncatedCell display={{ base: 'none', lg: 'flex' }}>{email}</TruncatedCell>
+      <TruncatedCell>{''}</TruncatedCell>
     </GridItem>
   );
 };
