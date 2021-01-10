@@ -3,7 +3,8 @@ import { VStack, HStack, Heading, Text, Avatar, Tag, TagLabel, useColorModeValue
 
 import { Customer } from 'modules/customers/types';
 import { ContactType } from 'types';
-import { ActionButtons } from './ActionButtons';
+
+import { ActionButtons } from '../ActionButtons';
 
 interface IProps {
   customer: Customer;

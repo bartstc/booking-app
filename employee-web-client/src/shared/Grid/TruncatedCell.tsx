@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
-import { Text, Flex, ChakraProps } from '@chakra-ui/react';
+import { Text, Flex, FlexProps } from '@chakra-ui/react';
 
-interface IProps extends ChakraProps {
+interface IProps extends FlexProps {
   children: ReactNode | string;
 }
 

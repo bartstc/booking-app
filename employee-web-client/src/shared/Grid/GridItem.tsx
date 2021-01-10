@@ -40,7 +40,7 @@ const Item = styled(chakra.div)<{ colors: any; cellBackground: string; cellHover
 
   & > .cell {
     background-color: ${props => props.cellBackground};
-    min-height: 42px;
+    min-height: 46px;
     align-items: center;
     padding-right: 0.75rem;
   }
