@@ -1,8 +1,13 @@
 import React from 'react';
 import { VStack } from '@chakra-ui/react';
+import { isMobile } from 'react-device-detect';
 
-import { Table, Panel } from './Table';
+import { Table } from './Table';
+import { Panel } from './Panel';
 import { Header } from './Header';
+import { List } from './List';
+
+const facilityId = '83f0ac40-7bc7-48bd-a4de-8703c3485148';
 
 const Customers = () => {
   return (
@@ -10,7 +15,7 @@ const Customers = () => {
       <Header />
       <VStack w='100%' maxW='1080px' pb={{ base: 4, md: 10 }}>
         <Panel />
-        <Table />
+        {isMobile ? <List facilityId={facilityId} /> : <Table facilityId={facilityId} />}
       </VStack>
     </VStack>
   );

@@ -1,10 +1,18 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
-import { HStack, Text, useColorModeValue, VStack, useTheme } from '@chakra-ui/react';
-import { mdiClose } from '@mdi/js';
+import {
+  HStack,
+  Text,
+  useColorModeValue,
+  VStack,
+  Drawer,
+  DrawerOverlay,
+  DrawerBody,
+  DrawerContent,
+  DrawerCloseButton,
+} from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
 
-import { ToggleThemeButton, NavIconButton, NavButton, useGetLinks } from './Navigation';
+import { ToggleThemeButton, NavButton, useGetLinks } from './Navigation';
 
 interface IProps {
   extended: boolean;
@@ -12,54 +20,36 @@ interface IProps {
 }
 
 const MobileDrawer = ({ toggle, extended }: IProps) => {
-  const { formatMessage } = useIntl();
   const { push } = useHistory();
-  const { colors } = useTheme();
-  const background = useColorModeValue('gray.600', 'gray.700');
+  const background = useColorModeValue('gray.500', 'gray.700');
   const links = useGetLinks();
 
   return (
-    <VStack
-      w='250px'
-      h='100vh'
-      transition='all .25s ease-in-out'
-      position='fixed'
-      top={0}
-      right={0}
-      transform={extended ? 'none' : 'translateX(100%)'}
-      backgroundColor={background}
-      zIndex={6}
-      borderLeft={`1px solid ${colors.gray[500]}`}
-    >
-      <NavIconButton
-        onClick={toggle}
-        title={formatMessage({ id: 'close-menu', defaultMessage: 'Close menu' })}
-        position='absolute'
-        top='16px'
-        left='16px'
-        path={mdiClose}
-        size='sm'
-        withoutTooltip
-      />
-      <VStack justify='space-between' width='100%' height='100%' pb={4} pt={16}>
-        <VStack as='ul' pl='14.5px' align='flex-start' width='100%'>
-          {links.map(({ label, to, path }) => (
-            <HStack key={to} as='li' mb={2}>
-              <NavButton onClick={() => push(`/${to}`)} path={path}>
-                <Text pl={2} fontWeight='700' fontSize='md'>
-                  {label}
-                </Text>
-              </NavButton>
-            </HStack>
-          ))}
-        </VStack>
-        <VStack pl='14.5px' align='flex-start' width='100%'>
-          <HStack>
-            <ToggleThemeButton extended={extended} fontSize='md' />
-          </HStack>
-        </VStack>
-      </VStack>
-    </VStack>
+    <Drawer isOpen={extended} placement='right' onClose={toggle} size='xs'>
+      <DrawerOverlay>
+        <DrawerContent backgroundColor={background}>
+          <DrawerCloseButton />
+          <DrawerBody as={VStack} justify='space-between' width='100%' height='100%' pb={4} pt={16}>
+            <VStack as='ul' align='flex-start' width='100%'>
+              {links.map(({ label, to, path }) => (
+                <HStack key={to} as='li'>
+                  <NavButton onClick={() => push(`/${to}`)} path={path}>
+                    <Text pl={2} fontWeight='700' fontSize='md'>
+                      {label}
+                    </Text>
+                  </NavButton>
+                </HStack>
+              ))}
+            </VStack>
+            <VStack align='flex-start' width='100%'>
+              <HStack>
+                <ToggleThemeButton extended={extended} fontSize='md' />
+              </HStack>
+            </VStack>
+          </DrawerBody>
+        </DrawerContent>
+      </DrawerOverlay>
+    </Drawer>
   );
 };
 

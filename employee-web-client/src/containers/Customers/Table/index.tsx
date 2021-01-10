@@ -10,9 +10,11 @@ import { CustomerCollection } from 'modules/customers/types';
 import { Header } from './Header';
 import { Row } from './Row';
 
-const facilityId = '83f0ac40-7bc7-48bd-a4de-8703c3485148';
+interface IProps {
+  facilityId: string;
+}
 
-const Table = () => {
+const Table = ({ facilityId }: IProps) => {
   const { params } = useQueryParams();
 
   return (
@@ -31,7 +33,7 @@ const Table = () => {
           >
             <Header />
             {collection.map((customer, index) => (
-              <Row index={index + 1} key={index} customer={customer} />
+              <Row index={index + 1} key={customer.customerId} customer={customer} />
             ))}
           </Grid>
           <Pagination limit={meta.limit} total={meta.total} />

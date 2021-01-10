@@ -17,7 +17,7 @@ const Panel = () => {
   });
 
   return (
-    <Flex justify='space-between' w='100%' mb={{ md: 4 }}>
+    <Flex justify='space-between' w='100%' mb={{ base: 2, md: 4 }}>
       <FiltersInput
         placeholder={`${formatMessage({
           id: 'search-customer-name',
