@@ -15,57 +15,16 @@ import {
 } from '../../../domain/types';
 
 export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
-  facilityName: yup
-    .string()
-    .required()
-    .min(1)
-    .max(999),
-  facilityDescription: yup
-    .string()
-    .min(1)
-    .max(9999),
-  slug: yup
-    .string()
-    .required()
-    .min(1)
-    .max(50),
+  facilityName: yup.string().required().min(1).max(999),
+  facilityDescription: yup.string().min(1).max(9999),
+  slug: yup.string().required().min(1).max(50),
   contactPerson: contactPersonSchema,
   address: yup.object().shape<IAddress>({
-    street: yup
-      .string()
-      .max(300)
-      .trim()
-      .required(),
-    countryCode: yup
-      .string()
-      .max(2)
-      .trim()
-      .required(),
-    province: yup
-      .string()
-      .max(100)
-      .trim()
-      .required(),
-    city: yup
-      .string()
-      .max(100)
-      .trim()
-      .required(),
-    postCode: yup
-      .string()
-      .max(60)
-      .trim()
-      .required(),
-    houseNumber: yup
-      .string()
-      .max(50)
-      .trim()
-      .required(),
-    flatNumber: yup
-      .string()
-      .max(50)
-      .trim()
-      .nullable(true),
+    street: yup.string().max(300).trim().required(),
+    countryCode: yup.string().max(2).trim().required(),
+    province: yup.string().max(100).trim().nullable(true),
+    city: yup.string().max(100).trim().required(),
+    postCode: yup.string().max(60).trim().required(),
   }),
   contacts: contactsSchema,
   businessCategories: yup
@@ -77,15 +36,15 @@ export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
         type: yup
           .string()
           .required()
-          .oneOf(Object.values(BusinessCategoryType)) as yup.Schema<
-          BusinessCategoryType
-        >,
+          .oneOf(
+            Object.values(BusinessCategoryType),
+          ) as yup.Schema<BusinessCategoryType>,
         degree: yup
           .string()
           .required()
-          .oneOf(Object.values(BusinessCategoryDegreeType)) as yup.Schema<
-          BusinessCategoryDegreeType
-        >,
+          .oneOf(
+            Object.values(BusinessCategoryDegreeType),
+          ) as yup.Schema<BusinessCategoryDegreeType>,
       }),
     ),
   availability: yup
@@ -93,22 +52,19 @@ export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
     .required()
     .of(
       yup.object().shape<IWorkingDay>({
-        dayName: yup
-          .string()
-          .required()
-          .oneOf(Object.values(WeekDay)),
+        dayName: yup.string().required().oneOf(Object.values(WeekDay)),
         hours: yup
           .array<IWorkingHours>()
           .required()
           .min(1)
-          .test('is range', 'until and to values are required', hours => {
-            return hours.every(range => Object.values(range).length === 2);
+          .test('is range', 'until and to values are required', (hours) => {
+            return hours.every((range) => Object.values(range).length === 2);
           })
-          .test('valid hour format', 'invalid hour date type', hours => {
+          .test('valid hour format', 'invalid hour date type', (hours) => {
             return hours
-              .map(range => [range.until, range.to])
+              .map((range) => [range.until, range.to])
               .flat()
-              .every(value => TextValidator.validateHour(value));
+              .every((value) => TextValidator.validateHour(value));
           }),
       }),
     ),

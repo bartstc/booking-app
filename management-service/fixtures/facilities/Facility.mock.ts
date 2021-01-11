@@ -23,11 +23,9 @@ const defaultDto: BuildFacilityDto = {
   address: {
     street: 'Groove Street',
     postCode: '33-444',
-    houseNumber: '4',
     city: 'New York',
     countryCode: 'US',
     province: 'test',
-    flatNumber: null,
   },
   contacts: [
     {
