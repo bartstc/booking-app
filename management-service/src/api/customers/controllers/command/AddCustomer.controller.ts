@@ -5,10 +5,13 @@ import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController, ValidationTransformer } from 'shared/core';
 
-import { AddCustomerDto } from './AddCustomer.dto';
-import { AddCustomerErrors } from './AddCustomer.errors';
-import { addCustomerSchema } from './AddCustomer.schema';
-import { AddCustomerCommand } from './AddCustomer.command';
+import {
+  AddCustomerDto,
+  AddCustomerErrors,
+  AddCustomerCommand,
+} from 'modules/customers/application/command/addCustomer';
+
+import { addCustomerSchema } from '../../schemas';
 
 @Controller()
 export class AddCustomerController extends BaseController {

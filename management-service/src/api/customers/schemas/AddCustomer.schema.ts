@@ -3,8 +3,8 @@ import * as yup from 'yup';
 import { TextValidator } from 'shared/core';
 import { contactsSchema } from 'shared/domain/schemas';
 
-import { AddCustomerDto } from './AddCustomer.dto';
-import { IAddress } from '../../../domain/types';
+import { AddCustomerDto } from 'modules/customers/application/command/addCustomer';
+import { IAddress } from 'modules/customers/domain/types';
 
 export const addCustomerSchema = yup.object().shape<AddCustomerDto>({
   fullName: yup.string().required().min(1).max(999),

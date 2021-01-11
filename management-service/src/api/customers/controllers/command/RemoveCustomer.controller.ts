@@ -5,8 +5,10 @@ import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController } from 'shared/core';
 
-import { RemoveCustomerCommand } from './RemoveCustomer.command';
-import { RemoveCustomerErrors } from './RemoveCustomer.errors';
+import {
+  RemoveCustomerCommand,
+  RemoveCustomerErrors,
+} from 'modules/customers/application/command/removeCustomer';
 
 @Controller()
 export class RemoveCustomerController extends BaseController {

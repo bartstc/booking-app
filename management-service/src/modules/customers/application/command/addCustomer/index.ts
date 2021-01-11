@@ -1,2 +1,4 @@
 export { AddCustomerHandler } from './AddCustomer.handler';
-export { AddCustomerController } from './AddCustomer.controller';
+export { AddCustomerCommand } from './AddCustomer.command';
+export { AddCustomerDto } from './AddCustomer.dto';
+export { AddCustomerErrors } from './AddCustomer.errors';
