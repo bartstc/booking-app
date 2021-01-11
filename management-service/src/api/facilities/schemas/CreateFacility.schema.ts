@@ -3,7 +3,6 @@ import * as yup from 'yup';
 import { contactPersonSchema, contactsSchema } from 'shared/domain/schemas';
 import { TextValidator } from 'shared/core';
 
-import { CreateFacilityDto } from './CreateFacility.dto';
 import {
   BusinessCategoryDegreeType,
   BusinessCategoryType,
@@ -12,7 +11,8 @@ import {
   IWorkingDay,
   IWorkingHours,
   WeekDay,
-} from '../../../domain/types';
+} from 'modules/facilities/domain/types';
+import { CreateFacilityDto } from 'modules/facilities/application/command/createFacility';
 
 export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
   facilityName: yup.string().required().min(1).max(999),

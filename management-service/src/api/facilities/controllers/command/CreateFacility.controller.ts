@@ -5,10 +5,13 @@ import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController, ValidationTransformer } from 'shared/core';
 
-import { CreateFacilityDto } from './CreateFacility.dto';
-import { CreateFacilityResponse } from './CreateFacility.handler';
-import { createFacilitySchema } from './CreateFacility.schema';
-import { CreateFacilityCommand } from './CreateFacility.command';
+import {
+  CreateFacilityCommand,
+  CreateFacilityDto,
+  CreateFacilityResponse,
+} from 'modules/facilities/application/command/createFacility';
+
+import { createFacilitySchema } from '../../schemas';
 
 @Controller()
 export class CreateFacilityController extends BaseController {

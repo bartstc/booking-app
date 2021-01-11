@@ -1,35 +1,37 @@
+import { CommandBus } from '@nestjs/cqrs';
 import { Controller, Delete, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { CommandBus } from '@nestjs/cqrs';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController } from 'shared/core';
 
-import { RemoveEmployeeResponse } from './RemoveEmployee.handler';
-import { RemoveEmployeeErrors } from './RemoveEmployee.errors';
-import { RemoveEmployeeCommand } from './RemoveEmployee.command';
+import {
+  RemoveOfferCommand,
+  RemoveOfferErrors,
+  RemoveOfferResponse,
+} from 'modules/facilities/application/command/removeOffer';
 
 @Controller()
-export class RemoveEmployeeController extends BaseController {
+export class RemoveOfferController extends BaseController {
   constructor(private readonly commandBus: CommandBus) {
     super();
   }
 
-  logger = new Logger('RemoveEmployeeController');
+  logger = new Logger('RemoveOfferController');
 
-  @Delete('facilities/:facilityId/employees/:employeeId')
-  @ApiTags('Employees')
+  @Delete('facilities/:facilityId/offers/:offerId')
+  @ApiTags('Offers')
   @ApiOkResponse()
   @ApiNotFoundResponse({ description: 'Facility not found' })
-  @ApiNotFoundResponse({ description: 'Employee not found' })
-  async removeEmployee(
+  @ApiNotFoundResponse({ description: 'Offer not found' })
+  async removeOffer(
     @Param('facilityId') facilityId: string,
-    @Param('employeeId') employeeId: string,
+    @Param('offerId') offerId: string,
     @Res() res: Response,
   ) {
     try {
-      const result: RemoveEmployeeResponse = await this.commandBus.execute(
-        new RemoveEmployeeCommand(facilityId, employeeId),
+      const result: RemoveOfferResponse = await this.commandBus.execute(
+        new RemoveOfferCommand(facilityId, offerId),
       );
 
       if (result.isLeft()) {
@@ -37,15 +39,15 @@ export class RemoveEmployeeController extends BaseController {
         this.logger.error(error.errorValue());
 
         switch (error.constructor) {
-          case RemoveEmployeeErrors.EmployeeNotFoundError:
-          case RemoveEmployeeErrors.FacilityNotFoundError:
+          case RemoveOfferErrors.OfferNotFoundError:
+          case RemoveOfferErrors.FacilityNotFoundError:
             return this.notFound(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
         }
       }
 
-      this.logger.verbose('Employee successfully removed');
+      this.logger.verbose('Offer successfully removed');
       return this.ok(res);
     } catch (err) {
       this.logger.error('Unexpected server error', err);

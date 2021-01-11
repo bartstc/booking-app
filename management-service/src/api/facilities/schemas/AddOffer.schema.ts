@@ -1,19 +1,15 @@
 import * as yup from 'yup';
 
+import { AddOfferDto } from 'modules/facilities/application/command/addOffer';
 import {
   Currency,
   IOfferVariant,
   IPrice,
   PriceModel,
-} from '../../../domain/types';
-import { AddOfferDto } from './AddOffer.dto';
+} from 'modules/facilities/domain/types';
 
 export const addOfferSchema = yup.object().shape<AddOfferDto>({
-  offerName: yup
-    .string()
-    .required()
-    .min(1)
-    .max(999),
+  offerName: yup.string().required().min(1).max(999),
   variants: yup
     .array()
     .required()

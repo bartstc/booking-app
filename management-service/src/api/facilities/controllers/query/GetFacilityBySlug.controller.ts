@@ -1,31 +1,20 @@
-import { Controller, Get, Inject, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { QueryBus } from '@nestjs/cqrs';
 
+import { BaseController } from 'shared/core';
+
+import { FacilityDto } from 'modules/facilities/application/dto';
 import {
-  AppError,
-  BaseController,
-  Either,
-  left,
-  Result,
-  right,
-} from 'shared/core';
-
-import { FacilityDto } from '../../dto';
-import { GetFacilityBySlugErrors } from './GetFacilityBySlug.errors';
-import { FacilityKeys } from '../../../FacilityKeys';
-import { FacilityQuery } from '../../../adapter';
-
-type GetFacilityResponse = Either<
-  GetFacilityBySlugErrors.FacilityDoesNotExistError | AppError.UnexpectedError,
-  Result<FacilityDto>
->;
+  GetFacilityBySlugQuery,
+  GetFacilityBySlugResponse,
+  GetFacilityBySlugErrors,
+} from 'modules/facilities/application/query/getFacilityBySlug';
 
 @Controller()
 export class GetFacilityBySlugController extends BaseController {
-  constructor(
-    @Inject(FacilityKeys.FacilityQuery) private facilityQuery: FacilityQuery,
-  ) {
+  constructor(private readonly queryBus: QueryBus) {
     super();
   }
 
@@ -37,7 +26,9 @@ export class GetFacilityBySlugController extends BaseController {
   @ApiNotFoundResponse({ description: 'Facility not found' })
   async getFacility(@Param('slug') slug: string, @Res() res: Response) {
     try {
-      const result = await this.handler(slug);
+      const result: GetFacilityBySlugResponse = await this.queryBus.execute(
+        new GetFacilityBySlugQuery(slug),
+      );
 
       if (result.isLeft()) {
         const error = result.value;
@@ -56,24 +47,6 @@ export class GetFacilityBySlugController extends BaseController {
     } catch (err) {
       this.logger.error('Unexpected server error', err);
       return this.fail(res, err);
-    }
-  }
-
-  private async handler(slug: string): Promise<GetFacilityResponse> {
-    let dto;
-
-    try {
-      try {
-        dto = await this.facilityQuery.getFacilityBySlug(slug);
-      } catch {
-        return left(
-          new GetFacilityBySlugErrors.FacilityDoesNotExistError(slug),
-        );
-      }
-
-      return right(Result.ok(dto));
-    } catch (err) {
-      return left(new AppError.UnexpectedError(err));
     }
   }
 }

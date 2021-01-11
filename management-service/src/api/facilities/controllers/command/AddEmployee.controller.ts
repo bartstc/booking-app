@@ -5,11 +5,14 @@ import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController, ValidationTransformer } from 'shared/core';
 
-import { AddEmployeeDto } from './AddEmployee.dto';
-import { AddEmployeeResponse } from './AddEmployee.handler';
-import { AddEmployeeErrors } from './AddEmployee.errors';
-import { addEmployeeSchema } from './AddEmployee.schema';
-import { AddEmployeeCommand } from './AddEmployee.command';
+import {
+  AddEmployeeCommand,
+  AddEmployeeDto,
+  AddEmployeeErrors,
+  AddEmployeeResponse,
+} from 'modules/facilities/application/command/addEmployee';
+
+import { addEmployeeSchema } from '../../schemas';
 
 @Controller()
 export class AddEmployeeController extends BaseController {

@@ -5,9 +5,11 @@ import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController } from 'shared/core';
 
-import { RemoveFacilityErrors } from './RemoveFacility.errors';
-import { RemoveFacilityResponse } from './RemoveFacility.handler';
-import { RemoveFacilityCommand } from './RemoveFacility.command';
+import {
+  RemoveFacilityCommand,
+  RemoveFacilityErrors,
+  RemoveFacilityResponse,
+} from 'modules/facilities/application/command/removeFacility';
 
 @Controller()
 export class RemoveFacilityController extends BaseController {

@@ -1,2 +1,3 @@
-export { RemoveOfferController } from './RemoveOffer.controller';
-export { RemoveOfferHandler } from './RemoveOffer.handler';
+export { RemoveOfferCommand } from './RemoveOffer.command';
+export { RemoveOfferErrors } from './RemoveOffer.errors';
+export { RemoveOfferHandler, RemoveOfferResponse } from './RemoveOffer.handler';

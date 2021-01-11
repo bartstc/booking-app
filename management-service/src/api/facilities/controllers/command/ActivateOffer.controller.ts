@@ -10,33 +10,35 @@ import {
 
 import { BaseController } from 'shared/core';
 
-import { DeactivateOfferResponse } from './DeactivateOffer.handler';
-import { DeactivateOfferErrors } from './DeactivateOffer.errors';
-import { DeactivateOfferCommand } from './DeactivateOffer.command';
-import { OfferIsAlreadyInactiveGuard } from '../../../domain/guards';
+import {
+  ActivateOfferCommand,
+  ActivateOfferErrors,
+  ActivateOfferResponse,
+} from 'modules/facilities/application/command/activateOffer';
+import { OfferIsAlreadyActiveGuard } from 'modules/facilities/domain/guards';
 
 @Controller()
-export class DeactivateOfferController extends BaseController {
+export class ActivateOfferController extends BaseController {
   constructor(private readonly commandBus: CommandBus) {
     super();
   }
 
-  logger = new Logger('DeactivateOfferController');
+  logger = new Logger('ActivateOfferController');
 
-  @Patch('facilities/:facilityId/offers/:offerId/deactivate')
+  @Patch('facilities/:facilityId/offers/:offerId/activate')
   @ApiTags('Offers')
   @ApiOkResponse()
   @ApiNotFoundResponse({ description: 'Facility not found' })
   @ApiNotFoundResponse({ description: 'Offer not found' })
-  @ApiMethodNotAllowedResponse({ description: 'Offer is already inactive' })
-  async deactivateOffer(
+  @ApiMethodNotAllowedResponse({ description: 'Offer is already active' })
+  async activateOffer(
     @Param('facilityId') facilityId: string,
     @Param('offerId') offerId: string,
     @Res() res: Response,
   ) {
     try {
-      const result: DeactivateOfferResponse = await this.commandBus.execute(
-        new DeactivateOfferCommand(facilityId, offerId),
+      const result: ActivateOfferResponse = await this.commandBus.execute(
+        new ActivateOfferCommand(facilityId, offerId),
       );
 
       if (result.isLeft()) {
@@ -44,17 +46,17 @@ export class DeactivateOfferController extends BaseController {
         this.logger.error(error.errorValue());
 
         switch (error.constructor) {
-          case DeactivateOfferErrors.OfferNotFoundError:
-          case DeactivateOfferErrors.FacilityNotFoundError:
+          case ActivateOfferErrors.OfferNotFoundError:
+          case ActivateOfferErrors.FacilityNotFoundError:
             return this.notFound(res, error.errorValue());
-          case OfferIsAlreadyInactiveGuard:
+          case OfferIsAlreadyActiveGuard:
             return this.methodNotAllowed(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
         }
       }
 
-      this.logger.verbose('Offer was successfully deactivated');
+      this.logger.verbose('Offer was successfully activated');
       return this.ok(res);
     } catch (err) {
       this.logger.error('Unexpected server error', err);

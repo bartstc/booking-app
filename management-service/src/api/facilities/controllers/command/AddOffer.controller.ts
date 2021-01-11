@@ -5,11 +5,13 @@ import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController, ValidationTransformer } from 'shared/core';
 
-import { AddOfferDto } from './AddOffer.dto';
-import { AddOfferResponse } from './AddOffer.handler';
-import { AddOfferErrors } from './AddOffer.errors';
-import { addOfferSchema } from './AddOffer.schema';
-import { AddOfferCommand } from './AddOffer.command';
+import {
+  AddOfferCommand,
+  AddOfferDto,
+  AddOfferErrors,
+  AddOfferResponse,
+} from 'modules/facilities/application/command/addOffer';
+import { addOfferSchema } from '../../schemas';
 
 @Controller()
 export class AddOfferController extends BaseController {

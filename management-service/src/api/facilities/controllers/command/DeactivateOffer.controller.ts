@@ -10,33 +10,35 @@ import {
 
 import { BaseController } from 'shared/core';
 
-import { ActivateEmployeeResponse } from './ActivateEmployee.handler';
-import { ActivateEmployeeErrors } from './ActivateEmployee.errors';
-import { ActivateEmployeeCommand } from './ActivateEmployee.command';
-import { EmployeeIsAlreadyActiveGuard } from '../../../domain/guards';
+import {
+  DeactivateOfferCommand,
+  DeactivateOfferErrors,
+  DeactivateOfferResponse,
+} from 'modules/facilities/application/command/deactivateOffer';
+import { OfferIsAlreadyInactiveGuard } from 'modules/facilities/domain/guards';
 
 @Controller()
-export class ActivateEmployeeController extends BaseController {
+export class DeactivateOfferController extends BaseController {
   constructor(private readonly commandBus: CommandBus) {
     super();
   }
 
-  logger = new Logger('ActivateEmployeeController');
+  logger = new Logger('DeactivateOfferController');
 
-  @Patch('facilities/:facilityId/employees/:employeeId/activate')
-  @ApiTags('Employees')
+  @Patch('facilities/:facilityId/offers/:offerId/deactivate')
+  @ApiTags('Offers')
   @ApiOkResponse()
   @ApiNotFoundResponse({ description: 'Facility not found' })
-  @ApiNotFoundResponse({ description: 'Employee not found' })
-  @ApiMethodNotAllowedResponse({ description: 'Employee is already active' })
-  async activateEmployee(
+  @ApiNotFoundResponse({ description: 'Offer not found' })
+  @ApiMethodNotAllowedResponse({ description: 'Offer is already inactive' })
+  async deactivateOffer(
     @Param('facilityId') facilityId: string,
-    @Param('employeeId') employeeId: string,
+    @Param('offerId') offerId: string,
     @Res() res: Response,
   ) {
     try {
-      const result: ActivateEmployeeResponse = await this.commandBus.execute(
-        new ActivateEmployeeCommand(facilityId, employeeId),
+      const result: DeactivateOfferResponse = await this.commandBus.execute(
+        new DeactivateOfferCommand(facilityId, offerId),
       );
 
       if (result.isLeft()) {
@@ -44,17 +46,17 @@ export class ActivateEmployeeController extends BaseController {
         this.logger.error(error.errorValue());
 
         switch (error.constructor) {
-          case ActivateEmployeeErrors.EmployeeNotFoundError:
-          case ActivateEmployeeErrors.FacilityNotFoundError:
+          case DeactivateOfferErrors.OfferNotFoundError:
+          case DeactivateOfferErrors.FacilityNotFoundError:
             return this.notFound(res, error.errorValue());
-          case EmployeeIsAlreadyActiveGuard:
+          case OfferIsAlreadyInactiveGuard:
             return this.methodNotAllowed(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
         }
       }
 
-      this.logger.verbose('Employee was successfully activated');
+      this.logger.verbose('Offer was successfully deactivated');
       return this.ok(res);
     } catch (err) {
       this.logger.error('Unexpected server error', err);
