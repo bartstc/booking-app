@@ -3,8 +3,9 @@ import * as yup from 'yup';
 import { TextValidator } from 'shared/core';
 import { contactPersonSchema } from 'shared/domain/schemas';
 
-import { CreateEnterpriseDto } from './CreateEnterprise.dto';
-import { countryCodes } from '../../../../../resources/countryCodes';
+import { CreateEnterpriseDto } from 'modules/enterprise/application/command/createEnterprise';
+
+import { countryCodes } from '../../../resources/countryCodes';
 
 export const createEnterpriseSchema = yup.object().shape<CreateEnterpriseDto>({
   enterpriseName: yup.string().required().min(1).max(999),

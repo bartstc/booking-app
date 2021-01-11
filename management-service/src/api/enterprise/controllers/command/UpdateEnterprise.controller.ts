@@ -5,11 +5,14 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController, ValidationTransformer } from 'shared/core';
 
-import { createEnterpriseSchema } from '../createEnterprise/CreateEnterprise.schema';
-import { UpdateEnterpriseResponse } from './UpdateEnterprise.handler';
-import { UpdateEnterpriseDto } from './UpdateEnterprise.dto';
-import { UpdateEnterpriseErrors } from './UpdateEnterprise.errors';
-import { UpdateEnterpriseCommand } from './UpdateEnterprise.command';
+import {
+  UpdateEnterpriseDto,
+  UpdateEnterpriseResponse,
+  UpdateEnterpriseErrors,
+  UpdateEnterpriseCommand,
+} from 'modules/enterprise/application/command/updateEnterprise';
+
+import { createEnterpriseSchema } from '../../schemas';
 
 @Controller()
 export class UpdateEnterpriseController extends BaseController {

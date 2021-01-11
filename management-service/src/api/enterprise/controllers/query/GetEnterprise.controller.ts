@@ -1,32 +1,20 @@
-import { Controller, Get, Inject, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { QueryBus } from '@nestjs/cqrs';
 
+import { BaseController } from 'shared/core';
+
+import { EnterpriseDto } from 'modules/enterprise/application/dto';
 import {
-  AppError,
-  BaseController,
-  Either,
-  left,
-  Result,
-  right,
-} from 'shared/core';
-
-import { GetEnterpriseErrors } from './GetEnterprise.errors';
-import { EnterpriseDto } from '../../dto';
-import { EnterpriseKeys } from '../../../EnterpriseKeys';
-import { EnterpriseQuery } from '../../../adapter';
-
-type GetEnterpriseResponse = Either<
-  GetEnterpriseErrors.EnterpriseDoesNotExistError,
-  Result<EnterpriseDto>
->;
+  GetEnterpriseQuery,
+  GetEnterpriseResponse,
+  GetEnterpriseErrors,
+} from 'modules/enterprise/application/query/getEnterprise';
 
 @Controller()
 export class GetEnterpriseController extends BaseController {
-  constructor(
-    @Inject(EnterpriseKeys.EnterpriseQuery)
-    private enterpriseQuery: EnterpriseQuery,
-  ) {
+  constructor(private readonly queryBus: QueryBus) {
     super();
   }
 
@@ -41,7 +29,9 @@ export class GetEnterpriseController extends BaseController {
     @Res() res: Response,
   ) {
     try {
-      const result = await this.handler(enterpriseId);
+      const result: GetEnterpriseResponse = await this.queryBus.execute(
+        new GetEnterpriseQuery(enterpriseId),
+      );
 
       if (result.isLeft()) {
         const error = result.value;
@@ -60,24 +50,6 @@ export class GetEnterpriseController extends BaseController {
     } catch (err) {
       this.logger.error('Unexpected server error', err);
       return this.fail(res, err);
-    }
-  }
-
-  private async handler(enterpriseId: string): Promise<GetEnterpriseResponse> {
-    let dto;
-
-    try {
-      try {
-        dto = await this.enterpriseQuery.getEnterpriseById(enterpriseId);
-      } catch {
-        return left(
-          new GetEnterpriseErrors.EnterpriseDoesNotExistError(enterpriseId),
-        );
-      }
-
-      return right(Result.ok(dto));
-    } catch (err) {
-      return left(new AppError.UnexpectedError(err));
     }
   }
 }
