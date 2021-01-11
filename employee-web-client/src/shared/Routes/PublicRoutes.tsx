@@ -1,9 +1,9 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Spinner } from '@chakra-ui/react';
 
 import App from '../../App';
 import { Layout } from '../Layout';
+import { Spinner } from '../Spinner';
 
 const Schedule = lazy(() => import('../../containers/Schedule'));
 const Customers = lazy(() => import('../../containers/Customers'));

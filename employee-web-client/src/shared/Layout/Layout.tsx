@@ -18,7 +18,7 @@ const Layout = ({ children }: IProps) => {
   if (isMobile) {
     return (
       <>
-        <Flex minH='100vh' position='relative' overflow='hidden'>
+        <Flex minH='100vh' position='relative' overflow='hidden' pt={{ base: 16, md: 10, xl: 0 }}>
           <Header toggle={toggleNavigation} />
           {children}
           <MobileDrawer extended={extended} toggle={toggleNavigation} />

@@ -26,7 +26,6 @@ const OfflineState = () => {
       description={
         <FormattedMessage id='offline-description' defaultMessage='This is not a problem with our service. Please connect to the web.' />
       }
-      mt={{ base: 20, md: 40, lg: 20 }}
     >
       <HomeButton mt={4} />
     </State>

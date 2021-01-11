@@ -1,26 +1,19 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Image, useBreakpointValue } from '@chakra-ui/react';
 
-import image from '../../assets/images/client-error.png';
+import image from '../../assets/images/server-error.png';
 import { HomeButton, State } from './components';
 
 const ClientErrorState = () => {
   const { formatMessage } = useIntl();
-  const size = useBreakpointValue({ base: '190px', md: '400px', lg: '520px' });
 
   return (
     <State
-      image={
-        <Image
-          src={image}
-          alt={formatMessage({
-            id: 'client-error',
-            defaultMessage: 'Repairing',
-          })}
-          width={size}
-        />
-      }
+      image={image}
+      alt={formatMessage({
+        id: 'client-error',
+        defaultMessage: 'Repairing',
+      })}
       header={<FormattedMessage id='client-error-header' defaultMessage='Unexpected client error' />}
       description={
         <FormattedMessage

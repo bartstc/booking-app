@@ -24,7 +24,6 @@ const NotFoundState = () => {
       }
       header={<FormattedMessage id='not-found-header' defaultMessage='Page not found' />}
       description={<FormattedMessage id='not-found-description' defaultMessage='Page does not exist. Maybe you came here by accident?' />}
-      mt={{ base: 20, md: 40, lg: 20 }}
     >
       <HomeButton mt={4} />
     </State>

@@ -1,6 +1,9 @@
 import { useIntl } from 'react-intl';
 import { mdiAccountMultiple, mdiBookMultiple, mdiCalendar, mdiCogs, mdiLan } from '@mdi/js';
 
+import { buildUrl } from 'utils';
+import { DEFAULT_PARAMS } from 'constant';
+
 export const useGetLinks = () => {
   const { formatMessage } = useIntl();
 
@@ -19,7 +22,7 @@ export const useGetLinks = () => {
         id: 'customers',
         defaultMessage: 'Customers',
       }),
-      to: 'customers',
+      to: buildUrl('customers', DEFAULT_PARAMS),
     },
 
     {
