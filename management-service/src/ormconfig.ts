@@ -1,7 +1,7 @@
 import { ConnectionOptions } from 'typeorm';
 
 const config: ConnectionOptions = {
-  name: 'default',
+  name: 'management',
   type: 'postgres',
   schema: 'management',
   host: process.env.POSTGRES_HOST,
