@@ -34,7 +34,7 @@ import {
   RemoveEmployeeController,
   RemoveFacilityController,
   RemoveOfferController,
-} from '../../api/facilities/controllers/command';
+} from './api/controllers/command';
 
 import {
   GetEmployeeController,
@@ -43,7 +43,7 @@ import {
   GetFacilityBySlugController,
   GetOfferController,
   GetOffersController,
-} from '../../api/facilities/controllers/query';
+} from './api/controllers/query';
 
 @Module({
   imports: [CqrsModule, EnterpriseModule, DbModule],

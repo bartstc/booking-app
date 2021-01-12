@@ -15,7 +15,7 @@ import {
   ActivateEmployeeErrors,
   ActivateEmployeeResponse,
 } from 'modules/facilities/application/command/activateEmployee';
-import { EmployeeIsAlreadyActiveGuard } from 'modules/facilities/domain/guards';
+import { EmployeeIsAlreadyActiveGuard } from '../../../application/guards';
 
 @Controller()
 export class ActivateEmployeeController extends BaseController {

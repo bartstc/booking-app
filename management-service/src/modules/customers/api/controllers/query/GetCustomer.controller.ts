@@ -19,7 +19,7 @@ export class GetCustomerController extends BaseController {
 
   private logger = new Logger('GetCustomerController');
 
-  @Get('facilities/:facilityId/customers/:customerId')
+  @Get('facilities/:facilityId/api/:customerId')
   @ApiTags('Customers')
   @ApiOkResponse({ type: CustomerDto })
   @ApiNotFoundResponse({ description: 'Facility not found' })

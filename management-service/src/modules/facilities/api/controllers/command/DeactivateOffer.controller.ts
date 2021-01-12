@@ -15,7 +15,7 @@ import {
   DeactivateOfferErrors,
   DeactivateOfferResponse,
 } from 'modules/facilities/application/command/deactivateOffer';
-import { OfferIsAlreadyInactiveGuard } from 'modules/facilities/domain/guards';
+import { OfferIsAlreadyInactiveGuard } from '../../../application/guards';
 
 @Controller()
 export class DeactivateOfferController extends BaseController {

@@ -13,11 +13,11 @@ import { GetCustomersHandler } from './application/query/getCustomers';
 import {
   AddCustomerController,
   RemoveCustomerController,
-} from '../../api/customers/controllers/command';
+} from './api/controllers/command';
 import {
   GetCustomerController,
   GetCustomersController,
-} from '../../api/customers/controllers/query';
+} from './api/controllers/query';
 
 @Module({
   imports: [CqrsModule, DbModule, FacilityModule],

@@ -11,8 +11,8 @@ import { GetEnterpriseHandler } from './application/query/getEnterprise';
 import {
   CreateEnterpriseController,
   UpdateEnterpriseController,
-} from '../../api/enterprise/controllers/command';
-import { GetEnterpriseController } from '../../api/enterprise/controllers/query';
+} from './api/controllers/command';
+import { GetEnterpriseController } from './api/controllers/query';
 
 @Module({
   imports: [CqrsModule, DbModule],

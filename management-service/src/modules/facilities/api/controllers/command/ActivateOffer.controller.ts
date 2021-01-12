@@ -11,34 +11,34 @@ import {
 import { BaseController } from 'shared/core';
 
 import {
-  DeactivateEmployeeCommand,
-  DeactivateEmployeeErrors,
-  DeactivateEmployeeResponse,
-} from 'modules/facilities/application/command/deactivateEmployee';
-import { EmployeeIsAlreadyInactiveGuard } from 'modules/facilities/domain/guards';
+  ActivateOfferCommand,
+  ActivateOfferErrors,
+  ActivateOfferResponse,
+} from 'modules/facilities/application/command/activateOffer';
+import { OfferIsAlreadyActiveGuard } from '../../../application/guards';
 
 @Controller()
-export class DeactivateEmployeeController extends BaseController {
+export class ActivateOfferController extends BaseController {
   constructor(private readonly commandBus: CommandBus) {
     super();
   }
 
-  logger = new Logger('DeactivateEmployeeController');
+  logger = new Logger('ActivateOfferController');
 
-  @Patch('facilities/:facilityId/employees/:employeeId/deactivate')
-  @ApiTags('Employees')
+  @Patch('facilities/:facilityId/offers/:offerId/activate')
+  @ApiTags('Offers')
   @ApiOkResponse()
   @ApiNotFoundResponse({ description: 'Facility not found' })
-  @ApiNotFoundResponse({ description: 'Employee not found' })
-  @ApiMethodNotAllowedResponse({ description: 'Employee is already inactive' })
-  async deactivateEmployee(
+  @ApiNotFoundResponse({ description: 'Offer not found' })
+  @ApiMethodNotAllowedResponse({ description: 'Offer is already active' })
+  async activateOffer(
     @Param('facilityId') facilityId: string,
-    @Param('employeeId') employeeId: string,
+    @Param('offerId') offerId: string,
     @Res() res: Response,
   ) {
     try {
-      const result: DeactivateEmployeeResponse = await this.commandBus.execute(
-        new DeactivateEmployeeCommand(facilityId, employeeId),
+      const result: ActivateOfferResponse = await this.commandBus.execute(
+        new ActivateOfferCommand(facilityId, offerId),
       );
 
       if (result.isLeft()) {
@@ -46,17 +46,17 @@ export class DeactivateEmployeeController extends BaseController {
         this.logger.error(error.errorValue());
 
         switch (error.constructor) {
-          case DeactivateEmployeeErrors.EmployeeNotFoundError:
-          case DeactivateEmployeeErrors.FacilityNotFoundError:
+          case ActivateOfferErrors.OfferNotFoundError:
+          case ActivateOfferErrors.FacilityNotFoundError:
             return this.notFound(res, error.errorValue());
-          case EmployeeIsAlreadyInactiveGuard:
+          case OfferIsAlreadyActiveGuard:
             return this.methodNotAllowed(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
         }
       }
 
-      this.logger.verbose('Employee was successfully deactivated');
+      this.logger.verbose('Offer was successfully activated');
       return this.ok(res);
     } catch (err) {
       this.logger.error('Unexpected server error', err);
