@@ -7,7 +7,7 @@ import { ActivateOfferErrors } from './ActivateOffer.errors';
 import { ActivateOfferCommand } from './ActivateOffer.command';
 import { FacilityRepository, Offer, OfferRepository } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { OfferIsAlreadyActiveGuard } from '../../../domain/guards';
+import { OfferIsAlreadyActiveGuard } from '../../guards';
 
 export type ActivateOfferResponse = Either<
   | AppError.UnexpectedError

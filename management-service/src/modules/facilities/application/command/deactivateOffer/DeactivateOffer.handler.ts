@@ -7,7 +7,7 @@ import { DeactivateOfferErrors } from './DeactivateOffer.errors';
 import { DeactivateOfferCommand } from './DeactivateOffer.command';
 import { FacilityRepository, Offer, OfferRepository } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { OfferIsAlreadyInactiveGuard } from '../../../domain/guards';
+import { OfferIsAlreadyInactiveGuard } from '../../guards';
 
 export type DeactivateOfferResponse = Either<
   | AppError.UnexpectedError

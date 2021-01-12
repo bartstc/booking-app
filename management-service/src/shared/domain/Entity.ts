@@ -1,4 +1,5 @@
 import { UniqueEntityID } from './UniqueEntityID';
+import { IBusinessRule } from './types';
 
 export abstract class Entity<T> {
   protected readonly _id: UniqueEntityID;
@@ -27,5 +28,11 @@ export abstract class Entity<T> {
 
   private isEntity(v: any): v is Entity<any> {
     return v instanceof Entity;
+  }
+
+  protected checkRule(rule: IBusinessRule): void {
+    if (rule.isBroken()) {
+      throw new Error(rule.message);
+    }
   }
 }

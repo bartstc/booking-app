@@ -10,7 +10,7 @@ import {
 import { DB_CONNECTION } from '../../../../../constants';
 import { ConnectionMock } from '../../../../../../fixtures';
 import { UniqueEntityID } from '../../../../../shared/domain';
-import { CannotRemoveActiveEmployeeGuard } from '../../../domain/guards';
+import { CannotRemoveActiveEmployeeGuard } from '../../guards';
 import { RemoveEmployeeHandler } from './RemoveEmployee.handler';
 import { RemoveEmployeeCommand } from './RemoveEmployee.command';
 import { RemoveEmployeeErrors } from './RemoveEmployee.errors';
@@ -52,7 +52,7 @@ describe('RemoveEmployeeHandler', () => {
     facilityRepository = await module.get(FacilityKeys.FacilityRepository);
   });
 
-  it(`should return "FacilityNotFoundError" error`, async function() {
+  it(`should return "FacilityNotFoundError" error`, async function () {
     facilityRepository.getFacilityById.mockRejectedValue(null);
 
     const result = await removeEmployeeHandler.execute(
@@ -64,7 +64,7 @@ describe('RemoveEmployeeHandler', () => {
     );
   });
 
-  it(`should return "EmployeeNotFoundError" error`, async function() {
+  it(`should return "EmployeeNotFoundError" error`, async function () {
     facilityRepository.getFacilityById.mockResolvedValue(facility);
     employeeRepository.getEmployeeById.mockRejectedValue(null);
 
@@ -77,7 +77,7 @@ describe('RemoveEmployeeHandler', () => {
     );
   });
 
-  it(`should return "CannotRemoveActiveEmployeeGuard" error`, async function() {
+  it(`should return "CannotRemoveActiveEmployeeGuard" error`, async function () {
     facilityRepository.getFacilityById.mockResolvedValue(facility);
     employeeRepository.getEmployeeById.mockResolvedValue(employee);
 
@@ -88,7 +88,7 @@ describe('RemoveEmployeeHandler', () => {
     expect(result.value.constructor).toBe(CannotRemoveActiveEmployeeGuard);
   });
 
-  it(`should successfully remove employee`, async function() {
+  it(`should successfully remove employee`, async function () {
     facilityRepository.getFacilityById.mockResolvedValue(facility);
     employeeRepository.getEmployeeById.mockResolvedValue(employee);
 

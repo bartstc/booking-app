@@ -7,10 +7,9 @@ import { EmployeeName } from './EmployeeName';
 import { EmployeePosition } from './EmployeePosition';
 import { EmployeeStatus } from './types';
 import {
-  CannotRemoveActiveEmployeeGuard,
-  EmployeeIsAlreadyActiveGuard,
-  EmployeeIsAlreadyInactiveGuard,
-} from './guards';
+  EmployeeCannotBeActiveRule,
+  EmployeeCannotBeInactiveRule,
+} from './rules';
 
 interface IProps {
   facilityId: FacilityId;
@@ -51,26 +50,17 @@ export class Employee extends Entity<IProps> {
   }
 
   public activate() {
-    if (this.isActive) {
-      throw new EmployeeIsAlreadyActiveGuard();
-    }
-
+    this.checkRule(new EmployeeCannotBeActiveRule(this.status));
     this.props.status = EmployeeStatus.Active;
   }
 
   public deactivate() {
-    if (!this.isActive) {
-      throw new EmployeeIsAlreadyInactiveGuard();
-    }
-
+    this.checkRule(new EmployeeCannotBeInactiveRule(this.status));
     this.props.status = EmployeeStatus.Inactive;
   }
 
   public remove() {
-    if (this.isActive) {
-      throw new CannotRemoveActiveEmployeeGuard();
-    }
-
+    this.checkRule(new EmployeeCannotBeActiveRule(this.status));
     this.props.isRemoved = true;
   }
 

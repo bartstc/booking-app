@@ -10,7 +10,7 @@ import {
 import { DB_CONNECTION } from '../../../../../constants';
 import { ConnectionMock } from '../../../../../../fixtures';
 import { UniqueEntityID } from '../../../../../shared/domain';
-import { CannotRemoveActiveOfferGuard } from '../../../domain/guards';
+import { CannotRemoveActiveOfferGuard } from '../../guards';
 import { RemoveOfferHandler } from './RemoveOffer.handler';
 import { RemoveOfferCommand } from './RemoveOffer.command';
 import { RemoveOfferErrors } from './RemoveOffer.errors';
@@ -52,7 +52,7 @@ describe('RemoveOfferHandler', () => {
     facilityRepository = await module.get(FacilityKeys.FacilityRepository);
   });
 
-  it(`should return "FacilityNotFoundError" error`, async function() {
+  it(`should return "FacilityNotFoundError" error`, async function () {
     facilityRepository.getFacilityById.mockRejectedValue(null);
 
     const result = await removeOfferHandler.execute(
@@ -64,7 +64,7 @@ describe('RemoveOfferHandler', () => {
     );
   });
 
-  it(`should return "OfferNotFoundError" error`, async function() {
+  it(`should return "OfferNotFoundError" error`, async function () {
     facilityRepository.getFacilityById.mockResolvedValue(facility);
     offerRepository.getOfferById.mockRejectedValue(null);
 
@@ -75,7 +75,7 @@ describe('RemoveOfferHandler', () => {
     expect(result.value.constructor).toBe(RemoveOfferErrors.OfferNotFoundError);
   });
 
-  it(`should return "CannotRemoveActiveOfferGuard" error`, async function() {
+  it(`should return "CannotRemoveActiveOfferGuard" error`, async function () {
     facilityRepository.getFacilityById.mockResolvedValue(facility);
     offerRepository.getOfferById.mockResolvedValue(offer);
 
@@ -86,7 +86,7 @@ describe('RemoveOfferHandler', () => {
     expect(result.value.constructor).toBe(CannotRemoveActiveOfferGuard);
   });
 
-  it(`should successfully remove offer`, async function() {
+  it(`should successfully remove offer`, async function () {
     facilityRepository.getFacilityById.mockResolvedValue(facility);
     offerRepository.getOfferById.mockResolvedValue(offer);
 
