@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/migrations/1609575185956-AddedDictionaryEntity.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/migrations/1609578136290-SeedCountryCodes.ts" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.client.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +24,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/employee-web-client/src/shared" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -39,19 +37,19 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/employee-web-client/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/shared" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/shared/InfinityList" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/shared/Suspense" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/utils" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/employee-web-client/src/containers/Customers" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/containers/Customers/Table" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/shared/Filters" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/shared/Params" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/shared/States/components" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/employee-web-client/src/shared" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/shared/InfinityList" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/shared/Suspense" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/utils" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/hooks" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

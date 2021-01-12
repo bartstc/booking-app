@@ -5,12 +5,8 @@ import { OfferId } from './OfferId';
 import { FacilityId } from './FacilityId';
 import { OfferName } from './OfferName';
 import { OfferVariants } from './OfferVariants';
-import {
-  CannotRemoveActiveOfferGuard,
-  OfferIsAlreadyActiveGuard,
-  OfferIsAlreadyInactiveGuard,
-} from './guards';
 import { OfferStatus } from './types';
+import { OfferCannotBeActiveRule, OfferCannotBeInactiveRule } from './rules';
 
 interface IProps {
   facilityId: FacilityId;
@@ -46,26 +42,17 @@ export class Offer extends Entity<IProps> {
   }
 
   public activate() {
-    if (this.isActive) {
-      throw new OfferIsAlreadyActiveGuard();
-    }
-
+    this.checkRule(new OfferCannotBeActiveRule(this.status));
     this.props.status = OfferStatus.Active;
   }
 
   public deactivate() {
-    if (!this.isActive) {
-      throw new OfferIsAlreadyInactiveGuard();
-    }
-
+    this.checkRule(new OfferCannotBeInactiveRule(this.status));
     this.props.status = OfferStatus.Inactive;
   }
 
   public remove() {
-    if (this.isActive) {
-      throw new CannotRemoveActiveOfferGuard();
-    }
-
+    this.checkRule(new OfferCannotBeActiveRule(this.status));
     this.props.isRemoved = true;
   }
 

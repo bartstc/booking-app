@@ -5,12 +5,6 @@ export class AddressDto {
   city: string;
 
   @ApiProperty()
-  flatNumber: string | null;
-
-  @ApiProperty()
-  houseNumber: string;
-
-  @ApiProperty()
   postCode: string;
 
   @ApiProperty()

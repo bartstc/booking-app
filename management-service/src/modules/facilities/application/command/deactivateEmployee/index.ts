@@ -1,2 +1,6 @@
-export { DeactivateEmployeeController } from './DeactivateEmployee.controller';
-export { DeactivateEmployeeHandler } from './DeactivateEmployee.handler';
+export { DeactivateEmployeeCommand } from './DeactivateEmployee.command';
+export {
+  DeactivateEmployeeHandler,
+  DeactivateEmployeeResponse,
+} from './DeactivateEmployee.handler';
+export { DeactivateEmployeeErrors } from './DeactivateEmployee.errors';

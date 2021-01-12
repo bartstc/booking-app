@@ -11,7 +11,7 @@ import {
   FacilityRepository,
 } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { EmployeeIsAlreadyActiveGuard } from '../../../domain/guards';
+import { EmployeeIsAlreadyActiveGuard } from '../../guards';
 
 export type ActivateEmployeeResponse = Either<
   | AppError.UnexpectedError
