@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/management-service/db/management-db-initialize.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.client.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/ormconfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/ormconfig.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +24,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/employee-web-client/src/shared" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -40,11 +38,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/shared" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/shared/InfinityList" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/shared/Suspense" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/utils" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/hooks" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/employee-web-client/src/containers/Customers" />
