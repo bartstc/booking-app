@@ -21,7 +21,7 @@ export class AddCustomerController extends BaseController {
 
   logger = new Logger('AddCustomerController');
 
-  @Post('facilities/:facilityId/api')
+  @Post('facilities/:facilityId/customers')
   @ApiTags('Customers')
   @ApiOkResponse()
   @ApiNotFoundResponse({ description: 'Facility not found' })

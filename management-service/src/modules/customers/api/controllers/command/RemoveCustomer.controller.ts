@@ -18,7 +18,7 @@ export class RemoveCustomerController extends BaseController {
 
   logger = new Logger('DeleteCustomerController');
 
-  @Delete('facilities/:facilityId/api/:customerId')
+  @Delete('facilities/:facilityId/customers/:customerId')
   @ApiTags('Customers')
   @ApiOkResponse()
   @ApiNotFoundResponse({ description: 'Facility not found' })
