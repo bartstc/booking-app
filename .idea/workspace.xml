@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docker-compose.client.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/api/controllers/query/GetEnterprises.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.client.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.client.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/adapter/EnterpriseQuery.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/adapter/EnterpriseQuery.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/api/controllers/query/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/api/controllers/query/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/enterprise.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/enterprise.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/infra/typeorm/EnterpriseTypeorm.query.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/infra/typeorm/EnterpriseTypeorm.query.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/modules/enterprise/infra/typeorm/EnterpriseTypeorm.transformer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/enterprise/infra/typeorm/EnterpriseTypeorm.transformer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/management-service/src/ormconfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/ormconfig.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +106,7 @@
       <workItem from="1610288175214" duration="1420000" />
       <workItem from="1610311870485" duration="685000" />
       <workItem from="1610376890744" duration="611000" />
+      <workItem from="1610549470497" duration="5322000" />
     </task>
     <servers />
   </component>

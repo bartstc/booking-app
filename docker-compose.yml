@@ -61,7 +61,7 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pg
-      POSTGRES_DB: postgres
+      POSTGRES_DB: management
       MIGRATIONS_DIR: src/migrations
     depends_on:
       - db

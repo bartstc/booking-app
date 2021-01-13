@@ -12,7 +12,10 @@ import {
   CreateEnterpriseController,
   UpdateEnterpriseController,
 } from './api/controllers/command';
-import { GetEnterpriseController } from './api/controllers/query';
+import {
+  GetEnterpriseController,
+  GetEnterprisesController,
+} from './api/controllers/query';
 
 @Module({
   imports: [CqrsModule, DbModule],
@@ -20,6 +23,7 @@ import { GetEnterpriseController } from './api/controllers/query';
     CreateEnterpriseController,
     UpdateEnterpriseController,
     GetEnterpriseController,
+    GetEnterprisesController,
   ],
   providers: [
     CreateEnterpriseHandler,
