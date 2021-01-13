@@ -8,3 +8,4 @@ export { EntityName } from './EntityName';
 export { OfferQuery } from './OfferQuery';
 export { EmployeeQuery } from './EmployeeQuery';
 export { FacilityQuery } from './FacilityQuery';
+export { FacilityCollectionQueryParams } from './params';

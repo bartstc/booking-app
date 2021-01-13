@@ -22,7 +22,7 @@ export class GetEnterprisesController extends BaseController {
 
   @Get('enterprises')
   @ApiTags('Enterprises')
-  @ApiOkResponse({ type: [EnterpriseDto] })
+  @ApiOkResponse({ type: EnterpriseDto, isArray: true })
   async getEnterprises(@Res() res: Response) {
     try {
       const result = await this.enterpriseQuery.getEnterprises();
