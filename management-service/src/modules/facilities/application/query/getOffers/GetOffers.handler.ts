@@ -25,7 +25,10 @@ export class GetOffersHandler
     private facilityRepository: FacilityRepository,
   ) {}
 
-  async execute({ facilityId }: GetOffersQuery): Promise<GetOffersResponse> {
+  async execute({
+    facilityId,
+    params,
+  }: GetOffersQuery): Promise<GetOffersResponse> {
     let dto;
 
     try {
@@ -35,7 +38,7 @@ export class GetOffersHandler
       }
 
       try {
-        dto = await this.offerQuery.getFacilityOffers(facilityId);
+        dto = await this.offerQuery.getOffers(facilityId, params);
       } catch (err) {
         return left(new AppError.UnexpectedError(err));
       }

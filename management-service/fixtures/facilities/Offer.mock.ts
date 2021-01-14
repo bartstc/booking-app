@@ -14,16 +14,12 @@ interface Props {
 
 const defaultDto: BuildOfferDto = {
   offerName: 'Male haircut',
-  variants: [
-    {
-      duration: 40,
-      price: {
-        type: PriceModel.Constant,
-        value: '45.00',
-        currency: Currency.Pln,
-      },
-    },
-  ],
+  duration: 40,
+  price: {
+    type: PriceModel.Constant,
+    value: '45.00',
+    currency: Currency.Pln,
+  },
 };
 
 export const createOffer = ({

@@ -2,7 +2,7 @@ import { ValueObject } from 'shared/domain';
 import { Guard, Result } from 'shared/core';
 
 import { PriceModel, IPrice } from './types';
-import { Currency } from './types/Currency';
+import { Currency } from './types';
 
 export class Price extends ValueObject<IPrice> {
   get type() {
@@ -18,11 +18,11 @@ export class Price extends ValueObject<IPrice> {
   }
 
   public static isValidPriceModel(value: any) {
-    return Object.values(PriceModel).some(model => model === value);
+    return Object.values(PriceModel).some((model) => model === value);
   }
 
   public static isValidCurrency(value: string) {
-    return Object.values(Currency).some(curr => curr === value);
+    return Object.values(Currency).some((curr) => curr === value);
   }
 
   public static create(props: IPrice): Result<Price> {

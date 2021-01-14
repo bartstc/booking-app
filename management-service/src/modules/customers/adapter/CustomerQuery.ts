@@ -1,10 +1,12 @@
-import { QueryListResult, QueryParams } from 'shared/core';
+import { QueryListResult } from 'shared/core';
+
 import { CustomerDto } from '../application/dto';
+import { CustomerCollectionQueryParams } from './params';
 
 export interface CustomerQuery {
   getCustomerById(customerId: string): Promise<CustomerDto>;
-  getCustomers<Params extends QueryParams>(
+  getCustomers(
     facilityId: string,
-    params: Params,
+    params: CustomerCollectionQueryParams,
   ): Promise<QueryListResult<CustomerDto>>;
 }

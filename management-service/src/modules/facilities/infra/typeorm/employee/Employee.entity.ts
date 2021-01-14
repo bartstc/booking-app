@@ -25,13 +25,12 @@ export class EmployeeEntity extends AbstractEntity {
   details: {
     name: string;
     position: string;
+    birthDate: Date;
+    employmentDate: Date;
     contacts: IContact[];
   };
 
-  @ManyToOne(
-    () => FacilityEntity,
-    facility => facility.employees,
-  )
+  @ManyToOne(() => FacilityEntity, (facility) => facility.employees)
   @JoinColumn({ name: 'facility_id' })
   facility: FacilityEntity;
 

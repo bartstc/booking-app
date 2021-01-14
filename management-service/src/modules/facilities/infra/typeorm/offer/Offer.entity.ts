@@ -8,7 +8,7 @@ import {
 
 import { AbstractEntity } from 'shared/core';
 
-import { IOfferVariant, OfferStatus } from '../../../domain/types';
+import { IPrice, OfferStatus } from '../../../domain/types';
 import { FacilityEntity } from '../facility';
 import { EntityName } from '../../../adapter';
 
@@ -23,13 +23,11 @@ export class OfferEntity extends AbstractEntity {
   @Column('jsonb')
   details: {
     name: string;
-    variants: IOfferVariant[];
+    duration: number;
+    price: IPrice;
   };
 
-  @ManyToOne(
-    () => FacilityEntity,
-    facility => facility.offers,
-  )
+  @ManyToOne(() => FacilityEntity, (facility) => facility.offers)
   @JoinColumn({ name: 'facility_id' })
   facility: FacilityEntity;
 

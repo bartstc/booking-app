@@ -16,4 +16,8 @@ export class FacilityTypeormTransformer {
       workingDays: facility.details.workingDays,
     };
   }
+
+  public static toDtoBulk(facilities: FacilityEntity[]): FacilityDto[] {
+    return facilities.map((facility) => this.toDto(facility));
+  }
 }

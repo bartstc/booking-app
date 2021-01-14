@@ -20,6 +20,7 @@ import { GetEmployeeHandler } from './application/query/getEmployee';
 import { GetEmployeesHandler } from './application/query/getEmployees';
 import { GetFacilityByIdHandler } from './application/query/getFacilityById';
 import { GetFacilityBySlugHandler } from './application/query/getFacilityBySlug';
+import { GetFacilitiesHandler } from './application/query/getFacilities';
 import { GetOfferHandler } from './application/query/getOffer';
 import { GetOffersHandler } from './application/query/getOffers';
 
@@ -39,6 +40,7 @@ import {
 import {
   GetEmployeeController,
   GetEmployeesController,
+  GetFacilitiesController,
   GetFacilityByIdController,
   GetFacilityBySlugController,
   GetOfferController,
@@ -60,6 +62,7 @@ import {
     DeactivateEmployeeController,
     GetFacilityByIdController,
     GetFacilityBySlugController,
+    GetFacilitiesController,
     GetOfferController,
     GetOffersController,
     GetEmployeesController,
@@ -80,6 +83,7 @@ import {
     GetEmployeesHandler,
     GetFacilityByIdHandler,
     GetFacilityBySlugHandler,
+    GetFacilitiesHandler,
     GetOfferHandler,
     GetOffersHandler,
     ...providers,

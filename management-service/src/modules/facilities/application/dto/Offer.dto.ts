@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { OfferVariantDto } from './OfferVariant.dto';
 import { OfferStatus } from '../../domain/types';
+import { PriceDto } from './Price.dto';
 
 export class OfferDto {
   @ApiProperty()
@@ -16,6 +16,9 @@ export class OfferDto {
   @ApiProperty()
   name: string;
 
-  @ApiProperty({ type: [OfferVariantDto] })
-  variants: OfferVariantDto[];
+  @ApiProperty()
+  duration: number;
+
+  @ApiProperty()
+  price: PriceDto;
 }

@@ -19,6 +19,12 @@ export class EmployeeDto {
   @ApiProperty()
   position: string;
 
+  @ApiProperty()
+  birthDate: Date;
+
+  @ApiProperty()
+  employmentDate: Date;
+
   @ApiProperty({ type: [ContactDto] })
   contacts: ContactDto[];
 }
