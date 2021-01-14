@@ -26,6 +26,7 @@ export class OfferTypeormQuery
       offset = 0,
       name = '',
       priceType = '' as any,
+      status = '' as any,
     }: OfferCollectionQueryParams,
   ): Promise<QueryListResult<OfferDto>> {
     const [collection, total] = await this.paginatedQueryBuilder('offer', {
@@ -33,6 +34,7 @@ export class OfferTypeormQuery
       offset,
     })
       .where('offer.facility_id = :facilityId', { facilityId })
+      .andWhere(`offer.status ilike '%${status}%'`)
       .andWhere(`offer.details::jsonb->>'name' ilike '%${name}%'`)
       .andWhere(`offer.details::jsonb->'price'->>'type' ilike '%${priceType}%'`)
       .getManyAndCount();

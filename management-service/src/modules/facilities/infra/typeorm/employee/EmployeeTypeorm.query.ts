@@ -19,13 +19,19 @@ export class EmployeeTypeormQuery
 
   async getEmployees(
     facilityId: string,
-    { query = '', limit = 10, offset = 0 }: EmployeeCollectionQueryParams,
+    {
+      query = '',
+      limit = 10,
+      offset = 0,
+      status = '' as any,
+    }: EmployeeCollectionQueryParams,
   ): Promise<QueryListResult<EmployeeDto>> {
     const [collection, total] = await this.paginatedQueryBuilder('employee', {
       limit,
       offset,
     })
       .where('employee.facility_id = :facilityId', { facilityId })
+      .andWhere(`employee.status ilike '%${status}%'`)
       .andWhere(
         `employee.details::jsonb->>'name' ilike '%${query}%' OR employee.details::jsonb->>'position' ilike '%${query}%'`,
       )

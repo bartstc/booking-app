@@ -1,6 +1,11 @@
 import { Controller, Get, Logger, Param, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { ApiNotFoundResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
 
 import { BaseController } from 'shared/core';
@@ -12,6 +17,7 @@ import {
   GetEmployeesErrors,
 } from 'modules/facilities/application/query/getEmployees';
 import { EmployeeCollectionQueryParams } from '../../../adapter/params';
+import { EmployeeStatus } from '../../../domain/types';
 
 @Controller()
 export class GetEmployeesController extends BaseController {
@@ -27,6 +33,7 @@ export class GetEmployeesController extends BaseController {
   @ApiQuery({ name: 'offset', type: 'number', required: false })
   @ApiQuery({ name: 'limit', type: 'number', required: false })
   @ApiQuery({ name: 'query', type: 'string', required: false })
+  @ApiQuery({ name: 'status', enum: EmployeeStatus, required: false })
   @ApiNotFoundResponse({ description: 'Facility not found' })
   async getEmployees(
     @Param('facilityId') facilityId: string,
