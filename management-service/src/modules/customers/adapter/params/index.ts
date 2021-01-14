@@ -1,1 +1,4 @@
-export { CustomerCollectionQueryParams } from './CustomerCollectionQueryParams';
+export {
+  CustomerCollectionQueryParams,
+  CustomerCollectionOrder,
+} from './CustomerCollectionQueryParams';

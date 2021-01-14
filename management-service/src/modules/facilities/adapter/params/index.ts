@@ -1,3 +1,9 @@
 export { FacilityCollectionQueryParams } from './FacilityCollectionQueryParams';
-export { EmployeeCollectionQueryParams } from './EmployeeCollectionQueryParams';
-export { OfferCollectionQueryParams } from './OfferCollectionQueryParams';
+export {
+  EmployeeCollectionQueryParams,
+  EmployeeCollectionOrder,
+} from './EmployeeCollectionQueryParams';
+export {
+  OfferCollectionQueryParams,
+  OfferCollectionOrder,
+} from './OfferCollectionQueryParams';

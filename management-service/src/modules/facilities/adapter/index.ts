@@ -11,4 +11,7 @@ export { FacilityQuery } from './FacilityQuery';
 export {
   FacilityCollectionQueryParams,
   EmployeeCollectionQueryParams,
+  EmployeeCollectionOrder,
+  OfferCollectionQueryParams,
+  OfferCollectionOrder,
 } from './params';

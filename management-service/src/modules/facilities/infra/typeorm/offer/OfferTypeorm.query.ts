@@ -27,17 +27,31 @@ export class OfferTypeormQuery
       name = '',
       priceType = '' as any,
       status = '' as any,
+      order: orderKey,
     }: OfferCollectionQueryParams,
   ): Promise<QueryListResult<OfferDto>> {
-    const [collection, total] = await this.paginatedQueryBuilder('offer', {
+    let query = this.paginatedQueryBuilder('offer', {
       limit,
       offset,
     })
       .where('offer.facility_id = :facilityId', { facilityId })
       .andWhere(`offer.status ilike '%${status}%'`)
       .andWhere(`offer.details::jsonb->>'name' ilike '%${name}%'`)
-      .andWhere(`offer.details::jsonb->'price'->>'type' ilike '%${priceType}%'`)
-      .getManyAndCount();
+      .andWhere(
+        `offer.details::jsonb->'price'->>'type' ilike '%${priceType}%'`,
+      );
+
+    if (orderKey) {
+      const [sort, order] = this.extractOrder(orderKey);
+
+      if (sort === 'priceType') {
+        query = query.orderBy(`offer.details::jsonb->'price'->>'type'`, order);
+      } else if (sort === 'status') {
+        query = query.orderBy(`offer.status`, order);
+      }
+    }
+
+    const [collection, total] = await query.getManyAndCount();
 
     return {
       collection: OfferTypeormTransformer.toDtoBulk(collection),

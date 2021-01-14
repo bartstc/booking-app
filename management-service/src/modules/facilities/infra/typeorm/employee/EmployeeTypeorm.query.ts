@@ -20,22 +20,35 @@ export class EmployeeTypeormQuery
   async getEmployees(
     facilityId: string,
     {
-      query = '',
+      query: searchQuery = '',
       limit = 10,
       offset = 0,
       status = '' as any,
+      order: orderKey,
     }: EmployeeCollectionQueryParams,
   ): Promise<QueryListResult<EmployeeDto>> {
-    const [collection, total] = await this.paginatedQueryBuilder('employee', {
+    let query = this.paginatedQueryBuilder('employee', {
       limit,
       offset,
     })
       .where('employee.facility_id = :facilityId', { facilityId })
       .andWhere(`employee.status ilike '%${status}%'`)
       .andWhere(
-        `employee.details::jsonb->>'name' ilike '%${query}%' OR employee.details::jsonb->>'position' ilike '%${query}%'`,
-      )
-      .getManyAndCount();
+        `employee.details::jsonb->>'name' ilike '%${searchQuery}%' OR employee.details::jsonb->>'position' ilike '%${searchQuery}%'`,
+      );
+
+    if (orderKey) {
+      const [sort, order] = this.extractOrder(orderKey);
+
+      const allowedOrderKeys = ['employmentDate', 'birthDate'];
+      if (allowedOrderKeys.includes(sort)) {
+        query = query.orderBy(`employee.details::jsonb->>'${sort}'`, order);
+      } else if (sort === 'status') {
+        query = query.orderBy(`employee.status`, order);
+      }
+    }
+
+    const [collection, total] = await query.getManyAndCount();
 
     return {
       collection: EmployeeTypeormTransformer.toDtoBulk(collection),

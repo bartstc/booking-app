@@ -16,7 +16,10 @@ import {
   GetOffersQuery,
   GetOffersErrors,
 } from 'modules/facilities/application/query/getOffers';
-import { OfferCollectionQueryParams } from '../../../adapter/params';
+import {
+  OfferCollectionOrder,
+  OfferCollectionQueryParams,
+} from '../../../adapter/params';
 import { OfferStatus, PriceModel } from '../../../domain/types';
 
 @Controller()
@@ -35,6 +38,7 @@ export class GetOffersController extends BaseController {
   @ApiQuery({ name: 'name', type: 'string', required: false })
   @ApiQuery({ name: 'priceType', enum: PriceModel, required: false })
   @ApiQuery({ name: 'status', enum: OfferStatus, required: false })
+  @ApiQuery({ name: 'order', enum: OfferCollectionOrder, required: false })
   @ApiNotFoundResponse({ description: 'Facility not found' })
   async getOffers(
     @Param('facilityId') facilityId: string,

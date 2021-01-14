@@ -16,7 +16,10 @@ import {
   GetEmployeesResponse,
   GetEmployeesErrors,
 } from 'modules/facilities/application/query/getEmployees';
-import { EmployeeCollectionQueryParams } from '../../../adapter/params';
+import {
+  EmployeeCollectionOrder,
+  EmployeeCollectionQueryParams,
+} from '../../../adapter/params';
 import { EmployeeStatus } from '../../../domain/types';
 
 @Controller()
@@ -34,6 +37,7 @@ export class GetEmployeesController extends BaseController {
   @ApiQuery({ name: 'limit', type: 'number', required: false })
   @ApiQuery({ name: 'query', type: 'string', required: false })
   @ApiQuery({ name: 'status', enum: EmployeeStatus, required: false })
+  @ApiQuery({ name: 'order', enum: EmployeeCollectionOrder, required: false })
   @ApiNotFoundResponse({ description: 'Facility not found' })
   async getEmployees(
     @Param('facilityId') facilityId: string,
