@@ -13,6 +13,8 @@ import { BaseController } from 'shared/core';
 import { GetCustomersQuery } from 'modules/customers/application/query/getCustomers';
 import { CustomerCollectionDto } from 'modules/customers/application/dto';
 
+import { CustomerCollectionQueryParams } from '../../../adapter/params';
+
 @Controller()
 export class GetCustomersController extends BaseController {
   constructor(private readonly queryBus: QueryBus) {
@@ -30,7 +32,7 @@ export class GetCustomersController extends BaseController {
   @ApiQuery({ name: 'query', type: 'string', required: false })
   async getCustomers(
     @Param('facilityId') facilityId: string,
-    @Query() params: any,
+    @Query() params: CustomerCollectionQueryParams,
     @Res() res: Response,
   ) {
     try {
