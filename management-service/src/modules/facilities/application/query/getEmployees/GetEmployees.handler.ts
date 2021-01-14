@@ -27,6 +27,7 @@ export class GetEmployeesHandler
 
   async execute({
     facilityId,
+    params,
   }: GetEmployeesQuery): Promise<GetEmployeesResponse> {
     let dto;
 
@@ -37,7 +38,7 @@ export class GetEmployeesHandler
       }
 
       try {
-        dto = await this.employeeQuery.getFacilityEmployees(facilityId);
+        dto = await this.employeeQuery.getEmployees(facilityId, params);
       } catch (err) {
         return left(new AppError.UnexpectedError(err));
       }

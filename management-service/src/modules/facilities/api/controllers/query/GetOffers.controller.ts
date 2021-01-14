@@ -1,6 +1,11 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
 
 import { BaseController } from 'shared/core';
@@ -11,6 +16,8 @@ import {
   GetOffersQuery,
   GetOffersErrors,
 } from 'modules/facilities/application/query/getOffers';
+import { OfferCollectionQueryParams } from '../../../adapter/params';
+import { PriceModel } from '../../../domain/types';
 
 @Controller()
 export class GetOffersController extends BaseController {
@@ -23,14 +30,19 @@ export class GetOffersController extends BaseController {
   @Get('facilities/:facilityId/offers')
   @ApiTags('Offers')
   @ApiOkResponse({ type: OfferDto, isArray: true })
+  @ApiQuery({ name: 'offset', type: 'number', required: false })
+  @ApiQuery({ name: 'limit', type: 'number', required: false })
+  @ApiQuery({ name: 'name', type: 'string', required: false })
+  @ApiQuery({ name: 'priceType', enum: PriceModel, required: false })
   @ApiNotFoundResponse({ description: 'Facility not found' })
   async getOffers(
     @Param('facilityId') facilityId: string,
+    @Query() params: OfferCollectionQueryParams,
     @Res() res: Response,
   ) {
     try {
       const result: GetOffersResponse = await this.queryBus.execute(
-        new GetOffersQuery(facilityId),
+        new GetOffersQuery(facilityId, params),
       );
 
       if (result.isLeft()) {

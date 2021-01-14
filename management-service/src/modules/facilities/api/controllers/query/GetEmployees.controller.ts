@@ -1,6 +1,6 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiNotFoundResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
 
 import { BaseController } from 'shared/core';
@@ -11,6 +11,7 @@ import {
   GetEmployeesResponse,
   GetEmployeesErrors,
 } from 'modules/facilities/application/query/getEmployees';
+import { EmployeeCollectionQueryParams } from '../../../adapter/params';
 
 @Controller()
 export class GetEmployeesController extends BaseController {
@@ -23,14 +24,18 @@ export class GetEmployeesController extends BaseController {
   @Get('facilities/:facilityId/employees')
   @ApiTags('Employees')
   @ApiOkResponse({ type: EmployeeDto, isArray: true })
+  @ApiQuery({ name: 'offset', type: 'number', required: false })
+  @ApiQuery({ name: 'limit', type: 'number', required: false })
+  @ApiQuery({ name: 'query', type: 'string', required: false })
   @ApiNotFoundResponse({ description: 'Facility not found' })
   async getEmployees(
     @Param('facilityId') facilityId: string,
+    @Query() params: EmployeeCollectionQueryParams,
     @Res() res: Response,
   ) {
     try {
       const result: GetEmployeesResponse = await this.queryBus.execute(
-        new GetEmployeesQuery(facilityId),
+        new GetEmployeesQuery(facilityId, params),
       );
 
       if (result.isLeft()) {
