@@ -17,6 +17,8 @@ interface IProps {
   name: EmployeeName;
   position: EmployeePosition;
   contacts: Contacts;
+  birthDate: Date;
+  employmentDate: Date;
   isRemoved?: boolean;
 }
 
@@ -35,6 +37,14 @@ export class Employee extends Entity<IProps> {
 
   get name() {
     return this.props.name;
+  }
+
+  get birthDate() {
+    return this.props.birthDate;
+  }
+
+  get employmentDate() {
+    return this.props.employmentDate;
   }
 
   get position() {
@@ -77,6 +87,14 @@ export class Employee extends Entity<IProps> {
       {
         argument: props.status,
         argumentName: 'employee.status',
+      },
+      {
+        argument: props.birthDate,
+        argumentName: 'employee.birthDate',
+      },
+      {
+        argument: props.employmentDate,
+        argumentName: 'employee.employmentDate',
       },
     ]);
 

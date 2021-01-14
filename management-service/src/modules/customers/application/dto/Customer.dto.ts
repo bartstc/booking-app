@@ -14,7 +14,7 @@ export class CustomerDto {
   fullName: string;
 
   @ApiProperty()
-  birthDate: string;
+  birthDate: Date;
 
   @ApiProperty()
   description: string | null;

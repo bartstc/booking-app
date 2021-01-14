@@ -8,7 +8,7 @@ export class BuildCustomerDto {
   fullName: string;
 
   @ApiProperty()
-  birthDate: string;
+  birthDate: Date;
 
   @ApiProperty()
   address: AddressDto;

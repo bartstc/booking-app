@@ -15,6 +15,8 @@ interface Props {
 const defaultDto: BuildEmployeeDto = {
   employeeName: 'Jane Doe',
   position: 'Hairdresser',
+  birthDate: new Date(),
+  employmentDate: new Date(),
   contacts: [
     {
       type: ContactType.Url,

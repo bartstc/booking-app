@@ -21,7 +21,7 @@ export class CustomerEntity extends AbstractEntity {
   @Column('jsonb')
   details: {
     fullName: string;
-    birthDate: string;
+    birthDate: Date;
     description: string;
     contacts: IContact[];
     address: IAddress;
