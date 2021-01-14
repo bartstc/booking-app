@@ -1,13 +1,7 @@
 import { UniqueEntityID } from 'shared/domain';
 import { Result } from 'shared/core';
 
-import {
-  FacilityId,
-  Offer,
-  OfferName,
-  OfferVariant,
-  OfferVariants,
-} from '../domain';
+import { FacilityId, Offer, OfferName, Price } from '../domain';
 import { BuildOfferDto } from './BuildOffer.dto';
 import { OfferStatus } from '../domain/types';
 
@@ -18,13 +12,7 @@ export class OfferMap {
     offerId?: string,
   ): Result<Offer> {
     const name = OfferName.create({ value: dto.offerName });
-    const variantList: OfferVariant[] = [];
-
-    dto.variants.forEach(variant => {
-      variantList.push(OfferVariant.create(variant).getValue());
-    });
-
-    const variants = OfferVariants.create(variantList).getValue();
+    const price = Price.create(dto.price);
 
     return Offer.create(
       {
@@ -33,7 +21,8 @@ export class OfferMap {
         ).getValue(),
         status: OfferStatus.Active,
         name: name.getValue(),
-        variants,
+        duration: dto.duration,
+        price: price.getValue(),
       },
       new UniqueEntityID(offerId),
     );
@@ -41,13 +30,7 @@ export class OfferMap {
 
   public static entityToDomain(entity: any): Offer {
     const name = OfferName.create({ value: entity.details.name });
-    const variantList: OfferVariant[] = [];
-
-    entity.details.variants.forEach(variant => {
-      variantList.push(OfferVariant.create(variant).getValue());
-    });
-
-    const variants = OfferVariants.create(variantList).getValue();
+    const price = Price.create(entity.details.price);
 
     const offerOrError = Offer.create(
       {
@@ -56,7 +39,8 @@ export class OfferMap {
         ).getValue(),
         status: entity.status,
         name: name.getValue(),
-        variants,
+        duration: entity.details.duration,
+        price: price.getValue(),
       },
       new UniqueEntityID(entity.offer_id),
     );
@@ -69,7 +53,7 @@ export class OfferMap {
   }
 
   public static entityToDomainBulk(entities: any[]): Offer[] {
-    return entities.map(entity => this.entityToDomain(entity));
+    return entities.map((entity) => this.entityToDomain(entity));
   }
 
   public static toPersistence(offer: Offer): Partial<any> {
@@ -79,7 +63,8 @@ export class OfferMap {
       status: offer.status,
       details: {
         name: offer.name.value,
-        variants: offer.variants.getItems().map(offer => offer.props),
+        duration: offer.duration,
+        price: offer.price.props,
       },
     };
   }

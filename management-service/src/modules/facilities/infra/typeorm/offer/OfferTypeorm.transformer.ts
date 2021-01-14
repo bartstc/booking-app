@@ -3,7 +3,7 @@ import { OfferDto } from '../../../application/dto';
 
 export class OfferTypeormTransformer {
   public static toDtoBulk(offers: OfferEntity[]): OfferDto[] {
-    return offers.map(offer => this.toDto(offer));
+    return offers.map((offer) => this.toDto(offer));
   }
 
   public static toDto(offer: OfferEntity): OfferDto {
@@ -12,7 +12,8 @@ export class OfferTypeormTransformer {
       facilityId: offer.facility_id,
       status: offer.status,
       name: offer.details.name,
-      variants: offer.details.variants,
+      duration: offer.details.duration,
+      price: offer.details.price,
     };
   }
 }
