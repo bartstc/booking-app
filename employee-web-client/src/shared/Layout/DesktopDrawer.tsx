@@ -9,13 +9,16 @@ import { NavButton, ToggleThemeButton, useGetLinks, NavIconButton } from './Navi
 interface IProps {
   extended: boolean;
   toggle: () => void;
+  facilityId?: string;
 }
 
-const DesktopDrawer = ({ toggle, extended }: IProps) => {
+const DesktopDrawer = ({ toggle, extended, facilityId }: IProps) => {
   const { formatMessage } = useIntl();
   const { push } = useHistory();
-  const links = useGetLinks();
+  const allLinks = useGetLinks();
   const background = useColorModeValue('gray.600', 'gray.700');
+
+  const links = facilityId ? allLinks : [allLinks[0]];
 
   return (
     <VStack

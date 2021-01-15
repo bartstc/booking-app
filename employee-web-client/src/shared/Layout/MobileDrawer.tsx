@@ -17,12 +17,15 @@ import { ToggleThemeButton, NavButton, useGetLinks } from './Navigation';
 interface IProps {
   extended: boolean;
   toggle: () => void;
+  facilityId?: string;
 }
 
-const MobileDrawer = ({ toggle, extended }: IProps) => {
+const MobileDrawer = ({ toggle, extended, facilityId }: IProps) => {
   const { push } = useHistory();
   const background = useColorModeValue('gray.500', 'gray.700');
-  const links = useGetLinks();
+  const allLinks = useGetLinks();
+
+  const links = facilityId ? allLinks : [allLinks[0]];
 
   return (
     <Drawer isOpen={extended} placement='right' onClose={toggle} size='xs'>

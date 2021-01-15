@@ -4,17 +4,17 @@ import { ButtonProps } from '@chakra-ui/react';
 import { mdiFilterOff } from '@mdi/js';
 
 import { DEFAULT_PARAMS } from 'constant';
-import { DefaultQueryParams } from 'types';
+import { IQueryParams } from 'types';
 
 import { Button } from '../Button';
 import { useQueryParams } from '../Params';
 import { Icon } from '../Icon';
 
-interface IProps<Params extends DefaultQueryParams> extends ButtonProps {
+interface IProps<Params extends IQueryParams> extends ButtonProps {
   defaultParams?: Params;
 }
 
-const ClearFiltersButton = <Params extends DefaultQueryParams>({ defaultParams, ...props }: IProps<Params>) => {
+const ClearFiltersButton = <Params extends IQueryParams>({ defaultParams, ...props }: IProps<Params>) => {
   const { set } = useQueryParams();
 
   return (
