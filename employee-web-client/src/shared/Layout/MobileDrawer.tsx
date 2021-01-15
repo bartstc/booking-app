@@ -10,7 +10,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from '@chakra-ui/react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { ToggleThemeButton, NavButton, useGetLinks } from './Navigation';
 
@@ -22,6 +22,7 @@ interface IProps {
 
 const MobileDrawer = ({ toggle, extended, facilityId }: IProps) => {
   const { push } = useHistory();
+  const { pathname } = useLocation();
   const background = useColorModeValue('white', 'gray.800');
   const allLinks = useGetLinks();
 
@@ -36,7 +37,7 @@ const MobileDrawer = ({ toggle, extended, facilityId }: IProps) => {
             <VStack as='ul' align='flex-start' width='100%'>
               {links.map(({ label, to, path }) => (
                 <HStack key={to} as='li'>
-                  <NavButton onClick={() => push(`/${to}`)} path={path}>
+                  <NavButton onClick={() => push(`/${to}`)} path={path} isActive={to.includes(pathname.substring(1))}>
                     <Text pl={2} fontWeight='700' fontSize='md'>
                       {label}
                     </Text>

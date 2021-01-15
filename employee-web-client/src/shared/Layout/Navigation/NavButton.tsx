@@ -8,9 +8,10 @@ import { Button } from '../../Button';
 
 interface IProps extends ButtonProps {
   path: string;
+  isActive?: boolean;
 }
 
-const NavButton = ({ path, children, ...props }: IProps) => {
+const NavButton = ({ path, children, isActive = false, ...props }: IProps) => {
   const { colors } = useTheme();
   const iconColor = useColorModeValue('gray.700', 'white');
   const hoverColor = useColorModeValue(colors.gray[50], colors.gray[800]);
@@ -20,9 +21,10 @@ const NavButton = ({ path, children, ...props }: IProps) => {
     <StyledButton
       hoverColor={hoverColor}
       hoverBg={hoverBg}
-      color={iconColor}
+      color={isActive ? hoverColor : iconColor}
+      backgroundColor={isActive ? hoverBg : 'none'}
       variant='ghost'
-      leftIcon={<Icon path={path} color={iconColor} size={isMobile ? '24px' : '28px'} />}
+      leftIcon={<Icon path={path} color={isActive ? hoverColor : iconColor} size={isMobile ? '24px' : '28px'} />}
       {...props}
     >
       {children}

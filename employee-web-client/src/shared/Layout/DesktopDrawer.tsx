@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { HStack, Text, useColorModeValue, VStack } from '@chakra-ui/react';
 import { mdiClose, mdiMenu } from '@mdi/js';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { NavButton, ToggleThemeButton, useGetLinks, NavIconButton } from './Navigation';
 
@@ -15,6 +15,7 @@ interface IProps {
 const DesktopDrawer = ({ toggle, extended, facilityId }: IProps) => {
   const { formatMessage } = useIntl();
   const { push } = useHistory();
+  const { pathname } = useLocation();
   const allLinks = useGetLinks();
   const background = useColorModeValue('gray.50', 'gray.700');
 
@@ -43,13 +44,13 @@ const DesktopDrawer = ({ toggle, extended, facilityId }: IProps) => {
           {links.map(({ label, to, path }) => (
             <HStack key={to} as='li' mb={2}>
               {extended ? (
-                <NavButton onClick={() => push(`/${to}`)} path={path}>
+                <NavButton onClick={() => push(`/${to}`)} path={path} isActive={to.includes(pathname.substring(1))}>
                   <Text pl={1} fontWeight='700' fontSize='lg'>
                     {label}
                   </Text>
                 </NavButton>
               ) : (
-                <NavIconButton onClick={() => push(`/${to}`)} title={label} path={path} />
+                <NavIconButton onClick={() => push(`/${to}`)} title={label} path={path} isActive={to.includes(pathname.substring(1))} />
               )}
             </HStack>
           ))}
