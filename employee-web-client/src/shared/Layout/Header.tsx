@@ -13,7 +13,7 @@ interface IProps {
 const Header = ({ toggle }: IProps) => {
   const { formatMessage } = useIntl();
   const background = useColorModeValue('gray.100', 'gray.700');
-  const textColor = useColorModeValue('primary.500', 'primary.300');
+  const textColor = useColorModeValue('gray.700', 'primary.300');
 
   return (
     <HStack

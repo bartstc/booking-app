@@ -12,7 +12,7 @@ export const useGetLinks = () => {
       path: mdiClipboardTextSearch,
       label: formatMessage({
         id: 'enterprise-overview',
-        defaultMessage: 'Enterprise Overview',
+        defaultMessage: 'Overview',
       }),
       to: 'enterprise',
     },

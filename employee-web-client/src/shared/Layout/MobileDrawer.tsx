@@ -22,7 +22,7 @@ interface IProps {
 
 const MobileDrawer = ({ toggle, extended, facilityId }: IProps) => {
   const { push } = useHistory();
-  const background = useColorModeValue('gray.500', 'gray.700');
+  const background = useColorModeValue('white', 'gray.800');
   const allLinks = useGetLinks();
 
   const links = facilityId ? allLinks : [allLinks[0]];
