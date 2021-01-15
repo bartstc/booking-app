@@ -5,7 +5,7 @@ import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
 import { getCustomers, getCustomersKey } from 'modules/customers/api';
 import { useQueryParams } from 'shared/Params';
-import { CustomerCollection } from 'modules/customers/types';
+import { ICustomerCollection } from 'modules/customers/types';
 
 import { Header } from './Header';
 import { Row } from './Row';
@@ -18,7 +18,7 @@ const Table = ({ facilityId }: IProps) => {
   const { params } = useQueryParams();
 
   return (
-    <FetchBoundary<CustomerCollection> queryKey={getCustomersKey(facilityId, params)} queryFn={() => getCustomers(facilityId, params)}>
+    <FetchBoundary<ICustomerCollection> queryKey={getCustomersKey(facilityId, params)} queryFn={() => getCustomers(facilityId, params)}>
       {({ data: { collection, meta } }) => (
         <>
           <Grid

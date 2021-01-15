@@ -2,14 +2,14 @@ import React from 'react';
 import { Badge, Flex } from '@chakra-ui/react';
 
 import { GridItem, TruncatedCell } from 'shared/Grid';
-import { Customer } from 'modules/customers/types';
+import { ICustomer } from 'modules/customers/types';
 import { ContactType } from 'types';
 
 import { ActionButtons } from '../ActionButtons';
 
 interface IProps {
   index: number;
-  customer: Customer;
+  customer: ICustomer;
 }
 
 const Row = ({ index, customer }: IProps) => {

@@ -3,7 +3,7 @@ import { useInfiniteQuery } from 'react-query';
 import { Grid } from '@chakra-ui/react';
 
 import { getCustomers, getCustomersKey } from 'modules/customers/api';
-import { CustomerCollection } from 'modules/customers/types';
+import { ICustomerCollection } from 'modules/customers/types';
 import { useQueryParams } from 'shared/Params';
 import { InfinityList } from 'shared/InfinityList';
 import { Spinner } from 'shared/Spinner';
@@ -19,7 +19,7 @@ const List = ({ facilityId }: IProps) => {
   const { params } = useQueryParams();
   const limit = 10;
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<CustomerCollection>(
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<ICustomerCollection>(
     getCustomersKey(facilityId, params),
     ({ pageParam = 10 }) => {
       return getCustomers(facilityId, { ...params, limit, offset: pageParam });
@@ -44,7 +44,7 @@ const List = ({ facilityId }: IProps) => {
 
   return (
     <Grid templateColumns='100%' w='100%' maxW='480px' mx='0 auto'>
-      <InfinityList<CustomerCollection> limit={limit} data={data?.pages} next={() => fetchNextPage()} hasMore={hasNextPage ?? true}>
+      <InfinityList<ICustomerCollection> limit={limit} data={data?.pages} next={() => fetchNextPage()} hasMore={hasNextPage ?? true}>
         {({ collection }) => (
           <>
             {collection.map(customer => (

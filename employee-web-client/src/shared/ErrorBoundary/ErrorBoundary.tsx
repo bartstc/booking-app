@@ -3,12 +3,12 @@ import { ErrorBoundary as Boundary } from 'react-error-boundary';
 
 import { ErrorPageStrategy } from './ErrorPageStrategy';
 
-export interface FallbackProps<ErrorType> {
+export interface IFallbackProps<ErrorType> {
   error: ErrorType;
   componentStack?: string;
 }
 
-export type ErrorFallback<ErrorType> = ComponentType<FallbackProps<ErrorType>>;
+export type ErrorFallback<ErrorType> = ComponentType<IFallbackProps<ErrorType>>;
 
 interface ErrorBoundaryProps<ErrorType> {
   onError?: (error: Error, componentStack: string) => void | undefined;
