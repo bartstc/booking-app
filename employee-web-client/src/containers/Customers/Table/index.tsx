@@ -25,9 +25,9 @@ const Table = ({ facilityId }: IProps) => {
             itemsCount={collection.length}
             rowGap={1}
             templateColumns={{
-              base: '80px repeat(2, 1fr) max(120px)',
-              md: '80px repeat(4, 1fr) max(120px)',
-              lg: '80px repeat(5, 1fr) max(120px)',
+              base: '80px repeat(2, 1fr) max(110px)',
+              md: '80px repeat(4, 1fr) max(110px)',
+              lg: '80px repeat(5, 1fr) max(110px)',
             }}
             mb={4}
           >

@@ -10,7 +10,7 @@ interface IProps extends ChakraProps {
 const GridItem = ({ children, onClick, ...props }: IProps) => {
   const { colors } = useTheme();
   const cellBackground = useColorModeValue(colors.gray[50], colors.gray[700]);
-  const cellHover = useColorModeValue(colors.gray[200], colors.gray[600]);
+  const cellHover = useColorModeValue(colors.gray[100], colors.gray[600]);
 
   return (
     <Item

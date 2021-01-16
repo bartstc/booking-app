@@ -29,7 +29,7 @@ const Row = ({ index, customer }: IProps) => {
       </Flex>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>{address ?? '---'}</TruncatedCell>
       <TruncatedCell>{phone}</TruncatedCell>
-      <TruncatedCell display={{ base: 'none', lg: 'flex' }}>{email ?? '---'}</TruncatedCell>
+      <TruncatedCell display={{ base: 'none', lg: 'flex' }}>{customer.birthDate}</TruncatedCell>
       <TruncatedCell justify='flex-end'>
         <ActionButtons phone={phone} email={email} url={url} />
       </TruncatedCell>

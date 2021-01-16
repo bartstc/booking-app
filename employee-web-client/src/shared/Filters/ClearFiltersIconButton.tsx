@@ -4,7 +4,7 @@ import { IconButtonProps } from '@chakra-ui/react';
 import { mdiFilterOff } from '@mdi/js';
 
 import { IQueryParams } from 'types';
-import { DEFAULT_PARAMS } from 'constant';
+import { DEFAULT_PARAMS } from 'utils/constant';
 
 import { IconButton } from '../Button';
 import { useQueryParams } from '../Params';

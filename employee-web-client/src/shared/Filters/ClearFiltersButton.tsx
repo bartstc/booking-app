@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { ButtonProps } from '@chakra-ui/react';
 import { mdiFilterOff } from '@mdi/js';
 
-import { DEFAULT_PARAMS } from 'constant';
+import { DEFAULT_PARAMS } from 'utils/constant';
 import { IQueryParams } from 'types';
 
 import { Button } from '../Button';

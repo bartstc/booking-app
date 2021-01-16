@@ -10,20 +10,20 @@ const Header = () => {
       <HeaderCell>
         <FormattedMessage id='lp-label' defaultMessage='Lp' />
       </HeaderCell>
-      <HeaderCell name='test'>
+      <HeaderCell name='fullName'>
         <FormattedMessage id='customers-full-name' defaultMessage='Full name' />
       </HeaderCell>
-      <HeaderCell display={{ base: 'none', md: 'block' }}>
+      <HeaderCell display={{ base: 'none', md: 'flex' }}>
         <FormattedMessage id='customers-bookings' defaultMessage='Bookings' />
       </HeaderCell>
-      <HeaderCell display={{ base: 'none', md: 'block' }}>
+      <HeaderCell display={{ base: 'none', md: 'flex' }}>
         <FormattedMessage id='customers-address' defaultMessage='Address' />
       </HeaderCell>
       <HeaderCell>
         <FormattedMessage id='customers-phone' defaultMessage='Phone number' />
       </HeaderCell>
-      <HeaderCell display={{ base: 'none', lg: 'block' }}>
-        <FormattedMessage id='customers-email' defaultMessage='Email' />
+      <HeaderCell name='birthDate' display={{ base: 'none', lg: 'flex' }}>
+        <FormattedMessage id='customers-birth-date' defaultMessage='Birth date' />
       </HeaderCell>
       <HeaderCell>{''}</HeaderCell>
     </GridHeader>

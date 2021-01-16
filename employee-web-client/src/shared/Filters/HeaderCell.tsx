@@ -35,6 +35,7 @@ const SortableCell = ({ children, name, ...props }: ISortableCellProps) => {
       {...props}
       cursor='pointer'
       isTruncated
+      spacing={1}
     >
       <chakra.span fontSize='sm' color={textColor} isTruncated>
         {children}
