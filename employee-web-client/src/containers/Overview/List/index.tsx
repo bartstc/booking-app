@@ -1,10 +1,11 @@
 import React from 'react';
-import { useInfiniteQuery } from 'react-query';
 import { Grid } from '@chakra-ui/react';
 
 import { useEnterpriseConsumer } from 'modules/context';
 import { IFacilityCollection, IFacilityCollectionQueryParams } from 'modules/facility/types';
 import { getFacilities, getFacilitiesKey } from 'modules/facility/api';
+
+import { useInfiniteQuery } from 'hooks';
 
 import { useQueryParams } from 'shared/Params';
 import { InfinityList } from 'shared/InfinityList';
@@ -19,24 +20,9 @@ const List = () => {
 
   const limit = 10;
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<IFacilityCollection>(
-    getFacilitiesKey(enterpriseId, params),
-    ({ pageParam = 0 }) => {
-      return getFacilities(enterpriseId, { ...params, limit, offset: pageParam });
-    },
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        if (lastPage.collection.length <= 10) {
-          return 0;
-        }
-
-        const pageNumber = Math.ceil(lastPage.meta.total / limit);
-        if (lastPage.meta.total <= limit) return false;
-        if (pageNumber === allPages.length) return false;
-        return Number(lastPage.meta.offset) + limit;
-      },
-    },
-  );
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(getFacilitiesKey(enterpriseId, params), ({ pageParam = 0 }) => {
+    return getFacilities(enterpriseId, { ...params, limit, offset: pageParam });
+  });
 
   if (isLoading) {
     return <Spinner size='md' />;

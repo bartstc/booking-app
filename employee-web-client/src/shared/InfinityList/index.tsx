@@ -3,7 +3,9 @@ import InfiniteScroll, { Props as InfiniteScrollProps } from 'react-infinite-scr
 import { HStack, Spinner, Text } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
-interface IInfiniteListProps<Data> extends Partial<InfiniteScrollProps> {
+import { ICollection } from 'types';
+
+interface IInfiniteListProps<Data extends ICollection> extends Partial<InfiniteScrollProps> {
   limit: number;
   data: Data[] | undefined;
   children(group: Data, index: number): ReactElement;
@@ -12,7 +14,7 @@ interface IInfiniteListProps<Data> extends Partial<InfiniteScrollProps> {
   hasMore: boolean;
 }
 
-function InfinityList<Data>({ data, limit, children, next, hasMore, ...props }: IInfiniteListProps<Data>) {
+function InfinityList<Data extends ICollection>({ data, limit, children, next, hasMore, ...props }: IInfiniteListProps<Data>) {
   return (
     <>
       <InfiniteScroll
