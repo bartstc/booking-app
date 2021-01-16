@@ -12,9 +12,7 @@ export const useInfiniteQuery = <TQueryFnData extends ICollection, TError = unkn
 ): UseInfiniteQueryResult<TData, TError> => {
   return useReactInfiniteQuery(queryKey, queryFn, {
     getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.collection.length <= 10) {
-        return 0;
-      }
+      if (lastPage.collection.length < 10) return false;
 
       const pageNumber = Math.ceil(lastPage.meta.total / limit);
       if (lastPage.meta.total <= limit) return false;
