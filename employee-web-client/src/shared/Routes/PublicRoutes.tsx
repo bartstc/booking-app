@@ -10,12 +10,14 @@ const Customers = lazy(() => import('../../containers/Customers'));
 const Employees = lazy(() => import('../../containers/Employees'));
 const Offers = lazy(() => import('../../containers/Offers'));
 const Settings = lazy(() => import('../../containers/Settings'));
+const Overview = lazy(() => import('../../containers/Overview'));
 
 const PublicRoutes = () => {
   return (
     <Layout>
       <Suspense fallback={<Spinner />}>
         <Switch>
+          <Route path='/overview' component={Overview} exact />
           <Route path='/schedule' component={Schedule} exact />
           <Route path='/customers' component={Customers} exact />
           <Route path='/employees' component={Employees} exact />

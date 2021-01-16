@@ -2,9 +2,9 @@ import React from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { Grid } from '@chakra-ui/react';
 
-import { getCustomers, getCustomersKey } from 'modules/customers/api';
-import { ICustomerCollection } from 'modules/customers/types';
-import { useFacilityConsumer } from 'modules/context';
+import { useEnterpriseConsumer } from 'modules/context';
+import { IFacilityCollection, IFacilityCollectionQueryParams } from 'modules/facility/types';
+import { getFacilities, getFacilitiesKey } from 'modules/facility/api';
 
 import { useQueryParams } from 'shared/Params';
 import { InfinityList } from 'shared/InfinityList';
@@ -14,18 +14,22 @@ import { EmptyState } from 'shared/States';
 import { ListItem } from './ListItem';
 
 const List = () => {
-  const { params } = useQueryParams();
-  const { facilityId } = useFacilityConsumer();
+  const { params } = useQueryParams<IFacilityCollectionQueryParams>();
+  const { enterpriseId } = useEnterpriseConsumer();
 
   const limit = 10;
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<ICustomerCollection>(
-    getCustomersKey(facilityId, params),
-    ({ pageParam = 10 }) => {
-      return getCustomers(facilityId, { ...params, limit, offset: pageParam });
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<IFacilityCollection>(
+    getFacilitiesKey(enterpriseId, params),
+    ({ pageParam = 0 }) => {
+      return getFacilities(enterpriseId, { ...params, limit, offset: pageParam });
     },
     {
       getNextPageParam: (lastPage, allPages) => {
+        if (lastPage.collection.length <= 10) {
+          return 0;
+        }
+
         const pageNumber = Math.ceil(lastPage.meta.total / limit);
         if (lastPage.meta.total <= limit) return false;
         if (pageNumber === allPages.length) return false;
@@ -44,11 +48,11 @@ const List = () => {
 
   return (
     <Grid templateColumns='100%' w='100%' maxW='480px' mx='0 auto'>
-      <InfinityList<ICustomerCollection> limit={limit} data={data?.pages} next={() => fetchNextPage()} hasMore={hasNextPage ?? true}>
+      <InfinityList<IFacilityCollection> limit={limit} data={data?.pages} next={() => fetchNextPage()} hasMore={hasNextPage ?? true}>
         {({ collection }) => (
           <>
-            {collection.map(customer => (
-              <ListItem key={customer.customerId} customer={customer} />
+            {collection.map(facility => (
+              <ListItem key={facility.facilityId} facility={facility} />
             ))}
           </>
         )}

@@ -16,7 +16,7 @@ const Row = ({ index, customer }: IProps) => {
   const phone = customer.contacts.find(contact => contact.type === ContactType.Phone)?.value;
   const email = customer.contacts.find(contact => contact.type === ContactType.Email)?.value;
   const url = customer.contacts.find(contact => contact.type === ContactType.Url)?.value;
-  const address = `${customer.address.city}, ${customer.address.street} ${customer.address.houseNumber}`;
+  const address = `${customer.address.city}, ${customer.address.street}`;
 
   return (
     <GridItem>

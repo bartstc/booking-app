@@ -3,11 +3,11 @@ import { Flex } from '@chakra-ui/react';
 import { isMobile } from 'react-device-detect';
 
 import { useToggle } from 'hooks';
+import { Context } from 'modules/context';
 
 import { DesktopDrawer } from './DesktopDrawer';
 import { MobileDrawer } from './MobileDrawer';
 import { Header } from './Header';
-import { Context } from '../Context';
 
 interface IProps {
   children: ReactNode;

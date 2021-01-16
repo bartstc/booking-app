@@ -1,22 +1,26 @@
 import React from 'react';
 
+import { IFacilityCollection, IFacilityCollectionQueryParams } from 'modules/facility/types';
+import { getFacilities, getFacilitiesKey } from 'modules/facility/api';
+import { useEnterpriseConsumer } from 'modules/context';
+
 import { Grid } from 'shared/Grid';
 import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
-import { getCustomers, getCustomersKey } from 'modules/customers/api';
 import { useQueryParams } from 'shared/Params';
-import { ICustomerCollection } from 'modules/customers/types';
-import { useFacilityConsumer } from 'modules/context';
 
 import { Header } from './Header';
 import { Row } from './Row';
 
 const Table = () => {
-  const { params } = useQueryParams();
-  const { facilityId } = useFacilityConsumer();
+  const { params } = useQueryParams<IFacilityCollectionQueryParams>();
+  const { enterpriseId } = useEnterpriseConsumer();
 
   return (
-    <FetchBoundary<ICustomerCollection> queryKey={getCustomersKey(facilityId, params)} queryFn={() => getCustomers(facilityId, params)}>
+    <FetchBoundary<IFacilityCollection>
+      queryKey={getFacilitiesKey(enterpriseId, params)}
+      queryFn={() => getFacilities(enterpriseId, params)}
+    >
       {({ data: { collection, meta } }) => (
         <>
           <Grid
@@ -30,8 +34,8 @@ const Table = () => {
             mb={4}
           >
             <Header />
-            {collection.map((customer, index) => (
-              <Row index={index + 1} key={customer.customerId} customer={customer} />
+            {collection.map((facility, index) => (
+              <Row index={index + 1} key={facility.facilityId} facility={facility} />
             ))}
           </Grid>
           <Pagination limit={meta.limit} total={meta.total} />

@@ -5,11 +5,14 @@ import { getFacilities, getFacilitiesKey } from 'modules/facility/api';
 import { IEnterprise } from 'modules/enterprise/types';
 import { IFacility } from 'modules/facility/types';
 
-import { FetchBoundary } from '../Suspense';
-import { createSharedData } from '../Share';
+import { createSharedData } from 'shared/Share';
+import { FetchBoundary } from 'shared/Suspense';
 
-export const { useShareConsumer: useEnterpriseConsumer, ShareProvider: EnterpriseProvider } = createSharedData<IEnterprise>();
-export const { useShareConsumer: useFacilityConsumer, ShareProvider: FacilityProvider } = createSharedData<IFacility>();
+const { useShareConsumer: useEnterpriseConsumer, ShareProvider: EnterpriseProvider } = createSharedData<IEnterprise>();
+const { useShareConsumer: useFacilityConsumer, ShareProvider: FacilityProvider } = createSharedData<IFacility>();
+
+export { useEnterpriseConsumer };
+export { useFacilityConsumer };
 
 interface IProps {
   children: (enterprise: IEnterprise | null, facility: IFacility | null) => ReactNode;
