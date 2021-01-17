@@ -1,11 +1,14 @@
 using System.Reflection;
 using Booking.Application.Bookings.IntegrationEvents.EventHandling;
 using Booking.Application.Configuration.Database;
+using Booking.Application.Facilities;
+using Booking.Application.Facilities.IntegrationEvents.EventHandling;
 using Booking.Domain.Bookings;
 using Booking.Domain.SeedWork;
 using Booking.Infrastructure.Database;
 using Booking.Infrastructure.Domain;
 using Booking.Infrastructure.Domain.Bookings;
+using Booking.Infrastructure.IntegrationEvents.Facilities;
 using Booking.Infrastructure.Processing;
 using Booking.Infrastructure.SeedWork;
 using MassTransit;
@@ -33,6 +36,7 @@ namespace Booking.Infrastructure
                     .UseNpgsql(connectionString))
                 .AddMediatR(applicationAssembly, domainAssembly, typeof(Startup).Assembly)
                 .AddTransient<IBookingRepository, BookingRepository>()
+                .AddTransient<IOfferRepository, OfferRepository>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()
                 //.AddHostedService<ProcessOutboxHostedService>()
@@ -49,6 +53,7 @@ namespace Booking.Infrastructure
             {
                 x.AddConsumer<ProcessBookingOrderConsumer>()
                     .Endpoint(e => e.ConcurrentMessageLimit = 1);
+                x.AddConsumer<OfferCreatedConsumer>();
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -56,6 +61,9 @@ namespace Booking.Infrastructure
                     
                     cfg.ReceiveEndpoint("booking-orders-listener", e =>
                         e.ConfigureConsumer<ProcessBookingOrderConsumer>(context));
+                    
+                    cfg.ReceiveEndpoint("offer-created-listener", e =>
+                        e.ConfigureConsumer<OfferCreatedConsumer>(context));
                 });
             })
             .AddMassTransitHostedService();
