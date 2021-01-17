@@ -62,6 +62,7 @@ function App() {
         </Heading>
       </header>
       <Form
+        id='test'
         onSubmit={model => alert(JSON.stringify(model, null, 2))}
         schema={schema}
         defaultValues={{

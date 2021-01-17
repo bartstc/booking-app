@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+
 export class TextValidator {
   public static validateWebURL(url: string) {
     const re = /^(((http|HTTP|https|HTTPS|ftp|FTP|ftps|FTPS|sftp|SFTP):\/\/)|((w|W){3}(\d)?\.))[\w\?!\.\/:;,\-_=#+*%@&quot;\(\)&amp;]+/;

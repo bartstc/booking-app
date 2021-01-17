@@ -2,8 +2,7 @@ import * as yup from 'yup';
 
 import { useRequiredFieldMessage } from 'utils/messages';
 import { useContactsValidationSchema } from 'utils/validation';
-
-import { IAddEmployeeDto } from './AddEmployeeForm';
+import { IAddEmployeeDto } from '../../../dto';
 
 export const useValidationSchema = () => {
   const requiredMessage = useRequiredFieldMessage();

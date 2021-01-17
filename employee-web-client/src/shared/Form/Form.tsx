@@ -6,11 +6,12 @@ import { ObjectSchema } from 'yup';
 interface IProps<T> extends UseFormOptions<T> {
   onSubmit: (model: T, methods: UseFormMethods<T>) => void;
   children: ReactNode | ((data: UseFormMethods<T>) => ReactNode);
+  id: string;
   schema?: ObjectSchema;
   resetOnSubmit?: boolean;
 }
 
-const Form = <T extends object>({ onSubmit, schema, children, resetOnSubmit = true, ...options }: IProps<T>) => {
+const Form = <T extends object>({ onSubmit, schema, children, resetOnSubmit = true, id, ...options }: IProps<T>) => {
   const methods = useForm<T>({
     resolver: schema ? yupResolver(schema) : undefined,
     mode: 'all',
@@ -25,7 +26,9 @@ const Form = <T extends object>({ onSubmit, schema, children, resetOnSubmit = tr
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleSubmit)}>{typeof children === 'function' ? children(methods) : children}</form>
+      <form id={id} onSubmit={methods.handleSubmit(handleSubmit)}>
+        {typeof children === 'function' ? children(methods) : children}
+      </form>
     </FormProvider>
   );
 };
