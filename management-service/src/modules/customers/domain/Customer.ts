@@ -13,7 +13,7 @@ interface IProps {
   contacts: Contacts;
   address: Address;
   description: CustomerDescription | null;
-  birthDate: string;
+  birthDate: Date;
 }
 
 export class Customer extends AggregateRoot<IProps> {

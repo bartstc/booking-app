@@ -38,13 +38,11 @@ describe('AddCustomerHandler', () => {
 
   const addCustomerDto: AddCustomerDto = {
     fullName: 'John Doe',
-    birthDate: '12-12-1994',
+    birthDate: new Date(),
     address: {
       city: 'New York',
-      houseNumber: '3',
       postCode: '33-444',
-      street: 'Groove Str',
-      flatNumber: null,
+      street: 'Groove Street 34',
     },
     contacts: [
       {

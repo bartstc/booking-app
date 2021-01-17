@@ -15,7 +15,7 @@ import {
   MoneyInputField,
 } from './shared/Form';
 import { OptionType } from './types';
-import { useRequiredFieldMessage } from './messages';
+import { useRequiredFieldMessage } from './utils/messages';
 
 const options: OptionType[] = [
   {

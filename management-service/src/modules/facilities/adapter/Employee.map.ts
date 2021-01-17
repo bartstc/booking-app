@@ -23,7 +23,7 @@ export class EmployeeMap {
     const contactList: Contact[] = [];
 
     if (dto.contacts?.length) {
-      dto.contacts.forEach(contact => {
+      dto.contacts.forEach((contact) => {
         contactList.push(Contact.create(contact).getValue());
       });
     }
@@ -39,6 +39,8 @@ export class EmployeeMap {
         name: name.getValue(),
         position: position.getValue(),
         contacts,
+        birthDate: dto.birthDate,
+        employmentDate: dto.employmentDate,
       },
       new UniqueEntityID(employeeId),
     );
@@ -51,7 +53,7 @@ export class EmployeeMap {
     });
     const contactList: Contact[] = [];
 
-    entity.details.contacts.forEach(contact => {
+    entity.details.contacts.forEach((contact) => {
       contactList.push(Contact.create(contact).getValue());
     });
 
@@ -63,6 +65,8 @@ export class EmployeeMap {
           new UniqueEntityID(entity.facility_id),
         ).getValue(),
         status: entity.status,
+        birthDate: entity.details.birthDate,
+        employmentDate: entity.details.employmentDate,
         name: name.getValue(),
         position: position.getValue(),
         contacts,
@@ -78,7 +82,7 @@ export class EmployeeMap {
   }
 
   public static entityToDomainBulk(entities: any[]): Employee[] {
-    return entities.map(entity => this.entityToDomain(entity));
+    return entities.map((entity) => this.entityToDomain(entity));
   }
 
   public static toPersistence(employee: Employee): Partial<any> {
@@ -89,7 +93,9 @@ export class EmployeeMap {
       details: {
         name: employee.name.value,
         position: employee.position.value,
-        contacts: employee.contacts.getItems().map(contact => contact.props),
+        birthDate: employee.birthDate,
+        employmentDate: employee.employmentDate,
+        contacts: employee.contacts.getItems().map((contact) => contact.props),
       },
     };
   }

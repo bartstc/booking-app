@@ -1,56 +1,51 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 
-import { EnterpriseModule } from '../enterprise/enterprise.module';
-import {
-  CreateFacilityController,
-  CreateFacilityHandler,
-} from './application/command/createFacility';
-import {
-  RemoveFacilityController,
-  RemoveFacilityHandler,
-} from './application/command/removeFacility';
-import {
-  AddOfferController,
-  AddOfferHandler,
-} from './application/command/addOffer';
-import {
-  RemoveOfferController,
-  RemoveOfferHandler,
-} from './application/command/removeOffer';
-import {
-  AddEmployeeController,
-  AddEmployeeHandler,
-} from './application/command/addEmployee';
-import {
-  RemoveEmployeeController,
-  RemoveEmployeeHandler,
-} from './application/command/removeEmployee';
-import {
-  ActivateOfferController,
-  ActivateOfferHandler,
-} from './application/command/activateOffer';
-import {
-  DeactivateOfferController,
-  DeactivateOfferHandler,
-} from './application/command/deactivateOffer';
-import {
-  ActivateEmployeeController,
-  ActivateEmployeeHandler,
-} from './application/command/activateEmployee';
-import {
-  DeactivateEmployeeController,
-  DeactivateEmployeeHandler,
-} from './application/command/deactivateEmployee';
-import { GetFacilityByIdController } from './application/query/getFacilityById';
-import { GetFacilityBySlugController } from './application/query/getFacilityBySlug';
-import { GetOfferController } from './application/query/getOffer';
-import { GetOffersController } from './application/query/getOffers';
-import { GetEmployeesController } from './application/query/getEmployees';
-import { GetEmployeeController } from './application/query/getEmployee';
-import { GetBookingDataController } from './application/query/getBookingData';
 import { DbModule } from '../../db.module';
 import { providers } from './facility.providers';
+import { EnterpriseModule } from '../enterprise/enterprise.module';
+
+import { CreateFacilityHandler } from './application/command/createFacility';
+import { RemoveFacilityHandler } from './application/command/removeFacility';
+import { AddOfferHandler } from './application/command/addOffer';
+import { RemoveOfferHandler } from './application/command/removeOffer';
+import { AddEmployeeHandler } from './application/command/addEmployee';
+import { RemoveEmployeeHandler } from './application/command/removeEmployee';
+import { ActivateOfferHandler } from './application/command/activateOffer';
+import { DeactivateOfferHandler } from './application/command/deactivateOffer';
+import { ActivateEmployeeHandler } from './application/command/activateEmployee';
+import { DeactivateEmployeeHandler } from './application/command/deactivateEmployee';
+
+import { GetEmployeeHandler } from './application/query/getEmployee';
+import { GetEmployeesHandler } from './application/query/getEmployees';
+import { GetFacilityByIdHandler } from './application/query/getFacilityById';
+import { GetFacilityBySlugHandler } from './application/query/getFacilityBySlug';
+import { GetFacilitiesHandler } from './application/query/getFacilities';
+import { GetOfferHandler } from './application/query/getOffer';
+import { GetOffersHandler } from './application/query/getOffers';
+
+import {
+  ActivateEmployeeController,
+  ActivateOfferController,
+  AddEmployeeController,
+  AddOfferController,
+  CreateFacilityController,
+  DeactivateEmployeeController,
+  DeactivateOfferController,
+  RemoveEmployeeController,
+  RemoveFacilityController,
+  RemoveOfferController,
+} from './api/controllers/command';
+
+import {
+  GetEmployeeController,
+  GetEmployeesController,
+  GetFacilitiesController,
+  GetFacilityByIdController,
+  GetFacilityBySlugController,
+  GetOfferController,
+  GetOffersController,
+} from './api/controllers/query';
 
 @Module({
   imports: [CqrsModule, EnterpriseModule, DbModule],
@@ -67,11 +62,11 @@ import { providers } from './facility.providers';
     DeactivateEmployeeController,
     GetFacilityByIdController,
     GetFacilityBySlugController,
+    GetFacilitiesController,
     GetOfferController,
     GetOffersController,
     GetEmployeesController,
     GetEmployeeController,
-    GetBookingDataController,
   ],
   providers: [
     CreateFacilityHandler,
@@ -84,6 +79,13 @@ import { providers } from './facility.providers';
     DeactivateOfferHandler,
     ActivateEmployeeHandler,
     DeactivateEmployeeHandler,
+    GetEmployeeHandler,
+    GetEmployeesHandler,
+    GetFacilityByIdHandler,
+    GetFacilityBySlugHandler,
+    GetFacilitiesHandler,
+    GetOfferHandler,
+    GetOffersHandler,
     ...providers,
   ],
   exports: [providers[0]],

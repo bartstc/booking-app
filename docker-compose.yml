@@ -7,6 +7,7 @@ services:
     volumes:
       - ./accessibility-service/db/accessibility-db-initialize.sh:/docker-entrypoint-initdb.d/accessibility-db-initialize.sh
       - ./booking-service/db/booking-db-initialize.sh:/docker-entrypoint-initdb.d/booking-db-initialize.sh
+      - ./management-service/db/management-db-initialize.sh:/docker-entrypoint-initdb.d/management-db-initialize.sh
       - pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: pg
@@ -60,24 +61,11 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pg
-      POSTGRES_DB: postgres
+      POSTGRES_DB: management
       MIGRATIONS_DIR: src/migrations
     depends_on:
       - db
     command: npm run start:dev
-
-  employee-web-client:
-    build:
-      context: ./employee-web-client
-    ports:
-      - 3001:3001
-    depends_on:
-      - db
-      - rabbit
-      - adminer
-      - accessibility
-      - booking
-      - management
 
 volumes:
   pgdata:

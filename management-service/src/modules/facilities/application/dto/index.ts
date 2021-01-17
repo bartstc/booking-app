@@ -6,5 +6,6 @@ export { BusinessCategoryDto } from './BusinessCategory.dto';
 export { WorkingDayDto } from './WorkingDay.dto';
 export { WorkingHoursDto } from './WorkingHours.dto';
 export { PriceDto } from './Price.dto';
-export { OfferVariantDto } from './OfferVariant.dto';
-export { BookingDataDto } from './BookingData.dto';
+export { FacilityCollectionDto } from './FacilityCollection.dto';
+export { EmployeeCollectionDto } from './EmployeeCollection.dto';
+export { OfferCollectionDto } from './OfferCollection.dto';

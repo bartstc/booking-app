@@ -1,17 +1,21 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 
-import {
-  CreateEnterpriseController,
-  CreateEnterpriseHandler,
-} from './application/command/createEnterprise';
-import {
-  UpdateEnterpriseController,
-  UpdateEnterpriseHandler,
-} from './application/command/updateEnterprise';
-import { GetEnterpriseController } from './application/query/getEnterprise';
 import { DbModule } from '../../db.module';
 import { providers } from './enterprise.providers';
+
+import { CreateEnterpriseHandler } from './application/command/createEnterprise';
+import { UpdateEnterpriseHandler } from './application/command/updateEnterprise';
+import { GetEnterpriseHandler } from './application/query/getEnterprise';
+
+import {
+  CreateEnterpriseController,
+  UpdateEnterpriseController,
+} from './api/controllers/command';
+import {
+  GetEnterpriseController,
+  GetEnterprisesController,
+} from './api/controllers/query';
 
 @Module({
   imports: [CqrsModule, DbModule],
@@ -19,8 +23,14 @@ import { providers } from './enterprise.providers';
     CreateEnterpriseController,
     UpdateEnterpriseController,
     GetEnterpriseController,
+    GetEnterprisesController,
   ],
-  providers: [CreateEnterpriseHandler, UpdateEnterpriseHandler, ...providers],
+  providers: [
+    CreateEnterpriseHandler,
+    UpdateEnterpriseHandler,
+    GetEnterpriseHandler,
+    ...providers,
+  ],
   exports: [providers[0]],
 })
 export class EnterpriseModule {}

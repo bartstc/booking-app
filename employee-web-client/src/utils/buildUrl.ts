@@ -1,9 +1,9 @@
 import { stringify } from 'query-string';
 import { isEmpty } from 'lodash';
 
-import { DefaultQueryParams } from '../types';
+import { IQueryParams } from '../types';
 
-export const buildUrl = <Params = DefaultQueryParams>(path: string, params?: Params) => {
+export const buildUrl = <Params = IQueryParams>(path: string, params?: Params) => {
   if (isEmpty(params)) {
     return path;
   }

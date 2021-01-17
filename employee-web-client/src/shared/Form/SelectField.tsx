@@ -6,7 +6,7 @@ import { OptionType } from 'types';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
 import { Select, SelectProps } from '../Select';
-import { useRequiredFieldMessage } from '../../messages';
+import { useRequiredFieldMessage } from '../../utils/messages';
 
 type Options = OptionType[];
 

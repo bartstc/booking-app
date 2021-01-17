@@ -15,7 +15,7 @@ import {
 import { EntityName } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { DB_CONNECTION } from '../../../../../constants';
-import { CannotRemoveActiveOfferGuard } from '../../../domain/guards';
+import { CannotRemoveActiveOfferGuard } from '../../guards';
 
 export type RemoveOfferResponse = Either<
   | AppError.UnexpectedError

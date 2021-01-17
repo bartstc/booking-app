@@ -15,7 +15,7 @@ import {
 import { EntityName } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { DB_CONNECTION } from '../../../../../constants';
-import { CannotRemoveActiveEmployeeGuard } from '../../../domain/guards';
+import { CannotRemoveActiveEmployeeGuard } from '../../guards';
 
 export type RemoveEmployeeResponse = Either<
   | AppError.UnexpectedError

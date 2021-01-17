@@ -1,5 +1,5 @@
 import { ObjectSchema, setLocale } from 'yup';
-import { left, Result, right } from './Result';
+import { Either, left, Result, right } from './Result';
 
 setLocale({
   mixed: {
@@ -14,7 +14,10 @@ interface DtoErrors {
 }
 
 export class ValidationTransformer {
-  static async validateSchema<T extends {}>(dto: T, schema: ObjectSchema<T>) {
+  static async validateSchema<T extends {}>(
+    dto: T,
+    schema: ObjectSchema<T>,
+  ): Promise<Either<Result<T>, Result<T>>> {
     const requiredFieldErrors = await this.validateDto(dto, schema);
     const additionalFieldErrors = this.getAdditionalFieldErrors(dto, schema);
     const errors = { ...requiredFieldErrors, ...additionalFieldErrors };
@@ -38,7 +41,7 @@ export class ValidationTransformer {
     schema: ObjectSchema<T>,
   ): DtoErrors {
     const additionalFields = Object.keys(dto).filter(
-      field => !Object.keys(schema.fields).includes(field),
+      (field) => !Object.keys(schema.fields).includes(field),
     );
 
     if (!additionalFields.length) return {};

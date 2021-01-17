@@ -2,8 +2,7 @@ export interface QueryParams {
   limit?: number;
   offset?: number;
   query?: string;
-  // todo: order
-  // order?: string;
+  order?: string;
 }
 
 interface Meta {

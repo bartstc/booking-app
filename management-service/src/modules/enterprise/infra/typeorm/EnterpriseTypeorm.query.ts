@@ -6,7 +6,8 @@ import { EnterpriseTypeormTransformer } from './EnterpriseTypeorm.transformer';
 import { EnterpriseQuery } from '../../adapter';
 
 @EntityRepository(EnterpriseEntity)
-export class EnterpriseTypeormQuery extends Repository<EnterpriseEntity>
+export class EnterpriseTypeormQuery
+  extends Repository<EnterpriseEntity>
   implements EnterpriseQuery {
   async exists(enterpriseId: string): Promise<boolean> {
     const enterpriseRaw = await this.findOne({ enterprise_id: enterpriseId });
@@ -17,5 +18,10 @@ export class EnterpriseTypeormQuery extends Repository<EnterpriseEntity>
     const enterpriseRaw = await this.findOne({ enterprise_id: enterpriseId });
     if (!enterpriseRaw) throw new Error('Enterprise not found');
     return EnterpriseTypeormTransformer.toDto(enterpriseRaw);
+  }
+
+  async getEnterprises(): Promise<EnterpriseDto[]> {
+    const rawEnterprises = await this.find();
+    return EnterpriseTypeormTransformer.toDtoBulk(rawEnterprises);
   }
 }

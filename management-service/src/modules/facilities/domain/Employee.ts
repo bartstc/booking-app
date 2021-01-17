@@ -7,10 +7,9 @@ import { EmployeeName } from './EmployeeName';
 import { EmployeePosition } from './EmployeePosition';
 import { EmployeeStatus } from './types';
 import {
-  CannotRemoveActiveEmployeeGuard,
-  EmployeeIsAlreadyActiveGuard,
-  EmployeeIsAlreadyInactiveGuard,
-} from './guards';
+  EmployeeCannotBeActiveRule,
+  EmployeeCannotBeInactiveRule,
+} from './rules';
 
 interface IProps {
   facilityId: FacilityId;
@@ -18,6 +17,8 @@ interface IProps {
   name: EmployeeName;
   position: EmployeePosition;
   contacts: Contacts;
+  birthDate: Date;
+  employmentDate: Date;
   isRemoved?: boolean;
 }
 
@@ -38,6 +39,14 @@ export class Employee extends Entity<IProps> {
     return this.props.name;
   }
 
+  get birthDate() {
+    return this.props.birthDate;
+  }
+
+  get employmentDate() {
+    return this.props.employmentDate;
+  }
+
   get position() {
     return this.props.position;
   }
@@ -51,26 +60,17 @@ export class Employee extends Entity<IProps> {
   }
 
   public activate() {
-    if (this.isActive) {
-      throw new EmployeeIsAlreadyActiveGuard();
-    }
-
+    this.checkRule(new EmployeeCannotBeActiveRule(this.status));
     this.props.status = EmployeeStatus.Active;
   }
 
   public deactivate() {
-    if (!this.isActive) {
-      throw new EmployeeIsAlreadyInactiveGuard();
-    }
-
+    this.checkRule(new EmployeeCannotBeInactiveRule(this.status));
     this.props.status = EmployeeStatus.Inactive;
   }
 
   public remove() {
-    if (this.isActive) {
-      throw new CannotRemoveActiveEmployeeGuard();
-    }
-
+    this.checkRule(new EmployeeCannotBeActiveRule(this.status));
     this.props.isRemoved = true;
   }
 
@@ -87,6 +87,14 @@ export class Employee extends Entity<IProps> {
       {
         argument: props.status,
         argumentName: 'employee.status',
+      },
+      {
+        argument: props.birthDate,
+        argumentName: 'employee.birthDate',
+      },
+      {
+        argument: props.employmentDate,
+        argumentName: 'employee.employmentDate',
       },
     ]);
 

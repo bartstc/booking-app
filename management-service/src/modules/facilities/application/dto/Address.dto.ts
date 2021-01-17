@@ -8,16 +8,10 @@ export class AddressDto {
   countryCode: string;
 
   @ApiProperty()
-  flatNumber: string | null;
-
-  @ApiProperty()
-  houseNumber: string;
-
-  @ApiProperty()
   postCode: string;
 
   @ApiProperty()
-  province: string;
+  province?: string;
 
   @ApiProperty()
   street: string;

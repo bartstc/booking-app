@@ -16,16 +16,8 @@ export class Address extends ValueObject<IAddress> {
         argumentName: 'address.countryCode',
       },
       {
-        argument: props.houseNumber,
-        argumentName: 'address.houseNumber',
-      },
-      {
         argument: props.postCode,
         argumentName: 'address.postCode',
-      },
-      {
-        argument: props.province,
-        argumentName: 'address.province',
       },
       {
         argument: props.street,

@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 import formatDate from 'intl-dateformat';
 
 interface IProps {
-  value: string;
+  value: string | Date;
 }
 
 const FormattedDate = ({ value }: IProps) => {

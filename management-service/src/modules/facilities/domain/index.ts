@@ -8,8 +8,6 @@ export { EmployeePosition } from './EmployeePosition';
 export { Offer } from './Offer';
 export { OfferId } from './OfferId';
 export { OfferName } from './OfferName';
-export { OfferVariant } from './OfferVariant';
-export { OfferVariants } from './OfferVariants';
 export { Price } from './Price';
 export { Employees } from './Employees';
 export { Offers } from './Offers';

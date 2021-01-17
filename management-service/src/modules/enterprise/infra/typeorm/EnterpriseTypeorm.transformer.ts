@@ -14,4 +14,8 @@ export class EnterpriseTypeormTransformer {
       updatedAt: enterprise.updated_at,
     };
   }
+
+  public static toDtoBulk(enterprises: EnterpriseEntity[]): EnterpriseDto[] {
+    return enterprises.map((enterprise) => this.toDto(enterprise));
+  }
 }
