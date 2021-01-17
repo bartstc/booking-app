@@ -5,12 +5,12 @@ import App from '../../App';
 import { Layout } from '../Layout';
 import { Spinner } from '../Spinner';
 
-const Schedule = lazy(() => import('../../containers/Schedule'));
-const Customers = lazy(() => import('../../containers/Customers'));
-const Employees = lazy(() => import('../../containers/Employees'));
-const Offers = lazy(() => import('../../containers/Offers'));
-const Settings = lazy(() => import('../../containers/Settings'));
-const Overview = lazy(() => import('../../containers/Overview'));
+const Schedule = lazy(() => import('../../pages/Schedule'));
+const Customers = lazy(() => import('../../pages/Customers'));
+const Employees = lazy(() => import('../../pages/Employees'));
+const Offers = lazy(() => import('../../pages/Offers'));
+const Settings = lazy(() => import('../../pages/Settings'));
+const Overview = lazy(() => import('../../pages/Overview'));
 
 const PublicRoutes = () => {
   return (

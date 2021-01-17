@@ -1,14 +1,16 @@
 import React from 'react';
-import { Flex, Heading, Text, VStack } from '@chakra-ui/react';
+import { Flex, Heading, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { mdiAccount } from '@mdi/js';
 import { isMobileOnly } from 'react-device-detect';
 
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
+import { AddEmployeeModal } from './AddEmployeeModal';
 
 const Header = () => {
   const { formatMessage } = useIntl();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const title = formatMessage({
     id: 'add-employee',
@@ -25,10 +27,17 @@ const Header = () => {
           <FormattedMessage id='employees-subheading' defaultMessage='Manage your employee list' />
         </Text>
       </VStack>
+      <AddEmployeeModal isOpen={isOpen} onClose={onClose} />
       {isMobileOnly ? (
-        <IconButton colorScheme='primary' variant='solid' title={title} icon={<Icon path={mdiAccount} color='gray.800' />} />
+        <IconButton
+          colorScheme='primary'
+          variant='solid'
+          title={title}
+          icon={<Icon path={mdiAccount} color='gray.800' />}
+          onClick={onOpen}
+        />
       ) : (
-        <Button colorScheme='primary' leftIcon={<Icon path={mdiAccount} />}>
+        <Button colorScheme='primary' leftIcon={<Icon path={mdiAccount} />} onClick={onOpen}>
           {title}
         </Button>
       )}

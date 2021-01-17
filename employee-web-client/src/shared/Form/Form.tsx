@@ -1,16 +1,16 @@
 import React, { ReactNode } from 'react';
 import { FormProvider, useForm, UseFormMethods, UseFormOptions } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { AnyObjectSchema } from 'yup';
+import { ObjectSchema } from 'yup';
 
 interface IProps<T> extends UseFormOptions<T> {
   onSubmit: (model: T, methods: UseFormMethods<T>) => void;
   children: ReactNode | ((data: UseFormMethods<T>) => ReactNode);
-  schema?: AnyObjectSchema;
+  schema?: ObjectSchema;
   resetOnSubmit?: boolean;
 }
 
-const Form = <T extends Record<string, unknown>>({ onSubmit, schema, children, resetOnSubmit = true, ...options }: IProps<T>) => {
+const Form = <T extends object>({ onSubmit, schema, children, resetOnSubmit = true, ...options }: IProps<T>) => {
   const methods = useForm<T>({
     resolver: schema ? yupResolver(schema) : undefined,
     mode: 'all',
