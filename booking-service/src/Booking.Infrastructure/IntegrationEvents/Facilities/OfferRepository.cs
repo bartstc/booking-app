@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Booking.Application.Facilities;
-using Booking.Application.Facilities.IntegrationEvents.Events;
 using Booking.Infrastructure.Database;
 
 namespace Booking.Infrastructure.IntegrationEvents.Facilities
@@ -14,7 +13,7 @@ namespace Booking.Infrastructure.IntegrationEvents.Facilities
             this.ctx = ctx;
         }
 
-        public async Task AddAsync(OfferCreated offer)
+        public async Task AddAsync(Offer offer)
         {
             await ctx.AddAsync(offer);
         }

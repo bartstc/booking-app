@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Booking.Domain.SeedWork;
+using Booking.Domain.SharedKernel;
 using MediatR;
 
 namespace Booking.Application.Facilities.Commands.CreateOffer
@@ -18,7 +19,24 @@ namespace Booking.Application.Facilities.Commands.CreateOffer
 
         public async Task<Unit> Handle(CreateOfferCommand request, CancellationToken cancellationToken)
         {
-            await repository.AddAsync(request.Offer);
+            var offer = new Offer(
+                new OfferId(request.Id),
+                new FacilityId(request.FacilityId),
+                request.Price,
+                request.Currency,
+                request.Duration
+            );
+
+            try
+            {
+                await repository.AddAsync(offer);
+            }
+            catch (System.Exception ex)
+            {
+                
+                throw;
+            }
+            
             await unitOfWork.CommitAsync();
 
             return Unit.Value;

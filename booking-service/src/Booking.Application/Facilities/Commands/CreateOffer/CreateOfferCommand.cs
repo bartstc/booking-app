@@ -1,15 +1,23 @@
-using Booking.Application.Facilities.IntegrationEvents.Events;
+using System;
 using MediatR;
 
 namespace Booking.Application.Facilities.Commands.CreateOffer
 {
     public class CreateOfferCommand : IRequest
     {
-        public CreateOfferCommand(OfferCreated offer)
+        public CreateOfferCommand(Guid id, Guid facilityId, decimal price, string currency, short duration)
         {
-            Offer = offer;
+            Id = id;
+            FacilityId = facilityId;
+            Price = price;
+            Currency = currency;
+            Duration = duration;
         }
 
-        public OfferCreated Offer { get; }
+        public Guid Id { get; }
+        public Guid FacilityId { get; }
+        public decimal Price { get; }
+        public string Currency { get; }
+        public short Duration { get; }
     }
 }

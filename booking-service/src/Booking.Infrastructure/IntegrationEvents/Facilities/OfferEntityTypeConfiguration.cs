@@ -1,13 +1,13 @@
-using Booking.Application.Facilities.IntegrationEvents.Events;
+using Booking.Application.Facilities;
 using Booking.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Booking.Infrastructure.IntegrationEvents.Facilities
 {
-    public class OfferEntityTypeConfiguration : IEntityTypeConfiguration<OfferCreated>
+    public class OfferEntityTypeConfiguration : IEntityTypeConfiguration<Offer>
     {
-        public void Configure(EntityTypeBuilder<OfferCreated> builder)
+        public void Configure(EntityTypeBuilder<Offer> builder)
         {
             builder.ToTable("offers", SchemaNames.Facility);
 

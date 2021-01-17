@@ -17,7 +17,15 @@ namespace Booking.Application.Facilities.IntegrationEvents.EventHandling
 
         public async Task Consume(ConsumeContext<OfferCreated> context)
         {
-            await mediator.Send(new CreateOfferCommand(context.Message));
+            var message = context.Message;
+
+            await mediator.Send(new CreateOfferCommand(
+                message.Id,
+                message.FacilityId,
+                message.Price,
+                message.Currency,
+                message.Duration
+            ));
         }
     }
 }

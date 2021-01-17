@@ -1,7 +1,7 @@
 using System;
 using Booking.Domain.SeedWork;
 
-namespace Booking.Domain.Bookings.BookedRecords
+namespace Booking.Domain.SharedKernel
 {
     public class OfferId : StronglyTypedIdBase
     {
