@@ -24,7 +24,7 @@ const ListItem = ({ customer: { address, fullName, contacts } }: IProps) => {
         <VStack align='flex-start' spacing='10px'>
           <VStack align='flex-start' spacing={0}>
             <Heading
-              lineHeight={{ base: '14px', md: '18px' }}
+              lineHeight={{ base: '1.15rem', md: '1.3rem' }}
               as='h5'
               fontSize={{ base: 'md', md: 'lg' }}
               fontWeight='700'

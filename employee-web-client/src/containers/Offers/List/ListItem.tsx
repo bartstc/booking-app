@@ -1,16 +1,15 @@
 import React from 'react';
-import { VStack, HStack, Heading, Text, Avatar, useColorModeValue } from '@chakra-ui/react';
-import { useIntl } from 'react-intl';
+import { VStack, HStack, Heading, Text, Avatar, useColorModeValue, Badge } from '@chakra-ui/react';
+import { FormattedMessage } from 'react-intl';
 
-import { IEmployee } from 'modules/employees/types';
-import { ContactButtons, ContactTags } from 'shared/Contact';
+import { IOffer } from 'modules/offers/types';
+import { OfferStatusBadge } from 'modules/offers/components';
 
 interface IProps {
-  employee: IEmployee;
+  offer: IOffer;
 }
 
-const ListItem = ({ employee: { name, contacts, position } }: IProps) => {
-  const { formatMessage } = useIntl();
+const ListItem = ({ offer: { name, price, duration, status } }: IProps) => {
   const background = useColorModeValue('gray.50', 'gray.700');
 
   return (
@@ -30,13 +29,17 @@ const ListItem = ({ employee: { name, contacts, position } }: IProps) => {
               {name}
             </Heading>
             <Text as='span' isTruncated fontSize='xs' width='100%'>
-              {position}
+              {duration} <FormattedMessage id='minutes-short' defaultMessage='min' />
             </Text>
           </VStack>
-          <ContactTags contacts={contacts} />
+          <HStack>
+            <Badge variant='solid' colorScheme='primary'>
+              {price.value} {price.currency}
+            </Badge>
+            <OfferStatusBadge status={status} />
+          </HStack>
         </VStack>
       </HStack>
-      <ContactButtons contacts={contacts} subject={formatMessage({ id: 'employee', defaultMessage: 'employee' })} />
     </HStack>
   );
 };

@@ -47,7 +47,7 @@ export const useGetLinks = () => {
         id: 'offers',
         defaultMessage: 'Offers',
       }),
-      to: 'offers',
+      to: buildUrl('offers', DEFAULT_PARAMS),
     },
     {
       path: mdiCogs,

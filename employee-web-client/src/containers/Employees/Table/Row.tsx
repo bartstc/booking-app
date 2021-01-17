@@ -1,13 +1,15 @@
 import React from 'react';
-import { Badge, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { useIntl } from 'react-intl';
 
 import { GridItem, TruncatedCell } from 'shared/Grid';
 import { ContactButtons } from 'shared/Contact';
+import { FormattedDate } from 'shared/Date';
 
 import { ContactType } from 'types';
-import { EmployeeStatus, IEmployee } from 'modules/employees/types';
-import { FormattedDate } from '../../../shared/Date';
+
+import { IEmployee } from 'modules/employees/types';
+import { EmployeeStatusBadge } from 'modules/employees/components';
 
 interface IProps {
   index: number;
@@ -24,9 +26,7 @@ const Row = ({ index, employee }: IProps) => {
       <TruncatedCell>{index}</TruncatedCell>
       <TruncatedCell>{employee.name}</TruncatedCell>
       <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
-        <Badge variant='solid' colorScheme={employee.status === EmployeeStatus.Active ? 'green' : 'red'}>
-          {employee.status}
-        </Badge>
+        <EmployeeStatusBadge status={employee.status} />
       </Flex>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>{employee.position}</TruncatedCell>
       <TruncatedCell>{phone ?? '---'}</TruncatedCell>
