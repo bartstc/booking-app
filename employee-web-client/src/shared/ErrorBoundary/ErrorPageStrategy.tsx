@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { FallbackProps } from './ErrorBoundary';
+import { IFallbackProps } from './ErrorBoundary';
 import { AjaxError } from '../../utils/http-service';
 import { ClientErrorState, NotFoundState, ServerErrorState } from '../States';
 
-const ErrorPageStrategy = ({ error }: FallbackProps<Error>) => {
+const ErrorPageStrategy = ({ error }: IFallbackProps<Error>) => {
   if (error instanceof AjaxError) {
     switch (error.status) {
       case 0:

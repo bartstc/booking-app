@@ -2,23 +2,24 @@ import React from 'react';
 import { VStack } from '@chakra-ui/react';
 import { isMobile } from 'react-device-detect';
 
+import { PageWrapper } from 'shared/Layout';
+import { withErrorBoundary } from 'shared/ErrorBoundary';
+
 import { Table } from './Table';
 import { Panel } from './Panel';
 import { Header } from './Header';
 import { List } from './List';
 
-const facilityId = '83f0ac40-7bc7-48bd-a4de-8703c3485148';
-
 const Customers = () => {
   return (
-    <VStack spacing={{ base: 10, md: 16 }} w='100%' mt={{ base: 4, md: 10 }} px={{ base: 4, md: 8 }} maxW='1280px' margin='0 auto'>
+    <PageWrapper>
       <Header />
-      <VStack w='100%' maxW='1080px' pb={{ base: 4, md: 10 }}>
+      <VStack w='100%' maxW='1200px' pb={{ base: 4, md: 10 }}>
         <Panel />
-        {isMobile ? <List facilityId={facilityId} /> : <Table facilityId={facilityId} />}
+        {isMobile ? <List /> : <Table />}
       </VStack>
-    </VStack>
+    </PageWrapper>
   );
 };
 
-export default Customers;
+export default withErrorBoundary(Customers);

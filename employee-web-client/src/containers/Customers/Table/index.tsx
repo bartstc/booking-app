@@ -5,29 +5,27 @@ import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
 import { getCustomers, getCustomersKey } from 'modules/customers/api';
 import { useQueryParams } from 'shared/Params';
-import { CustomerCollection } from 'modules/customers/types';
+import { ICustomerCollection } from 'modules/customers/types';
+import { useFacilityConsumer } from 'modules/context';
 
 import { Header } from './Header';
 import { Row } from './Row';
 
-interface IProps {
-  facilityId: string;
-}
-
-const Table = ({ facilityId }: IProps) => {
+const Table = () => {
   const { params } = useQueryParams();
+  const { facilityId } = useFacilityConsumer();
 
   return (
-    <FetchBoundary<CustomerCollection> queryKey={getCustomersKey(facilityId, params)} queryFn={() => getCustomers(facilityId, params)}>
+    <FetchBoundary<ICustomerCollection> queryKey={getCustomersKey(facilityId, params)} queryFn={() => getCustomers(facilityId, params)}>
       {({ data: { collection, meta } }) => (
         <>
           <Grid
             itemsCount={collection.length}
             rowGap={1}
             templateColumns={{
-              base: '80px repeat(2, 1fr) max(120px)',
-              md: '80px repeat(4, 1fr) max(120px)',
-              lg: '80px repeat(5, 1fr) max(120px)',
+              base: '80px repeat(2, 1fr) max(110px)',
+              md: '80px repeat(4, 1fr) max(110px)',
+              lg: '80px repeat(5, 1fr) max(110px)',
             }}
             mb={4}
           >

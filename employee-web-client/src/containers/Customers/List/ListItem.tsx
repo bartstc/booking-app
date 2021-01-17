@@ -1,13 +1,13 @@
 import React from 'react';
 import { VStack, HStack, Heading, Text, Avatar, Tag, TagLabel, useColorModeValue } from '@chakra-ui/react';
 
-import { Customer } from 'modules/customers/types';
+import { ICustomer } from 'modules/customers/types';
 import { ContactType } from 'types';
 
 import { ActionButtons } from '../ActionButtons';
 
 interface IProps {
-  customer: Customer;
+  customer: ICustomer;
 }
 
 const ListItem = ({ customer: { address, fullName, contacts } }: IProps) => {
@@ -34,7 +34,7 @@ const ListItem = ({ customer: { address, fullName, contacts } }: IProps) => {
               {fullName}
             </Heading>
             <Text as='span' isTruncated fontSize='xs' width='100%'>
-              {address.city}, {address.street} {address.houseNumber}
+              {address.city}, {address.street}
             </Text>
           </VStack>
           <HStack>

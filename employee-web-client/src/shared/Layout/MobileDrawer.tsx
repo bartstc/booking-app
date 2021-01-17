@@ -10,19 +10,23 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from '@chakra-ui/react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { ToggleThemeButton, NavButton, useGetLinks } from './Navigation';
 
 interface IProps {
   extended: boolean;
   toggle: () => void;
+  facilityId?: string;
 }
 
-const MobileDrawer = ({ toggle, extended }: IProps) => {
+const MobileDrawer = ({ toggle, extended, facilityId }: IProps) => {
   const { push } = useHistory();
-  const background = useColorModeValue('gray.500', 'gray.700');
-  const links = useGetLinks();
+  const { pathname } = useLocation();
+  const background = useColorModeValue('white', 'gray.800');
+  const allLinks = useGetLinks();
+
+  const links = facilityId ? allLinks : [allLinks[0]];
 
   return (
     <Drawer isOpen={extended} placement='right' onClose={toggle} size='xs'>
@@ -33,7 +37,7 @@ const MobileDrawer = ({ toggle, extended }: IProps) => {
             <VStack as='ul' align='flex-start' width='100%'>
               {links.map(({ label, to, path }) => (
                 <HStack key={to} as='li'>
-                  <NavButton onClick={() => push(`/${to}`)} path={path}>
+                  <NavButton onClick={() => push(`/${to}`)} path={path} isActive={to.includes(pathname.substring(1))}>
                     <Text pl={2} fontWeight='700' fontSize='md'>
                       {label}
                     </Text>

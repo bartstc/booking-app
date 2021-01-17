@@ -23,6 +23,7 @@ const Panel = () => {
           id: 'search-customer-name',
           defaultMessage: `Type customer's name`,
         })}...`}
+        filterName='fullName'
       />
       <HStack>
         {isMobileOnly ? (

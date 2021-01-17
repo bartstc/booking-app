@@ -1,4 +1,4 @@
-export interface DefaultQueryParams {
+export interface IQueryParams {
   offset: number;
   limit: number;
   order?: string;
