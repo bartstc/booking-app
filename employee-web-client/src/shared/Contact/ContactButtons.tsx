@@ -7,21 +7,26 @@ import Linkify from 'react-linkify';
 import { Icon } from 'shared/Icon';
 import { Dropdown, DropdownItem } from 'shared/Dropdown';
 
+import { ContactType, IContact } from 'types';
+
 interface IProps extends StackProps {
-  phone?: string;
-  email?: string;
-  url?: string;
+  contacts: IContact[];
+  subject: string;
 }
 
-const ActionButtons = ({ phone, email, url, ...props }: IProps) => {
+const ContactButtons = ({ contacts, subject, ...props }: IProps) => {
+  const phone = contacts.find(contact => contact.type === ContactType.Phone)?.value;
+  const email = contacts.find(contact => contact.type === ContactType.Email)?.value;
+  const url = contacts.find(contact => contact.type === ContactType.Url)?.value;
+
   const { formatMessage } = useIntl();
   const iconColor = useColorModeValue('gray.700', 'gray.100');
 
   const hideMoreButton = !email && !url;
 
   const callToTitle = formatMessage({
-    id: 'aria-label-call-employer',
-    defaultMessage: 'Call to customer',
+    id: 'call-to',
+    defaultMessage: `Call to ${subject}`,
   });
 
   return (
@@ -42,7 +47,7 @@ const ActionButtons = ({ phone, email, url, ...props }: IProps) => {
           {email && (
             <a href={`mailto:${email}`}>
               <DropdownItem>
-                <FormattedMessage id='employers-item-send-email' defaultMessage='Send email message' />
+                <FormattedMessage id='send-email' defaultMessage='Send email message' />
               </DropdownItem>
             </a>
           )}
@@ -51,10 +56,13 @@ const ActionButtons = ({ phone, email, url, ...props }: IProps) => {
               <Linkify
                 componentDecorator={href => (
                   <a href={href} target={'_blank'} rel='noopener noreferrer'>
-                    {formatMessage({
-                      id: 'employers-item-go-to-website',
-                      defaultMessage: `Go to customer's page`,
-                    })}
+                    <FormattedMessage
+                      id='go-to-website'
+                      defaultMessage={`Go to {subject}'s website`}
+                      values={{
+                        subject,
+                      }}
+                    />
                   </a>
                 )}
               >
@@ -68,4 +76,4 @@ const ActionButtons = ({ phone, email, url, ...props }: IProps) => {
   );
 };
 
-export { ActionButtons };
+export { ContactButtons };

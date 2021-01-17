@@ -39,7 +39,7 @@ export const useGetLinks = () => {
         id: 'employees',
         defaultMessage: 'Employees',
       }),
-      to: 'employees',
+      to: buildUrl('employees', DEFAULT_PARAMS),
     },
     {
       path: mdiBookMultiple,
@@ -47,7 +47,7 @@ export const useGetLinks = () => {
         id: 'offers',
         defaultMessage: 'Offers',
       }),
-      to: 'offers',
+      to: buildUrl('offers', DEFAULT_PARAMS),
     },
     {
       path: mdiCogs,

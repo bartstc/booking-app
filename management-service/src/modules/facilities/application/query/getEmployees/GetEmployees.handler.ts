@@ -3,7 +3,7 @@ import { Inject } from '@nestjs/common';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
-import { EmployeeDto } from '../../dto';
+import { EmployeeCollectionDto } from '../../dto';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { EmployeeQuery } from '../../../adapter';
 import { FacilityRepository } from '../../../domain/repositories';
@@ -12,7 +12,7 @@ import { GetEmployeesErrors } from './GetEmployees.errors';
 
 export type GetEmployeesResponse = Either<
   AppError.UnexpectedError | GetEmployeesErrors.FacilityNotFoundError,
-  Result<EmployeeDto[]>
+  Result<EmployeeCollectionDto>
 >;
 
 @QueryHandler(GetEmployeesQuery)

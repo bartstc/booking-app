@@ -1,11 +1,13 @@
 import React from 'react';
 import { Badge, Flex } from '@chakra-ui/react';
+import { useIntl } from 'react-intl';
 
 import { GridItem, TruncatedCell } from 'shared/Grid';
+import { FormattedDate } from 'shared/Date';
+import { ContactButtons } from 'shared/Contact';
+
 import { ICustomer } from 'modules/customers/types';
 import { ContactType } from 'types';
-
-import { ActionButtons } from '../ActionButtons';
 
 interface IProps {
   index: number;
@@ -13,9 +15,9 @@ interface IProps {
 }
 
 const Row = ({ index, customer }: IProps) => {
+  const { formatMessage } = useIntl();
+
   const phone = customer.contacts.find(contact => contact.type === ContactType.Phone)?.value;
-  const email = customer.contacts.find(contact => contact.type === ContactType.Email)?.value;
-  const url = customer.contacts.find(contact => contact.type === ContactType.Url)?.value;
   const address = `${customer.address.city}, ${customer.address.street}`;
 
   return (
@@ -29,9 +31,11 @@ const Row = ({ index, customer }: IProps) => {
       </Flex>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>{address ?? '---'}</TruncatedCell>
       <TruncatedCell>{phone}</TruncatedCell>
-      <TruncatedCell display={{ base: 'none', lg: 'flex' }}>{customer.birthDate}</TruncatedCell>
+      <TruncatedCell display={{ base: 'none', lg: 'flex' }}>
+        <FormattedDate value={customer.birthDate} />
+      </TruncatedCell>
       <TruncatedCell justify='flex-end'>
-        <ActionButtons phone={phone} email={email} url={url} />
+        <ContactButtons contacts={customer.contacts} subject={formatMessage({ id: 'customer', defaultMessage: 'customer' })} />
       </TruncatedCell>
     </GridItem>
   );

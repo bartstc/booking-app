@@ -10,7 +10,10 @@ import { QueryBus } from '@nestjs/cqrs';
 
 import { BaseController } from 'shared/core';
 
-import { EmployeeDto } from 'modules/facilities/application/dto';
+import {
+  EmployeeCollectionDto,
+  EmployeeDto,
+} from 'modules/facilities/application/dto';
 import {
   GetEmployeesQuery,
   GetEmployeesResponse,
@@ -32,7 +35,7 @@ export class GetEmployeesController extends BaseController {
 
   @Get('facilities/:facilityId/employees')
   @ApiTags('Employees')
-  @ApiOkResponse({ type: EmployeeDto, isArray: true })
+  @ApiOkResponse({ type: EmployeeCollectionDto, isArray: true })
   @ApiQuery({ name: 'offset', type: 'number', required: false })
   @ApiQuery({ name: 'limit', type: 'number', required: false })
   @ApiQuery({ name: 'query', type: 'string', required: false })

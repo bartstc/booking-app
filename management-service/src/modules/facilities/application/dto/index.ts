@@ -7,3 +7,5 @@ export { WorkingDayDto } from './WorkingDay.dto';
 export { WorkingHoursDto } from './WorkingHours.dto';
 export { PriceDto } from './Price.dto';
 export { FacilityCollectionDto } from './FacilityCollection.dto';
+export { EmployeeCollectionDto } from './EmployeeCollection.dto';
+export { OfferCollectionDto } from './OfferCollection.dto';

@@ -1,21 +1,21 @@
 import React from 'react';
 import { VStack, HStack, Heading, Text, Avatar, Tag, TagLabel, useColorModeValue } from '@chakra-ui/react';
+import { useIntl } from 'react-intl';
 
 import { ICustomer } from 'modules/customers/types';
 import { ContactType } from 'types';
-
-import { ActionButtons } from '../ActionButtons';
+import { ContactButtons } from 'shared/Contact';
 
 interface IProps {
   customer: ICustomer;
 }
 
 const ListItem = ({ customer: { address, fullName, contacts } }: IProps) => {
+  const { formatMessage } = useIntl();
   const background = useColorModeValue('gray.50', 'gray.700');
 
   const phone = contacts.find(contact => contact.type === ContactType.Phone)?.value;
   const email = contacts.find(contact => contact.type === ContactType.Email)?.value;
-  const url = contacts.find(contact => contact.type === ContactType.Url)?.value;
 
   return (
     <HStack spacing={3} justify='space-between' align='start' w='100%' mb={2} p='10px' borderRadius={8} backgroundColor={background}>
@@ -24,7 +24,7 @@ const ListItem = ({ customer: { address, fullName, contacts } }: IProps) => {
         <VStack align='flex-start' spacing='10px'>
           <VStack align='flex-start' spacing={0}>
             <Heading
-              lineHeight={{ base: '14px', md: '18px' }}
+              lineHeight={{ base: '1.15rem', md: '1.3rem' }}
               as='h5'
               fontSize={{ base: 'md', md: 'lg' }}
               fontWeight='700'
@@ -55,7 +55,7 @@ const ListItem = ({ customer: { address, fullName, contacts } }: IProps) => {
           </HStack>
         </VStack>
       </HStack>
-      <ActionButtons phone={phone} email={email} url={url} />
+      <ContactButtons contacts={contacts} subject={formatMessage({ id: 'customer', defaultMessage: 'customer' })} />
     </HStack>
   );
 };

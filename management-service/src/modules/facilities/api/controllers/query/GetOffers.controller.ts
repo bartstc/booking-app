@@ -10,7 +10,7 @@ import { QueryBus } from '@nestjs/cqrs';
 
 import { BaseController } from 'shared/core';
 
-import { OfferDto } from 'modules/facilities/application/dto';
+import { OfferCollectionDto } from 'modules/facilities/application/dto';
 import {
   GetOffersResponse,
   GetOffersQuery,
@@ -32,7 +32,7 @@ export class GetOffersController extends BaseController {
 
   @Get('facilities/:facilityId/offers')
   @ApiTags('Offers')
-  @ApiOkResponse({ type: OfferDto, isArray: true })
+  @ApiOkResponse({ type: OfferCollectionDto, isArray: true })
   @ApiQuery({ name: 'offset', type: 'number', required: false })
   @ApiQuery({ name: 'limit', type: 'number', required: false })
   @ApiQuery({ name: 'name', type: 'string', required: false })

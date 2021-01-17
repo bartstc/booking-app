@@ -12,7 +12,6 @@ export const useSort = (name: string, key = 'order') => {
 
   const getSortType = (): SortingType => {
     if (!order) {
-      remove(key);
       return SortingType.DEFAULT;
     }
 
@@ -35,8 +34,6 @@ export const useSort = (name: string, key = 'order') => {
         return '';
       case SortingType.DEFAULT:
         return name;
-      default:
-        return '';
     }
   };
 
@@ -46,6 +43,6 @@ export const useSort = (name: string, key = 'order') => {
   return {
     currentSortType,
     nextOrder,
-    change: () => change(key, nextOrder),
+    change: nextOrder ? () => change(key, nextOrder) : () => remove(key),
   };
 };

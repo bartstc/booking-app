@@ -3,7 +3,7 @@ import { Inject } from '@nestjs/common';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
-import { OfferDto } from '../../dto';
+import { OfferCollectionDto } from '../../dto';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { OfferQuery } from '../../../adapter';
 import { FacilityRepository } from '../../../domain/repositories';
@@ -12,7 +12,7 @@ import { GetOffersErrors } from './GetOffers.errors';
 
 export type GetOffersResponse = Either<
   AppError.UnexpectedError | GetOffersErrors.FacilityNotFoundError,
-  Result<OfferDto[]>
+  Result<OfferCollectionDto>
 >;
 
 @QueryHandler(GetOffersQuery)
