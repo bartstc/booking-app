@@ -26,7 +26,7 @@ const Form = <T extends object>({ onSubmit, schema, children, resetOnSubmit = tr
 
   return (
     <FormProvider {...methods}>
-      <form id={id} onSubmit={methods.handleSubmit(handleSubmit)}>
+      <form noValidate id={id} onSubmit={methods.handleSubmit(handleSubmit)}>
         {typeof children === 'function' ? children(methods) : children}
       </form>
     </FormProvider>

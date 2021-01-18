@@ -12,47 +12,53 @@ import { Button, IconButton } from 'shared/Button';
 
 const ContactsFields = () => {
   const { formatMessage } = useIntl();
-  const { control } = useFormContext();
+  const { control, setValue, watch } = useFormContext();
   const { fields, append, remove } = useFieldArray({ control, name: 'contacts' });
 
   return (
-    <VStack w='100%'>
-      {fields.map((field, index) => (
-        <Stack spacing={4} w='100%' key={field.id} direction={{ base: 'column', md: 'row' }} align='flex-start'>
-          <chakra.div w='100%' maxW={{ base: '100%', md: '200px' }}>
-            <ContactSelectField
-              name={`contacts[${index}].type`}
-              id={`contacts[${index}].type`}
-              label={<FormattedMessage id='contact-type' defaultMessage='Type' />}
-              defaultValue={field.type}
-            />
-          </chakra.div>
-          <HStack width='100%' align='flex-start' spacing={4}>
-            {field.type === ContactType.Phone || field.type === ContactType.Fax ? (
-              <MaskedInputField
-                label={<FormattedMessage id='contact' defaultMessage='Contact' />}
-                name={`contacts[${index}].value`}
-                id={`contacts[${index}].value`}
-                guide
-                mask={masks.phone}
+    <VStack w='100%' align='flex-start'>
+      {fields.map((field, index) => {
+        const typeName = `contacts[${index}].type`;
+        const valueName = `contacts[${index}].value`;
+
+        return (
+          <Stack spacing={4} w='100%' key={field.id} direction={{ base: 'column', md: 'row' }} align='flex-start'>
+            <chakra.div w='100%' maxW={{ base: '100%', md: '200px' }}>
+              <ContactSelectField
+                name={typeName}
+                id={typeName}
+                label={<FormattedMessage id='contact-type' defaultMessage='Type' />}
+                defaultValue={field.type}
+                onChangeEffect={() => setValue(valueName, '')}
               />
-            ) : (
-              <InputField
-                name={`contacts[${index}].value`}
-                label={<FormattedMessage id='contact' defaultMessage='Contact' />}
-                id={`contacts[${index}].value`}
+            </chakra.div>
+            <HStack width='100%' align='flex-start' spacing={4}>
+              {field.type === ContactType.Phone || field.type === ContactType.Fax ? (
+                <MaskedInputField
+                  label={<FormattedMessage id='contact' defaultMessage='Contact' />}
+                  name={valueName}
+                  id={valueName}
+                  mask={masks.phone}
+                  disabled={!watch(typeName)}
+                />
+              ) : (
+                <InputField
+                  name={`contacts[${index}].value`}
+                  label={<FormattedMessage id='contact' defaultMessage='Contact' />}
+                  id={`contacts[${index}].value`}
+                />
+              )}
+              <IconButton
+                title={formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
+                colorScheme='red'
+                path={mdiDelete}
+                onClick={() => remove(index)}
+                mt='32px !important'
               />
-            )}
-            <IconButton
-              title={formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
-              colorScheme='red'
-              path={mdiDelete}
-              onClick={() => remove(index)}
-              mt='32px !important'
-            />
-          </HStack>
-        </Stack>
-      ))}
+            </HStack>
+          </Stack>
+        );
+      })}
       <Button colorScheme='blue' onClick={() => append({ type: '', value: '' })}>
         <FormattedMessage id='add-contact' defaultMessage='Add contact' />
       </Button>

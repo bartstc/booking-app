@@ -29,7 +29,7 @@ const AddEmployeeForm = ({ onSubmit }: IProps) => {
         contacts: [
           {
             type: ContactType.Phone,
-            value: '+48',
+            value: '',
           },
         ],
       }}

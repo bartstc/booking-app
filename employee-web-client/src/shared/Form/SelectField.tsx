@@ -10,7 +10,10 @@ import { useRequiredFieldMessage } from '../../utils/messages';
 
 type Options = OptionType[];
 
-export type SelectFieldProps = SelectProps & FieldPrototypeProps;
+export type SelectFieldProps = SelectProps &
+  FieldPrototypeProps & {
+    onChangeEffect?: (option: ValueType<OptionType, boolean> | null | undefined) => void;
+  };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getValue = (value: unknown, isMulti: boolean): any => {
@@ -75,6 +78,7 @@ const SelectField = ({
   css,
   isMulti = false,
   options,
+  onChangeEffect,
   ...selectProps
 }: SelectFieldProps) => {
   const requiredMsg = useRequiredFieldMessage();
@@ -100,6 +104,10 @@ const SelectField = ({
           options={options}
           value={isMulti ? findOptions(getValue(value, true), options) : findOption(getValue(value, false), options)}
           onChange={(option: ValueType<OptionType, boolean> | null | undefined) => {
+            if (onChangeEffect) {
+              onChangeEffect(option);
+            }
+
             if (option) {
               clearErrors(name);
             }

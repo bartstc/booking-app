@@ -58,7 +58,9 @@ export class AddEmployeeController extends BaseController {
       }
 
       this.logger.verbose('Employee successfully added');
-      return this.ok(res);
+      return this.ok(res, {
+        employeeId: result.value.getValue().id.toString(),
+      });
     } catch (err) {
       this.logger.error('Unexpected server error', err);
       return this.fail(res, err);

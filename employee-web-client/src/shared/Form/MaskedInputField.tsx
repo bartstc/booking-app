@@ -9,7 +9,7 @@ type MaskedInputFieldProps = InputFieldProps & MaskedInputProps;
 const MaskedInputField = ({ name, ...props }: MaskedInputFieldProps) => {
   const { watch } = useFormContext();
 
-  return <InputField as={MaskedInput} name={name} value={watch(name)} {...props} />;
+  return <InputField as={MaskedInput} name={name} value={watch(name)} guide {...props} />;
 };
 
 export { MaskedInputField };

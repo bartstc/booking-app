@@ -27,7 +27,7 @@ const AddEmployeeModal = ({ isOpen, onClose }: IProps) => {
           <FormattedMessage id='add-new-employee' defaultMessage='Add new employee' />
         </ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody pb={6}>
           <AddEmployeeForm
             onSubmit={async model => {
               try {

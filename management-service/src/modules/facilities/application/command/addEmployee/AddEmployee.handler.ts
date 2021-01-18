@@ -5,6 +5,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { AppError, Either, left, Result, right } from 'shared/core';
 
 import {
+  EmployeeId,
   EmployeeRepository,
   Facility,
   FacilityRepository,
@@ -19,7 +20,7 @@ export type AddEmployeeResponse = Either<
   | AppError.ValidationError
   | AppError.UnexpectedError
   | AddEmployeeErrors.FacilityNotFoundError,
-  Result<void>
+  Result<EmployeeId>
 >;
 
 @CommandHandler(AddEmployeeCommand)
@@ -70,7 +71,7 @@ export class AddEmployeeHandler
 
       await queryRunner.commitTransaction();
 
-      return right(Result.ok());
+      return right(Result.ok(employee.employeeId));
     } catch (err) {
       await queryRunner.rollbackTransaction();
       return left(new AppError.UnexpectedError(err));

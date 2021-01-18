@@ -41,7 +41,7 @@ export const DatePickerStyles = styled(Box)<{
     height: 21px;
     background-color: ${props => props.clearBtnBackground};
     color: ${props => props.clearBtnColor};
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 
   .react-datepicker__month-container,
