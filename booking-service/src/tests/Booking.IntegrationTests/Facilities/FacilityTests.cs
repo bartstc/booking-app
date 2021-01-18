@@ -43,13 +43,14 @@ namespace Booking.IntegrationTests.Facilities
                 await harness.Start();
                 try
                 {
-                    await harness.InputQueueSendEndpoint.Send(new OfferCreated(
-                        offerId.Value,
-                        facilityId.Value,
-                        price,
-                        currency,
-                        duration
-                    ));
+                    await harness.InputQueueSendEndpoint.Send<OfferCreated>(new
+                    {
+                        Id = offerId.Value,
+                        FacilityId = facilityId.Value,
+                        Price = price,
+                        Currency = currency,
+                        Duration = duration
+                    });
 
                     Assert.True(await harness.Consumed.Any<OfferCreated>());
                     Assert.True(await consumerHarness.Consumed.Any<OfferCreated>());
