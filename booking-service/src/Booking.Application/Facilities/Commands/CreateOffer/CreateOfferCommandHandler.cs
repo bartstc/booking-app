@@ -27,16 +27,7 @@ namespace Booking.Application.Facilities.Commands.CreateOffer
                 request.Duration
             );
 
-            try
-            {
-                await repository.AddAsync(offer);
-            }
-            catch (System.Exception ex)
-            {
-                
-                throw;
-            }
-            
+            await repository.AddAsync(offer);
             await unitOfWork.CommitAsync();
 
             return Unit.Value;
