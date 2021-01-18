@@ -2,20 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Suspense/useMutation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/activateEmployee/ActivateEmployeeIconButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/activateEmployee/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/activateEmployee/useAactivateEmployeeNotification.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/deactivateEmployee/DeactivateEmployeeIconButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/deactivateEmployee/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/deactivateEmployee/useDeactivateEmployeeNotification.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/infrastructure/command/useActivateEmployee.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/infrastructure/command/useDeactivateEmployee.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/pages/Employees/StatusActionButtons.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/addEmployee/AddEmployeeForm/ContactsFields.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/addEmployee/AddEmployeeForm/ContactsFields.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/addEmployee/AddEmployeeForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/addEmployee/AddEmployeeForm/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/modules/employees/infrastructure/command/useAddEmployee.ts" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/infrastructure/command/useAddEmployee.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/modules/employees/infrastructure/query/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/infrastructure/query/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/pages/Employees/Header/AddEmployeeModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/pages/Employees/Header/AddEmployeeModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Date/DatePickerStyles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Date/DatePickerStyles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Form/Form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Form/Form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Form/MaskedInputField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Form/MaskedInputField.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Form/SelectField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Form/SelectField.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Suspense/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Suspense/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/api/controllers/command/AddEmployee.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/api/controllers/command/AddEmployee.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/application/command/addEmployee/AddEmployee.handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/application/command/addEmployee/AddEmployee.handler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/modules/employees/infrastructure/command/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/infrastructure/command/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/pages/Employees/Table/Row.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/pages/Employees/Table/Row.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Button/IcoButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Button/IcoButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Contact/ContactButtons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Contact/ContactButtons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Dropdown/Dropdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Dropdown/Dropdown.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/utils/http-service/HttpService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/utils/http-service/HttpService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +38,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/employee-web-client/src/hooks" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/deactivateEmployee" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -49,19 +51,19 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/employee-web-client/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/addEmployee/AddEmployeeForm" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/utils/validation" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/offers/infrastructure/query" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/facility/infrastructure/query" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/enterprise/infrastructure/query" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/deactivateEmployee" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/hooks" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/utils" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/containers/Overview" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/shared/ErrorBoundary" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/containers" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/activateEmployee" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/addEmployee/AddEmployeeForm" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/utils/validation" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/offers/infrastructure/query" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/facility/infrastructure/query" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -124,7 +126,7 @@
       <workItem from="1610903304114" duration="2088000" />
       <workItem from="1610916379618" duration="1666000" />
       <workItem from="1610918074616" duration="34000" />
-      <workItem from="1610981357834" duration="5673000" />
+      <workItem from="1610981357834" duration="9172000" />
     </task>
     <servers />
   </component>
@@ -132,10 +134,11 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1728" y="332" width="626" height="416" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1609591140313">
-      <screen x="48" y="0" width="3552" height="1082" />
+    <state x="933" y="331" width="652" height="416" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1610990402310">
+      <screen x="48" y="0" width="1872" height="1080" />
     </state>
     <state x="2347" y="333" width="623" height="416" key="#com.intellij.fileTypes.FileTypeChooser/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1608739851093" />
+    <state x="933" y="331" width="652" height="416" key="#com.intellij.fileTypes.FileTypeChooser/48.0.1872.1080@48.0.1872.1080" timestamp="1610990402310" />
     <state x="1728" y="332" width="626" height="416" key="#com.intellij.fileTypes.FileTypeChooser/48.0.3552.1082@48.0.3552.1082" timestamp="1609591140313" />
     <state x="717" y="288" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1610916901353">
       <screen x="48" y="0" width="1872" height="1080" />
@@ -162,10 +165,11 @@
     <state x="2324" y="264" width="826" height="554" key="find.popup/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1610210704022" />
     <state x="676" y="262" width="821" height="554" key="find.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1610984188867" />
     <state x="1910" y="124" width="1558" height="831" key="find.popup/48.0.3552.1082@48.0.3552.1082" timestamp="1610729397124" />
-    <state x="2328" y="247" key="run.anything.popup" timestamp="1610784235226">
-      <screen x="1680" y="2" width="1920" height="1080" />
+    <state x="680" y="245" key="run.anything.popup" timestamp="1610987926851">
+      <screen x="48" y="0" width="1872" height="1080" />
     </state>
     <state x="2328" y="247" key="run.anything.popup/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1610784235226" />
+    <state x="680" y="245" key="run.anything.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1610987926851" />
     <state x="2073" y="237" width="1276" height="680" key="search.everywhere.popup" timestamp="1609142280546">
       <screen x="48" y="0" width="3552" height="1082" />
     </state>

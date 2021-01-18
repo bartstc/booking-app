@@ -15,7 +15,7 @@ const IconButton = ({
   variant = 'ghost',
   colorScheme = 'gray',
   path = mdiAlertCircle,
-  icon = <Icon path={path} size='26px' />,
+  icon = <Icon path={path} size='24px' />,
   title,
   id,
   onClick,

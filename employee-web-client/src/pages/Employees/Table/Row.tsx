@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Flex, HStack } from '@chakra-ui/react';
 import { useIntl } from 'react-intl';
 
 import { GridItem, TruncatedCell } from 'shared/Grid';
@@ -10,6 +10,7 @@ import { ContactType } from 'types';
 
 import { IEmployee } from 'modules/employees/types';
 import { EmployeeStatusBadge } from 'modules/employees/shared';
+import { StatusActionButtons } from '../StatusActionButtons';
 
 interface IProps {
   index: number;
@@ -34,7 +35,10 @@ const Row = ({ index, employee }: IProps) => {
         <FormattedDate value={employee.birthDate} />
       </TruncatedCell>
       <TruncatedCell justify='flex-end'>
-        <ContactButtons contacts={employee.contacts} subject={formatMessage({ id: 'employee', defaultMessage: 'employee' })} />
+        <HStack spacing={1}>
+          <StatusActionButtons employeeId={employee.employeeId} status={employee.status} />
+          <ContactButtons contacts={employee.contacts} subject={formatMessage({ id: 'employee', defaultMessage: 'employee' })} />
+        </HStack>
       </TruncatedCell>
     </GridItem>
   );

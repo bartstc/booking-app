@@ -41,7 +41,7 @@ const Dropdown = ({ placement = PlacementType.BOTTOM_END, children }: IProps) =>
         background='none'
       >
         <Center>
-          <Icon path={mdiDotsVertical} color={iconColor} />
+          <Icon path={mdiDotsVertical} color={iconColor} size='24px' />
         </Center>
       </MenuButton>
       <MenuList mt='-20px' borderColor={borderColor} bg={bg}>
