@@ -44,11 +44,11 @@ export class HttpService {
     }));
   }
 
-  public patch<R = unknown, B = unknown>(url: string, body: B, options?: Options) {
+  public patch<R = unknown, B = unknown>(url: string, body?: B, options?: Options) {
     return this.buildHttpMethod<R>(url, options, opt => ({
       headers: opt.headers,
       method: 'PATCH',
-      body: JSON.stringify(body),
+      body: body ? JSON.stringify(body) : undefined,
       signal: opt.signal,
     }));
   }

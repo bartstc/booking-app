@@ -2,14 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/application/dto/EmployeeCollection.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/application/dto/OfferCollection.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/offers/application/addOffer/AddOfferForm/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/offers/application/addOffer/AddOfferForm/useValidationSchema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/offers/application/addOffer/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/offers/application/addOffer/useAddOfferNotification.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/offers/dto/IAddOfferDto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/offers/dto/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/offers/infrastructure/command/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/offers/infrastructure/command/useAddOffer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/pages/Offers/Header/AddOfferModal.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/pages/Offers/Header/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/api/controllers/query/GetEmployees.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/api/controllers/query/GetEmployees.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/api/controllers/query/GetOffers.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/api/controllers/query/GetOffers.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/application/dto/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/application/dto/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getEmployees/GetEmployees.handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getEmployees/GetEmployees.handler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getOffers/GetOffers.handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/management-service/src/modules/facilities/application/query/getOffers/GetOffers.handler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/modules/offers/infrastructure/query/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/modules/offers/infrastructure/query/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/pages/Offers/Header.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +35,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/employee-web-client/src/containers/Overview" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/employee-web-client/src/modules/offers/application/addOffer" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -43,19 +48,19 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/employee-web-client/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/employee-web-client/src/containers/Overview" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/shared/ErrorBoundary" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/containers" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/types" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/facility/types" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/context" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/activateEmployee" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/addEmployee/AddEmployeeForm" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/utils/validation" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/offers/infrastructure/query" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/facility/infrastructure/query" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/offers/application/addOffer" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/deactivateEmployee" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/hooks" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/utils" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/customers/types" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/types" />
-      <recent name="$PROJECT_DIR$/management-service/src/modules/customers/adapter/params" />
+      <recent name="$PROJECT_DIR$/employee-web-client/src/containers/Overview" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -114,6 +119,12 @@
       <workItem from="1610744707036" duration="2073000" />
       <workItem from="1610780428459" duration="7467000" />
       <workItem from="1610822957734" duration="657000" />
+      <workItem from="1610891494476" duration="8523000" />
+      <workItem from="1610903304114" duration="2088000" />
+      <workItem from="1610916379618" duration="1666000" />
+      <workItem from="1610918074616" duration="34000" />
+      <workItem from="1610981357834" duration="9226000" />
+      <workItem from="1610998870800" duration="2836000" />
     </task>
     <servers />
   </component>
@@ -121,16 +132,17 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1728" y="332" width="626" height="416" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1609591140313">
-      <screen x="48" y="0" width="3552" height="1082" />
+    <state x="933" y="331" width="652" height="416" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1610990402310">
+      <screen x="48" y="0" width="1872" height="1080" />
     </state>
     <state x="2347" y="333" width="623" height="416" key="#com.intellij.fileTypes.FileTypeChooser/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1608739851093" />
+    <state x="933" y="331" width="652" height="416" key="#com.intellij.fileTypes.FileTypeChooser/48.0.1872.1080@48.0.1872.1080" timestamp="1610990402310" />
     <state x="1728" y="332" width="626" height="416" key="#com.intellij.fileTypes.FileTypeChooser/48.0.3552.1082@48.0.3552.1082" timestamp="1609591140313" />
-    <state x="1728" y="289" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1610724723457">
-      <screen x="48" y="0" width="3552" height="1082" />
+    <state x="717" y="288" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1611000348948">
+      <screen x="48" y="0" width="1872" height="1080" />
     </state>
-    <state x="2366" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1610189615569" />
-    <state x="717" y="288" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/48.0.1872.1080@48.0.1872.1080" timestamp="1609788359970" />
+    <state x="2366" y="290" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1610898309220" />
+    <state x="717" y="288" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/48.0.1872.1080@48.0.1872.1080" timestamp="1611000348948" />
     <state x="1728" y="289" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/48.0.3552.1082@48.0.3552.1082" timestamp="1610724723457" />
     <state x="767" y="297" width="424" height="484" key="FileChooserDialogImpl" timestamp="1609786243614">
       <screen x="48" y="0" width="1872" height="1080" />
@@ -145,16 +157,17 @@
     </state>
     <state x="898" y="174" key="SettingsEditor/48.0.1872.1080@48.0.1872.1080" timestamp="1603378883345" />
     <state x="2090" y="141" key="SettingsEditor/48.0.3552.1082@48.0.3552.1082" timestamp="1609142310968" />
-    <state x="1910" y="124" width="1558" height="831" key="find.popup" timestamp="1610729397124">
-      <screen x="48" y="0" width="3552" height="1082" />
+    <state x="676" y="262" width="821" height="554" key="find.popup" timestamp="1611001573855">
+      <screen x="48" y="0" width="1872" height="1080" />
     </state>
     <state x="2324" y="264" width="826" height="554" key="find.popup/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1610210704022" />
-    <state x="676" y="262" width="821" height="554" key="find.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1610637237621" />
+    <state x="676" y="262" width="821" height="554" key="find.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1611001573855" />
     <state x="1910" y="124" width="1558" height="831" key="find.popup/48.0.3552.1082@48.0.3552.1082" timestamp="1610729397124" />
-    <state x="2328" y="247" key="run.anything.popup" timestamp="1610784235226">
-      <screen x="1680" y="2" width="1920" height="1080" />
+    <state x="680" y="245" key="run.anything.popup" timestamp="1610987926851">
+      <screen x="48" y="0" width="1872" height="1080" />
     </state>
     <state x="2328" y="247" key="run.anything.popup/1680.2.1920.1080/48.0.1632.1050@1680.2.1920.1080" timestamp="1610784235226" />
+    <state x="680" y="245" key="run.anything.popup/48.0.1872.1080@48.0.1872.1080" timestamp="1610987926851" />
     <state x="2073" y="237" width="1276" height="680" key="search.everywhere.popup" timestamp="1609142280546">
       <screen x="48" y="0" width="3552" height="1082" />
     </state>

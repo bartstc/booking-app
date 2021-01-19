@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
-import { getEnterprises, getEnterprisesKey } from 'modules/enterprise/api';
-import { getFacilities, getFacilitiesKey } from 'modules/facility/api';
+import { getEnterprises, getEnterprisesKey } from 'modules/enterprise/infrastructure/query';
+import { getFacilities, getFacilitiesKey } from 'modules/facility/infrastructure/query';
 import { IEnterprise } from 'modules/enterprise/types';
 import { IFacility } from 'modules/facility/types';
 
