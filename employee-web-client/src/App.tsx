@@ -2,18 +2,7 @@ import React from 'react';
 import * as Yup from 'yup';
 import { VStack, Box, Heading } from '@chakra-ui/react';
 
-import {
-  DateField,
-  Form,
-  MaskedInputField,
-  SubmitButton,
-  ContactSelectField,
-  InputField,
-  masks,
-  SelectField,
-  CurrencySelectField,
-  MoneyInputField,
-} from './shared/Form';
+import { DateField, Form, MaskedInputField, SubmitButton, ContactSelectField, InputField, masks, SelectField } from './shared/Form';
 import { OptionType } from './types';
 import { useRequiredFieldMessage } from './utils/messages';
 
@@ -82,10 +71,6 @@ function App() {
         <VStack>
           <InputField name='test1' label='Input field' id='test-field-1' tip='test tip' />
           <InputField name='test2' label='Password field' id='test-field-2' type='password' />
-          <MoneyInputField label='Money field' name='money' id='money-field' />
-          <MoneyInputField label='Money with currency field' name='moneyWithCurrency.value' id='money-with-currency-field'>
-            <CurrencySelectField name='moneyWithCurrency.currency' moneyName='moneyWithCurrency.value' />
-          </MoneyInputField>
           <DateField name='date' label='Date field' id='test-date-field' />
           <ContactSelectField name='select' id='select' label='Select field' />
           <SelectField options={options} label='Multi select field' name='multiSelect' id='multi-select-field' isMulti={true} />

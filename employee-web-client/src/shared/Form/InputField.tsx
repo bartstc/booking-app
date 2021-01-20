@@ -1,9 +1,10 @@
 import React, { ElementType } from 'react';
-import { Input, InputGroup, InputRightElement, Interpolation, useColorModeValue } from '@chakra-ui/react';
+import { InputGroup, InputRightElement, Interpolation, useColorModeValue } from '@chakra-ui/react';
 import { mdiAlertCircle, mdiCheckCircle } from '@mdi/js';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
 import { Icon } from '../Icon';
+import { Input } from '../Inputs/Input';
 
 export type InputFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> & FieldPrototypeProps & { as?: ElementType };
 

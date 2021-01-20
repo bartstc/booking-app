@@ -1,11 +1,10 @@
 import React from 'react';
 import { Interpolation } from '@chakra-ui/react';
-import { ReactDatePickerProps } from 'react-datepicker';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
-import { DatePicker } from '../Date';
+import { DateInput, DateInputProps } from '../Inputs/DateInput';
 
-type IProps = Omit<ReactDatePickerProps, 'onChange'> & FieldPrototypeProps;
+type IProps = Omit<DateInputProps, 'onChange'> & FieldPrototypeProps;
 
 const DateField = ({ name, label, required, disabled, helperText, id, tip, css, ...props }: IProps) => {
   return (
@@ -20,7 +19,7 @@ const DateField = ({ name, label, required, disabled, helperText, id, tip, css, 
       css={css as Interpolation<Record<string, unknown>>}
     >
       {(_, fieldProps, isInvalid) => {
-        return <DatePicker isInvalid={isInvalid} {...props} {...fieldProps} />;
+        return <DateInput isInvalid={isInvalid} {...props} {...fieldProps} />;
       }}
     </FieldPrototype>
   );

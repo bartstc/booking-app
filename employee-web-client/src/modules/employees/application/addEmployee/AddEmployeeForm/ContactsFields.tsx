@@ -33,7 +33,7 @@ const ContactsFields = () => {
               />
             </chakra.div>
             <HStack width='100%' align='flex-start' spacing={4}>
-              {field.type === ContactType.Phone || field.type === ContactType.Fax ? (
+              {watch(typeName) === ContactType.Phone || watch(typeName) === ContactType.Fax ? (
                 <MaskedInputField
                   label={<FormattedMessage id='contact' defaultMessage='Contact' />}
                   name={valueName}
@@ -46,15 +46,18 @@ const ContactsFields = () => {
                   name={`contacts[${index}].value`}
                   label={<FormattedMessage id='contact' defaultMessage='Contact' />}
                   id={`contacts[${index}].value`}
+                  disabled={!watch(typeName)}
                 />
               )}
-              <IconButton
-                title={formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
-                colorScheme='red'
-                path={mdiDelete}
-                onClick={() => remove(index)}
-                mt='32px !important'
-              />
+              {fields.length > 1 && (
+                <IconButton
+                  title={formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
+                  colorScheme='red'
+                  path={mdiDelete}
+                  onClick={() => remove(index)}
+                  mt='32px !important'
+                />
+              )}
             </HStack>
           </Stack>
         );

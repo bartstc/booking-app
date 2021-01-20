@@ -3,9 +3,9 @@ import NumberFormat, { NumberFormatProps, NumberFormatValues } from 'react-numbe
 import currency from 'currency.js';
 import { Input } from '@chakra-ui/react';
 
-export interface MoneyInputProps extends NumberFormatProps {
+export type MoneyInputProps = NumberFormatProps & {
   value: number | string;
-}
+};
 
 const MoneyInput = ({ hasError, value, ...props }: MoneyInputProps) => {
   const formatProps: NumberFormatProps = {

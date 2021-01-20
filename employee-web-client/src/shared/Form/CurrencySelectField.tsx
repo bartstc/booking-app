@@ -5,9 +5,9 @@ import { useIntl } from 'react-intl';
 
 import { Currency, OptionType } from 'types';
 
-import { Select, SelectProps } from '../Select';
+import { SelectInput, SelectInputProps } from '../Inputs/SelectInput';
 
-interface IProps extends Omit<SelectProps, 'options'> {
+interface IProps extends Omit<SelectInputProps, 'options'> {
   name: string;
   moneyName: string;
 }
@@ -42,7 +42,7 @@ const CurrencySelectField = ({ name, moneyName, ...props }: IProps) => {
       name={name}
       render={fieldProps => {
         return (
-          <Select
+          <SelectInput
             {...props}
             options={options}
             inputId={name}

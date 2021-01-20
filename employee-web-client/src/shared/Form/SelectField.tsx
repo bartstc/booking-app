@@ -5,12 +5,12 @@ import { ValueType } from 'react-select';
 import { OptionType } from 'types';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
-import { Select, SelectProps } from '../Select';
 import { useRequiredFieldMessage } from '../../utils/messages';
+import { SelectInput, SelectInputProps } from '../Inputs/SelectInput';
 
 type Options = OptionType[];
 
-export type SelectFieldProps = SelectProps &
+export type SelectFieldProps = SelectInputProps &
   FieldPrototypeProps & {
     onChangeEffect?: (option: ValueType<OptionType, boolean> | null | undefined) => void;
   };
@@ -95,7 +95,7 @@ const SelectField = ({
       css={css as Interpolation<Record<string, unknown>>}
     >
       {({ formState: { isSubmitting }, setValue, clearErrors, setError }, { value, ...fieldProps }, isInvalid) => (
-        <Select
+        <SelectInput
           isDisabled={isSubmitting}
           {...fieldProps}
           {...selectProps}

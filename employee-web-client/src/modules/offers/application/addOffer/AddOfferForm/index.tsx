@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, VStack } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { CurrencySelectField, Form, InputField, MoneyInputField, SelectField } from 'shared/Form';
+import { CurrencySelectField, Form, InputField, MoneyField, SelectField } from 'shared/Form';
 
 import { IAddOfferDto } from '../../../dto';
 import { PriceModel } from '../../../types';
@@ -58,13 +58,13 @@ const AddOfferForm = ({ onSubmit }: IProps) => {
           />
         </Box>
         <Box w='100%' maxW='445px'>
-          <MoneyInputField
+          <MoneyField
             label={<FormattedMessage id='service-value' defaultMessage={`Service's value`} />}
             name='price.value'
             id='price-value'
           >
             <CurrencySelectField name='price.currency' moneyName='price.value' />
-          </MoneyInputField>
+          </MoneyField>
         </Box>
         <Box w='100%' maxW='300px'>
           <SelectField

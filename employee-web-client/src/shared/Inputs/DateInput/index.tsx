@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import ReactDate, { ReactDatePickerProps, registerLocale } from 'react-datepicker';
 import dayjs from 'dayjs';
@@ -10,11 +11,11 @@ import { DatePickerStyles } from './DatePickerStyles';
 
 registerLocale('en-GB', en);
 
-interface IProps extends ReactDatePickerProps {
-  isInvalid: boolean;
-}
+export type DateInputProps = ReactDatePickerProps & {
+  isInvalid?: boolean;
+};
 
-const DatePicker = ({ isInvalid, value, onChange, ...props }: IProps) => {
+const DateInput = ({ isInvalid = false, value, onChange, ...props }: DateInputProps) => {
   const { colors } = useTheme();
   const invalidColor = useColorModeValue(colors.red[500], colors.red[300]);
   const validColor = useColorModeValue(colors.gray[200], colors.gray[600]);
@@ -52,19 +53,17 @@ const DatePicker = ({ isInvalid, value, onChange, ...props }: IProps) => {
         selected={value ? new Date(value) : null}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        onChange={(value, event) => {
+        onChange={(value: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined) => {
           if (!value || Array.isArray(value)) {
             onChange(value, event);
             return;
           }
 
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const date = dayjs(value as any)
             .hour(23)
             .minute(59)
             .second(59);
 
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onChange(date.format(dateFormat) as any, event);
         }}
       />
@@ -72,4 +71,4 @@ const DatePicker = ({ isInvalid, value, onChange, ...props }: IProps) => {
   );
 };
 
-export { DatePicker };
+export { DateInput };

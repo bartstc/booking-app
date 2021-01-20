@@ -1,17 +1,25 @@
 import React from 'react';
 import ReactSelect, { NamedProps } from 'react-select';
-import { useIntl } from 'react-intl';
 import { useColorModeValue, useTheme } from '@chakra-ui/react';
 
-import { OptionType } from 'types';
-
-export interface SelectProps extends NamedProps<OptionType, boolean> {
-  options: OptionType[];
-  isInvalid?: boolean;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface OptionType<T = any> {
+  label: string;
+  value: T;
 }
 
-const Select = ({ isInvalid, isClearable = true, ...props }: SelectProps) => {
-  const { formatMessage } = useIntl();
+export type SelectInputProps = NamedProps<OptionType, boolean> & {
+  options: OptionType[];
+  isInvalid?: boolean;
+};
+
+const SelectInput = ({
+  isInvalid,
+  isClearable = true,
+  noOptionsMessage = () => 'No options',
+  loadingMessage = () => 'Loading...',
+  ...props
+}: SelectInputProps) => {
   const { colors } = useTheme();
   const textColor = useColorModeValue(colors.gray[700], colors.white);
   const focusColor = useColorModeValue(colors.blue[500], colors.blue[300]);
@@ -25,13 +33,8 @@ const Select = ({ isInvalid, isClearable = true, ...props }: SelectProps) => {
     <ReactSelect
       placeholder=''
       isClearable={isClearable}
-      noOptionsMessage={() =>
-        formatMessage({
-          id: 'select-no-results',
-          defaultMessage: 'No options',
-        })
-      }
-      loadingMessage={() => formatMessage({ id: 'select-loading', defaultMessage: 'Loading...' })}
+      noOptionsMessage={noOptionsMessage}
+      loadingMessage={loadingMessage}
       className='react-select-container'
       classNamePrefix='react-select'
       {...props}
@@ -70,4 +73,4 @@ const Select = ({ isInvalid, isClearable = true, ...props }: SelectProps) => {
   );
 };
 
-export { Select };
+export { SelectInput };

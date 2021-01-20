@@ -1,8 +1,8 @@
 import React from 'react';
-import MaskedInput, { MaskedInputProps } from 'react-text-mask';
 import { useFormContext } from 'react-hook-form';
 
 import { InputField, InputFieldProps } from './InputField';
+import { MaskedInput, MaskedInputProps } from '../Inputs/MaskedInput';
 
 type MaskedInputFieldProps = InputFieldProps & MaskedInputProps;
 

@@ -5,11 +5,11 @@ import { get } from 'lodash';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
 import { Icon } from '../Icon';
-import { MoneyInput, MoneyInputProps } from '../Money';
+import { MoneyInput, MoneyInputProps } from '../Inputs/MoneyInput';
 
-export type InputFieldProps = Omit<MoneyInputProps, 'value'> & FieldPrototypeProps;
+export type MoneyFieldProps = Omit<MoneyInputProps, 'value'> & FieldPrototypeProps;
 
-const MoneyInputField = ({ name, label, required, disabled, helperText, id, tip, css, children, ...props }: InputFieldProps) => {
+const MoneyField = ({ name, label, required, disabled, helperText, id, tip, css, children, ...props }: MoneyFieldProps) => {
   const invalidColor = useColorModeValue('red.500', 'red.300');
   const validColor = useColorModeValue('green.500', 'green.300');
 
@@ -51,4 +51,4 @@ const MoneyInputField = ({ name, label, required, disabled, helperText, id, tip,
   );
 };
 
-export { MoneyInputField };
+export { MoneyField };
