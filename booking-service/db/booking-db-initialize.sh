@@ -9,6 +9,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname booking <<-EOSQL
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
     CREATE SCHEMA booking;
+    CREATE SCHEMA facility;
     CREATE SCHEMA app;
 
     CREATE TABLE booking.bookings (
@@ -33,6 +34,14 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname booking <<-EOSQL
         CONSTRAINT fk_booking
             FOREIGN KEY(booking_id)
             REFERENCES booking.bookings(booking_id)
+    );
+
+    CREATE TABLE facility.offers (
+        offer_id uuid PRIMARY KEY,
+        facility_id uuid NOT NULL,
+        price numeric NOT NULL,
+        currency varchar(5) NOT NULL,
+        duration smallint NOT NULL
     );
 
     CREATE TABLE app.outbox_notifications (
