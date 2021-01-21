@@ -24,6 +24,7 @@ const ContactsFields = ({ namePrefix = 'contacts' }: IProps) => {
       {fields.map((field, index) => {
         const typeName = `${namePrefix}[${index}].type`;
         const valueName = `${namePrefix}[${index}].value`;
+        const isFirst = index === 0;
 
         return (
           <Stack spacing={4} w='100%' key={field.id} direction={{ base: 'column', md: 'row' }} align='flex-start'>
@@ -32,8 +33,9 @@ const ContactsFields = ({ namePrefix = 'contacts' }: IProps) => {
                 name={typeName}
                 id={typeName}
                 label={<FormattedMessage id='contact-type' defaultMessage='Type' />}
-                defaultValue={field.type}
+                defaultValue={isFirst ? ContactType.Phone : field.type}
                 onChangeEffect={() => setValue(valueName, '')}
+                disabled={isFirst}
               />
             </chakra.div>
             <HStack width='100%' align='flex-start' spacing={4}>
@@ -53,7 +55,7 @@ const ContactsFields = ({ namePrefix = 'contacts' }: IProps) => {
                   disabled={!watch(typeName)}
                 />
               )}
-              {fields.length > 1 && (
+              {!isFirst && (
                 <IconButton
                   title={formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
                   colorScheme='red'

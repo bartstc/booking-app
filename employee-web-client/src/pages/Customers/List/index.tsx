@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@chakra-ui/react';
 
 import { getCustomers, getCustomersKey } from 'modules/customers/infrastructure/query';
-import { ICustomerCollection } from 'modules/customers/types';
+import { ICustomerCollection, ICustomerCollectionQueryParams } from 'modules/customers/types';
 import { useFacilityConsumer } from 'modules/context';
 
 import { useInfiniteQuery } from 'hooks/useInfiniteQuery';
@@ -15,7 +15,7 @@ import { EmptyState } from 'shared/States';
 import { ListItem } from './ListItem';
 
 const List = () => {
-  const { params } = useQueryParams();
+  const { params } = useQueryParams<ICustomerCollectionQueryParams>();
   const { facilityId } = useFacilityConsumer();
 
   const limit = 10;

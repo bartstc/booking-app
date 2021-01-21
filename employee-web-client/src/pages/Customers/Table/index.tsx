@@ -5,14 +5,14 @@ import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
 import { getCustomers, getCustomersKey } from 'modules/customers/infrastructure/query';
 import { useQueryParams } from 'shared/Params';
-import { ICustomerCollection } from 'modules/customers/types';
+import { ICustomerCollection, ICustomerCollectionQueryParams } from 'modules/customers/types';
 import { useFacilityConsumer } from 'modules/context';
 
 import { Header } from './Header';
 import { Row } from './Row';
 
 const Table = () => {
-  const { params } = useQueryParams();
+  const { params } = useQueryParams<ICustomerCollectionQueryParams>();
   const { facilityId } = useFacilityConsumer();
 
   return (

@@ -2,10 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89fe5609-bc9f-408d-bd59-f4eb302173f5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/customers/application/addCustomer/AddCustomerForm/useValidationSchema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/customers/application/addCustomer/useAddCustomerNotification.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/customers/dto/IAddCustomerDto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/customers/dto/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/customers/infrastructure/command/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/customers/infrastructure/command/useAddCustomer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/employee-web-client/src/modules/customers/types/ICustomerCollectionQueryParams.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/addEmployee/AddEmployeeForm/ContactsFields.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Form/Implementations/ContactsFields.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/addEmployee/AddEmployeeForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/addEmployee/AddEmployeeForm/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Form/Implementations/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Form/Implementations/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/modules/customers/infrastructure/query/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/modules/customers/infrastructure/query/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/modules/customers/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/modules/customers/types/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/pages/Customers/List/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/pages/Customers/List/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/pages/Customers/Table/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/pages/Customers/Table/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Form/Implementations/ContactsFields.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Form/Implementations/ContactsFields.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Form/SelectField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Form/SelectField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee-web-client/src/shared/Inputs/SelectInput/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/employee-web-client/src/shared/Inputs/SelectInput/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +37,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/employee-web-client/src/modules/offers/infrastructure/command" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/employee-web-client/src/modules/customers/application/addCustomer" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -40,18 +51,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/customers/application/addCustomer" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/modules/offers/infrastructure/command" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/modules/offers/application" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/shared" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/modules/offers/application/addOffer" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/deactivateEmployee" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/customers/dto" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/shared/Form/Implementations" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/pages/Offers/Table" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/pages/Employees/Table" />
       <recent name="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/activateEmployee" />
-      <recent name="$PROJECT_DIR$/employee-web-client/src/modules/employees/application/addEmployee/AddEmployeeForm" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -121,7 +132,7 @@
       <workItem from="1611204713250" duration="67000" />
       <workItem from="1611233731304" duration="497000" />
       <workItem from="1611245969092" duration="1812000" />
-      <workItem from="1611256972338" duration="528000" />
+      <workItem from="1611256972338" duration="2940000" />
     </task>
     <servers />
   </component>
