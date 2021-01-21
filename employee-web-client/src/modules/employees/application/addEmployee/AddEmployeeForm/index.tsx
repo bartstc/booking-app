@@ -4,9 +4,9 @@ import { VStack, Box } from '@chakra-ui/react';
 
 import { ContactType } from 'types';
 import { DateField, Form, InputField } from 'shared/Form';
+import { ContactsFields } from 'shared/Form/Implementations';
 
 import { useValidationSchema } from './useValidationSchema';
-import { ContactsFields } from './ContactsFields';
 import { IAddEmployeeDto } from '../../../dto';
 
 interface IProps {
