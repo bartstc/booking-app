@@ -25,6 +25,7 @@ const Header = () => {
       <HeaderCell name='priceType' display={{ base: 'none', lg: 'flex' }}>
         <FormattedMessage id='price-type' defaultMessage='Price type' />
       </HeaderCell>
+      <HeaderCell>{''}</HeaderCell>
     </GridHeader>
   );
 };

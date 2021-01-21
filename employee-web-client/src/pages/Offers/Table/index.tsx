@@ -24,9 +24,9 @@ const Table = () => {
             itemsCount={collection.length}
             rowGap={1}
             templateColumns={{
-              base: '80px repeat(2, 1fr)',
-              md: '80px 2fr repeat(3, 1fr)',
-              lg: '80px 2fr repeat(4, 1fr)',
+              base: '80px repeat(2, 1fr) max(110px)',
+              md: '80px 2fr repeat(3, 1fr) max(110px)',
+              lg: '80px 2fr repeat(4, 1fr) max(110px)',
             }}
             mb={4}
           >

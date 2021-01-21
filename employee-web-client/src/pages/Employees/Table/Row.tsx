@@ -10,7 +10,7 @@ import { ContactType } from 'types';
 
 import { IEmployee } from 'modules/employees/types';
 import { EmployeeStatusBadge } from 'modules/employees/shared';
-import { StatusActionButtons } from '../StatusActionButtons';
+import { StatusActionButtons } from './StatusActionButtons';
 
 interface IProps {
   index: number;
