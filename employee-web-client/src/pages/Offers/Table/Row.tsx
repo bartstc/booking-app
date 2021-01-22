@@ -7,6 +7,8 @@ import { GridItem, TruncatedCell } from 'shared/Grid';
 import { IOffer } from 'modules/offers/types';
 import { OfferStatusBadge, PriceModelBadge } from 'modules/offers/shared';
 
+import { StatusActionButtons } from './StatusActionButtons';
+
 interface IProps {
   index: number;
   offer: IOffer;
@@ -30,6 +32,9 @@ const Row = ({ index, offer }: IProps) => {
       </TruncatedCell>
       <TruncatedCell display={{ base: 'none', lg: 'flex' }}>
         <PriceModelBadge type={offer.price.type} />
+      </TruncatedCell>
+      <TruncatedCell justify='flex-end'>
+        <StatusActionButtons offerId={offer.offerId} status={offer.status} />
       </TruncatedCell>
     </GridItem>
   );

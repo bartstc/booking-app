@@ -10,16 +10,21 @@ import { ContactSelectField } from 'shared/Form/Implementations';
 import { InputField, MaskedInputField, masks } from 'shared/Form';
 import { Button, IconButton } from 'shared/Button';
 
-const ContactsFields = () => {
+interface IProps {
+  namePrefix?: string;
+}
+
+const ContactsFields = ({ namePrefix = 'contacts' }: IProps) => {
   const { formatMessage } = useIntl();
   const { control, setValue, watch } = useFormContext();
-  const { fields, append, remove } = useFieldArray({ control, name: 'contacts' });
+  const { fields, append, remove } = useFieldArray({ control, name: namePrefix });
 
   return (
     <VStack w='100%' align='flex-start'>
       {fields.map((field, index) => {
-        const typeName = `contacts[${index}].type`;
-        const valueName = `contacts[${index}].value`;
+        const typeName = `${namePrefix}[${index}].type`;
+        const valueName = `${namePrefix}[${index}].value`;
+        const isFirst = index === 0;
 
         return (
           <Stack spacing={4} w='100%' key={field.id} direction={{ base: 'column', md: 'row' }} align='flex-start'>
@@ -28,8 +33,9 @@ const ContactsFields = () => {
                 name={typeName}
                 id={typeName}
                 label={<FormattedMessage id='contact-type' defaultMessage='Type' />}
-                defaultValue={field.type}
+                defaultValue={isFirst ? ContactType.Phone : field.type}
                 onChangeEffect={() => setValue(valueName, '')}
+                disabled={isFirst}
               />
             </chakra.div>
             <HStack width='100%' align='flex-start' spacing={4}>
@@ -43,13 +49,13 @@ const ContactsFields = () => {
                 />
               ) : (
                 <InputField
-                  name={`contacts[${index}].value`}
+                  name={valueName}
                   label={<FormattedMessage id='contact' defaultMessage='Contact' />}
-                  id={`contacts[${index}].value`}
+                  id={valueName}
                   disabled={!watch(typeName)}
                 />
               )}
-              {fields.length > 1 && (
+              {!isFirst && (
                 <IconButton
                   title={formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
                   colorScheme='red'

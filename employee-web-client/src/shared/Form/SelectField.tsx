@@ -10,7 +10,7 @@ import { SelectInput, SelectInputProps } from '../Inputs/SelectInput';
 
 type Options = OptionType[];
 
-export type SelectFieldProps = SelectInputProps &
+export type SelectFieldProps = Omit<SelectInputProps, 'isDisabled'> &
   FieldPrototypeProps & {
     onChangeEffect?: (option: ValueType<OptionType, boolean> | null | undefined) => void;
   };
@@ -96,7 +96,7 @@ const SelectField = ({
     >
       {({ formState: { isSubmitting }, setValue, clearErrors, setError }, { value, ...fieldProps }, isInvalid) => (
         <SelectInput
-          isDisabled={isSubmitting}
+          isDisabled={isSubmitting || disabled}
           {...fieldProps}
           {...selectProps}
           isMulti={isMulti}

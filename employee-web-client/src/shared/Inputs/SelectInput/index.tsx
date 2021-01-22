@@ -39,8 +39,9 @@ const SelectInput = ({
       classNamePrefix='react-select'
       {...props}
       styles={{
-        control: (base, { isFocused }) => ({
+        control: (base, { isFocused, isDisabled }) => ({
           ...base,
+          opacity: isDisabled ? '.6' : '1',
           backgroundColor: 'transparent',
           border: 'none',
           outline: 'none',

@@ -1,5 +1,5 @@
 import React, { ElementType } from 'react';
-import { InputGroup, InputRightElement, Interpolation, useColorModeValue } from '@chakra-ui/react';
+import { InputGroup, InputRightElement, Interpolation, useColorModeValue, Textarea } from '@chakra-ui/react';
 import { mdiAlertCircle, mdiCheckCircle } from '@mdi/js';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
@@ -8,7 +8,7 @@ import { Input } from '../Inputs/Input';
 
 export type InputFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> & FieldPrototypeProps & { as?: ElementType };
 
-const InputField = ({ name, label, required, disabled, helperText, id, tip, css, ...props }: InputFieldProps) => {
+const InputField = ({ name, label, required, disabled, helperText, id, tip, css, as, ...props }: InputFieldProps) => {
   const invalidColor = useColorModeValue('red.500', 'red.300');
   const validColor = useColorModeValue('green.500', 'green.300');
 
@@ -24,10 +24,12 @@ const InputField = ({ name, label, required, disabled, helperText, id, tip, css,
       css={css as Interpolation<Record<string, unknown>>}
     >
       {({ formState: { touched } }, fieldProps, isInvalid) => {
+        const isTextarea = as === 'textarea';
+
         return (
           <InputGroup>
-            <Input {...fieldProps} {...props} id={name} />
-            {touched[name] && (
+            <Input {...fieldProps} {...props} as={isTextarea ? Textarea : as} id={name} />
+            {touched[name] && !isTextarea && (
               <InputRightElement>
                 <div>
                   <Icon path={isInvalid ? mdiAlertCircle : mdiCheckCircle} color={isInvalid ? invalidColor : validColor} size='24px' />

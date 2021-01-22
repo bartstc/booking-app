@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Heading, Text, VStack } from '@chakra-ui/react';
+import { Flex, Heading, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { mdiAccount } from '@mdi/js';
 import { isMobileOnly } from 'react-device-detect';
@@ -7,8 +7,11 @@ import { isMobileOnly } from 'react-device-detect';
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 
+import { AddCustomerModal } from './AddCustomerModal';
+
 const Header = () => {
   const { formatMessage } = useIntl();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const title = formatMessage({
     id: 'add-customer',
@@ -25,10 +28,17 @@ const Header = () => {
           <FormattedMessage id='customers-subheading' defaultMessage='Manage your customer list' />
         </Text>
       </VStack>
+      <AddCustomerModal isOpen={isOpen} onClose={onClose} />
       {isMobileOnly ? (
-        <IconButton colorScheme='primary' variant='solid' title={title} icon={<Icon path={mdiAccount} color='gray.800' />} />
+        <IconButton
+          colorScheme='primary'
+          variant='solid'
+          title={title}
+          icon={<Icon path={mdiAccount} color='gray.800' />}
+          onClick={onOpen}
+        />
       ) : (
-        <Button colorScheme='primary' leftIcon={<Icon path={mdiAccount} />}>
+        <Button colorScheme='primary' leftIcon={<Icon path={mdiAccount} />} onClick={onOpen}>
           {title}
         </Button>
       )}
