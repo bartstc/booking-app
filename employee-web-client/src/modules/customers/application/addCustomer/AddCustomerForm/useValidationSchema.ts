@@ -12,7 +12,7 @@ export const useValidationSchema = () => {
 
   return yup.object().shape<IAddCustomerDto>({
     fullName: yup.string().required(requiredMessage).min(1).max(999),
-    birthDate: yup.string().required(requiredMessage),
+    birthDate: yup.string().required(requiredMessage).nullable(true) as yup.Schema<string>,
     description: yup.string().required(requiredMessage).min(1).max(9999),
     contacts: contactsValidationSchema,
     address: yup.object().shape<IAddress>({

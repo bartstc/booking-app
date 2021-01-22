@@ -10,8 +10,8 @@ export const useValidationSchema = () => {
 
   return yup.object().shape<IAddEmployeeDto>({
     employeeName: yup.string().required(requiredMessage).min(1).max(999),
-    birthDate: yup.string().required(requiredMessage),
-    employmentDate: yup.string().required(requiredMessage),
+    birthDate: yup.string().required(requiredMessage).nullable(true) as yup.Schema<string>,
+    employmentDate: yup.string().required(requiredMessage).nullable(true) as yup.Schema<string>,
     position: yup.string().required(requiredMessage).min(1).max(999),
     contacts: contactsValidationSchema,
   });

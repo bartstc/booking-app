@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { VStack, Box } from '@chakra-ui/react';
 
 import { ContactType } from 'types';
-import { DateField, Form, InputField } from 'shared/Form';
+import { DateField, Form, InputField, MaskedInputField, masks } from 'shared/Form';
 import { ContactsFields } from 'shared/Form/Implementations';
 
 import { useValidationSchema } from './useValidationSchema';
@@ -46,13 +46,13 @@ const AddCustomerForm = ({ onSubmit }: IProps) => {
         <Box w='100%' maxW='300px'>
           <InputField name='address.city' label={<FormattedMessage id='city' defaultMessage='City' />} id='address-city' />
           <InputField name='address.street' label={<FormattedMessage id='street' defaultMessage='Street' />} id='address-street' />
-          <InputField
+          <MaskedInputField
             name='address.postCode'
             label={<FormattedMessage id='post-code' defaultMessage='Post code' />}
             id='address-post-code'
+            mask={masks.postCode}
           />
         </Box>
-        <ContactsFields />
         <Box w='100%'>
           <InputField
             name='description'
@@ -61,6 +61,7 @@ const AddCustomerForm = ({ onSubmit }: IProps) => {
             id='customer-description'
           />
         </Box>
+        <ContactsFields />
       </VStack>
     </Form>
   );
