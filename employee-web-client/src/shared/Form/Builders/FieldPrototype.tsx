@@ -1,9 +1,18 @@
-import React, { ReactElement, ReactNode } from 'react';
-import { useFormContext, UseFormMethods, Controller, ControllerRenderProps } from 'react-hook-form';
+import React, { ComponentType, ReactElement, ReactNode } from 'react';
+import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
 import { SystemStyleObject } from '@chakra-ui/styled-system';
 import { get } from 'lodash';
+import { Text } from '@chakra-ui/react';
+
+import { OverrideUseFormMethods } from 'typings/react-hook-form';
 
 import { FieldControl, IFieldControlProps } from './FieldControl';
+import { FormStatus } from '../FormStatus';
+
+interface ReadModeProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  value: any;
+}
 
 export interface FieldPrototypeProps {
   name: string;
@@ -14,22 +23,44 @@ export interface FieldPrototypeProps {
   tip?: ReactNode | string;
   helperText?: ReactNode;
   css?: SystemStyleObject;
+  readModeComponent?: ComponentType<ReadModeProps>;
+}
+
+interface InnerPrototypeProps {
+  isInvalid: boolean;
 }
 
 interface IProps extends Omit<IFieldControlProps, 'children' | 'errorText'> {
-  children: (methods: UseFormMethods, controllerProps: ControllerRenderProps, isInvalid: boolean) => ReactElement;
+  children: (methods: OverrideUseFormMethods, controllerProps: ControllerRenderProps, innerProps: InnerPrototypeProps) => ReactElement;
+  readModeComponent?: ComponentType<ReadModeProps>;
 }
 
-const FieldPrototype = ({ children, name, isRequired = true, ...props }: IProps) => {
+const ReadMode = ({ value }: ReadModeProps) => {
+  return <Text>{value ? value : '---'}</Text>;
+};
+
+const FieldPrototype = ({ children, name, isRequired = true, readModeComponent = ReadMode, ...props }: IProps) => {
   const methods = useFormContext();
   const isInvalid = Boolean(get(methods.errors, name));
+  const ReadModeComponent = readModeComponent;
 
   return (
-    <FieldControl errorText={get(methods.errors, name)?.message} isInvalid={isInvalid} name={name} isRequired={isRequired} {...props}>
+    <FieldControl
+      errorText={get(methods.errors, name)?.message}
+      isInvalid={isInvalid}
+      name={name}
+      isRequired={isRequired}
+      isReadMode={methods.status === FormStatus.Read_mode}
+      {...props}
+    >
       <Controller
         name={name}
         render={props => {
-          return children(methods, props, isInvalid);
+          if (methods.status === FormStatus.Read_mode) {
+            return <ReadModeComponent value={props.value} />;
+          }
+
+          return children(methods, props, { isInvalid });
         }}
       />
     </FieldControl>

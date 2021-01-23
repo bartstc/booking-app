@@ -1,11 +1,12 @@
 import React from 'react';
-import { InputGroup, InputRightElement, Interpolation, useColorModeValue, Flex, chakra } from '@chakra-ui/react';
+import { InputGroup, InputRightElement, Interpolation, useColorModeValue, Flex, chakra, Text } from '@chakra-ui/react';
 import { mdiAlertCircle, mdiCheckCircle } from '@mdi/js';
 import { get } from 'lodash';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
 import { Icon } from '../Icon';
 import { MoneyInput, MoneyInputProps } from '../Inputs/MoneyInput';
+import { MoneyText } from '../Money';
 
 export type MoneyFieldProps = Omit<MoneyInputProps, 'value'> & FieldPrototypeProps;
 
@@ -23,8 +24,19 @@ const MoneyField = ({ name, label, required, disabled, helperText, id, tip, css,
       id={id}
       label={label}
       css={css as Interpolation<Record<string, unknown>>}
+      readModeComponent={({ value }) => {
+        if (!value) {
+          return <Text>---</Text>;
+        }
+
+        return (
+          <Text>
+            <MoneyText value={value} /> {children}
+          </Text>
+        );
+      }}
     >
-      {({ formState: { touched } }, fieldProps, isInvalid) => {
+      {({ formState: { touched } }, fieldProps, { isInvalid }) => {
         return (
           <InputGroup>
             <Flex w='100%'>

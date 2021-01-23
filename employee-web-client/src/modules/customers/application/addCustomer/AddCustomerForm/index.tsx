@@ -57,6 +57,7 @@ const AddCustomerForm = ({ onSubmit }: IProps) => {
           <InputField
             name='description'
             as='textarea'
+            required={false}
             label={<FormattedMessage id='description' defaultMessage='Description' />}
             id='customer-description'
           />

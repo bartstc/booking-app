@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalFooter, ModalBody, ModalHeader } from '@chakra-ui/react';
 
 import { Button } from 'shared/Button';
+import { SubmitButton } from 'shared/Form';
 
 import { AddEmployeeForm, useAddEmployeeNotification } from 'modules/employees/application/addEmployee';
 import { useFacilityConsumer } from 'modules/context';
@@ -42,9 +43,7 @@ const AddEmployeeModal = ({ isOpen, onClose }: IProps) => {
           />
         </ModalBody>
         <ModalFooter>
-          <Button isLoading={isLoading} colorScheme='green' type='submit' form='add-employee-form'>
-            <FormattedMessage id='submit' defaultMessage='Submit' />
-          </Button>
+          <SubmitButton isLoading={isLoading} colorScheme='green' type='submit' form='add-employee-form' />
           <Button colorScheme='gray' ml={3} onClick={onClose}>
             <FormattedMessage id='close' defaultMessage='Close' />
           </Button>

@@ -7,7 +7,7 @@ import { IAddress } from 'modules/customers/domain/types';
 
 export const addCustomerSchema = yup.object().shape<AddCustomerDto>({
   fullName: yup.string().required().min(1).max(999),
-  description: yup.string().min(1).max(9999),
+  description: yup.string().max(9999),
   birthDate: yup.date().required(),
   address: yup.object().shape<IAddress>({
     street: yup.string().max(300).trim().required(),

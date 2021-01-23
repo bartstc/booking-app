@@ -13,6 +13,70 @@ export type SelectInputProps = NamedProps<OptionType, boolean> & {
   isInvalid?: boolean;
 };
 
+type Options = OptionType[];
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getValue = (value: unknown, isMulti: boolean): any => {
+  if (value === null || value === undefined) {
+    if (isMulti) {
+      return [];
+    }
+
+    return null;
+  }
+
+  return value;
+};
+
+const findOptions = (selectedValues: Array<unknown>, options: Options): Options => {
+  if (options.length === 0) {
+    return [];
+  }
+
+  if (selectedValues.length === 0) {
+    return [];
+  }
+
+  return selectedValues.map(selectedValue => {
+    const result = options.find(option => option.value === selectedValue)!;
+
+    if (result === undefined) {
+      return { label: selectedValue as string, value: selectedValue };
+    }
+
+    return result;
+  });
+};
+
+const findOption = (selectedValue: unknown, options: Options): OptionType | null => {
+  if (selectedValue === null) {
+    return null;
+  }
+
+  if (typeof selectedValue === 'object') {
+    throw new Error(`FormSelect: incorrect value type`);
+  }
+
+  return (
+    options.find(option => {
+      if (typeof option.value === 'object') {
+        throw new Error(`FormSelect: incorrect value type`);
+      }
+      return option.value === selectedValue;
+    }) || { label: selectedValue as string, value: selectedValue }
+  );
+};
+
+const getReadValue = (value: unknown, options: Options, isMulti: boolean) => {
+  if (isMulti) {
+    return findOptions(getValue(value, isMulti), options)
+      .map(opt => opt.label)
+      .join(', ');
+  }
+  const option = findOption(getValue(value, isMulti), options) || { label: '' };
+  return option.label;
+};
+
 const SelectInput = ({
   isInvalid,
   isClearable = true,
@@ -24,6 +88,7 @@ const SelectInput = ({
   const textColor = useColorModeValue(colors.gray[700], colors.white);
   const focusColor = useColorModeValue(colors.blue[500], colors.blue[300]);
   const boxShadowColor = useColorModeValue(colors.gray[200], colors.gray[600]);
+  const multiValueLabelBg = useColorModeValue(colors.gray[100], colors.gray[400]);
   const listBgColor = useColorModeValue(colors.white, colors.gray[700]);
   const selectedBgColor = useColorModeValue(colors.blue[500], colors.blue[300]);
   const invalidColor = useColorModeValue(colors.red[500], colors.red[300]);
@@ -69,9 +134,18 @@ const SelectInput = ({
           ...base,
           color: placeholderColor,
         }),
+        multiValueLabel: base => ({
+          ...base,
+          backgroundColor: multiValueLabelBg,
+        }),
+        multiValueRemove: base => ({
+          ...base,
+          backgroundColor: multiValueLabelBg,
+          borderRadius: '0',
+        }),
       }}
     />
   );
 };
 
-export { SelectInput };
+export { SelectInput, getValue, getReadValue, findOption, findOptions };

@@ -1,10 +1,23 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { VStack, Box, Heading } from '@chakra-ui/react';
+import { VStack, Box, Heading, HStack } from '@chakra-ui/react';
 
-import { DateField, Form, MaskedInputField, SubmitButton, ContactSelectField, InputField, masks, SelectField } from './shared/Form';
-import { OptionType } from './types';
+import {
+  DateField,
+  Form,
+  MaskedInputField,
+  SubmitButton,
+  ContactSelectField,
+  InputField,
+  masks,
+  SelectField,
+  MoneyField,
+  CurrencySelectField,
+  WithReadMode,
+} from './shared/Form';
+import { Currency, OptionType } from './types';
 import { useRequiredFieldMessage } from './utils/messages';
+import { FormattedMessage } from 'react-intl';
 
 const options: OptionType[] = [
   {
@@ -55,16 +68,16 @@ function App() {
         onSubmit={model => alert(JSON.stringify(model, null, 2))}
         schema={schema}
         defaultValues={{
-          test1: '',
+          test1: 'Test value',
           test2: '',
-          date: '',
+          date: new Date().toISOString(),
           select: null,
-          multiSelect: null,
+          multiSelect: ['test1', 'test2'],
           phone: '',
           money: '',
           moneyWithCurrency: {
-            value: '',
-            currency: null,
+            value: '400',
+            currency: Currency.Pln,
           },
         }}
       >
@@ -75,7 +88,18 @@ function App() {
           <ContactSelectField name='select' id='select' label='Select field' />
           <SelectField options={options} label='Multi select field' name='multiSelect' id='multi-select-field' isMulti={true} />
           <MaskedInputField label='Masked input field' name='phone' id='phone' guide mask={masks.phone} />
-          <SubmitButton />
+          <MoneyField
+            label={<FormattedMessage id='money-field-test' defaultMessage={`Money field with currency`} />}
+            name='moneyWithCurrency.value'
+            id='price-value'
+          >
+            <CurrencySelectField name='moneyWithCurrency.currency' moneyName='moneyWithCurrency.value' />
+          </MoneyField>
+          <HStack>
+            <WithReadMode>
+              <SubmitButton />
+            </WithReadMode>
+          </HStack>
         </VStack>
       </Form>
     </Box>

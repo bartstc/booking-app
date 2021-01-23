@@ -1,5 +1,5 @@
 import React, { ElementType } from 'react';
-import { InputGroup, InputRightElement, Interpolation, useColorModeValue, Textarea } from '@chakra-ui/react';
+import { InputGroup, InputRightElement, Interpolation, Textarea, useColorModeValue } from '@chakra-ui/react';
 import { mdiAlertCircle, mdiCheckCircle } from '@mdi/js';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
@@ -23,7 +23,7 @@ const InputField = ({ name, label, required, disabled, helperText, id, tip, css,
       label={label}
       css={css as Interpolation<Record<string, unknown>>}
     >
-      {({ formState: { touched } }, fieldProps, isInvalid) => {
+      {({ formState: { touched } }, fieldProps, { isInvalid }) => {
         const isTextarea = as === 'textarea';
 
         return (

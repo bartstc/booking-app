@@ -21,16 +21,38 @@ export interface IFieldControlProps extends Omit<FormControlProps, 'helperText' 
   helperText?: ReactNode | string;
   errorText?: ReactNode | string;
   tip?: ReactNode | string;
+  isReadMode?: boolean;
 }
 
-const FieldControl = ({ errorText, helperText, label, children, tip, name, id, css, ...props }: IFieldControlProps) => {
+const FieldControl = ({
+  errorText,
+  helperText,
+  label,
+  children,
+  tip,
+  name,
+  id,
+  css,
+  isReadMode = false,
+  isRequired,
+  ...props
+}: IFieldControlProps) => {
   const infoIconColor = useColorModeValue('blue.500', 'blue.300');
 
   return (
-    <FormControl mb={4} {...css} id={id} {...props}>
+    <FormControl mb={isReadMode ? '10px' : 4} {...css} id={id} isRequired={isReadMode ? false : isRequired} {...props}>
       <HStack spacing={0}>
-        {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
-        {tip && (
+        {label && (
+          <FormLabel
+            lineHeight={isReadMode ? '7px' : 'auto'}
+            fontSize={isReadMode ? 'sm' : 'md'}
+            color={isReadMode ? 'gray.500' : 'auto'}
+            htmlFor={name}
+          >
+            {label}
+          </FormLabel>
+        )}
+        {tip && !isReadMode && (
           <Tooltip label={tip}>
             <chakra.div mb='8px'>
               <Icon path={mdiInformation} size='17px' color={infoIconColor} />

@@ -1,71 +1,17 @@
 import React from 'react';
-import { Interpolation } from '@chakra-ui/react';
+import { Interpolation, Text } from '@chakra-ui/react';
 import { ValueType } from 'react-select';
 
 import { OptionType } from 'types';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
 import { useRequiredFieldMessage } from '../../utils/messages';
-import { SelectInput, SelectInputProps } from '../Inputs/SelectInput';
-
-type Options = OptionType[];
+import { SelectInput, SelectInputProps, findOption, findOptions, getReadValue, getValue } from '../Inputs/SelectInput';
 
 export type SelectFieldProps = Omit<SelectInputProps, 'isDisabled'> &
   FieldPrototypeProps & {
     onChangeEffect?: (option: ValueType<OptionType, boolean> | null | undefined) => void;
   };
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getValue = (value: unknown, isMulti: boolean): any => {
-  if (value === null || value === undefined) {
-    if (isMulti) {
-      return [];
-    }
-
-    return null;
-  }
-
-  return value;
-};
-
-const findOptions = (selectedValues: Array<unknown>, options: Options): Options => {
-  if (options.length === 0) {
-    return [];
-  }
-
-  if (selectedValues.length === 0) {
-    return [];
-  }
-
-  return selectedValues.map(selectedValue => {
-    const result = options.find(option => option.value === selectedValue)!;
-
-    if (result === undefined) {
-      return { label: selectedValue as string, value: selectedValue };
-    }
-
-    return result;
-  });
-};
-
-const findOption = (selectedValue: unknown, options: Options): OptionType | null => {
-  if (selectedValue === null) {
-    return null;
-  }
-
-  if (typeof selectedValue === 'object') {
-    throw new Error(`FormSelect: incorrect value type`);
-  }
-
-  return (
-    options.find(option => {
-      if (typeof option.value === 'object') {
-        throw new Error(`FormSelect: incorrect value type`);
-      }
-      return option.value === selectedValue;
-    }) || { label: selectedValue as string, value: selectedValue }
-  );
-};
 
 const SelectField = ({
   name,
@@ -93,8 +39,19 @@ const SelectField = ({
       id={id}
       label={label}
       css={css as Interpolation<Record<string, unknown>>}
+      readModeComponent={({ value }) => {
+        if (!value) {
+          return <Text>---</Text>;
+        }
+
+        if (Array.isArray(value) && !value.length) {
+          return <Text>---</Text>;
+        }
+
+        return <Text>{getReadValue(value, options, isMulti!)}</Text>;
+      }}
     >
-      {({ formState: { isSubmitting }, setValue, clearErrors, setError }, { value, ...fieldProps }, isInvalid) => (
+      {({ formState: { isSubmitting }, setValue, clearErrors, setError }, { value, ...fieldProps }, { isInvalid }) => (
         <SelectInput
           isDisabled={isSubmitting || disabled}
           {...fieldProps}
