@@ -45,6 +45,26 @@
         }
     },
     {
+        "name": "IdentityServer Launch",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "identity-build",
+        "program": "${workspaceFolder}/identity-service/src/IdentityServer/bin/Debug/net5.0/IdentityServer.dll",
+        "args": [],
+        "cwd": "${workspaceFolder}/identity-service/src/IdentityServer",
+        "stopAtEntry": false,
+        "serverReadyAction": {
+            "action": "openExternally",
+            "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+        },
+        "env": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+        },
+        "sourceFileMap": {
+            "/Views": "${workspaceFolder}/Views"
+        }
+    },
+    {
         "name": ".NET Core Launch (console)",
         "type": "coreclr",
         "request": "launch",
