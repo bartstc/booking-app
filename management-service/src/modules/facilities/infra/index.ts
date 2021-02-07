@@ -1,4 +1,9 @@
-export { OfferQuery, OfferRepository, OfferEntity } from './typeorm/offer';
+export {
+  OfferQuery,
+  OfferRepository,
+  OfferEntity,
+  OfferTransformer,
+} from './typeorm/offer';
 export {
   EmployeeQuery,
   EmployeeRepository,

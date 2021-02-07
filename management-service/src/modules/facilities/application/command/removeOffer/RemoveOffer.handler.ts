@@ -14,8 +14,8 @@ import {
 } from '../../../domain';
 import { EntityName } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { DB_CONNECTION } from '../../../../../constants';
 import { CannotRemoveActiveOfferGuard } from '../../guards';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 
 export type RemoveOfferResponse = Either<
   | AppError.UnexpectedError
@@ -28,7 +28,7 @@ export type RemoveOfferResponse = Either<
 export class RemoveOfferHandler
   implements ICommandHandler<RemoveOfferCommand, RemoveOfferResponse> {
   constructor(
-    @Inject(DB_CONNECTION)
+    @Inject(InfrastructureKeys.DbModule)
     private connection: Connection,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,

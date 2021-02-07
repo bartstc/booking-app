@@ -9,7 +9,11 @@ import { AddOfferErrors } from './AddOffer.errors';
 import { AddOfferCommand } from './AddOffer.command';
 import { OfferMap } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { DB_CONNECTION } from '../../../../../constants';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { RabbitService } from '../../../../../rabbit';
+import { OfferTransformer } from '../../../infra/typeorm/offer';
+import { OfferAddedEvent } from '../../../domain/events';
+import { EventPattern } from '@nestjs/microservices';
 
 export type AddOfferResponse = Either<
   | AppError.ValidationError
@@ -22,8 +26,10 @@ export type AddOfferResponse = Either<
 export class AddOfferHandler
   implements ICommandHandler<AddOfferCommand, AddOfferResponse> {
   constructor(
-    @Inject(DB_CONNECTION)
+    @Inject(InfrastructureKeys.DbModule)
     private connection: Connection,
+    @Inject(InfrastructureKeys.RabbitMQService)
+    private rabbitService: RabbitService,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
     @Inject(FacilityKeys.OfferRepository)
@@ -57,9 +63,15 @@ export class AddOfferHandler
       await queryRunner.connect();
       await queryRunner.startTransaction();
 
-      await queryRunner.manager.save(await this.offerRepository.persist(offer));
+      const offerEntity = await this.offerRepository.persist(offer);
+      await queryRunner.manager.save(offerEntity);
       await queryRunner.manager.save(
         await this.facilityRepository.persist(facility),
+      );
+
+      await this.rabbitService.emit(
+        'offer_added',
+        new OfferAddedEvent(OfferTransformer.toDto(offerEntity)),
       );
 
       await queryRunner.commitTransaction();

@@ -7,13 +7,13 @@ import {
   FacilityRepositoryMock,
   EmployeeRepositoryMock,
 } from '../../../../../../fixtures/facilities';
-import { DB_CONNECTION } from '../../../../../constants';
 import { ConnectionMock } from '../../../../../../fixtures';
 import { UniqueEntityID } from '../../../../../shared/domain';
 import { CannotRemoveActiveEmployeeGuard } from '../../guards';
 import { RemoveEmployeeHandler } from './RemoveEmployee.handler';
 import { RemoveEmployeeCommand } from './RemoveEmployee.command';
 import { RemoveEmployeeErrors } from './RemoveEmployee.errors';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 
 describe('RemoveEmployeeHandler', () => {
   let removeEmployeeHandler: RemoveEmployeeHandler;
@@ -32,7 +32,7 @@ describe('RemoveEmployeeHandler', () => {
       providers: [
         RemoveEmployeeHandler,
         {
-          provide: DB_CONNECTION,
+          provide: InfrastructureKeys.DbModule,
           useFactory: ConnectionMock,
         },
         {

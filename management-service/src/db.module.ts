@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { createConnection } from 'typeorm/index';
 
 import * as ormconfig from './ormconfig';
-import { DB_CONNECTION } from './constants';
+import { InfrastructureKeys } from './InfrastructureKeys';
 
 const dbProviders = [
   {
-    provide: DB_CONNECTION,
+    provide: InfrastructureKeys.DbModule,
     useFactory: async () => await createConnection(ormconfig),
   },
 ];

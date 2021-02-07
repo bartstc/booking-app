@@ -7,13 +7,13 @@ import {
   FacilityRepositoryMock,
   OfferRepositoryMock,
 } from '../../../../../../fixtures/facilities';
-import { DB_CONNECTION } from '../../../../../constants';
 import { ConnectionMock } from '../../../../../../fixtures';
 import { UniqueEntityID } from '../../../../../shared/domain';
 import { CannotRemoveActiveOfferGuard } from '../../guards';
 import { RemoveOfferHandler } from './RemoveOffer.handler';
 import { RemoveOfferCommand } from './RemoveOffer.command';
 import { RemoveOfferErrors } from './RemoveOffer.errors';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 
 describe('RemoveOfferHandler', () => {
   let removeOfferHandler: RemoveOfferHandler;
@@ -32,7 +32,7 @@ describe('RemoveOfferHandler', () => {
       providers: [
         RemoveOfferHandler,
         {
-          provide: DB_CONNECTION,
+          provide: InfrastructureKeys.DbModule,
           useFactory: ConnectionMock,
         },
         {

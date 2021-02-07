@@ -14,7 +14,7 @@ import { AddEmployeeErrors } from './AddEmployee.errors';
 import { AddEmployeeCommand } from './AddEmployee.command';
 import { EmployeeMap } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { DB_CONNECTION } from '../../../../../constants';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 
 export type AddEmployeeResponse = Either<
   | AppError.ValidationError
@@ -27,7 +27,7 @@ export type AddEmployeeResponse = Either<
 export class AddEmployeeHandler
   implements ICommandHandler<AddEmployeeCommand, AddEmployeeResponse> {
   constructor(
-    @Inject(DB_CONNECTION)
+    @Inject(InfrastructureKeys.DbModule)
     private connection: Connection,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
