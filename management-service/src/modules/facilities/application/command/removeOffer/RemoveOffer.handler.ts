@@ -28,7 +28,7 @@ export type RemoveOfferResponse = Either<
 export class RemoveOfferHandler
   implements ICommandHandler<RemoveOfferCommand, RemoveOfferResponse> {
   constructor(
-    @Inject(InfrastructureKeys.DbModule)
+    @Inject(InfrastructureKeys.DbService)
     private connection: Connection,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,

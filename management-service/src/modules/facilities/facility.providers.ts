@@ -17,36 +17,36 @@ export const providers: Provider[] = [
     provide: FacilityKeys.FacilityRepository,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(FacilityRepository),
-    inject: [InfrastructureKeys.DbModule],
+    inject: [InfrastructureKeys.DbService],
   },
   {
     provide: FacilityKeys.EmployeeRepository,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(EmployeeRepository),
-    inject: [InfrastructureKeys.DbModule],
+    inject: [InfrastructureKeys.DbService],
   },
   {
     provide: FacilityKeys.OfferRepository,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(OfferRepository),
-    inject: [InfrastructureKeys.DbModule],
+    inject: [InfrastructureKeys.DbService],
   },
   {
     provide: FacilityKeys.FacilityQuery,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(FacilityQuery),
-    inject: [InfrastructureKeys.DbModule],
+    inject: [InfrastructureKeys.DbService],
   },
   {
     provide: FacilityKeys.EmployeeQuery,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(EmployeeQuery),
-    inject: [InfrastructureKeys.DbModule],
+    inject: [InfrastructureKeys.DbService],
   },
   {
     provide: FacilityKeys.OfferQuery,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(OfferQuery),
-    inject: [InfrastructureKeys.DbModule],
+    inject: [InfrastructureKeys.DbService],
   },
 ];

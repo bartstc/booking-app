@@ -32,7 +32,7 @@ describe('RemoveOfferHandler', () => {
       providers: [
         RemoveOfferHandler,
         {
-          provide: InfrastructureKeys.DbModule,
+          provide: InfrastructureKeys.DbService,
           useFactory: ConnectionMock,
         },
         {

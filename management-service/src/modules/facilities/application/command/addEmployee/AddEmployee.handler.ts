@@ -27,7 +27,7 @@ export type AddEmployeeResponse = Either<
 export class AddEmployeeHandler
   implements ICommandHandler<AddEmployeeCommand, AddEmployeeResponse> {
   constructor(
-    @Inject(InfrastructureKeys.DbModule)
+    @Inject(InfrastructureKeys.DbService)
     private connection: Connection,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,

@@ -26,7 +26,7 @@ export type AddOfferResponse = Either<
 export class AddOfferHandler
   implements ICommandHandler<AddOfferCommand, AddOfferResponse> {
   constructor(
-    @Inject(InfrastructureKeys.DbModule)
+    @Inject(InfrastructureKeys.DbService)
     private connection: Connection,
     @Inject(InfrastructureKeys.RabbitMQService)
     private rabbitService: RabbitService,

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 
-import { DbModule } from '../../db.module';
+import { DatabaseModule } from '../../database';
 import { RabbitMQModule } from '../../rabbit';
 import { providers } from './facility.providers';
 import { EnterpriseModule } from '../enterprise/enterprise.module';
@@ -49,7 +49,7 @@ import {
 } from './api/controllers/query';
 
 @Module({
-  imports: [CqrsModule, EnterpriseModule, DbModule, RabbitMQModule],
+  imports: [CqrsModule, EnterpriseModule, DatabaseModule, RabbitMQModule],
   controllers: [
     CreateFacilityController,
     RemoveFacilityController,

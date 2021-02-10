@@ -28,7 +28,7 @@ export type RemoveEmployeeResponse = Either<
 export class RemoveEmployeeHandler
   implements ICommandHandler<RemoveEmployeeCommand, RemoveEmployeeResponse> {
   constructor(
-    @Inject(InfrastructureKeys.DbModule)
+    @Inject(InfrastructureKeys.DbService)
     private connection: Connection,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,

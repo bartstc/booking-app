@@ -10,12 +10,12 @@ export const providers: Provider[] = [
     provide: CustomerKeys.CustomerRepository,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(CustomerRepository),
-    inject: [InfrastructureKeys.DbModule],
+    inject: [InfrastructureKeys.DbService],
   },
   {
     provide: CustomerKeys.CustomerQuery,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(CustomerQuery),
-    inject: [InfrastructureKeys.DbModule],
+    inject: [InfrastructureKeys.DbService],
   },
 ];

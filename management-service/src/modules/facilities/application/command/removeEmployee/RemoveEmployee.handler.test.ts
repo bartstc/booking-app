@@ -32,7 +32,7 @@ describe('RemoveEmployeeHandler', () => {
       providers: [
         RemoveEmployeeHandler,
         {
-          provide: InfrastructureKeys.DbModule,
+          provide: InfrastructureKeys.DbService,
           useFactory: ConnectionMock,
         },
         {
