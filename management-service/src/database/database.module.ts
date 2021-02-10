@@ -1,19 +1,20 @@
 import { Module, Provider } from '@nestjs/common';
 import { createConnection } from 'typeorm/index';
-import { ConfigService } from '@nestjs/config';
 
 import { InfrastructureKeys } from '../InfrastructureKeys';
+import { ConfigModule, IConfigService } from '../config';
 import { getOrmConfig } from './getOrmConfig';
 
 const DbService: Provider = {
   provide: InfrastructureKeys.DbService,
-  inject: [ConfigService],
-  useFactory: async (configService: ConfigService) =>
+  inject: [InfrastructureKeys.ConfigService],
+  useFactory: async (configService: IConfigService) =>
     await createConnection(getOrmConfig(configService)),
 };
 
 @Module({
-  providers: [DbService, ConfigService],
+  imports: [ConfigModule],
+  providers: [DbService],
   exports: [DbService],
 })
 export class DatabaseModule {}

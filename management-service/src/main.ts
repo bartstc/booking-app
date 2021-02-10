@@ -19,19 +19,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api/doc', app, document);
 
-  // await app.connectMicroservice({
-  //   transport: Transport.RMQ,
-  //   options: {
-  //     urls: [
-  //       `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASSWORD}@${process.env.RABBITMQ_HOST}`,
-  //     ],
-  //     queue: process.env.RABBITMQ_QUEUE_NAME,
-  //     queueOptions: {
-  //       durable: true,
-  //     },
-  //   },
-  // });
-  // await app.startAllMicroservicesAsync();
   await app.listen(process.env.SERVER_PORT || 80);
 }
 bootstrap();
