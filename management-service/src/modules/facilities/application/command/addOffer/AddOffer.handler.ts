@@ -3,6 +3,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Connection } from 'typeorm/index';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
+import { IAmqpService } from 'amqp';
 
 import { Facility, FacilityRepository, OfferRepository } from '../../../domain';
 import { AddOfferErrors } from './AddOffer.errors';
@@ -10,10 +11,8 @@ import { AddOfferCommand } from './AddOffer.command';
 import { OfferMap } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
-import { RabbitService } from '../../../../../rabbit';
 import { OfferTransformer } from '../../../infra/typeorm/offer';
-import { OfferAddedEvent } from '../../../domain/events';
-import { EventPattern } from '@nestjs/microservices';
+import { FacilitiesEvent, OfferAddedEvent } from '../../../domain/events';
 
 export type AddOfferResponse = Either<
   | AppError.ValidationError
@@ -28,8 +27,8 @@ export class AddOfferHandler
   constructor(
     @Inject(InfrastructureKeys.DbService)
     private connection: Connection,
-    @Inject(InfrastructureKeys.RabbitMQService)
-    private rabbitService: RabbitService,
+    @Inject(InfrastructureKeys.AmqpService)
+    private rabbitService: IAmqpService,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
     @Inject(FacilityKeys.OfferRepository)
@@ -69,9 +68,9 @@ export class AddOfferHandler
         await this.facilityRepository.persist(facility),
       );
 
-      await this.rabbitService.emit(
-        'offer_added',
+      await this.rabbitService.sendMessage(
         new OfferAddedEvent(OfferTransformer.toDto(offerEntity)),
+        FacilitiesEvent.OfferAdded,
       );
 
       await queryRunner.commitTransaction();
