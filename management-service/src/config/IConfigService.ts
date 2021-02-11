@@ -1,3 +1,5 @@
+import { ExchangeType } from '../amqp/amqp.service';
+
 export interface IConfigService {
   db: {
     host: string;
@@ -13,6 +15,12 @@ export interface IConfigService {
     user: string;
     password: string;
     host: string;
+    port: number;
+    name: string;
     queue: string;
+    exchange: string;
+    exchangeType: ExchangeType;
+    reconnectDelay: number;
+    prefetch: number;
   };
 }
