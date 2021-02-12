@@ -7,7 +7,10 @@ import { ConfigModule, IConfigService } from '../config';
 
 const amqpServiceProvider: Provider = {
   provide: InfrastructureKeys.AmqpService,
-  inject: [InfrastructureKeys.LoggerService, InfrastructureKeys.ConfigService],
+  inject: [
+    InfrastructureKeys.AmqpLoggerService,
+    InfrastructureKeys.ConfigService,
+  ],
   useFactory: (loggerService: ILoggerService, configService: IConfigService) =>
     new AmqpService(loggerService, configService),
 };
@@ -17,7 +20,7 @@ const amqpServiceProvider: Provider = {
   providers: [
     amqpServiceProvider,
     {
-      provide: `${InfrastructureKeys.LoggerService}_amqp`,
+      provide: InfrastructureKeys.AmqpLoggerService,
       useValue: new LoggerService('AmqpModule'),
     },
   ],

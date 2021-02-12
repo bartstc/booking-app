@@ -12,7 +12,7 @@ enum ELogLevel {
 @Injectable()
 export class LoggerService extends Logger implements ILoggerService {
   private readonly _currentLevel: ELogLevel =
-    (process.env.LOGGER_LEVEL as any) ?? ELogLevel.Info;
+    (ELogLevel[process.env.LOGGER_LEVEL] as ELogLevel) ?? ELogLevel.Info;
 
   constructor(private readonly _context?: string) {
     super(_context);
@@ -20,13 +20,13 @@ export class LoggerService extends Logger implements ILoggerService {
 
   public log(message: unknown, context?: string) {
     if (this.isValidLevel(ELogLevel.Debug)) {
-      Logger.log(JSON.stringify(message), context || this._context);
+      Logger.verbose(JSON.stringify(message), context || this._context);
     }
   }
 
   public info(message: unknown, context?: string) {
     if (this.isValidLevel(ELogLevel.Info)) {
-      Logger.log(JSON.stringify(message), context || this._context);
+      Logger.verbose(JSON.stringify(message), context || this._context);
     }
   }
 

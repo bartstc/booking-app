@@ -1,5 +1,5 @@
 import { CommandBus } from '@nestjs/cqrs';
-import { Controller, Logger, Param, Patch, Res } from '@nestjs/common';
+import { Controller, Inject, Logger, Param, Patch, Res } from '@nestjs/common';
 import { Response } from 'express';
 import {
   ApiMethodNotAllowedResponse,
@@ -16,14 +16,18 @@ import {
   DeactivateOfferResponse,
 } from 'modules/facilities/application/command/deactivateOffer';
 import { OfferIsAlreadyInactiveGuard } from '../../../application/guards';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class DeactivateOfferController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('DeactivateOfferController');
 
   @Patch('facilities/:facilityId/offers/:offerId/deactivate')
   @ApiTags('Offers')
@@ -56,10 +60,10 @@ export class DeactivateOfferController extends BaseController {
         }
       }
 
-      this.logger.verbose('Offer was successfully deactivated');
+      this.logger.log('Offer was successfully deactivated');
       return this.ok(res);
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

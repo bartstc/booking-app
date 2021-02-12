@@ -11,6 +11,7 @@ import {
   EmployeeRepository,
   OfferRepository,
 } from './infra';
+import { LoggerService } from '../../logger';
 
 export const providers: Provider[] = [
   {
@@ -48,5 +49,9 @@ export const providers: Provider[] = [
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(OfferQuery),
     inject: [InfrastructureKeys.DbService],
+  },
+  {
+    provide: InfrastructureKeys.FacilitiesLoggerService,
+    useValue: new LoggerService('FacilitiesModule'),
   },
 ];

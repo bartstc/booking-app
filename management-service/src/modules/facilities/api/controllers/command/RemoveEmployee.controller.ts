@@ -1,4 +1,4 @@
-import { Controller, Delete, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Delete, Inject, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
@@ -10,14 +10,18 @@ import {
   RemoveEmployeeErrors,
   RemoveEmployeeResponse,
 } from 'modules/facilities/application/command/removeEmployee';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class RemoveEmployeeController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('RemoveEmployeeController');
 
   @Delete('facilities/:facilityId/employees/:employeeId')
   @ApiTags('Employees')
@@ -47,10 +51,10 @@ export class RemoveEmployeeController extends BaseController {
         }
       }
 
-      this.logger.verbose('Employee successfully removed');
+      this.logger.log('Employee successfully removed');
       return this.ok(res);
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

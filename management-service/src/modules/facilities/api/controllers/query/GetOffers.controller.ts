@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Query, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Param, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
 import {
   ApiNotFoundResponse,
@@ -21,14 +21,18 @@ import {
   OfferCollectionQueryParams,
 } from '../../../adapter/params';
 import { OfferStatus, PriceModel } from '../../../domain/types';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class GetOffersController extends BaseController {
-  constructor(private readonly queryBus: QueryBus) {
+  constructor(
+    private readonly queryBus: QueryBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  private logger = new Logger('GetOffersController');
 
   @Get('facilities/:facilityId/offers')
   @ApiTags('Offers')
@@ -62,10 +66,10 @@ export class GetOffersController extends BaseController {
         }
       }
 
-      this.logger.verbose('Offers successfully returned');
+      this.logger.log('Offers successfully returned');
       return this.ok(res, result.value.getValue());
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

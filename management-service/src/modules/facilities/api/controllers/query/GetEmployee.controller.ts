@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
@@ -11,14 +11,18 @@ import {
   GetEmployeeQuery,
   GetEmployeeErrors,
 } from 'modules/facilities/application/query/getEmployee';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class GetEmployeeController extends BaseController {
-  constructor(private readonly queryBus: QueryBus) {
+  constructor(
+    private readonly queryBus: QueryBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  private logger = new Logger('GetEmployeeController');
 
   @Get('facilities/:facilityId/employees/:employeeId')
   @ApiTags('Employees')
@@ -48,10 +52,10 @@ export class GetEmployeeController extends BaseController {
         }
       }
 
-      this.logger.verbose('Employee successfully returned');
+      this.logger.log('Employee successfully returned');
       return this.ok(res, result.value.getValue());
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }
