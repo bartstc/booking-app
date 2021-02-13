@@ -14,7 +14,7 @@ export const useGetLinks = () => {
         id: 'enterprise-overview',
         defaultMessage: 'Overview',
       }),
-      to: buildUrl('overview', DEFAULT_PARAMS),
+      to: 'overview/enterprise',
     },
     {
       path: mdiCalendar,
