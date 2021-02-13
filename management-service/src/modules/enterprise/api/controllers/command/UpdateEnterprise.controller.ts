@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Param, Put, Res } from '@nestjs/common';
+import { Body, Controller, Inject, Param, Put, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -13,14 +13,18 @@ import {
 } from 'modules/enterprise/application/command/updateEnterprise';
 
 import { createEnterpriseSchema } from '../../schemas';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class UpdateEnterpriseController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.EnterpriseLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('UpdateEnterpriseController');
 
   @Put('enterprises/:enterpriseId')
   @ApiTags('Enterprises')
@@ -57,10 +61,10 @@ export class UpdateEnterpriseController extends BaseController {
         }
       }
 
-      this.logger.verbose('Enterprise successfully updated');
+      this.logger.log('Enterprise successfully updated');
       return this.ok(res);
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

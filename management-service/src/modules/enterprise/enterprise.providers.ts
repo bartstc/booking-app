@@ -4,6 +4,7 @@ import { Connection } from 'typeorm/index';
 import { EnterpriseKeys } from './EnterpriseKeys';
 import { EnterpriseQuery, EnterpriseRepository } from './infra';
 import { InfrastructureKeys } from '../../InfrastructureKeys';
+import { LoggerService } from '../../logger';
 
 export const providers: Provider[] = [
   {
@@ -17,5 +18,9 @@ export const providers: Provider[] = [
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(EnterpriseQuery),
     inject: [InfrastructureKeys.DbService],
+  },
+  {
+    provide: InfrastructureKeys.EnterpriseLoggerService,
+    useValue: new LoggerService('EnterpriseModule'),
   },
 ];
