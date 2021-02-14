@@ -17,12 +17,12 @@ const PublicRoutes = () => {
     <Layout>
       <Suspense fallback={<Spinner />}>
         <Switch>
-          <Route path='/overview' component={Overview} exact />
           <Route path='/schedule' component={Schedule} exact />
           <Route path='/customers' component={Customers} exact />
           <Route path='/employees' component={Employees} exact />
           <Route path='/offers' component={Offers} exact />
           <Route path='/settings' component={Settings} exact />
+          <Route path='/overview' component={Overview} />
           <Route component={App} />
         </Switch>
       </Suspense>
