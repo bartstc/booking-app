@@ -40,7 +40,7 @@ const FieldControl = ({
   const infoIconColor = useColorModeValue('blue.500', 'blue.300');
 
   return (
-    <FormControl mb={isReadMode ? '10px' : 4} {...css} id={id} isRequired={isReadMode ? false : isRequired} {...props}>
+    <FormControl mb={isReadMode ? { base: 6, md: 8 } : 4} {...css} id={id} isRequired={isReadMode ? false : isRequired} {...props}>
       <HStack spacing={0}>
         {label && (
           <FormLabel

@@ -3,12 +3,15 @@ import { Flex, Heading, Text, VStack } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { mdiAccount } from '@mdi/js';
 import { isMobileOnly } from 'react-device-detect';
+import { useLocation } from 'react-router-dom';
 
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
+import { If } from 'shared/If';
 
 const Header = () => {
   const { formatMessage } = useIntl();
+  const { pathname } = useLocation();
 
   const title = formatMessage({
     id: 'add-facility',
@@ -25,13 +28,15 @@ const Header = () => {
           <FormattedMessage id='enterprise-subheading' defaultMessage='Manage your business' />
         </Text>
       </VStack>
-      {isMobileOnly ? (
-        <IconButton colorScheme='primary' variant='solid' title={title} icon={<Icon path={mdiAccount} color='gray.800' />} />
-      ) : (
-        <Button colorScheme='primary' leftIcon={<Icon path={mdiAccount} />}>
-          {title}
-        </Button>
-      )}
+      <If condition={pathname.includes('facilities')}>
+        {isMobileOnly ? (
+          <IconButton colorScheme='primary' variant='solid' title={title} icon={<Icon path={mdiAccount} color='gray.800' />} />
+        ) : (
+          <Button colorScheme='primary' leftIcon={<Icon path={mdiAccount} />}>
+            {title}
+          </Button>
+        )}
+      </If>
     </Flex>
   );
 };

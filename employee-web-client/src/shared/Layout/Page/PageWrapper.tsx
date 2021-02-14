@@ -12,6 +12,7 @@ const PageWrapper = ({ children, ...props }: IProps) => {
       w='100%'
       mt={{ base: 4, md: 10 }}
       px={{ base: 4, md: 8 }}
+      pb={4}
       maxW='1440px'
       margin='0 auto'
       {...props}

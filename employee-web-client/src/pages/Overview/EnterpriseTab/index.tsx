@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { UnderConstructionState } from 'shared/States';
-
 import { OverviewTabs } from '../OverviewTabs';
+import { EditEnterpriseForm } from './EditEnterpriseForm';
 
 const EnterpriseTab = () => {
   return (
     <OverviewTabs>
-      <UnderConstructionState />
+      <EditEnterpriseForm />
     </OverviewTabs>
   );
 };
