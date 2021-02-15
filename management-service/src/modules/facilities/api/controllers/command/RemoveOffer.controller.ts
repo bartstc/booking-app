@@ -1,5 +1,5 @@
 import { CommandBus } from '@nestjs/cqrs';
-import { Controller, Delete, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Delete, Inject, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
@@ -10,14 +10,18 @@ import {
   RemoveOfferErrors,
   RemoveOfferResponse,
 } from 'modules/facilities/application/command/removeOffer';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class RemoveOfferController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('RemoveOfferController');
 
   @Delete('facilities/:facilityId/offers/:offerId')
   @ApiTags('Offers')
@@ -47,10 +51,10 @@ export class RemoveOfferController extends BaseController {
         }
       }
 
-      this.logger.verbose('Offer successfully removed');
+      this.logger.log('Offer successfully removed');
       return this.ok(res);
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

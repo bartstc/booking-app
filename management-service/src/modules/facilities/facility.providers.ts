@@ -1,7 +1,7 @@
 import { Provider } from '@nestjs/common';
 import { Connection } from 'typeorm/index';
 
-import { DB_CONNECTION } from '../../constants';
+import { InfrastructureKeys } from '../../InfrastructureKeys';
 import { FacilityKeys } from './FacilityKeys';
 import {
   EmployeeQuery,
@@ -11,42 +11,47 @@ import {
   EmployeeRepository,
   OfferRepository,
 } from './infra';
+import { LoggerService } from '../../logger';
 
 export const providers: Provider[] = [
   {
     provide: FacilityKeys.FacilityRepository,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(FacilityRepository),
-    inject: [DB_CONNECTION],
+    inject: [InfrastructureKeys.DbService],
   },
   {
     provide: FacilityKeys.EmployeeRepository,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(EmployeeRepository),
-    inject: [DB_CONNECTION],
+    inject: [InfrastructureKeys.DbService],
   },
   {
     provide: FacilityKeys.OfferRepository,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(OfferRepository),
-    inject: [DB_CONNECTION],
+    inject: [InfrastructureKeys.DbService],
   },
   {
     provide: FacilityKeys.FacilityQuery,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(FacilityQuery),
-    inject: [DB_CONNECTION],
+    inject: [InfrastructureKeys.DbService],
   },
   {
     provide: FacilityKeys.EmployeeQuery,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(EmployeeQuery),
-    inject: [DB_CONNECTION],
+    inject: [InfrastructureKeys.DbService],
   },
   {
     provide: FacilityKeys.OfferQuery,
     useFactory: (connection: Connection) =>
       connection.getCustomRepository(OfferQuery),
-    inject: [DB_CONNECTION],
+    inject: [InfrastructureKeys.DbService],
+  },
+  {
+    provide: InfrastructureKeys.FacilitiesLoggerService,
+    useValue: new LoggerService('FacilitiesModule'),
   },
 ];

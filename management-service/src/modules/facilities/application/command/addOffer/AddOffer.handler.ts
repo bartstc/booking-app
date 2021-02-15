@@ -3,13 +3,16 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Connection } from 'typeorm/index';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
+import { IAmqpService } from 'amqp';
 
 import { Facility, FacilityRepository, OfferRepository } from '../../../domain';
 import { AddOfferErrors } from './AddOffer.errors';
 import { AddOfferCommand } from './AddOffer.command';
 import { OfferMap } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { DB_CONNECTION } from '../../../../../constants';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { OfferTransformer } from '../../../infra/typeorm/offer';
+import { FacilitiesEvent, OfferAddedEvent } from '../../../domain/events';
 
 export type AddOfferResponse = Either<
   | AppError.ValidationError
@@ -22,8 +25,10 @@ export type AddOfferResponse = Either<
 export class AddOfferHandler
   implements ICommandHandler<AddOfferCommand, AddOfferResponse> {
   constructor(
-    @Inject(DB_CONNECTION)
+    @Inject(InfrastructureKeys.DbService)
     private connection: Connection,
+    @Inject(InfrastructureKeys.AmqpService)
+    private rabbitService: IAmqpService,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
     @Inject(FacilityKeys.OfferRepository)
@@ -57,9 +62,15 @@ export class AddOfferHandler
       await queryRunner.connect();
       await queryRunner.startTransaction();
 
-      await queryRunner.manager.save(await this.offerRepository.persist(offer));
+      const offerEntity = await this.offerRepository.persist(offer);
+      await queryRunner.manager.save(offerEntity);
       await queryRunner.manager.save(
         await this.facilityRepository.persist(facility),
+      );
+
+      await this.rabbitService.sendMessage(
+        new OfferAddedEvent(OfferTransformer.toDto(offerEntity)),
+        FacilitiesEvent.OfferAdded,
       );
 
       await queryRunner.commitTransaction();

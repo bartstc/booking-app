@@ -1,5 +1,5 @@
 import { CommandBus } from '@nestjs/cqrs';
-import { Body, Controller, Logger, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Inject, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
@@ -13,14 +13,18 @@ import {
 } from 'modules/facilities/application/command/addEmployee';
 
 import { addEmployeeSchema } from '../../schemas';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class AddEmployeeController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('AddEmployeeController');
 
   @Post('facilities/:facilityId/employees')
   @ApiTags('Employees')
@@ -57,12 +61,12 @@ export class AddEmployeeController extends BaseController {
         }
       }
 
-      this.logger.verbose('Employee successfully added');
+      this.logger.log('Employee successfully added');
       return this.ok(res, {
         employeeId: result.value.getValue().id.toString(),
       });
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

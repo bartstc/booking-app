@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { Body, Controller, Logger, Post, Res } from '@nestjs/common';
+import { Body, Controller, Inject, Post, Res } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
@@ -12,14 +12,18 @@ import {
 } from 'modules/enterprise/application/command/createEnterprise';
 
 import { createEnterpriseSchema } from '../../schemas';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class CreateEnterpriseController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.EnterpriseLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('CreateEnterpriseController');
 
   @Post('enterprises')
   @ApiTags('Enterprises')
@@ -50,10 +54,10 @@ export class CreateEnterpriseController extends BaseController {
         return this.fail(res, error.errorValue());
       }
 
-      this.logger.verbose('Enterprise successfully created');
+      this.logger.log('Enterprise successfully created');
       return this.ok(res);
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

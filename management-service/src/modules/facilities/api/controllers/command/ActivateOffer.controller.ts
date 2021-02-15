@@ -1,5 +1,5 @@
 import { CommandBus } from '@nestjs/cqrs';
-import { Controller, Logger, Param, Patch, Res } from '@nestjs/common';
+import { Controller, Inject, Logger, Param, Patch, Res } from '@nestjs/common';
 import { Response } from 'express';
 import {
   ApiMethodNotAllowedResponse,
@@ -16,14 +16,18 @@ import {
   ActivateOfferResponse,
 } from 'modules/facilities/application/command/activateOffer';
 import { OfferIsAlreadyActiveGuard } from '../../../application/guards';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class ActivateOfferController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('ActivateOfferController');
 
   @Patch('facilities/:facilityId/offers/:offerId/activate')
   @ApiTags('Offers')
@@ -56,10 +60,10 @@ export class ActivateOfferController extends BaseController {
         }
       }
 
-      this.logger.verbose('Offer was successfully activated');
+      this.logger.log('Offer was successfully activated');
       return this.ok(res);
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

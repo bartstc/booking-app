@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Query, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Param, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
 import {
   ApiNotFoundResponse,
@@ -10,10 +10,7 @@ import { QueryBus } from '@nestjs/cqrs';
 
 import { BaseController } from 'shared/core';
 
-import {
-  EmployeeCollectionDto,
-  EmployeeDto,
-} from 'modules/facilities/application/dto';
+import { EmployeeCollectionDto } from 'modules/facilities/application/dto';
 import {
   GetEmployeesQuery,
   GetEmployeesResponse,
@@ -24,14 +21,18 @@ import {
   EmployeeCollectionQueryParams,
 } from '../../../adapter/params';
 import { EmployeeStatus } from '../../../domain/types';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class GetEmployeesController extends BaseController {
-  constructor(private readonly queryBus: QueryBus) {
+  constructor(
+    private readonly queryBus: QueryBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  private logger = new Logger('GetEmployeesController');
 
   @Get('facilities/:facilityId/employees')
   @ApiTags('Employees')
@@ -64,10 +65,10 @@ export class GetEmployeesController extends BaseController {
         }
       }
 
-      this.logger.verbose('Employees successfully returned');
+      this.logger.log('Employees successfully returned');
       return this.ok(res, result.value.getValue());
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

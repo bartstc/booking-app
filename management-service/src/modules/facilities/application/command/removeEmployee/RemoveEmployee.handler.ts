@@ -14,8 +14,8 @@ import {
 } from '../../../domain';
 import { EntityName } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { DB_CONNECTION } from '../../../../../constants';
 import { CannotRemoveActiveEmployeeGuard } from '../../guards';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 
 export type RemoveEmployeeResponse = Either<
   | AppError.UnexpectedError
@@ -28,7 +28,7 @@ export type RemoveEmployeeResponse = Either<
 export class RemoveEmployeeHandler
   implements ICommandHandler<RemoveEmployeeCommand, RemoveEmployeeResponse> {
   constructor(
-    @Inject(DB_CONNECTION)
+    @Inject(InfrastructureKeys.DbService)
     private connection: Connection,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,

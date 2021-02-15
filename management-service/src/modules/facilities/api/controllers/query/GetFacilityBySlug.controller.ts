@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
@@ -11,14 +11,18 @@ import {
   GetFacilityBySlugResponse,
   GetFacilityBySlugErrors,
 } from 'modules/facilities/application/query/getFacilityBySlug';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class GetFacilityBySlugController extends BaseController {
-  constructor(private readonly queryBus: QueryBus) {
+  constructor(
+    private readonly queryBus: QueryBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  private logger = new Logger('GetFacilityBySlugController');
 
   @Get('facilities/:slug')
   @ApiTags('Facilities')
@@ -42,10 +46,10 @@ export class GetFacilityBySlugController extends BaseController {
         }
       }
 
-      this.logger.verbose('Facility successfully returned');
+      this.logger.log('Facility successfully returned');
       return this.ok(res, result.value.getValue());
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }
