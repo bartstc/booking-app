@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -50,8 +47,8 @@ namespace MvcClient.Controllers
             return View("json");
         }
 
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> NeedsAdmin()
+        [Authorize(Roles = "Employee")]
+        public async Task<IActionResult> NeedsEmployee()
         {
             return View();
         }
