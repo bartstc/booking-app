@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MvcClient.Models;
@@ -47,6 +48,18 @@ namespace MvcClient.Controllers
 
             ViewBag.Json = PrettyJson(content);
             return View("json");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> NeedsAdmin()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> NeedsCustomer()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

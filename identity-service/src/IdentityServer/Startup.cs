@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
-using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Mappers;
-using IdentityServerHost.Quickstart.UI;
+using IdentityServer.Areas.Identity.Data;
+using IdentityServer.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,34 +24,40 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
-            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            services.AddDbContext<IdentityServerContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("IdentityServerConnection")));
+
+            services.AddIdentity<IdentityServerUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<IdentityServerContext>()
+                .AddDefaultTokenProviders();
 
             var builder = services.AddIdentityServer(options =>
             {
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
             })
-                // .AddInMemoryIdentityResources(Config.IdentityResources)
-                // .AddInMemoryApiScopes(Config.ApiScopes)
-                // .AddInMemoryClients(Config.Clients)
-                .AddTestUsers(TestUsers.Users)
-                .AddConfigurationStore(options =>
-                {
-                    options.ConfigureDbContext = b => b.UseNpgsql(Configuration.GetConnectionString("Identity"),
-                        sql => sql.MigrationsAssembly(migrationsAssembly));
-                })
-                .AddOperationalStore(options =>
-                {
-                    options.ConfigureDbContext = b => b.UseNpgsql(Configuration.GetConnectionString("Identity"),
-                        sql => sql.MigrationsAssembly(migrationsAssembly));
-                });
-            
+                .AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddInMemoryApiScopes(Config.ApiScopes)
+                .AddInMemoryClients(Config.Clients)
+                .AddAspNetIdentity<IdentityServerUser>();
+                // .AddConfigurationStore(options =>
+                // {
+                //     options.ConfigureDbContext = b => b.UseSqlite(Configuration.GetConnectionString("Identity"),
+                //         sql => sql.MigrationsAssembly(migrationsAssembly));
+                // })
+                // .AddOperationalStore(options =>
+                // {
+                //     options.ConfigureDbContext = b => b.UseSqlite(Configuration.GetConnectionString("Identity"),
+                //         sql => sql.MigrationsAssembly(migrationsAssembly));
+                // });
+
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -71,9 +73,9 @@ namespace IdentityServer
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseIdentityServer();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -81,45 +83,20 @@ namespace IdentityServer
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
-            InitializeDatabase(app);
+            CreateRoles(services).Wait();
         }
 
-        private void InitializeDatabase(IApplicationBuilder app)
+        private async Task CreateRoles(IServiceProvider services)
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            var customerRole = "Customer";
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            if (!(await roleManager.RoleExistsAsync(customerRole)))
             {
-                serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
-
-                var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
-                context.Database.Migrate();
-                if (!context.Clients.Any())
-                {
-                    foreach (var client in Config.Clients)
-                    {
-                        context.Clients.Add(client.ToEntity());
-                    }
-                    context.SaveChanges();
-                }
-
-                if (!context.IdentityResources.Any())
-                {
-                    foreach (var resource in Config.IdentityResources)
-                    {
-                        context.IdentityResources.Add(resource.ToEntity());
-                    }
-                    context.SaveChanges();
-                }
-
-                if (!context.ApiScopes.Any())
-                {
-                    foreach (var resource in Config.ApiScopes)
-                    {
-                        context.ApiScopes.Add(resource.ToEntity());
-                    }
-                    context.SaveChanges();
-                }
+                await roleManager.CreateAsync(new IdentityRole(customerRole));
             }
         }
     }
