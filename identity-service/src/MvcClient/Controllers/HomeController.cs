@@ -48,13 +48,13 @@ namespace MvcClient.Controllers
         }
 
         [Authorize(Roles = "Employee")]
-        public async Task<IActionResult> NeedsEmployee()
+        public IActionResult NeedsEmployee()
         {
             return View();
         }
 
         [Authorize(Roles = "Customer")]
-        public async Task<IActionResult> NeedsCustomer()
+        public IActionResult NeedsCustomer()
         {
             return View();
         }
