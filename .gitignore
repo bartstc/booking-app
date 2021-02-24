@@ -1,4 +1,2 @@
 .env
-rabbitmq.env
-management.env
 .idea
