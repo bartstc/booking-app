@@ -1,5 +1,5 @@
 import { CommandBus } from '@nestjs/cqrs';
-import { Controller, Logger, Param, Patch, Res } from '@nestjs/common';
+import { Controller, Inject, Param, Patch, Res } from '@nestjs/common';
 import { Response } from 'express';
 import {
   ApiMethodNotAllowedResponse,
@@ -16,14 +16,18 @@ import {
   DeactivateEmployeeResponse,
 } from 'modules/facilities/application/command/deactivateEmployee';
 import { EmployeeIsAlreadyInactiveGuard } from '../../../application/guards';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class DeactivateEmployeeController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('DeactivateEmployeeController');
 
   @Patch('facilities/:facilityId/employees/:employeeId/deactivate')
   @ApiTags('Employees')
@@ -56,10 +60,10 @@ export class DeactivateEmployeeController extends BaseController {
         }
       }
 
-      this.logger.verbose('Employee was successfully deactivated');
+      this.logger.log('Employee was successfully deactivated');
       return this.ok(res);
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Param, Res } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
@@ -10,14 +10,18 @@ import {
   GetCustomerErrors,
   GetCustomerQuery,
 } from 'modules/customers/application/query/getCustomer';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class GetCustomerController extends BaseController {
-  constructor(private readonly queryBus: QueryBus) {
+  constructor(
+    private readonly queryBus: QueryBus,
+    @Inject(InfrastructureKeys.CustomersLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  private logger = new Logger('GetCustomerController');
 
   @Get('facilities/:facilityId/customers/:customerId')
   @ApiTags('Customers')
@@ -46,10 +50,10 @@ export class GetCustomerController extends BaseController {
         }
       }
 
-      this.logger.verbose('Customer successfully returned');
+      this.logger.log('Customer successfully returned');
       return this.ok(res, result.value.getValue());
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

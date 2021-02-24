@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { Controller, Delete, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Delete, Inject, Param, Res } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
@@ -10,14 +10,18 @@ import {
   RemoveFacilityErrors,
   RemoveFacilityResponse,
 } from 'modules/facilities/application/command/removeFacility';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class RemoveFacilityController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('DeleteFacilityController');
 
   @Delete('enterprises/:enterpriseId/facilities/:facilityId')
   @ApiTags('Facilities')
@@ -47,10 +51,10 @@ export class RemoveFacilityController extends BaseController {
         }
       }
 
-      this.logger.verbose('Facility successfully deleted');
+      this.logger.log('Facility successfully deleted');
       return this.ok(res);
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

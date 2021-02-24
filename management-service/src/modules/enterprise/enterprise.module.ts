@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 
-import { DbModule } from '../../db.module';
 import { providers } from './enterprise.providers';
+import { DatabaseModule } from '../../database';
 
 import { CreateEnterpriseHandler } from './application/command/createEnterprise';
 import { UpdateEnterpriseHandler } from './application/command/updateEnterprise';
@@ -18,7 +18,7 @@ import {
 } from './api/controllers/query';
 
 @Module({
-  imports: [CqrsModule, DbModule],
+  imports: [CqrsModule, DatabaseModule],
   controllers: [
     CreateEnterpriseController,
     UpdateEnterpriseController,

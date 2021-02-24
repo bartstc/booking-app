@@ -1,6 +1,6 @@
 export interface IContactPerson {
   name: string;
   phone: string;
-  fax: string;
+  fax?: string;
   email: string;
 }

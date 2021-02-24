@@ -21,7 +21,7 @@ const AddEmployeeModal = ({ isOpen, onClose }: IProps) => {
   const { showSuccessNotification, showFailureNotification } = useAddEmployeeNotification();
 
   return (
-    <Modal scrollBehavior='inside' isOpen={isOpen} onClose={onClose} size='xl'>
+    <Modal isOpen={isOpen} onClose={onClose} size='xl'>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>

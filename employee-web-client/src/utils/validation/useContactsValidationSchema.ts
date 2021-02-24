@@ -1,14 +1,13 @@
 import * as yup from 'yup';
-import { useIntl } from 'react-intl';
 
 import { ContactType, IContact } from 'types';
 
 import { TextValidator } from './TextValidator';
-import { useRequiredFieldMessage } from '../messages';
+import { useInvalidFormatFieldMessage, useRequiredFieldMessage } from '../messages';
 
 export const useContactsValidationSchema = () => {
-  const { formatMessage } = useIntl();
   const requiredMessage = useRequiredFieldMessage();
+  const invalidFormatMessage = useInvalidFormatFieldMessage();
 
   return yup.array().of(
     yup.object().shape<IContact>({
@@ -16,7 +15,7 @@ export const useContactsValidationSchema = () => {
       value: yup
         .string()
         .required(requiredMessage)
-        .test('contact format', formatMessage({ id: 'invalid-format', defaultMessage: 'Invalid format' }), function (value) {
+        .test('contact format', invalidFormatMessage, function (value) {
           switch (this.parent.type) {
             case ContactType.Email:
               return TextValidator.validateEmailAddress(value!);

@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Inject, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
@@ -12,14 +12,18 @@ import {
   AddOfferResponse,
 } from 'modules/facilities/application/command/addOffer';
 import { addOfferSchema } from '../../schemas';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class AddOfferController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('AddOfferController');
 
   @Post('facilities/:facilityId/offers')
   @ApiTags('Offers')
@@ -46,7 +50,6 @@ export class AddOfferController extends BaseController {
 
       if (result.isLeft()) {
         const error = result.value;
-        console.log(error);
         this.logger.error(error.errorValue());
 
         switch (error.constructor) {
@@ -57,7 +60,7 @@ export class AddOfferController extends BaseController {
         }
       }
 
-      this.logger.verbose('Offer successfully added');
+      this.logger.log('Offer successfully added');
       return this.ok(res);
     } catch (err) {
       this.logger.error('Unexpected server error', err);

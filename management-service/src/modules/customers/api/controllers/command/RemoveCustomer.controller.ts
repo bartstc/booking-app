@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { CommandBus } from '@nestjs/cqrs';
-import { Controller, Delete, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Delete, Inject, Param, Res } from '@nestjs/common';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController } from 'shared/core';
@@ -9,14 +9,18 @@ import {
   RemoveCustomerCommand,
   RemoveCustomerErrors,
 } from 'modules/customers/application/command/removeCustomer';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class RemoveCustomerController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.CustomersLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('DeleteCustomerController');
 
   @Delete('facilities/:facilityId/customers/:customerId')
   @ApiTags('Customers')
@@ -46,10 +50,10 @@ export class RemoveCustomerController extends BaseController {
         }
       }
 
-      this.logger.verbose('Customer successfully removed');
+      this.logger.log('Customer successfully removed');
       return this.ok(res);
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

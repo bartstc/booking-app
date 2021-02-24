@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Inject, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { CommandBus } from '@nestjs/cqrs';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
@@ -12,14 +12,18 @@ import {
 } from 'modules/facilities/application/command/createFacility';
 
 import { createFacilitySchema } from '../../schemas';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class CreateFacilityController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.FacilitiesLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('CreateFacilityController');
 
   @Post('enterprises/:enterpriseId/facilities')
   @ApiTags('Facilities')
@@ -51,10 +55,10 @@ export class CreateFacilityController extends BaseController {
         return this.fail(res, error.errorValue());
       }
 
-      this.logger.verbose('Facility successfully created');
+      this.logger.log('Facility successfully created');
       return this.ok(res);
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

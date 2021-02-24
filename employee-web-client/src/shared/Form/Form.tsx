@@ -5,9 +5,14 @@ import { ObjectSchema } from 'yup';
 
 import { FormStatus } from './FormStatus';
 
+export type EnhancedUseFormMethods<T> = UseFormMethods<T> & {
+  status: FormStatus;
+  setStatus: (status: FormStatus) => void;
+};
+
 interface IProps<T> extends UseFormOptions<T> {
-  onSubmit: (model: T, methods: UseFormMethods<T>) => void;
-  children: ReactNode | ((data: UseFormMethods<T>) => ReactNode);
+  onSubmit: (model: T, methods: EnhancedUseFormMethods<T>) => void;
+  children: ReactNode | ((data: EnhancedUseFormMethods<T>) => ReactNode);
   id: string;
   schema?: ObjectSchema;
   resetOnSubmit?: boolean;
@@ -34,8 +39,7 @@ const Form = <T extends object>({
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const handleSubmit = async (model: any) => {
     try {
-      await onSubmit(model, methods);
-      setStatus(FormStatus.Save_success);
+      await onSubmit(model, { ...methods, setStatus, status });
     } catch {
       setStatus(FormStatus.Save_failure);
     } finally {
@@ -46,7 +50,7 @@ const Form = <T extends object>({
   return (
     <FormProvider {...methods} status={status} setStatus={setStatus}>
       <form noValidate id={id} onSubmit={methods.handleSubmit(handleSubmit)}>
-        {typeof children === 'function' ? children(methods) : children}
+        {typeof children === 'function' ? children({ ...methods, status, setStatus }) : children}
       </form>
     </FormProvider>
   );

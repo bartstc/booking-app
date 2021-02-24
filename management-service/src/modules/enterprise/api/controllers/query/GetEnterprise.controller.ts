@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Inject, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
@@ -11,14 +11,18 @@ import {
   GetEnterpriseResponse,
   GetEnterpriseErrors,
 } from 'modules/enterprise/application/query/getEnterprise';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class GetEnterpriseController extends BaseController {
-  constructor(private readonly queryBus: QueryBus) {
+  constructor(
+    private readonly queryBus: QueryBus,
+    @Inject(InfrastructureKeys.EnterpriseLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  private logger = new Logger('GetEnterpriseController');
 
   @Get('enterprises/:enterpriseId')
   @ApiTags('Enterprises')
@@ -45,10 +49,10 @@ export class GetEnterpriseController extends BaseController {
         }
       }
 
-      this.logger.verbose('Enterprise successfully returned');
+      this.logger.log('Enterprise successfully returned');
       return this.ok(res, result.value.getValue());
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }

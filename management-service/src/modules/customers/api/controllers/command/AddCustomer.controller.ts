@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Inject, Param, Post, Res } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { Response } from 'express';
 import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
@@ -12,14 +12,18 @@ import {
 } from 'modules/customers/application/command/addCustomer';
 
 import { addCustomerSchema } from '../../schemas';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { ILoggerService } from '../../../../../logger';
 
 @Controller()
 export class AddCustomerController extends BaseController {
-  constructor(private readonly commandBus: CommandBus) {
+  constructor(
+    private readonly commandBus: CommandBus,
+    @Inject(InfrastructureKeys.CustomersLoggerService)
+    private readonly logger: ILoggerService,
+  ) {
     super();
   }
-
-  logger = new Logger('AddCustomerController');
 
   @Post('facilities/:facilityId/customers')
   @ApiTags('Customers')
@@ -56,10 +60,10 @@ export class AddCustomerController extends BaseController {
         }
       }
 
-      this.logger.verbose('Customer successfully added');
+      this.logger.log('Customer successfully added');
       return this.ok(res);
     } catch (err) {
-      this.logger.error('Unexpected server error', err);
+      this.logger.error(err);
       return this.fail(res, err);
     }
   }
