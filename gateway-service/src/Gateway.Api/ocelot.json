@@ -1,0 +1,18 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 81
+                }
+            ],
+            "UpstreamPathTemplate": "/booking/{everything}",
+            "UpstreamHttpMethod": []
+        }
+    ],
+    "GlobalConfiguration": {
+    }
+}
