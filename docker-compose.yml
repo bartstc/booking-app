@@ -68,5 +68,17 @@ services:
       - rabbit
     command: npm run start:dev
 
+  identity:
+    image: identity
+    build:
+      context: .
+      dockerfile: identity-service/Dockerfile
+    depends_on:
+      - "db"
+    ports:
+      - "83:80"
+    environment:
+      - ConnectionStrings:IdentityServer=Host=db;Database=identity;Username=postgres;Password=pg
+
 volumes:
   pgdata:
