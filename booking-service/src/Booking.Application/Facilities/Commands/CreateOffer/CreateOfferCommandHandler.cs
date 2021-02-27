@@ -22,6 +22,7 @@ namespace Booking.Application.Facilities.Commands.CreateOffer
             var offer = new Offer(
                 new OfferId(request.Id),
                 new FacilityId(request.FacilityId),
+                request.Name,
                 request.Price,
                 request.Currency,
                 request.Duration

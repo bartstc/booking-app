@@ -22,6 +22,7 @@ namespace Booking.Application.Facilities.IntegrationEvents.EventHandling
             await mediator.Send(new CreateOfferCommand(
                 message.Id,
                 message.FacilityId,
+                message.Name,
                 message.Price,
                 message.Currency,
                 message.Duration

@@ -33,12 +33,16 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname booking <<-EOSQL
         change_date timestamp,
         CONSTRAINT fk_booking
             FOREIGN KEY(booking_id)
-            REFERENCES booking.bookings(booking_id)
+            REFERENCES booking.bookings(booking_id),
+        CONSTRAINT fk_offer
+            FOREIGN KEY(offer_id)
+            REFERENCES facility.offers(offer_id)
     );
 
     CREATE TABLE facility.offers (
         offer_id uuid PRIMARY KEY,
         facility_id uuid NOT NULL,
+        name varchar(100) NOT NULL,
         price numeric NOT NULL,
         currency varchar(5) NOT NULL,
         duration smallint NOT NULL

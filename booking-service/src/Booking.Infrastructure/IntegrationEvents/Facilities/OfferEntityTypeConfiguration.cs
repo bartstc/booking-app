@@ -15,6 +15,7 @@ namespace Booking.Infrastructure.IntegrationEvents.Facilities
             builder.Property(b => b.Id).HasColumnName("offer_id");
 
             builder.Property(b => b.FacilityId).HasColumnName("facility_id");
+            builder.Property(b => b.Name).HasColumnName("name");
             builder.Property(b => b.Price).HasColumnName("price");
             builder.Property(b => b.Currency).HasColumnName("currency");
             builder.Property(b => b.Duration).HasColumnName("duration");

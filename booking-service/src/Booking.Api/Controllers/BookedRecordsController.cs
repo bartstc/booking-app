@@ -66,13 +66,15 @@ namespace Booking.Api.Controllers
         
         [HttpGet("records")]
         [ProducesResponseType(typeof(List<BookedRecordOfFacilityDto>), (int)HttpStatusCode.OK)]
-        public async Task<List<BookedRecordOfFacilityDto>> GetBookedRecords(
+        public async Task<CollectionResponse<BookedRecordOfFacilityDto>> GetBookedRecords(
             [FromRoute] Guid facilityId,
             [FromQuery] DateTime dateFrom,
             [FromQuery] DateTime dateTo
         )
         {
-            return await mediator.Send(new GetBookedRecordsOfFacilityQuery(facilityId, dateFrom, dateTo));
+            return new CollectionResponse<BookedRecordOfFacilityDto>(
+                await mediator.Send(new GetBookedRecordsOfFacilityQuery(facilityId, dateFrom, dateTo))
+            );
         }
     }
 }
