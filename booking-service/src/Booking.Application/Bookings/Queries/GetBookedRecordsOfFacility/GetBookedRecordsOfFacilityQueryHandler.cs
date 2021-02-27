@@ -23,16 +23,23 @@ namespace Booking.Application.Bookings.Queries.GetBookedRecordsOfFacility
             return (await connection.QueryAsync<BookedRecordOfFacilityDto>(
                 @"SELECT
                     b.booking_id as BookingId,
-                    r.employee_id as EmployeeId,
                     r.offer_id as OfferId,
-                    r.price as Price,
-                    r.currency as Currency,
+                    o.name as OfferName,
+                    r.employee_id as EmployeeId,
+                    null as EmployeeName,
+                    b.customer_id as CustomerId,
+                    r.date as DateFrom,
+                    r.date + r.duration * INTERVAL '1 minute' as DateTo,
+                    r.duration as Duration,
                     r.status as Status,
-                    r.date as Date,
-                    r.duration as Duration
+                    r.price as Price,
+                    r.currency as Currency
                 FROM
-                    booking.bookings b INNER JOIN
+                    booking.bookings b
+                        INNER JOIN
                     booking.booked_records r ON b.booking_id = r.booking_id
+                        INNER JOIN
+                    facility.offers o ON r.offer_id = o.offer_id
                 WHERE
                     b.facility_id = @FacilityId AND
                     r.date BETWEEN @DateFrom::timestamp AND @DateTo::timestamp",

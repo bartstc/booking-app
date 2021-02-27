@@ -36,6 +36,7 @@ namespace Booking.IntegrationTests.Facilities
 
                 var offerId = new OfferId(Guid.NewGuid());
                 var facilityId = new FacilityId(Guid.NewGuid());
+                var name = "testowa oferta";
                 var price = 50;
                 var currency = "PLN";
                 short duration = 60;
@@ -47,6 +48,7 @@ namespace Booking.IntegrationTests.Facilities
                     {
                         Id = offerId.Value,
                         FacilityId = facilityId.Value,
+                        Name = name,
                         Price = price,
                         Currency = currency,
                         Duration = duration
