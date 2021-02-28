@@ -11,16 +11,16 @@ import { Header } from './Header';
 const FacilitiesTab = lazy(() => import('./FacilitiesTab'));
 const EnterpriseTab = lazy(() => import('./EnterpriseTab'));
 
-const Overview = () => {
+const Dashboard = () => {
   return (
     <PageWrapper spacing={{ base: 6, md: 10 }}>
       <Header />
       <VStack w='100%' maxW='1200px' pb={{ base: 4, md: 10 }}>
         <Suspense fallback={<Spinner />}>
           <Switch>
-            <Route path='/overview/enterprise' component={EnterpriseTab} />
-            <Route path='/overview/facilities' component={FacilitiesTab} exact />
-            <Route render={() => <Redirect to='/overview/enterprise' />} />
+            <Route path='/dashboard/enterprise' component={EnterpriseTab} />
+            <Route path='/dashboard/facilities' component={FacilitiesTab} exact />
+            <Route render={() => <Redirect to='/dashboard/enterprise' />} />
           </Switch>
         </Suspense>
       </VStack>
@@ -28,4 +28,4 @@ const Overview = () => {
   );
 };
 
-export default withErrorBoundary(Overview);
+export default withErrorBoundary(Dashboard);

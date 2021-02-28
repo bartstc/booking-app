@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { OverviewTabs } from '../OverviewTabs';
+import { DashboardTabs } from '../DashboardTabs';
 import { EditEnterpriseForm } from './EditEnterpriseForm';
 
 const EnterpriseTab = () => {
   return (
-    <OverviewTabs>
+    <DashboardTabs>
       <EditEnterpriseForm />
-    </OverviewTabs>
+    </DashboardTabs>
   );
 };
 
