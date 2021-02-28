@@ -38,12 +38,12 @@ const AddCustomerForm = ({ onSubmit }: IProps) => {
         ],
       }}
     >
-      <VStack w='100%' align='flex-start'>
+      <VStack w='100%' align='stretch'>
         <InputField name='fullName' label={<FormattedMessage id='full-name' defaultMessage='Full name' />} id='customer-name' />
-        <Box w='100%' maxW='300px'>
+        <Box maxW='300px'>
           <DateField name='birthDate' label={<FormattedMessage id='birth-date' defaultMessage='Birth date' />} id='birth-date' />
         </Box>
-        <Box w='100%' maxW='300px'>
+        <Box maxW='300px'>
           <InputField name='address.city' label={<FormattedMessage id='city' defaultMessage='City' />} id='address-city' />
           <InputField name='address.street' label={<FormattedMessage id='street' defaultMessage='Street' />} id='address-street' />
           <MaskedInputField
@@ -53,7 +53,7 @@ const AddCustomerForm = ({ onSubmit }: IProps) => {
             mask={masks.postCode}
           />
         </Box>
-        <Box w='100%'>
+        <Box>
           <InputField
             name='description'
             as='textarea'
