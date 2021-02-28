@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
-import App from '../../App';
 import { Layout } from '../Layout';
 import { Spinner } from '../Spinner';
 
@@ -23,7 +22,7 @@ const PublicRoutes = () => {
           <Route path='/offers' component={Offers} exact />
           <Route path='/settings' component={Settings} exact />
           <Route path='/dashboard' component={Dashboard} />
-          <Route component={App} />
+          <Route render={() => <Redirect to={'dashboard/enterprise'} />} />
         </Switch>
       </Suspense>
     </Layout>
