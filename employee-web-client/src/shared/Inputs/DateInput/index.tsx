@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import ReactDate, { ReactDatePickerProps, registerLocale } from 'react-datepicker';
 import dayjs from 'dayjs';
-import { Input, useColorModeValue, useTheme } from '@chakra-ui/react';
+import { useIntl } from 'react-intl';
+import ReactDate, { ReactDatePickerProps, registerLocale } from 'react-datepicker';
+import { Input, useColorMode, useColorModeValue, useTheme } from '@chakra-ui/react';
 
 import en from 'date-fns/locale/en-GB';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -16,7 +17,9 @@ export type DateInputProps = ReactDatePickerProps & {
 };
 
 const DateInput = ({ isInvalid = false, value, onChange, ...props }: DateInputProps) => {
+  const { formatMessage } = useIntl();
   const { colors } = useTheme();
+  const { colorMode } = useColorMode();
   const invalidColor = useColorModeValue(colors.red[500], colors.red[300]);
   const validColor = useColorModeValue(colors.gray[200], colors.gray[600]);
   const clearBtnBackground = useColorModeValue(colors.blue[500], colors.blue[300]);
@@ -30,6 +33,7 @@ const DateInput = ({ isInvalid = false, value, onChange, ...props }: DateInputPr
 
   return (
     <DatePickerStyles
+      isDarkMode={colorMode === 'dark'}
       isInvalid={isInvalid}
       borderColor={isInvalid ? invalidColor : validColor}
       focusColor={colors.blue[500]}
@@ -47,7 +51,8 @@ const DateInput = ({ isInvalid = false, value, onChange, ...props }: DateInputPr
         maxDate={new Date(2999, 1, 1)}
         {...props}
         locale='en'
-        dateFormat='yyyy/MM/dd'
+        dateFormat={props.showTimeInput ? 'yyy/MM/dd h:mm aa' : 'yyyy/MM/dd'}
+        timeInputLabel={formatMessage({ id: 'time-input-label', defaultMessage: 'Time:' })}
         showPopperArrow={false}
         isClearable
         selected={value ? new Date(value) : null}
@@ -59,12 +64,7 @@ const DateInput = ({ isInvalid = false, value, onChange, ...props }: DateInputPr
             return;
           }
 
-          const date = dayjs(value as any)
-            .hour(23)
-            .minute(59)
-            .second(59);
-
-          onChange(date.format(dateFormat) as any, event);
+          onChange(dayjs(value as any).format(dateFormat) as any, event);
         }}
       />
     </DatePickerStyles>
