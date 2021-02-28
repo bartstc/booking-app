@@ -1,34 +1,52 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { mdiLockOutline } from '@mdi/js';
 
 import { IconButton, IconButtonProps } from 'shared/Button';
 
 import { useDeactivateEmployeeNotification } from './useDeactivateEmployeeNotification';
+import { useDisclosure } from '@chakra-ui/react';
+import { useDeactivateEmployee } from '../../infrastructure/command';
+import { Confirm } from '../../../../shared/Confirm';
 
 interface IProps extends Omit<IconButtonProps, 'title' | 'onClick'> {
-  onClick: () => Promise<void>;
+  facilityId: string;
+  employeeId: string;
 }
 
-const DeactivateEmployeeIconButton = ({ onClick, ...props }: IProps) => {
+const DeactivateEmployeeIconButton = ({ facilityId, employeeId, ...props }: IProps) => {
   const { formatMessage } = useIntl();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { showFailureNotification, showSuccessNotification } = useDeactivateEmployeeNotification();
+  const [deactivate, isDeactivating] = useDeactivateEmployee(facilityId, employeeId);
 
   return (
-    <IconButton
-      title={formatMessage({ id: 'deactivate-employee', defaultMessage: 'Deactivate employee' })}
-      path={mdiLockOutline}
-      onClick={() => {
-        onClick()
-          .then(() => {
-            showSuccessNotification();
-          })
-          .catch(() => {
-            showFailureNotification();
-          });
-      }}
-      {...props}
-    />
+    <>
+      <Confirm
+        isOpen={isOpen}
+        isLoading={isDeactivating}
+        onClose={onClose}
+        onConfirm={() => {
+          deactivate()
+            .then(() => showSuccessNotification())
+            .catch(() => showFailureNotification())
+            .finally(() => onClose());
+        }}
+        description={
+          <FormattedMessage
+            id='deactivate-employee-confirmation-description'
+            defaultMessage='Are you sure to perform this operation? No booking can be assigned to the employee.'
+          />
+        }
+      />
+      <IconButton
+        isLoading={isDeactivating}
+        title={formatMessage({ id: 'deactivate-employee', defaultMessage: 'Deactivate employee' })}
+        path={mdiLockOutline}
+        onClick={onOpen}
+        {...props}
+      />
+    </>
   );
 };
 
