@@ -10,17 +10,17 @@ interface IProps {
   children: ReactNode;
 }
 
-const OverviewTabs = ({ children }: IProps) => {
+const DashboardTabs = ({ children }: IProps) => {
   const tabSize = useBreakpointValue({ base: 'sm', md: 'lg' });
 
   return (
     <ChakraTabs w='100%' size={tabSize}>
       <TabList>
-        <TabLink to={`/overview/enterprise`} fontWeight='700'>
-          <FormattedMessage id='enterprise-overview' defaultMessage='Enterprise' />
+        <TabLink to={`/dashboard/enterprise`} fontWeight='700'>
+          <FormattedMessage id='enterprise' defaultMessage='Enterprise' />
         </TabLink>
-        <TabLink to={buildUrl(`/overview/facilities`, DEFAULT_PARAMS)} fontWeight='700'>
-          <FormattedMessage id='facilities-overview' defaultMessage='Facilities' />
+        <TabLink to={buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS)} fontWeight='700'>
+          <FormattedMessage id='facilities' defaultMessage='Facilities' />
         </TabLink>
       </TabList>
       <TabPanels>
@@ -32,4 +32,4 @@ const OverviewTabs = ({ children }: IProps) => {
   );
 };
 
-export { OverviewTabs };
+export { DashboardTabs };

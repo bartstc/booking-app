@@ -10,7 +10,7 @@ const Customers = lazy(() => import('../../pages/Customers'));
 const Employees = lazy(() => import('../../pages/Employees'));
 const Offers = lazy(() => import('../../pages/Offers'));
 const Settings = lazy(() => import('../../pages/Settings'));
-const Overview = lazy(() => import('../../pages/Overview'));
+const Dashboard = lazy(() => import('../../pages/Dashboard'));
 
 const PublicRoutes = () => {
   return (
@@ -22,7 +22,7 @@ const PublicRoutes = () => {
           <Route path='/employees' component={Employees} exact />
           <Route path='/offers' component={Offers} exact />
           <Route path='/settings' component={Settings} exact />
-          <Route path='/overview' component={Overview} />
+          <Route path='/dashboard' component={Dashboard} />
           <Route component={App} />
         </Switch>
       </Suspense>

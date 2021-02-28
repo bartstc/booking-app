@@ -11,10 +11,10 @@ export const useGetLinks = () => {
     {
       path: mdiClipboardTextSearch,
       label: formatMessage({
-        id: 'enterprise-overview',
-        defaultMessage: 'Overview',
+        id: 'dashboard',
+        defaultMessage: 'Dashboard',
       }),
-      to: 'overview/enterprise',
+      to: 'dashboard/enterprise',
     },
     {
       path: mdiCalendar,
