@@ -22,6 +22,7 @@
     "intl-dateformat": "^0.1.4",
     "query-string": "^6.13.7",
     "react": "^17.0.1",
+    "react-big-calendar": "^0.32.0",
     "react-datepicker": "^3.3.0",
     "react-device-detect": "^1.15.0",
     "react-dom": "^17.0.1",
@@ -67,6 +68,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-big-calendar": "^0.30.0",
     "@types/react-datepicker": "^3.1.2",
     "@types/react-linkify": "^1.0.0",
     "@types/react-router-dom": "^5.1.7",

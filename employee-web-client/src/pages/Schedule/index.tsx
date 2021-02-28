@@ -1,9 +1,14 @@
 import React from 'react';
 
-import { MaintenanceState } from 'shared/States';
+import { PageWrapper } from 'shared/Layout/Page';
+import { Calendar } from './Calendar';
 
 const Schedule = () => {
-  return <MaintenanceState />;
+  return (
+    <PageWrapper>
+      <Calendar />
+    </PageWrapper>
+  );
 };
 
 export default Schedule;

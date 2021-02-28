@@ -11,7 +11,7 @@ const FacilitiesTab = () => {
   return (
     <OverviewTabs>
       <Panel />
-      <Box maxW='1000px' m='0 auto' mt={{ base: 6, md: 10 }}>
+      <Box maxW='100%' m='0 auto' mt={{ base: 6, md: 10 }}>
         {isMobile ? <List /> : <Table />}
       </Box>
     </OverviewTabs>
