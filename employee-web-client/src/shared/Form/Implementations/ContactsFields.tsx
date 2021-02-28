@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { HStack, VStack, Stack, chakra } from '@chakra-ui/react';
+import { HStack, VStack, Stack, Box } from '@chakra-ui/react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { mdiDelete } from '@mdi/js';
 
@@ -27,8 +27,8 @@ const ContactsFields = ({ namePrefix = 'contacts' }: IProps) => {
         const isFirst = index === 0;
 
         return (
-          <Stack spacing={4} w='100%' key={field.id} direction={{ base: 'column', md: 'row' }} align='flex-start'>
-            <chakra.div w='100%' maxW={{ base: '100%', md: '200px' }}>
+          <Stack spacing={4} w='100%' key={field.id} direction={{ base: 'column', md: 'row' }} align='stretch'>
+            <Box w='100%' maxW={{ base: '100%', md: '200px' }}>
               <ContactSelectField
                 name={typeName}
                 id={typeName}
@@ -37,7 +37,7 @@ const ContactsFields = ({ namePrefix = 'contacts' }: IProps) => {
                 onChangeEffect={() => setValue(valueName, '')}
                 disabled={isFirst}
               />
-            </chakra.div>
+            </Box>
             <HStack width='100%' align='flex-start' spacing={4}>
               {watch(typeName) === ContactType.Phone || watch(typeName) === ContactType.Fax ? (
                 <MaskedInputField
