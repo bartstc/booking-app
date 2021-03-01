@@ -60,25 +60,17 @@ export function useAutoComplete<
     );
   };
 
-  const mapParams$ = () => {
-    // todo
-  };
-
-  const getItems = () =>
-    pipe(
-      map(({ query, offset, limit }: Params) => {
-        if (query === '') {
-          return {
-            limit,
-            [offsetKey]: offset,
-            ...params,
-          };
-        }
-        return { [queryKey]: query, [offsetKey]: offset, limit, ...params };
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      }) as any,
-      switchMap(fetchData$),
-    );
+  const mapParams$ = map(({ query, offset, limit }: Params) => {
+    if (query === '') {
+      return {
+        limit,
+        [offsetKey]: offset,
+        ...params,
+      };
+    }
+    return { [queryKey]: query, [offsetKey]: offset, limit, ...params };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }) as any;
 
   useEffect(() => {
     search$
@@ -93,17 +85,7 @@ export function useAutoComplete<
             ...params,
           };
         }),
-        map(({ query, offset, limit }: Params) => {
-          if (query === '') {
-            return {
-              limit,
-              [offsetKey]: offset,
-              ...params,
-            };
-          }
-          return { [queryKey]: query, [offsetKey]: offset, limit, ...params };
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }) as any,
+        mapParams$,
         switchMap((value: Params) => {
           if ((value[queryKey] as string)?.length < 3) {
             return NEVER;
@@ -124,7 +106,7 @@ export function useAutoComplete<
             query: value[1],
           };
         }),
-        getItems(),
+        pipe(mapParams$, switchMap(fetchData$)),
       )
       .subscribe();
 
