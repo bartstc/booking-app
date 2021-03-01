@@ -1,0 +1,54 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "booking",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/booking/{everything}",
+            "UpstreamHttpMethod": [],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": [ "gateway" ]
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "accessibility",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/accessibility/{everything}",
+            "UpstreamHttpMethod": [],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": [ "gateway" ]
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "management",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/management/{everything}",
+            "UpstreamHttpMethod": [],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": [ "gateway" ]
+            }
+        }
+    ],
+    "GlobalConfiguration": {
+    }
+}

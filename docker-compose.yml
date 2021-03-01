@@ -20,6 +20,16 @@ services:
     ports:
       - 8080:8080
 
+  gateway:
+    image: gateway
+    build:
+      context: .
+      dockerfile: gateway-service/Dockerfile
+    ports:
+      - "8085:80"
+    environment:
+      - IdentityUrl=http://identity
+
   rabbit:
     image: rabbitmq:3-management
     restart: always

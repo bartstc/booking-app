@@ -1,8 +1,11 @@
 using System.IO;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -21,20 +24,15 @@ namespace Gateway.Api
                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
                        .AddJsonFile("appsettings.json", true, true)
                        .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                       .AddJsonFile("ocelot.json")
+                       .AddJsonFile($"ocelot.{hostingContext.HostingEnvironment.EnvironmentName}.json")
                        .AddEnvironmentVariables();
                })
-               .ConfigureServices(s => {
-                   s.AddOcelot();
-               })
+               .UseStartup<Startup>()
                .ConfigureLogging((hostingContext, logging) =>
-               {
-                   //logging
-               })
-               .UseIISIntegration()
-               .Configure(app =>
-               {
-                   app.UseOcelot().Wait();
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();  
+                    logging.AddTraceSource("Information, ActivityTracing");
                })
                .Build()
                .Run();
