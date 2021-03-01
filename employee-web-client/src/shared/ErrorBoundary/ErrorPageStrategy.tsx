@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IFallbackProps } from './ErrorBoundary';
-import { AjaxError } from '../../utils/http-service';
+import { AjaxError } from '../../utils/http';
 import { ClientErrorState, NotFoundState, ServerErrorState } from '../States';
 
 const ErrorPageStrategy = ({ error }: IFallbackProps<Error>) => {

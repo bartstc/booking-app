@@ -1,5 +1,5 @@
 import { buildUrl } from 'utils';
-import { httpService } from 'utils/http-service';
+import { httpService } from 'utils/http';
 
 import { IOfferCollection, IOfferCollectionQueryParams } from '../../types';
 
