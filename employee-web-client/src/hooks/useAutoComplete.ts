@@ -24,7 +24,7 @@ export function useAutoComplete<
   Params extends Record<string, string | number | undefined> = IQueryParams
 >({
   url,
-  limit = 40,
+  limit = 20,
   offsetKey = 'offset',
   queryKey = 'query',
   map: mapFn = response => response.collection,
@@ -131,7 +131,6 @@ export function useAutoComplete<
     return () => {
       subscriber.unsubscribe();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const nextPage = () => {

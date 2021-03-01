@@ -4,6 +4,7 @@ import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHea
 
 import { AddReservationForm, useAddReservationNotification } from 'modules/schedule/application/bookOffer';
 import { IAddReservationDto } from 'modules/schedule/dto';
+import { useFacilityConsumer } from 'modules/context';
 import { Button } from 'shared/Button';
 import { SubmitButton } from 'shared/Form';
 
@@ -14,6 +15,7 @@ interface IProps {
 }
 
 const BookOfferModal = ({ onClose, isOpen, onSubmit }: IProps) => {
+  const { facilityId } = useFacilityConsumer();
   const { showSuccessNotification } = useAddReservationNotification();
 
   return (
@@ -26,6 +28,7 @@ const BookOfferModal = ({ onClose, isOpen, onSubmit }: IProps) => {
         <ModalCloseButton />
         <ModalBody pb={6}>
           <AddReservationForm
+            facilityId={facilityId}
             onSubmit={model => {
               showSuccessNotification();
               onSubmit(model);
