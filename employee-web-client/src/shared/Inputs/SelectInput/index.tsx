@@ -49,6 +49,10 @@ const findOption = (selectedValue: unknown, options: Options): OptionType | null
     return null;
   }
 
+  if (selectedValue === '') {
+    return null;
+  }
+
   if (typeof selectedValue === 'object') {
     throw new Error(`FormSelect: incorrect value type`);
   }
@@ -89,6 +93,7 @@ const SelectInput = ({
   const selectedBgColor = useColorModeValue(colors.blue[500], colors.blue[300]);
   const invalidColor = useColorModeValue(colors.red[500], colors.red[300]);
   const placeholderColor = useColorModeValue(colors.gray[400], colors.gray[600]);
+  const inputColor = useColorModeValue(colors.gray[900], colors.gray[100]);
 
   return (
     <ReactSelect
@@ -113,6 +118,10 @@ const SelectInput = ({
         singleValue: base => ({
           ...base,
           color: textColor,
+        }),
+        input: base => ({
+          ...base,
+          color: inputColor,
         }),
         indicatorsContainer: base => ({
           ...base,

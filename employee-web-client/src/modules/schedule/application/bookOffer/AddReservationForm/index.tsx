@@ -9,9 +9,11 @@ import { Button, IconButton } from 'shared/Button';
 import { OptionType } from 'types';
 
 import { IAddReservationDto } from '../../../dto';
+import { CustomerSelectFieldAsync } from '../../../../customers/application/components';
 
 interface IProps {
   onSubmit: (model: IAddReservationDto) => void;
+  facilityId: string;
 }
 
 const mockedPersons: OptionType[] = [
@@ -44,7 +46,7 @@ const mockedOffers: OptionType[] = [
   },
 ];
 
-const AddReservationForm = ({ onSubmit }: IProps) => {
+const AddReservationForm = ({ onSubmit, facilityId }: IProps) => {
   return (
     <Form<IAddReservationDto>
       id='book-offer-form'
@@ -62,12 +64,7 @@ const AddReservationForm = ({ onSubmit }: IProps) => {
     >
       <VStack w='100%' align='flex-start'>
         <Box w='100%' maxW='400px'>
-          <SelectField
-            options={mockedPersons}
-            label={<FormattedMessage id='customer-name' defaultMessage='Client' />}
-            name='customerId'
-            id='customer-id'
-          />
+          <CustomerSelectFieldAsync name='customerId' id='customer-id' facilityId={facilityId} />
         </Box>
         <OfferFields />
       </VStack>
