@@ -2,11 +2,7 @@ import React from 'react';
 import ReactSelect, { NamedProps } from 'react-select';
 import { useColorModeValue, useTheme } from '@chakra-ui/react';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface OptionType<T = any> {
-  label: string;
-  value: T;
-}
+import { OptionType } from 'types';
 
 export type SelectInputProps = NamedProps<OptionType, boolean> & {
   options: OptionType[];

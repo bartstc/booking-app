@@ -1,6 +1,6 @@
 import { useQueryClient } from 'react-query';
 
-import { httpService } from 'utils/http-service';
+import { httpService } from 'utils/http';
 import { useMutation } from 'shared/Suspense';
 
 import { IAddOfferDto } from '../../dto';

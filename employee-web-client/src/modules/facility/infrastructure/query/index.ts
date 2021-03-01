@@ -1,4 +1,4 @@
-import { httpService } from 'utils/http-service';
+import { httpService } from 'utils/http';
 import { buildUrl } from 'utils';
 
 import { IFacilityCollection, IFacilityCollectionQueryParams } from '../../types';
