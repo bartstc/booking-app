@@ -9,27 +9,14 @@ import { Button, IconButton } from 'shared/Button';
 import { OptionType } from 'types';
 
 import { IAddReservationDto } from '../../../dto';
-import { CustomerSelectFieldAsync } from '../../../../customers/application/components';
+import { CustomerSelectFieldAsync } from '../../../../customers/shared';
+import { EmployeeSelectFieldAsync } from '../../../../employees/shared';
+import { useFacilityConsumer } from '../../../../context';
 
 interface IProps {
   onSubmit: (model: IAddReservationDto) => void;
   facilityId: string;
 }
-
-const mockedPersons: OptionType[] = [
-  {
-    value: '1',
-    label: 'John Doe',
-  },
-  {
-    value: '2',
-    label: 'Jane Doe',
-  },
-  {
-    value: '3',
-    label: 'Sam Smith',
-  },
-];
 
 const mockedOffers: OptionType[] = [
   {
@@ -75,6 +62,7 @@ const AddReservationForm = ({ onSubmit, facilityId }: IProps) => {
 const OfferFields = () => {
   const { formatMessage } = useIntl();
   const { control } = useFormContext();
+  const { facilityId } = useFacilityConsumer();
   const { fields, append, remove } = useFieldArray({ control, name: 'offers' });
 
   return (
@@ -92,12 +80,11 @@ const OfferFields = () => {
                 <Box h='100%' w='2px' backgroundColor='blue.500' />
               </VStack>
             )}
-            <VStack spacing={2} w='100%' align='flex-start' mb={4}>
-              <HStack w='100%' align='flex-start' justify='space-between' spacing={4}>
+            <VStack spacing={2} w='100%' align='stretch' mb={4}>
+              <HStack w='100%' align='stretch' justify='space-between' spacing={4}>
                 <Box w='100%' maxW='400px'>
-                  <SelectField
-                    options={mockedPersons}
-                    label={<FormattedMessage id='employer-name' defaultMessage='Employer' />}
+                  <EmployeeSelectFieldAsync
+                    facilityId={facilityId}
                     name={`offers[${index}].employerId`}
                     id={`offers[${index}].employerId`}
                     tip={
