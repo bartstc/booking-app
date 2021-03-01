@@ -17,7 +17,8 @@ namespace IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new List<ApiScope>
             {
-                new ApiScope("api1", "My API")
+                new ApiScope("api1", "My API"),
+                new ApiScope("gateway", "Gateway API")
             };
 
         public static IEnumerable<Client> Clients =>
@@ -26,6 +27,19 @@ namespace IdentityServer
                 new Client
                 {
                     ClientId = "client",
+
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+
+                    AllowedScopes = { "api1", "gateway" }
+                },
+                new Client
+                {
+                    ClientId = "client2",
 
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
 

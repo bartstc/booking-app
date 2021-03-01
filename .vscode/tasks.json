@@ -63,6 +63,18 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "gateway-build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/gateway-service/src/Gateway.Api/Gateway.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
             "type": "docker-build",
             "label": "docker-build: debug",
             "dependsOn": [

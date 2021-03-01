@@ -1,0 +1,42 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "booking",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/booking/{everything}",
+            "UpstreamHttpMethod": []
+        },
+        {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "accessibility",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/accessibility/{everything}",
+            "UpstreamHttpMethod": []
+        },
+        {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "management",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/management/{everything}",
+            "UpstreamHttpMethod": []
+        }
+    ],
+    "GlobalConfiguration": {
+    }
+}

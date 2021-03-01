@@ -28,7 +28,7 @@ namespace IdentityServer
             services.AddRazorPages();
 
             services.AddDbContext<IdentityServerContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("IdentityServerConnection")));
+                    options.UseNpgsql(Configuration.GetConnectionString("IdentityServer")));
 
             services.AddIdentity<IdentityServerUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<IdentityServerContext>()
@@ -60,7 +60,7 @@ namespace IdentityServer
             services.AddScoped<IProfileService, ProfileService>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services, IdentityServerContext context)
         {
             if (env.IsDevelopment())
             {
@@ -72,6 +72,7 @@ namespace IdentityServer
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -89,7 +90,35 @@ namespace IdentityServer
                 endpoints.MapRazorPages();
             });
 
-            CreateRoles(services).Wait();
+            PrepareDb(services, context);
+        }
+
+        private void PrepareDb(IServiceProvider services, IdentityServerContext context)
+        {
+            var retryCount = 3;
+            int currentRetry = 0;
+            var delay = TimeSpan.FromSeconds(5);
+
+            for (;;)
+            {
+                try
+                {
+                    context.Database.Migrate();
+                    CreateRoles(services).Wait();
+                    break;
+                }
+                catch (Exception)
+                {
+                    currentRetry++;
+
+                    if (currentRetry > retryCount)
+                    {
+                        throw;
+                    }
+
+                    Task.Delay(delay);
+                }
+            }
         }
 
         private async Task CreateRoles(IServiceProvider services)

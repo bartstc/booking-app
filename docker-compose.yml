@@ -20,6 +20,16 @@ services:
     ports:
       - 8080:8080
 
+  gateway:
+    image: gateway
+    build:
+      context: .
+      dockerfile: gateway-service/Dockerfile
+    ports:
+      - "8085:80"
+    environment:
+      - IdentityUrl=http://identity
+
   rabbit:
     image: rabbitmq:3-management
     restart: always
@@ -67,6 +77,18 @@ services:
       - db
       - rabbit
     command: npm run start:dev
+
+  identity:
+    image: identity
+    build:
+      context: .
+      dockerfile: identity-service/Dockerfile
+    depends_on:
+      - "db"
+    ports:
+      - "83:80"
+    environment:
+      - ConnectionStrings:IdentityServer=Host=db;Database=identity;Username=postgres;Password=pg
 
 volumes:
   pgdata:
