@@ -10,11 +10,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/booking/{everything}",
-            "UpstreamHttpMethod": [],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "Bearer",
-                "AllowedScopes": [ "gateway" ]
-            }
+            "UpstreamHttpMethod": []
         },
         {
             "DownstreamPathTemplate": "/{everything}",
@@ -26,11 +22,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/accessibility/{everything}",
-            "UpstreamHttpMethod": [],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "Bearer",
-                "AllowedScopes": [ "gateway" ]
-            }
+            "UpstreamHttpMethod": []
         },
         {
             "DownstreamPathTemplate": "/{everything}",
@@ -42,11 +34,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/management/{everything}",
-            "UpstreamHttpMethod": [],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "Bearer",
-                "AllowedScopes": [ "gateway" ]
-            }
+            "UpstreamHttpMethod": []
         }
     ],
     "GlobalConfiguration": {

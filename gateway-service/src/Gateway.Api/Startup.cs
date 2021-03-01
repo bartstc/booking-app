@@ -26,20 +26,20 @@ namespace Gateway.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Gateway.Api", Version = "v1" });
             });
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
-                {
-                    options.Authority = Configuration["IdentityUrl"];
+            // services.AddAuthentication("Bearer")
+            //     .AddJwtBearer("Bearer", options =>
+            //     {
+            //         options.Authority = Configuration["IdentityUrl"];
 
-                    // TODO: remove when running in a production
-                    options.RequireHttpsMetadata = false;
+            //         // TODO: remove when running in a production
+            //         options.RequireHttpsMetadata = false;
 
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false,
-                        ValidateIssuer = false
-                    };
-                });
+            //         options.TokenValidationParameters = new TokenValidationParameters
+            //         {
+            //             ValidateAudience = false,
+            //             ValidateIssuer = false
+            //         };
+            //     });
             services.AddOcelot();
         }
 
@@ -56,7 +56,7 @@ namespace Gateway.Api
 
             app.UseRouting();
 
-            app.UseAuthentication();
+            //app.UseAuthentication();
             app.UseOcelot().Wait();
 
             app.UseEndpoints(endpoints =>
