@@ -37,8 +37,8 @@ namespace Accessibility.Infrastructure.Domain.Schedules
 
                 x.Property<EmployeeId>("employeeId").HasColumnName("employee_id");
                 
-                x.Property("startTime").HasColumnName("start_time");
-                x.Property("endTime").HasColumnName("end_time");
+                x.Property("StartTime").HasColumnName("start_time");
+                x.Property("EndTime").HasColumnName("end_time");
                 x.Property("Priority").HasColumnName("priority");
 
                 x.Property<EmployeeId>("creatorId").HasColumnName("creator_id");

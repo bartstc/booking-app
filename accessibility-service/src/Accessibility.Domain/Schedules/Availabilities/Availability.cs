@@ -8,9 +8,9 @@ namespace Accessibility.Domain.Schedules.Availabilities
     {
         internal AvailabilityId Id { get; }
         private EmployeeId employeeId;
-        private DateTime startTime;
-        private DateTime endTime;
-        internal short Priority { get; }
+        internal DateTime StartTime { get; private set; }
+        internal DateTime EndTime { get; private set; }
+        internal short Priority { get; private set; }
         private EmployeeId creatorId;
         private DateTime creationDate;
         // TODO: employeeComment
@@ -23,11 +23,18 @@ namespace Accessibility.Domain.Schedules.Availabilities
         {
             Id = new AvailabilityId(Guid.NewGuid());
             this.employeeId = employeeId;
-            this.startTime = startTime;
-            this.endTime = endTime;
+            this.StartTime = startTime;
+            this.EndTime = endTime;
             this.creatorId = creatorId;
             this.Priority = priority;
             creationDate = DateTime.Now;
+        }
+
+        internal void Correct(DateTime startTime, DateTime endTime, short priority)
+        {
+            StartTime = startTime < StartTime ? startTime : StartTime;
+            EndTime = endTime > EndTime ? endTime : EndTime;
+            this.Priority = priority;
         }
 
         internal static Availability Create(EmployeeId employeeId, DateTime startTime, DateTime endTime, EmployeeId creatorId)

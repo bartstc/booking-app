@@ -53,17 +53,25 @@ namespace Accessibility.Domain.Schedules
         public void CreateCorrection(List<AvailabilityData> corrections)
         {
             CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(corrections));
-            
+
             var currentPriority = availabilities.Max(a => a.Priority);
             var nextPriority = (short)(currentPriority + 1);
 
-            availabilities.AddRange(corrections.Select(correction => Availability.CreateCorrection(
-                correction.EmployeeId,
-                correction.StartTime,
-                correction.EndTime,
-                correction.EmployeeId,
-                nextPriority
-            )));
+            foreach (var correction in corrections)
+            {
+                var corrected = availabilities.FirstOrDefault(a =>
+                    (correction.StartTime >= a.StartTime && correction.StartTime <= a.EndTime) ||
+                    (correction.EndTime >= a.StartTime && correction.EndTime <= a.EndTime));
+                
+                if (corrected != null)
+                {
+                    corrected.Correct(correction.StartTime, correction.EndTime, nextPriority);
+                }
+                else
+                {
+                    availabilities.Add(Availability.Create(correction.EmployeeId, corrected.StartTime, corrected.EndTime, correction.CreatorId));
+                }
+            }
 
             modifyDate = DateTime.Now;
             IncreaseVersion();
