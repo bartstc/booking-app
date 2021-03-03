@@ -64,6 +64,7 @@ services:
       - RabbitMQ:Hostname=rabbit
 
   management:
+    image: mangement
     build:
       context: ./management-service
     volumes:
@@ -76,7 +77,6 @@ services:
     depends_on:
       - db
       - rabbit
-    command: npm run start:dev
 
   identity:
     image: identity
