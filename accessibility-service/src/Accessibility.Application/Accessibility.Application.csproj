@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="MassTransit" Version="7.1.6" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>

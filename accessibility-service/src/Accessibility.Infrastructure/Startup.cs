@@ -13,11 +13,15 @@ using System.Reflection;
 using Accessibility.Domain.Schedules;
 using Accessibility.Application.Schedules.DomainServices;
 using Accessibility.Infrastructure.Domain.Schedules;
-using Microsoft.Extensions.ObjectPool;
-using RabbitMQ.Client;
-using Accessibility.Infrastructure.Processing.EventBus.RabbitMQ;
 using Microsoft.Extensions.Configuration;
 using Accessibility.Application.Schedules.Commands.CreateSchedule;
+using Accessibility.Infrastructure.IntegrationEvents.Facilities;
+using Accessibility.Application.Facilities;
+using Accessibility.Domain.Bookings;
+using Accessibility.Infrastructure.Domain.Bookings;
+using MassTransit;
+using Accessibility.Application.Bookings.IntegrationEvents.EventHandling;
+using Accessibility.Application.Facilities.IntegrationEvents.EventHandling;
 
 namespace Accessibility.Infrastructure
 {
@@ -35,23 +39,42 @@ namespace Accessibility.Infrastructure
                 .AddMediatR(typeof(CreateScheduleCommand).Assembly, typeof(ScheduleCreatedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
                 .AddTransient<IScheduleRepository, ScheduleRepository>()
                 .AddTransient<ISchedulePeriodOfTimeChecker, SchedulePeriodOfTimeChecker>()
+                .AddTransient<IBookingRepository, BookingRepository>()
+                .AddTransient<IOfferRepository, OfferRepository>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()
                 //.AddHostedService<ProcessOutboxHostedService>()
                 .AddScoped<ISqlConnectionFactory>(x => new SqlConnectionFactory(connectionString))
                 .AddSingleton<IAssemblyProvider>(x => new AssemblyProvider(applicationAssembly))
-
-                .AddSingleton<ObjectPoolProvider, DefaultObjectPoolProvider>()
-                .AddSingleton<IPooledObjectPolicy<IModel>, RabbitMQChannelPooledObjectPolicy>()
-                .AddSingleton<ObjectPool<IModel>>(serviceProvider =>
-                {
-                    var provider = serviceProvider.GetRequiredService<ObjectPoolProvider>();
-                    var policy = serviceProvider.GetRequiredService<IPooledObjectPolicy<IModel>>();
-                    return provider.Create(policy);
-                })
-                .Configure<RabbitMQOptions>(configuration.GetSection("RabbitMQ"));
+                .ConfigureEventBus(configuration);
 
             return services;
+        }
+
+        private static IServiceCollection ConfigureEventBus(this IServiceCollection services, IConfiguration configuration)
+        {
+            return services.AddMassTransit(x =>
+            {
+                x.AddConsumer<ProcessBookingOrderConsumer>()
+                    .Endpoint(e => {e.ConcurrentMessageLimit = 1;});
+                x.AddConsumer<OfferCreatedConsumer>();
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(configuration["RabbitMQ:HostName"], cfgH =>
+                    {
+                        cfgH.Username(configuration["RabbitMQ:Username"]);
+                        cfgH.Password(configuration["RabbitMQ:Password"]);
+                    });
+                    
+                    cfg.ReceiveEndpoint("booking-orders-listener", e =>
+                        e.ConfigureConsumer<ProcessBookingOrderConsumer>(context));
+                    
+                    cfg.ReceiveEndpoint("offer-created-listener", e =>
+                        e.ConfigureConsumer<OfferCreatedConsumer>(context));
+                });
+            })
+            .AddMassTransitHostedService();
         }
     }
 }

@@ -52,7 +52,7 @@ namespace Booking.Infrastructure
             return services.AddMassTransit(x =>
             {
                 x.AddConsumer<ProcessBookingOrderConsumer>()
-                    .Endpoint(e => e.ConcurrentMessageLimit = 1);
+                    .Endpoint(e => {e.ConcurrentMessageLimit = 1;});
                 x.AddConsumer<OfferCreatedConsumer>();
 
                 x.UsingRabbitMq((context, cfg) =>
