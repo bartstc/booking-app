@@ -4,12 +4,12 @@
    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
    "version": "0.2.0",
    "configurations": [
-   {
+    {
         "name": "accessibility Launch",
         "type": "coreclr",
         "request": "launch",
-        "preLaunchTask": "build",
-        "program": "${workspaceFolder}/accessibility-service/src/Accessibility.Api/bin/Debug/netcoreapp3.1/Accessibility.Api.dll",
+        "preLaunchTask": "accessibility-build",
+        "program": "${workspaceFolder}/accessibility-service/src/Accessibility.Api/bin/Debug/net5.0/Accessibility.Api.dll",
         "args": [],
         "cwd": "${workspaceFolder}/accessibility-service/src/Accessibility.Api",
         "stopAtEntry": false,

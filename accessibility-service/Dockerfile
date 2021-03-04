@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
 WORKDIR /src
 COPY ["accessibility-service/src/Accessibility.Api/Accessibility.Api.csproj", "accessibility-service/src/Accessibility.Api/"]
 RUN dotnet restore "accessibility-service/src/Accessibility.Api/Accessibility.Api.csproj"

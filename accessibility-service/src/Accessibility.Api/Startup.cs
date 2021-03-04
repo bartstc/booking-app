@@ -6,6 +6,10 @@ using Microsoft.Extensions.Hosting;
 using Accessibility.Infrastructure;
 using FluentValidation.AspNetCore;
 using Accessibility.Application.Schedules.Commands.CreateSchedule;
+using Accessibility.Infrastructure.Database;
+using System;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Accessibility.Api
 {
@@ -30,11 +34,17 @@ namespace Accessibility.Api
                     options.CustomSchemaIds(x => x.FullName));
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AccessibilityContext context)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
             }
 
             app.UseSwagger();
@@ -45,6 +55,7 @@ namespace Accessibility.Api
             });
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -52,8 +63,39 @@ namespace Accessibility.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            PrepareDb(context);
+        }
+
+        private static void PrepareDb(AccessibilityContext context)
+        {
+            var retryCount = 3;
+            int currentRetry = 0;
+            var delay = TimeSpan.FromSeconds(5);
+
+            for (;;)
+            {
+                try
+                {
+                    context.Database.Migrate();
+                    break;
+                }
+                catch (Exception)
+                {
+                    currentRetry++;
+
+                    if (currentRetry > retryCount)
+                    {
+                        throw;
+                    }
+
+                    Task.Delay(delay);
+                }
+            }
         }
     }
 }
