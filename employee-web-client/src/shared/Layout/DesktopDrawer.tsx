@@ -41,16 +41,16 @@ const DesktopDrawer = ({ toggle, extended, facilityId }: IProps) => {
       />
       <VStack justify='space-between' width='100%' height='100%' pb={10} pt={20}>
         <VStack as='ul' pl='10px' align='flex-start' width='100%'>
-          {links.map(({ label, to, path }) => (
+          {links.map(({ label, to, path, signature }) => (
             <HStack key={to} as='li' mb={2}>
               {extended ? (
-                <NavButton onClick={() => push(`/${to}`)} path={path} isActive={to.includes(pathname.substring(1))}>
+                <NavButton onClick={() => push(`/${to}`)} path={path} isActive={pathname.includes(signature)}>
                   <Text pl={1} fontWeight='700' fontSize='lg'>
                     {label}
                   </Text>
                 </NavButton>
               ) : (
-                <NavIconButton onClick={() => push(`/${to}`)} title={label} path={path} isActive={to.includes(pathname.substring(1))} />
+                <NavIconButton onClick={() => push(`/${to}`)} title={label} path={path} isActive={pathname.includes(signature)} />
               )}
             </HStack>
           ))}

@@ -15,6 +15,7 @@ export const useGetLinks = () => {
         defaultMessage: 'Dashboard',
       }),
       to: 'dashboard/enterprise',
+      signature: 'dashboard',
     },
     {
       path: mdiCalendar,
@@ -23,6 +24,7 @@ export const useGetLinks = () => {
         defaultMessage: 'Schedule',
       }),
       to: 'schedule',
+      signature: 'schedule',
     },
     {
       path: mdiAccountMultiple,
@@ -31,6 +33,7 @@ export const useGetLinks = () => {
         defaultMessage: 'Customers',
       }),
       to: buildUrl('customers', DEFAULT_PARAMS),
+      signature: 'customers',
     },
 
     {
@@ -40,6 +43,7 @@ export const useGetLinks = () => {
         defaultMessage: 'Employees',
       }),
       to: buildUrl('employees', DEFAULT_PARAMS),
+      signature: 'employees',
     },
     {
       path: mdiBookMultiple,
@@ -48,14 +52,7 @@ export const useGetLinks = () => {
         defaultMessage: 'Offers',
       }),
       to: buildUrl('offers', DEFAULT_PARAMS),
-    },
-    {
-      path: mdiCogs,
-      label: formatMessage({
-        id: 'settings',
-        defaultMessage: 'Settings',
-      }),
-      to: 'settings',
+      signature: 'offers',
     },
   ];
 };

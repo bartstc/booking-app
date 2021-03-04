@@ -22,7 +22,7 @@ const Header = () => {
     <Flex w='100%' justify='space-between'>
       <VStack as='header' align='flex-start'>
         <Heading as='h1' lineHeight={8} fontWeight='900'>
-          <FormattedMessage id='enterprise-heading' defaultMessage='Enterprise' />
+          <FormattedMessage id='enterprise-heading' defaultMessage='Dashboard' />
         </Heading>
         <Text as='h2' lineHeight={4}>
           <FormattedMessage id='enterprise-subheading' defaultMessage='Manage your business' />
