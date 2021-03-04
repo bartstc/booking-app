@@ -64,7 +64,9 @@ const DateInput = ({ isInvalid = false, value, onChange, ...props }: DateInputPr
             return;
           }
 
-          onChange(dayjs(value as any).format(dateFormat) as any, event);
+          const date = dayjs(value).hour(0).minute(0).second(0);
+
+          onChange(date.format(dateFormat) as any, event);
         }}
       />
     </DatePickerStyles>

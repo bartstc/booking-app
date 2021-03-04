@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { mdiDelete } from '@mdi/js';
 
-import { DateField, Form, SelectField } from 'shared/Form';
+import { DateTimeField, Form, SelectField } from 'shared/Form';
 import { Button, IconButton } from 'shared/Button';
 import { OptionType } from 'types';
 
@@ -61,7 +61,7 @@ const AddReservationForm = ({ onSubmit, facilityId }: IProps) => {
 
 const OfferFields = () => {
   const { formatMessage } = useIntl();
-  const { control } = useFormContext();
+  const { control } = useFormContext<IAddReservationDto>();
   const { facilityId } = useFacilityConsumer();
   const { fields, append, remove } = useFieldArray({ control, name: 'offers' });
 
@@ -113,9 +113,8 @@ const OfferFields = () => {
                   id={`offers[${index}].offerId`}
                 />
               </Box>
-              <Box w='100%' maxW={{ base: '100%', md: '320px' }}>
-                <DateField
-                  showTimeInput
+              <Box w='100%' maxW={{ base: '100%', md: '450px' }}>
+                <DateTimeField
                   name={`offers[${index}].dateFrom`}
                   id={`offers[${index}].dateFrom`}
                   label={<FormattedMessage id='date-from' defaultMessage='Date and time' />}

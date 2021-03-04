@@ -10,3 +10,4 @@ export { ContactSelectField } from './Implementations';
 export { CurrencySelectField } from './CurrencySelectField';
 export { MoneyField } from './MoneyField';
 export { WithReadMode } from './WithReadMode';
+export { DateTimeField } from './DateTimeField';
