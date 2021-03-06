@@ -15,7 +15,7 @@ export const useAddEmployee = (facilityId: string) => {
   const handler = (model: IAddEmployeeDto) => {
     return mutateAsync(model)
       .then(async () => {
-        await queryClient.invalidateQueries(getEmployeesKey(facilityId)[0]);
+        await queryClient.invalidateQueries(getEmployeesKey(facilityId));
       })
       .catch(e => {
         // todo: Logger

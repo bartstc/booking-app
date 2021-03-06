@@ -13,7 +13,7 @@ export const useAddOffer = (facilityId: string) => {
   const handler = (model: IAddOfferDto) => {
     return mutateAsync(model)
       .then(async () => {
-        await queryClient.invalidateQueries(getOffersKey(facilityId)[0]);
+        await queryClient.invalidateQueries(getOffersKey(facilityId));
       })
       .catch(e => {
         // todo: Logger

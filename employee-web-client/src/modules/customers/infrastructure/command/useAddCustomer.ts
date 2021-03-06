@@ -15,7 +15,7 @@ export const useAddCustomer = (facilityId: string) => {
   const handler = (model: IAddCustomerDto) => {
     return mutateAsync(model)
       .then(async () => {
-        await queryClient.invalidateQueries(getCustomersKey(facilityId)[0]);
+        await queryClient.invalidateQueries(getCustomersKey(facilityId));
       })
       .catch(e => {
         // todo: Logger
