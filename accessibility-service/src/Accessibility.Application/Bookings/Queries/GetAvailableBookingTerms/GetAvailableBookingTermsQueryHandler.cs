@@ -34,50 +34,90 @@ namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms
 
             var availabilities = await scheduleRepository.GetAllAvailabilities(dateFrom, request.DateTo, request.FacilityId);
             var bookedTerms = await bookingRepository.GetBookedTerms(request.FacilityId, dateFrom, request.DateTo);
+            var employeeIds = availabilities.Select(a => a.EmployeeId).Distinct().ToList(); // TODO: load employee ids from persisted storage after implementation of employee created event
 
-            var dateAvailabilities = availabilities.ToLookup(a => a.StartTime.Date).OrderBy(x => x.Key);
             var employeeBookedTerms = bookedTerms.ToLookup(b => b.EmployeeId);
 
             var minutesChunk = 60 / request.BookingRules.HourChunkCount;
-            var dateConst = dateFrom.Trim(TimeSpan.TicksPerHour); // TODO: always date from the future
+            var dateConst = dateFrom.Trim(TimeSpan.TicksPerHour);
+            if (dateConst <= DateTime.Now)
+            {
+                dateConst = dateConst.AddMinutes(minutesChunk);
+            }
 
+            var dict = BuildTermDict(duration, availabilities, employeeBookedTerms, minutesChunk, dateConst);
+
+            return BuildResultList(employeeIds, dict).OrderBy(d => d.Date);
+        }
+
+        private List<AvailableBookingTermDto> BuildResultList(List<Guid> employeeIds, Dictionary<DateTime, (List<Guid> available, List<UnavailableEmployee> unavailable)> dict)
+        {
+            var result = new List<AvailableBookingTermDto>();
+            foreach (var termKeyValue in dict)
+            {
+                var term = termKeyValue.Value;
+
+                if (!term.available.Any())
+                {
+                    continue;
+                }
+
+                if (employeeIds.Count > term.available.Count() + term.unavailable.Count())
+                {
+                    var termEmployees = term.available.Concat(term.unavailable.Select(u => u.EmployeeId));
+                    term.unavailable.AddRange(employeeIds.Except(termEmployees).Select(employeeId => new UnavailableEmployee(employeeId)));
+                }
+
+                result.Add(new AvailableBookingTermDto(termKeyValue.Key, term.available, term.unavailable));
+            }
+
+            return result;
+        }
+
+        private Dictionary<DateTime, (List<Guid> available, List<UnavailableEmployee> unavailable)> BuildTermDict(short duration, IEnumerable<EmployeeAvailability> availabilities, ILookup<Guid, BookedTerm> employeeBookedTerms, int minutesChunk, DateTime dateConst)
+        {
             var dict = new Dictionary<DateTime, (List<Guid> available, List<UnavailableEmployee> unavailable)>();
 
             foreach (var availability in availabilities)
             {
-                if (availability.EndTime < dateConst)
+                if (availability.EndTime < dateConst.AddMinutes(duration))
                     continue;
-                
-                var date = dateConst;
 
-                while (date.AddMinutes(duration) <= availability.EndTime)
+                var date = dateConst >= availability.StartTime ? dateConst : availability.StartTime;
+                var dateEnd = date.AddMinutes(duration);
+
+                while (dateEnd <= availability.EndTime)
                 {
-                    var dateEnd = date.AddMinutes(duration);
-
-                    var bookedTerm = employeeBookedTerms[availability.EmployeeId].FirstOrDefault(e => (e.DateFrom >= date && e.DateFrom < dateEnd) || (e.DateTo > date && e.DateTo <= dateEnd));
-
-                    (List<Guid> available, List<UnavailableEmployee> unavailable) tuple;
-
-                    if (!dict.TryGetValue(date, out tuple))
-                    {
-                        tuple = (new List<Guid>(), new List<UnavailableEmployee>());
-                        dict[date] = tuple;
-                    }
-
-                    if (bookedTerm == null)
-                    {
-                        tuple.available.Add(availability.EmployeeId);
-                    }
-                    else
-                    {
-                        tuple.unavailable.Add(new UnavailableEmployee(availability.EmployeeId));
-                    }
+                    AddToTermDict(employeeBookedTerms, dict, availability, date, dateEnd);
 
                     date = date.AddMinutes(minutesChunk);
+                    dateEnd = date.AddMinutes(duration);
                 }
             }
 
-            return dict.Select(d => new AvailableBookingTermDto(d.Key, d.Value.available, d.Value.unavailable)).OrderBy(d => d.Date);
+            return dict;
+        }
+
+        private void AddToTermDict(ILookup<Guid, BookedTerm> employeeBookedTerms, Dictionary<DateTime, (List<Guid> available, List<UnavailableEmployee> unavailable)> dict, EmployeeAvailability availability, DateTime date, DateTime dateEnd)
+        {
+            var bookedTerm = employeeBookedTerms[availability.EmployeeId].FirstOrDefault(e => (e.DateFrom, e.DateTo).HasCommonPeriod((date, dateEnd)));
+
+            (List<Guid> available, List<UnavailableEmployee> unavailable) tuple;
+
+            if (!dict.TryGetValue(date, out tuple))
+            {
+                tuple = (new List<Guid>(), new List<UnavailableEmployee>());
+                dict[date] = tuple;
+            }
+
+            if (bookedTerm == null)
+            {
+                tuple.available.Add(availability.EmployeeId);
+            }
+            else
+            {
+                tuple.unavailable.Add(new UnavailableEmployee(availability.EmployeeId));
+            }
         }
     }
 }

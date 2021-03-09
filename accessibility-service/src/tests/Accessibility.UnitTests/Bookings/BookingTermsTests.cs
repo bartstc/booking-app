@@ -196,6 +196,101 @@ namespace Accessibility.UnitTests.Bookings
                         new List<UnavailableEmployee>()
                     )
                 }
+            },
+            new object[] // two employees not working together, one has one long booking
+            {
+                DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                DateTime.ParseExact("2022-05-09 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                new BookingRulesData(2, false, 0),
+                new List<EmployeeAvailability> {
+                    new EmployeeAvailability {
+                        EmployeeId = Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
+                        StartTime = DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        EndTime = DateTime.ParseExact("2022-05-08 12:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture)
+                    },
+                    new EmployeeAvailability {
+                        EmployeeId = Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2"),
+                        StartTime = DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        EndTime = DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture)
+                    }
+                },
+                new List<BookedTerm> {
+                    new BookedTerm {
+                        EmployeeId = Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
+                        DateFrom = DateTime.ParseExact("2022-05-08 10:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        DateTo = DateTime.ParseExact("2022-05-08 11:15:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture)
+                    }
+                },
+                new List<AvailableBookingTermDto> {
+                    new AvailableBookingTermDto(
+                        DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        new List<Guid> {
+                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"))
+                        }
+                    ),
+                    new AvailableBookingTermDto(
+                        DateTime.ParseExact("2022-05-08 08:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        new List<Guid> {
+                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"))
+                        }
+                    ),
+                    new AvailableBookingTermDto(
+                        DateTime.ParseExact("2022-05-08 09:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        new List<Guid> {
+                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"))
+                        }
+                    ),
+                    new AvailableBookingTermDto(
+                        DateTime.ParseExact("2022-05-08 09:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        new List<Guid> {
+                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"))
+                        }
+                    ),
+                    new AvailableBookingTermDto(
+                        DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        new List<Guid> {
+                            Guid.Parse("98019811-49de-4989-8b6e-5915d956e866")
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2"))
+                        }
+                    ),
+                    new AvailableBookingTermDto(
+                        DateTime.ParseExact("2022-05-08 11:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        new List<Guid> {
+                            Guid.Parse("98019811-49de-4989-8b6e-5915d956e866")
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2"))
+                        }
+                    )
+                }
             }
         };
     }
