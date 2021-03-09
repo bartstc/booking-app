@@ -8,6 +8,7 @@ using Accessibility.Application.Bookings.Queries;
 using Accessibility.Application.Bookings;
 using System.Threading.Tasks;
 using System.Linq;
+using Accessibility.Application.Facilities;
 
 namespace Accessibility.UnitTests.Bookings
 {
@@ -18,22 +19,25 @@ namespace Accessibility.UnitTests.Bookings
         public async Task GetAvailableBookingDatesHandle_SchedulesAndBookingsExist_ReturnsCorrectTerms(
             DateTime dateFrom,
             DateTime dateTo,
+            BookingRulesData bookingRulesData,
             List<EmployeeAvailability> availabilities,
             List<BookedTerm> bookedTerms,
             List<AvailableBookingTermDto> expected)
         {
             var scheduleRepoMock = new Mock<IScheduleQueryRepository>();
             var bookingRepoMock = new Mock<IBookingQueryRepository>();
+            var offerRepoMock = new Mock<IOfferQueryRepository>();
             scheduleRepoMock.Setup(s => s.GetAllAvailabilities(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<Guid>())).ReturnsAsync(availabilities);
             bookingRepoMock.Setup(b => b.GetBookedTerms(It.IsAny<Guid>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).ReturnsAsync(bookedTerms);
+            offerRepoMock.Setup(o => o.GetOfferDuration(It.IsAny<Guid>(), It.IsAny<Guid>())).ReturnsAsync((short)30);
 
-            var result = await new GetAvailableBookingTermsQueryHandler(scheduleRepoMock.Object, bookingRepoMock.Object)
+            var result = await new GetAvailableBookingTermsQueryHandler(scheduleRepoMock.Object, bookingRepoMock.Object, offerRepoMock.Object)
                 .Handle(new GetAvailableBookingTermsQuery(
                         Guid.NewGuid(),
                         Guid.NewGuid(),
                         dateFrom,
                         dateTo,
-                        new BookingRulesData(2, false, 10)),
+                        bookingRulesData),
                     new System.Threading.CancellationToken());
             
             Assert.Equal(expected.Count, result.Count());
@@ -63,6 +67,7 @@ namespace Accessibility.UnitTests.Bookings
                                        System.Globalization.CultureInfo.InvariantCulture),
                 DateTime.ParseExact("2022-05-09 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
+                new BookingRulesData(2, false, 0),
                 new List<EmployeeAvailability> {
                     new EmployeeAvailability {
                         EmployeeId = Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
@@ -126,6 +131,7 @@ namespace Accessibility.UnitTests.Bookings
                                        System.Globalization.CultureInfo.InvariantCulture),
                 DateTime.ParseExact("2022-05-09 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
+                new BookingRulesData(2, false, 0),
                 new List<EmployeeAvailability> {
                     new EmployeeAvailability {
                         EmployeeId = Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),

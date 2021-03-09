@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Accessibility.Application.Schedules;
 using MediatR;
 using Accessibility.Application.Extensions;
+using Accessibility.Application.Facilities;
 
 namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms
 {
@@ -13,17 +14,23 @@ namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms
     {
         private readonly IScheduleQueryRepository scheduleRepository;
         private readonly IBookingQueryRepository bookingRepository;
+        private readonly IOfferQueryRepository offerRepository;
 
-        public GetAvailableBookingTermsQueryHandler(IScheduleQueryRepository scheduleRepository, IBookingQueryRepository bookingRepository)
+        public GetAvailableBookingTermsQueryHandler(IScheduleQueryRepository scheduleRepository, IBookingQueryRepository bookingRepository, IOfferQueryRepository offerRepository)
         {
             this.scheduleRepository = scheduleRepository;
             this.bookingRepository = bookingRepository;
+            this.offerRepository = offerRepository;
         }
 
         public async Task<IEnumerable<AvailableBookingTermDto>> Handle(GetAvailableBookingTermsQuery request, CancellationToken cancellationToken)
         {
             var dateFrom = request.DateFrom > DateTime.Now ? request.DateFrom : DateTime.Now;
-            var duration = 30;
+            var duration = await offerRepository.GetOfferDuration(request.FacilityId, request.OfferId);
+            if (duration == 0)
+            {
+                throw new Exception("Offer not found.");
+            }
 
             var availabilities = await scheduleRepository.GetAllAvailabilities(dateFrom, request.DateTo, request.FacilityId);
             var bookedTerms = await bookingRepository.GetBookedTerms(request.FacilityId, dateFrom, request.DateTo);

@@ -15,7 +15,7 @@ using Accessibility.Application.Schedules.DomainServices;
 using Accessibility.Infrastructure.Domain.Schedules;
 using Microsoft.Extensions.Configuration;
 using Accessibility.Application.Schedules.Commands.CreateSchedule;
-using Accessibility.Infrastructure.IntegrationEvents.Facilities;
+using Accessibility.Infrastructure.Application.Facilities;
 using Accessibility.Application.Facilities;
 using Accessibility.Domain.Bookings;
 using Accessibility.Infrastructure.Domain.Bookings;
@@ -47,6 +47,7 @@ namespace Accessibility.Infrastructure
                 .AddTransient<IBookingRepository, BookingRepository>()
                 .AddTransient<IBookingQueryRepository, BookingQueryRepository>()
                 .AddTransient<IOfferRepository, OfferRepository>()
+                .AddTransient<IOfferQueryRepository, OfferQueryRepository>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()
                 //.AddHostedService<ProcessOutboxHostedService>()

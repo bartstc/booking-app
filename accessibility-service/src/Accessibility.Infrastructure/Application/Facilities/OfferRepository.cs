@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Accessibility.Application.Facilities;
 using Accessibility.Infrastructure.Database;
 
-namespace Accessibility.Infrastructure.IntegrationEvents.Facilities
+namespace Accessibility.Infrastructure.Application.Facilities
 {
     public class OfferRepository : IOfferRepository
     {
