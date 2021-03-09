@@ -7,20 +7,20 @@ using Accessibility.Application.Schedules;
 using MediatR;
 using Accessibility.Application.Extensions;
 
-namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingDates
+namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms
 {
-    public class GetAvailableBookingDatesQueryHandler : IRequestHandler<GetAvailableBookingDatesQuery, IEnumerable<AvailableBookingDateDto>>
+    public class GetAvailableBookingTermsQueryHandler : IRequestHandler<GetAvailableBookingTermsQuery, IEnumerable<AvailableBookingTermDto>>
     {
         private readonly IScheduleQueryRepository scheduleRepository;
         private readonly IBookingQueryRepository bookingRepository;
 
-        public GetAvailableBookingDatesQueryHandler(IScheduleQueryRepository scheduleRepository, IBookingQueryRepository bookingRepository)
+        public GetAvailableBookingTermsQueryHandler(IScheduleQueryRepository scheduleRepository, IBookingQueryRepository bookingRepository)
         {
             this.scheduleRepository = scheduleRepository;
             this.bookingRepository = bookingRepository;
         }
 
-        public async Task<IEnumerable<AvailableBookingDateDto>> Handle(GetAvailableBookingDatesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<AvailableBookingTermDto>> Handle(GetAvailableBookingTermsQuery request, CancellationToken cancellationToken)
         {
             var dateFrom = request.DateFrom > DateTime.Now ? request.DateFrom : DateTime.Now;
             var duration = 30;
@@ -70,7 +70,7 @@ namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingDates
                 }
             }
 
-            return dict.Select(d => new AvailableBookingDateDto(d.Key, d.Value.available, d.Value.unavailable)).OrderBy(d => d.Date);
+            return dict.Select(d => new AvailableBookingTermDto(d.Key, d.Value.available, d.Value.unavailable)).OrderBy(d => d.Date);
         }
     }
 }

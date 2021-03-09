@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Accessibility.Application.Bookings.Queries.GetAvailableBookingDates;
+using Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms;
 using Accessibility.Application.Schedules;
 using Xunit;
 using Moq;
@@ -20,15 +20,15 @@ namespace Accessibility.UnitTests.Bookings
             DateTime dateTo,
             List<EmployeeAvailability> availabilities,
             List<BookedTerm> bookedTerms,
-            List<AvailableBookingDateDto> expected)
+            List<AvailableBookingTermDto> expected)
         {
             var scheduleRepoMock = new Mock<IScheduleQueryRepository>();
             var bookingRepoMock = new Mock<IBookingQueryRepository>();
             scheduleRepoMock.Setup(s => s.GetAllAvailabilities(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<Guid>())).ReturnsAsync(availabilities);
             bookingRepoMock.Setup(b => b.GetBookedTerms(It.IsAny<Guid>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).ReturnsAsync(bookedTerms);
 
-            var result = await new GetAvailableBookingDatesQueryHandler(scheduleRepoMock.Object, bookingRepoMock.Object)
-                .Handle(new GetAvailableBookingDatesQuery(
+            var result = await new GetAvailableBookingTermsQueryHandler(scheduleRepoMock.Object, bookingRepoMock.Object)
+                .Handle(new GetAvailableBookingTermsQuery(
                         Guid.NewGuid(),
                         Guid.NewGuid(),
                         dateFrom,
@@ -81,8 +81,8 @@ namespace Accessibility.UnitTests.Bookings
                 },
                 new List<BookedTerm> {
                 },
-                new List<AvailableBookingDateDto> {
-                    new AvailableBookingDateDto(
+                new List<AvailableBookingTermDto> {
+                    new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
@@ -91,7 +91,7 @@ namespace Accessibility.UnitTests.Bookings
                         },
                         new List<UnavailableEmployee>()
                     ),
-                    new AvailableBookingDateDto(
+                    new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 08:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
@@ -100,7 +100,7 @@ namespace Accessibility.UnitTests.Bookings
                         },
                         new List<UnavailableEmployee>()
                     ),
-                    new AvailableBookingDateDto(
+                    new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 09:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
@@ -109,7 +109,7 @@ namespace Accessibility.UnitTests.Bookings
                         },
                         new List<UnavailableEmployee>()
                     ),
-                    new AvailableBookingDateDto(
+                    new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 09:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
@@ -151,8 +151,8 @@ namespace Accessibility.UnitTests.Bookings
                                        System.Globalization.CultureInfo.InvariantCulture)
                     }
                 },
-                new List<AvailableBookingDateDto> {
-                    new AvailableBookingDateDto(
+                new List<AvailableBookingTermDto> {
+                    new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
@@ -161,7 +161,7 @@ namespace Accessibility.UnitTests.Bookings
                         },
                         new List<UnavailableEmployee>()
                     ),
-                    new AvailableBookingDateDto(
+                    new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 08:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
@@ -170,7 +170,7 @@ namespace Accessibility.UnitTests.Bookings
                         },
                         new List<UnavailableEmployee>()
                     ),
-                    new AvailableBookingDateDto(
+                    new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 09:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
@@ -180,7 +180,7 @@ namespace Accessibility.UnitTests.Bookings
                             new UnavailableEmployee(Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"))
                         }
                     ),
-                    new AvailableBookingDateDto(
+                    new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 09:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {

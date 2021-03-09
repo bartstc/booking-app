@@ -1,6 +1,6 @@
 using System;
 
-namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingDates
+namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms
 {
     public class BookedTerm
     {

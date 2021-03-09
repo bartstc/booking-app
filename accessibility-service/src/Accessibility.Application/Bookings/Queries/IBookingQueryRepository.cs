@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Accessibility.Application.Bookings.Queries.GetAvailableBookingDates;
+using Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms;
 
 namespace Accessibility.Application.Bookings.Queries
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Accessibility.Application.Bookings.Queries;
-using Accessibility.Application.Bookings.Queries.GetAvailableBookingDates;
+using Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms;
 using Accessibility.Application.Configuration.Database;
 using Dapper;
 

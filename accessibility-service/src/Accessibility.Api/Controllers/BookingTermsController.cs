@@ -3,7 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Accessibility.Api.Options;
 using Accessibility.Application.Bookings;
-using Accessibility.Application.Bookings.Queries.GetAvailableBookingDates;
+using Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -25,12 +25,12 @@ namespace Accessibility.Api.Controllers
 
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<CollectionResponse<AvailableBookingDateDto>> GetBookingTerms(
+        public async Task<CollectionResponse<AvailableBookingTermDto>> GetAvailableBookingTerms(
             [FromQuery] Guid facilityId,
             [FromQuery] Guid offerId,
             [FromQuery] DateTime dateFrom,
             [FromQuery] DateTime dateTo) =>
-            new CollectionResponse<AvailableBookingDateDto>(await mediator.Send(new GetAvailableBookingDatesQuery(
+            new CollectionResponse<AvailableBookingTermDto>(await mediator.Send(new GetAvailableBookingTermsQuery(
                 facilityId, offerId, dateFrom, dateTo, new BookingRulesData(
                     bookingRulesOptions.HourChunkCount,
                     bookingRulesOptions.UseBreakBetweenBookingsMechanism,
