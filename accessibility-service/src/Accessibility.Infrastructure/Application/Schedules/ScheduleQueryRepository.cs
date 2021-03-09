@@ -8,7 +8,7 @@ using Dapper;
 
 namespace Accessibility.Infrastructure.Application.Schedules
 {
-    public class ScheduleQueryRepository : ISheduleQueryRepository
+    public class ScheduleQueryRepository : IScheduleQueryRepository
     {
         private readonly IDbConnection connection;
 

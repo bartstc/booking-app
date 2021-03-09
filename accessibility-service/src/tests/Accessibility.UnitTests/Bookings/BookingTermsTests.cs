@@ -22,7 +22,7 @@ namespace Accessibility.UnitTests.Bookings
             List<BookedTerm> bookedTerms,
             List<AvailableBookingDateDto> expected)
         {
-            var scheduleRepoMock = new Mock<ISheduleQueryRepository>();
+            var scheduleRepoMock = new Mock<IScheduleQueryRepository>();
             var bookingRepoMock = new Mock<IBookingQueryRepository>();
             scheduleRepoMock.Setup(s => s.GetAllAvailabilities(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<Guid>())).ReturnsAsync(availabilities);
             bookingRepoMock.Setup(b => b.GetBookedTerms(It.IsAny<Guid>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).ReturnsAsync(bookedTerms);

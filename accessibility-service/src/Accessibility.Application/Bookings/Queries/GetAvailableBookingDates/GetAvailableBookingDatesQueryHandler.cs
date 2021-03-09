@@ -11,10 +11,10 @@ namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingDates
 {
     public class GetAvailableBookingDatesQueryHandler : IRequestHandler<GetAvailableBookingDatesQuery, IEnumerable<AvailableBookingDateDto>>
     {
-        private readonly ISheduleQueryRepository scheduleRepository;
+        private readonly IScheduleQueryRepository scheduleRepository;
         private readonly IBookingQueryRepository bookingRepository;
 
-        public GetAvailableBookingDatesQueryHandler(ISheduleQueryRepository scheduleRepository, IBookingQueryRepository bookingRepository)
+        public GetAvailableBookingDatesQueryHandler(IScheduleQueryRepository scheduleRepository, IBookingQueryRepository bookingRepository)
         {
             this.scheduleRepository = scheduleRepository;
             this.bookingRepository = bookingRepository;

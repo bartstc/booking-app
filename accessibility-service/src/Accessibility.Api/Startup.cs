@@ -10,6 +10,7 @@ using Accessibility.Infrastructure.Database;
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Accessibility.Api.Options;
 
 namespace Accessibility.Api
 {
@@ -31,7 +32,10 @@ namespace Accessibility.Api
                 Configuration,
                 typeof(CreateScheduleCommand).Assembly)
             .AddSwaggerGen(options =>
-                    options.CustomSchemaIds(x => x.FullName));
+                    options.CustomSchemaIds(x => x.FullName))
+            .Configure<BookingRulesOptions>(Configuration.GetSection(
+                BookingRulesOptions.BookingRules
+            ));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AccessibilityContext context)
