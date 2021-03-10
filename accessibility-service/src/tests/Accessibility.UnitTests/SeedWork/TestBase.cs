@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
-using Booking.Domain.SeedWork;
+using Accessibility.Domain.SeedWork;
 using Xunit;
 
-namespace Booking.UnitTests.SeedWork
+namespace Accessibility.UnitTests.SeedWork
 {
     public abstract class TestBase
     {
