@@ -1,11 +1,10 @@
 import React from 'react';
 import { Box, HStack, Stack } from '@chakra-ui/react';
 
-import { useSuspense } from 'shared/Suspense';
 import { FormStatus, SubmitButton, WithReadMode } from 'shared/Form';
 
 import { useEnterpriseConsumer } from 'modules/context';
-import { getEnterprise, getEnterpriseKey } from 'modules/enterprise/infrastructure/query';
+import { useGetEnterprise } from 'modules/enterprise/infrastructure/query';
 import { useCreateEnterprise } from 'modules/enterprise/infrastructure/command';
 import {
   ContactPersonInputs,
@@ -16,7 +15,7 @@ import {
 
 const EditEnterpriseForm = () => {
   const { enterpriseId } = useEnterpriseConsumer();
-  const { data } = useSuspense(getEnterpriseKey(enterpriseId), () => getEnterprise(enterpriseId));
+  const { data } = useGetEnterprise(enterpriseId);
   const [handler, isLoading] = useCreateEnterprise(enterpriseId);
   const { showUpdateFailureNotification, showUpdateSuccessNotification } = useCreateEnterpriseNotification();
 
