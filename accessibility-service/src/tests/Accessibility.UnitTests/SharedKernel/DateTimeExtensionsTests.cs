@@ -132,6 +132,18 @@ namespace Accessibility.UnitTests.SharedKernel
                                        System.Globalization.CultureInfo.InvariantCulture)
                 ),
                 false
+            },
+            new object[]
+            {
+                (
+                    new DateTime(2022, 5, 8, 8, 0, 0),
+                    new DateTime(2022, 5, 8, 12, 0, 0)
+                ),
+                (
+                    new DateTime(2022, 5, 8, 10, 0, 0),
+                    new DateTime(2022, 5, 8, 10, 30, 0)
+                ),
+                true
             }
         };
     }

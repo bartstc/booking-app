@@ -14,9 +14,15 @@ namespace Accessibility.UnitTests.Bookings
 {
     public class BookingTermsTests
     {
+        private readonly static Guid employee1 = Guid.Parse("98019811-49de-4989-8b6e-5915d956e866");
+        private readonly static Guid employee2 = Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2");
+        private readonly static Guid employee3 = Guid.Parse("dc677cf1-d1a0-44d2-a845-8ed6e3b69182");
+
+
         [Theory]
         [MemberData(nameof(AvailabilitiesBookingsExpected))]
         public async Task GetAvailableBookingDatesHandle_SchedulesAndBookingsExist_ReturnsCorrectTerms(
+            int offerDuration,
             DateTime dateFrom,
             DateTime dateTo,
             BookingRulesData bookingRulesData,
@@ -29,7 +35,7 @@ namespace Accessibility.UnitTests.Bookings
             var offerRepoMock = new Mock<IOfferQueryRepository>();
             scheduleRepoMock.Setup(s => s.GetAllAvailabilities(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<Guid>())).ReturnsAsync(availabilities);
             bookingRepoMock.Setup(b => b.GetBookedTerms(It.IsAny<Guid>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).ReturnsAsync(bookedTerms);
-            offerRepoMock.Setup(o => o.GetOfferDuration(It.IsAny<Guid>(), It.IsAny<Guid>())).ReturnsAsync((short)30);
+            offerRepoMock.Setup(o => o.GetOfferDuration(It.IsAny<Guid>(), It.IsAny<Guid>())).ReturnsAsync((short)offerDuration);
 
             var result = await new GetAvailableBookingTermsQueryHandler(scheduleRepoMock.Object, bookingRepoMock.Object, offerRepoMock.Object)
                 .Handle(new GetAvailableBookingTermsQuery(
@@ -63,6 +69,7 @@ namespace Accessibility.UnitTests.Bookings
         {
             new object[] // two employees working together, no bookings
             {
+                30,
                 DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                 DateTime.ParseExact("2022-05-09 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
@@ -70,14 +77,14 @@ namespace Accessibility.UnitTests.Bookings
                 new BookingRulesData(2, false, 0),
                 new List<EmployeeAvailability> {
                     new EmployeeAvailability {
-                        EmployeeId = Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
+                        EmployeeId = employee1,
                         StartTime = DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         EndTime = DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture)
                     },
                     new EmployeeAvailability {
-                        EmployeeId = Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2"),
+                        EmployeeId = employee2,
                         StartTime = DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         EndTime = DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
@@ -91,8 +98,8 @@ namespace Accessibility.UnitTests.Bookings
                         DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee1,
+                            employee2
                         },
                         new List<UnavailableEmployee>()
                     ),
@@ -100,8 +107,8 @@ namespace Accessibility.UnitTests.Bookings
                         DateTime.ParseExact("2022-05-08 08:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee1,
+                            employee2
                         },
                         new List<UnavailableEmployee>()
                     ),
@@ -109,8 +116,8 @@ namespace Accessibility.UnitTests.Bookings
                         DateTime.ParseExact("2022-05-08 09:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee1,
+                            employee2
                         },
                         new List<UnavailableEmployee>()
                     ),
@@ -118,8 +125,8 @@ namespace Accessibility.UnitTests.Bookings
                         DateTime.ParseExact("2022-05-08 09:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee1,
+                            employee2
                         },
                         new List<UnavailableEmployee>()
                     )
@@ -127,6 +134,7 @@ namespace Accessibility.UnitTests.Bookings
             },
             new object[] // two employees working together, one has one booking
             {
+                30,
                 DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                 DateTime.ParseExact("2022-05-09 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
@@ -134,14 +142,14 @@ namespace Accessibility.UnitTests.Bookings
                 new BookingRulesData(2, false, 0),
                 new List<EmployeeAvailability> {
                     new EmployeeAvailability {
-                        EmployeeId = Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
+                        EmployeeId = employee1,
                         StartTime = DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         EndTime = DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture)
                     },
                     new EmployeeAvailability {
-                        EmployeeId = Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2"),
+                        EmployeeId = employee2,
                         StartTime = DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         EndTime = DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
@@ -150,7 +158,7 @@ namespace Accessibility.UnitTests.Bookings
                 },
                 new List<BookedTerm> {
                     new BookedTerm {
-                        EmployeeId = Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
+                        EmployeeId = employee1,
                         DateFrom = DateTime.ParseExact("2022-05-08 09:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         DateTo = DateTime.ParseExact("2022-05-08 09:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
@@ -162,8 +170,8 @@ namespace Accessibility.UnitTests.Bookings
                         DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee1,
+                            employee2
                         },
                         new List<UnavailableEmployee>()
                     ),
@@ -171,8 +179,8 @@ namespace Accessibility.UnitTests.Bookings
                         DateTime.ParseExact("2022-05-08 08:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee1,
+                            employee2
                         },
                         new List<UnavailableEmployee>()
                     ),
@@ -180,18 +188,18 @@ namespace Accessibility.UnitTests.Bookings
                         DateTime.ParseExact("2022-05-08 09:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee2
                         },
                         new List<UnavailableEmployee> {
-                            new UnavailableEmployee(Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"))
+                            new UnavailableEmployee(employee1)
                         }
                     ),
                     new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 09:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee1,
+                            employee2
                         },
                         new List<UnavailableEmployee>()
                     )
@@ -199,6 +207,7 @@ namespace Accessibility.UnitTests.Bookings
             },
             new object[] // two employees not working together, one has one long booking
             {
+                30,
                 DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                 DateTime.ParseExact("2022-05-09 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
@@ -206,14 +215,14 @@ namespace Accessibility.UnitTests.Bookings
                 new BookingRulesData(2, false, 0),
                 new List<EmployeeAvailability> {
                     new EmployeeAvailability {
-                        EmployeeId = Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
+                        EmployeeId = employee1,
                         StartTime = DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         EndTime = DateTime.ParseExact("2022-05-08 12:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture)
                     },
                     new EmployeeAvailability {
-                        EmployeeId = Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2"),
+                        EmployeeId = employee2,
                         StartTime = DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         EndTime = DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
@@ -222,7 +231,7 @@ namespace Accessibility.UnitTests.Bookings
                 },
                 new List<BookedTerm> {
                     new BookedTerm {
-                        EmployeeId = Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"),
+                        EmployeeId = employee1,
                         DateFrom = DateTime.ParseExact("2022-05-08 10:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         DateTo = DateTime.ParseExact("2022-05-08 11:15:00,000", "yyyy-MM-dd HH:mm:ss,fff",
@@ -234,60 +243,255 @@ namespace Accessibility.UnitTests.Bookings
                         DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee2
                         },
                         new List<UnavailableEmployee> {
-                            new UnavailableEmployee(Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"))
+                            new UnavailableEmployee(employee1)
                         }
                     ),
                     new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 08:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee2
                         },
                         new List<UnavailableEmployee> {
-                            new UnavailableEmployee(Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"))
+                            new UnavailableEmployee(employee1)
                         }
                     ),
                     new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 09:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee2
                         },
                         new List<UnavailableEmployee> {
-                            new UnavailableEmployee(Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"))
+                            new UnavailableEmployee(employee1)
                         }
                     ),
                     new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 09:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2")
+                            employee2
                         },
                         new List<UnavailableEmployee> {
-                            new UnavailableEmployee(Guid.Parse("98019811-49de-4989-8b6e-5915d956e866"))
+                            new UnavailableEmployee(employee1)
                         }
                     ),
                     new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("98019811-49de-4989-8b6e-5915d956e866")
+                            employee1
                         },
                         new List<UnavailableEmployee> {
-                            new UnavailableEmployee(Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2"))
+                            new UnavailableEmployee(employee2)
                         }
                     ),
                     new AvailableBookingTermDto(
                         DateTime.ParseExact("2022-05-08 11:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
                                        System.Globalization.CultureInfo.InvariantCulture),
                         new List<Guid> {
-                            Guid.Parse("98019811-49de-4989-8b6e-5915d956e866")
+                            employee1
                         },
                         new List<UnavailableEmployee> {
-                            new UnavailableEmployee(Guid.Parse("e2f9cc1a-151a-429a-b162-9365e207b3d2"))
+                            new UnavailableEmployee(employee2)
+                        }
+                    )
+                }
+            },
+            new object[] // two employees working together in a period of time, both have bookings
+            {
+                30,
+                DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                DateTime.ParseExact("2022-05-09 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                new BookingRulesData(2, false, 0),
+                new List<EmployeeAvailability> {
+                    new EmployeeAvailability {
+                        EmployeeId = employee1,
+                        StartTime = DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        EndTime = DateTime.ParseExact("2022-05-08 12:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture)
+                    },
+                    new EmployeeAvailability {
+                        EmployeeId = employee2,
+                        StartTime = DateTime.ParseExact("2022-05-08 11:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        EndTime = DateTime.ParseExact("2022-05-08 13:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture)
+                    }
+                },
+                new List<BookedTerm> {
+                    new BookedTerm {
+                        EmployeeId = employee1,
+                        DateFrom = DateTime.ParseExact("2022-05-08 10:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        DateTo = DateTime.ParseExact("2022-05-08 10:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture)
+                    },
+                    new BookedTerm {
+                        EmployeeId = employee1,
+                        DateFrom = DateTime.ParseExact("2022-05-08 11:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        DateTo = DateTime.ParseExact("2022-05-08 11:45:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture)
+                    },
+                    new BookedTerm {
+                        EmployeeId = employee2,
+                        DateFrom = DateTime.ParseExact("2022-05-08 11:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        DateTo = DateTime.ParseExact("2022-05-08 11:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture)
+                    }
+                },
+                new List<AvailableBookingTermDto> {
+                    new AvailableBookingTermDto(
+                        DateTime.ParseExact("2022-05-08 10:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        new List<Guid> {
+                            employee1
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(employee2)
+                        }
+                    ),
+                    new AvailableBookingTermDto(
+                        DateTime.ParseExact("2022-05-08 11:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        new List<Guid> {
+                            employee2
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(employee1)
+                        }
+                    ),
+                    new AvailableBookingTermDto(
+                        DateTime.ParseExact("2022-05-08 12:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        new List<Guid> {
+                            employee2
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(employee1)
+                        }
+                    ),
+                    new AvailableBookingTermDto(
+                        DateTime.ParseExact("2022-05-08 12:30:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                        new List<Guid> {
+                            employee2
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(employee1)
+                        }
+                    )
+                }
+            },
+            new object[] // three employees, booking possible every 15 mins
+            {
+                30,
+                DateTime.ParseExact("2022-05-08 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                DateTime.ParseExact("2022-05-09 08:00:00,000", "yyyy-MM-dd HH:mm:ss,fff",
+                                       System.Globalization.CultureInfo.InvariantCulture),
+                new BookingRulesData(4, false, 0),
+                new List<EmployeeAvailability> {
+                    new EmployeeAvailability {
+                        EmployeeId = employee1,
+                        StartTime = new DateTime(2022, 5, 8, 10, 0, 0),
+                        EndTime = new DateTime(2022, 5, 8, 13, 0, 0)
+                    },
+                    new EmployeeAvailability {
+                        EmployeeId = employee2,
+                        StartTime = new DateTime(2022, 5, 8, 12, 0, 0),
+                        EndTime = new DateTime(2022, 5, 8, 15, 0, 0)
+                    },
+                    new EmployeeAvailability {
+                        EmployeeId = employee3,
+                        StartTime = new DateTime(2022, 5, 8, 8, 0, 0),
+                        EndTime = new DateTime(2022, 5, 8, 16, 0, 0)
+                    }
+                },
+                new List<BookedTerm> {
+                    new BookedTerm {
+                        EmployeeId = employee1,
+                        DateFrom = new DateTime(2022, 5, 8, 10, 30, 0),
+                        DateTo = new DateTime(2022, 5, 8, 12, 30, 0)
+                    },
+                    new BookedTerm {
+                        EmployeeId = employee2,
+                        DateFrom = new DateTime(2022, 5, 8, 12, 0, 0),
+                        DateTo = new DateTime(2022, 5, 8, 13, 0, 0)
+                    },
+                    new BookedTerm {
+                        EmployeeId = employee2,
+                        DateFrom = new DateTime(2022, 5, 8, 13, 30, 0),
+                        DateTo = new DateTime(2022, 5, 8, 14, 15, 0)
+                    },
+                    new BookedTerm {
+                        EmployeeId = employee2,
+                        DateFrom = new DateTime(2022, 5, 8, 14, 30, 0),
+                        DateTo = new DateTime(2022, 5, 8, 15, 0, 0)
+                    },
+                    new BookedTerm {
+                        EmployeeId = employee3,
+                        DateFrom = new DateTime(2022, 5, 8, 8, 0, 0),
+                        DateTo = new DateTime(2022, 5, 8, 12, 0, 0)
+                    },
+                    new BookedTerm {
+                        EmployeeId = employee3,
+                        DateFrom = new DateTime(2022, 5, 8, 12, 15, 0),
+                        DateTo = new DateTime(2022, 5, 8, 15, 0, 0)
+                    },
+                    new BookedTerm {
+                        EmployeeId = employee3,
+                        DateFrom = new DateTime(2022, 5, 8, 15, 30, 0),
+                        DateTo = new DateTime(2022, 5, 8, 16, 0, 0)
+                    }
+                },
+                new List<AvailableBookingTermDto> {
+                    new AvailableBookingTermDto(
+                        new DateTime(2022, 5, 8, 10, 0, 0),
+                        new List<Guid> {
+                            employee1
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(employee2),
+                            new UnavailableEmployee(employee3)
+                        }
+                    ),
+                    new AvailableBookingTermDto(
+                        new DateTime(2022, 5, 8, 12, 30, 0),
+                        new List<Guid> {
+                            employee1
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(employee2),
+                            new UnavailableEmployee(employee3)
+                        }
+                    ),
+                    new AvailableBookingTermDto(
+                        new DateTime(2022, 5, 8, 13, 0, 0),
+                        new List<Guid> {
+                            employee2
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(employee1),
+                            new UnavailableEmployee(employee3)
+                        }
+                    ),
+                    new AvailableBookingTermDto(
+                        new DateTime(2022, 5, 8, 15, 0, 0),
+                        new List<Guid> {
+                            employee3
+                        },
+                        new List<UnavailableEmployee> {
+                            new UnavailableEmployee(employee1),
+                            new UnavailableEmployee(employee2)
                         }
                     )
                 }
