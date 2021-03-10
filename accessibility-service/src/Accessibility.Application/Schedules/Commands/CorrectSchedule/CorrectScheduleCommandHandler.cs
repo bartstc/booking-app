@@ -21,7 +21,7 @@ namespace Accessibility.Application.Schedules.Commands.CorrectSchedule
 
         public async Task<Unit> Handle(CorrectScheduleCommand request, CancellationToken cancellationToken)
         {
-            var schedule = await repository.GetByIdAsync(new ScheduleId(request.ScheduleId));
+            var schedule = await repository.GetByIdAsync(new ScheduleId(request.ScheduleId), new FacilityId(request.FacilityId));
 
             schedule.CreateCorrection(request.Availabilities.Select(a => new Domain.Schedules.Availabilities.AvailabilityData(
                 new EmployeeId(a.EmployeeId),
