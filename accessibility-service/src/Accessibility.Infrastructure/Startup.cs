@@ -15,13 +15,17 @@ using Accessibility.Application.Schedules.DomainServices;
 using Accessibility.Infrastructure.Domain.Schedules;
 using Microsoft.Extensions.Configuration;
 using Accessibility.Application.Schedules.Commands.CreateSchedule;
-using Accessibility.Infrastructure.IntegrationEvents.Facilities;
+using Accessibility.Infrastructure.Application.Facilities;
 using Accessibility.Application.Facilities;
 using Accessibility.Domain.Bookings;
 using Accessibility.Infrastructure.Domain.Bookings;
 using MassTransit;
 using Accessibility.Application.Bookings.IntegrationEvents.EventHandling;
 using Accessibility.Application.Facilities.IntegrationEvents.EventHandling;
+using Accessibility.Application.Schedules;
+using Accessibility.Infrastructure.Application.Schedules;
+using Accessibility.Infrastructure.Application.Bookings;
+using Accessibility.Application.Bookings.Queries;
 
 namespace Accessibility.Infrastructure
 {
@@ -38,9 +42,12 @@ namespace Accessibility.Infrastructure
                     .UseNpgsql(connectionString))
                 .AddMediatR(typeof(CreateScheduleCommand).Assembly, typeof(ScheduleCreatedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
                 .AddTransient<IScheduleRepository, ScheduleRepository>()
+                .AddTransient<IScheduleQueryRepository, ScheduleQueryRepository>()
                 .AddTransient<ISchedulePeriodOfTimeChecker, SchedulePeriodOfTimeChecker>()
                 .AddTransient<IBookingRepository, BookingRepository>()
+                .AddTransient<IBookingQueryRepository, BookingQueryRepository>()
                 .AddTransient<IOfferRepository, OfferRepository>()
+                .AddTransient<IOfferQueryRepository, OfferQueryRepository>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()
                 //.AddHostedService<ProcessOutboxHostedService>()

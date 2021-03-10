@@ -3,7 +3,7 @@ using Accessibility.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Accessibility.Infrastructure.IntegrationEvents.Facilities
+namespace Accessibility.Infrastructure.Application.Facilities
 {
     public class OfferEntityTypeConfiguration : IEntityTypeConfiguration<Offer>
     {

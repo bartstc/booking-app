@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingDates
+namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms
 {
-    public class AvailableBookingDateDto
+    public class AvailableBookingTermDto
     {
-        public AvailableBookingDateDto(DateTime date, IEnumerable<Guid> availableEmployeeIds, IEnumerable<UnavailableEmployee> unavailableEmployees)
+        public AvailableBookingTermDto(DateTime date, IEnumerable<Guid> availableEmployeeIds, IEnumerable<UnavailableEmployee> unavailableEmployees)
         {
             Date = date;
             AvailableEmployeeIds = availableEmployeeIds;
