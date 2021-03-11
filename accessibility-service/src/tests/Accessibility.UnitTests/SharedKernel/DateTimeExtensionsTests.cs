@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Accessibility.Application.Extensions;
+using Accessibility.Domain.Extensions;
 using Xunit;
 
 namespace Accessibility.UnitTests.SharedKernel
@@ -18,6 +18,58 @@ namespace Accessibility.UnitTests.SharedKernel
 
             Assert.Equal(expedted, result);
         }
+
+        [Theory]
+        [MemberData(nameof(periodsWithEdgesExpected))]
+        public void HasCommonPeriodWithEdges_PeriodsGiven_ReturnsExpected(
+            (DateTime start, DateTime end) period1,
+            (DateTime start, DateTime end) period2,
+            bool expedted)
+        {
+            var result = period1.HasCommonPeriodWithEdges(period2);
+
+            Assert.Equal(expedted, result);
+        }
+
+        public static IEnumerable<object[]> periodsWithEdgesExpected = new List<object[]>
+        {
+            new object[]
+            {
+                (
+                    new DateTime(2022, 5, 8, 8, 0, 0),
+                    new DateTime(2022, 5, 8, 9, 0, 0)
+                ),
+                (
+                    new DateTime(2022, 5, 8, 6, 0, 0),
+                    new DateTime(2022, 5, 8, 8, 0, 0)
+                ),
+                true
+            },
+            new object[]
+            {
+                (
+                    new DateTime(2022, 5, 8, 8, 0, 0),
+                    new DateTime(2022, 5, 8, 12, 0, 0)
+                ),
+                (
+                    new DateTime(2022, 5, 8, 10, 0, 0),
+                    new DateTime(2022, 5, 8, 10, 30, 0)
+                ),
+                true
+            },
+            new object[]
+            {
+                (
+                    new DateTime(2022, 5, 8, 8, 0, 0),
+                    new DateTime(2022, 5, 8, 12, 0, 0)
+                ),
+                (
+                    new DateTime(2022, 5, 8, 20, 0, 0),
+                    new DateTime(2022, 5, 8, 21, 30, 0)
+                ),
+                false
+            }
+        };
 
         public static IEnumerable<object[]> periodsExpected = new List<object[]>
         {

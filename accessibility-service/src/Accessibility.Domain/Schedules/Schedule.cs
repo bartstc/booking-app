@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Accessibility.Domain.Extensions;
 using Accessibility.Domain.Schedules.Availabilities;
 using Accessibility.Domain.Schedules.Events;
 using Accessibility.Domain.Schedules.Rules;
@@ -60,8 +61,7 @@ namespace Accessibility.Domain.Schedules
             foreach (var correction in corrections)
             {
                 var corrected = availabilities.FirstOrDefault(a =>
-                    (correction.StartTime >= a.StartTime && correction.StartTime <= a.EndTime) ||
-                    (correction.EndTime >= a.StartTime && correction.EndTime <= a.EndTime));
+                    (a.StartTime, a.EndTime).HasCommonPeriodWithEdges((correction.StartTime, correction.EndTime)));
                 
                 if (corrected != null)
                 {
