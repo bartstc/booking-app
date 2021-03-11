@@ -45,7 +45,7 @@ namespace Accessibility.Application.Schedules.Queries.GetScheduleById
                     request.ScheduleId
                 })).AsList();
             
-            schedule.Availibilities = availabilities;
+            schedule.Availabilities = availabilities;
 
             return schedule;
         }
