@@ -12,7 +12,7 @@ namespace Accessibility.Domain.Schedules
     public class Schedule : AggregateRootBase
     {
         public ScheduleId Id { get; }
-        private FacilityId facilityId;
+        public FacilityId FacilityId { get; private set; }
         private string name;
         private DateTime startDate;
         private DateTime endDate;
@@ -34,20 +34,24 @@ namespace Accessibility.Domain.Schedules
             CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(availabilities));
 
             Id = new ScheduleId(Guid.NewGuid());
-            this.facilityId = facilityId;
-            this.name = name;
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.creatorId = creatorId;
+            SetData(facilityId, name, startDate, endDate, availabilities, creatorId);
             creationDate = DateTime.Now;
-            this.availabilities = availabilities.Select(a => Availability.Create(
-                a.EmployeeId,
-                a.StartTime,
-                a.EndTime,
-                a.EmployeeId
-            )).ToList();
 
             AddDomainEvent(new ScheduleCreatedEvent(Id));
+        }
+
+        public void Modify(
+            ISchedulePeriodOfTimeChecker schedulePeriodOfTimeChecker,
+            string name, DateTime startDate, DateTime endDate, List<AvailabilityData> availabilities, EmployeeId creatorId)
+        {
+            CheckRule(new ScheduleMustHaveAtLeastOneAvailabilityRule(availabilities));
+            CheckRule(new ModifiedSchedulePeriodOfTimeMustBeAvailableRule(schedulePeriodOfTimeChecker, FacilityId, Id, startDate, endDate));
+            CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(availabilities));
+
+            SetData(FacilityId, name, startDate, endDate, availabilities, creatorId);
+            
+            modifyDate = DateTime.Now;
+            IncreaseVersion();
         }
 
         public void CreateCorrection(List<AvailabilityData> corrections)
@@ -77,6 +81,21 @@ namespace Accessibility.Domain.Schedules
             IncreaseVersion();
 
             AddDomainEvent(new ScheduleCorrectedEvent(Id));
+        }
+
+        private void SetData(FacilityId facilityId, string name, DateTime startDate, DateTime endDate, List<AvailabilityData> availabilities, EmployeeId creatorId)
+        {
+            this.FacilityId = facilityId;
+            this.name = name;
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.creatorId = creatorId;
+            this.availabilities = availabilities.Select(a => Availability.Create(
+                a.EmployeeId,
+                a.StartTime,
+                a.EndTime,
+                a.EmployeeId
+            )).ToList();
         }
     }
 }

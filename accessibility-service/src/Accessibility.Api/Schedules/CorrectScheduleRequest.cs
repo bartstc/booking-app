@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Accessibility.Application.Schedules.Commands.CreateSchedule;
+using Accessibility.Application.Schedules.Commands;
 
 namespace Accessibility.Api.Schedules
 {

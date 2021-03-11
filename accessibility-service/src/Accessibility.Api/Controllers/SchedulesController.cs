@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Accessibility.Api.Schedules;
 using Accessibility.Application.Schedules.Commands.CorrectSchedule;
 using Accessibility.Application.Schedules.Commands.CreateSchedule;
+using Accessibility.Application.Schedules.Commands.ModifySchedule;
 using Accessibility.Application.Schedules.Queries.GetScheduleById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,17 @@ namespace Accessibility.Api.Controllers
         }
 
         [HttpPut("{scheduleId}")]
+        [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> ModifySchedule(
+            [FromRoute] Guid facilityId,
+            [FromRoute] Guid scheduleId,
+            [FromBody] CreateScheduleRequest request)
+        {
+            var id = await mediator.Send(new ModifyScheduleCommand(facilityId, scheduleId, request.Name, request.StartDate, request.EndDate, request.Availabilities, request.CreatorId));
+            return Ok(id);
+        }
+
+        [HttpPatch("{scheduleId}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> CorrectSchedule(
             [FromRoute] Guid facilityId,
