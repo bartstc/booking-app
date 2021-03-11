@@ -1,5 +1,5 @@
 using System;
-using Accessibility.Application.Schedules.Commands.CreateSchedule;
+using Accessibility.Application.Schedules.Commands;
 using FluentValidation;
 
 namespace Accessibility.Api.Schedules

@@ -39,5 +39,32 @@ namespace Accessibility.Application.Schedules.DomainServices
             
             return !result.HasValue;
         }
+
+        public bool IsAvailableForModify(FacilityId facilityId, ScheduleId scheduleId, DateTime startDate, DateTime endDate)
+        {
+            var connection = sqlConnectionFactory.GetConnection();
+
+            var result = connection.QuerySingleOrDefault<int?>(
+                @"SELECT 1
+                FROM accessibility.schedules
+                WHERE
+                    facility_id = @FacilityId AND
+                    schedule_id != @ScheduleId AND
+                    (
+                        start_date BETWEEN @StartDate AND @EndDate OR
+                        end_date BETWEEN @StartDate AND @EndDate OR
+                        start_date = @StartDate OR
+                        end_date = @EndDate
+                    )
+                LIMIT 1;",
+                new {
+                    FacilityId = facilityId.Value,
+                    ScheduleId = scheduleId.Value,
+                    StartDate = startDate,
+                    EndDate = endDate
+                });
+            
+            return !result.HasValue;
+        }
     }
 }

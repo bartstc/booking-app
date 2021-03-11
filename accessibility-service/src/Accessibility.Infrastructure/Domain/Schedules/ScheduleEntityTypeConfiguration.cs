@@ -15,7 +15,7 @@ namespace Accessibility.Infrastructure.Domain.Schedules
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("schedule_id");
 
-            builder.Property<FacilityId>("facilityId").HasColumnName("facility_id");
+            builder.Property(b => b.FacilityId).HasColumnName("facility_id");
 
             builder.Property("name");
             builder.Property("startDate").HasColumnName("start_date");
