@@ -5,7 +5,9 @@ using Accessibility.Api.Schedules;
 using Accessibility.Application.Schedules.Commands.CorrectSchedule;
 using Accessibility.Application.Schedules.Commands.CreateSchedule;
 using Accessibility.Application.Schedules.Commands.ModifySchedule;
+using Accessibility.Application.Schedules.Queries;
 using Accessibility.Application.Schedules.Queries.GetScheduleById;
+using Accessibility.Application.Schedules.Queries.GetSchedules;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +22,17 @@ namespace Accessibility.Api.Controllers
         public SchedulesController(IMediator mediator)
         {
             this.mediator = mediator;
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(CollectionResponse<ScheduleDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetSchedules(
+            [FromQuery] DateTime? dateFrom,
+            [FromQuery] DateTime? dateTo,
+            [FromRoute] Guid facilityId)
+        {
+            var schedules = await mediator.Send(new GetSchedulesQuery(facilityId, dateFrom, dateTo));
+            return Ok(new CollectionResponse<ScheduleDto>(schedules));
         }
 
         [HttpGet("{scheduleId}")]
