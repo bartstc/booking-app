@@ -1,14 +1,14 @@
 import { from, Observable, ObservableInput } from 'rxjs';
 
 import { ServiceType } from './ServiceType';
-import { availabilityHttpService, managementHttpService } from './service';
+import { accessibilityHttpService, managementHttpService } from './service';
 
 const getService = (serviceType: ServiceType) => {
   switch (serviceType) {
     case ServiceType.Management:
       return managementHttpService;
-    case ServiceType.Availability:
-      return availabilityHttpService;
+    case ServiceType.Accessibility:
+      return accessibilityHttpService;
 
     default:
       throw new Error(`${serviceType} is unknown service`);

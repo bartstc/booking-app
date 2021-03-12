@@ -6,14 +6,14 @@ const headers = {
 
 const host = process.env.REACT_APP_API_HOST;
 const managementServicePrefix = process.env.REACT_APP_MANAGEMENT_PREFIX;
-const availabilityServicePrefix = process.env.REACT_APP_AVAILABILITY_PREFIX;
+const accessibilityServicePrefix = process.env.REACT_APP_ACCESSIBILITY_PREFIX;
 
 export const managementHttpService = new HttpService({
   host: `${host}/${managementServicePrefix}`,
   headers,
 });
 
-export const availabilityHttpService = new HttpService({
-  host: `${host}/${availabilityServicePrefix}`,
+export const accessibilityHttpService = new HttpService({
+  host: `${host}/${accessibilityServicePrefix}`,
   headers,
 });

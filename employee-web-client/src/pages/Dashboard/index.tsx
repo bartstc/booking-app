@@ -10,6 +10,7 @@ import { Header } from './Header';
 
 const FacilitiesTab = lazy(() => import('./FacilitiesTab'));
 const EnterpriseTab = lazy(() => import('./EnterpriseTab'));
+const SchedulesTab = lazy(() => import('./SchedulesTab'));
 
 const Dashboard = () => {
   return (
@@ -20,6 +21,7 @@ const Dashboard = () => {
           <Switch>
             <Route path='/dashboard/enterprise' component={EnterpriseTab} />
             <Route path='/dashboard/facilities' component={FacilitiesTab} exact />
+            <Route path='/dashboard/schedules' component={SchedulesTab} exact />
             <Route render={() => <Redirect to='/dashboard/enterprise' />} />
           </Switch>
         </Suspense>

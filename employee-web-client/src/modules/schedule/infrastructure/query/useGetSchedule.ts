@@ -1,8 +1,11 @@
-import { managementHttpService } from 'utils/http';
+import { accessibilityHttpService, ServiceType } from 'utils/http';
 
 import { ISchedule } from '../../types';
 
-export const getScheduleKey = (facilityId: string, scheduleId: string) => [`facilities/${facilityId}/schedules/${scheduleId}`];
+export const getScheduleKey = (facilityId: string, scheduleId: string) => [
+  `facilities/${facilityId}/schedules/${scheduleId}`,
+  ServiceType.Accessibility,
+];
 
 export const getSchedule = (facilityId: string, scheduleId: string) =>
-  managementHttpService.get<ISchedule>(`facilities/${facilityId}/schedules/${scheduleId}`);
+  accessibilityHttpService.get<ISchedule>(`facilities/${facilityId}/schedules/${scheduleId}`);
