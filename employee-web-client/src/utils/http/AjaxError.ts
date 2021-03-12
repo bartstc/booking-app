@@ -8,6 +8,7 @@ export class AjaxError implements IAjaxError {
   message: string;
   status: number;
   response: unknown;
+  request: unknown;
   name: string;
 
   constructor(errorStatus: number, errorMessage = 'Ajax Error') {
