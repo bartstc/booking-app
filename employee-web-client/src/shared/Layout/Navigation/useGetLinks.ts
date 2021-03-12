@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-import { mdiAccountMultiple, mdiBookMultiple, mdiCalendar, mdiClipboardTextSearch, mdiCogs, mdiLan } from '@mdi/js';
+import { mdiAccountMultiple, mdiBookMultiple, mdiCalendar, mdiClipboardTextSearch, mdiLan } from '@mdi/js';
 
 import { buildUrl } from 'utils';
 import { DEFAULT_PARAMS } from 'utils/constant';

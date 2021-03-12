@@ -1,6 +1,6 @@
 import { useQueryClient } from 'react-query';
 
-import { httpService } from 'utils/http';
+import { managementHttpService } from 'utils/http';
 import { useMutation } from 'shared/Suspense';
 
 import { ICreateEnterpriseDto } from '../../dto';
@@ -10,9 +10,9 @@ export const useCreateEnterprise = (enterpriseId?: string) => {
   const queryClient = useQueryClient();
   const { mutateAsync, isLoading } = useMutation<void, ICreateEnterpriseDto>(model => {
     if (enterpriseId) {
-      return httpService.put(`enterprises/${enterpriseId}`, model);
+      return managementHttpService.put(`enterprises/${enterpriseId}`, model);
     }
-    return httpService.post(`enterprises`, model);
+    return managementHttpService.post(`enterprises`, model);
   });
 
   const handler = (model: ICreateEnterpriseDto) => {

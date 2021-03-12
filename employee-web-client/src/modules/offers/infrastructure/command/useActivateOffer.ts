@@ -2,7 +2,7 @@ import { useQueryClient } from 'react-query';
 
 import { useMutation } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
-import { httpService } from 'utils/http';
+import { managementHttpService } from 'utils/http';
 
 import { getOffersKey } from '../query';
 import { OfferStatus, IOfferCollection, IOfferCollectionQueryParams } from '../../types';
@@ -12,7 +12,7 @@ export const useActivateOffer = (facilityId: string, offerId: string) => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isLoading } = useMutation<void, void>(() =>
-    httpService.patch(`facilities/${facilityId}/offers/${offerId}/activate`),
+    managementHttpService.patch(`facilities/${facilityId}/offers/${offerId}/activate`),
   );
 
   const handler = () => {

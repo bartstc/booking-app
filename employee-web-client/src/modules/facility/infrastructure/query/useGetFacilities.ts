@@ -1,4 +1,4 @@
-import { httpService } from 'utils/http';
+import { managementHttpService } from 'utils/http';
 import { buildUrl } from 'utils';
 
 import { IFacilityCollection, IFacilityCollectionQueryParams } from '../../types';
@@ -9,4 +9,4 @@ export const getFacilitiesKey = (enterpriseId: string, params?: IFacilityCollect
 ];
 
 export const getFacilities = (enterpriseId: string, params?: IFacilityCollectionQueryParams) =>
-  httpService.get<IFacilityCollection>(buildUrl(`enterprises/${enterpriseId}/facilities`, params));
+  managementHttpService.get<IFacilityCollection>(buildUrl(`enterprises/${enterpriseId}/facilities`, params));

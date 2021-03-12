@@ -1,5 +1,19 @@
 import { from, Observable, ObservableInput } from 'rxjs';
-import { httpService } from './service';
 
-export const getJSON = <R = unknown>(url: string, headers?: object): Observable<R> =>
-  from<ObservableInput<R>>(httpService.get<R>(url, headers));
+import { ServiceType } from './ServiceType';
+import { availabilityHttpService, managementHttpService } from './service';
+
+const getService = (serviceType: ServiceType) => {
+  switch (serviceType) {
+    case ServiceType.Management:
+      return managementHttpService;
+    case ServiceType.Availability:
+      return availabilityHttpService;
+
+    default:
+      throw new Error(`${serviceType} is unknown service`);
+  }
+};
+
+export const getJSON = <R = unknown>(url: string, service: ServiceType, headers?: object): Observable<R> =>
+  from<ObservableInput<R>>(getService(service).get(url, headers));

@@ -4,7 +4,7 @@ import { BehaviorSubject, EMPTY, NEVER, pipe, Subject } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { buildUrl } from 'utils';
-import { getJSON } from 'utils/http';
+import { getJSON, ServiceType } from 'utils/http';
 import { ICollection, IQueryParams, RequestStatus } from 'types';
 import { useRequestStatus } from 'hooks';
 
@@ -42,7 +42,7 @@ export function useAutoComplete<
 
   const fetchData$ = (params: Params) => {
     setStatus(RequestStatus.InProgress);
-    return getJSON<Response>(buildUrl(url, params)).pipe(
+    return getJSON<Response>(buildUrl(url, params), ServiceType.Management).pipe(
       map((response: Response) => {
         setTotal(response.meta.total);
         return mapFn(response) as Array<Item>;

@@ -1,5 +1,5 @@
 import { buildUrl } from 'utils';
-import { httpService } from 'utils/http';
+import { managementHttpService } from 'utils/http';
 
 import { IOfferCollection, IOfferCollectionQueryParams } from '../../types';
 
@@ -9,4 +9,4 @@ export const getOffersKey = (
 ): [string, IOfferCollectionQueryParams | undefined] => [`facilities/${facilityId}/offers`, params];
 
 export const getOffers = (facilityId: string, params: IOfferCollectionQueryParams) =>
-  httpService.get<IOfferCollection>(buildUrl(`facilities/${facilityId}/offers`, params));
+  managementHttpService.get<IOfferCollection>(buildUrl(`facilities/${facilityId}/offers`, params));

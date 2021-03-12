@@ -1,5 +1,5 @@
 import { buildUrl } from 'utils';
-import { httpService } from 'utils/http';
+import { managementHttpService } from 'utils/http';
 
 import { IEmployeeCollection, IEmployeeCollectionQueryParams } from '../../types';
 
@@ -9,4 +9,4 @@ export const getEmployeesKey = (
 ): [string, IEmployeeCollectionQueryParams | undefined] => [`facilities/${facilityId}/employees`, params];
 
 export const getEmployees = (facilityId: string, params: IEmployeeCollectionQueryParams) =>
-  httpService.get<IEmployeeCollection>(buildUrl(`facilities/${facilityId}/employees`, params));
+  managementHttpService.get<IEmployeeCollection>(buildUrl(`facilities/${facilityId}/employees`, params));

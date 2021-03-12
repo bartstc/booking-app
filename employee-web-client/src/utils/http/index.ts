@@ -1,4 +1,5 @@
 export * from './AjaxError';
 export * from './Options';
-export { httpService } from './service';
+export { availabilityHttpService, managementHttpService } from './service';
 export { getJSON } from './getJSON';
+export { ServiceType } from './ServiceType';
