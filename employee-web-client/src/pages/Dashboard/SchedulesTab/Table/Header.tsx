@@ -23,7 +23,7 @@ const Header = () => {
         <FormattedMessage id='created-at' defaultMessage='Created at' />
       </HeaderCell>
       <HeaderCell display={{ base: 'none', md: 'flex' }}>
-        <FormattedMessage id='available-employees' defaultMessage='Available employees' />
+        <FormattedMessage id='assigned-employees' defaultMessage='Assigned employees' />
       </HeaderCell>
     </GridHeader>
   );

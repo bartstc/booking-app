@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, HStack, Stack, VStack } from '@chakra-ui/react';
+import { Box, HStack, Stack, VStack, useColorModeValue, useTheme, Flex, Center } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { mdiDelete } from '@mdi/js';
@@ -15,9 +15,25 @@ interface IProps {
   onSubmit: (model: ICreateScheduleDto) => void;
   creatorId: string;
   facilityId: string;
+  initialData?: ICreateScheduleDto;
 }
 
-const CreateScheduleForm = ({ onSubmit, creatorId, facilityId }: IProps) => {
+const getDefaultData = (creatorId: string): ICreateScheduleDto => ({
+  name: '',
+  endDate: '',
+  startDate: '',
+  creatorId,
+  availabilities: [
+    {
+      creatorId,
+      employeeId: '',
+      endDate: '',
+      startDate: '',
+    },
+  ],
+});
+
+const CreateScheduleForm = ({ onSubmit, creatorId, facilityId, initialData }: IProps) => {
   const schema = useValidationSchema();
 
   return (
@@ -25,23 +41,10 @@ const CreateScheduleForm = ({ onSubmit, creatorId, facilityId }: IProps) => {
       onSubmit={onSubmit}
       id='create-schedule-form'
       schema={schema}
-      defaultValues={{
-        name: '',
-        endDate: '',
-        startDate: '',
-        creatorId,
-        availabilities: [
-          {
-            creatorId,
-            employeeId: '',
-            endDate: '',
-            startDate: '',
-          },
-        ],
-      }}
+      defaultValues={initialData ?? getDefaultData(creatorId)}
     >
       <VStack w='100%' align='stretch'>
-        <Box maxW='500px'>
+        <Box maxW='450px'>
           <InputField name='name' label={<FormattedMessage id='schedule-name' defaultMessage='Schedule name' />} id='schedule-name' />
           <DateTimeField name='startDate' id='start-date' label={<FormattedMessage id='start-date' defaultMessage='Start date' />} />
           <DateTimeField name='endDate' id='end-date' label={<FormattedMessage id='end-date' defaultMessage='End date' />} />
@@ -54,6 +57,10 @@ const CreateScheduleForm = ({ onSubmit, creatorId, facilityId }: IProps) => {
 
 const AvailableEmployeesFields = ({ facilityId, creatorId }: { facilityId: string; creatorId: string }) => {
   const { formatMessage } = useIntl();
+  const { colors } = useTheme();
+  const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
+  const countBoxColor = useColorModeValue('blue.500', 'blue.400');
+
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({ control, name: 'availabilities' });
 
@@ -63,38 +70,48 @@ const AvailableEmployeesFields = ({ facilityId, creatorId }: { facilityId: strin
         const isFirst = index === 0;
 
         return (
-          <Stack spacing={4} w='100%' key={field.id} direction={{ base: 'column', md: 'row' }} align='stretch'>
-            <HStack w='100%' align='stretch' justify='space-between' spacing={4}>
-              <Box maxW='400px'>
-                <EmployeeSelectFieldAsync
-                  facilityId={facilityId}
-                  name={`availabilities[${index}].employeeId`}
-                  id={`availabilities[${index}]-employeeId`}
+          <Flex key={field.id} w='100%'>
+            {fields.length > 1 && (
+              <VStack spacing={3} mr={6} mt={2} mb={index === fields.length - 1 ? 8 : 0}>
+                <Center backgroundColor={countBoxColor} w='25px' h='32px' borderRadius='50%' color='white' fontWeight='700' fontSize='12px'>
+                  {index + 1}
+                </Center>
+                <Box h='100%' w='2px' backgroundColor={countBoxColor} />
+              </VStack>
+            )}
+            <VStack pt={2} borderTop={`1px solid ${borderColor}`} spacing={0} w='100%' key={field.id} align='stretch'>
+              <HStack w='100%' align='stretch' justify='space-between' spacing={4}>
+                <Box w='100%' maxW='400px'>
+                  <EmployeeSelectFieldAsync
+                    facilityId={facilityId}
+                    name={`availabilities[${index}].employeeId`}
+                    id={`availabilities[${index}]-employeeId`}
+                  />
+                </Box>
+                {!isFirst && (
+                  <IconButton
+                    title={formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
+                    colorScheme='red'
+                    path={mdiDelete}
+                    onClick={() => remove(index)}
+                    mt='32px !important'
+                  />
+                )}
+              </HStack>
+              <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 0, md: 6 }} maxW='550px'>
+                <DateTimeField
+                  name={`availabilities[${index}].startDate`}
+                  id={`availabilities[${index}]-startDate`}
+                  label={<FormattedMessage id='start-date' defaultMessage='Start date' />}
                 />
-              </Box>
-              {!isFirst && (
-                <IconButton
-                  title={formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
-                  colorScheme='red'
-                  path={mdiDelete}
-                  onClick={() => remove(index)}
-                  mt='32px !important'
+                <DateTimeField
+                  name={`availabilities[${index}].endDate`}
+                  id={`availabilities[${index}]-endDate`}
+                  label={<FormattedMessage id='end-date' defaultMessage='End date' />}
                 />
-              )}
-            </HStack>
-            <Box maxW='500px'>
-              <DateTimeField
-                name={`availabilities[${index}].startDate`}
-                id={`availabilities[${index}]-startDate`}
-                label={<FormattedMessage id='start-date' defaultMessage='Start date' />}
-              />
-              <DateTimeField
-                name={`availabilities[${index}].endDate`}
-                id={`availabilities[${index}]-endDate`}
-                label={<FormattedMessage id='end-date' defaultMessage='End date' />}
-              />
-            </Box>
-          </Stack>
+              </Stack>
+            </VStack>
+          </Flex>
         );
       })}
       <Button

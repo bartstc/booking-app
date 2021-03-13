@@ -5,3 +5,4 @@ export { useInfiniteQuery } from './useInfiniteQuery';
 export { useNotification } from './useNotification';
 export { useRequestStatus } from './useRequestStatus';
 export { useAutoComplete } from './useAutoComplete';
+export { useModal } from './useModal';
