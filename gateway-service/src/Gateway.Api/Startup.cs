@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
@@ -21,6 +20,14 @@ namespace Gateway.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var corsOrigins = Configuration.GetSection("CorsOrigins").Get<string[]>();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins(corsOrigins);
+                });
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -56,7 +63,9 @@ namespace Gateway.Api
 
             app.UseRouting();
 
-            //app.UseAuthentication();
+            app.UseCors();
+
+            // app.UseAuthentication();
             app.UseOcelot().Wait();
 
             app.UseEndpoints(endpoints =>

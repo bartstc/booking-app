@@ -25,6 +25,14 @@ namespace Accessibility.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var corsOrigins = Configuration.GetSection("CorsOrigins").Get<string[]>();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins(corsOrigins);
+                });
+            });
             services.AddControllers()
                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<Startup>());
             
@@ -62,6 +70,8 @@ namespace Accessibility.Api
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
