@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { Layout } from '../Layout';
 import { Spinner } from '../Spinner';
 
-const Calendar = lazy(() => import('../../pages/Calendar'));
+const Booking = lazy(() => import('../../pages/Booking'));
 const Customers = lazy(() => import('../../pages/Customers'));
 const Employees = lazy(() => import('../../pages/Employees'));
 const Offers = lazy(() => import('../../pages/Offers'));
@@ -15,7 +15,7 @@ const PublicRoutes = () => {
     <Layout>
       <Suspense fallback={<Spinner />}>
         <Switch>
-          <Route path='/calendar' component={Calendar} exact />
+          <Route path='/bookings' component={Booking} exact />
           <Route path='/customers' component={Customers} exact />
           <Route path='/employees' component={Employees} exact />
           <Route path='/offers' component={Offers} exact />

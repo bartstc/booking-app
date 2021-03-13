@@ -3,6 +3,7 @@ import { useQueryClient } from 'react-query';
 import { useMutation } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
 import { managementHttpService } from 'utils/http';
+import { Logger, LogLevel } from 'utils/logger';
 
 import { getEmployeesKey } from '../query';
 import { EmployeeStatus, IEmployeeCollection, IEmployeeCollectionQueryParams } from '../../types';
@@ -32,7 +33,11 @@ export const useDeactivateEmployee = (facilityId: string, employeeId: string) =>
         });
       })
       .catch(e => {
-        // todo: Logger
+        Logger.log({
+          name: e.name,
+          message: JSON.stringify(e),
+          level: LogLevel.Error,
+        });
         throw e;
       });
   };

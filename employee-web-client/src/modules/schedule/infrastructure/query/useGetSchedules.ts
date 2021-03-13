@@ -1,4 +1,4 @@
-import { accessibilityHttpService, ServiceType } from 'utils/http';
+import { ServiceType } from 'utils/http';
 
 import { IScheduleCollection } from '../../types';
 

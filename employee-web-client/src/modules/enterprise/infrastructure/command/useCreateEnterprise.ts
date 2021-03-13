@@ -1,6 +1,7 @@
 import { useQueryClient } from 'react-query';
 
 import { managementHttpService } from 'utils/http';
+import { Logger, LogLevel } from 'utils/logger';
 import { useMutation } from 'shared/Suspense';
 
 import { ICreateEnterpriseDto } from '../../dto';
@@ -27,7 +28,11 @@ export const useCreateEnterprise = (enterpriseId?: string) => {
         });
       })
       .catch(e => {
-        // todo: Logger
+        Logger.log({
+          name: e.name,
+          message: JSON.stringify(e),
+          level: LogLevel.Error,
+        });
         throw e;
       });
   };

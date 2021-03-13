@@ -26,10 +26,10 @@ const Header = ({ showModal }: IProps) => {
     <Flex w='100%' justify='space-between'>
       <VStack as='header' align='flex-start'>
         <Heading as='h1' lineHeight={8} fontWeight='900'>
-          <FormattedMessage id='schedule-heading' defaultMessage='Schedule' />
+          <FormattedMessage id='bookings-heading' defaultMessage='Bookings' />
         </Heading>
         <Text as='h2' lineHeight={4}>
-          <FormattedMessage id='schedule-subheading' defaultMessage='Manage reservations' />
+          <FormattedMessage id='bookings-subheading' defaultMessage='Manage yours bookings' />
         </Text>
       </VStack>
       <If condition={pathname.includes('schedule')}>

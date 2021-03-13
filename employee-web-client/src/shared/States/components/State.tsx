@@ -14,7 +14,7 @@ const State = ({ description, header, image, alt, children, ...props }: IProps) 
   const color = useColorModeValue('primary.500', 'primary.300');
 
   return (
-    <VStack width='100%' margin='0 auto' spacing={4} mt={{ base: 12, md: 20 }} {...props}>
+    <VStack width='100%' margin='0 auto' spacing={4} mt={{ base: 6, md: 12 }} {...props}>
       <Heading textAlign='center' as='h2' color={color} fontSize={{ base: '2xl', md: '5xl' }} fontWeight='900'>
         {header}
       </Heading>

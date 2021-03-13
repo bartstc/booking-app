@@ -3,6 +3,7 @@ import { useQueryClient } from 'react-query';
 import { useMutation } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
 import { managementHttpService } from 'utils/http';
+import { Logger, LogLevel } from 'utils/logger';
 
 import { getOffersKey } from '../query';
 import { OfferStatus, IOfferCollection, IOfferCollectionQueryParams } from '../../types';
@@ -30,7 +31,11 @@ export const useActivateOffer = (facilityId: string, offerId: string) => {
         });
       })
       .catch(e => {
-        // todo: Logger
+        Logger.log({
+          name: e.name,
+          message: JSON.stringify(e),
+          level: LogLevel.Error,
+        });
         throw e;
       });
   };

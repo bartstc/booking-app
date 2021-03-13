@@ -9,7 +9,7 @@ import { useInfiniteQuery } from 'hooks/useInfiniteQuery';
 
 import { InfinityList } from 'shared/InfinityList';
 import { Spinner } from 'shared/Spinner';
-import { EmptyState } from 'shared/States';
+import { NoResultsState } from 'shared/States';
 
 import { ListItem } from './ListItem';
 
@@ -27,7 +27,7 @@ const List = () => {
   }
 
   if (!!data?.pages && data.pages[0]?.collection.length === 0) {
-    return <EmptyState />;
+    return <NoResultsState />;
   }
 
   return (
