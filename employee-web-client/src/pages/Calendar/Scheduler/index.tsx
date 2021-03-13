@@ -39,7 +39,7 @@ const resources = [
   },
 ];
 
-const Calendar = () => {
+const Scheduler = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [events, setEvents] = useState<Array<IBookedOfferDto>>([todayOffer]);
 
@@ -66,4 +66,4 @@ const Calendar = () => {
   );
 };
 
-export { Calendar };
+export { Scheduler };

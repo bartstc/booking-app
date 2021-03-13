@@ -20,11 +20,11 @@ export const useGetLinks = () => {
     {
       path: mdiCalendar,
       label: formatMessage({
-        id: 'schedule',
-        defaultMessage: 'Schedule',
+        id: 'calendar',
+        defaultMessage: 'Calendar',
       }),
-      to: 'schedule',
-      signature: 'schedule',
+      to: 'calendar',
+      signature: 'calendar',
     },
     {
       path: mdiAccountMultiple,

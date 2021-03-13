@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { PageWrapper } from 'shared/Layout/Page';
-import { Calendar } from './Calendar';
+import { Scheduler } from './Scheduler';
 
-const Schedule = () => {
+const Calendar = () => {
   return (
     <PageWrapper>
-      <Calendar />
+      <Scheduler />
     </PageWrapper>
   );
 };
 
-export default Schedule;
+export default Calendar;
