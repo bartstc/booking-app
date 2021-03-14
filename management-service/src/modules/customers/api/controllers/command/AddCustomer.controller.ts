@@ -9,6 +9,7 @@ import {
   AddCustomerDto,
   AddCustomerErrors,
   AddCustomerCommand,
+  AddCustomerResponse,
 } from 'modules/customers/application/command/addCustomer';
 
 import { addCustomerSchema } from '../../schemas';
@@ -44,7 +45,7 @@ export class AddCustomerController extends BaseController {
         return this.clientError(res, formErrors.value.errorValue());
       }
 
-      const result = await this.commandBus.execute(
+      const result: AddCustomerResponse = await this.commandBus.execute(
         new AddCustomerCommand(dto, facilityId),
       );
 
@@ -61,7 +62,9 @@ export class AddCustomerController extends BaseController {
       }
 
       this.logger.log('Customer successfully added');
-      return this.ok(res);
+      return this.ok(res, {
+        customerId: result.value.getValue().customerId.id.toString(),
+      });
     } catch (err) {
       this.logger.error(err);
       return this.fail(res, err);
