@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Flex, VStack, HStack, Text, useTheme, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, HStack, Text, useColorModeValue, useTheme, VStack } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
@@ -15,6 +15,7 @@ import { IAddBookingDto } from '../../../dto';
 import { IOffer } from '../../../../offers/types';
 import { RemoveOfferButton } from './RemoveOfferButton';
 import { Money } from '../../../../../shared/Money';
+import { Currency } from '../../../../../types';
 
 interface IProps {
   onSubmit: (model: IAddBookingDto) => void;
@@ -37,8 +38,8 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
         ],
       }}
     >
-      <VStack w='100%' align='flex-start'>
-        <Box w='100%' maxW='400px' mb={4}>
+      <VStack w='100%' align='stretch'>
+        <Box maxW='400px' mb={4}>
           <CustomerSelectFieldAsync name='customerId' id='customer-id' facilityId={facilityId} />
         </Box>
         <OfferFields />
@@ -51,6 +52,9 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
 const OfferFields = () => {
   const { facilityId } = useFacilityConsumer();
 
+  // todo: handle by facility configuration
+  const currency = Currency.Pln;
+
   const [selectedOffers, setSelectedOffers] = useState<{ fieldId: string; offer: IOffer }[]>([]);
 
   const { control } = useFormContext<IAddBookingDto>();
@@ -60,7 +64,6 @@ const OfferFields = () => {
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
 
   const total = Money.total(selectedOffers.map(({ offer }) => Money.from(Number(offer.price.value), offer.price.currency)));
-  const currency = selectedOffers[0]?.offer.price.currency;
 
   return (
     <VStack w='100%' align='flex-start'>
@@ -103,6 +106,7 @@ const OfferFields = () => {
                       setSelectedOffers(offers => offers.filter(offer => offer.fieldId !== field.id!));
                     }
                   }}
+                  currency={currency}
                   facilityId={facilityId}
                   name={`bookedRecords[${index}].offerId`}
                   id={`bookedRecords[${index}].offerId`}
@@ -127,7 +131,7 @@ const OfferFields = () => {
         {': '}
         {total > 0 ? (
           <b>
-            {total} {currency!.toUpperCase()}
+            {total} {currency.toUpperCase()}
           </b>
         ) : (
           <b>---</b>

@@ -28,7 +28,7 @@ const InputField = ({ name, label, required, disabled, helperText, id, tip, css,
 
         return (
           <InputGroup>
-            <Input {...fieldProps} {...props} as={isTextarea ? Textarea : as} id={name} />
+            <Input {...fieldProps} {...props} as={isTextarea ? Textarea : as} id={id} />
             {touched[name] && !isTextarea && (
               <InputRightElement>
                 <div>

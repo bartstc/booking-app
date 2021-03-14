@@ -2,10 +2,9 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { useAutoComplete } from 'hooks';
-import { OptionType, RequestStatus } from 'types';
+import { Currency, OptionType, RequestStatus } from 'types';
 
 import { SelectField, SelectFieldProps } from 'shared/Form/SelectField';
-import { useQueryParams } from 'shared/Params';
 
 import { IOffer, IOfferCollection } from '../../types';
 import { getOffersKey } from '../../infrastructure/query';
@@ -14,14 +13,15 @@ type SelectedOfferOption = OptionType<string> & { offer: IOffer };
 
 type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoading' | 'isClearable' | 'label' | 'onChangeEffect'> & {
   facilityId: string;
+  currency: Currency;
   onChangeEffect?: (option: SelectedOfferOption | null) => void;
 };
 
-const OfferSelectFieldAsync = ({ facilityId, onChangeEffect, ...props }: IProps) => {
-  const { params } = useQueryParams();
+const OfferSelectFieldAsync = ({ facilityId, onChangeEffect, currency, ...props }: IProps) => {
   const { data, search, nextPage, status } = useAutoComplete<SelectedOfferOption, IOfferCollection>({
     url: getOffersKey(facilityId)[0],
-    params,
+    params: { currency },
+    queryKey: 'name',
     map: ({ collection }) => {
       return collection.map(offer => ({
         label: offer.name,

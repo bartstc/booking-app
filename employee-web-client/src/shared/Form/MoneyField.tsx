@@ -41,7 +41,7 @@ const MoneyField = ({ name, label, required, disabled, helperText, id, tip, css,
           <InputGroup>
             <Flex w='100%'>
               <chakra.div flex={children ? '.7' : '1'}>
-                <MoneyInput {...fieldProps} {...props} id={name} />
+                <MoneyInput {...fieldProps} {...props} id={id} />
                 {get(touched, name) && !children && (
                   <InputRightElement>
                     <div>

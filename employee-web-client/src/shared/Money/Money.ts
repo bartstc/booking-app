@@ -32,7 +32,7 @@ export class Money {
   }
 
   static checkCurrency(prices: Array<Money>) {
-    if (uniq(prices).length !== 1) {
+    if (uniq(prices.map(money => money.currency)).length !== 1) {
       throw new Error('Currency is not the same');
     }
   }

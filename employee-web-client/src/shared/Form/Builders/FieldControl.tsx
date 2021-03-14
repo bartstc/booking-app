@@ -30,7 +30,6 @@ const FieldControl = ({
   label,
   children,
   tip,
-  name,
   id,
   css,
   isReadMode = false,
@@ -43,12 +42,7 @@ const FieldControl = ({
     <FormControl mb={isReadMode ? { base: 6, md: 8 } : 4} {...css} id={id} isRequired={isReadMode ? false : isRequired} {...props}>
       <HStack spacing={0}>
         {label && (
-          <FormLabel
-            lineHeight={isReadMode ? '7px' : 'auto'}
-            fontSize={isReadMode ? 'sm' : 'md'}
-            color={isReadMode ? 'gray.500' : 'auto'}
-            htmlFor={name}
-          >
+          <FormLabel lineHeight={isReadMode ? '7px' : 'auto'} fontSize={isReadMode ? 'sm' : 'md'} color={isReadMode ? 'gray.500' : 'auto'}>
             {label}
           </FormLabel>
         )}

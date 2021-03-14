@@ -5,7 +5,6 @@ import { useAutoComplete } from 'hooks';
 import { OptionType, RequestStatus } from 'types';
 
 import { SelectField, SelectFieldProps } from 'shared/Form/SelectField';
-import { useQueryParams } from 'shared/Params';
 
 import { IEmployeeCollection } from '../../types';
 import { getEmployeesKey } from '../../infrastructure/query';
@@ -15,10 +14,8 @@ type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoa
 };
 
 const EmployeeSelectFieldAsync = ({ facilityId, ...props }: IProps) => {
-  const { params } = useQueryParams();
   const { data, search, nextPage, status } = useAutoComplete<OptionType<string>, IEmployeeCollection>({
     url: getEmployeesKey(facilityId)[0],
-    params,
     map: ({ collection }) => {
       return collection.map(employee => ({
         label: employee.name,

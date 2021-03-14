@@ -8,18 +8,15 @@ import { ICustomerCollection } from 'modules/customers/types';
 import { getCustomersKey } from 'modules/customers/infrastructure/query';
 
 import { SelectField, SelectFieldProps } from 'shared/Form/SelectField';
-import { useQueryParams } from 'shared/Params';
 
 type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoading' | 'isClearable' | 'label'> & {
   facilityId: string;
 };
 
 const CustomerSelectFieldAsync = ({ facilityId, ...props }: IProps) => {
-  const { params } = useQueryParams();
   const { data, search, nextPage, status } = useAutoComplete<OptionType<string>, ICustomerCollection>({
     url: getCustomersKey(facilityId)[0],
     queryKey: 'fullName',
-    params,
     map: ({ collection }) => {
       return collection.map(customer => ({
         label: customer.fullName,
