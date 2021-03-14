@@ -12,7 +12,7 @@ const AddBooking = () => {
   const { facilityId } = useFacilityConsumer();
 
   return (
-    <PageWrapper>
+    <PageWrapper spacing={{ base: 6, md: 10 }}>
       <Header />
       <Box w='100%' maxW='800px' pb={{ base: 10, md: 16, lg: 20 }}>
         <AddBookingForm

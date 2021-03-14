@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Box, Flex, VStack, HStack, Text, useTheme, useColorModeValue } from '@chakra-ui/react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { mdiDelete } from '@mdi/js';
 
 import { TreeCounter } from 'shared/TreeCounter';
-import { DateTimeField, Form } from 'shared/Form';
-import { Button, IconButton } from 'shared/Button';
+import { DateTimeField, Form, PreventLossData } from 'shared/Form';
+import { Button } from 'shared/Button';
 
 import { CustomerSelectFieldAsync } from '../../../../customers/shared';
 import { EmployeeSelectFieldAsync } from '../../../../employees/shared';
@@ -43,12 +42,12 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
         </Box>
         <OfferFields />
       </VStack>
+      <PreventLossData />
     </Form>
   );
 };
 
 const OfferFields = () => {
-  const { formatMessage } = useIntl();
   const { facilityId } = useFacilityConsumer();
 
   const [selectedOffers, setSelectedOffers] = useState<{ fieldId: string; offer: IOffer }[]>([]);

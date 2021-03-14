@@ -1,0 +1,1 @@
+export { BreadcrumbIcon } from './BreadcrumbIcon';

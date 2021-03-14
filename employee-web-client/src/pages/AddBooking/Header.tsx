@@ -8,6 +8,8 @@ import { mdiCalendar } from '@mdi/js';
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 
+import { Breadcrumbs } from './Breadcrumbs';
+
 const Header = () => {
   const { formatMessage } = useIntl();
   const { push } = useHistory();
@@ -18,29 +20,32 @@ const Header = () => {
   });
 
   return (
-    <Flex w='100%' justify='space-between'>
-      <VStack as='header' align='flex-start'>
-        <Heading as='h1' lineHeight={8} fontWeight='900'>
-          <FormattedMessage id='bookings-heading' defaultMessage='Bookings' />
-        </Heading>
-        <Text as='h2' lineHeight={4}>
-          <FormattedMessage id='add-booking-subheading' defaultMessage='Add new booking' />
-        </Text>
-      </VStack>
-      {isMobileOnly ? (
-        <IconButton
-          onClick={() => push('bookings')}
-          colorScheme='primary'
-          variant='solid'
-          title={title}
-          icon={<Icon path={mdiCalendar} color='gray.800' />}
-        />
-      ) : (
-        <Button onClick={() => push('bookings')} colorScheme='primary' leftIcon={<Icon path={mdiCalendar} />}>
-          {title}
-        </Button>
-      )}
-    </Flex>
+    <VStack spacing={6} w='100%' align='stretch'>
+      <Flex justify='space-between'>
+        <VStack as='header' align='flex-start'>
+          <Heading as='h1' lineHeight={8} fontWeight='900'>
+            <FormattedMessage id='bookings-heading' defaultMessage='Bookings' />
+          </Heading>
+          <Text as='h2' lineHeight={4}>
+            <FormattedMessage id='add-booking-subheading' defaultMessage='Add new booking' />
+          </Text>
+        </VStack>
+        {isMobileOnly ? (
+          <IconButton
+            onClick={() => push('bookings')}
+            colorScheme='primary'
+            variant='solid'
+            title={title}
+            icon={<Icon path={mdiCalendar} color='gray.800' />}
+          />
+        ) : (
+          <Button onClick={() => push('bookings')} colorScheme='primary' leftIcon={<Icon path={mdiCalendar} />}>
+            {title}
+          </Button>
+        )}
+      </Flex>
+      <Breadcrumbs />
+    </VStack>
   );
 };
 
