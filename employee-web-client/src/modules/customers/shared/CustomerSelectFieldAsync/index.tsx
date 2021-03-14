@@ -5,24 +5,28 @@ import { uniqBy } from 'lodash';
 import { useAutoComplete } from 'hooks';
 import { OptionType, RequestStatus } from 'types';
 
-import { ICustomerCollection } from 'modules/customers/types';
+import { ICustomer, ICustomerCollection } from 'modules/customers/types';
 import { getCustomersKey } from 'modules/customers/infrastructure/query';
 
 import { SelectField, SelectFieldProps } from 'shared/Form/SelectField';
+import { CustomerOption } from './CustomerOption';
+
+export type SelectedCustomerOption = OptionType<string> & { customer: ICustomer };
 
 type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoading' | 'isClearable' | 'label'> & {
   facilityId: string;
-  newOptions?: OptionType[];
+  newOptions?: SelectedCustomerOption[];
 };
 
 const CustomerSelectFieldAsync = ({ facilityId, newOptions = [], ...props }: IProps) => {
-  const { data, search, nextPage, status } = useAutoComplete<OptionType<string>, ICustomerCollection>({
+  const { data, search, nextPage, status } = useAutoComplete<SelectedCustomerOption, ICustomerCollection>({
     url: getCustomersKey(facilityId)[0],
     queryKey: 'fullName',
     map: ({ collection }) => {
       return collection.map(customer => ({
         label: customer.fullName,
         value: customer.customerId,
+        customer,
       }));
     },
   });
@@ -35,6 +39,10 @@ const CustomerSelectFieldAsync = ({ facilityId, newOptions = [], ...props }: IPr
       onInputChange={value => search(value)}
       isLoading={status === RequestStatus.InProgress}
       isClearable
+      components={{
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        Option: CustomerOption as any,
+      }}
       {...props}
     />
   );

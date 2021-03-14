@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, HStack, Stack, VStack, useColorModeValue, useTheme, Flex } from '@chakra-ui/react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { mdiDelete } from '@mdi/js';
 
 import { DateTimeField, Form, InputField } from 'shared/Form';
 import { TreeCounter } from 'shared/TreeCounter';
-import { Button, IconButton } from 'shared/Button';
+import { Button } from 'shared/Button';
+import { ResponsiveRemoveButton } from 'shared/Buttons';
 
 import { useValidationSchema } from './useValidationSchema';
 import { ICreateScheduleDto } from '../../../dto';
@@ -57,7 +57,6 @@ const CreateScheduleForm = ({ onSubmit, creatorId, facilityId, initialData }: IP
 };
 
 const AvailableEmployeesFields = ({ facilityId, creatorId }: { facilityId: string; creatorId: string }) => {
-  const { formatMessage } = useIntl();
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
 
@@ -81,17 +80,9 @@ const AvailableEmployeesFields = ({ facilityId, creatorId }: { facilityId: strin
                     id={`availabilities[${index}]-employeeId`}
                   />
                 </Box>
-                {!isFirst && (
-                  <IconButton
-                    title={formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
-                    colorScheme='red'
-                    path={mdiDelete}
-                    onClick={() => remove(index)}
-                    mt='32px !important'
-                  />
-                )}
+                {!isFirst && <ResponsiveRemoveButton mt='32px !important' onClick={() => remove(index)} />}
               </HStack>
-              <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 0, md: 6 }} maxW='550px'>
+              <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 0, md: 6 }}>
                 <DateTimeField
                   name={`availabilities[${index}].startDate`}
                   id={`availabilities[${index}]-startDate`}

@@ -3,19 +3,19 @@ import { Box, Flex, HStack, Text, useColorModeValue, useTheme, VStack } from '@c
 import { FormattedMessage } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { Currency, OptionType } from 'types';
+import { Currency } from 'types';
 
 import { TreeCounter } from 'shared/TreeCounter';
+import { ResponsiveRemoveButton } from 'shared/Buttons';
 import { DateTimeField, Form, PreventLossData } from 'shared/Form';
 import { Button } from 'shared/Button';
 import { Money } from 'shared/Money';
 
-import { CustomerSelectFieldAsync } from '../../../../customers/shared';
+import { CustomerSelectFieldAsync, SelectedCustomerOption } from '../../../../customers/shared';
 import { OfferSelectFieldAsync } from '../../../../offers/shared';
 import { useFacilityConsumer } from '../../../../context';
 import { IAddBookingDto } from '../../../dto';
 import { IOffer } from '../../../../offers/types';
-import { RemoveOfferButton } from './RemoveOfferButton';
 import { AddNewCustomer } from './AddNewCustomer';
 
 interface IProps {
@@ -24,7 +24,7 @@ interface IProps {
 }
 
 const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
-  const [newCustomer, setNewCustomer] = useState<OptionType>();
+  const [newCustomer, setNewCustomer] = useState<SelectedCustomerOption>();
 
   return (
     <Form<IAddBookingDto>
@@ -53,7 +53,11 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
             <AddNewCustomer
               isDisabled={!!watch('customerId')}
               onSuccess={(customerId, model) => {
-                setNewCustomer({ value: customerId, label: model.fullName });
+                setNewCustomer({
+                  value: customerId,
+                  label: model.fullName,
+                  customer: { ...model, customerId, facilityId, description: model.description ?? null },
+                });
                 setValue('customerId', customerId);
               }}
             />
@@ -121,11 +125,12 @@ const OfferFields = () => {
                   />
                 </Box>
                 {!isFirst && (
-                  <RemoveOfferButton
+                  <ResponsiveRemoveButton
                     onClick={() => {
                       setSelectedOffers(offers => offers.filter(offer => offer.fieldId !== field.id!));
                       remove(index);
                     }}
+                    mt='16px !important'
                   />
                 )}
               </HStack>

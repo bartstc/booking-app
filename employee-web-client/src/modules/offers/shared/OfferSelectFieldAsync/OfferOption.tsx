@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import { components, OptionProps } from 'react-select';
-import { HStack, VStack, Divider } from '@chakra-ui/layout';
-import { Tag, TagLabel } from '@chakra-ui/react';
+import { HStack, VStack, Divider, Tag, TagLabel } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
 import { SelectedOfferOption } from './index';

@@ -2,15 +2,16 @@ import React from 'react';
 import { isMobile } from 'react-device-detect';
 import { mdiDelete } from '@mdi/js';
 import { useIntl } from 'react-intl';
+import { ChakraProps } from '@chakra-ui/react';
 
 import { IconButton, Button } from 'shared/Button';
-import { Icon } from '../../../../../shared/Icon';
+import { Icon } from 'shared/Icon';
 
-interface IProps {
+interface IProps extends ChakraProps {
   onClick: () => void;
 }
 
-const RemoveOfferButton = ({ onClick }: IProps) => {
+const ResponsiveRemoveButton = ({ onClick, ...props }: IProps) => {
   const { formatMessage } = useIntl();
 
   if (isMobile) {
@@ -20,16 +21,16 @@ const RemoveOfferButton = ({ onClick }: IProps) => {
         colorScheme='red'
         path={mdiDelete}
         onClick={onClick}
-        mt='16px !important'
+        {...props}
       />
     );
   }
 
   return (
-    <Button colorScheme='red' variant='ghost' onClick={onClick} mt='16px !important' leftIcon={<Icon path={mdiDelete} />}>
+    <Button colorScheme='red' variant='ghost' onClick={onClick} leftIcon={<Icon path={mdiDelete} />} {...props}>
       {formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
     </Button>
   );
 };
 
-export { RemoveOfferButton };
+export { ResponsiveRemoveButton };
