@@ -1,6 +1,6 @@
 import { QueryParams } from 'shared/core';
 
-import { OfferStatus, PriceModel } from '../../domain/types';
+import { Currency, OfferStatus, PriceModel } from '../../domain/types';
 
 export enum OfferCollectionOrder {
   Status = 'status',
@@ -11,4 +11,5 @@ export interface OfferCollectionQueryParams extends QueryParams {
   name?: string;
   priceType?: PriceModel;
   status?: OfferStatus;
+  currency?: Currency;
 }

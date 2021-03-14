@@ -27,6 +27,7 @@ export class OfferTypeormQuery
       name = '',
       priceType = '' as any,
       status = '' as any,
+      currency = '' as any,
       order: orderKey,
     }: OfferCollectionQueryParams,
   ): Promise<QueryListResult<OfferDto>> {
@@ -37,8 +38,9 @@ export class OfferTypeormQuery
       .where('offer.facility_id = :facilityId', { facilityId })
       .andWhere(`offer.status ilike '%${status}%'`)
       .andWhere(`offer.details::jsonb->>'name' ilike '%${name}%'`)
+      .andWhere(`offer.details::jsonb->'price'->>'type' ilike '%${priceType}%'`)
       .andWhere(
-        `offer.details::jsonb->'price'->>'type' ilike '%${priceType}%'`,
+        `offer.details::jsonb->'price'->>'currency' ilike '%${currency}%'`,
       );
 
     if (orderKey) {
