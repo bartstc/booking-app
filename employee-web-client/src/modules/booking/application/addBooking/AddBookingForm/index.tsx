@@ -14,6 +14,7 @@ import { useFacilityConsumer } from '../../../../context';
 import { IAddBookingDto } from '../../../dto';
 import { IOffer } from '../../../../offers/types';
 import { RemoveOfferButton } from './RemoveOfferButton';
+import { Money } from '../../../../../shared/Money';
 
 interface IProps {
   onSubmit: (model: IAddBookingDto) => void;
@@ -57,6 +58,9 @@ const OfferFields = () => {
 
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
+
+  const total = Money.total(selectedOffers.map(({ offer }) => Money.from(Number(offer.price.value), offer.price.currency)));
+  const currency = selectedOffers[0]?.offer.price.currency;
 
   return (
     <VStack w='100%' align='flex-start'>
@@ -121,7 +125,13 @@ const OfferFields = () => {
       <Text pt={2} fontSize={{ base: 'md', md: 'lg' }}>
         <FormattedMessage id='total' defaultMessage='Total' />
         {': '}
-        <b>120 PLN</b>
+        {total > 0 ? (
+          <b>
+            {total} {currency!.toUpperCase()}
+          </b>
+        ) : (
+          <b>---</b>
+        )}
       </Text>
     </VStack>
   );
