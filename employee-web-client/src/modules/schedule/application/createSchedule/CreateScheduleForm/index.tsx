@@ -1,10 +1,11 @@
 import React from 'react';
-import { Box, HStack, Stack, VStack, useColorModeValue, useTheme, Flex, Center } from '@chakra-ui/react';
+import { Box, HStack, Stack, VStack, useColorModeValue, useTheme, Flex } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { mdiDelete } from '@mdi/js';
 
 import { DateTimeField, Form, InputField } from 'shared/Form';
+import { TreeCounter } from 'shared/TreeCounter';
 import { Button, IconButton } from 'shared/Button';
 
 import { useValidationSchema } from './useValidationSchema';
@@ -59,7 +60,6 @@ const AvailableEmployeesFields = ({ facilityId, creatorId }: { facilityId: strin
   const { formatMessage } = useIntl();
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
-  const countBoxColor = useColorModeValue('blue.500', 'blue.400');
 
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({ control, name: 'availabilities' });
@@ -71,15 +71,8 @@ const AvailableEmployeesFields = ({ facilityId, creatorId }: { facilityId: strin
 
         return (
           <Flex key={field.id} w='100%'>
-            {fields.length > 1 && (
-              <VStack spacing={3} mr={6} mt={2} mb={index === fields.length - 1 ? 8 : 0}>
-                <Center backgroundColor={countBoxColor} w='25px' h='32px' borderRadius='50%' color='white' fontWeight='700' fontSize='12px'>
-                  {index + 1}
-                </Center>
-                <Box h='100%' w='2px' backgroundColor={countBoxColor} />
-              </VStack>
-            )}
-            <VStack pt={2} borderTop={`1px solid ${borderColor}`} spacing={0} w='100%' key={field.id} align='stretch'>
+            {fields.length > 1 && <TreeCounter index={index} fieldsCount={fields.length} />}
+            <VStack py={4} borderTop={`1px solid ${borderColor}`} spacing={0} w='100%' key={field.id} align='stretch'>
               <HStack w='100%' align='stretch' justify='space-between' spacing={4}>
                 <Box w='100%' maxW='400px'>
                   <EmployeeSelectFieldAsync

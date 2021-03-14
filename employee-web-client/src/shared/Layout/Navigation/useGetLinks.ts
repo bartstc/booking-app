@@ -24,7 +24,7 @@ export const useGetLinks = () => {
         defaultMessage: 'Bookings',
       }),
       to: 'bookings',
-      signature: 'bookings',
+      signature: 'booking',
     },
     {
       path: mdiAccountMultiple,

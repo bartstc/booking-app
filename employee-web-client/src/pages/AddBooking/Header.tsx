@@ -13,8 +13,8 @@ const Header = () => {
   const { push } = useHistory();
 
   const title = formatMessage({
-    id: 'add-reservation',
-    defaultMessage: 'Add reservation',
+    id: 'back-to-calendar',
+    defaultMessage: 'Back to calendar',
   });
 
   return (
@@ -24,19 +24,19 @@ const Header = () => {
           <FormattedMessage id='bookings-heading' defaultMessage='Bookings' />
         </Heading>
         <Text as='h2' lineHeight={4}>
-          <FormattedMessage id='bookings-subheading' defaultMessage='Manage yours bookings' />
+          <FormattedMessage id='add-booking-subheading' defaultMessage='Add new booking' />
         </Text>
       </VStack>
       {isMobileOnly ? (
         <IconButton
-          onClick={() => push('add-booking')}
+          onClick={() => push('bookings')}
           colorScheme='primary'
           variant='solid'
           title={title}
           icon={<Icon path={mdiCalendar} color='gray.800' />}
         />
       ) : (
-        <Button onClick={() => push('add-booking')} colorScheme='primary' leftIcon={<Icon path={mdiCalendar} />}>
+        <Button onClick={() => push('bookings')} colorScheme='primary' leftIcon={<Icon path={mdiCalendar} />}>
           {title}
         </Button>
       )}

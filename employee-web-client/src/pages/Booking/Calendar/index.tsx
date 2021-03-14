@@ -45,7 +45,7 @@ const Calendar = () => {
 
   return (
     <>
-      <Header showModal={onOpen} />
+      <Header />
       <VStack w='100%' maxW='1200px' pb={{ base: 4, md: 10 }}>
         <BookOfferModal
           isOpen={isOpen}

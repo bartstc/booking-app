@@ -23,7 +23,7 @@ const DesktopDrawer = ({ toggle, extended, facilityId }: IProps) => {
 
   return (
     <VStack
-      w={extended ? '250px' : '60px'}
+      w={extended ? '220px' : '60px'}
       h='100vh'
       transition='all .25s ease-in-out'
       position='fixed'

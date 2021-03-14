@@ -1,0 +1,131 @@
+import React, { useState } from 'react';
+import { Box, Flex, VStack, HStack, Text, useTheme, useColorModeValue } from '@chakra-ui/react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { mdiDelete } from '@mdi/js';
+
+import { TreeCounter } from 'shared/TreeCounter';
+import { DateTimeField, Form } from 'shared/Form';
+import { Button, IconButton } from 'shared/Button';
+
+import { CustomerSelectFieldAsync } from '../../../../customers/shared';
+import { EmployeeSelectFieldAsync } from '../../../../employees/shared';
+import { OfferSelectFieldAsync } from '../../../../offers/shared';
+import { useFacilityConsumer } from '../../../../context';
+import { IAddBookingDto } from '../../../dto';
+import { IOffer } from '../../../../offers/types';
+import { RemoveOfferButton } from './RemoveOfferButton';
+
+interface IProps {
+  onSubmit: (model: IAddBookingDto) => void;
+  facilityId: string;
+}
+
+const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
+  return (
+    <Form<IAddBookingDto>
+      id='add-booking-form'
+      onSubmit={onSubmit}
+      defaultValues={{
+        customerId: '',
+        bookedRecords: [
+          {
+            employerId: '',
+            offerId: '',
+            date: '',
+          },
+        ],
+      }}
+    >
+      <VStack w='100%' align='flex-start'>
+        <Box w='100%' maxW='400px' mb={4}>
+          <CustomerSelectFieldAsync name='customerId' id='customer-id' facilityId={facilityId} />
+        </Box>
+        <OfferFields />
+      </VStack>
+    </Form>
+  );
+};
+
+const OfferFields = () => {
+  const { formatMessage } = useIntl();
+  const { facilityId } = useFacilityConsumer();
+
+  const [selectedOffers, setSelectedOffers] = useState<{ fieldId: string; offer: IOffer }[]>([]);
+
+  const { control } = useFormContext<IAddBookingDto>();
+  const { fields, append, remove } = useFieldArray({ control, name: 'bookedRecords' });
+
+  const { colors } = useTheme();
+  const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
+
+  return (
+    <VStack w='100%' align='flex-start'>
+      {fields.map((field, index) => {
+        const isFirst = index === 0;
+
+        return (
+          <Flex key={field.id} w='100%'>
+            {fields.length > 1 && <TreeCounter index={index} fieldsCount={fields.length} />}
+            <VStack py={4} borderTop={`1px solid ${borderColor}`} spacing={2} w='100%' align='stretch' mb={4}>
+              <HStack w='100%' align='stretch' justify='space-between' spacing={4}>
+                <Box w='100%' maxW='400px'>
+                  <EmployeeSelectFieldAsync
+                    facilityId={facilityId}
+                    name={`bookedRecords[${index}].employerId`}
+                    id={`bookedRecords[${index}].employerId`}
+                    tip={
+                      <FormattedMessage
+                        id='booking-empty-employer-tip'
+                        defaultMessage='If the field is not completed, a random employee will be assigned to fulfill the offer.'
+                      />
+                    }
+                  />
+                </Box>
+                {!isFirst && (
+                  <RemoveOfferButton
+                    onClick={() => {
+                      setSelectedOffers(offers => offers.filter(offer => offer.fieldId !== field.id!));
+                      remove(index);
+                    }}
+                  />
+                )}
+              </HStack>
+              <Box w='100%' maxW='600px'>
+                <OfferSelectFieldAsync
+                  onChangeEffect={option => {
+                    if (option) {
+                      setSelectedOffers(offers => [...offers, { fieldId: field.id!, offer: option.offer }]);
+                    } else {
+                      setSelectedOffers(offers => offers.filter(offer => offer.fieldId !== field.id!));
+                    }
+                  }}
+                  facilityId={facilityId}
+                  name={`bookedRecords[${index}].offerId`}
+                  id={`bookedRecords[${index}].offerId`}
+                />
+              </Box>
+              <Box w='100%' maxW={{ base: '100%', md: '450px' }}>
+                <DateTimeField
+                  name={`bookedRecords[${index}].date`}
+                  id={`bookedRecords[${index}].date`}
+                  label={<FormattedMessage id='date-from' defaultMessage='Date and time' />}
+                />
+              </Box>
+            </VStack>
+          </Flex>
+        );
+      })}
+      <Button colorScheme='blue' onClick={() => append({ employerId: '', offerId: '', dateFrom: '' })}>
+        <FormattedMessage id='add-another-offer' defaultMessage='Add another offer' />
+      </Button>
+      <Text pt={2} fontSize={{ base: 'md', md: 'lg' }}>
+        <FormattedMessage id='total' defaultMessage='Total' />
+        {': '}
+        <b>120 PLN</b>
+      </Text>
+    </VStack>
+  );
+};
+
+export { AddBookingForm };
