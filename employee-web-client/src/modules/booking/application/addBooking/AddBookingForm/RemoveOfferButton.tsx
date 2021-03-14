@@ -20,13 +20,13 @@ const RemoveOfferButton = ({ onClick }: IProps) => {
         colorScheme='red'
         path={mdiDelete}
         onClick={onClick}
-        mt='32px !important'
+        mt='16px !important'
       />
     );
   }
 
   return (
-    <Button colorScheme='red' variant='ghost' onClick={onClick} mt='32px !important' leftIcon={<Icon path={mdiDelete} />}>
+    <Button colorScheme='red' variant='ghost' onClick={onClick} mt='16px !important' leftIcon={<Icon path={mdiDelete} />}>
       {formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
     </Button>
   );

@@ -8,8 +8,9 @@ import { SelectField, SelectFieldProps } from 'shared/Form/SelectField';
 
 import { IOffer, IOfferCollection } from '../../types';
 import { getOffersKey } from '../../infrastructure/query';
+import { OfferOption } from './OfferOption';
 
-type SelectedOfferOption = OptionType<string> & { offer: IOffer };
+export type SelectedOfferOption = OptionType<string> & { offer: IOffer };
 
 type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoading' | 'isClearable' | 'label' | 'onChangeEffect'> & {
   facilityId: string;
@@ -41,6 +42,10 @@ const OfferSelectFieldAsync = ({ facilityId, onChangeEffect, currency, ...props 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChangeEffect={onChangeEffect as any}
       isClearable
+      components={{
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        Option: OfferOption as any,
+      }}
       {...props}
     />
   );

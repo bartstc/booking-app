@@ -74,18 +74,33 @@ const OfferFields = () => {
           <Flex key={field.id} w='100%'>
             {fields.length > 1 && <TreeCounter index={index} fieldsCount={fields.length} />}
             <VStack py={4} borderTop={`1px solid ${borderColor}`} spacing={2} w='100%' align='stretch' mb={4}>
-              <HStack w='100%' align='stretch' justify='space-between' spacing={4}>
-                <Box w='100%' maxW='400px'>
-                  <EmployeeSelectFieldAsync
+              {/*<Box w='100%' maxW='400px'>*/}
+              {/*  <EmployeeSelectFieldAsync*/}
+              {/*    facilityId={facilityId}*/}
+              {/*    name={`bookedRecords[${index}].employerId`}*/}
+              {/*    id={`bookedRecords[${index}].employerId`}*/}
+              {/*    tip={*/}
+              {/*      <FormattedMessage*/}
+              {/*        id='booking-empty-employer-tip'*/}
+              {/*        defaultMessage='If the field is not completed, a random employee will be assigned to fulfill the offer.'*/}
+              {/*      />*/}
+              {/*    }*/}
+              {/*  />*/}
+              {/*</Box>*/}
+              <HStack justify='space-between'>
+                <Box w='100%' maxW='600px'>
+                  <OfferSelectFieldAsync
+                    onChangeEffect={option => {
+                      if (option) {
+                        setSelectedOffers(offers => [...offers, { fieldId: field.id!, offer: option.offer }]);
+                      } else {
+                        setSelectedOffers(offers => offers.filter(offer => offer.fieldId !== field.id!));
+                      }
+                    }}
+                    currency={currency}
                     facilityId={facilityId}
-                    name={`bookedRecords[${index}].employerId`}
-                    id={`bookedRecords[${index}].employerId`}
-                    tip={
-                      <FormattedMessage
-                        id='booking-empty-employer-tip'
-                        defaultMessage='If the field is not completed, a random employee will be assigned to fulfill the offer.'
-                      />
-                    }
+                    name={`bookedRecords[${index}].offerId`}
+                    id={`bookedRecords[${index}].offerId`}
                   />
                 </Box>
                 {!isFirst && (
@@ -97,21 +112,6 @@ const OfferFields = () => {
                   />
                 )}
               </HStack>
-              <Box w='100%' maxW='600px'>
-                <OfferSelectFieldAsync
-                  onChangeEffect={option => {
-                    if (option) {
-                      setSelectedOffers(offers => [...offers, { fieldId: field.id!, offer: option.offer }]);
-                    } else {
-                      setSelectedOffers(offers => offers.filter(offer => offer.fieldId !== field.id!));
-                    }
-                  }}
-                  currency={currency}
-                  facilityId={facilityId}
-                  name={`bookedRecords[${index}].offerId`}
-                  id={`bookedRecords[${index}].offerId`}
-                />
-              </Box>
               <Box w='100%' maxW={{ base: '100%', md: '450px' }}>
                 <DateTimeField
                   name={`bookedRecords[${index}].date`}
