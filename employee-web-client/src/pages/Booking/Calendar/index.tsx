@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDisclosure, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { IBookedOfferDto } from 'modules/schedule/dto/IBookedOfferDto';
@@ -7,7 +7,6 @@ import { PriceModel } from 'modules/offers/types';
 import { Currency } from 'types';
 
 import { CalendarConfiguration } from './CalendarConfiguration';
-import { BookOfferModal } from './BookOfferModal';
 
 const todayOffer: IBookedOfferDto = {
   employerId: '111',
@@ -39,18 +38,10 @@ const resources = [
 ];
 
 const Calendar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [events, setEvents] = useState<Array<IBookedOfferDto>>([todayOffer]);
 
   return (
     <VStack w='100%' maxW='1200px' pb={{ base: 4, md: 10 }}>
-      <BookOfferModal
-        isOpen={isOpen}
-        onClose={onClose}
-        onSubmit={model => {
-          console.log(model);
-        }}
-      />
       <CalendarConfiguration
         events={events}
         resources={resources}
