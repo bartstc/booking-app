@@ -3,19 +3,20 @@ import { Box, Flex, HStack, Text, useColorModeValue, useTheme, VStack } from '@c
 import { FormattedMessage } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
+import { Currency, OptionType } from 'types';
+
 import { TreeCounter } from 'shared/TreeCounter';
 import { DateTimeField, Form, PreventLossData } from 'shared/Form';
 import { Button } from 'shared/Button';
+import { Money } from 'shared/Money';
 
 import { CustomerSelectFieldAsync } from '../../../../customers/shared';
-import { EmployeeSelectFieldAsync } from '../../../../employees/shared';
 import { OfferSelectFieldAsync } from '../../../../offers/shared';
 import { useFacilityConsumer } from '../../../../context';
 import { IAddBookingDto } from '../../../dto';
 import { IOffer } from '../../../../offers/types';
 import { RemoveOfferButton } from './RemoveOfferButton';
-import { Money } from '../../../../../shared/Money';
-import { Currency } from '../../../../../types';
+import { AddNewCustomer } from './AddNewCustomer';
 
 interface IProps {
   onSubmit: (model: IAddBookingDto) => void;
@@ -23,6 +24,8 @@ interface IProps {
 }
 
 const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
+  const [newCustomer, setNewCustomer] = useState<OptionType>();
+
   return (
     <Form<IAddBookingDto>
       id='add-booking-form'
@@ -38,13 +41,27 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
         ],
       }}
     >
-      <VStack w='100%' align='stretch'>
-        <Box maxW='400px' mb={4}>
-          <CustomerSelectFieldAsync name='customerId' id='customer-id' facilityId={facilityId} />
-        </Box>
-        <OfferFields />
-      </VStack>
-      <PreventLossData />
+      {({ watch, setValue }) => (
+        <VStack w='100%' align='stretch'>
+          <HStack maxW='450px' mb={4}>
+            <CustomerSelectFieldAsync
+              newOptions={newCustomer ? [newCustomer] : undefined}
+              name='customerId'
+              id='customer-id'
+              facilityId={facilityId}
+            />
+            <AddNewCustomer
+              isDisabled={!!watch('customerId')}
+              onSuccess={(customerId, model) => {
+                setNewCustomer({ value: customerId, label: model.fullName });
+                setValue('customerId', customerId);
+              }}
+            />
+          </HStack>
+          <OfferFields />
+          <PreventLossData />
+        </VStack>
+      )}
     </Form>
   );
 };

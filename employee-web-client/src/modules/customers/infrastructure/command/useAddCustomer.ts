@@ -9,14 +9,15 @@ import { IAddCustomerDto } from '../../dto';
 
 export const useAddCustomer = (facilityId: string) => {
   const queryClient = useQueryClient();
-  const { mutateAsync, isLoading } = useMutation<void, IAddCustomerDto>(model =>
+  const { mutateAsync, isLoading } = useMutation<{ customerId: string }, IAddCustomerDto>(model =>
     managementHttpService.post(`facilities/${facilityId}/customers`, model),
   );
 
   const handler = (model: IAddCustomerDto) => {
     return mutateAsync(model)
-      .then(async () => {
+      .then(async res => {
         await queryClient.invalidateQueries(getCustomersKey(facilityId));
+        return res.customerId;
       })
       .catch(e => {
         Logger.log({

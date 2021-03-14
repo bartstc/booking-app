@@ -1,7 +1,7 @@
 import { HttpService } from './HttpService';
 
 const headers = {
-  // 'Content-Type': 'application/json',
+  'Content-Type': 'application/json',
 };
 
 const host = process.env.REACT_APP_API_HOST;

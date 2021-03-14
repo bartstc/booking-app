@@ -9,12 +9,15 @@ import { useFacilityConsumer } from 'modules/context';
 import { useAddCustomer } from 'modules/customers/infrastructure/command';
 import { AddCustomerForm, useAddCustomerNotification } from 'modules/customers/application/addCustomer';
 
+import { IAddCustomerDto } from '../../dto';
+
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess?: (customerId: string, model: IAddCustomerDto) => void;
 }
 
-const AddCustomerModal = ({ isOpen, onClose }: IProps) => {
+const AddCustomerModal = ({ isOpen, onClose, onSuccess }: IProps) => {
   const { facilityId } = useFacilityConsumer();
 
   const [handler, isLoading] = useAddCustomer(facilityId);
@@ -32,7 +35,8 @@ const AddCustomerModal = ({ isOpen, onClose }: IProps) => {
           <AddCustomerForm
             onSubmit={async model => {
               try {
-                await handler(model);
+                const customerId = await handler(model);
+                if (onSuccess) onSuccess(customerId, model);
                 showSuccessNotification();
               } catch (e) {
                 showFailureNotification();
