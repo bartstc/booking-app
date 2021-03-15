@@ -11,6 +11,8 @@ namespace Gateway.Api
 {
     public class Startup
     {
+        private const string corsPolicyName = "mainCorsPolicy";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,9 +25,11 @@ namespace Gateway.Api
             var corsOrigins = Configuration.GetSection("CorsOrigins").Get<string[]>();
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(builder =>
+                options.AddPolicy(corsPolicyName, builder =>
                 {
-                    builder.WithOrigins(corsOrigins);
+                    builder.WithOrigins(corsOrigins)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
                 });
             });
             services.AddControllers();
@@ -63,7 +67,7 @@ namespace Gateway.Api
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors(corsPolicyName);
 
             // app.UseAuthentication();
             app.UseOcelot().Wait();
