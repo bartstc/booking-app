@@ -5,6 +5,7 @@ namespace Accessibility.Application.Bookings.Queries.GetBookedRecordsOfFacility
     public class BookedRecordOfFacilityDto
     {
         public Guid BookingId { get; set; }
+        public Guid BookedRecordId { get; set; }
         public Guid OfferId { get; set; }
         public string OfferName { get; set; }
         public Guid EmployeeId { get; set; }

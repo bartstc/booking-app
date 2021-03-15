@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Accessibility.Application.Bookings;
+using Accessibility.Api.Bookings;
 using Accessibility.Application.Bookings.Commands.CreateBookingOrder;
 using Accessibility.Application.Bookings.Queries.AnyUnfinishedBookingOfEmployee;
 using Accessibility.Application.Bookings.Queries.AnyUnfinishedBookingOfOffer;
@@ -22,15 +21,13 @@ namespace Accessibility.Api.Controllers
             this.mediator = mediator;
         }
 
-        // TODO: customerId from request JWT
-        [HttpPost("customers/{customerId}/bookings")]
+        [HttpPost("bookings")]
         [ProducesResponseType(typeof(BookingIdDto), (int)HttpStatusCode.Accepted)]
         public async Task<IActionResult> CreateBooking(
-            [FromRoute] Guid customerId,
             [FromRoute] Guid facilityId,
-            [FromBody] List<BookedRecordDto> services)
+            [FromBody] CreateBookingRequest request)
         {
-            var bookingId = await mediator.Send(new BookCommand(customerId, facilityId, services));
+            var bookingId = await mediator.Send(new BookCommand(request.CustomerId, facilityId, request.BookedRecords));
             return Accepted();
         }
 

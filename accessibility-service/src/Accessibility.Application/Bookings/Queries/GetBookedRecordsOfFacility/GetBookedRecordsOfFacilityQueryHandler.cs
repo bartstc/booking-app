@@ -23,6 +23,7 @@ namespace Accessibility.Application.Bookings.Queries.GetBookedRecordsOfFacility
             return (await connection.QueryAsync<BookedRecordOfFacilityDto>(
                 @"SELECT
                     b.booking_id as BookingId,
+                    r.booked_record_id as BookedRecordId,
                     r.offer_id as OfferId,
                     o.name as OfferName,
                     r.employee_id as EmployeeId,
