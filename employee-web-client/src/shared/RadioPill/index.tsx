@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, RadioProps, useColorModeValue, useRadio, WrapItem } from '@chakra-ui/react';
+import { Box, RadioProps, ChakraProps, useColorModeValue, useRadio, WrapItem } from '@chakra-ui/react';
 
 interface IProps extends RadioProps {
   checked: boolean;
+  radioStyles?: ChakraProps;
 }
 
-const RadioPill = ({ checked, ...props }: IProps) => {
+const RadioPill = ({ checked, radioStyles, ...props }: IProps) => {
   const { getInputProps, getCheckboxProps } = useRadio(props);
 
   const bg = useColorModeValue('transparent', 'gray.600');
@@ -41,6 +42,7 @@ const RadioPill = ({ checked, ...props }: IProps) => {
         }
         px={5}
         py={1}
+        {...radioStyles}
       >
         {props.children}
       </Box>
