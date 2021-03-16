@@ -5,8 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Application.Schedules;
 using MediatR;
-using Accessibility.Application.Extensions;
 using Accessibility.Application.Facilities;
+using Accessibility.Domain.Extensions;
 
 namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms
 {
