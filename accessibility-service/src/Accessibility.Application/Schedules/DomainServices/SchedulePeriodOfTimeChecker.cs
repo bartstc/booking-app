@@ -24,12 +24,8 @@ namespace Accessibility.Application.Schedules.DomainServices
                 FROM accessibility.schedules
                 WHERE
                     facility_id = @FacilityId AND
-                    (
-                        start_date BETWEEN @StartDate AND @EndDate OR
-                        end_date BETWEEN @StartDate AND @EndDate OR
-                        start_date = @StartDate OR
-                        end_date = @EndDate
-                    )
+                    startDate < @EndDate AND
+                    @StartDate < end_date
                 LIMIT 1;",
                 new {
                     FacilityId = facilityId.Value,
@@ -50,12 +46,8 @@ namespace Accessibility.Application.Schedules.DomainServices
                 WHERE
                     facility_id = @FacilityId AND
                     schedule_id != @ScheduleId AND
-                    (
-                        start_date BETWEEN @StartDate AND @EndDate OR
-                        end_date BETWEEN @StartDate AND @EndDate OR
-                        start_date = @StartDate OR
-                        end_date = @EndDate
-                    )
+                    startDate < @EndDate AND
+                    @StartDate < end_date
                 LIMIT 1;",
                 new {
                     FacilityId = facilityId.Value,
