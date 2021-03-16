@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Accessibility.Application.Schedules.Commands.CreateSchedule;
 using MediatR;
 
-namespace Accessibility.Application.Schedules.Commands.CorrectSchedule
+namespace Accessibility.Application.Schedules.Commands.ApplyCorrection
 {
-    public class CorrectScheduleCommand : IRequest
+    public class ApplyCorrectionCommand : IRequest
     {
-        public CorrectScheduleCommand(Guid facilityId, Guid scheduleId, List<AvailabilityDto> availabilities)
+        public ApplyCorrectionCommand(Guid facilityId, Guid scheduleId, List<AvailabilityDto> availabilities)
         {
             Availabilities = availabilities;
             FacilityId = facilityId;

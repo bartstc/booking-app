@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Accessibility.Api.Schedules;
-using Accessibility.Application.Schedules.Commands.CorrectSchedule;
+using Accessibility.Application.Schedules.Commands.ApplyCorrection;
 using Accessibility.Application.Schedules.Commands.CreateSchedule;
 using Accessibility.Application.Schedules.Commands.ModifySchedule;
 using Accessibility.Application.Schedules.Queries;
@@ -75,7 +75,7 @@ namespace Accessibility.Api.Controllers
             [FromBody] CorrectScheduleRequest request
         )
         {
-            await mediator.Send(new CorrectScheduleCommand(facilityId, scheduleId, request.Availabilities));
+            await mediator.Send(new ApplyCorrectionCommand(facilityId, scheduleId, request.Availabilities));
             return Ok();
         }
     }
