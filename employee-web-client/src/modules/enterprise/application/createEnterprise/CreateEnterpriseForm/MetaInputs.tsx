@@ -9,7 +9,7 @@ const MetaInputs = () => {
 
   return (
     <VStack w='100%' align='flex-start'>
-      <Heading color={color} as='h3' fontSize='2xl' mb={2}>
+      <Heading color={color} as='h3' fontSize='xl' mb={2}>
         <FormattedMessage id='enterprise-base-data' defaultMessage='Base enterprise data' />
       </Heading>
       <Box w='100%' maxW='450px'>

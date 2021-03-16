@@ -9,7 +9,7 @@ const ContactPersonInputs = () => {
 
   return (
     <VStack w='100%' align='flex-start'>
-      <Heading color={color} as='h3' fontSize='2xl' mb={2}>
+      <Heading color={color} as='h3' fontSize='xl' mb={2}>
         <FormattedMessage id='enterprise-contact-person' defaultMessage='Contact person' />
       </Heading>
       <Box w='100%' maxW='450px'>

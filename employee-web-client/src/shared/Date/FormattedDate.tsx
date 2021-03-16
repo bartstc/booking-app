@@ -4,13 +4,14 @@ import formatDate from 'intl-dateformat';
 
 interface IProps {
   value: string | Date;
+  format?: string;
 }
 
-const FormattedDate = ({ value }: IProps) => {
+const FormattedDate = ({ value, format = 'YYYY-MM-DD' }: IProps) => {
   const date = new Date(value);
 
   if (!isEmpty(value)) {
-    return <div>{formatDate(date, 'YYYY-MM-DD')}</div>;
+    return <div>{formatDate(date, format)}</div>;
   }
   return <span>{value}</span>;
 };

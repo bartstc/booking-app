@@ -15,9 +15,12 @@ import { OfferSelectFieldAsync } from '../../../../offers/shared';
 import { useFacilityConsumer } from '../../../../context';
 import { IAddBookingDto } from '../../../dto';
 import { IOffer } from '../../../../offers/types';
+import { useModal } from '../../../../../hooks';
+import { SelectDateModal } from './SelectDateModal';
 
 const BookedRecordFields = () => {
   const { facilityId } = useFacilityConsumer();
+  const { isOpen, onOpen, onClose } = useModal();
 
   // todo: handle by facility configuration
   const currency = Currency.Pln;
@@ -81,6 +84,7 @@ const BookedRecordFields = () => {
                 )}
               </HStack>
               <Box w='100%' maxW={{ base: '100%', md: '450px' }}>
+                <SelectDateModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
                 <DateTimeField
                   name={`bookedRecords[${index}].date`}
                   id={`bookedRecords[${index}].date`}
