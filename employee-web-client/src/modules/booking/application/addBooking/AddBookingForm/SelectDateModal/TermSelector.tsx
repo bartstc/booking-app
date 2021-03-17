@@ -29,35 +29,39 @@ interface IProps {
 const TermSelector = ({ offerId, index, onClose }: IProps) => {
   const { formatMessage } = useIntl();
   const { facilityId } = useFacilityConsumer();
-  const { setValue } = useFormContext();
+  const { setValue, watch } = useFormContext();
 
-  const mondayIndex = 1;
-  const sundayIndex = 7;
+  const selectedEmployeeIdField = watch(`bookedRecords[${index}].employeeId`);
+  const selectedTermField = watch(`bookedRecords[${index}].date`);
+  const selectedTermFieldDate = dayjs(!selectedTermField ? dayjs() : selectedTermField);
+
+  const mondayIndex = 0;
+  const sundayIndex = 6;
   const weekDayCount = 7;
-  const todaySignature = dayjs().format('D-M');
-  const today = dayjs().hour(6).minute(0).second(0).toISOString();
+  const currentDay = dayjs(selectedTermFieldDate).toDate().toString();
 
-  const [startRange, setStartRange] = useState(mondayIndex);
-  const [endRange, setEndRange] = useState(sundayIndex);
-  const [monday, setMonday] = useState(dayjs().weekday(mondayIndex));
-  const [sunday, setSunday] = useState(dayjs().weekday(sundayIndex));
-  const [selectedDay, setSelectedDay] = useState(today);
-  const [selectedTerm, setSelectedTerm] = useState<string>();
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState<string>();
+  const [monday, setMonday] = useState(dayjs(selectedTermFieldDate).weekday(mondayIndex));
+  const [sunday, setSunday] = useState(dayjs(selectedTermFieldDate).weekday(sundayIndex));
+  const [selectedDay, setSelectedDay] = useState(currentDay);
+  const [selectedTerm, setSelectedTerm] = useState<string>(selectedTermFieldDate.toDate().toString());
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState<string | undefined>(
+    !selectedEmployeeIdField ? undefined : selectedEmployeeIdField,
+  );
 
   const getCurrentWeekDates = () => {
     const weekDates = [];
 
-    for (let i = startRange; i <= endRange; i++) {
-      weekDates.push(dayjs().weekday(i));
+    let currentDate = monday;
+
+    while (currentDate.isBefore(sunday.add(1, 'day'))) {
+      weekDates.push(currentDate);
+      currentDate = currentDate.add(1, 'day');
     }
 
     return { dayjsDates: weekDates, ISODates: weekDates.map(date => date.toDate().toString()) };
   };
 
   const increaseRange = () => {
-    setStartRange(range => range + weekDayCount);
-    setEndRange(range => range + weekDayCount);
     setMonday(date => date.add(weekDayCount, 'day'));
     setSunday(date => date.add(weekDayCount, 'day'));
     setSelectedDay(date => dayjs(date).add(weekDayCount, 'day').toDate().toString());
@@ -65,8 +69,6 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
   };
 
   const decreaseRange = () => {
-    setStartRange(range => range - weekDayCount);
-    setEndRange(range => range - weekDayCount);
     setMonday(date => date.add(-weekDayCount, 'day'));
     setSunday(date => date.add(-weekDayCount, 'day'));
     setSelectedDay(date => dayjs(date).add(-weekDayCount, 'day').toDate().toString());
@@ -76,7 +78,7 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
   const isPrevButtonDisabled = () => {
     return getCurrentWeekDates()
       .dayjsDates.map(date => date.format('D-M'))
-      .some(value => value === todaySignature);
+      .some(value => value === dayjs().format('D-M'));
   };
 
   const prevBtnTitle = formatMessage({ id: 'previous-week', defaultMessage: 'Previous week' });
@@ -141,7 +143,7 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
             const selectedBookingTerm = collection.find(term => dayjs(term.date).format('H-m') === dayjs(selectedTerm).format('H-m'));
 
             return (
-              <VStack spacing={8} align='flex-start'>
+              <VStack w='100%' spacing={8} align='flex-start'>
                 <DayRadioGroup
                   selectedTerm={selectedTerm}
                   setSelectedTerm={term => {

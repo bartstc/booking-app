@@ -11,6 +11,7 @@ export const getBookingTermsKey = (facilityId: string, params: IBookingTermColle
 
 const today = '2021-03-17';
 const tomorrow = '2021-03-18';
+const nextMonth = '2021-04-18';
 
 const mockedBookingTerms: IBookingTermCollection = {
   collection: [
@@ -137,6 +138,17 @@ const mockedBookingTerms: IBookingTermCollection = {
     },
     {
       date: new Date(`${tomorrow}T08:00:00.000`).toString(),
+      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      unavailableEmployees: [
+        {
+          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
+          earlierAvailabilityDate: new Date(`${tomorrow}T07:00:00.000`).toString(),
+          laterAvailableDate: new Date(`${tomorrow}T10:00:00.000`).toString(),
+        },
+      ],
+    },
+    {
+      date: new Date(`${nextMonth}T08:00:00.000`).toString(),
       availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
       unavailableEmployees: [
         {

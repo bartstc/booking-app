@@ -56,7 +56,7 @@ interface IProps {
 }
 
 const WeekRadioGroup = ({ weekDates, selectedDay, setSelectedDay }: IProps) => {
-  const today = dayjs().toDate().toString();
+  const today = new Date().setHours(0, 0, 0);
   const todaySignature = dayjs().format('D-M');
 
   const { getRootProps, getRadioProps } = useRadioGroup({
@@ -83,7 +83,7 @@ const WeekRadioGroup = ({ weekDates, selectedDay, setSelectedDay }: IProps) => {
               <FormattedDate value={stringDate} format='ddd' />
             </Box>
             <RadioButton
-              isDisabled={dayjs(date).isBefore(today)}
+              isDisabled={today >= new Date(stringDate).getTime()}
               {...radio}
               isChecked={date.format('D-M') === dayjs(selectedDay).format('D-M')}
             >

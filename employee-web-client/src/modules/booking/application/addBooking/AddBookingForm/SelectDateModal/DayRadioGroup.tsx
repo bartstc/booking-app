@@ -34,7 +34,7 @@ const NoAvailableDatesIcon = ({ size }: { size?: string }) => {
   const color = useColorModeValue('gray.300', 'gray.600');
 
   return (
-    <Center minH={{ base: '240px', md: '300px' }} minW={{ base: '95px', md: '200px' }}>
+    <Center m='0 auto' minH={{ base: '240px', md: '300px' }} minW={{ base: '95px', md: '200px' }}>
       <Icon path={mdiCalendarRemove} size={size ?? defaultSize} color={color} />
     </Center>
   );
