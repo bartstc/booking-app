@@ -19,7 +19,7 @@ interface IProps {
   setEmployeeId: (id: string) => void;
 }
 
-export type AvailableEmployeeOption = OptionType<string> & { bookingTerm: IBookingTerm };
+export type AvailableEmployeeOption = OptionType<string> & { bookingTerm: IBookingTerm; isAvailable: boolean };
 
 const AvailableEmployeeSelectAsync = ({ bookingTerm, facilityId, selectedEmployeeId, setEmployeeId }: IProps) => {
   const { data, search, nextPage, status } = useAutoComplete<AvailableEmployeeOption, IEmployeeCollection>({
@@ -33,6 +33,7 @@ const AvailableEmployeeSelectAsync = ({ bookingTerm, facilityId, selectedEmploye
         label: employee.name,
         value: employee.employeeId,
         bookingTerm,
+        isAvailable: bookingTerm.availableEmployeeIds.includes(employee.employeeId),
       }));
     },
   });
@@ -63,6 +64,8 @@ const AvailableEmployeeSelectAsync = ({ bookingTerm, facilityId, selectedEmploye
           }
         }}
         value={selectedEmployeeId ? filteredEmployees.find(option => option.value === selectedEmployeeId) : null}
+        isOptionDisabled={(option: any) => !option.isAvailable}
+        isClearable={false}
         components={{
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           Option: EmployeeOption as any,

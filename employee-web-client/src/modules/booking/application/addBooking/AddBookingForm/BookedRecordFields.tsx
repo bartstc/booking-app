@@ -31,6 +31,7 @@ const BookedRecordFields = () => {
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
 
   const total = Money.total(selectedOffers.map(({ offer }) => Money.from(Number(offer.price.value), offer.price.currency)));
+  const customerId = watch('customerId');
 
   return (
     <VStack w='100%' align='flex-start'>
@@ -57,6 +58,7 @@ const BookedRecordFields = () => {
                     facilityId={facilityId}
                     name={`bookedRecords[${index}].offerId`}
                     id={`bookedRecords[${index}].offerId`}
+                    disabled={!customerId}
                   />
                 </Box>
                 {!isFirst && (

@@ -16,19 +16,18 @@ const EmployeeOption = memo(
     const { data } = props;
     const bookingTerm: IBookingTerm | undefined = props.data.bookingTerm;
 
-    const isAvailable = bookingTerm?.availableEmployeeIds.includes(data.value);
-    const laterAvailableDate = isAvailable
+    const laterAvailableDate = props.data.isAvailable
       ? undefined
       : bookingTerm?.unavailableEmployees.find(unavailableEmployee => unavailableEmployee.employeeId === data.value)?.laterAvailableDate;
 
     return (
       <components.Option {...props}>
-        <VStack spacing={1} align='flex-start' justify='flex-start' width='100%'>
+        <VStack opacity={props.data.isAvailable ? '1' : '.65'} spacing={1} align='flex-start' justify='flex-start' width='100%'>
           <p>{props.data.label}</p>
           <div>
-            <Tag colorScheme={isAvailable ? 'green' : 'red'} size='sm'>
+            <Tag colorScheme={props.data.isAvailable ? 'green' : 'red'} size='sm'>
               <TagLabel isTruncated width='100%'>
-                {isAvailable ? (
+                {props.data.isAvailable ? (
                   <FormattedMessage id='is-available' defaultMessage='Available' />
                 ) : (
                   <FormattedMessage id='is-not-available' defaultMessage='Not available' />
