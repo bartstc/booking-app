@@ -19,7 +19,7 @@ const Summary = ({ selectedTerm }: IProps) => {
         values={{
           term: selectedTerm ? (
             <chakra.b ml={1} color={color}>
-              <FormattedDate value={selectedTerm} format={'YYYY.MM.DD, HH:mm'} />
+              <FormattedDate value={selectedTerm} format={'ddd DD MMM HH:mm'} />
             </chakra.b>
           ) : (
             '---'

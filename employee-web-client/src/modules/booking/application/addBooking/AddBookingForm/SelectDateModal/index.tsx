@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useBreakpointValue,
-} from '@chakra-ui/react';
+import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, useBreakpointValue } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button } from 'shared/Button';
@@ -18,21 +9,23 @@ import { TermSelector } from './TermSelector';
 
 interface ModalProps {
   offerId: string;
+  index: number;
 }
 
 interface IProps {
   offerId: string;
+  index: number;
 }
 
-const SelectDateModal = ({ offerId }: IProps) => {
+const SelectDateModal = ({ offerId, index }: IProps) => {
   const { isOpen, onOpen, onClose, data } = useModal<ModalProps>();
   const modalSize = useBreakpointValue({ base: 'sm', md: '2xl' });
 
   return (
     <>
       {' '}
-      <Button onClick={() => onOpen({ offerId })}>
-        <FormattedMessage id='select-date' defaultMessage='Select date' />
+      <Button isDisabled={!offerId} onClick={() => onOpen({ offerId, index })}>
+        <FormattedMessage id='select-date-and-employee' defaultMessage='Select date and employee' />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} size={modalSize}>
         <ModalOverlay />
@@ -42,16 +35,8 @@ const SelectDateModal = ({ offerId }: IProps) => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody p={{ base: 2, md: 4 }} pb={6}>
-            {data && <TermSelector offerId={data?.offerId} />}
+            {data && <TermSelector offerId={data!.offerId} index={index} onClose={onClose} />}
           </ModalBody>
-          <ModalFooter>
-            <Button colorScheme='blue'>
-              <FormattedMessage id='accept' defaultMessage='Accept' />
-            </Button>
-            <Button colorScheme='gray' ml={3} onClick={onClose}>
-              <FormattedMessage id='close' defaultMessage='Close' />
-            </Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

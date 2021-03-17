@@ -1,29 +1,35 @@
 import React, { useState } from 'react';
 import dayjs, { extend } from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
-import { HStack, VStack, Center, Divider, Text, Box, chakra } from '@chakra-ui/react';
+import { HStack, VStack, Center, Divider, Text, Box } from '@chakra-ui/react';
 import { mdiArrowLeft, mdiArrowRight } from '@mdi/js';
 import { useIntl, FormattedMessage } from 'react-intl';
+import { useFormContext } from 'react-hook-form';
 
 import { Button, IconButton } from 'shared/Button';
 import { FormattedDate } from 'shared/Date';
+import { FetchBoundary } from 'shared/Suspense';
 
-import { WeekRadioGroup } from './WeekRadioGroup';
-import { FetchBoundary } from '../../../../../../shared/Suspense';
 import { getBookingTerms, getBookingTermsKey } from '../../../../infrastructure/query';
 import { useFacilityConsumer } from '../../../../../context';
+import { AvailableEmployeeSelectAsync } from './AvailableEmployeeSelectAsync';
+import { WeekRadioGroup } from './WeekRadioGroup';
 import { DayRadioGroup } from './DayRadioGroup';
 import { Summary } from './Summary';
+import { Footer } from './Footer';
 
 extend(weekday);
 
 interface IProps {
   offerId: string;
+  index: number;
+  onClose: () => void;
 }
 
-const TermSelector = ({ offerId }: IProps) => {
+const TermSelector = ({ offerId, index, onClose }: IProps) => {
   const { formatMessage } = useIntl();
   const { facilityId } = useFacilityConsumer();
+  const { setValue } = useFormContext();
 
   const mondayIndex = 1;
   const sundayIndex = 7;
@@ -37,8 +43,7 @@ const TermSelector = ({ offerId }: IProps) => {
   const [sunday, setSunday] = useState(dayjs().weekday(sundayIndex));
   const [selectedDay, setSelectedDay] = useState(today);
   const [selectedTerm, setSelectedTerm] = useState<string>();
-
-  console.log(selectedTerm);
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState<string>();
 
   const getCurrentWeekDates = () => {
     const weekDates = [];
@@ -56,6 +61,7 @@ const TermSelector = ({ offerId }: IProps) => {
     setMonday(date => date.add(weekDayCount, 'day'));
     setSunday(date => date.add(weekDayCount, 'day'));
     setSelectedDay(date => dayjs(date).add(weekDayCount, 'day').toDate().toString());
+    setSelectedEmployeeId(undefined);
   };
 
   const decreaseRange = () => {
@@ -64,6 +70,7 @@ const TermSelector = ({ offerId }: IProps) => {
     setMonday(date => date.add(-weekDayCount, 'day'));
     setSunday(date => date.add(-weekDayCount, 'day'));
     setSelectedDay(date => dayjs(date).add(-weekDayCount, 'day').toDate().toString());
+    setSelectedEmployeeId(undefined);
   };
 
   const isPrevButtonDisabled = () => {
@@ -77,7 +84,7 @@ const TermSelector = ({ offerId }: IProps) => {
 
   return (
     <Box>
-      <VStack mt={3}>
+      <VStack mt={3} mb={6}>
         <Center mb={1} textTransform='capitalize'>
           <FormattedDate value={getCurrentWeekDates().ISODates[0]} format='MMMM YYYY' />
         </Center>
@@ -91,7 +98,14 @@ const TermSelector = ({ offerId }: IProps) => {
             title={isPrevButtonDisabled() ? '' : prevBtnTitle}
             mt='28px !important'
           />
-          <WeekRadioGroup weekDates={getCurrentWeekDates().dayjsDates} selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
+          <WeekRadioGroup
+            weekDates={getCurrentWeekDates().dayjsDates}
+            selectedDay={selectedDay}
+            setSelectedDay={day => {
+              setSelectedDay(day);
+              setSelectedEmployeeId(undefined);
+            }}
+          />
           <IconButton
             display={{ base: 'none', md: 'flex' }}
             onClick={increaseRange}
@@ -124,18 +138,40 @@ const TermSelector = ({ offerId }: IProps) => {
           queryFn={() => getBookingTerms(facilityId, { dateFrom: monday.toISOString(), dateTo: sunday.toISOString(), offerId })}
         >
           {({ data: { collection } }) => {
+            const selectedBookingTerm = collection.find(term => dayjs(term.date).format('H-m') === dayjs(selectedTerm).format('H-m'));
+
             return (
-              <DayRadioGroup
-                selectedTerm={selectedTerm}
-                setSelectedTerm={setSelectedTerm}
-                availableTerms={collection.map(term => term.date)}
-                selectedDay={selectedDay}
-              />
+              <VStack spacing={8} align='flex-start'>
+                <DayRadioGroup
+                  selectedTerm={selectedTerm}
+                  setSelectedTerm={term => {
+                    setSelectedTerm(term);
+                    setSelectedEmployeeId(undefined);
+                  }}
+                  availableTerms={collection.map(term => term.date)}
+                  selectedDay={selectedDay}
+                />
+                <AvailableEmployeeSelectAsync
+                  facilityId={facilityId}
+                  bookingTerm={selectedBookingTerm}
+                  selectedEmployeeId={selectedEmployeeId}
+                  setEmployeeId={setSelectedEmployeeId}
+                />
+              </VStack>
             );
           }}
         </FetchBoundary>
       </VStack>
       <Summary selectedTerm={selectedTerm} />
+      <Footer
+        onClose={onClose}
+        isDisabled={!selectedEmployeeId || !selectedTerm}
+        onAccept={() => {
+          setValue(`bookedRecords[${index}].date`, selectedTerm);
+          setValue(`bookedRecords[${index}].employeeId`, selectedEmployeeId);
+          onClose();
+        }}
+      />
     </Box>
   );
 };

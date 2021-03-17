@@ -107,7 +107,7 @@ const SelectInput = ({
       styles={{
         control: (base, { isFocused, isDisabled }) => ({
           ...base,
-          opacity: isDisabled ? '.6' : '1',
+          opacity: isDisabled ? '.55' : '1',
           backgroundColor: 'transparent',
           border: 'none',
           outline: 'none',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HStack, VStack } from '@chakra-ui/react';
+import { HStack, VStack, Box } from '@chakra-ui/react';
 
 import { Form, PreventLossData } from 'shared/Form';
 
@@ -7,6 +7,8 @@ import { CustomerSelectFieldAsync, SelectedCustomerOption } from '../../../../cu
 import { IAddBookingDto } from '../../../dto';
 import { AddNewCustomer } from './AddNewCustomer';
 import { BookedRecordFields } from './BookedRecordFields';
+import { Button } from '../../../../../shared/Button';
+import { FormattedMessage } from 'react-intl';
 
 interface IProps {
   onSubmit: (model: IAddBookingDto) => void;
@@ -54,6 +56,11 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
           </HStack>
           <BookedRecordFields />
           <PreventLossData />
+          <Box pt={10}>
+            <Button type='submit' form='add-booking-form' colorScheme='green' size='lg' px={10}>
+              <FormattedMessage id='confirm' defaultMessage='Confirm' />
+            </Button>
+          </Box>
         </VStack>
       )}
     </Form>

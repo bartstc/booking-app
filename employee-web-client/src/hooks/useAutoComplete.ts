@@ -16,6 +16,7 @@ type Options<Item, Response> = {
   map?: (response: Response) => Array<unknown>;
   params?: object;
   initialData?: Array<Item>;
+  reFetchWhenChange?: (string | undefined | number)[];
 };
 
 export function useAutoComplete<
@@ -30,6 +31,7 @@ export function useAutoComplete<
   map: mapFn = response => response.collection,
   params = {},
   initialData,
+  reFetchWhenChange = [],
 }: Options<Item, Response>) {
   const [data, setData] = useState<Array<Item>>(initialData ?? []);
   const [error, setError] = useState();
@@ -113,7 +115,7 @@ export function useAutoComplete<
     return () => {
       subscriber.unsubscribe();
     };
-  }, []);
+  }, [...reFetchWhenChange]);
 
   const nextPage = () => {
     if (total === data.length) return;

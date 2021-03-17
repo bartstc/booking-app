@@ -7,7 +7,6 @@ import { Currency } from 'types';
 
 import { TreeCounter } from 'shared/TreeCounter';
 import { ResponsiveRemoveButton } from 'shared/Buttons';
-import { DateTimeField } from 'shared/Form';
 import { Button } from 'shared/Button';
 import { Money } from 'shared/Money';
 
@@ -15,7 +14,6 @@ import { OfferSelectFieldAsync } from '../../../../offers/shared';
 import { useFacilityConsumer } from '../../../../context';
 import { IAddBookingDto } from '../../../dto';
 import { IOffer } from '../../../../offers/types';
-import { useModal } from '../../../../../hooks';
 import { SelectDateModal } from './SelectDateModal';
 
 const BookedRecordFields = () => {
@@ -26,7 +24,7 @@ const BookedRecordFields = () => {
 
   const [selectedOffers, setSelectedOffers] = useState<{ fieldId: string; offer: IOffer }[]>([]);
 
-  const { control } = useFormContext<IAddBookingDto>();
+  const { control, watch, register } = useFormContext<IAddBookingDto>();
   const { fields, append, remove } = useFieldArray({ control, name: 'bookedRecords' });
 
   const { colors } = useTheme();
@@ -38,24 +36,13 @@ const BookedRecordFields = () => {
     <VStack w='100%' align='flex-start'>
       {fields.map((field, index) => {
         const isFirst = index === 0;
+        register(`bookedRecords[${index}].employeeId`);
+        register(`bookedRecords[${index}].date`);
 
         return (
           <Flex key={field.id} w='100%'>
             {fields.length > 1 && <TreeCounter index={index} fieldsCount={fields.length} />}
             <VStack py={4} borderTop={`1px solid ${borderColor}`} spacing={2} w='100%' align='stretch' mb={4}>
-              {/*<Box w='100%' maxW='400px'>*/}
-              {/*  <EmployeeSelectFieldAsync*/}
-              {/*    facilityId={facilityId}*/}
-              {/*    name={`bookedRecords[${index}].employerId`}*/}
-              {/*    id={`bookedRecords[${index}].employerId`}*/}
-              {/*    tip={*/}
-              {/*      <FormattedMessage*/}
-              {/*        id='booking-empty-employer-tip'*/}
-              {/*        defaultMessage='If the field is not completed, a random employee will be assigned to fulfill the offer.'*/}
-              {/*      />*/}
-              {/*    }*/}
-              {/*  />*/}
-              {/*</Box>*/}
               <HStack justify='space-between'>
                 <Box w='100%' maxW='600px'>
                   <OfferSelectFieldAsync
@@ -82,13 +69,8 @@ const BookedRecordFields = () => {
                   />
                 )}
               </HStack>
-              <Box w='100%' maxW={{ base: '100%', md: '450px' }}>
-                <SelectDateModal offerId={field.offerId} />
-                <DateTimeField
-                  name={`bookedRecords[${index}].date`}
-                  id={`bookedRecords[${index}].date`}
-                  label={<FormattedMessage id='date-from' defaultMessage='Date and time' />}
-                />
+              <Box w='100%'>
+                <SelectDateModal offerId={watch(`bookedRecords[${index}].offerId`)} index={index} />
               </Box>
             </VStack>
           </Flex>
