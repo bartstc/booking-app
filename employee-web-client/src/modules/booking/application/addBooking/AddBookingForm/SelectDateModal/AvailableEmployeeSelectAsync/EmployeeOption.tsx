@@ -22,7 +22,7 @@ const EmployeeOption = memo(
 
     return (
       <components.Option {...props}>
-        <VStack opacity={props.data.isAvailable ? '1' : '.65'} spacing={1} align='flex-start' justify='flex-start' width='100%'>
+        <VStack spacing={1} align='flex-start' justify='flex-start' width='100%'>
           <p>{props.data.label}</p>
           <div>
             <Tag colorScheme={props.data.isAvailable ? 'green' : 'red'} size='sm'>

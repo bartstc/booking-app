@@ -8,7 +8,7 @@ export interface ICreateScheduleDto {
 
 export interface IAddAvailableEmployeeDto {
   employeeId: string;
-  startDate: string;
-  endDate: string;
+  startTime: string;
+  endTime: string;
   creatorId: string;
 }

@@ -65,14 +65,12 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
     setMonday(date => date.add(weekDayCount, 'day'));
     setSunday(date => date.add(weekDayCount, 'day'));
     setSelectedDay(date => dayjs(date).add(weekDayCount, 'day').toDate().toString());
-    setSelectedEmployeeId(undefined);
   };
 
   const decreaseRange = () => {
     setMonday(date => date.add(-weekDayCount, 'day'));
     setSunday(date => date.add(-weekDayCount, 'day'));
     setSelectedDay(date => dayjs(date).add(-weekDayCount, 'day').toDate().toString());
-    setSelectedEmployeeId(undefined);
   };
 
   const isPrevButtonDisabled = () => {
@@ -103,10 +101,7 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
           <WeekRadioGroup
             weekDates={getCurrentWeekDates().dayjsDates}
             selectedDay={selectedDay}
-            setSelectedDay={day => {
-              setSelectedDay(day);
-              setSelectedEmployeeId(undefined);
-            }}
+            setSelectedDay={day => setSelectedDay(day)}
           />
           <IconButton
             display={{ base: 'none', md: 'flex' }}

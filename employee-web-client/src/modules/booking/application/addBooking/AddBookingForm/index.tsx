@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { HStack, VStack, Box } from '@chakra-ui/react';
+import { FormattedMessage } from 'react-intl';
+import { HStack, VStack } from '@chakra-ui/react';
 
 import { Form, PreventLossData } from 'shared/Form';
+import { Button } from 'shared/Button';
 
 import { CustomerSelectFieldAsync, SelectedCustomerOption } from '../../../../customers/shared';
 import { IAddBookingDto } from '../../../dto';
 import { AddNewCustomer } from './AddNewCustomer';
 import { BookedRecordFields } from './BookedRecordFields';
-import { Button } from '../../../../../shared/Button';
-import { FormattedMessage } from 'react-intl';
 
 interface IProps {
   onSubmit: (model: IAddBookingDto) => void;
@@ -35,7 +35,7 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
     >
       {({ watch, setValue }) => (
         <VStack w='100%' align='stretch'>
-          <HStack maxW='450px' mb={4}>
+          <HStack maxW='450px'>
             <CustomerSelectFieldAsync
               newOptions={newCustomer ? [newCustomer] : undefined}
               name='customerId'
@@ -56,11 +56,11 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
           </HStack>
           <BookedRecordFields />
           <PreventLossData />
-          <Box pt={10}>
-            <Button type='submit' form='add-booking-form' colorScheme='green' size='lg' px={10}>
-              <FormattedMessage id='confirm' defaultMessage='Confirm' />
+          <HStack w='100%' justify='flex-end' pt={6}>
+            <Button type='submit' form='add-booking-form' colorScheme='green' size='lg' px={12}>
+              <FormattedMessage id='confirm-booking' defaultMessage='Confirm booking' />
             </Button>
-          </Box>
+          </HStack>
         </VStack>
       )}
     </Form>

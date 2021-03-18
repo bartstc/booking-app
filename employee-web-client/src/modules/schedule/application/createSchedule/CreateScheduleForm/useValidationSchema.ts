@@ -15,8 +15,8 @@ export const useValidationSchema = () => {
     availabilities: yup.array().of(
       yup.object().shape({
         employeeId: yup.string().required(requiredMessage).nullable(true),
-        startDate: yup.string().required(requiredMessage).nullable(true),
-        endDate: yup.string().required(requiredMessage).nullable(true),
+        startTime: yup.string().required(requiredMessage).nullable(true),
+        endTime: yup.string().required(requiredMessage).nullable(true),
       }),
     ),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

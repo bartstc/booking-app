@@ -64,6 +64,7 @@ const AvailableEmployeeSelectAsync = ({ bookingTerm, facilityId, selectedEmploye
           }
         }}
         value={selectedEmployeeId ? filteredEmployees.find(option => option.value === selectedEmployeeId) : null}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         isOptionDisabled={(option: any) => !option.isAvailable}
         isClearable={false}
         components={{

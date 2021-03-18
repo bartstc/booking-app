@@ -12,7 +12,7 @@ const Summary = ({ selectedTerm }: IProps) => {
   const color = useColorModeValue('primary.500', 'primary.300');
 
   return (
-    <Box display='flex' mt={8}>
+    <Box display='flex' mt={6} mb={4}>
       <FormattedMessage
         id='selected-term'
         defaultMessage='Selected term: {term}'

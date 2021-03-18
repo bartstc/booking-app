@@ -28,8 +28,8 @@ const getDefaultData = (creatorId: string): ICreateScheduleDto => ({
     {
       creatorId,
       employeeId: '',
-      endDate: '',
-      startDate: '',
+      endTime: '',
+      startTime: '',
     },
   ],
 });
@@ -44,14 +44,21 @@ const CreateScheduleForm = ({ onSubmit, creatorId, facilityId, initialData }: IP
       schema={schema}
       defaultValues={initialData ?? getDefaultData(creatorId)}
     >
-      <VStack w='100%' align='stretch'>
-        <Box maxW='450px'>
-          <InputField name='name' label={<FormattedMessage id='schedule-name' defaultMessage='Schedule name' />} id='schedule-name' />
-          <DateTimeField name='startDate' id='start-date' label={<FormattedMessage id='start-date' defaultMessage='Start date' />} />
-          <DateTimeField name='endDate' id='end-date' label={<FormattedMessage id='end-date' defaultMessage='End date' />} />
-        </Box>
-        <AvailableEmployeesFields facilityId={facilityId} creatorId={creatorId} />
-      </VStack>
+      {({ register, setValue }) => {
+        register('creatorId');
+        setValue('creatorId', creatorId);
+
+        return (
+          <VStack w='100%' align='stretch'>
+            <Box maxW='450px'>
+              <InputField name='name' label={<FormattedMessage id='schedule-name' defaultMessage='Schedule name' />} id='schedule-name' />
+              <DateTimeField name='startDate' id='start-date' label={<FormattedMessage id='start-date' defaultMessage='Start date' />} />
+              <DateTimeField name='endDate' id='end-date' label={<FormattedMessage id='end-date' defaultMessage='End date' />} />
+            </Box>
+            <AvailableEmployeesFields facilityId={facilityId} creatorId={creatorId} />
+          </VStack>
+        );
+      }}
     </Form>
   );
 };
@@ -84,15 +91,18 @@ const AvailableEmployeesFields = ({ facilityId, creatorId }: { facilityId: strin
               </HStack>
               <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 0, md: 6 }}>
                 <DateTimeField
-                  name={`availabilities[${index}].startDate`}
-                  id={`availabilities[${index}]-startDate`}
-                  label={<FormattedMessage id='start-date' defaultMessage='Start date' />}
+                  name={`availabilities[${index}].startTime`}
+                  id={`availabilities[${index}]-startTime`}
+                  label={<FormattedMessage id='start-time' defaultMessage='Start time' />}
                 />
                 <DateTimeField
-                  name={`availabilities[${index}].endDate`}
-                  id={`availabilities[${index}]-endDate`}
-                  label={<FormattedMessage id='end-date' defaultMessage='End date' />}
+                  name={`availabilities[${index}].endTime`}
+                  id={`availabilities[${index}]-endTime`}
+                  label={<FormattedMessage id='end-time' defaultMessage='End time' />}
                 />
+              </Stack>
+              <Stack display='none'>
+                <InputField label='' name={`availabilities[${index}].creatorId`} id={`bookedRecords[${index}].creatorId`} />
               </Stack>
             </VStack>
           </Flex>
@@ -104,8 +114,8 @@ const AvailableEmployeesFields = ({ facilityId, creatorId }: { facilityId: strin
           append({
             creatorId,
             employeeId: '',
-            endDate: '',
-            startDate: '',
+            endTime: '',
+            startTime: '',
           })
         }
       >
