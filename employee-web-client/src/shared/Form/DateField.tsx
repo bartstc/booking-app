@@ -1,5 +1,5 @@
 import React from 'react';
-import { Interpolation, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
 import { DateInput, DateInputProps } from '../Inputs/DateInput';
@@ -7,7 +7,22 @@ import { FormattedDate } from '../Date';
 
 type IProps = Omit<DateInputProps, 'onChange'> & FieldPrototypeProps;
 
-const DateField = ({ name, label, required, disabled, helperText, id, tip, css, ...props }: IProps) => {
+const DateField = ({
+  name,
+  label,
+  required,
+  disabled,
+  helperText,
+  id,
+  tip,
+  colSpan,
+  colStart,
+  colEnd,
+  rowSpan,
+  rowStart,
+  rowEnd,
+  ...props
+}: IProps) => {
   return (
     <FieldPrototype
       name={name}
@@ -17,7 +32,6 @@ const DateField = ({ name, label, required, disabled, helperText, id, tip, css, 
       tip={tip}
       id={id}
       label={label}
-      css={css as Interpolation<Record<string, unknown>>}
       readModeComponent={({ value }) => {
         if (!value) {
           return <Text>---</Text>;
@@ -25,6 +39,12 @@ const DateField = ({ name, label, required, disabled, helperText, id, tip, css, 
 
         return <FormattedDate value={value} />;
       }}
+      rowSpan={rowSpan}
+      rowStart={rowStart}
+      rowEnd={rowEnd}
+      colSpan={colSpan}
+      colStart={colStart}
+      colEnd={colEnd}
     >
       {(_, fieldProps, { isInvalid }) => {
         return <DateInput isInvalid={isInvalid} {...props} {...fieldProps} />;

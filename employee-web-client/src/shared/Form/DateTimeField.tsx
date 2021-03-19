@@ -1,5 +1,5 @@
 import React from 'react';
-import { Interpolation, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
 import { DateTimeInput, DateTimeInputProps } from '../Inputs/DateTimeInput';
@@ -7,7 +7,22 @@ import { FormattedDate } from '../Date';
 
 type IProps = Omit<DateTimeInputProps, 'onChange'> & FieldPrototypeProps;
 
-const DateTimeField = ({ name, label, required, disabled, helperText, id, tip, css, ...props }: IProps) => {
+const DateTimeField = ({
+  name,
+  label,
+  required,
+  disabled,
+  helperText,
+  id,
+  tip,
+  colSpan,
+  colStart,
+  colEnd,
+  rowSpan,
+  rowStart,
+  rowEnd,
+  ...props
+}: IProps) => {
   return (
     <FieldPrototype
       name={name}
@@ -17,7 +32,6 @@ const DateTimeField = ({ name, label, required, disabled, helperText, id, tip, c
       tip={tip}
       id={id}
       label={label}
-      css={css as Interpolation<Record<string, unknown>>}
       readModeComponent={({ value }) => {
         if (!value) {
           return <Text>---</Text>;
@@ -25,6 +39,12 @@ const DateTimeField = ({ name, label, required, disabled, helperText, id, tip, c
 
         return <FormattedDate value={value} />;
       }}
+      rowSpan={rowSpan}
+      rowStart={rowStart}
+      rowEnd={rowEnd}
+      colSpan={colSpan}
+      colStart={colStart}
+      colEnd={colEnd}
     >
       {({ setValue }, fieldProps, { isInvalid }) => {
         return (

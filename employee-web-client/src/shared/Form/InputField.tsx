@@ -1,5 +1,5 @@
 import React, { ElementType } from 'react';
-import { InputGroup, InputRightElement, Interpolation, Textarea, useColorModeValue } from '@chakra-ui/react';
+import { InputGroup, InputRightElement, Textarea, useColorModeValue } from '@chakra-ui/react';
 import { mdiAlertCircle, mdiCheckCircle } from '@mdi/js';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
@@ -8,7 +8,24 @@ import { Input } from '../Inputs/Input';
 
 export type InputFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> & FieldPrototypeProps & { as?: ElementType };
 
-const InputField = ({ name, label, required, disabled, helperText, id, tip, css, as, ...props }: InputFieldProps) => {
+const InputField = ({
+  name,
+  label,
+  required,
+  disabled,
+  helperText,
+  id,
+  tip,
+  as,
+  readModeComponent,
+  colSpan,
+  colStart,
+  colEnd,
+  rowSpan,
+  rowStart,
+  rowEnd,
+  ...props
+}: InputFieldProps) => {
   const invalidColor = useColorModeValue('red.500', 'red.300');
   const validColor = useColorModeValue('green.500', 'green.300');
 
@@ -21,7 +38,13 @@ const InputField = ({ name, label, required, disabled, helperText, id, tip, css,
       tip={tip}
       id={id}
       label={label}
-      css={css as Interpolation<Record<string, unknown>>}
+      readModeComponent={readModeComponent}
+      colSpan={colSpan}
+      colStart={colStart}
+      colEnd={colEnd}
+      rowSpan={rowSpan}
+      rowStart={rowStart}
+      rowEnd={rowEnd}
     >
       {({ formState: { touched } }, fieldProps, { isInvalid }) => {
         const isTextarea = as === 'textarea';

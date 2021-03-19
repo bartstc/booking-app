@@ -1,6 +1,5 @@
 import React, { ComponentType, ReactElement, ReactNode } from 'react';
 import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
-import { SystemStyleObject } from '@chakra-ui/styled-system';
 import { get } from 'lodash';
 import { Text } from '@chakra-ui/react';
 
@@ -8,13 +7,14 @@ import { OverrideUseFormMethods } from 'typings/react-hook-form';
 
 import { FieldControl, IFieldControlProps } from './FieldControl';
 import { FormStatus } from '../FormStatus';
+import { GridItemProps } from '../types';
 
 interface ReadModeProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
 }
 
-export interface FieldPrototypeProps {
+export interface FieldPrototypeProps extends GridItemProps {
   name: string;
   label: ReactNode | string;
   id: string;
@@ -22,7 +22,6 @@ export interface FieldPrototypeProps {
   disabled?: boolean;
   tip?: ReactNode | string;
   helperText?: ReactNode;
-  css?: SystemStyleObject;
   readModeComponent?: ComponentType<ReadModeProps>;
 }
 
