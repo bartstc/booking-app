@@ -58,7 +58,7 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
       currentDate = currentDate.add(1, 'day');
     }
 
-    return { dayjsDates: weekDates, ISODates: weekDates.map(date => date.toDate().toString()) };
+    return weekDates;
   };
 
   const increaseRange = () => {
@@ -75,7 +75,7 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
 
   const isPrevButtonDisabled = () => {
     return getCurrentWeekDates()
-      .dayjsDates.map(date => date.format('D-M'))
+      .map(date => date.format('D-M'))
       .some(value => value === dayjs().format('D-M'));
   };
 
@@ -86,7 +86,7 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
     <Box>
       <VStack mt={3} mb={6}>
         <Center mb={1} textTransform='capitalize'>
-          <FormattedDate value={getCurrentWeekDates().ISODates[0]} format='MMMM YYYY' />
+          <FormattedDate value={getCurrentWeekDates()[0].toDate().toString()} format='MMMM YYYY' />
         </Center>
         <Divider my={2} />
         <HStack spacing={{ base: 1, md: 2 }} mb={2}>
@@ -98,11 +98,7 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
             title={isPrevButtonDisabled() ? '' : prevBtnTitle}
             mt='28px !important'
           />
-          <WeekRadioGroup
-            weekDates={getCurrentWeekDates().dayjsDates}
-            selectedDay={selectedDay}
-            setSelectedDay={day => setSelectedDay(day)}
-          />
+          <WeekRadioGroup weekDates={getCurrentWeekDates()} selectedDay={selectedDay} setSelectedDay={day => setSelectedDay(day)} />
           <IconButton
             display={{ base: 'none', md: 'flex' }}
             onClick={increaseRange}

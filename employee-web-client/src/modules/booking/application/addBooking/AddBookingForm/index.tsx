@@ -56,8 +56,8 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
           </HStack>
           <BookedRecordFields />
           <PreventLossData />
-          <HStack w='100%' justify='flex-end' pt={6}>
-            <Button type='submit' form='add-booking-form' colorScheme='green' size='lg' px={12}>
+          <HStack w='100%' justify='center' pt={{ base: 6, md: 8 }}>
+            <Button variant='outline' type='submit' form='add-booking-form' colorScheme='green' size='lg' px={12}>
               <FormattedMessage id='confirm-booking' defaultMessage='Confirm booking' />
             </Button>
           </HStack>
