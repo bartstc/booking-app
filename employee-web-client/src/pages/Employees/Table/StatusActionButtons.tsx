@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useFacilityConsumer } from 'modules/context';
 import { EmployeeStatus } from 'modules/employees/types';
-import { useActivateEmployee, useDeactivateEmployee } from 'modules/employees/infrastructure/command';
 import { DeactivateEmployeeIconButton } from 'modules/employees/application/deactivateEmployee';
 import { ActivateEmployeeIconButton } from 'modules/employees/application/activateEmployee';
 
@@ -13,14 +12,12 @@ interface IProps {
 
 const StatusActionButtons = ({ employeeId, status }: IProps) => {
   const { facilityId } = useFacilityConsumer();
-  const [deactivate, isDeactivating] = useDeactivateEmployee(facilityId, employeeId);
-  const [activate, isActivating] = useActivateEmployee(facilityId, employeeId);
 
   if (status === EmployeeStatus.Inactive) {
-    return <ActivateEmployeeIconButton isLoading={isActivating} onClick={activate} />;
+    return <ActivateEmployeeIconButton facilityId={facilityId} employeeId={employeeId} />;
   }
 
-  return <DeactivateEmployeeIconButton isLoading={isDeactivating} onClick={deactivate} />;
+  return <DeactivateEmployeeIconButton facilityId={facilityId} employeeId={employeeId} />;
 };
 
 export { StatusActionButtons };

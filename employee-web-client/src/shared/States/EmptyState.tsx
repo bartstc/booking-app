@@ -4,7 +4,6 @@ import { Image, useBreakpointValue } from '@chakra-ui/react';
 
 import image from '../../assets/images/no-results.png';
 import { State } from './components';
-import { ClearFiltersButton } from '../Filters';
 
 const EmptyState = () => {
   const { formatMessage } = useIntl();
@@ -17,22 +16,17 @@ const EmptyState = () => {
           src={image}
           alt={formatMessage({
             id: 'empty-error',
-            defaultMessage: 'No results',
+            defaultMessage: 'List is empty',
           })}
           width={size}
           mt={8}
         />
       }
-      header={<FormattedMessage id='empty-state-header' defaultMessage='No results found' />}
+      header={<FormattedMessage id='empty-state-header' defaultMessage='List is empty' />}
       description={
-        <FormattedMessage
-          id='not-found-description'
-          defaultMessage='Enter other search parameters. If you think there is a problem, please contact our administrator.'
-        />
+        <FormattedMessage id='not-found-description' defaultMessage='If you think there is a problem, please contact our administrator.' />
       }
-    >
-      <ClearFiltersButton />
-    </State>
+    />
   );
 };
 

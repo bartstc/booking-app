@@ -34,15 +34,15 @@ const AddEmployeeForm = ({ onSubmit }: IProps) => {
         ],
       }}
     >
-      <VStack w='100%' align='flex-start'>
+      <VStack w='100%' align='stretch'>
         <InputField name='employeeName' label={<FormattedMessage id='employee-name' defaultMessage='Full name' />} id='employee-name' />
-        <Box w='100%' maxW='350px'>
+        <Box maxW='350px'>
           <InputField name='position' label={<FormattedMessage id='position' defaultMessage='Position' />} id='employee-position' />
         </Box>
-        <Box w='100%' maxW='300px'>
+        <Box maxW='300px'>
           <DateField name='birthDate' label={<FormattedMessage id='birth-date' defaultMessage='Birth date' />} id='birth-date' />
         </Box>
-        <Box w='100%' maxW='300px'>
+        <Box maxW='300px'>
           <DateField
             name='employmentDate'
             label={<FormattedMessage id='employment-date' defaultMessage='Employment date' />}

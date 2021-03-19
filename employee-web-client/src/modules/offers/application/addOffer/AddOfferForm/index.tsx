@@ -47,9 +47,9 @@ const AddOfferForm = ({ onSubmit }: IProps) => {
         price: {},
       }}
     >
-      <VStack w='100%' align='flex-start'>
+      <VStack w='100%' align='stretch'>
         <InputField name='offerName' label={<FormattedMessage id='offer-name' defaultMessage='Offer name' />} id='offer-name' />
-        <Box w='100%' maxW='300px'>
+        <Box maxW='300px'>
           <InputField
             type='number'
             name='duration'
@@ -57,7 +57,7 @@ const AddOfferForm = ({ onSubmit }: IProps) => {
             id='duration'
           />
         </Box>
-        <Box w='100%' maxW='445px'>
+        <Box maxW='445px'>
           <MoneyField
             label={<FormattedMessage id='service-value' defaultMessage={`Service's value`} />}
             name='price.value'
@@ -66,7 +66,7 @@ const AddOfferForm = ({ onSubmit }: IProps) => {
             <CurrencySelectField name='price.currency' moneyName='price.value' />
           </MoneyField>
         </Box>
-        <Box w='100%' maxW='300px'>
+        <Box maxW='300px'>
           <SelectField
             options={options}
             label={<FormattedMessage id='price-type' defaultMessage='Price type' />}

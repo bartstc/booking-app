@@ -56,6 +56,7 @@ const SelectField = ({
           isDisabled={isSubmitting || disabled}
           {...fieldProps}
           {...selectProps}
+          id={id}
           isMulti={isMulti}
           isInvalid={isInvalid}
           options={options}

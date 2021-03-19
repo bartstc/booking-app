@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Box } from '@chakra-ui/react';
 
 export const DatePickerStyles = styled(Box)<{
+  isDarkMode: boolean;
   borderColor: string;
   focusColor: string;
   isInvalid: boolean;
@@ -12,6 +13,9 @@ export const DatePickerStyles = styled(Box)<{
   calendarSelectedBackground: string;
   calendarDayHover: string;
 }>`
+  .react-datepicker {
+    background-color: ${props => props.calendarBackground};
+  }
   .react-datepicker-wrapper,
   .react-datepicker__input-container {
     display: block;
@@ -42,6 +46,15 @@ export const DatePickerStyles = styled(Box)<{
     background-color: ${props => props.clearBtnBackground};
     color: ${props => props.clearBtnColor};
     font-size: 1.1rem;
+  }
+
+  .react-datepicker__input-time-container {
+    background-color: transparent;
+    filter: ${props => (props.isDarkMode ? 'invert(1)' : 'invert(0)')};
+  }
+
+  .react-datepicker-time__input {
+    background-color: transparent;
   }
 
   .react-datepicker__month-container,

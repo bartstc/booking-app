@@ -1,6 +1,7 @@
 import { useQueryClient } from 'react-query';
 
-import { httpService } from 'utils/http-service';
+import { managementHttpService } from 'utils/http';
+import { Logger, LogLevel } from 'utils/logger';
 import { useMutation } from 'shared/Suspense';
 
 import { ICreateEnterpriseDto } from '../../dto';
@@ -10,9 +11,9 @@ export const useCreateEnterprise = (enterpriseId?: string) => {
   const queryClient = useQueryClient();
   const { mutateAsync, isLoading } = useMutation<void, ICreateEnterpriseDto>(model => {
     if (enterpriseId) {
-      return httpService.put(`enterprises/${enterpriseId}`, model);
+      return managementHttpService.put(`enterprises/${enterpriseId}`, model);
     }
-    return httpService.post(`enterprises`, model);
+    return managementHttpService.post(`enterprises`, model);
   });
 
   const handler = (model: ICreateEnterpriseDto) => {
@@ -27,7 +28,11 @@ export const useCreateEnterprise = (enterpriseId?: string) => {
         });
       })
       .catch(e => {
-        // todo: Logger
+        Logger.log({
+          name: e.name,
+          message: JSON.stringify(e),
+          level: LogLevel.Error,
+        });
         throw e;
       });
   };

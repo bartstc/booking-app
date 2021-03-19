@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-import { mdiAccountMultiple, mdiBookMultiple, mdiCalendar, mdiClipboardTextSearch, mdiCogs, mdiLan } from '@mdi/js';
+import { mdiAccountMultiple, mdiBookMultiple, mdiCalendar, mdiClipboardTextSearch, mdiLan } from '@mdi/js';
 
 import { buildUrl } from 'utils';
 import { DEFAULT_PARAMS } from 'utils/constant';
@@ -11,18 +11,20 @@ export const useGetLinks = () => {
     {
       path: mdiClipboardTextSearch,
       label: formatMessage({
-        id: 'enterprise-overview',
-        defaultMessage: 'Overview',
+        id: 'dashboard',
+        defaultMessage: 'Dashboard',
       }),
-      to: 'overview/enterprise',
+      to: 'dashboard/enterprise',
+      signature: 'dashboard',
     },
     {
       path: mdiCalendar,
       label: formatMessage({
-        id: 'schedule',
-        defaultMessage: 'Schedule',
+        id: 'bookings',
+        defaultMessage: 'Bookings',
       }),
-      to: 'schedule',
+      to: 'bookings',
+      signature: 'booking',
     },
     {
       path: mdiAccountMultiple,
@@ -31,6 +33,7 @@ export const useGetLinks = () => {
         defaultMessage: 'Customers',
       }),
       to: buildUrl('customers', DEFAULT_PARAMS),
+      signature: 'customers',
     },
 
     {
@@ -40,6 +43,7 @@ export const useGetLinks = () => {
         defaultMessage: 'Employees',
       }),
       to: buildUrl('employees', DEFAULT_PARAMS),
+      signature: 'employees',
     },
     {
       path: mdiBookMultiple,
@@ -48,14 +52,7 @@ export const useGetLinks = () => {
         defaultMessage: 'Offers',
       }),
       to: buildUrl('offers', DEFAULT_PARAMS),
-    },
-    {
-      path: mdiCogs,
-      label: formatMessage({
-        id: 'settings',
-        defaultMessage: 'Settings',
-      }),
-      to: 'settings',
+      signature: 'offers',
     },
   ];
 };

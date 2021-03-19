@@ -2,11 +2,7 @@ import React from 'react';
 import ReactSelect, { NamedProps } from 'react-select';
 import { useColorModeValue, useTheme } from '@chakra-ui/react';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface OptionType<T = any> {
-  label: string;
-  value: T;
-}
+import { OptionType } from 'types';
 
 export type SelectInputProps = NamedProps<OptionType, boolean> & {
   options: OptionType[];
@@ -53,6 +49,10 @@ const findOption = (selectedValue: unknown, options: Options): OptionType | null
     return null;
   }
 
+  if (selectedValue === '') {
+    return null;
+  }
+
   if (typeof selectedValue === 'object') {
     throw new Error(`FormSelect: incorrect value type`);
   }
@@ -93,6 +93,7 @@ const SelectInput = ({
   const selectedBgColor = useColorModeValue(colors.blue[500], colors.blue[300]);
   const invalidColor = useColorModeValue(colors.red[500], colors.red[300]);
   const placeholderColor = useColorModeValue(colors.gray[400], colors.gray[600]);
+  const inputColor = useColorModeValue(colors.gray[900], colors.gray[100]);
 
   return (
     <ReactSelect
@@ -106,7 +107,7 @@ const SelectInput = ({
       styles={{
         control: (base, { isFocused, isDisabled }) => ({
           ...base,
-          opacity: isDisabled ? '.6' : '1',
+          opacity: isDisabled ? '.55' : '1',
           backgroundColor: 'transparent',
           border: 'none',
           outline: 'none',
@@ -117,6 +118,10 @@ const SelectInput = ({
         singleValue: base => ({
           ...base,
           color: textColor,
+        }),
+        input: base => ({
+          ...base,
+          color: inputColor,
         }),
         indicatorsContainer: base => ({
           ...base,

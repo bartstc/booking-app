@@ -2,7 +2,8 @@ import { useQueryClient } from 'react-query';
 
 import { useMutation } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
-import { httpService } from 'utils/http-service';
+import { managementHttpService } from 'utils/http';
+import { Logger, LogLevel } from 'utils/logger';
 
 import { getEmployeesKey } from '../query';
 import { EmployeeStatus, IEmployeeCollection, IEmployeeCollectionQueryParams } from '../../types';
@@ -12,7 +13,7 @@ export const useActivateEmployee = (facilityId: string, employeeId: string) => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isLoading } = useMutation<void, void>(() =>
-    httpService.patch(`facilities/${facilityId}/employees/${employeeId}/activate`),
+    managementHttpService.patch(`facilities/${facilityId}/employees/${employeeId}/activate`),
   );
 
   const handler = () => {
@@ -32,7 +33,11 @@ export const useActivateEmployee = (facilityId: string, employeeId: string) => {
         });
       })
       .catch(e => {
-        // todo: Logger
+        Logger.log({
+          name: e.name,
+          message: JSON.stringify(e),
+          level: LogLevel.Error,
+        });
         throw e;
       });
   };

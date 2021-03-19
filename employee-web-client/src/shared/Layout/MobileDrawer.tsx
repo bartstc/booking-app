@@ -35,9 +35,9 @@ const MobileDrawer = ({ toggle, extended, facilityId }: IProps) => {
           <DrawerCloseButton />
           <DrawerBody as={VStack} justify='space-between' width='100%' height='100%' pb={4} pt={16}>
             <VStack as='ul' align='flex-start' width='100%'>
-              {links.map(({ label, to, path }) => (
+              {links.map(({ label, to, path, signature }) => (
                 <HStack key={to} as='li'>
-                  <NavButton onClick={() => push(`/${to}`)} path={path} isActive={to.includes(pathname.substring(1))}>
+                  <NavButton onClick={() => push(`/${to}`)} path={path} isActive={pathname.includes(signature)}>
                     <Text pl={2} fontWeight='700' fontSize='md'>
                       {label}
                     </Text>

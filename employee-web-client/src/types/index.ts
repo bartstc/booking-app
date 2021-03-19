@@ -7,3 +7,5 @@ export type { IQueryParams } from './IQueryParams';
 export type { IContactPerson } from './IContactPerson';
 export type { IContact } from './IContact';
 export type { ICollection } from './ICollection';
+export { RequestStatus } from './RequestStatus';
+export type { DeepNullable } from './DeepNullable';
