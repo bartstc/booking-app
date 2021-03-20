@@ -29,7 +29,7 @@ const AddNewCustomer = ({ isDisabled, onSuccess }: IProps) => {
         })}
         icon={<Icon path={mdiAccount} color='gray.800' />}
         onClick={onOpen}
-        mt='5px !important'
+        mt='30.5px !important'
         isDisabled={isDisabled}
       />
       <AddCustomerModal isOpen={isOpen} onClose={onClose} onSuccess={onSuccess} />

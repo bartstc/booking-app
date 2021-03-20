@@ -13,12 +13,12 @@ import { CustomerOption } from './CustomerOption';
 
 export type SelectedCustomerOption = OptionType<string> & { customer: ICustomer };
 
-type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoading' | 'isClearable' | 'label'> & {
+type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoading' | 'label'> & {
   facilityId: string;
   newOptions?: SelectedCustomerOption[];
 };
 
-const CustomerSelectFieldAsync = ({ facilityId, newOptions = [], ...props }: IProps) => {
+const CustomerSelectFieldAsync = ({ facilityId, newOptions = [], isClearable = true, ...props }: IProps) => {
   const { data, search, nextPage, status } = useAutoComplete<SelectedCustomerOption, ICustomerCollection>({
     url: getCustomersKey(facilityId)[0],
     queryKey: 'fullName',
@@ -38,7 +38,7 @@ const CustomerSelectFieldAsync = ({ facilityId, newOptions = [], ...props }: IPr
       onMenuScrollToBottom={nextPage}
       onInputChange={value => search(value)}
       isLoading={status === RequestStatus.InProgress}
-      isClearable
+      isClearable={isClearable}
       components={{
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         Option: CustomerOption as any,

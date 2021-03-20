@@ -10,7 +10,7 @@ import { SelectInput, SelectInputProps, findOption, findOptions, getReadValue, g
 
 export type SelectFieldProps = Omit<SelectInputProps, 'isDisabled'> &
   FieldPrototypeProps & {
-    onChangeEffect?: (option: ValueType<OptionType, boolean> | null | undefined) => void;
+    onChangeEffect?: (option: OptionType | Array<OptionType> | null) => void;
   };
 
 const SelectField = ({
@@ -73,7 +73,7 @@ const SelectField = ({
           value={isMulti ? findOptions(getValue(value, true), options) : findOption(getValue(value, false), options)}
           onChange={(option: ValueType<OptionType, boolean> | null | undefined) => {
             if (onChangeEffect) {
-              onChangeEffect(option);
+              onChangeEffect(option as OptionType | Array<OptionType> | null);
             }
 
             if (option) {
