@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { VStack, Box } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
 
 import { ContactType } from 'types';
 import { DateField, Form, InputField } from 'shared/Form';
@@ -34,23 +34,33 @@ const AddEmployeeForm = ({ onSubmit }: IProps) => {
         ],
       }}
     >
-      <VStack w='100%' align='stretch'>
-        <InputField name='employeeName' label={<FormattedMessage id='employee-name' defaultMessage='Full name' />} id='employee-name' />
-        <Box maxW='350px'>
-          <InputField name='position' label={<FormattedMessage id='position' defaultMessage='Position' />} id='employee-position' />
-        </Box>
-        <Box maxW='300px'>
-          <DateField name='birthDate' label={<FormattedMessage id='birth-date' defaultMessage='Birth date' />} id='birth-date' />
-        </Box>
-        <Box maxW='300px'>
-          <DateField
-            name='employmentDate'
-            label={<FormattedMessage id='employment-date' defaultMessage='Employment date' />}
-            id='employment-date'
-          />
-        </Box>
-        <ContactsFields />
-      </VStack>
+      <SimpleGrid columns={3} spacingX={4}>
+        <InputField
+          name='employeeName'
+          label={<FormattedMessage id='employee-name' defaultMessage='Full name' />}
+          id='employee-name'
+          colSpan={3}
+        />
+        <InputField
+          name='position'
+          label={<FormattedMessage id='position' defaultMessage='Position' />}
+          id='employee-position'
+          colSpan={{ base: 3, md: 2 }}
+        />
+        <DateField
+          name='birthDate'
+          label={<FormattedMessage id='birth-date' defaultMessage='Birth date' />}
+          id='birth-date'
+          colSpan={{ base: 3, md: 2 }}
+        />
+        <DateField
+          name='employmentDate'
+          label={<FormattedMessage id='employment-date' defaultMessage='Employment date' />}
+          id='employment-date'
+          colSpan={{ base: 3, md: 2 }}
+        />
+      </SimpleGrid>
+      <ContactsFields />
     </Form>
   );
 };

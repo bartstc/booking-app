@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, VStack } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { CurrencySelectField, Form, InputField, MoneyField, SelectField } from 'shared/Form';
@@ -47,34 +47,31 @@ const AddOfferForm = ({ onSubmit }: IProps) => {
         price: {},
       }}
     >
-      <VStack w='100%' align='stretch'>
-        <InputField name='offerName' label={<FormattedMessage id='offer-name' defaultMessage='Offer name' />} id='offer-name' />
-        <Box maxW='300px'>
-          <InputField
-            type='number'
-            name='duration'
-            label={<FormattedMessage id='duration-of-offer-min' defaultMessage='Duration of the service (min)' />}
-            id='duration'
-          />
-        </Box>
-        <Box maxW='445px'>
-          <MoneyField
-            label={<FormattedMessage id='service-value' defaultMessage={`Service's value`} />}
-            name='price.value'
-            id='price-value'
-          >
-            <CurrencySelectField name='price.currency' moneyName='price.value' />
-          </MoneyField>
-        </Box>
-        <Box maxW='300px'>
-          <SelectField
-            options={options}
-            label={<FormattedMessage id='price-type' defaultMessage='Price type' />}
-            name='price.type'
-            id='price-type'
-          />
-        </Box>
-      </VStack>
+      <SimpleGrid columns={6} spacingX={4}>
+        <InputField name='offerName' label={<FormattedMessage id='offer-name' defaultMessage='Offer name' />} id='offer-name' colSpan={6} />
+        <InputField
+          type='number'
+          name='duration'
+          label={<FormattedMessage id='duration-of-offer-min' defaultMessage='Duration of the service (min)' />}
+          id='duration'
+          colSpan={{ base: 4, md: 3 }}
+        />
+        <MoneyField
+          label={<FormattedMessage id='service-value' defaultMessage={`Service's value`} />}
+          name='price.value'
+          id='price-value'
+          colSpan={{ base: 6, md: 5 }}
+        >
+          <CurrencySelectField name='price.currency' moneyName='price.value' />
+        </MoneyField>
+        <SelectField
+          options={options}
+          label={<FormattedMessage id='price-type' defaultMessage='Price type' />}
+          name='price.type'
+          id='price-type'
+          colSpan={{ base: 4, md: 3 }}
+        />
+      </SimpleGrid>
     </Form>
   );
 };

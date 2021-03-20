@@ -10,7 +10,24 @@ import { MoneyText } from '../Money';
 
 export type MoneyFieldProps = Omit<MoneyInputProps, 'value'> & FieldPrototypeProps;
 
-const MoneyField = ({ name, label, required, disabled, helperText, id, tip, css, children, ...props }: MoneyFieldProps) => {
+const MoneyField = ({
+  name,
+  label,
+  required,
+  disabled,
+  helperText,
+  id,
+  tip,
+  css,
+  children,
+  colSpan,
+  colStart,
+  colEnd,
+  rowSpan,
+  rowStart,
+  rowEnd,
+  ...props
+}: MoneyFieldProps) => {
   const invalidColor = useColorModeValue('red.500', 'red.300');
   const validColor = useColorModeValue('green.500', 'green.300');
 
@@ -35,6 +52,12 @@ const MoneyField = ({ name, label, required, disabled, helperText, id, tip, css,
           </Text>
         );
       }}
+      colSpan={colSpan}
+      colStart={colStart}
+      colEnd={colEnd}
+      rowSpan={rowSpan}
+      rowStart={rowStart}
+      rowEnd={rowEnd}
     >
       {({ formState: { touched } }, fieldProps, { isInvalid }) => {
         return (

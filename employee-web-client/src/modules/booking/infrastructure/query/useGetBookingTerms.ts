@@ -9,8 +9,8 @@ export const getBookingTermsKey = (facilityId: string, params: IBookingTermColle
   params,
 ];
 
-const today = '2021-03-18';
-const tomorrow = '2021-03-19';
+const today = '2021-03-19';
+const tomorrow = '2021-03-20';
 const nextMonth = '2021-04-18';
 
 const mockedBookingTerms: IBookingTermCollection = {

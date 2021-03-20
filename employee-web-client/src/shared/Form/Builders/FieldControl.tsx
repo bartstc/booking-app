@@ -8,13 +8,15 @@ import {
   HStack,
   chakra,
   useColorModeValue,
+  GridItem,
 } from '@chakra-ui/react';
 import { mdiInformation } from '@mdi/js';
 
 import { Icon } from '../../Icon';
 import { Tooltip } from '../../Tooltip';
+import { GridItemProps } from '../types';
 
-export interface IFieldControlProps extends Omit<FormControlProps, 'helperText' | 'errorText' | 'id' | 'label'> {
+export interface IFieldControlProps extends Omit<FormControlProps, 'helperText' | 'errorText' | 'id' | 'label'>, GridItemProps {
   name: string;
   id: string;
   label?: ReactNode | string;
@@ -31,7 +33,6 @@ const FieldControl = ({
   children,
   tip,
   id,
-  css,
   isReadMode = false,
   isRequired,
   ...props
@@ -39,7 +40,14 @@ const FieldControl = ({
   const infoIconColor = useColorModeValue('blue.500', 'blue.300');
 
   return (
-    <FormControl mb={isReadMode ? { base: 6, md: 8 } : 4} {...css} id={id} isRequired={isReadMode ? false : isRequired} {...props}>
+    <FormControl
+      as={GridItem}
+      mb={isReadMode ? { base: 6, md: 8 } : 4}
+      id={id}
+      data-testid={id}
+      isRequired={isReadMode ? false : isRequired}
+      {...props}
+    >
       <HStack spacing={0}>
         {label && (
           <FormLabel lineHeight={isReadMode ? '7px' : 'auto'} fontSize={isReadMode ? 'sm' : 'md'} color={isReadMode ? 'gray.500' : 'auto'}>

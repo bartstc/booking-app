@@ -1,5 +1,5 @@
 import React from 'react';
-import { Interpolation, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import { ValueType } from 'react-select';
 
 import { OptionType } from 'types';
@@ -10,7 +10,7 @@ import { SelectInput, SelectInputProps, findOption, findOptions, getReadValue, g
 
 export type SelectFieldProps = Omit<SelectInputProps, 'isDisabled'> &
   FieldPrototypeProps & {
-    onChangeEffect?: (option: ValueType<OptionType, boolean> | null | undefined) => void;
+    onChangeEffect?: (option: OptionType | Array<OptionType> | null) => void;
   };
 
 const SelectField = ({
@@ -21,10 +21,15 @@ const SelectField = ({
   helperText,
   id,
   tip,
-  css,
   isMulti = false,
   options,
   onChangeEffect,
+  colSpan,
+  colStart,
+  colEnd,
+  rowSpan,
+  rowStart,
+  rowEnd,
   ...selectProps
 }: SelectFieldProps) => {
   const requiredMsg = useRequiredFieldMessage();
@@ -38,7 +43,6 @@ const SelectField = ({
       tip={tip}
       id={id}
       label={label}
-      css={css as Interpolation<Record<string, unknown>>}
       readModeComponent={({ value }) => {
         if (!value) {
           return <Text>---</Text>;
@@ -50,6 +54,12 @@ const SelectField = ({
 
         return <Text>{getReadValue(value, options, isMulti!)}</Text>;
       }}
+      rowSpan={rowSpan}
+      rowStart={rowStart}
+      rowEnd={rowEnd}
+      colSpan={colSpan}
+      colStart={colStart}
+      colEnd={colEnd}
     >
       {({ formState: { isSubmitting }, setValue, clearErrors, setError }, { value, ...fieldProps }, { isInvalid }) => (
         <SelectInput
@@ -63,7 +73,7 @@ const SelectField = ({
           value={isMulti ? findOptions(getValue(value, true), options) : findOption(getValue(value, false), options)}
           onChange={(option: ValueType<OptionType, boolean> | null | undefined) => {
             if (onChangeEffect) {
-              onChangeEffect(option);
+              onChangeEffect(option as OptionType | Array<OptionType> | null);
             }
 
             if (option) {

@@ -4,6 +4,7 @@ import { HStack, VStack } from '@chakra-ui/react';
 
 import { Form, PreventLossData } from 'shared/Form';
 import { Button } from 'shared/Button';
+import { OptionType } from 'types';
 
 import { CustomerSelectFieldAsync, SelectedCustomerOption } from '../../../../customers/shared';
 import { IAddBookingDto } from '../../../dto';
@@ -15,32 +16,44 @@ interface IProps {
   facilityId: string;
 }
 
+const defaultValues = {
+  customerId: '',
+  bookedRecords: [
+    {
+      employerId: '',
+      offerId: '',
+      date: '',
+    },
+  ],
+};
+
 const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
   const [newCustomer, setNewCustomer] = useState<SelectedCustomerOption>();
 
   return (
-    <Form<IAddBookingDto>
-      id='add-booking-form'
-      onSubmit={onSubmit}
-      defaultValues={{
-        customerId: '',
-        bookedRecords: [
-          {
-            employerId: '',
-            offerId: '',
-            date: '',
-          },
-        ],
-      }}
-    >
-      {({ watch, setValue }) => (
+    <Form<IAddBookingDto> id='add-booking-form' onSubmit={onSubmit} defaultValues={defaultValues}>
+      {({ watch, setValue, reset }) => (
         <VStack w='100%' align='stretch'>
-          <HStack maxW='450px'>
+          <HStack align='flex-start' maxW='450px'>
             <CustomerSelectFieldAsync
               newOptions={newCustomer ? [newCustomer] : undefined}
               name='customerId'
               id='customer-id'
               facilityId={facilityId}
+              isClearable={false}
+              onChangeEffect={option => {
+                if (!Array.isArray(option) && option?.value !== watch('customerId')) {
+                  reset({ ...defaultValues, customerId: (option as OptionType).value });
+                }
+              }}
+              helperText={
+                !watch('customerId') ? undefined : (
+                  <FormattedMessage
+                    id='customer-change-affects-data'
+                    defaultMessage='Change of the customer will affect the rest of the form fields.'
+                  />
+                )
+              }
             />
             <AddNewCustomer
               isDisabled={!!watch('customerId')}
@@ -56,8 +69,8 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
           </HStack>
           <BookedRecordFields />
           <PreventLossData />
-          <HStack w='100%' justify='flex-end' pt={6}>
-            <Button type='submit' form='add-booking-form' colorScheme='green' size='lg' px={12}>
+          <HStack w='100%' justify='center' pt={{ base: 6, md: 8 }}>
+            <Button variant='outline' type='submit' form='add-booking-form' colorScheme='green' size='lg' px={12}>
               <FormattedMessage id='confirm-booking' defaultMessage='Confirm booking' />
             </Button>
           </HStack>

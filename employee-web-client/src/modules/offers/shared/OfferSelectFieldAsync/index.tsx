@@ -12,13 +12,13 @@ import { OfferOption } from './OfferOption';
 
 export type SelectedOfferOption = OptionType<string> & { offer: IOffer };
 
-type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoading' | 'isClearable' | 'label' | 'onChangeEffect'> & {
+type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoading' | 'label' | 'onChangeEffect'> & {
   facilityId: string;
   currency: Currency;
   onChangeEffect?: (option: SelectedOfferOption | null) => void;
 };
 
-const OfferSelectFieldAsync = ({ facilityId, onChangeEffect, currency, ...props }: IProps) => {
+const OfferSelectFieldAsync = ({ facilityId, onChangeEffect, currency, isClearable = true, ...props }: IProps) => {
   const { data, search, nextPage, status } = useAutoComplete<SelectedOfferOption, IOfferCollection>({
     url: getOffersKey(facilityId)[0],
     params: { currency },
@@ -41,7 +41,7 @@ const OfferSelectFieldAsync = ({ facilityId, onChangeEffect, currency, ...props 
       isLoading={status === RequestStatus.InProgress}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChangeEffect={onChangeEffect as any}
-      isClearable
+      isClearable={isClearable}
       components={{
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         Option: OfferOption as any,

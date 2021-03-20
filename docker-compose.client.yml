@@ -5,8 +5,6 @@ services:
     image: postgres
     restart: always
     volumes:
-      - ./accessibility-service/db/accessibility-db-initialize.sh:/docker-entrypoint-initdb.d/accessibility-db-initialize.sh
-      - ./booking-service/db/booking-db-initialize.sh:/docker-entrypoint-initdb.d/booking-db-initialize.sh
       - ./management-service/db/management-db-initialize.sh:/docker-entrypoint-initdb.d/management-db-initialize.sh
       - pgdata:/var/lib/postgresql/data
     environment:
@@ -19,6 +17,16 @@ services:
     restart: always
     ports:
       - 8080:8080
+
+  gateway:
+    image: gateway
+    build:
+      context: .
+      dockerfile: gateway-service/Dockerfile
+    ports:
+      - "8085:80"
+    environment:
+      - IdentityUrl=http://identity
 
   rabbit:
     image: rabbitmq:3-management
@@ -40,20 +48,13 @@ services:
     ports:
       - "80:80"
     environment:
-      - ConnectionStrings:Accessibility=Host=db;Database=postgres;Username=postgres;Password=pg
-
-  booking:
-    image: booking
-    build:
-      context: .
-      dockerfile: booking-service/Dockerfile
-    ports:
-      - "81:80"
-    environment:
-      - ConnectionStrings:Booking=Host=db;Database=booking;Username=postgres;Password=pg
+      - ConnectionStrings:Accessibility=Host=db;Database=accessibility;Username=postgres;Password=pg
       - RabbitMQ:Hostname=rabbit
+      - RabbitMQ:Username=admin
+      - RabbitMQ:Password=admin
 
   management:
+    image: mangement
     build:
       context: ./management-service
     volumes:
@@ -66,9 +67,21 @@ services:
     depends_on:
       - db
       - rabbit
-    command: npm run start:dev
+
+  identity:
+    image: identity
+    build:
+      context: .
+      dockerfile: identity-service/Dockerfile
+    depends_on:
+      - "db"
+    ports:
+      - "83:80"
+    environment:
+      - ConnectionStrings:IdentityServer=Host=db;Database=identity;Username=postgres;Password=pg
 
   employee-web-client:
+    image: employee-web-client
     build:
       context: ./employee-web-client
     ports:
@@ -78,7 +91,6 @@ services:
       - rabbit
       - adminer
       - accessibility
-      - booking
       - management
 
 volumes:
