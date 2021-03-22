@@ -4,7 +4,7 @@ using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SharedKernel;
 using Newtonsoft.Json;
 
-namespace Accessibility.Application.Bookings.Commands.CreateBookingOrder
+namespace Accessibility.Application.Bookings.Commands.CreateBookingRequest
 {
     public class BookedNotification : DomainNotificationBase<BookedEvent>
     {

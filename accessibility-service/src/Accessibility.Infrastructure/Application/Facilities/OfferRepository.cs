@@ -1,6 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Accessibility.Application.Facilities;
+using Accessibility.Domain.SharedKernel;
 using Accessibility.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Accessibility.Infrastructure.Application.Facilities
 {
@@ -17,5 +21,11 @@ namespace Accessibility.Infrastructure.Application.Facilities
         {
             await ctx.AddAsync(offer);
         }
+        
+        public async Task<IEnumerable<Offer>> GetByIdsAsync(IEnumerable<OfferId> ids) =>
+            await ctx.Offers
+                .Where(offer => ids.Contains(offer.Id))
+                .AsNoTracking()
+                .ToListAsync();
     }
 }

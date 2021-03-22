@@ -2,16 +2,21 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Accessibility.Api.Bookings;
-using Accessibility.Application.Bookings.Commands.CreateBookingOrder;
+using Accessibility.Api.Options;
+using Accessibility.Application.Bookings.Commands.CreateBookingRequest;
 using Accessibility.Application.Bookings.Queries.AnyUnfinishedBookingOfEmployee;
 using Accessibility.Application.Bookings.Queries.AnyUnfinishedBookingOfOffer;
+using Accessibility.Application.Bookings.Queries.GetBookingStatus;
+using Accessibility.Domain.Bookings;
+using Accessibility.Domain.SharedKernel;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace Accessibility.Api.Controllers
 {
     [ApiController]
-    [Route("facilities/{facilityId}")]
+    [Route("facilities/{facilityId}/bookings")]
     public class BookingsController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -21,17 +26,33 @@ namespace Accessibility.Api.Controllers
             this.mediator = mediator;
         }
 
-        [HttpPost("bookings")]
+        [HttpPost]
         [ProducesResponseType(typeof(BookingIdDto), (int)HttpStatusCode.Accepted)]
-        public async Task<IActionResult> CreateBooking(
+        public async Task<IActionResult> CreateBookingRequest(
             [FromRoute] Guid facilityId,
-            [FromBody] CreateBookingRequest request)
+            [FromBody] CreateBookingRequestDto request,
+            [FromServices] IOptions<EventBusOptions> options)
         {
-            var bookingId = await mediator.Send(new BookCommand(request.CustomerId, facilityId, request.BookedRecords));
+            var bookingId = await mediator.Send(new CreateBookingRequestCommand(request.CustomerId, facilityId, request.BookedRecords, options.Value.Exchanges));
             return Accepted();
         }
 
-        [HttpHead("bookings/any-unfinished")]
+        [HttpGet("{bookingId}/status")]
+        [ProducesResponseType(typeof(GetBookingStatusResponse), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetBookingStatus(
+            [FromRoute] Guid facilityId,
+            [FromRoute] Guid bookingId)
+        {
+            var result = await mediator.Send(new GetBookingStatusQuery(new BookingId(bookingId), new FacilityId(facilityId)));
+            if (result.HasValue)
+            {
+                return Ok(new GetBookingStatusResponse(result.Value.ToString()));
+            }
+            
+            return NotFound();
+        }
+
+        [HttpHead("any-unfinished")]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> AnyUnfinishedBookedRecords(
             [FromRoute] Guid facilityId,

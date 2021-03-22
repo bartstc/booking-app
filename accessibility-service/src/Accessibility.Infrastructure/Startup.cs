@@ -26,13 +26,15 @@ using Accessibility.Application.Schedules;
 using Accessibility.Infrastructure.Application.Schedules;
 using Accessibility.Infrastructure.Application.Bookings;
 using Accessibility.Application.Bookings.Queries;
+using System.Collections.Generic;
+using Accessibility.Application;
 
 namespace Accessibility.Infrastructure
 {
     public static class Startup
     {
         // TODO: split registrations into modules
-        public static IServiceCollection ConfigureAccessibility(this IServiceCollection services, IConfiguration configuration, Assembly applicationAssembly)
+        public static IServiceCollection ConfigureAccessibility(this IServiceCollection services, IConfiguration configuration, Assembly applicationAssembly, Dictionary<string, string> eventBusExchanges)
         {
             var connectionString = configuration.GetConnectionString("Accessibility");
 
@@ -53,16 +55,16 @@ namespace Accessibility.Infrastructure
                 //.AddHostedService<ProcessOutboxHostedService>()
                 .AddScoped<ISqlConnectionFactory>(x => new SqlConnectionFactory(connectionString))
                 .AddSingleton<IAssemblyProvider>(x => new AssemblyProvider(applicationAssembly))
-                .ConfigureEventBus(configuration);
+                .ConfigureEventBus(configuration, eventBusExchanges);
 
             return services;
         }
 
-        private static IServiceCollection ConfigureEventBus(this IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection ConfigureEventBus(this IServiceCollection services, IConfiguration configuration, Dictionary<string, string> eventBusExchanges)
         {
             return services.AddMassTransit(x =>
             {
-                x.AddConsumer<ProcessBookingOrderConsumer>()
+                x.AddConsumer<BookingRequestedConsumer>()
                     .Endpoint(e => {e.ConcurrentMessageLimit = 1;});
                 x.AddConsumer<OfferCreatedConsumer>();
 
@@ -74,8 +76,8 @@ namespace Accessibility.Infrastructure
                         cfgH.Password(configuration["RabbitMQ:Password"]);
                     });
                     
-                    cfg.ReceiveEndpoint("booking-orders-listener", e =>
-                        e.ConfigureConsumer<ProcessBookingOrderConsumer>(context));
+                    cfg.ReceiveEndpoint(eventBusExchanges[EventBusExchange.BookingRequests.ToString()], e =>
+                        e.ConfigureConsumer<BookingRequestedConsumer>(context));
                     
                     cfg.ReceiveEndpoint("offer-created-listener", e =>
                         e.ConfigureConsumer<OfferCreatedConsumer>(context));

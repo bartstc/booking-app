@@ -2,6 +2,7 @@ using Accessibility.Domain.Bookings;
 using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SharedKernel;
 using Accessibility.Infrastructure.Database;
+using Accessibility.Infrastructure.SeedWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -17,13 +18,12 @@ namespace Accessibility.Infrastructure.Domain.Bookings
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).HasColumnName("booking_id");
 
-            builder.OwnsOne<CustomerId>("customerId", e =>
-                e.Property(p => p.Value).HasColumnName("customer_id"));
-            builder.OwnsOne<FacilityId>("facilityId", e =>
-                e.Property(p => p.Value).HasColumnName("facility_id"));
+            builder.Property("customerId").HasConversion(new StronglyTypedIdValueConverter<CustomerId>()).HasColumnName("customer_id");
+            builder.Property(b => b.FacilityId).HasConversion(new StronglyTypedIdValueConverter<FacilityId>()).HasColumnName("facility_id");
 
             builder.Property("status").HasConversion(new EnumToNumberConverter<BookingStatus, short>());
-            builder.Property("creationDate").HasColumnName("creation_date");
+            builder.Property("requestedDate").HasColumnName("requested_date");
+            builder.Property("bookedDate").HasColumnName("booked_date");
 
             builder.OwnsMany<BookedRecord>("bookedRecords", x =>
             {

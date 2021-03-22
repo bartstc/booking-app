@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Accessibility.Domain.Bookings;
 using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SeedWork;
+using Accessibility.Domain.SharedKernel;
 using MediatR;
 
 namespace Accessibility.Application.Bookings.Commands.SetBookedRecordStatus
@@ -20,7 +21,7 @@ namespace Accessibility.Application.Bookings.Commands.SetBookedRecordStatus
 
         public async Task<Unit> Handle(SetBookedRecordStatusCommand request, CancellationToken cancellationToken)
         {
-            var booking = await repo.GetByIdAsync(new BookingId(request.BookingId));
+            var booking = await repo.GetByIdAsync(new BookingId(request.BookingId), new FacilityId(request.FacilityId));
 
             booking.ChangeRecordStatus(new BookedRecordId(request.BookedRecordId), request.Status);
 

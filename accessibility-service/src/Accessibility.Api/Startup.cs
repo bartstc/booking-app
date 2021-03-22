@@ -39,15 +39,23 @@ namespace Accessibility.Api
             });
             services.AddControllers()
                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.Configure<BookingRulesOptions>(Configuration.GetSection(
+                BookingRulesOptions.BookingRules
+            ))
+            .Configure<EventBusOptions>((settings) =>
+            {
+                Configuration.GetSection(EventBusOptions.EventBus).Bind(settings);
+            });
             
+            var eventBusOptions = Configuration.GetSection(EventBusOptions.EventBus).Get<EventBusOptions>();
+
             services.ConfigureAccessibility(
                 Configuration,
-                typeof(CreateScheduleCommand).Assembly)
+                typeof(CreateScheduleCommand).Assembly,
+                eventBusOptions.Exchanges)
             .AddSwaggerGen(options =>
-                    options.CustomSchemaIds(x => x.FullName))
-            .Configure<BookingRulesOptions>(Configuration.GetSection(
-                BookingRulesOptions.BookingRules
-            ));
+                    options.CustomSchemaIds(x => x.FullName));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AccessibilityContext context)

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Accessibility.Application.Bookings.Queries;
 using Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms;
 using Accessibility.Application.Configuration.Database;
+using Accessibility.Domain.Bookings;
+using Accessibility.Domain.SharedKernel;
 using Dapper;
 
 namespace Accessibility.Infrastructure.Application.Bookings
@@ -40,6 +42,23 @@ namespace Accessibility.Infrastructure.Application.Bookings
                     facilityId, dateFrom, dateTo, now
                 }
             )).AsList();
+        }
+
+        public async Task<int?> GetBookingStatus(BookingId id, FacilityId facilityId)
+        {
+            return (await connection.ExecuteScalarAsync<int?>(
+                @"SELECT
+                    b.status
+                FROM
+                    booking.bookings b
+                WHERE
+                    b.booking_id = @Id AND
+                    b.facility_id = @FacilityId",
+            new
+            {
+                Id = id.Value,
+                FacilityId = facilityId.Value
+            }));
         }
     }
 }

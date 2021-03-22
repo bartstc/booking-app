@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace Accessibility.Application.Bookings.Commands.CreateBookingOrder
+namespace Accessibility.Application.Bookings.Commands.CreateBookingRequest
 {
     public class BookedNotificationHandler : INotificationHandler<BookedNotification>
     {

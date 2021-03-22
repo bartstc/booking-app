@@ -3,15 +3,17 @@ using System;
 using Accessibility.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Accessibility.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(AccessibilityContext))]
-    partial class AccessibilityContextModelSnapshot : ModelSnapshot
+    [Migration("20210320102909_BookingDates")]
+    partial class BookingDates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
