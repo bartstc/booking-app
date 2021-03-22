@@ -36,10 +36,12 @@ namespace Accessibility.Infrastructure.Application.Bookings
                 WHERE
                     b.facility_id = @facilityId AND
                     r.date BETWEEN @dateFrom::timestamp AND @dateTo::timestamp AND
-                    r.date + r.duration * INTERVAL '1 minute' > @now;",
+                    r.date + r.duration * INTERVAL '1 minute' > @now AND
+                    b.status = @status;",
                 new
                 {
-                    facilityId, dateFrom, dateTo, now
+                    facilityId, dateFrom, dateTo, now,
+                    status = (int)BookingStatus.Booked
                 }
             )).AsList();
         }
