@@ -6,6 +6,7 @@ import {
   BusinessCategoryDto,
   WorkingDayDto,
 } from '../application/dto';
+import { Currency } from '../domain/types';
 
 export class BuildFacilityDto {
   @ApiProperty()
@@ -31,4 +32,7 @@ export class BuildFacilityDto {
 
   @ApiProperty()
   contactPerson?: ContactPersonDto;
+
+  @ApiProperty({ enum: Currency })
+  currency: Currency;
 }

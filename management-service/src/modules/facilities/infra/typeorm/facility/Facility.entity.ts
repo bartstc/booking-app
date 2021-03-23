@@ -11,6 +11,7 @@ import { AbstractEntity } from 'shared/core';
 import { IContact, IContactPerson } from 'shared/domain/types';
 
 import {
+  Currency,
   IAddress,
   IBusinessCategory,
   IWorkingDay,
@@ -33,6 +34,7 @@ export class FacilityEntity extends AbstractEntity {
   details: {
     name: string;
     description: string;
+    currency: Currency;
     contactPerson: IContactPerson;
     address: IAddress;
     businessCategories: IBusinessCategory[];
@@ -40,31 +42,27 @@ export class FacilityEntity extends AbstractEntity {
     workingDays: IWorkingDay[];
   };
 
-  @OneToMany(
-    () => EmployeeEntity,
-    employee => employee.facility,
-    { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true },
-  )
+  @OneToMany(() => EmployeeEntity, (employee) => employee.facility, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    eager: true,
+  })
   employees: EmployeeEntity[];
 
-  @OneToMany(
-    () => OfferEntity,
-    offer => offer.facility,
-    { onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true },
-  )
+  @OneToMany(() => OfferEntity, (offer) => offer.facility, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    eager: true,
+  })
   offers: OfferEntity[];
 
-  @OneToMany(
-    () => CustomerEntity,
-    customer => customer.facility,
-    { onDelete: 'CASCADE', onUpdate: 'CASCADE' },
-  )
+  @OneToMany(() => CustomerEntity, (customer) => customer.facility, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   customers: CustomerEntity[];
 
-  @ManyToOne(
-    () => EnterpriseEntity,
-    enterprise => enterprise.facilities,
-  )
+  @ManyToOne(() => EnterpriseEntity, (enterprise) => enterprise.facilities)
   @JoinColumn({ name: 'enterprise_id' })
   enterprise: EnterpriseEntity;
 

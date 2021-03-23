@@ -4,7 +4,7 @@ import {
   Contacts,
   UniqueEntityID,
 } from 'shared/domain';
-import { Result } from 'shared/core';
+import { Guard, Result } from 'shared/core';
 
 import { FacilityName } from './FacilityName';
 import { FacilityId } from './FacilityId';
@@ -18,6 +18,7 @@ import { Availability } from './Availability';
 import { Offer } from './Offer';
 import { Employee } from './Employee';
 import { Slug } from './Slug';
+import { Currency } from './types';
 
 interface IProps {
   enterpriseId: EnterpriseId;
@@ -31,6 +32,7 @@ interface IProps {
   employees: Employees;
   offers: Offers;
   availability: Availability;
+  currency: Currency;
 }
 
 export class Facility extends AggregateRoot<IProps> {
@@ -82,6 +84,10 @@ export class Facility extends AggregateRoot<IProps> {
     return this.props.availability;
   }
 
+  get currency() {
+    return this.props.currency;
+  }
+
   public addOffer(offer: Offer) {
     this.offers.add(offer);
   }
@@ -101,6 +107,14 @@ export class Facility extends AggregateRoot<IProps> {
   }
 
   public static create(props: IProps, id?: UniqueEntityID): Result<Facility> {
+    const nullGuard = Guard.againstNullOrUndefined(
+      props.currency,
+      'facility.currency',
+    );
+
+    if (!nullGuard.succeeded) {
+      return Result.fail(nullGuard);
+    }
     return Result.ok(new Facility(props, id));
   }
 }

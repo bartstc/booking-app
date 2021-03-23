@@ -4,6 +4,7 @@ import { ContactDto, ContactPersonDto } from 'shared/domain/dto';
 import { AddressDto } from './Address.dto';
 import { BusinessCategoryDto } from './BusinessCategory.dto';
 import { WorkingDayDto } from './WorkingDay.dto';
+import { Currency } from '../../domain/types';
 
 export class FacilityDto {
   @ApiProperty()
@@ -20,6 +21,9 @@ export class FacilityDto {
 
   @ApiProperty()
   description: string | null;
+
+  @ApiProperty({ enum: Currency })
+  currency: Currency;
 
   @ApiProperty()
   contactPerson: ContactPersonDto | null;

@@ -8,6 +8,7 @@ import { ContactType } from '../../src/shared/domain/types';
 import {
   BusinessCategoryDegreeType,
   BusinessCategoryType,
+  Currency,
   WeekDay,
 } from '../../src/modules/facilities/domain/types';
 
@@ -20,6 +21,7 @@ interface Props {
 const defaultDto: BuildFacilityDto = {
   facilityName: 'Google',
   slug: 'google',
+  currency: Currency.Eu,
   address: {
     street: 'Groove Street',
     postCode: '33-444',

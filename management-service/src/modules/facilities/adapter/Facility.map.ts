@@ -33,14 +33,14 @@ export class FacilityMap {
     const address = Address.create(entity.details.address);
     const categories: BusinessCategory[] = [];
 
-    entity.details.businessCategories.forEach(category => {
+    entity.details.businessCategories.forEach((category) => {
       categories.push(BusinessCategory.create(category).getValue());
     });
 
     const businessCategories = BusinessCategories.create(categories);
     const workingDays: WorkingDay[] = [];
 
-    entity.details.workingDays.forEach(day => {
+    entity.details.workingDays.forEach((day) => {
       workingDays.push(WorkingDay.create(day).getValue());
     });
     const availability = Availability.create(workingDays);
@@ -51,6 +51,7 @@ export class FacilityMap {
           new UniqueEntityID(entity.enterprise_id),
         ).getValue(),
         name: name.getValue(),
+        currency: entity.details.currency,
         description: description
           ? FacilityDescription.create({ value: description }).getValue()
           : null,
@@ -60,19 +61,19 @@ export class FacilityMap {
           : null,
         contacts: Contacts.create(
           contacts?.length
-            ? contacts.map(contact => Contact.create(contact).getValue())
+            ? contacts.map((contact) => Contact.create(contact).getValue())
             : [],
         ),
         address: address.getValue(),
         businessCategories,
         availability: availability.getValue(),
         employees: Employees.create(
-          entity.employees.map(employee =>
+          entity.employees.map((employee) =>
             EmployeeMap.entityToDomain(employee),
           ),
         ),
         offers: Offers.create(
-          entity.offers.map(offer => OfferMap.entityToDomain(offer)),
+          entity.offers.map((offer) => OfferMap.entityToDomain(offer)),
         ),
       },
       new UniqueEntityID(entity.facility_id),
@@ -95,14 +96,14 @@ export class FacilityMap {
     const address = Address.create(dto.address);
     const categories: BusinessCategory[] = [];
 
-    dto.businessCategories.forEach(category => {
+    dto.businessCategories.forEach((category) => {
       categories.push(BusinessCategory.create(category).getValue());
     });
 
     const businessCategories = BusinessCategories.create(categories);
     const workingDays: WorkingDay[] = [];
 
-    dto.availability.forEach(day => {
+    dto.availability.forEach((day) => {
       workingDays.push(WorkingDay.create(day).getValue());
     });
     const availability = Availability.create(workingDays);
@@ -113,6 +114,7 @@ export class FacilityMap {
           new UniqueEntityID(enterpriseId),
         ).getValue(),
         name: name.getValue(),
+        currency: dto.currency,
         description: dto.facilityDescription
           ? FacilityDescription.create({
               value: dto.facilityDescription,
@@ -124,7 +126,7 @@ export class FacilityMap {
           : null,
         contacts: Contacts.create(
           dto.contacts?.length
-            ? dto.contacts.map(contact => Contact.create(contact).getValue())
+            ? dto.contacts.map((contact) => Contact.create(contact).getValue())
             : [],
         ),
         address: address.getValue(),
@@ -145,15 +147,16 @@ export class FacilityMap {
       details: {
         name: facility.name.value,
         description: facility.description?.value ?? null,
+        currency: facility.currency,
         address: facility.address.props,
         contactPerson: facility.contactPerson.allContacts,
-        contacts: facility.contacts.getItems().map(contact => contact.props),
+        contacts: facility.contacts.getItems().map((contact) => contact.props),
         businessCategories: facility.businessCategories
           .getItems()
-          .map(category => category.props),
+          .map((category) => category.props),
         workingDays: facility.availability
           .getItems()
-          .map(workingDay => workingDay.props),
+          .map((workingDay) => workingDay.props),
       },
     };
   }
