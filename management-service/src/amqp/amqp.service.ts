@@ -6,6 +6,7 @@ import { ILoggerService } from '../logger';
 import { InfrastructureKeys } from '../InfrastructureKeys';
 import { IConfigService } from '../config';
 import { IAmqpService } from './IAmqpService';
+import { MassTransitTransformer } from './MassTransitTransformer';
 
 export interface AmqpOptions {
   exchange: string;
@@ -122,13 +123,15 @@ export class AmqpService implements IAmqpService {
     }
   }
 
-  public async sendMessage<T>(msg: T, routingKey: string) {
+  public async sendMessage<T>(msg: T, key: string) {
     try {
       if (this.amqpChannel) {
         this.amqpChannel.publish(
-          this.config.amqp.exchange,
-          routingKey,
-          Buffer.from(JSON.stringify(msg)),
+          MassTransitTransformer.getExchangeName(key),
+          key,
+          Buffer.from(
+            JSON.stringify(MassTransitTransformer.toMessage(msg, key)),
+          ),
         );
       }
     } catch (error) {

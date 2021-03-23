@@ -12,6 +12,12 @@ import {
 } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { EmployeeIsAlreadyInactiveGuard } from '../../guards';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { IAmqpService } from '../../../../../amqp';
+import {
+  EmployeeDeactivatedEvent,
+  FacilitiesEvent,
+} from '../../../domain/events';
 
 export type DeactivateEmployeeResponse = Either<
   | AppError.UnexpectedError
@@ -30,6 +36,8 @@ export class DeactivateEmployeeHandler
     private facilityRepository: FacilityRepository,
     @Inject(FacilityKeys.EmployeeRepository)
     private employeeRepository: EmployeeRepository,
+    @Inject(InfrastructureKeys.AmqpService)
+    private amqpService: IAmqpService,
   ) {}
 
   async execute({
@@ -57,6 +65,12 @@ export class DeactivateEmployeeHandler
       employee.deactivate();
 
       const entity = await this.employeeRepository.persist(employee);
+
+      await this.amqpService.sendMessage(
+        new EmployeeDeactivatedEvent(),
+        FacilitiesEvent.EmployeeDeactivated,
+      );
+
       await entity.save();
 
       return right(Result.ok());

@@ -15,6 +15,9 @@ import { AddEmployeeCommand } from './AddEmployee.command';
 import { EmployeeMap } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { IAmqpService } from '../../../../../amqp';
+import { EmployeeAddedEvent, FacilitiesEvent } from '../../../domain/events';
+import { EmployeeTransformer } from '../../../infra';
 
 export type AddEmployeeResponse = Either<
   | AppError.ValidationError
@@ -29,6 +32,8 @@ export class AddEmployeeHandler
   constructor(
     @Inject(InfrastructureKeys.DbService)
     private connection: Connection,
+    @Inject(InfrastructureKeys.AmqpService)
+    private amqpService: IAmqpService,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
     @Inject(FacilityKeys.EmployeeRepository)
@@ -62,11 +67,15 @@ export class AddEmployeeHandler
       await queryRunner.connect();
       await queryRunner.startTransaction();
 
-      await queryRunner.manager.save(
-        await this.employeeRepository.persist(employee),
-      );
+      const employeeEntity = await this.employeeRepository.persist(employee);
+      await queryRunner.manager.save(employeeEntity);
       await queryRunner.manager.save(
         await this.facilityRepository.persist(facility),
+      );
+
+      await this.amqpService.sendMessage(
+        new EmployeeAddedEvent(EmployeeTransformer.toDto(employeeEntity)),
+        FacilitiesEvent.EmployeeAdded,
       );
 
       await queryRunner.commitTransaction();

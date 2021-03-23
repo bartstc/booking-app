@@ -11,7 +11,7 @@ import { AddOfferCommand } from './AddOffer.command';
 import { OfferMap } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
-import { OfferTransformer } from '../../../infra/typeorm/offer';
+import { OfferTransformer } from '../../../infra';
 import { FacilitiesEvent, OfferAddedEvent } from '../../../domain/events';
 
 export type AddOfferResponse = Either<
@@ -28,7 +28,7 @@ export class AddOfferHandler
     @Inject(InfrastructureKeys.DbService)
     private connection: Connection,
     @Inject(InfrastructureKeys.AmqpService)
-    private rabbitService: IAmqpService,
+    private amqpService: IAmqpService,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
     @Inject(FacilityKeys.OfferRepository)
@@ -68,7 +68,7 @@ export class AddOfferHandler
         await this.facilityRepository.persist(facility),
       );
 
-      await this.rabbitService.sendMessage(
+      await this.amqpService.sendMessage(
         new OfferAddedEvent(OfferTransformer.toDto(offerEntity)),
         FacilitiesEvent.OfferAdded,
       );
