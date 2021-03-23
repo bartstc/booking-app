@@ -6,6 +6,7 @@ import { TextValidator } from 'shared/core';
 import {
   BusinessCategoryDegreeType,
   BusinessCategoryType,
+  Currency,
   IAddress,
   IBusinessCategory,
   IWorkingDay,
@@ -18,6 +19,10 @@ export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
   facilityName: yup.string().required().min(1).max(999),
   facilityDescription: yup.string().min(1).max(9999),
   slug: yup.string().required().min(1).max(50),
+  currency: yup
+    .string()
+    .required()
+    .oneOf(Object.values(Currency)) as yup.Schema<Currency>,
   contactPerson: contactPersonSchema,
   address: yup.object().shape<IAddress>({
     street: yup.string().max(300).trim().required(),

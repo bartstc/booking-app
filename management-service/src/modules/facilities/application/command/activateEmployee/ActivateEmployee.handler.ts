@@ -12,6 +12,12 @@ import {
 } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { EmployeeIsAlreadyActiveGuard } from '../../guards';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { IAmqpService } from '../../../../../amqp';
+import {
+  EmployeeActivatedEvent,
+  FacilitiesEvent,
+} from '../../../domain/events';
 
 export type ActivateEmployeeResponse = Either<
   | AppError.UnexpectedError
@@ -30,6 +36,8 @@ export class ActivateEmployeeHandler
     private facilityRepository: FacilityRepository,
     @Inject(FacilityKeys.EmployeeRepository)
     private employeeRepository: EmployeeRepository,
+    @Inject(InfrastructureKeys.AmqpService)
+    private amqpService: IAmqpService,
   ) {}
 
   async execute({
@@ -57,6 +65,12 @@ export class ActivateEmployeeHandler
       employee.activate();
 
       const entity = await this.employeeRepository.persist(employee);
+
+      await this.amqpService.sendMessage(
+        new EmployeeActivatedEvent(),
+        FacilitiesEvent.EmployeeActivated,
+      );
+
       await entity.save();
 
       return right(Result.ok());

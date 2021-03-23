@@ -8,6 +8,9 @@ import { DeactivateOfferCommand } from './DeactivateOffer.command';
 import { FacilityRepository, Offer, OfferRepository } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { OfferIsAlreadyInactiveGuard } from '../../guards';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+import { IAmqpService } from '../../../../../amqp';
+import { FacilitiesEvent, OfferDeactivatedEvent } from '../../../domain/events';
 
 export type DeactivateOfferResponse = Either<
   | AppError.UnexpectedError
@@ -25,6 +28,8 @@ export class DeactivateOfferHandler
     private facilityRepository: FacilityRepository,
     @Inject(FacilityKeys.OfferRepository)
     private offerRepository: OfferRepository,
+    @Inject(InfrastructureKeys.AmqpService)
+    private amqpService: IAmqpService,
   ) {}
 
   async execute({
@@ -52,6 +57,12 @@ export class DeactivateOfferHandler
       offer.deactivate();
 
       const entity = await this.offerRepository.persist(offer);
+
+      await this.amqpService.sendMessage(
+        new OfferDeactivatedEvent(),
+        FacilitiesEvent.OfferDeactivated,
+      );
+
       await entity.save();
 
       return right(Result.ok());

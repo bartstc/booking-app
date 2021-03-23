@@ -37,7 +37,7 @@ export class UpdateEnterpriseHandler
         );
       }
 
-      const enterpriseOrError = EnterpriseMap.dtoToDomain(dto);
+      const enterpriseOrError = EnterpriseMap.dtoToDomain(dto, enterpriseId);
       if (!enterpriseOrError.isSuccess) {
         return left(Result.fail(enterpriseOrError.error));
       }

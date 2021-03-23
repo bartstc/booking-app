@@ -7,6 +7,7 @@ export class FacilityTypeormTransformer {
       facilityId: facility.facility_id,
       enterpriseId: facility.enterprise_id,
       name: facility.details.name,
+      currency: facility.details.currency,
       description: facility.details.description,
       slug: facility.slug,
       address: facility.details.address,
