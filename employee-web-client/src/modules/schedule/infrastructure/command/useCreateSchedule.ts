@@ -5,7 +5,7 @@ import { accessibilityHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 
 import { ICreateScheduleDto } from '../../dto';
-import { getSchedulesKey } from '../query';
+import { schedulesQueryKey } from '../query';
 
 export const useCreateSchedule = (facilityId: string) => {
   const queryClient = useQueryClient();
@@ -16,7 +16,7 @@ export const useCreateSchedule = (facilityId: string) => {
   const handler = (model: ICreateScheduleDto) => {
     return mutateAsync(model)
       .then(async () => {
-        await queryClient.invalidateQueries(getSchedulesKey(facilityId));
+        await queryClient.invalidateQueries(schedulesQueryKey(facilityId));
       })
       .catch(e => {
         Logger.log({

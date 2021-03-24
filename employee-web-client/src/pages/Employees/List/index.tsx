@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@chakra-ui/react';
 
-import { getEmployees, getEmployeesKey } from 'modules/employees/infrastructure/query';
+import { employeesQuery, employeesQueryKey } from 'modules/employees/infrastructure/query';
 import { IEmployeeCollection, IEmployeeCollectionQueryParams } from 'modules/employees/types';
 import { useFacilityConsumer } from 'modules/context';
 
@@ -20,8 +20,8 @@ const List = () => {
 
   const limit = 10;
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(getEmployeesKey(facilityId, params), ({ pageParam = 0 }) => {
-    return getEmployees(facilityId, { ...params, limit, offset: pageParam });
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(employeesQueryKey(facilityId, params), ({ pageParam = 0 }) => {
+    return employeesQuery(facilityId, { ...params, limit, offset: pageParam });
   });
 
   if (isLoading) {

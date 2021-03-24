@@ -1,1 +1,1 @@
-export { getOffersKey, getOffers } from './useGetOffers';
+export { offersQuery, offersQueryKey } from './offersQuery';

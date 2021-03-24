@@ -7,7 +7,7 @@ import { useQueryParams } from 'shared/Params';
 
 import { useFacilityConsumer } from 'modules/context';
 import { IEmployeeCollection, IEmployeeCollectionQueryParams } from 'modules/employees/types';
-import { getEmployees, getEmployeesKey } from 'modules/employees/infrastructure/query';
+import { employeesQueryKey, employeesQuery } from 'modules/employees/infrastructure/query';
 
 import { Header } from './Header';
 import { Row } from './Row';
@@ -17,7 +17,7 @@ const Table = () => {
   const { facilityId } = useFacilityConsumer();
 
   return (
-    <FetchBoundary<IEmployeeCollection> queryKey={getEmployeesKey(facilityId, params)} queryFn={() => getEmployees(facilityId, params)}>
+    <FetchBoundary<IEmployeeCollection> queryKey={employeesQueryKey(facilityId, params)} queryFn={() => employeesQuery(facilityId, params)}>
       {({ data: { collection, meta } }) => (
         <>
           <Grid

@@ -8,7 +8,6 @@ export interface IBookedOfferDto {
   dateTo: Date;
   name: string;
   duration: string;
-  // todo: enum
   status: string;
   price: IPrice;
 }

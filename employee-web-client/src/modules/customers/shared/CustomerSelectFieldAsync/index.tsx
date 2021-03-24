@@ -6,7 +6,7 @@ import { useAutoComplete } from 'hooks';
 import { OptionType, RequestStatus } from 'types';
 
 import { ICustomer, ICustomerCollection } from 'modules/customers/types';
-import { getCustomersKey } from 'modules/customers/infrastructure/query';
+import { customersQueryKey } from 'modules/customers/infrastructure/query';
 
 import { SelectField, SelectFieldProps } from 'shared/Form/SelectField';
 import { CustomerOption } from './CustomerOption';
@@ -20,7 +20,7 @@ type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoa
 
 const CustomerSelectFieldAsync = ({ facilityId, newOptions = [], isClearable = true, ...props }: IProps) => {
   const { data, search, nextPage, status } = useAutoComplete<SelectedCustomerOption, ICustomerCollection>({
-    url: getCustomersKey(facilityId)[0],
+    url: customersQueryKey(facilityId)[0],
     queryKey: 'fullName',
     map: ({ collection }) => {
       return collection.map(customer => ({

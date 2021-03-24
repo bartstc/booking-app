@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
-import { getEnterprises, getEnterprisesKey } from 'modules/enterprise/infrastructure/query';
-import { getFacilities, getFacilitiesKey } from 'modules/facility/infrastructure/query';
+import { enterprisesQueryKey, enterprisesQuery } from 'modules/enterprise/infrastructure/query';
+import { facilitiesQueryKey, facilitiesQuery } from 'modules/facility/infrastructure/query';
 import { IEnterprise } from 'modules/enterprise/types';
 import { IFacility } from 'modules/facility/types';
 
@@ -20,12 +20,12 @@ interface IProps {
 
 const Context = ({ children }: IProps) => {
   return (
-    <FetchBoundary queryKey={getEnterprisesKey()} queryFn={() => getEnterprises()} errorFallback={() => <>{children(null, null)}</>}>
+    <FetchBoundary queryKey={enterprisesQueryKey()} queryFn={() => enterprisesQuery()} errorFallback={() => <>{children(null, null)}</>}>
       {({ data: enterpriseData }) => (
         <EnterpriseProvider data={enterpriseData[0]}>
           <FetchBoundary
-            queryKey={getFacilitiesKey(enterpriseData[0]?.enterpriseId)}
-            queryFn={() => getFacilities(enterpriseData[0]?.enterpriseId)}
+            queryKey={facilitiesQueryKey(enterpriseData[0]?.enterpriseId)}
+            queryFn={() => facilitiesQuery(enterpriseData[0]?.enterpriseId)}
             errorFallback={() => <>{children(enterpriseData[0], null)}</>}
           >
             {({ data: facilityData }) => (

@@ -1,4 +1,4 @@
-import { IContact, IContactPerson } from 'types';
+import { Currency, IContact, IContactPerson } from 'types';
 
 import { IAddress } from './IAddress';
 import { IBusinessCategory } from './IBusinessCategory';
@@ -10,6 +10,7 @@ export interface IFacility {
   name: string;
   slug: string;
   description: string | null;
+  currency: Currency;
   contactPerson: IContactPerson | null;
   address: IAddress;
   businessCategories: IBusinessCategory[];

@@ -3,7 +3,7 @@ import { managementHttpService, ServiceType } from 'utils/http';
 
 import { ICustomerCollection, ICustomerCollectionQueryParams } from '../../types';
 
-export const getCustomersKey = (
+export const customersQueryKey = (
   facilityId: string,
   params?: ICustomerCollectionQueryParams,
 ): [string, ServiceType, ICustomerCollectionQueryParams | undefined] => [
@@ -12,5 +12,5 @@ export const getCustomersKey = (
   params,
 ];
 
-export const getCustomers = (facilityId: string, params: object) =>
+export const customersQuery = (facilityId: string, params: object) =>
   managementHttpService.get<ICustomerCollection>(buildUrl(`facilities/${facilityId}/customers`, params));

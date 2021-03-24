@@ -5,7 +5,7 @@ import { Logger, LogLevel } from 'utils/logger';
 import { useMutation } from 'shared/Suspense';
 
 import { IAddEmployeeDto } from '../../dto';
-import { getEmployeesKey } from '../query';
+import { employeesQueryKey } from '../query';
 
 export const useAddEmployee = (facilityId: string) => {
   const queryClient = useQueryClient();
@@ -16,7 +16,7 @@ export const useAddEmployee = (facilityId: string) => {
   const handler = (model: IAddEmployeeDto) => {
     return mutateAsync(model)
       .then(async () => {
-        await queryClient.invalidateQueries(getEmployeesKey(facilityId));
+        await queryClient.invalidateQueries(employeesQueryKey(facilityId));
       })
       .catch(e => {
         Logger.log({

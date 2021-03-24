@@ -6,7 +6,7 @@ import { FetchBoundary } from 'shared/Suspense';
 
 import { useFacilityConsumer } from 'modules/context';
 import { IScheduleCollection } from 'modules/schedule/types';
-import { getSchedules, getSchedulesKey } from 'modules/schedule/infrastructure/query';
+import { schedulesQueryKey, schedulesQuery } from 'modules/schedule/infrastructure/query';
 
 import { Header } from './Header';
 import { Row } from './Row';
@@ -15,7 +15,7 @@ const Table = () => {
   const { facilityId } = useFacilityConsumer();
 
   return (
-    <FetchBoundary<IScheduleCollection> queryKey={getSchedulesKey(facilityId)} queryFn={() => getSchedules(facilityId)}>
+    <FetchBoundary<IScheduleCollection> queryKey={schedulesQueryKey(facilityId)} queryFn={() => schedulesQuery(facilityId)}>
       {({ data: { collection } }) => (
         <>
           <Grid

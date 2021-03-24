@@ -7,7 +7,7 @@ import { useQueryParams } from 'shared/Params';
 
 import { useFacilityConsumer } from 'modules/context';
 import { IOfferCollection, IOfferCollectionQueryParams } from 'modules/offers/types';
-import { getOffers, getOffersKey } from 'modules/offers/infrastructure/query';
+import { offersQueryKey, offersQuery } from 'modules/offers/infrastructure/query';
 
 import { Header } from './Header';
 import { Row } from './Row';
@@ -17,7 +17,7 @@ const Table = () => {
   const { facilityId } = useFacilityConsumer();
 
   return (
-    <FetchBoundary<IOfferCollection> queryKey={getOffersKey(facilityId, params)} queryFn={() => getOffers(facilityId, params)}>
+    <FetchBoundary<IOfferCollection> queryKey={offersQueryKey(facilityId, params)} queryFn={() => offersQuery(facilityId, params)}>
       {({ data: { collection, meta } }) => (
         <>
           <Grid

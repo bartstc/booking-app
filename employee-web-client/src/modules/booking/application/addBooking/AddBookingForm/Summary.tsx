@@ -6,9 +6,9 @@ import { useFormContext } from 'react-hook-form';
 
 import { Button } from 'shared/Button';
 import { Icon } from 'shared/Icon';
-import { Currency } from 'types';
 
 import { IAddBookingDto } from '../../../dto';
+import { useFacilityConsumer } from '../../../../context';
 
 interface IProps {
   total: number;
@@ -16,10 +16,9 @@ interface IProps {
 }
 
 const Summary = ({ total, append }: IProps) => {
+  const { currency } = useFacilityConsumer();
   const { getValues } = useFormContext<IAddBookingDto>();
 
-  // todo: handle by facility configuration
-  const currency = Currency.Pln;
   const bookedRecords = getValues().bookedRecords;
   const lastRecordIsSet = bookedRecords ? Object.values(bookedRecords[bookedRecords.length - 1]).every(value => value) : false;
 

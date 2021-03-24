@@ -3,7 +3,7 @@ import { useSuspense } from 'shared/Suspense';
 
 import { IBookingTermCollection, IBookingTermCollectionQueryParams } from '../../types';
 
-export const getBookingTermsKey = (facilityId: string, params: IBookingTermCollectionQueryParams) => [
+export const bookingTermsQueryKey = (facilityId: string, params: IBookingTermCollectionQueryParams) => [
   `facilities/${facilityId}/terms`,
   ServiceType.Accessibility,
   params,
@@ -169,9 +169,9 @@ const mockedBookingTerms: IBookingTermCollection = {
 // export const getBookingTerms = (facilityId: string, params: IBookingTermCollectionQueryParams) =>
 //   accessibilityHttpService.get<IBookingTermCollection>(buildUrl(`facilities/${facilityId}/terms`, params));
 
-export const getBookingTerms = (facilityId: string, params: IBookingTermCollectionQueryParams) =>
+export const bookingTermsQuery = (facilityId: string, params: IBookingTermCollectionQueryParams) =>
   new Promise<IBookingTermCollection>(resolve => resolve(mockedBookingTerms));
 
-export const useGetBookingTerms = (facilityId: string, params: IBookingTermCollectionQueryParams) => {
-  return useSuspense(getBookingTermsKey(facilityId, params), () => getBookingTerms(facilityId, params));
+export const useBookingTermsQuery = (facilityId: string, params: IBookingTermCollectionQueryParams) => {
+  return useSuspense(bookingTermsQueryKey(facilityId, params), () => bookingTermsQuery(facilityId, params));
 };

@@ -3,8 +3,6 @@ import { Box, Flex, HStack, VStack, Divider, chakra, useColorModeValue } from '@
 import { FormattedMessage } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { Currency } from 'types';
-
 import { TreeCounter } from 'shared/TreeCounter';
 import { ResponsiveRemoveButton } from 'shared/Buttons';
 import { Money } from 'shared/Money';
@@ -19,15 +17,13 @@ import { SelectDateModal } from './SelectDateModal';
 import { Summary } from './Summary';
 
 const BookedRecordFields = () => {
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId, currency } = useFacilityConsumer();
   const color = useColorModeValue('primary.500', 'primary.300');
   const [selectedOffers, setSelectedOffers] = useState<{ fieldId: string; offer: IOffer }[]>([]);
 
   const { control, watch, getValues, setValue } = useFormContext<IAddBookingDto>();
   const { fields, append, remove } = useFieldArray({ control, name: 'bookedRecords' });
 
-  // todo: handle by facility configuration
-  const currency = Currency.Pln;
   const customerId = watch('customerId');
   const bookedRecords = getValues().bookedRecords;
   const isMany = bookedRecords && bookedRecords.length > 1;
