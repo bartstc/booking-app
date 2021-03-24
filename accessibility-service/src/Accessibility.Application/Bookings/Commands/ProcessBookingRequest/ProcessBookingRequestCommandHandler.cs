@@ -10,17 +10,19 @@ namespace Accessibility.Application.Bookings.Commands.ProcessBookingRequest
     {
         private readonly IBookingRepository repository;
         private readonly IUnitOfWork unitOfWork;
+        private readonly IBookingPeriodOfTimeChecker checker;
 
-        public ProcessBookingRequestCommandHandler(IBookingRepository repository, IUnitOfWork unitOfWork)
+        public ProcessBookingRequestCommandHandler(IBookingRepository repository, IUnitOfWork unitOfWork, IBookingPeriodOfTimeChecker checker)
         {
             this.repository = repository;
             this.unitOfWork = unitOfWork;
+            this.checker = checker;
         }
 
         public async Task<BookingId> Handle(ProcessBookingRequestCommand request, CancellationToken cancellationToken)
         {            
             var booking = await repository.GetByIdAsync(request.BookingId, request.FacilityId);
-            booking.SetBooked();
+            await booking.SetBooked(checker);
             await unitOfWork.CommitAsync();
             return booking.Id;
         }

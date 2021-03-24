@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.Bookings.Rules;
 using Accessibility.Domain.SeedWork;
@@ -70,10 +71,11 @@ namespace Accessibility.Domain.Bookings
             return booking;
         }
 
-        public void SetBooked()
+        public async Task SetBooked(IBookingPeriodOfTimeChecker checker)
         {
             CheckRule(new BookingOnStatusChangeMustHaveCorrectPreviousStatusRule(status, BookingStatus.Booked));
             CheckRule(new BookingRequestingCannotExceedTimeoutRule(requestedDate));
+            await CheckRuleAsync(new RecordsOfProcessingBookingMustBeAvailableAsyncRule(this, bookedRecords, checker));
 
             status = BookingStatus.Booked;
             bookedDate = DateTime.Now;

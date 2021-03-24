@@ -28,6 +28,7 @@ using Accessibility.Infrastructure.Application.Bookings;
 using Accessibility.Application.Bookings.Queries;
 using System.Collections.Generic;
 using Accessibility.Application;
+using Accessibility.Application.Bookings.DomainServices;
 
 namespace Accessibility.Infrastructure
 {
@@ -48,6 +49,7 @@ namespace Accessibility.Infrastructure
                 .AddTransient<ISchedulePeriodOfTimeChecker, SchedulePeriodOfTimeChecker>()
                 .AddTransient<IBookingRepository, BookingRepository>()
                 .AddTransient<IBookingQueryRepository, BookingQueryRepository>()
+                .AddTransient<IBookingPeriodOfTimeChecker, BookingPeriodOfTimeChecker>()
                 .AddTransient<IOfferRepository, OfferRepository>()
                 .AddTransient<IOfferQueryRepository, OfferQueryRepository>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()

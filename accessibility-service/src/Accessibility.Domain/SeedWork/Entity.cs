@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Accessibility.Domain.SeedWork
 {
@@ -20,6 +21,12 @@ namespace Accessibility.Domain.SeedWork
         protected void CheckRule(IBusinessRule rule)
         {
             if (rule.IsBroken())
+                throw new BusinessRuleValidationException(rule);
+        }
+
+        protected async Task CheckRuleAsync(IBusinessRuleAsync rule)
+        {
+            if (await rule.IsBrokenAsync())
                 throw new BusinessRuleValidationException(rule);
         }
     }
