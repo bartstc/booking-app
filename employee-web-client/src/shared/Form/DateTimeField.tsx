@@ -46,14 +46,15 @@ const DateTimeField = ({
       colStart={colStart}
       colEnd={colEnd}
     >
-      {({ setValue }, fieldProps, { isInvalid }) => {
+      {({ setValue, clearErrors }, fieldProps, { isInvalid }) => {
         return (
           <DateTimeInput
-            isInvalid={isInvalid}
             {...props}
             {...fieldProps}
+            isInvalid={isInvalid}
             onChange={dateTimeValue => {
               setValue(name, dateTimeValue, { shouldDirty: true });
+              if (dateTimeValue) clearErrors(name);
             }}
           />
         );
