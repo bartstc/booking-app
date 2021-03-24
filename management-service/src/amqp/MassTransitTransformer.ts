@@ -4,12 +4,12 @@ import { InfrastructureKeys } from '../InfrastructureKeys';
 import { IConfigService } from '../config';
 
 enum ExchangeName {
-  OFFER_ADDED = 'Accessibility.Application.Facilities.IntegrationEvents.Events:OfferAdded',
-  EMPLOYEE_ADDED = 'Accessibility.Application.Facilities.IntegrationEvents.Events:EmployeeAdded',
-  OFFER_ACTIVATED = 'Accessibility.Application.Facilities.IntegrationEvents.Events:OfferActivated',
-  OFFER_DEACTIVATED = 'Accessibility.Application.Facilities.IntegrationEvents.Events:OfferDeactivated',
-  EMPLOYEE_ACTIVATED = 'Accessibility.Application.Facilities.IntegrationEvents.Events:EmployeeActivated',
-  EMPLOYEE_DEACTIVATED = 'Accessibility.Application.Facilities.IntegrationEvents.Events:EmployeeDeactivated',
+  OFFER_ADDED = 'Management.Facilities.Events:OfferAdded',
+  EMPLOYEE_ADDED = 'Management.Facilities.Events:EmployeeAdded',
+  OFFER_ACTIVATED = 'Management.Facilities.Events:OfferActivated',
+  OFFER_DEACTIVATED = 'Management.Facilities.Events:OfferDeactivated',
+  EMPLOYEE_ACTIVATED = 'Management.Facilities.Events:EmployeeActivated',
+  EMPLOYEE_DEACTIVATED = 'Management.Facilities.Events:EmployeeDeactivated',
 }
 
 @Injectable()
