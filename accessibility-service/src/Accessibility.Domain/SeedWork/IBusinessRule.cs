@@ -1,9 +1,19 @@
+using System.Threading.Tasks;
+
 namespace Accessibility.Domain.SeedWork
 {
-    public interface IBusinessRule
+    public interface IBusinessRuleBase
+    {
+         string Message { get; }
+    }
+
+    public interface IBusinessRule : IBusinessRuleBase
     {
          bool IsBroken();
+    }
 
-         string Message { get; }
+    public interface IBusinessRuleAsync : IBusinessRuleBase
+    {
+        Task<bool> IsBrokenAsync();
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Accessibility.Domain.Bookings.BookedRecords.Rules;
 using Accessibility.Domain.BookingServices.Rules;
 using Accessibility.Domain.SeedWork;
@@ -45,5 +46,8 @@ namespace Accessibility.Domain.Bookings.BookedRecords
             status = newStatus;
             changeDate = DateTime.Now;
         }
+
+        internal async Task<bool> IsTermAvailable(BookingId bookingId, FacilityId facilityId, IBookingPeriodOfTimeChecker checker) =>
+            await checker.IsRecordAvailable(bookingId, facilityId, employeeId, date, date.AddMinutes(durationInMinutes));
     }
 }

@@ -4,9 +4,9 @@ namespace Accessibility.Domain.SeedWork
 {
     public class BusinessRuleValidationException : Exception
     {
-        public IBusinessRule Rule { get; set; }
+        public IBusinessRuleBase Rule { get; set; }
 
-        public BusinessRuleValidationException(IBusinessRule rule) : base(rule.Message)
+        public BusinessRuleValidationException(IBusinessRuleBase rule) : base(rule.Message)
         {
             Rule = rule;
         }

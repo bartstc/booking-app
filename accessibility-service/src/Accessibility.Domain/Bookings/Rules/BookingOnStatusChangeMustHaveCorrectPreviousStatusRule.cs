@@ -1,14 +1,13 @@
-using System;
 using Accessibility.Domain.SeedWork;
 
 namespace Accessibility.Domain.Bookings.Rules
 {
-    public class BookingOnStatusChangeMustHaveCorrectPreviousStatus : IBusinessRule
+    public class BookingOnStatusChangeMustHaveCorrectPreviousStatusRule : IBusinessRule
     {
         private readonly BookingStatus previousStatus;
         private readonly BookingStatus newStatus;
 
-        public BookingOnStatusChangeMustHaveCorrectPreviousStatus(BookingStatus previousStatus, BookingStatus newStatus)
+        public BookingOnStatusChangeMustHaveCorrectPreviousStatusRule(BookingStatus previousStatus, BookingStatus newStatus)
         {
             this.previousStatus = previousStatus;
             this.newStatus = newStatus;
