@@ -18,7 +18,7 @@ namespace Accessibility.Application.Bookings.Commands.ProcessBookingRequest
         }
 
         public async Task<BookingId> Handle(ProcessBookingRequestCommand request, CancellationToken cancellationToken)
-        {
+        {            
             var booking = await repository.GetByIdAsync(request.BookingId, request.FacilityId);
             booking.SetBooked();
             await unitOfWork.CommitAsync();

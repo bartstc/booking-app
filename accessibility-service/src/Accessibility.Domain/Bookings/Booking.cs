@@ -72,7 +72,8 @@ namespace Accessibility.Domain.Bookings
 
         public void SetBooked()
         {
-            CheckRule(new BookingOnStatusChangeMustHaveCorrectPreviousStatus(status, BookingStatus.Booked));
+            CheckRule(new BookingOnStatusChangeMustHaveCorrectPreviousStatusRule(status, BookingStatus.Booked));
+            CheckRule(new BookingRequestingCannotExceedTimeoutRule(requestedDate));
 
             status = BookingStatus.Booked;
             bookedDate = DateTime.Now;
