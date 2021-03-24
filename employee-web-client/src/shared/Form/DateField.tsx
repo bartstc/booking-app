@@ -5,7 +5,7 @@ import { FieldPrototype, FieldPrototypeProps } from './Builders';
 import { DateInput, DateInputProps } from '../Inputs/DateInput';
 import { FormattedDate } from '../Date';
 
-type IProps = Omit<DateInputProps, 'onChange'> & FieldPrototypeProps;
+export type DateFieldProps = Omit<DateInputProps, 'onChange'> & FieldPrototypeProps;
 
 const DateField = ({
   name,
@@ -22,7 +22,7 @@ const DateField = ({
   rowStart,
   rowEnd,
   ...props
-}: IProps) => {
+}: DateFieldProps) => {
   return (
     <FieldPrototype
       name={name}

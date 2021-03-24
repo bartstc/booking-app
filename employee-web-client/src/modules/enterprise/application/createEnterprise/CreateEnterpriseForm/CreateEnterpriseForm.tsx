@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react';
 
 import { Form, FormStatus } from 'shared/Form';
+import { UseFormMethods } from 'shared/Form/Form';
 
 import { ICreateEnterpriseDto } from '../../../dto';
 import { useValidationSchema } from './useValidationSchema';
-import { EnhancedUseFormMethods } from '../../../../../shared/Form/Form';
 
 const createDefaultValues: ICreateEnterpriseDto = {
   countryCode: 'PL',
@@ -20,7 +20,7 @@ const createDefaultValues: ICreateEnterpriseDto = {
 };
 
 interface IProps {
-  onSubmit: (model: ICreateEnterpriseDto, methods: EnhancedUseFormMethods<ICreateEnterpriseDto>) => void;
+  onSubmit: (model: ICreateEnterpriseDto, methods: UseFormMethods<ICreateEnterpriseDto>) => void;
   children: ReactNode;
   defaultValues?: ICreateEnterpriseDto;
   status?: FormStatus;

@@ -1,18 +1,18 @@
 import React, { ReactNode, useState } from 'react';
-import { FormProvider, useForm, UseFormMethods, UseFormOptions } from 'react-hook-form';
+import { FormProvider, useForm, UseFormMethods as ReactHookFormMethods, UseFormOptions } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ObjectSchema } from 'yup';
 
 import { FormStatus } from './FormStatus';
 
-export type EnhancedUseFormMethods<T> = UseFormMethods<T> & {
+export type UseFormMethods<T> = ReactHookFormMethods<T> & {
   status: FormStatus;
   setStatus: (status: FormStatus) => void;
 };
 
 interface IProps<T> extends UseFormOptions<T> {
-  onSubmit: (model: T, methods: EnhancedUseFormMethods<T>) => void;
-  children: ReactNode | ((data: EnhancedUseFormMethods<T>) => ReactNode);
+  onSubmit: (model: T, methods: UseFormMethods<T>) => void;
+  children: ReactNode | ((data: UseFormMethods<T>) => ReactNode);
   id: string;
   schema?: ObjectSchema;
   resetOnSubmit?: boolean;
