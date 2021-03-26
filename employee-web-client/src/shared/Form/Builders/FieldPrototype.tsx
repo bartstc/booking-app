@@ -5,7 +5,7 @@ import { Text } from '@chakra-ui/react';
 
 import { OverrideUseFormMethods } from 'typings/react-hook-form';
 
-import { FieldControl, IFieldControlProps } from './FieldControl';
+import { FieldControl, FieldControlProps } from './FieldControl';
 import { FormStatus } from '../FormStatus';
 import { GridItemProps } from '../types';
 
@@ -29,7 +29,7 @@ interface InnerPrototypeProps {
   isInvalid: boolean;
 }
 
-interface IProps extends Omit<IFieldControlProps, 'children' | 'errorText'> {
+interface IProps extends Omit<FieldControlProps, 'children' | 'errorText'> {
   children: (methods: OverrideUseFormMethods, controllerProps: ControllerRenderProps, innerProps: InnerPrototypeProps) => ReactElement;
   readModeComponent?: ComponentType<ReadModeProps>;
 }

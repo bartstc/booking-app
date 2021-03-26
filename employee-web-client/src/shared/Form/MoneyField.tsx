@@ -1,10 +1,9 @@
 import React from 'react';
 import { InputGroup, InputRightElement, Interpolation, useColorModeValue, Flex, chakra, Text } from '@chakra-ui/react';
-import { mdiAlertCircle, mdiCheckCircle } from '@mdi/js';
+import { CheckCircleIcon, WarningIcon } from '@chakra-ui/icons';
 import { get } from 'lodash';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
-import { Icon } from '../Icon';
 import { MoneyInput, MoneyInputProps } from '../Inputs/MoneyInput';
 import { MoneyText } from '../Money';
 
@@ -60,6 +59,8 @@ const MoneyField = ({
       rowEnd={rowEnd}
     >
       {({ formState: { touched } }, fieldProps, { isInvalid }) => {
+        const iconColor = isInvalid ? invalidColor : validColor;
+
         return (
           <InputGroup>
             <Flex w='100%'>
@@ -67,9 +68,11 @@ const MoneyField = ({
                 <MoneyInput {...fieldProps} {...props} id={id} />
                 {get(touched, name) && !children && (
                   <InputRightElement>
-                    <div>
-                      <Icon path={isInvalid ? mdiAlertCircle : mdiCheckCircle} color={isInvalid ? invalidColor : validColor} size='24px' />
-                    </div>
+                    {isInvalid ? (
+                      <WarningIcon color={iconColor} w='20px' h='20px' />
+                    ) : (
+                      <CheckCircleIcon color={iconColor} w='20px' h='20px' />
+                    )}
                   </InputRightElement>
                 )}
               </chakra.div>

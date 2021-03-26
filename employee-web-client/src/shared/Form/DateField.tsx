@@ -47,7 +47,7 @@ const DateField = ({
       colEnd={colEnd}
     >
       {(_, fieldProps, { isInvalid }) => {
-        return <DateInput isInvalid={isInvalid} {...props} {...fieldProps} />;
+        return <DateInput isInvalid={isInvalid} id={id} {...props} {...fieldProps} />;
       }}
     </FieldPrototype>
   );

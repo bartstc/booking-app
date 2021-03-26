@@ -5,12 +5,12 @@ import { ValueType } from 'react-select';
 import { OptionType } from 'types';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
-import { useRequiredFieldMessage } from '../../utils/messages';
 import { SelectInput, SelectInputProps, findOption, findOptions, getReadValue, getValue } from '../Inputs/SelectInput';
 
 export type SelectFieldProps = Omit<SelectInputProps, 'isDisabled'> &
   FieldPrototypeProps & {
     onChangeEffect?: (option: OptionType | Array<OptionType> | null) => void;
+    requiredFieldMessage?: string;
   };
 
 const SelectField = ({
@@ -30,10 +30,9 @@ const SelectField = ({
   rowSpan,
   rowStart,
   rowEnd,
+  requiredFieldMessage = 'Field is required',
   ...selectProps
 }: SelectFieldProps) => {
-  const requiredMsg = useRequiredFieldMessage();
-
   return (
     <FieldPrototype
       name={name}
@@ -82,7 +81,7 @@ const SelectField = ({
 
             const onClear = () => {
               if (isMulti && required) {
-                setError(name, { message: requiredMsg });
+                setError(name, { message: requiredFieldMessage });
               }
               setValue(name, null, { shouldDirty: true });
             };

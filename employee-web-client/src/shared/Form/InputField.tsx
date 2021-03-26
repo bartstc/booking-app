@@ -1,9 +1,8 @@
 import React, { ElementType } from 'react';
 import { InputGroup, InputRightElement, Textarea, useColorModeValue } from '@chakra-ui/react';
-import { mdiAlertCircle, mdiCheckCircle } from '@mdi/js';
+import { WarningIcon, CheckCircleIcon } from '@chakra-ui/icons';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
-import { Icon } from '../Icon';
 import { Input } from '../Inputs/Input';
 
 export type InputFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> & FieldPrototypeProps & { as?: ElementType };
@@ -48,15 +47,14 @@ const InputField = ({
     >
       {({ formState: { touched } }, fieldProps, { isInvalid }) => {
         const isTextarea = as === 'textarea';
+        const iconColor = isInvalid ? invalidColor : validColor;
 
         return (
           <InputGroup>
             <Input {...fieldProps} {...props} as={isTextarea ? Textarea : as} id={id} />
             {touched[name] && !isTextarea && (
               <InputRightElement>
-                <div>
-                  <Icon path={isInvalid ? mdiAlertCircle : mdiCheckCircle} color={isInvalid ? invalidColor : validColor} size='24px' />
-                </div>
+                {isInvalid ? <WarningIcon color={iconColor} w='20px' h='20px' /> : <CheckCircleIcon color={iconColor} w='20px' h='20px' />}
               </InputRightElement>
             )}
           </InputGroup>

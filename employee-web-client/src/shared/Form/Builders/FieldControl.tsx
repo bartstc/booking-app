@@ -6,17 +6,15 @@ import {
   FormControl,
   FormControlProps,
   HStack,
-  chakra,
   useColorModeValue,
   GridItem,
+  Tooltip,
 } from '@chakra-ui/react';
-import { mdiInformation } from '@mdi/js';
+import { InfoIcon } from '@chakra-ui/icons';
 
-import { Icon } from '../../Icon';
-import { Tooltip } from '../../Tooltip';
 import { GridItemProps } from '../types';
 
-export interface IFieldControlProps extends Omit<FormControlProps, 'helperText' | 'errorText' | 'id' | 'label'>, GridItemProps {
+export interface FieldControlProps extends Omit<FormControlProps, 'helperText' | 'errorText' | 'id' | 'label'>, GridItemProps {
   name: string;
   id: string;
   label?: ReactNode | string;
@@ -26,18 +24,8 @@ export interface IFieldControlProps extends Omit<FormControlProps, 'helperText' 
   isReadMode?: boolean;
 }
 
-const FieldControl = ({
-  errorText,
-  helperText,
-  label,
-  children,
-  tip,
-  id,
-  isReadMode = false,
-  isRequired,
-  ...props
-}: IFieldControlProps) => {
-  const infoIconColor = useColorModeValue('blue.500', 'blue.300');
+const FieldControl = ({ errorText, helperText, label, children, tip, id, isReadMode = false, isRequired, ...props }: FieldControlProps) => {
+  const infoIconColor = useColorModeValue('blue.500', 'blue.200');
 
   return (
     <FormControl
@@ -50,15 +38,18 @@ const FieldControl = ({
     >
       <HStack spacing={0}>
         {label && (
-          <FormLabel lineHeight={isReadMode ? '7px' : 'auto'} fontSize={isReadMode ? 'sm' : 'md'} color={isReadMode ? 'gray.500' : 'auto'}>
+          <FormLabel
+            mr='5px'
+            lineHeight={isReadMode ? '7px' : 'auto'}
+            fontSize={isReadMode ? 'sm' : 'md'}
+            color={isReadMode ? 'gray.500' : 'auto'}
+          >
             {label}
           </FormLabel>
         )}
         {tip && !isReadMode && (
-          <Tooltip label={tip}>
-            <chakra.div mb='8px'>
-              <Icon path={mdiInformation} size='17px' color={infoIconColor} />
-            </chakra.div>
+          <Tooltip textAlign='center' label={tip}>
+            <InfoIcon mb='5px' w='13px' h='13px' color={infoIconColor} />
           </Tooltip>
         )}
       </HStack>

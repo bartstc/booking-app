@@ -51,6 +51,7 @@ const DateTimeField = ({
           <DateTimeInput
             {...props}
             {...fieldProps}
+            id={id}
             isInvalid={isInvalid}
             onChange={dateTimeValue => {
               setValue(name, dateTimeValue, { shouldDirty: true });

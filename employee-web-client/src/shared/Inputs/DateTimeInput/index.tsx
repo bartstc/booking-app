@@ -62,12 +62,7 @@ const DateTimeInput = ({ id, value = null, onChange, ...props }: DateTimeInputPr
   return (
     <HStack>
       <Box>
-        <DateInput
-          id={`${id}-date`}
-          {...props}
-          onChange={date => (isEmpty(date) ? removeDate() : insertDate(date!.toString()))}
-          value={dateValue!}
-        />
+        <DateInput id={id} {...props} onChange={date => (isEmpty(date) ? removeDate() : insertDate(date!.toString()))} value={dateValue!} />
       </Box>
       <Box>
         <TimeInput
