@@ -12,7 +12,7 @@ export type MoneyFieldProps = Omit<MoneyInputProps, 'value'> & FieldPrototypePro
 const MoneyField = ({
   name,
   label,
-  required,
+  required = true,
   disabled,
   helperText,
   id,

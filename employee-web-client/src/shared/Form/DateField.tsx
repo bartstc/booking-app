@@ -10,7 +10,7 @@ export type DateFieldProps = Omit<DateInputProps, 'onChange'> & FieldPrototypePr
 const DateField = ({
   name,
   label,
-  required,
+  required = true,
   disabled,
   helperText,
   id,

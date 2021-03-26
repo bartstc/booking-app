@@ -10,7 +10,7 @@ export type InputFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 
 const InputField = ({
   name,
   label,
-  required,
+  required = true,
   disabled,
   helperText,
   id,

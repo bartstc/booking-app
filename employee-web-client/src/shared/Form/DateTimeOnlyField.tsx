@@ -2,15 +2,15 @@ import React from 'react';
 import { Text } from '@chakra-ui/react';
 
 import { FieldPrototype, FieldPrototypeProps } from './Builders';
-import { DateTimeInput, DateTimeInputProps } from '../Inputs/DateTimeInput';
+import { DateTimeOnlyInput, DateTimeOnlyInputProps } from '../Inputs/DateTimeOnlyInput';
 import { FormattedDate } from '../Date';
 
-export type DateTimeFieldProps = Omit<DateTimeInputProps, 'onChange'> &
+export type DateTimeOnlyFieldProps = Omit<DateTimeOnlyInputProps, 'onChange'> &
   FieldPrototypeProps & {
     requiredFieldMessage?: string;
   };
 
-const DateTimeField = ({
+const DateTimeOnlyField = ({
   name,
   label,
   required = true,
@@ -26,7 +26,7 @@ const DateTimeField = ({
   rowEnd,
   requiredFieldMessage = 'Field is required',
   ...props
-}: DateTimeFieldProps) => {
+}: DateTimeOnlyFieldProps) => {
   return (
     <FieldPrototype
       name={name}
@@ -52,7 +52,7 @@ const DateTimeField = ({
     >
       {({ setValue, clearErrors, setError }, fieldProps, { isInvalid }) => {
         return (
-          <DateTimeInput
+          <DateTimeOnlyInput
             {...props}
             {...fieldProps}
             id={id}
@@ -73,4 +73,4 @@ const DateTimeField = ({
   );
 };
 
-export { DateTimeField };
+export { DateTimeOnlyField };
