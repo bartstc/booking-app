@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Accessibility.Application;
 
 namespace Accessibility.Api.Options
 {
@@ -6,15 +7,10 @@ namespace Accessibility.Api.Options
     {
         public EventBusOptions()
         {
-            Exchanges = new Dictionary<string, string>();
+            Exchanges = new Dictionary<EventBusExchange, string>();
         }
         public const string EventBus = "EventBus";
 
-        public Dictionary<string, string> Exchanges { get; set; }
-    }
-
-    public enum EventBusExchange
-    {
-        BookingRequests
+        public Dictionary<EventBusExchange, string> Exchanges { get; set; }
     }
 }

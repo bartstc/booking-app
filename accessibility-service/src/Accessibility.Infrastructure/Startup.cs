@@ -35,7 +35,7 @@ namespace Accessibility.Infrastructure
     public static class Startup
     {
         // TODO: split registrations into modules
-        public static IServiceCollection ConfigureAccessibility(this IServiceCollection services, IConfiguration configuration, Assembly applicationAssembly, Dictionary<string, string> eventBusExchanges)
+        public static IServiceCollection ConfigureAccessibility(this IServiceCollection services, IConfiguration configuration, Assembly applicationAssembly, Dictionary<EventBusExchange, string> eventBusExchanges)
         {
             var connectionString = configuration.GetConnectionString("Accessibility");
 
@@ -62,7 +62,7 @@ namespace Accessibility.Infrastructure
             return services;
         }
 
-        private static IServiceCollection ConfigureEventBus(this IServiceCollection services, IConfiguration configuration, Dictionary<string, string> eventBusExchanges)
+        private static IServiceCollection ConfigureEventBus(this IServiceCollection services, IConfiguration configuration, Dictionary<EventBusExchange, string> eventBusExchanges)
         {
             return services.AddMassTransit(x =>
             {
@@ -78,7 +78,7 @@ namespace Accessibility.Infrastructure
                         cfgH.Password(configuration["RabbitMQ:Password"]);
                     });
                     
-                    cfg.ReceiveEndpoint(eventBusExchanges[EventBusExchange.BookingRequests.ToString()], e =>
+                    cfg.ReceiveEndpoint(eventBusExchanges[EventBusExchange.BookingRequests], e =>
                         e.ConfigureConsumer<BookingRequestedConsumer>(context));
                     
                     cfg.ReceiveEndpoint("offer-created-listener", e =>

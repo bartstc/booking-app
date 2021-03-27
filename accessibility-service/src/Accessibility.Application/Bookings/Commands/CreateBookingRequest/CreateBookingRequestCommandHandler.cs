@@ -51,7 +51,7 @@ namespace Accessibility.Application.Bookings.Commands.CreateBookingRequest
             await bookingRepository.AddAsync(booking);
             await unitOfWork.CommitAsync();
 
-            var sendEndpoint = await sendEndpointProvider.GetSendEndpoint(new Uri($"exchange:{request.EventBusExchanges[EventBusExchange.BookingRequests.ToString()]}"));
+            var sendEndpoint = await sendEndpointProvider.GetSendEndpoint(new Uri($"exchange:{request.EventBusExchanges[EventBusExchange.BookingRequests]}"));
 
             await sendEndpoint.Send(new BookingRequested(
                 facilityId,
