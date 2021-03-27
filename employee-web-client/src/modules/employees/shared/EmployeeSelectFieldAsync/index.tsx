@@ -1,10 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { SelectField, SelectFieldProps } from 'react-hook-form-chakra-fields';
 
 import { useAutoComplete } from 'hooks';
 import { OptionType, RequestStatus } from 'types';
-
-import { SelectField, SelectFieldProps } from 'shared/Form/SelectField';
 
 import { IEmployeeCollection } from '../../types';
 import { employeesQueryKey } from '../../infrastructure/query';

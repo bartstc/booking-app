@@ -3,11 +3,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { VStack, Box, SimpleGrid, GridItem } from '@chakra-ui/react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { mdiDelete } from '@mdi/js';
+import { InputField, MaskedInputField } from 'react-hook-form-chakra-fields';
 
 import { ContactType } from 'types';
 
 import { ContactSelectField } from 'shared/Form/Implementations';
-import { InputField, MaskedInputField, masks } from 'shared/Form';
+import { masks } from 'shared/Form';
 import { Button, IconButton } from 'shared/Button';
 
 interface IProps {

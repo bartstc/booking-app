@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box, Heading, useColorModeValue, VStack } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
+import { InputField, MaskedInputField } from 'react-hook-form-chakra-fields';
 
-import { InputField, MaskedInputField, masks } from 'shared/Form';
+import { masks } from 'shared/Form';
 
 const ContactPersonInputs = () => {
   const color = useColorModeValue('primary.500', 'primary.300');

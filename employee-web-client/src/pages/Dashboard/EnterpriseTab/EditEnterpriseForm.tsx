@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, HStack, Stack } from '@chakra-ui/react';
 
-import { FormStatus, SubmitButton, WithReadMode } from 'shared/Form';
+import { SubmitButton } from 'shared/Form';
 
 import { useEnterpriseConsumer } from 'modules/context';
 import { useEnterpriseQuery } from 'modules/enterprise/infrastructure/query';
@@ -22,11 +22,9 @@ const EditEnterpriseForm = () => {
   return (
     <CreateEnterpriseForm
       defaultValues={data}
-      status={FormStatus.Read_mode}
-      onSubmit={async (model, { setStatus }) => {
+      onSubmit={async model => {
         try {
           await handler(model);
-          setStatus(FormStatus.Read_mode);
           showUpdateSuccessNotification();
         } catch (e) {
           showUpdateFailureNotification();
@@ -40,9 +38,7 @@ const EditEnterpriseForm = () => {
         </Box>
       </Stack>
       <HStack mt={4}>
-        <WithReadMode>
-          <SubmitButton isLoading={isLoading} />
-        </WithReadMode>
+        <SubmitButton isLoading={isLoading} />
       </HStack>
     </CreateEnterpriseForm>
   );

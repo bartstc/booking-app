@@ -10638,6 +10638,11 @@ react-focus-lock@2.4.1:
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
 
+react-hook-form-chakra-fields@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form-chakra-fields/-/react-hook-form-chakra-fields-0.1.0.tgz#5861ed353fc52037bd829c22b6f3c0a47d952e8d"
+  integrity sha512-oaBGIxyd5bIGEq8S26f3Hn197eCXXdMXEHxycqK3mQT2onQcwRhNYGai4UNiX0RRBt0OjTPEQfsMg7N74hIzGw==
+
 react-hook-form@^6.13.1:
   version "6.13.1"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.13.1.tgz#b9c0aa61f746db8169ed5e1050de21cacb1947d6"

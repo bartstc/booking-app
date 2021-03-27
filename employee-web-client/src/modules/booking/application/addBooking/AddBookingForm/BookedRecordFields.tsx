@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Box, Flex, HStack, VStack, Divider, chakra, useColorModeValue } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import { InputField } from 'react-hook-form-chakra-fields';
 
 import { TreeCounter } from 'shared/TreeCounter';
 import { ResponsiveRemoveButton } from 'shared/Buttons';
 import { Money } from 'shared/Money';
-import { InputField } from 'shared/Form';
 import { FormattedDate } from 'shared/Date';
 
 import { OfferSelectFieldAsync } from '../../../../offers/shared';

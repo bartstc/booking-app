@@ -1,9 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { SimpleGrid } from '@chakra-ui/react';
+import { DateField, InputField } from 'react-hook-form-chakra-fields';
 
 import { ContactType } from 'types';
-import { DateField, Form, InputField } from 'shared/Form';
+import { Form } from 'shared/Form';
 import { ContactsFields } from 'shared/Form/Implementations';
 
 import { useValidationSchema } from './useValidationSchema';

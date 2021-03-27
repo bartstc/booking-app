@@ -32,7 +32,7 @@ const Table = () => {
           >
             <Header />
             {collection.map((employee, index) => (
-              <Row index={index + 1} key={employee.employeeId} employee={employee} />
+              <Row index={index + 1 + Number(meta.offset)} key={employee.employeeId} employee={employee} />
             ))}
           </Grid>
           <Pagination limit={meta.limit} total={meta.total} />

@@ -35,7 +35,7 @@ const Table = () => {
           >
             <Header />
             {collection.map((facility, index) => (
-              <Row index={index + 1} key={facility.facilityId} facility={facility} />
+              <Row index={index + 1 + Number(meta.offset)} key={facility.facilityId} facility={facility} />
             ))}
           </Grid>
           <Pagination limit={meta.limit} total={meta.total} />
