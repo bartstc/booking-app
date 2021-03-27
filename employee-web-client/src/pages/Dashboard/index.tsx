@@ -9,7 +9,8 @@ import { Spinner } from 'shared/Spinner';
 import { Header } from './Header';
 
 const FacilitiesTab = lazy(() => import('./FacilitiesTab'));
-const EnterpriseTab = lazy(() => import('./EnterpriseTab'));
+const ReadEnterpriseTab = lazy(() => import('./EnterpriseTab/ReadEnterpriseTab'));
+const EditEnterpriseTab = lazy(() => import('./EnterpriseTab/EditEnterpriseTab'));
 const SchedulesTab = lazy(() => import('./SchedulesTab'));
 
 const Dashboard = () => {
@@ -19,7 +20,8 @@ const Dashboard = () => {
       <VStack w='100%' maxW='1200px' pb={{ base: 4, md: 10 }}>
         <Suspense fallback={<Spinner />}>
           <Switch>
-            <Route path='/dashboard/enterprise' component={EnterpriseTab} />
+            <Route path='/dashboard/enterprise/edit' component={EditEnterpriseTab} />
+            <Route path='/dashboard/enterprise' component={ReadEnterpriseTab} />
             <Route path='/dashboard/facilities' component={FacilitiesTab} exact />
             <Route path='/dashboard/schedules' component={SchedulesTab} exact />
             <Route render={() => <Redirect to='/dashboard/enterprise' />} />

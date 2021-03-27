@@ -1,22 +1,24 @@
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { TabList, TabPanel, TabPanels, Tabs as ChakraTabs, useBreakpointValue } from '@chakra-ui/react';
+import { useRouteMatch } from 'react-router-dom';
 
 import { TabLink } from 'shared/TabLink';
-import { buildUrl } from '../../utils';
-import { DEFAULT_PARAMS } from '../../utils/constant';
+import { buildUrl } from 'utils';
+import { DEFAULT_PARAMS } from 'utils/constant';
 
 interface IProps {
   children: ReactNode;
 }
 
 const DashboardTabs = ({ children }: IProps) => {
+  const { path } = useRouteMatch();
   const tabSize = useBreakpointValue({ base: 'sm', md: 'lg' });
 
   return (
     <ChakraTabs w='100%' size={tabSize}>
       <TabList>
-        <TabLink to={`/dashboard/enterprise`} fontWeight='700'>
+        <TabLink isActive={path.includes('dashboard/enterprise')} to={`/dashboard/enterprise`} fontWeight='700'>
           <FormattedMessage id='enterprise' defaultMessage='Enterprise' />
         </TabLink>
         <TabLink to={buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS)} fontWeight='700'>

@@ -1,7 +1,10 @@
 import React from 'react';
-import { Box, HStack, Stack } from '@chakra-ui/react';
+import { Box, HStack, Stack, VStack } from '@chakra-ui/react';
+import { FormattedMessage } from 'react-intl';
+import { useHistory } from 'react-router-dom';
 
 import { SubmitButton } from 'shared/Form';
+import { Button } from 'shared/Button';
 
 import { useEnterpriseConsumer } from 'modules/context';
 import { useEnterpriseQuery } from 'modules/enterprise/infrastructure/query';
@@ -14,6 +17,7 @@ import {
 } from 'modules/enterprise/application/createEnterprise';
 
 const EditEnterpriseForm = () => {
+  const { push } = useHistory();
   const { enterpriseId } = useEnterpriseConsumer();
   const { data } = useEnterpriseQuery(enterpriseId);
   const [handler, isLoading] = useCreateEnterprise(enterpriseId);
@@ -31,15 +35,20 @@ const EditEnterpriseForm = () => {
         }
       }}
     >
-      <Stack direction={{ base: 'column', md: 'row' }} align='flex-start' justify='space-between'>
-        <MetaInputs />
-        <Box w='100%' pt={{ base: 4, md: 0 }} pl={{ base: 0, md: 8, lg: 12 }}>
-          <ContactPersonInputs />
-        </Box>
-      </Stack>
-      <HStack mt={4}>
-        <SubmitButton isLoading={isLoading} />
-      </HStack>
+      <VStack w='100%' align='stretch' spacing={6}>
+        <HStack justify='flex-end'>
+          <SubmitButton isLoading={isLoading} />
+          <Button colorScheme='gray' ml={3} onClick={() => push('dashboard/enterprise')}>
+            <FormattedMessage id='cancel' defaultMessage='Cancel' />
+          </Button>
+        </HStack>
+        <Stack direction={{ base: 'column', md: 'row' }} align='flex-start' justify='space-between'>
+          <MetaInputs />
+          <Box w='100%' pt={{ base: 4, md: 0 }} pl={{ base: 0, md: 8, lg: 12 }}>
+            <ContactPersonInputs />
+          </Box>
+        </Stack>
+      </VStack>
     </CreateEnterpriseForm>
   );
 };
