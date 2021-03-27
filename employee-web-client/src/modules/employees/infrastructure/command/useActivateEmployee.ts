@@ -5,7 +5,7 @@ import { useQueryParams } from 'shared/Params';
 import { managementHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 
-import { getEmployeesKey } from '../query';
+import { employeesQueryKey } from '../query';
 import { EmployeeStatus, IEmployeeCollection, IEmployeeCollectionQueryParams } from '../../types';
 
 export const useActivateEmployee = (facilityId: string, employeeId: string) => {
@@ -19,9 +19,9 @@ export const useActivateEmployee = (facilityId: string, employeeId: string) => {
   const handler = () => {
     return mutateAsync()
       .then(async () => {
-        await queryClient.setQueryData(getEmployeesKey(facilityId, params), (data?: IEmployeeCollection) => {
+        await queryClient.setQueryData(employeesQueryKey(facilityId, params), (data?: IEmployeeCollection) => {
           if (!data) {
-            throw new Error(`Cache is empty for given key: ${getEmployeesKey(facilityId, params)}`);
+            throw new Error(`Cache is empty for given key: ${employeesQueryKey(facilityId, params)}`);
           }
 
           return {

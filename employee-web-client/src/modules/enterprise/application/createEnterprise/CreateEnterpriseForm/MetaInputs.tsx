@@ -1,8 +1,7 @@
 import React from 'react';
 import { Box, VStack, Heading, useColorModeValue } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
-
-import { InputField } from 'shared/Form';
+import { InputField } from 'react-hook-form-chakra-fields';
 
 const MetaInputs = () => {
   const color = useColorModeValue('primary.500', 'primary.300');

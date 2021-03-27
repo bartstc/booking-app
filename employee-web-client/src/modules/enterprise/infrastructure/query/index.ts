@@ -1,2 +1,2 @@
-export { getEnterprise, getEnterpriseKey, useGetEnterprise } from './useGetEnterprise';
-export { getEnterprises, getEnterprisesKey } from './useGetEnterprises';
+export { enterpriseQuery, enterpriseQueryKey, useEnterpriseQuery } from './enterpriseQuery';
+export { enterprisesQuery, enterprisesQueryKey } from './enterprisesQuery';

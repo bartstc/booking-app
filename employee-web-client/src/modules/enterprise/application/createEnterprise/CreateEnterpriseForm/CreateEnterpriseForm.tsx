@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react';
+import { useValidationSchema } from './useValidationSchema';
+import { UseFormMethods } from 'react-hook-form';
 
-import { Form, FormStatus } from 'shared/Form';
+import { Form } from 'shared/Form';
 
 import { ICreateEnterpriseDto } from '../../../dto';
-import { useValidationSchema } from './useValidationSchema';
-import { EnhancedUseFormMethods } from '../../../../../shared/Form/Form';
 
 const createDefaultValues: ICreateEnterpriseDto = {
   countryCode: 'PL',
@@ -20,23 +20,16 @@ const createDefaultValues: ICreateEnterpriseDto = {
 };
 
 interface IProps {
-  onSubmit: (model: ICreateEnterpriseDto, methods: EnhancedUseFormMethods<ICreateEnterpriseDto>) => void;
+  onSubmit: (model: ICreateEnterpriseDto, methods: UseFormMethods<ICreateEnterpriseDto>) => void;
   children: ReactNode;
   defaultValues?: ICreateEnterpriseDto;
-  status?: FormStatus;
 }
 
-const CreateEnterpriseForm = ({ onSubmit, children, defaultValues = createDefaultValues, status }: IProps) => {
+const CreateEnterpriseForm = ({ onSubmit, children, defaultValues = createDefaultValues }: IProps) => {
   const schema = useValidationSchema();
 
   return (
-    <Form<ICreateEnterpriseDto>
-      onSubmit={onSubmit}
-      id='create-enterprise'
-      schema={schema}
-      initialStatus={status}
-      defaultValues={defaultValues}
-    >
+    <Form<ICreateEnterpriseDto> onSubmit={onSubmit} id='create-enterprise' schema={schema} defaultValues={defaultValues}>
       {children}
     </Form>
   );

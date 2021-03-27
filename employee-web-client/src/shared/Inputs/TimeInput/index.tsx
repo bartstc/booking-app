@@ -3,11 +3,11 @@ import dayjs from 'dayjs';
 
 import { MaskedInput, MaskedInputProps } from '../MaskedInput';
 
-interface IProps extends MaskedInputProps {
+export interface TimeInputProps extends MaskedInputProps {
   onChangeTime?: (time: string | null) => void;
 }
 
-const TimeInput = ({ onChangeTime, ...props }: IProps) => {
+const TimeInput = ({ onChangeTime, ...props }: TimeInputProps) => {
   const valueToInteger = (val: string) => parseInt(val, 10);
   const valueToString = (val: number) => val.toString().padStart(2, '0');
 

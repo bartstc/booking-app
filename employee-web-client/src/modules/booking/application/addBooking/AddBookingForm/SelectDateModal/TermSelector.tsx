@@ -10,7 +10,7 @@ import { Button, IconButton } from 'shared/Button';
 import { FormattedDate } from 'shared/Date';
 import { FetchBoundary } from 'shared/Suspense';
 
-import { getBookingTerms, getBookingTermsKey } from '../../../../infrastructure/query';
+import { bookingTermsQueryKey, bookingTermsQuery } from '../../../../infrastructure/query';
 import { useFacilityConsumer } from '../../../../../context';
 import { AvailableEmployeeSelectAsync } from './AvailableEmployeeSelectAsync';
 import { WeekRadioGroup } from './WeekRadioGroup';
@@ -127,8 +127,8 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
         </HStack>
         <Divider my={2} />
         <FetchBoundary
-          queryKey={getBookingTermsKey(facilityId, { dateFrom: monday.toISOString(), dateTo: sunday.toISOString(), offerId })}
-          queryFn={() => getBookingTerms(facilityId, { dateFrom: monday.toISOString(), dateTo: sunday.toISOString(), offerId })}
+          queryKey={bookingTermsQueryKey(facilityId, { dateFrom: monday.toISOString(), dateTo: sunday.toISOString(), offerId })}
+          queryFn={() => bookingTermsQuery(facilityId, { dateFrom: monday.toISOString(), dateTo: sunday.toISOString(), offerId })}
         >
           {({ data: { collection } }) => {
             const selectedBookingTerm = collection.find(term => dayjs(term.date).format('H-m') === dayjs(selectedTerm).format('H-m'));

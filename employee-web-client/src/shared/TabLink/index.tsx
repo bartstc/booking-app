@@ -5,9 +5,10 @@ import { Link, useRouteMatch } from 'react-router-dom';
 interface IProps extends ChakraProps {
   children: ReactNode | string;
   to: string;
+  isActive?: boolean;
 }
 
-const TabLink = ({ children, to, ...props }: IProps) => {
+const TabLink = ({ children, to, isActive, ...props }: IProps) => {
   const { path } = useRouteMatch();
 
   const tabFontSize = useBreakpointValue({ base: 'sm', md: 'md' });
@@ -18,14 +19,16 @@ const TabLink = ({ children, to, ...props }: IProps) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const StyledTab = chakra('button', { themeKey: 'Tabs.Tab' } as any);
 
+  const active = isActive ?? to.includes(path);
+
   return (
     <Link to={to}>
       <StyledTab
         fontSize={tabFontSize}
         border='2px'
-        borderColor={to.includes(path) ? borderColor : 'transparent'}
-        borderBottomColor={to.includes(path) ? activeColor : 'transparent'}
-        color={to.includes(path) ? activeColor : defaultColor}
+        borderColor={active ? borderColor : 'transparent'}
+        borderBottomColor={active ? activeColor : 'transparent'}
+        color={active ? activeColor : defaultColor}
         textAlign='center'
         cursor='pointer'
         px='1.3rem'

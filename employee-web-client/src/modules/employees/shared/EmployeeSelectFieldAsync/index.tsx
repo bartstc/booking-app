@@ -1,13 +1,12 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { SelectField, SelectFieldProps } from 'react-hook-form-chakra-fields';
 
 import { useAutoComplete } from 'hooks';
 import { OptionType, RequestStatus } from 'types';
 
-import { SelectField, SelectFieldProps } from 'shared/Form/SelectField';
-
 import { IEmployeeCollection } from '../../types';
-import { getEmployeesKey } from '../../infrastructure/query';
+import { employeesQueryKey } from '../../infrastructure/query';
 
 type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoading' | 'isClearable' | 'label'> & {
   facilityId: string;
@@ -15,7 +14,7 @@ type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoa
 
 const EmployeeSelectFieldAsync = ({ facilityId, ...props }: IProps) => {
   const { data, search, nextPage, status } = useAutoComplete<OptionType<string>, IEmployeeCollection>({
-    url: getEmployeesKey(facilityId)[0],
+    url: employeesQueryKey(facilityId)[0],
     map: ({ collection }) => {
       return collection.map(employee => ({
         label: employee.name,

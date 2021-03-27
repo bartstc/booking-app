@@ -10,7 +10,7 @@ import { SelectInput } from 'shared/Inputs/SelectInput';
 import { EmployeeOption } from './EmployeeOption';
 import { IBookingTerm } from '../../../../../types';
 import { IEmployeeCollection } from '../../../../../../employees/types';
-import { getEmployeesKey } from '../../../../../../employees/infrastructure/query';
+import { employeesQueryKey } from '../../../../../../employees/infrastructure/query';
 
 interface IProps {
   bookingTerm?: IBookingTerm;
@@ -23,7 +23,7 @@ export type AvailableEmployeeOption = OptionType<string> & { bookingTerm: IBooki
 
 const AvailableEmployeeSelectAsync = ({ bookingTerm, facilityId, selectedEmployeeId, setEmployeeId }: IProps) => {
   const { data, search, nextPage, status } = useAutoComplete<AvailableEmployeeOption, IEmployeeCollection>({
-    url: getEmployeesKey(facilityId)[0],
+    url: employeesQueryKey(facilityId)[0],
     limit: 100,
     reFetchWhenChange: [bookingTerm?.date],
     map: ({ collection }) => {

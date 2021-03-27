@@ -1,8 +1,9 @@
 import React from 'react';
 import { SimpleGrid } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { InputField, MoneyField, SelectField } from 'react-hook-form-chakra-fields';
 
-import { CurrencySelectField, Form, InputField, MoneyField, SelectField } from 'shared/Form';
+import { CurrencySelectField, Form } from 'shared/Form';
 
 import { IAddOfferDto } from '../../../dto';
 import { PriceModel } from '../../../types';

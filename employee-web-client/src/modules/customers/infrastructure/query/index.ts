@@ -1,1 +1,1 @@
-export { getCustomersKey, getCustomers } from './useGetCustomersQuery';
+export { customersQuery, customersQueryKey } from './customersQuery';

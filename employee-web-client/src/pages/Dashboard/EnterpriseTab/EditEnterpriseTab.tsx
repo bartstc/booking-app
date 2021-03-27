@@ -3,7 +3,7 @@ import React from 'react';
 import { DashboardTabs } from '../DashboardTabs';
 import { EditEnterpriseForm } from './EditEnterpriseForm';
 
-const EnterpriseTab = () => {
+const EditEnterpriseTab = () => {
   return (
     <DashboardTabs>
       <EditEnterpriseForm />
@@ -11,4 +11,4 @@ const EnterpriseTab = () => {
   );
 };
 
-export default EnterpriseTab;
+export default EditEnterpriseTab;

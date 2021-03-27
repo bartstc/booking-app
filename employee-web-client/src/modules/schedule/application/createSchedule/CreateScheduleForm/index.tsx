@@ -2,8 +2,9 @@ import React from 'react';
 import { Stack, VStack, useColorModeValue, useTheme, Flex, SimpleGrid, GridItem } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import { DateTimeField, InputField } from 'react-hook-form-chakra-fields';
 
-import { DateTimeField, Form, InputField } from 'shared/Form';
+import { Form } from 'shared/Form';
 import { TreeCounter } from 'shared/TreeCounter';
 import { Button } from 'shared/Button';
 import { ResponsiveRemoveButton } from 'shared/Buttons';

@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import { get, isEmpty } from 'lodash';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useIntl } from 'react-intl';
+import { SelectInput, SelectInputProps } from 'react-hook-form-chakra-fields';
 
 import { Currency, OptionType } from 'types';
-
-import { SelectInput, SelectInputProps } from '../Inputs/SelectInput';
-import { FormStatus } from './FormStatus';
 
 interface IProps extends Omit<SelectInputProps, 'options'> {
   name: string;
@@ -42,16 +40,6 @@ const CurrencySelectField = ({ name, moneyName, ...props }: IProps) => {
     <Controller
       name={name}
       render={fieldProps => {
-        const { status } = useFormContext();
-
-        if (status === FormStatus.Read_mode) {
-          if (!fieldProps.value) {
-            return null;
-          }
-
-          return fieldProps.value.toUpperCase();
-        }
-
         return (
           <SelectInput
             {...props}

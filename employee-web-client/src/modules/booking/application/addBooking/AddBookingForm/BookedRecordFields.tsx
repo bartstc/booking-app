@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Box, Flex, HStack, VStack, Divider, chakra, useColorModeValue } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-
-import { Currency } from 'types';
+import { InputField } from 'react-hook-form-chakra-fields';
 
 import { TreeCounter } from 'shared/TreeCounter';
 import { ResponsiveRemoveButton } from 'shared/Buttons';
 import { Money } from 'shared/Money';
-import { InputField } from 'shared/Form';
 import { FormattedDate } from 'shared/Date';
 
 import { OfferSelectFieldAsync } from '../../../../offers/shared';
@@ -19,15 +17,13 @@ import { SelectDateModal } from './SelectDateModal';
 import { Summary } from './Summary';
 
 const BookedRecordFields = () => {
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId, currency } = useFacilityConsumer();
   const color = useColorModeValue('primary.500', 'primary.300');
   const [selectedOffers, setSelectedOffers] = useState<{ fieldId: string; offer: IOffer }[]>([]);
 
   const { control, watch, getValues, setValue } = useFormContext<IAddBookingDto>();
   const { fields, append, remove } = useFieldArray({ control, name: 'bookedRecords' });
 
-  // todo: handle by facility configuration
-  const currency = Currency.Pln;
   const customerId = watch('customerId');
   const bookedRecords = getValues().bookedRecords;
   const isMany = bookedRecords && bookedRecords.length > 1;

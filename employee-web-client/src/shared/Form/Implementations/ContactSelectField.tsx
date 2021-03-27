@@ -1,9 +1,8 @@
 import React from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
+import { SelectField, SelectFieldProps } from 'react-hook-form-chakra-fields';
 
 import { ContactType } from 'types';
-
-import { SelectField, SelectFieldProps } from '../SelectField';
 
 type IProps = Omit<SelectFieldProps, 'options'>;
 

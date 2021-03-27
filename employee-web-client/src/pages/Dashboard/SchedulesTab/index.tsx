@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import { isMobile } from 'react-device-detect';
 
 import { useModal } from 'hooks';
@@ -18,10 +18,10 @@ const SchedulesTab = () => {
   return (
     <DashboardTabs>
       <CreateScheduleModal isOpen={isOpen} onClose={onClose} defaultData={data} />
-      <Panel showModal={onOpen} />
-      <Box maxW='100%' m='0 auto' mt={{ base: 6, md: 10 }}>
+      <VStack spacing={6}>
+        <Panel showModal={onOpen} />
         {isMobile ? <List /> : <Table />}
-      </Box>
+      </VStack>
     </DashboardTabs>
   );
 };

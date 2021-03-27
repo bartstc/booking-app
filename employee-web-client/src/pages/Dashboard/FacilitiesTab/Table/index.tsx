@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IFacilityCollection, IFacilityCollectionQueryParams } from 'modules/facility/types';
-import { getFacilities, getFacilitiesKey } from 'modules/facility/infrastructure/query';
+import { facilitiesQueryKey, facilitiesQuery } from 'modules/facility/infrastructure/query';
 import { useEnterpriseConsumer } from 'modules/context';
 
 import { Grid } from 'shared/Grid';
@@ -18,8 +18,8 @@ const Table = () => {
 
   return (
     <FetchBoundary<IFacilityCollection>
-      queryKey={getFacilitiesKey(enterpriseId, params)}
-      queryFn={() => getFacilities(enterpriseId, params)}
+      queryKey={facilitiesQueryKey(enterpriseId, params)}
+      queryFn={() => facilitiesQuery(enterpriseId, params)}
     >
       {({ data: { collection, meta } }) => (
         <>
@@ -35,7 +35,7 @@ const Table = () => {
           >
             <Header />
             {collection.map((facility, index) => (
-              <Row index={index + 1} key={facility.facilityId} facility={facility} />
+              <Row index={index + 1 + Number(meta.offset)} key={facility.facilityId} facility={facility} />
             ))}
           </Grid>
           <Pagination limit={meta.limit} total={meta.total} />

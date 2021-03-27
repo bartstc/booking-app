@@ -8,6 +8,7 @@ import { providers } from './facility.providers';
 import { EnterpriseModule } from '../enterprise/enterprise.module';
 
 import { CreateFacilityHandler } from './application/command/createFacility';
+import { UpdateFacilityHandler } from './application/command/updateFacility';
 import { RemoveFacilityHandler } from './application/command/removeFacility';
 import { AddOfferHandler } from './application/command/addOffer';
 import { RemoveOfferHandler } from './application/command/removeOffer';
@@ -37,6 +38,7 @@ import {
   RemoveEmployeeController,
   RemoveFacilityController,
   RemoveOfferController,
+  UpdateFacilityController,
 } from './api/controllers/command';
 
 import {
@@ -53,6 +55,7 @@ import {
   imports: [CqrsModule, EnterpriseModule, DatabaseModule, AmqpModule],
   controllers: [
     CreateFacilityController,
+    UpdateFacilityController,
     RemoveFacilityController,
     AddOfferController,
     RemoveOfferController,
@@ -72,6 +75,7 @@ import {
   ],
   providers: [
     CreateFacilityHandler,
+    UpdateFacilityHandler,
     RemoveFacilityHandler,
     AddOfferHandler,
     RemoveOfferHandler,
