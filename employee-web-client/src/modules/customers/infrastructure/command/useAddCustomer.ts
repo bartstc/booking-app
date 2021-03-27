@@ -4,7 +4,7 @@ import { managementHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 import { useMutation } from 'shared/Suspense';
 
-import { getCustomersKey } from '../query';
+import { customersQueryKey } from '../query';
 import { IAddCustomerDto } from '../../dto';
 
 export const useAddCustomer = (facilityId: string) => {
@@ -16,7 +16,7 @@ export const useAddCustomer = (facilityId: string) => {
   const handler = (model: IAddCustomerDto) => {
     return mutateAsync(model)
       .then(async res => {
-        await queryClient.invalidateQueries(getCustomersKey(facilityId));
+        await queryClient.invalidateQueries(customersQueryKey(facilityId));
         return res.customerId;
       })
       .catch(e => {

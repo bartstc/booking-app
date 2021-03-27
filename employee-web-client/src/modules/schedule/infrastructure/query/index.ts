@@ -1,2 +1,2 @@
-export { getSchedule, getScheduleKey } from './useGetSchedule';
-export { getSchedules, getSchedulesKey } from './useGetSchedules';
+export { scheduleQuery, scheduleQueryKey } from './scheduleQuery';
+export { schedulesQuery, schedulesQueryKey } from './schedulesQuery';

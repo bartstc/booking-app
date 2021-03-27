@@ -5,7 +5,7 @@ import { useQueryParams } from 'shared/Params';
 import { managementHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 
-import { getOffersKey } from '../query';
+import { offersQueryKey } from '../query';
 import { OfferStatus, IOfferCollection, IOfferCollectionQueryParams } from '../../types';
 
 export const useDeactivateOffer = (facilityId: string, offerId: string) => {
@@ -19,9 +19,9 @@ export const useDeactivateOffer = (facilityId: string, offerId: string) => {
   const handler = () => {
     return mutateAsync()
       .then(async () => {
-        await queryClient.setQueryData(getOffersKey(facilityId, params), (data?: IOfferCollection) => {
+        await queryClient.setQueryData(offersQueryKey(facilityId, params), (data?: IOfferCollection) => {
           if (!data) {
-            throw new Error(`Cache is empty for given key: ${getOffersKey(facilityId, params)}`);
+            throw new Error(`Cache is empty for given key: ${offersQueryKey(facilityId, params)}`);
           }
 
           return {

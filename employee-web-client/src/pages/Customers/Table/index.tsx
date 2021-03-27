@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid } from 'shared/Grid';
 import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
-import { getCustomers, getCustomersKey } from 'modules/customers/infrastructure/query';
+import { customersQueryKey, customersQuery } from 'modules/customers/infrastructure/query';
 import { useQueryParams } from 'shared/Params';
 import { ICustomerCollection, ICustomerCollectionQueryParams } from 'modules/customers/types';
 import { useFacilityConsumer } from 'modules/context';
@@ -16,7 +16,7 @@ const Table = () => {
   const { facilityId } = useFacilityConsumer();
 
   return (
-    <FetchBoundary<ICustomerCollection> queryKey={getCustomersKey(facilityId, params)} queryFn={() => getCustomers(facilityId, params)}>
+    <FetchBoundary<ICustomerCollection> queryKey={customersQueryKey(facilityId, params)} queryFn={() => customersQuery(facilityId, params)}>
       {({ data: { collection, meta } }) => (
         <>
           <Grid
@@ -31,7 +31,7 @@ const Table = () => {
           >
             <Header />
             {collection.map((customer, index) => (
-              <Row index={index + 1} key={customer.customerId} customer={customer} />
+              <Row index={index + 1 + Number(meta.offset)} key={customer.customerId} customer={customer} />
             ))}
           </Grid>
           <Pagination limit={meta.limit} total={meta.total} />

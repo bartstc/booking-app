@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@chakra-ui/react';
 
-import { getCustomers, getCustomersKey } from 'modules/customers/infrastructure/query';
+import { customersQuery, customersQueryKey } from 'modules/customers/infrastructure/query';
 import { ICustomerCollection, ICustomerCollectionQueryParams } from 'modules/customers/types';
 import { useFacilityConsumer } from 'modules/context';
 
@@ -20,8 +20,8 @@ const List = () => {
 
   const limit = 10;
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(getCustomersKey(facilityId, params), ({ pageParam = 0 }) => {
-    return getCustomers(facilityId, { ...params, limit, offset: pageParam });
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(customersQueryKey(facilityId, params), ({ pageParam = 0 }) => {
+    return customersQuery(facilityId, { ...params, limit, offset: pageParam });
   });
 
   if (isLoading) {

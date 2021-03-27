@@ -78,6 +78,7 @@ const getReadValue = (value: unknown, options: Options, isMulti: boolean) => {
 };
 
 const SelectInput = ({
+  id,
   isInvalid,
   isClearable = true,
   noOptionsMessage = () => 'No options',
@@ -103,6 +104,8 @@ const SelectInput = ({
       loadingMessage={loadingMessage}
       className='react-select-container'
       classNamePrefix='react-select'
+      inputId={id}
+      id={`select-container-${id}`}
       {...props}
       styles={{
         control: (base, { isFocused, isDisabled }) => ({

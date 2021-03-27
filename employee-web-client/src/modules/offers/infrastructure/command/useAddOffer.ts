@@ -5,7 +5,7 @@ import { Logger, LogLevel } from 'utils/logger';
 import { useMutation } from 'shared/Suspense';
 
 import { IAddOfferDto } from '../../dto';
-import { getOffersKey } from '../query';
+import { offersQueryKey } from '../query';
 
 export const useAddOffer = (facilityId: string) => {
   const queryClient = useQueryClient();
@@ -16,7 +16,7 @@ export const useAddOffer = (facilityId: string) => {
   const handler = (model: IAddOfferDto) => {
     return mutateAsync(model)
       .then(async () => {
-        await queryClient.invalidateQueries(getOffersKey(facilityId));
+        await queryClient.invalidateQueries(offersQueryKey(facilityId));
       })
       .catch(e => {
         Logger.log({

@@ -1,1 +1,1 @@
-export { getBookingTerms, getBookingTermsKey, useGetBookingTerms } from './useGetBookingTerms';
+export { bookingTermsQuery, bookingTermsQueryKey, useBookingTermsQuery } from './bookingTermsQuery';

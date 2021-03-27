@@ -1,1 +1,1 @@
-export { getFacilities, getFacilitiesKey } from './useGetFacilities';
+export { facilitiesQuery, facilitiesQueryKey } from './facilitiesQuery';

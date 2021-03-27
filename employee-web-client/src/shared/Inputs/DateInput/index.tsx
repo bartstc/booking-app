@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import dayjs from 'dayjs';
-import { useIntl } from 'react-intl';
 import ReactDate, { ReactDatePickerProps, registerLocale } from 'react-datepicker';
 import { Input, useColorMode, useColorModeValue, useTheme } from '@chakra-ui/react';
 
@@ -17,7 +16,6 @@ export type DateInputProps = ReactDatePickerProps & {
 };
 
 const DateInput = ({ isInvalid = false, value, onChange, ...props }: DateInputProps) => {
-  const { formatMessage } = useIntl();
   const { colors } = useTheme();
   const { colorMode } = useColorMode();
   const invalidColor = useColorModeValue(colors.red[500], colors.red[300]);
@@ -52,7 +50,7 @@ const DateInput = ({ isInvalid = false, value, onChange, ...props }: DateInputPr
         {...props}
         locale='en'
         dateFormat={props.showTimeInput ? 'yyy/MM/dd h:mm aa' : 'yyyy/MM/dd'}
-        timeInputLabel={formatMessage({ id: 'time-input-label', defaultMessage: 'Time:' })}
+        timeInputLabel={props.timeInputLabel ?? 'Time:'}
         showPopperArrow={false}
         isClearable
         selected={value ? new Date(value) : null}

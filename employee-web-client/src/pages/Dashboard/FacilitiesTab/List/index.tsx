@@ -3,7 +3,7 @@ import { Grid } from '@chakra-ui/react';
 
 import { useEnterpriseConsumer } from 'modules/context';
 import { IFacilityCollection, IFacilityCollectionQueryParams } from 'modules/facility/types';
-import { getFacilities, getFacilitiesKey } from 'modules/facility/infrastructure/query';
+import { facilitiesQuery, facilitiesQueryKey } from 'modules/facility/infrastructure/query';
 
 import { useInfiniteQuery } from 'hooks';
 
@@ -20,9 +20,12 @@ const List = () => {
 
   const limit = 10;
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(getFacilitiesKey(enterpriseId, params), ({ pageParam = 0 }) => {
-    return getFacilities(enterpriseId, { ...params, limit, offset: pageParam });
-  });
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
+    facilitiesQueryKey(enterpriseId, params),
+    ({ pageParam = 0 }) => {
+      return facilitiesQuery(enterpriseId, { ...params, limit, offset: pageParam });
+    },
+  );
 
   if (isLoading) {
     return <Spinner size='md' />;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@chakra-ui/react';
 
 import { useFacilityConsumer } from 'modules/context';
-import { getSchedules, getSchedulesKey } from 'modules/schedule/infrastructure/query';
+import { schedulesQuery, schedulesQueryKey } from 'modules/schedule/infrastructure/query';
 import { IScheduleCollection } from 'modules/schedule/types';
 
 import { useInfiniteQuery } from 'hooks/useInfiniteQuery';
@@ -18,8 +18,8 @@ const List = () => {
 
   const limit = 10;
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(getSchedulesKey(facilityId), () => {
-    return getSchedules(facilityId);
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(schedulesQueryKey(facilityId), () => {
+    return schedulesQuery(facilityId);
   });
 
   if (isLoading) {
