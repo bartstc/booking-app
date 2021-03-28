@@ -1,9 +1,25 @@
 import { Result, UseCaseError } from 'shared/core';
 
 export namespace UpdateFacilityErrors {
-  export class FacilityNotFoundError extends Result<UseCaseError> {
-    constructor(facilityId: string) {
-      super(false, { message: `Facility with id ${facilityId} not found` });
+  export class FacilityDoesNotExist extends Result<UseCaseError> {
+    constructor() {
+      super(false, { message: `facilityDoesNotExist` });
+    }
+  }
+
+  export class SlugAlreadyExistsError extends Result<UseCaseError> {
+    constructor() {
+      super(false, {
+        message: `slugAlreadyExists`,
+      });
+    }
+  }
+
+  export class EnterpriseDoesNotExist extends Result<UseCaseError> {
+    constructor() {
+      super(false, {
+        message: 'enterpriseDoesNotExist',
+      });
     }
   }
 }

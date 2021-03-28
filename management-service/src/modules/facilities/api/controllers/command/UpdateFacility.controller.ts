@@ -55,7 +55,8 @@ export class UpdateFacilityController extends BaseController {
         this.logger.error(error.errorValue());
 
         switch (error.constructor) {
-          case UpdateFacilityErrors.FacilityNotFoundError:
+          case UpdateFacilityErrors.FacilityDoesNotExist:
+          case UpdateFacilityErrors.EnterpriseDoesNotExist:
             return this.notFound(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());

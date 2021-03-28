@@ -7,12 +7,16 @@ import { UpdateFacilityErrors } from './UpdateFacility.errors';
 import { UpdateFacilityCommand } from './UpdateFacility.command';
 import { FacilityMap } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { FacilityRepository } from '../../../domain';
+import { FacilityRepository, Slug } from '../../../domain';
+import { EnterpriseKeys } from '../../../../enterprise/EnterpriseKeys';
+import { EnterpriseRepository } from '../../../../enterprise/domain';
 
 export type UpdateFacilityResponse = Either<
   | AppError.UnexpectedError
   | AppError.ValidationError
-  | UpdateFacilityErrors.FacilityNotFoundError,
+  | UpdateFacilityErrors.FacilityDoesNotExist
+  | UpdateFacilityErrors.SlugAlreadyExistsError
+  | UpdateFacilityErrors.EnterpriseDoesNotExist,
   Result<void>
 >;
 
@@ -21,7 +25,9 @@ export class UpdateFacilityHandler
   implements ICommandHandler<UpdateFacilityCommand, UpdateFacilityResponse> {
   constructor(
     @Inject(FacilityKeys.FacilityRepository)
-    private repository: FacilityRepository,
+    private facilityRepository: FacilityRepository,
+    @Inject(EnterpriseKeys.EnterpriseRepository)
+    private enterpriseRepository: EnterpriseRepository,
   ) {}
 
   async execute({
@@ -30,9 +36,25 @@ export class UpdateFacilityHandler
     dto,
   }: UpdateFacilityCommand): Promise<UpdateFacilityResponse> {
     try {
-      const facilityExists = await this.repository.exists(facilityId);
+      const enterpriseExists = await this.enterpriseRepository.exists(
+        enterpriseId,
+      );
+      if (!enterpriseExists) {
+        return left(new UpdateFacilityErrors.EnterpriseDoesNotExist());
+      }
+
+      const slug = Slug.create({ value: dto.slug });
+      const slugExists = await this.facilityRepository.slugExists(
+        slug.getValue(),
+      );
+
+      if (slugExists) {
+        return left(new UpdateFacilityErrors.SlugAlreadyExistsError());
+      }
+
+      const facilityExists = await this.facilityRepository.exists(facilityId);
       if (!facilityExists) {
-        return left(new UpdateFacilityErrors.FacilityNotFoundError(facilityId));
+        return left(new UpdateFacilityErrors.FacilityDoesNotExist());
       }
 
       const facilityOrError = FacilityMap.dtoToDomain(
@@ -44,7 +66,9 @@ export class UpdateFacilityHandler
         return left(Result.fail(facilityOrError.error));
       }
 
-      const entity = await this.repository.persist(facilityOrError.getValue());
+      const entity = await this.facilityRepository.persist(
+        facilityOrError.getValue(),
+      );
       entity.save();
 
       return right(Result.ok());
