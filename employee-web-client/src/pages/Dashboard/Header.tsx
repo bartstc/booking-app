@@ -10,7 +10,7 @@ const Header = () => {
           <FormattedMessage id='enterprise-heading' defaultMessage='Dashboard' />
         </Heading>
         <Text as='h2' lineHeight={4}>
-          <FormattedMessage id='enterprise-subheading' defaultMessage='Manage your business' />
+          <FormattedMessage id='enterprise-subheading' defaultMessage='Manage your business like a boss' />
         </Text>
       </VStack>
     </Flex>

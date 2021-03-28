@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, HStack, Stack, VStack } from '@chakra-ui/react';
+import { HStack, VStack, SimpleGrid, GridItem } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 
@@ -30,6 +30,7 @@ const EditEnterpriseForm = () => {
         try {
           await handler(model);
           showUpdateSuccessNotification();
+          push('dashboard/enterprise');
         } catch (e) {
           showUpdateFailureNotification();
         }
@@ -42,12 +43,14 @@ const EditEnterpriseForm = () => {
             <FormattedMessage id='cancel' defaultMessage='Cancel' />
           </Button>
         </HStack>
-        <Stack direction={{ base: 'column', md: 'row' }} align='flex-start' justify='space-between'>
-          <MetaInputs />
-          <Box w='100%' pt={{ base: 4, md: 0 }} pl={{ base: 0, md: 8, lg: 12 }}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacingX={{ md: 8, lg: 14 }}>
+          <GridItem colSpan={1}>
+            <MetaInputs />
+          </GridItem>
+          <GridItem colSpan={1}>
             <ContactPersonInputs />
-          </Box>
-        </Stack>
+          </GridItem>
+        </SimpleGrid>
       </VStack>
     </CreateEnterpriseForm>
   );
