@@ -1,5 +1,6 @@
 import React from 'react';
 import { Badge, Flex } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
 
 import { GridItem, TruncatedCell } from 'shared/Grid';
 import { BusinessCategoryDegreeType, BusinessCategoryType, IFacility } from 'modules/facility/types';
@@ -11,12 +12,14 @@ interface IProps {
 }
 
 const Row = ({ index, facility }: IProps) => {
+  const { push } = useHistory();
+
   const address = `${facility.address.countryCode}, ${facility.address.city}, ${facility.address.street}`;
   const mainBusinessCategory =
     facility.businessCategories.find(category => category.degree === BusinessCategoryDegreeType.Main)?.type ?? BusinessCategoryType.Other;
 
   return (
-    <GridItem>
+    <GridItem onClick={() => push(`/dashboard/facilities/${facility.slug}`)}>
       <TruncatedCell>{index}</TruncatedCell>
       <TruncatedCell>{facility.name}</TruncatedCell>
       <TruncatedCell>{facility.contactPerson?.phone ?? '---'}</TruncatedCell>

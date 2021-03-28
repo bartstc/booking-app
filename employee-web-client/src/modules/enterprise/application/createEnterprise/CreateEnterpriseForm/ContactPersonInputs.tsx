@@ -1,19 +1,18 @@
 import React from 'react';
-import { SimpleGrid, useColorModeValue, GridItem, Heading } from '@chakra-ui/react';
+import { SimpleGrid, GridItem } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 import { InputField, MaskedInputField } from 'react-hook-form-chakra-fields';
 
 import { masks } from 'shared/Form';
+import { SectionTitle } from 'shared/ReadMode';
 
 const ContactPersonInputs = () => {
-  const color = useColorModeValue('primary.500', 'primary.300');
-
   return (
     <SimpleGrid w='100%' columns={4} spacingX={4}>
       <GridItem colSpan={4}>
-        <Heading color={color} as='h3' fontSize='xl' mb={3}>
+        <SectionTitle>
           <FormattedMessage id='enterprise-contact-person' defaultMessage='Contact person' />
-        </Heading>
+        </SectionTitle>
       </GridItem>
       <InputField
         colSpan={4}

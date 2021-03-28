@@ -1,0 +1,1 @@
+export { weekDayMessages } from './weekDayMessages';

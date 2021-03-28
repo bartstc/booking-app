@@ -2,21 +2,22 @@ import React, { ReactNode } from 'react';
 import { Text, VStack } from '@chakra-ui/react';
 
 interface IProps {
-  value?: string | number | null;
   label: ReactNode | string;
+  value?: string[] | number[] | null;
+  separator?: string;
 }
 
-const ReadModeValue = ({ value, label }: IProps) => {
-  if (!value) return null;
+const ReadModeArrayValue = ({ value, label, separator = ', ' }: IProps) => {
+  if (!value?.length) return null;
 
   return (
     <VStack align='flex-start' spacing={0}>
       <Text color='gray.500' fontSize='sm'>
         {label}
       </Text>
-      <Text>{value}</Text>
+      <Text>{value.join(separator)}</Text>
     </VStack>
   );
 };
 
-export { ReadModeValue };
+export { ReadModeArrayValue };

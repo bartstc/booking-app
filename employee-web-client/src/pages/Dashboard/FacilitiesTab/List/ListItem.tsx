@@ -1,5 +1,6 @@
 import React from 'react';
 import { VStack, HStack, Heading, Text, Avatar, Tag, TagLabel, useColorModeValue } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
 
 import { IFacility } from 'modules/facility/types';
 import { ActionButtons } from '../ActionButtons';
@@ -8,11 +9,22 @@ interface IProps {
   facility: IFacility;
 }
 
-const ListItem = ({ facility: { address, name, contactPerson } }: IProps) => {
+const ListItem = ({ facility: { address, name, contactPerson, slug } }: IProps) => {
+  const { push } = useHistory();
   const background = useColorModeValue('gray.50', 'gray.700');
 
   return (
-    <HStack spacing={3} justify='space-between' align='start' w='100%' mb={2} p='10px' borderRadius={8} backgroundColor={background}>
+    <HStack
+      onClick={() => push(`/dashboard/facilities/${slug}`)}
+      spacing={3}
+      justify='space-between'
+      align='start'
+      w='100%'
+      mb={2}
+      p='10px'
+      borderRadius={8}
+      backgroundColor={background}
+    >
       <HStack align='start' spacing={3}>
         <Avatar name={name} size='sm' />
         <VStack align='flex-start' spacing='10px'>

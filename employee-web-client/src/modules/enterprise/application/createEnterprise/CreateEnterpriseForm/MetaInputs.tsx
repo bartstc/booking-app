@@ -1,17 +1,17 @@
 import React from 'react';
-import { useColorModeValue, SimpleGrid, GridItem, Heading } from '@chakra-ui/react';
+import { SimpleGrid, GridItem } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 import { InputField } from 'react-hook-form-chakra-fields';
 
-const MetaInputs = () => {
-  const color = useColorModeValue('primary.500', 'primary.300');
+import { SectionTitle } from 'shared/ReadMode';
 
+const MetaInputs = () => {
   return (
     <SimpleGrid w='100%' columns={4} spacingX={4}>
       <GridItem colSpan={4}>
-        <Heading color={color} as='h3' fontSize='xl' mb={3}>
+        <SectionTitle>
           <FormattedMessage id='enterprise-base-data' defaultMessage='Base enterprise data' />
-        </Heading>
+        </SectionTitle>
       </GridItem>
       <InputField
         name='enterpriseName'
