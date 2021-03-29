@@ -1,9 +1,10 @@
 import React from 'react';
 import { SimpleGrid, GridItem } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
-import { InputField } from 'react-hook-form-chakra-fields';
+import { InputField, MaskedInputField } from 'react-hook-form-chakra-fields';
 
 import { SectionTitle } from 'shared/ReadMode';
+import { masks } from 'shared/Form/Builders';
 
 const MetaInputs = () => {
   return (
@@ -32,7 +33,7 @@ const MetaInputs = () => {
         id='enterprise-url'
         colSpan={{ base: 4, md: 3 }}
       />
-      <InputField
+      <MaskedInputField
         name='countryCode'
         label={<FormattedMessage id='country-code' defaultMessage='Country code' />}
         id='enterprise-country-code'
@@ -43,6 +44,7 @@ const MetaInputs = () => {
 Type 2 letter code of your country name (Alpha-2 code).'
           />
         }
+        mask={masks.countryCode}
         colSpan={2}
       />
     </SimpleGrid>

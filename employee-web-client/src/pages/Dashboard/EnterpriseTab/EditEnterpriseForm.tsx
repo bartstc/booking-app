@@ -43,11 +43,11 @@ const EditEnterpriseForm = () => {
             <FormattedMessage id='cancel' defaultMessage='Cancel' />
           </Button>
         </HStack>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacingX={{ md: 8, lg: 14 }}>
-          <GridItem colSpan={{ base: 1, lg: 2 }}>
+        <SimpleGrid columns={2} spacingY={{ base: 8, md: 0 }} spacingX={{ md: 8, lg: 14 }}>
+          <GridItem colSpan={{ base: 2, lg: 1 }}>
             <MetaInputs />
           </GridItem>
-          <GridItem colSpan={1}>
+          <GridItem colSpan={{ base: 2, lg: 1 }}>
             <ContactPersonInputs />
           </GridItem>
         </SimpleGrid>

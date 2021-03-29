@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl';
 import { SelectInput, SelectInputProps } from 'react-hook-form-chakra-fields';
 
 import { Currency, OptionType } from 'types';
+import { currencyOptions } from './Builders';
 
 interface IProps extends Omit<SelectInputProps, 'options'> {
   name: string;
@@ -43,9 +44,9 @@ const CurrencySelectField = ({ name, moneyName, ...props }: IProps) => {
         return (
           <SelectInput
             {...props}
-            options={options}
+            options={currencyOptions}
             inputId={name}
-            defaultValue={options[0]}
+            defaultValue={currencyOptions[0]}
             placeholder={formatMessage({ id: 'currency-placeholder', defaultMessage: 'Currency' })}
             isSearchable={false}
             backspaceRemovesValue={false}
@@ -56,23 +57,12 @@ const CurrencySelectField = ({ name, moneyName, ...props }: IProps) => {
             onChange={option => {
               setValue(name, (option as OptionType).value);
             }}
-            value={currencyValue ? options.find(option => option.value === currencyValue) : null}
+            value={currencyValue ? currencyOptions.find(option => option.value === currencyValue) : null}
           />
         );
       }}
     />
   );
 };
-
-const options: OptionType[] = [
-  {
-    value: Currency.Eu,
-    label: Currency.Eu.toUpperCase(),
-  },
-  {
-    value: Currency.Pln,
-    label: Currency.Pln.toUpperCase(),
-  },
-];
 
 export { CurrencySelectField };

@@ -11,7 +11,7 @@ const SectionTitle = ({ children, ...props }: IProps) => {
       <Heading as='h3' fontSize='xl' {...props}>
         {children}
       </Heading>
-      <Divider mt={{ base: 2, md: 3 }} mb={{ base: 3, md: 4 }} />
+      <Divider my={{ base: 3, md: 4 }} />
     </>
   );
 };

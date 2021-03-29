@@ -10,10 +10,10 @@ const ContactPersonInputs = () => {
     <SimpleGrid w='100%' columns={4} spacingX={4}>
       <GridItem colSpan={4}>
         <SectionTitle>
-          <FormattedMessage id='enterprise-contact-person' defaultMessage='Contact person' />
+          <FormattedMessage id='facility-contact-person' defaultMessage='Contact person' />
         </SectionTitle>
       </GridItem>
-      <ContactPersonFields />
+      <ContactPersonFields required={false} />
     </SimpleGrid>
   );
 };

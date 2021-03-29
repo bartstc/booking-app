@@ -10,6 +10,7 @@ import { Header } from './Header';
 
 const FacilitiesTab = lazy(() => import('./FacilitiesTab'));
 const FacilityTab = lazy(() => import('./FacilityTab'));
+const EditFacilityTab = lazy(() => import('./FacilityTab/EditFacilityTab'));
 const ReadEnterpriseTab = lazy(() => import('./EnterpriseTab/ReadEnterpriseTab'));
 const EditEnterpriseTab = lazy(() => import('./EnterpriseTab/EditEnterpriseTab'));
 const SchedulesTab = lazy(() => import('./SchedulesTab'));
@@ -22,6 +23,7 @@ const Dashboard = () => {
         <Suspense fallback={<Spinner />}>
           <Switch>
             <Route path='/dashboard/enterprise/edit' component={EditEnterpriseTab} />
+            <Route path='/dashboard/facilities/:facilitySlug/edit' component={EditFacilityTab} />
             <Route path='/dashboard/facilities/:facilitySlug' component={FacilityTab} />
             <Route path='/dashboard/enterprise' component={ReadEnterpriseTab} />
             <Route path='/dashboard/facilities' component={FacilitiesTab} exact />

@@ -9,8 +9,8 @@ const EnterpriseData = () => {
   const enterprise = useEnterpriseConsumer();
 
   return (
-    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacingY={{ base: 8, md: 0 }} spacingX={{ md: 8, lg: 14 }}>
-      <GridItem colSpan={{ base: 1, lg: 2 }}>
+    <SimpleGrid columns={3} spacingY={{ base: 8, md: 0 }} spacingX={{ md: 8, lg: 14 }}>
+      <GridItem colSpan={{ base: 3, lg: 2 }}>
         <SectionTitle>
           <FormattedMessage id='enterprise-base-data' defaultMessage='Base enterprise data' />
         </SectionTitle>
@@ -30,7 +30,7 @@ const EnterpriseData = () => {
           <ReadModeValue value={enterprise.countryCode} label={<FormattedMessage id='country-code' defaultMessage='Country code' />} />
         </VStack>
       </GridItem>
-      <GridItem colSpan={1}>
+      <GridItem colSpan={{ base: 3, lg: 1 }}>
         <SectionTitle>
           <FormattedMessage id='enterprise-contact-person' defaultMessage='Contact person' />
         </SectionTitle>

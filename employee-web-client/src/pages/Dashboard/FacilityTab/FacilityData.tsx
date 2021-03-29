@@ -19,8 +19,8 @@ const FacilityData = ({ facility }: IProps) => {
   const address = `${facility.address.countryCode}, ${facility.address.city} ${facility.address.postCode}, ${facility.address.street}`;
 
   return (
-    <SimpleGrid w='100%' columns={{ base: 1, md: 2 }} spacingY={{ base: 8, md: 0 }} spacingX={{ md: 8, lg: 14 }}>
-      <GridItem colSpan={1}>
+    <SimpleGrid w='100%' columns={2} spacingY={{ base: 8, md: 0 }} spacingX={{ md: 8, lg: 14 }}>
+      <GridItem colSpan={{ base: 2, md: 1 }}>
         <SectionTitle>
           <FormattedMessage id='enterprise-base-data' defaultMessage='Base facility data' />
         </SectionTitle>
@@ -56,7 +56,7 @@ const FacilityData = ({ facility }: IProps) => {
           </VStack>
         )}
       </GridItem>
-      <GridItem colSpan={1}>
+      <GridItem colSpan={{ base: 2, md: 1 }}>
         <SectionTitle>
           <FormattedMessage id='facility-contact' defaultMessage='Facility Contact' />
         </SectionTitle>

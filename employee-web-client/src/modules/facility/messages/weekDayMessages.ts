@@ -1,6 +1,6 @@
 import { WeekDay } from '../types';
 
-export const weekDayMessages = {
+export const weekDayMessages: Record<string, { id: string; defaultMessage: string }> = {
   [WeekDay.Monday]: {
     id: 'weekday-monday',
     defaultMessage: 'Monday',
@@ -14,7 +14,7 @@ export const weekDayMessages = {
     defaultMessage: 'Wednesday',
   },
   [WeekDay.Thursday]: {
-    id: 'weekday-thirsday',
+    id: 'weekday-thursday',
     defaultMessage: 'Thursday',
   },
   [WeekDay.Friday]: {
