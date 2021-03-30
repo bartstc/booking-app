@@ -11,9 +11,9 @@ export interface IFacility {
   slug: string;
   description: string | null;
   currency: Currency;
-  contactPerson: IContactPerson | null;
   address: IAddress;
   businessCategories: IBusinessCategory[];
   contacts: IContact[];
   workingDays: IWorkingDay[];
+  contactPerson?: IContactPerson;
 }

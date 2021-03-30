@@ -6,8 +6,8 @@ import { Currency, DeepNullable } from 'types';
 import { TextValidator, useContactPersonValidationSchema, useContactsValidationSchema, useStringSchema } from 'utils/validation';
 import { useRequiredFieldMessage } from 'utils/messages';
 
-import { ICreateFacilityFormDto } from './ICreateFacilityFormDto';
 import { IAddress, BusinessCategoryType, WeekDay, IWorkingHours } from '../../../types';
+import { ICreateFacilityFormDto } from '../../../adapter/createFacility';
 
 export const useValidationSchema = () => {
   const { formatMessage } = useIntl();

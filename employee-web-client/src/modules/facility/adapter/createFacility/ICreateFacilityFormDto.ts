@@ -1,5 +1,5 @@
-import { ICreateFacilityDto } from '../../../dto';
-import { BusinessCategoryType, IWorkingHours, WeekDay } from '../../../types';
+import { BusinessCategoryType, IWorkingHours, WeekDay } from '../../types';
+import { ICreateFacilityDto } from './ICreateFacilityDto';
 
 export interface ICreateFacilityFormDto extends Omit<ICreateFacilityDto, 'businessCategories' | 'availability'> {
   mainBusinessCategory: BusinessCategoryType;

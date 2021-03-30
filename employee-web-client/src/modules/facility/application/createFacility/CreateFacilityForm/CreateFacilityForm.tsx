@@ -4,9 +4,9 @@ import React, { ReactNode } from 'react';
 import { ContactType, Currency } from 'types';
 import { Form } from 'shared/Form';
 
-import { ICreateFacilityFormDto } from './ICreateFacilityFormDto';
 import { useValidationSchema } from './useValidationSchema';
 import { BusinessCategoryType, WeekDay } from '../../../types';
+import { ICreateFacilityFormDto } from '../../../adapter/createFacility';
 
 const createDefaultValues: ICreateFacilityFormDto = {
   facilityName: '',

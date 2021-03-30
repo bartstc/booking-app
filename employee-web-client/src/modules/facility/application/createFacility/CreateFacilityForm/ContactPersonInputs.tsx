@@ -13,7 +13,7 @@ const ContactPersonInputs = () => {
           <FormattedMessage id='facility-contact-person' defaultMessage='Contact person' />
         </SectionTitle>
       </GridItem>
-      <ContactPersonFields required={false} />
+      <ContactPersonFields />
     </SimpleGrid>
   );
 };

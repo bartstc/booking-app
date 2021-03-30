@@ -1,6 +1,6 @@
 import { Currency, IContact, IContactPerson } from 'types';
 
-import { IAddress, IBusinessCategory, IWorkingDay } from '../types';
+import { IAddress, IBusinessCategory, IWorkingDay } from '../../types';
 
 export interface ICreateFacilityDto {
   facilityName: string;

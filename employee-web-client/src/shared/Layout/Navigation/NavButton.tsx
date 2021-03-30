@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTheme, ButtonProps, useColorModeValue } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-import { isMobile } from 'react-device-detect';
 
 import { Icon } from '../../Icon';
 import { Button } from '../../Button';
