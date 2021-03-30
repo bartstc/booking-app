@@ -6,7 +6,7 @@ import { useFacilityQuery } from 'modules/facility/infrastructure/query';
 
 import { DashboardTabs } from '../DashboardTabs';
 import { FacilityPanel } from './FacilityPanel';
-import { FacilityData } from './FacilityData';
+import { FacilityBody } from './FacilityBody';
 
 const FacilityTab = () => {
   const params = useParams<{ facilitySlug: string }>();
@@ -16,7 +16,7 @@ const FacilityTab = () => {
     <DashboardTabs>
       <VStack spacing={6}>
         <FacilityPanel facility={data} />
-        <FacilityData facility={data} />
+        <FacilityBody facility={data} />
       </VStack>
     </DashboardTabs>
   );

@@ -7,7 +7,7 @@ import { ContactsFields } from 'shared/Form/Implementations';
 
 const ContactsInputs = () => {
   return (
-    <Box w='100%' mb={3}>
+    <Box w='100%' mb={4}>
       <ContactsFields>
         <GridItem colSpan={12}>
           <SectionTitle>

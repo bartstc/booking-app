@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { useEnterpriseConsumer } from 'modules/context';
 import { ReadModeValue, SectionTitle } from 'shared/ReadMode';
 
-const EnterpriseData = () => {
+const EnterpriseBody = () => {
   const enterprise = useEnterpriseConsumer();
 
   return (
@@ -51,4 +51,4 @@ const EnterpriseData = () => {
   );
 };
 
-export { EnterpriseData };
+export { EnterpriseBody };

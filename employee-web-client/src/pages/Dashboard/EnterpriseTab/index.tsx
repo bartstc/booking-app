@@ -2,7 +2,7 @@ import React from 'react';
 import { VStack } from '@chakra-ui/react';
 
 import { DashboardTabs } from '../DashboardTabs';
-import { EnterpriseData } from './EnterpriseData';
+import { EnterpriseBody } from './EnterpriseBody';
 import { EnterpriseDataPanel } from './EnterpriseDataPanel';
 
 const ReadEnterpriseTab = () => {
@@ -10,7 +10,7 @@ const ReadEnterpriseTab = () => {
     <DashboardTabs>
       <VStack spacing={6}>
         <EnterpriseDataPanel />
-        <EnterpriseData />
+        <EnterpriseBody />
       </VStack>
     </DashboardTabs>
   );

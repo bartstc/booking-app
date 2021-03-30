@@ -4,14 +4,14 @@ import { FormattedMessage } from 'react-intl';
 
 import { ReadModeArrayValue, ReadModeValue, SectionTitle } from 'shared/ReadMode';
 import { BusinessCategoryDegreeType, IFacility } from 'modules/facility/types';
+import { weekDayMessages } from 'modules/facility/messages';
 import { contactTypeMessages } from 'utils/messages';
-import { weekDayMessages } from '../../../modules/facility/messages';
 
 interface IProps {
   facility: IFacility;
 }
 
-const FacilityData = ({ facility }: IProps) => {
+const FacilityBody = ({ facility }: IProps) => {
   const mainBusinessCategory = facility.businessCategories.find(category => category.degree === BusinessCategoryDegreeType.Main)?.type;
   const subordinateBusinessCategories = facility.businessCategories
     .filter(category => category.degree === BusinessCategoryDegreeType.Subordinate)
@@ -96,4 +96,4 @@ const FacilityData = ({ facility }: IProps) => {
   );
 };
 
-export { FacilityData };
+export { FacilityBody };

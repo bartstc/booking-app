@@ -26,7 +26,7 @@ const WorkingHoursInputs = () => {
     }));
 
   return (
-    <VStack w='100%' align='stretch'>
+    <VStack w='100%' align='stretch' mb={4}>
       <SectionTitle>
         <FormattedMessage id='working-hours' defaultMessage='Working hours' />
       </SectionTitle>
