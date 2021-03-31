@@ -4,7 +4,6 @@ import { TextValidator } from 'shared/core';
 import { contactPersonSchema } from 'shared/domain/schemas';
 
 import { CreateEnterpriseDto } from 'modules/enterprise/application/command/createEnterprise';
-import { countryCodes } from 'resources/countryCodes';
 
 export const createEnterpriseSchema = yup.object().shape<CreateEnterpriseDto>({
   enterpriseName: yup.string().required().min(1).max(999),
@@ -15,9 +14,5 @@ export const createEnterpriseSchema = yup.object().shape<CreateEnterpriseDto>({
     .test('validUrlTest', 'Invalid url format', (url) => {
       return TextValidator.validateWebURL(url);
     }),
-  countryCode: yup
-    .string()
-    .required()
-    .oneOf(countryCodes.map((countryCode) => countryCode.code)),
   contactPerson: contactPersonSchema,
 });

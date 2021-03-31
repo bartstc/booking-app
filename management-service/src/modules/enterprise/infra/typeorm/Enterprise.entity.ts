@@ -20,14 +20,12 @@ export class EnterpriseEntity extends AbstractEntity {
     name: string;
     description: string;
     url: string;
-    countryCode: string;
     contactPerson: IContactPerson;
   };
 
-  @OneToMany(
-    () => FacilityEntity,
-    facility => facility.enterprise,
-    { onDelete: 'CASCADE', onUpdate: 'CASCADE' },
-  )
+  @OneToMany(() => FacilityEntity, (facility) => facility.enterprise, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   facilities: FacilityEntity[];
 }

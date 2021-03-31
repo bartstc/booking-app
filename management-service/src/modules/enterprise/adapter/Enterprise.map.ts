@@ -1,10 +1,5 @@
 import { Result } from 'shared/core';
-import {
-  Link,
-  UniqueEntityID,
-  ContactPerson,
-  CountryCode,
-} from 'shared/domain';
+import { Link, UniqueEntityID, ContactPerson } from 'shared/domain';
 
 import { Enterprise, EnterpriseDescription, EnterpriseName } from '../domain';
 import { BuildEnterpriseDto } from './BuildEnterprise.dto';
@@ -19,9 +14,6 @@ export class EnterpriseMap {
       value: dto.enterpriseDescription,
     });
     const url = Link.create({ value: dto.enterpriseUrl });
-    const countryCode = CountryCode.create({
-      value: dto.countryCode,
-    });
     const contactPerson = ContactPerson.create(dto.contactPerson);
 
     return Enterprise.create(
@@ -29,7 +21,6 @@ export class EnterpriseMap {
         enterpriseName: name.getValue(),
         enterpriseDescription: description.getValue(),
         enterpriseUrl: url.getValue(),
-        countryCode: countryCode.getValue(),
         contactPerson: contactPerson.getValue(),
       },
       new UniqueEntityID(enterpriseId),
@@ -42,9 +33,6 @@ export class EnterpriseMap {
       value: entity.details.description,
     });
     const url = Link.create({ value: entity.details.url });
-    const countryCode = CountryCode.create({
-      value: entity.details.countryCode,
-    });
     const contactPerson = ContactPerson.create(entity.details.contactPerson);
 
     const enterpriseOrError = Enterprise.create(
@@ -52,7 +40,6 @@ export class EnterpriseMap {
         enterpriseName: name.getValue(),
         enterpriseDescription: description.getValue(),
         enterpriseUrl: url.getValue(),
-        countryCode: countryCode.getValue(),
         contactPerson: contactPerson.getValue(),
       },
       new UniqueEntityID(entity.enterprise_id),
@@ -72,7 +59,6 @@ export class EnterpriseMap {
         name: enterprise.enterpriseName.value,
         description: enterprise.enterpriseDescription.value,
         url: enterprise.enterpriseUrl.value,
-        countryCode: enterprise.countryCode.value,
         contactPerson: enterprise.contactPerson.allContacts,
       },
     };

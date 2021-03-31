@@ -13,8 +13,5 @@ export class BuildEnterpriseDto {
   enterpriseUrl: string;
 
   @ApiProperty()
-  countryCode: string;
-
-  @ApiProperty()
   contactPerson: ContactPersonDto;
 }

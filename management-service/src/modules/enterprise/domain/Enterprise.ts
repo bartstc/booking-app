@@ -1,10 +1,4 @@
-import {
-  Entity,
-  UniqueEntityID,
-  Link,
-  ContactPerson,
-  CountryCode,
-} from 'shared/domain';
+import { Entity, UniqueEntityID, Link, ContactPerson } from 'shared/domain';
 import { Result } from 'shared/core';
 
 import { EnterpriseName } from './EnterpriseName';
@@ -16,7 +10,6 @@ interface IProps {
   enterpriseName: EnterpriseName;
   enterpriseDescription: EnterpriseDescription;
   enterpriseUrl: Link;
-  countryCode: CountryCode;
   contactPerson: ContactPerson;
   createdAt?: Date;
   updatedAt?: Date;
@@ -37,10 +30,6 @@ export class Enterprise extends Entity<IProps> {
 
   get enterpriseUrl() {
     return this.props.enterpriseUrl;
-  }
-
-  get countryCode() {
-    return this.props.countryCode;
   }
 
   get contactPerson() {

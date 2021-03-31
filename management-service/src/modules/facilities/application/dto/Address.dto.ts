@@ -5,9 +5,6 @@ export class AddressDto {
   city: string;
 
   @ApiProperty()
-  countryCode: string;
-
-  @ApiProperty()
   postCode: string;
 
   @ApiProperty()
