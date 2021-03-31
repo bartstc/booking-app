@@ -19,14 +19,14 @@ import {
 const EditEnterpriseForm = () => {
   const { push } = useHistory();
   const { enterpriseId } = useEnterpriseConsumer();
-  const { data } = useEnterpriseQuery(enterpriseId);
+  const enterprise = useEnterpriseQuery(enterpriseId);
 
   const [handler, isLoading] = useCreateEnterprise(enterpriseId);
   const { showUpdateFailureNotification, showUpdateSuccessNotification } = useCreateEnterpriseNotification();
 
   return (
     <CreateEnterpriseForm
-      defaultValues={data}
+      defaultValues={enterprise}
       onSubmit={async model => {
         try {
           await handler(model);

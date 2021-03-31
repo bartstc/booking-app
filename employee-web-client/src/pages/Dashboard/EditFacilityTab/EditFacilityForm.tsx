@@ -24,14 +24,14 @@ import { Button } from 'shared/Button';
 const EditFacilityForm = () => {
   const params = useParams<{ facilitySlug: string }>();
   const { push } = useHistory();
-  const { data } = useFacilityQuery(params.facilitySlug);
+  const facility = useFacilityQuery(params.facilitySlug);
 
-  const [handler, isLoading] = useCreateFacility(data.enterpriseId, data.facilityId);
+  const [handler, isLoading] = useCreateFacility(facility.enterpriseId, facility.facilityId);
   const { showUpdateFailureNotification, showUpdateSuccessNotification } = useCreateFacilityNotification();
 
   return (
     <CreateFacilityForm
-      defaultValues={CreateFacilityMapper.modelToForm(data)}
+      defaultValues={CreateFacilityMapper.modelToForm(facility)}
       onSubmit={async model => {
         try {
           await handler(model);
@@ -45,7 +45,7 @@ const EditFacilityForm = () => {
       <VStack w='100%' align='stretch' spacing={6}>
         <HStack justify='flex-end'>
           <SubmitButton isLoading={isLoading} />
-          <Button colorScheme='gray' ml={3} onClick={() => push(`dashboard/facilities/${data.slug}`)}>
+          <Button colorScheme='gray' ml={3} onClick={() => push(`dashboard/facilities/${facility.slug}`)}>
             <FormattedMessage id='cancel' defaultMessage='Cancel' />
           </Button>
         </HStack>

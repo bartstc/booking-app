@@ -8,5 +8,5 @@ export const enterpriseQueryKey = (enterpriseId: string) => [`enterprises/${ente
 export const enterpriseQuery = (enterpriseId: string) => managementHttpService.get<IEnterprise>(`enterprises/${enterpriseId}`);
 
 export const useEnterpriseQuery = (enterpriseId: string) => {
-  return useSuspense(enterpriseQueryKey(enterpriseId), () => enterpriseQuery(enterpriseId));
+  return useSuspense(enterpriseQueryKey(enterpriseId), () => enterpriseQuery(enterpriseId)).data;
 };

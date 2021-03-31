@@ -10,13 +10,13 @@ import { FacilityBody } from './FacilityBody';
 
 const FacilityTab = () => {
   const params = useParams<{ facilitySlug: string }>();
-  const { data } = useFacilityQuery(params.facilitySlug);
+  const facility = useFacilityQuery(params.facilitySlug);
 
   return (
     <DashboardTabs>
       <VStack spacing={6}>
-        <FacilityPanel facility={data} />
-        <FacilityBody facility={data} />
+        <FacilityPanel facility={facility} />
+        <FacilityBody facility={facility} />
       </VStack>
     </DashboardTabs>
   );

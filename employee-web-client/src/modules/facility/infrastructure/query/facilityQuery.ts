@@ -8,5 +8,5 @@ export const facilityQueryKey = (facilitySlug: string) => [`facilities/slug/${fa
 export const facilityQuery = (facilitySlug: string) => managementHttpService.get<IFacility>(`facilities/slug/${facilitySlug}`);
 
 export const useFacilityQuery = (facilitySlug: string) => {
-  return useSuspense(facilityQueryKey(facilitySlug), () => facilityQuery(facilitySlug));
+  return useSuspense(facilityQueryKey(facilitySlug), () => facilityQuery(facilitySlug)).data;
 };
