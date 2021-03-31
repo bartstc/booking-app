@@ -20,8 +20,6 @@ export const useValidationSchema = () => {
       .test('validUrlTest', invalidFormatMessage, url => {
         return TextValidator.validateWebURL(url!);
       }),
-    countryCode: yup.string().required(requiredMessage),
-    // .oneOf(countryCodes.map(countryCode => countryCode.code)),
     contactPerson: contactPersonSchema as yup.Schema<IContactPerson>,
   });
 };

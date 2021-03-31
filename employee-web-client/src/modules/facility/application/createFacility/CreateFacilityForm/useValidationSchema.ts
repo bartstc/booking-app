@@ -24,7 +24,6 @@ export const useValidationSchema = () => {
     contactPerson: contactPersonSchema,
     address: yup.object().shape<IAddress>({
       street: yup.string().max(300).trim().required(requiredMessage),
-      countryCode: yup.string().max(2).trim().required(requiredMessage),
       province: yup.string().max(100).trim().nullable(true) as any,
       city: yup.string().max(100).trim().required(requiredMessage),
       postCode: yup.string().max(6).trim().required(requiredMessage),

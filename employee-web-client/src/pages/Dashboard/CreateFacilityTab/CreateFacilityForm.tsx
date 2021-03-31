@@ -45,7 +45,7 @@ const CreateFacilityForm = () => {
         <AddressInputs />
         <ContactPersonInputs />
         <HStack justify='flex-end'>
-          <SubmitButton isLoading={isLoading} />
+          <SubmitButton form='create-facility' isLoading={isLoading} />
           <Button colorScheme='gray' ml={3} onClick={() => push(buildUrl(`dashboard/facilities`, DEFAULT_PARAMS))}>
             <FormattedMessage id='cancel' defaultMessage='Cancel' />
           </Button>

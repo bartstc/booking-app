@@ -36,7 +36,10 @@ export const CreateFacilityMapper = {
       facilityDescription: facility.description!,
       mainBusinessCategory: mainBusinessCategory!.type,
       subordinateBusinessCategories: subordinateBusinessCategories.map(category => category.type),
-      availability: [],
+      availability: facility.workingDays.map(workingDay => ({
+        dayName: workingDay.dayName,
+        hours: workingDay.hours[0],
+      })),
     };
   },
 };

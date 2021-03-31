@@ -5,7 +5,6 @@ export interface IEnterprise {
   enterpriseName: string;
   enterpriseDescription: string;
   enterpriseUrl: string;
-  countryCode: string;
   contactPerson: IContactPerson;
   createdAt: Date;
   updatedAt: Date;

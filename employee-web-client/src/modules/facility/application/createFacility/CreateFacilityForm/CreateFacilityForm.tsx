@@ -24,7 +24,6 @@ const createDefaultValues: ICreateFacilityFormDto = {
   },
   address: {
     postCode: '',
-    countryCode: '',
     province: '',
     city: '',
     street: '',
@@ -50,7 +49,13 @@ const CreateFacilityForm = ({ onSubmit, children, defaultValues = createDefaultV
   const schema = useValidationSchema();
 
   return (
-    <Form<ICreateFacilityFormDto> onSubmit={onSubmit} id='create-enterprise' schema={schema} defaultValues={defaultValues}>
+    <Form<ICreateFacilityFormDto>
+      onSubmit={onSubmit}
+      resetOnSubmit={false}
+      id='create-facility'
+      schema={schema}
+      defaultValues={defaultValues}
+    >
       {children}
     </Form>
   );

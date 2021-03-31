@@ -14,7 +14,7 @@ interface IProps {
 const Row = ({ index, facility }: IProps) => {
   const { push } = useHistory();
 
-  const address = `${facility.address.countryCode}, ${facility.address.city}, ${facility.address.street}`;
+  const address = `${facility.address.postCode}, ${facility.address.city}, ${facility.address.street}`;
   const mainBusinessCategory =
     facility.businessCategories.find(category => category.degree === BusinessCategoryDegreeType.Main)?.type ?? BusinessCategoryType.Other;
 

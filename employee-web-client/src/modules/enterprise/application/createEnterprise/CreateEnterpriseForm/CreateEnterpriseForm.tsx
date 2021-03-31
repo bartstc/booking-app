@@ -7,7 +7,6 @@ import { Form } from 'shared/Form';
 import { ICreateEnterpriseDto } from '../../../dto';
 
 const createDefaultValues: ICreateEnterpriseDto = {
-  countryCode: 'PL',
   enterpriseName: '',
   enterpriseDescription: '',
   enterpriseUrl: '',

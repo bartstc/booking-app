@@ -20,6 +20,7 @@ const EditEnterpriseForm = () => {
   const { push } = useHistory();
   const { enterpriseId } = useEnterpriseConsumer();
   const { data } = useEnterpriseQuery(enterpriseId);
+
   const [handler, isLoading] = useCreateEnterprise(enterpriseId);
   const { showUpdateFailureNotification, showUpdateSuccessNotification } = useCreateEnterpriseNotification();
 

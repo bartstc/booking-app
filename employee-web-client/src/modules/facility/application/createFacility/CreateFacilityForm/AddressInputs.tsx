@@ -14,20 +14,6 @@ const AddressInputs = () => {
           <FormattedMessage id='address' defaultMessage='Address' />
         </SectionTitle>
       </GridItem>
-      <MaskedInputField
-        name='address.countryCode'
-        label={<FormattedMessage id='country-code' defaultMessage='Country code' />}
-        id='facility-country-code'
-        tip={
-          <FormattedMessage
-            id='country-code-tip'
-            defaultMessage='One of ISO codes as described in the ISO 3166 international standard.
-Type 2 letter code of your country name (Alpha-2 code).'
-          />
-        }
-        mask={masks.countryCode}
-        colSpan={{ base: 6, md: 4 }}
-      />
       <InputField
         name='address.province'
         label={<FormattedMessage id='province' defaultMessage='Province' />}
@@ -35,11 +21,12 @@ Type 2 letter code of your country name (Alpha-2 code).'
         colSpan={{ base: 12, md: 8 }}
         required={false}
       />
+      <GridItem display={{ base: 'none', md: 'block' }} colSpan={4}></GridItem>
       <MaskedInputField
         name='address.postCode'
         label={<FormattedMessage id='post-code' defaultMessage='Post code' />}
         id='facility-post-code'
-        colSpan={{ base: 12, md: 4 }}
+        colSpan={{ base: 8, md: 4 }}
         mask={masks.postCode}
       />
       <InputField

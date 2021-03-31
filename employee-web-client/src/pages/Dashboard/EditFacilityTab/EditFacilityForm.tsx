@@ -11,26 +11,40 @@ import {
   WorkingHoursInputs,
   MetaInputs,
   ContactsInputs,
+  useCreateFacilityNotification,
 } from 'modules/facility/application/createFacility';
+import { CreateFacilityMapper } from 'modules/facility/adapter/createFacility';
+import { useCreateFacility } from 'modules/facility/infrastructure/command';
 
+import { buildUrl } from 'utils';
+import { DEFAULT_PARAMS } from 'utils/constant';
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
 
 const EditFacilityForm = () => {
   const params = useParams<{ facilitySlug: string }>();
   const { push } = useHistory();
-
   const { data } = useFacilityQuery(params.facilitySlug);
+
+  const [handler, isLoading] = useCreateFacility(data.enterpriseId, data.facilityId);
+  const { showUpdateFailureNotification, showUpdateSuccessNotification } = useCreateFacilityNotification();
 
   return (
     <CreateFacilityForm
-      onSubmit={model => {
-        console.log(model);
+      defaultValues={CreateFacilityMapper.modelToForm(data)}
+      onSubmit={async model => {
+        try {
+          await handler(model);
+          showUpdateSuccessNotification();
+          push(buildUrl(`dashboard/facilities`, DEFAULT_PARAMS));
+        } catch {
+          showUpdateFailureNotification();
+        }
       }}
     >
       <VStack w='100%' align='stretch' spacing={6}>
         <HStack justify='flex-end'>
-          <SubmitButton isLoading={false} />
+          <SubmitButton isLoading={isLoading} />
           <Button colorScheme='gray' ml={3} onClick={() => push(`dashboard/facilities/${data.slug}`)}>
             <FormattedMessage id='cancel' defaultMessage='Cancel' />
           </Button>

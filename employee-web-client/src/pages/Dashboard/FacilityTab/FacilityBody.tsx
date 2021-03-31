@@ -16,7 +16,7 @@ const FacilityBody = ({ facility }: IProps) => {
   const subordinateBusinessCategories = facility.businessCategories
     .filter(category => category.degree === BusinessCategoryDegreeType.Subordinate)
     .map(category => category.type);
-  const address = `${facility.address.countryCode}, ${facility.address.city} ${facility.address.postCode}, ${facility.address.street}`;
+  const address = `${facility.address.postCode}, ${facility.address.city}, ${facility.address.street}`;
 
   return (
     <SimpleGrid w='100%' columns={2} spacingY={{ base: 8, md: 0 }} spacingX={{ md: 8, lg: 14 }}>
@@ -71,7 +71,7 @@ const FacilityBody = ({ facility }: IProps) => {
             ))}
           </VStack>
         )}
-        <ReadModeValue value={address} label={<FormattedMessage id='address' defaultMessage='Address' />} />{' '}
+        <ReadModeValue mt={4} value={address} label={<FormattedMessage id='address' defaultMessage='Address' />} />{' '}
         {facility.contactPerson && (
           <>
             <SectionTitle mt={8}>

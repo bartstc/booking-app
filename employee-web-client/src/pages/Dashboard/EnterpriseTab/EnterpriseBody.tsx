@@ -27,7 +27,6 @@ const EnterpriseBody = () => {
             value={enterprise.enterpriseUrl}
             label={<FormattedMessage id='enterprise-url' defaultMessage='Website url address' />}
           />
-          <ReadModeValue value={enterprise.countryCode} label={<FormattedMessage id='country-code' defaultMessage='Country code' />} />
         </VStack>
       </GridItem>
       <GridItem colSpan={{ base: 3, lg: 1 }}>
