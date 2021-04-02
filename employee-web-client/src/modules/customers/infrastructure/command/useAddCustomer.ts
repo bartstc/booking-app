@@ -5,7 +5,7 @@ import { Logger, LogLevel } from 'utils/logger';
 import { useMutation } from 'shared/Suspense';
 
 import { customersQueryKey } from '../query';
-import { IAddCustomerDto } from '../../dto';
+import { IAddCustomerDto } from '../../application/types';
 
 export const useAddCustomer = (facilityId: string) => {
   const queryClient = useQueryClient();

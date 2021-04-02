@@ -3,10 +3,10 @@ import { VStack } from '@chakra-ui/react';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { IBookedOfferDto } from 'modules/schedule/dto/IBookedOfferDto';
-import { PriceModel } from 'modules/offers/types';
 import { Currency } from 'types';
 
 import { CalendarConfiguration } from './CalendarConfiguration';
+import { PriceModel } from '../../../modules/offers/application/types';
 
 const todayOffer: IBookedOfferDto = {
   employerId: '111',

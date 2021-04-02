@@ -26,7 +26,6 @@ export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
   contactPerson: contactPersonSchema,
   address: yup.object().shape<IAddress>({
     street: yup.string().max(300).trim().required(),
-    countryCode: yup.string().max(2).trim().required(),
     province: yup.string().max(100).trim().nullable(true),
     city: yup.string().max(100).trim().required(),
     postCode: yup.string().max(60).trim().required(),

@@ -1,23 +1,13 @@
 import React from 'react';
-import { VStack } from '@chakra-ui/react';
-import { isMobile } from 'react-device-detect';
 
 import { PageWrapper } from 'shared/Layout/Page';
 import { withErrorBoundary } from 'shared/ErrorBoundary';
-
-import { Header } from './Header';
-import { Panel } from './Panel';
-import { Table } from './Table';
-import { List } from './List';
+import { EmployeesCollection } from 'modules/employees/containers/EmployeesCollection';
 
 const Employees = () => {
   return (
     <PageWrapper>
-      <Header />
-      <VStack w='100%' maxW='1200px' pb={{ base: 4, md: 10 }}>
-        <Panel />
-        {isMobile ? <List /> : <Table />}
-      </VStack>
+      <EmployeesCollection />
     </PageWrapper>
   );
 };

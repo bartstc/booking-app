@@ -1,7 +1,7 @@
 import { managementHttpService, ServiceType } from 'utils/http';
 import { buildUrl } from 'utils';
 
-import { IFacilityCollection, IFacilityCollectionQueryParams } from '../../types';
+import { IFacilityCollection, IFacilityCollectionQueryParams } from '../../application/types';
 
 export const facilitiesQueryKey = (enterpriseId: string, params?: IFacilityCollectionQueryParams) => [
   `enterprises/${enterpriseId}/facilities`,

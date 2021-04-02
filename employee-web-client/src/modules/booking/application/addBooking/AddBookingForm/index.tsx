@@ -6,10 +6,10 @@ import { Form, PreventLossData } from 'shared/Form';
 import { Button } from 'shared/Button';
 import { OptionType } from 'types';
 
-import { CustomerSelectFieldAsync, SelectedCustomerOption } from '../../../../customers/shared';
 import { IAddBookingDto } from '../../../dto';
 import { AddNewCustomer } from './AddNewCustomer';
 import { BookedRecordFields } from './BookedRecordFields';
+import { CustomerSelectFieldAsync, SelectedCustomerOption } from '../../../../customers/containers/shared/CustomerSelectFieldAsync';
 
 interface IProps {
   onSubmit: (model: IAddBookingDto) => void;

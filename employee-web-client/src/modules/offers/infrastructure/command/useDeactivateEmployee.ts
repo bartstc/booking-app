@@ -6,7 +6,7 @@ import { managementHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 
 import { offersQueryKey } from '../query';
-import { OfferStatus, IOfferCollection, IOfferCollectionQueryParams } from '../../types';
+import { IOfferCollection, IOfferCollectionQueryParams, OfferStatus } from '../../application/types';
 
 export const useDeactivateOffer = (facilityId: string, offerId: string) => {
   const { params } = useQueryParams<IOfferCollectionQueryParams>();

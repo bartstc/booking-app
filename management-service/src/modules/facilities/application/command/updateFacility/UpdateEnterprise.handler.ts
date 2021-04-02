@@ -43,15 +43,6 @@ export class UpdateFacilityHandler
         return left(new UpdateFacilityErrors.EnterpriseDoesNotExist());
       }
 
-      const slug = Slug.create({ value: dto.slug });
-      const slugExists = await this.facilityRepository.slugExists(
-        slug.getValue(),
-      );
-
-      if (slugExists) {
-        return left(new UpdateFacilityErrors.SlugAlreadyExistsError());
-      }
-
       const facilityExists = await this.facilityRepository.exists(facilityId);
       if (!facilityExists) {
         return left(new UpdateFacilityErrors.FacilityDoesNotExist());
@@ -66,9 +57,21 @@ export class UpdateFacilityHandler
         return left(Result.fail(facilityOrError.error));
       }
 
-      const entity = await this.facilityRepository.persist(
-        facilityOrError.getValue(),
-      );
+      const facility = facilityOrError.getValue();
+
+      const dtoSlug = Slug.create({ value: dto.slug });
+
+      if (facility.slug.value !== dtoSlug.getValue().value) {
+        const slugExists = await this.facilityRepository.slugExists(
+          dtoSlug.getValue(),
+        );
+
+        if (slugExists) {
+          return left(new UpdateFacilityErrors.SlugAlreadyExistsError());
+        }
+      }
+
+      const entity = await this.facilityRepository.persist(facility);
       entity.save();
 
       return right(Result.ok());

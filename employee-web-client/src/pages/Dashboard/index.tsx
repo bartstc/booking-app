@@ -9,8 +9,11 @@ import { Spinner } from 'shared/Spinner';
 import { Header } from './Header';
 
 const FacilitiesTab = lazy(() => import('./FacilitiesTab'));
-const ReadEnterpriseTab = lazy(() => import('./EnterpriseTab/ReadEnterpriseTab'));
-const EditEnterpriseTab = lazy(() => import('./EnterpriseTab/EditEnterpriseTab'));
+const FacilityTab = lazy(() => import('./FacilityTab'));
+const EditFacilityTab = lazy(() => import('./EditFacilityTab'));
+const CreateFacilityTab = lazy(() => import('./CreateFacilityTab'));
+const ReadEnterpriseTab = lazy(() => import('./EnterpriseTab'));
+const EditEnterpriseTab = lazy(() => import('./EditEnterpriseTab'));
 const SchedulesTab = lazy(() => import('./SchedulesTab'));
 
 const Dashboard = () => {
@@ -21,6 +24,9 @@ const Dashboard = () => {
         <Suspense fallback={<Spinner />}>
           <Switch>
             <Route path='/dashboard/enterprise/edit' component={EditEnterpriseTab} />
+            <Route path='/dashboard/create-facility' component={CreateFacilityTab} />
+            <Route path='/dashboard/facilities/:facilitySlug/edit' component={EditFacilityTab} />
+            <Route path='/dashboard/facilities/:facilitySlug' component={FacilityTab} />
             <Route path='/dashboard/enterprise' component={ReadEnterpriseTab} />
             <Route path='/dashboard/facilities' component={FacilitiesTab} exact />
             <Route path='/dashboard/schedules' component={SchedulesTab} exact />

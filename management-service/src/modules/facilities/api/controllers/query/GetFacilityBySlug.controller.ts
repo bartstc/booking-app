@@ -24,7 +24,7 @@ export class GetFacilityBySlugController extends BaseController {
     super();
   }
 
-  @Get('facilities/:slug')
+  @Get('facilities/slug/:slug')
   @ApiTags('Facilities')
   @ApiOkResponse({ type: FacilityDto })
   @ApiNotFoundResponse({ description: 'Facility not found' })

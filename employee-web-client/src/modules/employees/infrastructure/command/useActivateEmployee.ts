@@ -6,7 +6,7 @@ import { managementHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 
 import { employeesQueryKey } from '../query';
-import { EmployeeStatus, IEmployeeCollection, IEmployeeCollectionQueryParams } from '../../types';
+import { EmployeeStatus, IEmployeeCollection, IEmployeeCollectionQueryParams } from '../../application/types';
 
 export const useActivateEmployee = (facilityId: string, employeeId: string) => {
   const { params } = useQueryParams<IEmployeeCollectionQueryParams>();

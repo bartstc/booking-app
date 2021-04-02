@@ -26,7 +26,7 @@ export class UpdateFacilityController extends BaseController {
     super();
   }
 
-  @Put('enterprises/:enterpriseId/facilities/facilityId')
+  @Put('enterprises/:enterpriseId/facilities/:facilityId')
   @ApiTags('Facilities')
   @ApiResponse({ status: 201, description: 'Facility successfully updated' })
   @ApiResponse({ status: 400, description: 'Validation error' })
@@ -58,6 +58,8 @@ export class UpdateFacilityController extends BaseController {
           case UpdateFacilityErrors.FacilityDoesNotExist:
           case UpdateFacilityErrors.EnterpriseDoesNotExist:
             return this.notFound(res, error.errorValue());
+          case UpdateFacilityErrors.SlugAlreadyExistsError:
+            return this.clientError(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
         }

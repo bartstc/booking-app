@@ -1,1 +1,0 @@
-export { DeactivateEmployeeIconButton } from './DeactivateEmployeeIconButton';

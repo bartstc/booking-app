@@ -4,8 +4,8 @@ import { managementHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 import { useMutation } from 'shared/Suspense';
 
-import { ICreateEnterpriseDto } from '../../dto';
 import { enterpriseQueryKey } from '../query';
+import { ICreateEnterpriseDto, IEnterprise } from '../../application/types';
 
 export const useCreateEnterprise = (enterpriseId?: string) => {
   const queryClient = useQueryClient();
@@ -21,7 +21,7 @@ export const useCreateEnterprise = (enterpriseId?: string) => {
       .then(async () => {
         if (!enterpriseId) return;
 
-        await queryClient.setQueryData<ICreateEnterpriseDto | undefined>(enterpriseQueryKey(enterpriseId), input => {
+        await queryClient.setQueryData<IEnterprise | undefined>(enterpriseQueryKey(enterpriseId), input => {
           if (!input) return;
 
           return { ...input, ...model };

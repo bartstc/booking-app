@@ -21,11 +21,11 @@ const DashboardTabs = ({ children }: IProps) => {
         <TabLink isActive={path.includes('dashboard/enterprise')} to={`/dashboard/enterprise`} fontWeight='700'>
           <FormattedMessage id='enterprise' defaultMessage='Enterprise' />
         </TabLink>
-        <TabLink to={buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS)} fontWeight='700'>
+        <TabLink isActive={path.includes('dashboard/facilities')} to={buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS)} fontWeight='700'>
           <FormattedMessage id='facilities' defaultMessage='Facilities' />
         </TabLink>
-        <TabLink to={buildUrl(`/dashboard/schedules`, DEFAULT_PARAMS)} fontWeight='700'>
-          <FormattedMessage id='schedules' defaultMessage='Schedules' />
+        <TabLink to={`/dashboard/create-facility`} fontWeight='700'>
+          <FormattedMessage id='add-facility' defaultMessage='Add facility' />
         </TabLink>
       </TabList>
       <TabPanels>

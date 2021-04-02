@@ -8,7 +8,6 @@ export class EnterpriseTypeormTransformer {
       enterpriseName: enterprise.details.name,
       enterpriseDescription: enterprise.details.description,
       enterpriseUrl: enterprise.details.url,
-      countryCode: enterprise.details.countryCode,
       contactPerson: enterprise.details.contactPerson,
       createdAt: enterprise.created_at,
       updatedAt: enterprise.updated_at,

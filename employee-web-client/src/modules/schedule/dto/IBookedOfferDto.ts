@@ -1,4 +1,4 @@
-import { IPrice } from '../../offers/types';
+import { IPrice } from '../../offers/application/types';
 
 export interface IBookedOfferDto {
   offerId: string;

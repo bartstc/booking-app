@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { VStack, Box, SimpleGrid, GridItem } from '@chakra-ui/react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
@@ -13,9 +13,10 @@ import { Button, IconButton } from 'shared/Button';
 
 interface IProps {
   namePrefix?: string;
+  children?: ReactNode;
 }
 
-const ContactsFields = ({ namePrefix = 'contacts' }: IProps) => {
+const ContactsFields = ({ namePrefix = 'contacts', children }: IProps) => {
   const { formatMessage } = useIntl();
   const { control, setValue, watch } = useFormContext();
   const { fields, append, remove } = useFieldArray({ control, name: namePrefix });
@@ -29,6 +30,7 @@ const ContactsFields = ({ namePrefix = 'contacts' }: IProps) => {
 
         return (
           <SimpleGrid key={field.id} columns={12} spacingX={4}>
+            {children}
             <ContactSelectField
               name={typeName}
               id={typeName}
