@@ -2,11 +2,12 @@ import React, { ReactNode } from 'react';
 
 import { enterprisesQueryKey, enterprisesQuery } from 'modules/enterprise/infrastructure/query';
 import { facilitiesQueryKey, facilitiesQuery } from 'modules/facility/infrastructure/query';
-import { IEnterprise } from 'modules/enterprise/types';
-import { IFacility } from 'modules/facility/types';
 
 import { createSharedData } from 'shared/Share';
 import { FetchBoundary } from 'shared/Suspense';
+
+import { IEnterprise } from '../enterprise/application/types';
+import { IFacility } from '../facility/application/types';
 
 const { useShareConsumer: useEnterpriseConsumer, ShareProvider: EnterpriseProvider } = createSharedData<IEnterprise>();
 const { useShareConsumer: useFacilityConsumer, ShareProvider: FacilityProvider } = createSharedData<IFacility>();

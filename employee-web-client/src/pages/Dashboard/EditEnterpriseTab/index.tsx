@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { EditEnterpriseForm } from 'modules/enterprise/containers/EditEnterpriseForm';
+
 import { DashboardTabs } from '../DashboardTabs';
-import { EditEnterpriseForm } from './EditEnterpriseForm';
 
 const EditEnterpriseTab = () => {
   return (

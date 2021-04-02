@@ -1,9 +1,10 @@
 import React from 'react';
 import { Heading } from '@chakra-ui/react';
+import { FormattedMessage } from 'react-intl';
+
+import { CreateFacilityForm } from 'modules/facility/containers/CreateFacilityForm';
 
 import { DashboardTabs } from '../DashboardTabs';
-import { CreateFacilityForm } from './CreateFacilityForm';
-import { FormattedMessage } from 'react-intl';
 
 const CreateFacilityTab = () => {
   return (

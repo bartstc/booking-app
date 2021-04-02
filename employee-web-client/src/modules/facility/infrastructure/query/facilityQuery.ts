@@ -1,7 +1,7 @@
 import { managementHttpService, ServiceType } from 'utils/http';
 import { useSuspense } from 'shared/Suspense';
 
-import { IFacility } from '../../types';
+import { IFacility } from '../../application/types';
 
 export const facilityQueryKey = (facilitySlug: string) => [`facilities/slug/${facilitySlug}`, ServiceType.Management];
 

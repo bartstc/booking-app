@@ -1,17 +1,13 @@
 import React from 'react';
-import { VStack } from '@chakra-ui/react';
+
+import { EnterpriseData } from 'modules/enterprise/containers/EnterpriseData';
 
 import { DashboardTabs } from '../DashboardTabs';
-import { EnterpriseBody } from './EnterpriseBody';
-import { EnterpriseDataPanel } from './EnterpriseDataPanel';
 
 const ReadEnterpriseTab = () => {
   return (
     <DashboardTabs>
-      <VStack spacing={6}>
-        <EnterpriseDataPanel />
-        <EnterpriseBody />
-      </VStack>
+      <EnterpriseData />
     </DashboardTabs>
   );
 };

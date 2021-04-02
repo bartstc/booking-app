@@ -4,20 +4,20 @@ import { Logger, LogLevel } from 'utils/logger';
 import { managementHttpService } from 'utils/http';
 import { useMutation } from 'shared/Suspense';
 
-import { CreateFacilityMapper, ICreateFacilityDto, ICreateFacilityFormDto } from '../../adapter/createFacility';
-import { IFacility } from '../../types';
 import { facilityQueryKey } from '../query';
+import { CreateFacilityDto, CreateFacilityFormDto, IFacility } from '../../application/types';
+import { CreateFacilityMapper } from '../../application';
 
 export const useCreateFacility = (enterpriseId: string, facilityId?: string) => {
   const queryClient = useQueryClient();
-  const { mutateAsync, isLoading } = useMutation<void, ICreateFacilityDto>(model => {
+  const { mutateAsync, isLoading } = useMutation<void, CreateFacilityDto>(model => {
     if (facilityId) {
       return managementHttpService.put(`enterprises/${enterpriseId}/facilities/${facilityId}`, model);
     }
     return managementHttpService.post(`enterprises/${enterpriseId}/facilities`, model);
   });
 
-  const handler = (model: ICreateFacilityFormDto) => {
+  const handler = (model: CreateFacilityFormDto) => {
     return mutateAsync(CreateFacilityMapper.formToDto(model))
       .then(async () => {
         if (facilityId) {

@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { EditFacilityForm } from 'modules/facility/containers/EditFacilityForm';
+
 import { DashboardTabs } from '../DashboardTabs';
-import { EditFacilityForm } from './EditFacilityForm';
 
 const EditFacilityTab = () => {
   return (

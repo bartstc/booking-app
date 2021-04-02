@@ -4,9 +4,8 @@ import { managementHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 import { useMutation } from 'shared/Suspense';
 
-import { ICreateEnterpriseDto } from '../../dto';
 import { enterpriseQueryKey } from '../query';
-import { IEnterprise } from '../../types';
+import { ICreateEnterpriseDto, IEnterprise } from '../../application/types';
 
 export const useCreateEnterprise = (enterpriseId?: string) => {
   const queryClient = useQueryClient();

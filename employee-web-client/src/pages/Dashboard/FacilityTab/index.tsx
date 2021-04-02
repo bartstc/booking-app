@@ -1,12 +1,10 @@
 import React from 'react';
-import { VStack } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 
 import { useFacilityQuery } from 'modules/facility/infrastructure/query';
+import { FacilityData } from 'modules/facility/containers/FacilityData';
 
 import { DashboardTabs } from '../DashboardTabs';
-import { FacilityPanel } from './FacilityPanel';
-import { FacilityBody } from './FacilityBody';
 
 const FacilityTab = () => {
   const params = useParams<{ facilitySlug: string }>();
@@ -14,10 +12,7 @@ const FacilityTab = () => {
 
   return (
     <DashboardTabs>
-      <VStack spacing={6}>
-        <FacilityPanel facility={facility} />
-        <FacilityBody facility={facility} />
-      </VStack>
+      <FacilityData facility={facility} />
     </DashboardTabs>
   );
 };

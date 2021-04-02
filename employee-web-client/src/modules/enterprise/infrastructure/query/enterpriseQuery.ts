@@ -1,7 +1,7 @@
 import { managementHttpService, ServiceType } from 'utils/http';
 import { useSuspense } from 'shared/Suspense';
 
-import { IEnterprise } from '../../types';
+import { IEnterprise } from '../../application/types';
 
 export const enterpriseQueryKey = (enterpriseId: string) => [`enterprises/${enterpriseId}`, ServiceType.Management, enterpriseId];
 
