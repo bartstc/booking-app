@@ -1,7 +1,7 @@
 import { buildUrl } from 'utils';
 import { managementHttpService, ServiceType } from 'utils/http';
 
-import { ICustomerCollection, ICustomerCollectionQueryParams } from '../../types';
+import { ICustomerCollection, ICustomerCollectionQueryParams } from '../../application/types';
 
 export const customersQueryKey = (
   facilityId: string,

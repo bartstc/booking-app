@@ -4,8 +4,8 @@ import { managementHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 import { useMutation } from 'shared/Suspense';
 
-import { IAddOfferDto } from '../../dto';
 import { offersQueryKey } from '../query';
+import { IAddOfferDto } from '../../application/types';
 
 export const useAddOffer = (facilityId: string) => {
   const queryClient = useQueryClient();

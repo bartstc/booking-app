@@ -9,8 +9,8 @@ import { SelectInput } from 'shared/Inputs/SelectInput';
 
 import { EmployeeOption } from './EmployeeOption';
 import { IBookingTerm } from '../../../../../types';
-import { IEmployeeCollection } from '../../../../../../employees/types';
 import { employeesQueryKey } from '../../../../../../employees/infrastructure/query';
+import { IEmployeeCollection } from '../../../../../../employees/application/types';
 
 interface IProps {
   bookingTerm?: IBookingTerm;

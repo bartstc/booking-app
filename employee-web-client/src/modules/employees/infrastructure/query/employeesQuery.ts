@@ -1,7 +1,7 @@
 import { buildUrl } from 'utils';
 import { managementHttpService, ServiceType } from 'utils/http';
 
-import { IEmployeeCollection, IEmployeeCollectionQueryParams } from '../../types';
+import { IEmployeeCollection, IEmployeeCollectionQueryParams } from '../../application/types';
 
 export const employeesQueryKey = (
   facilityId: string,

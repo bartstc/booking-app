@@ -4,8 +4,8 @@ import { managementHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 import { useMutation } from 'shared/Suspense';
 
-import { IAddEmployeeDto } from '../../dto';
 import { employeesQueryKey } from '../query';
+import { IAddEmployeeDto } from '../../application/types';
 
 export const useAddEmployee = (facilityId: string) => {
   const queryClient = useQueryClient();

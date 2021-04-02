@@ -1,7 +1,7 @@
 import { buildUrl } from 'utils';
 import { managementHttpService, ServiceType } from 'utils/http';
 
-import { IOfferCollection, IOfferCollectionQueryParams } from '../../types';
+import { IOfferCollection, IOfferCollectionQueryParams } from '../../application/types';
 
 export const offersQueryKey = (
   facilityId: string,
