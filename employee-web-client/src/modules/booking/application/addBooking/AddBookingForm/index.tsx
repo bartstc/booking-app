@@ -9,7 +9,7 @@ import { OptionType } from 'types';
 import { IAddBookingDto } from '../../../dto';
 import { AddNewCustomer } from './AddNewCustomer';
 import { BookedRecordFields } from './BookedRecordFields';
-import { CustomerSelectFieldAsync, SelectedCustomerOption } from '../../../../customers/containers/shared/CustomerSelectFieldAsync';
+import { CustomerSelectFieldAsync, SelectedCustomerOption } from '../../../../customers/presentation/shared/CustomerSelectFieldAsync';
 
 interface IProps {
   onSubmit: (model: IAddBookingDto) => void;

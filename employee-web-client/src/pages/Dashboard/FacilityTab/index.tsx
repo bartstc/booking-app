@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useFacilityQuery } from 'modules/facility/infrastructure/query';
+import { useFacilityQuery } from 'modules/facility/presentation/query';
 import { FacilityData } from 'modules/facility/containers/FacilityData';
 
 import { DashboardTabs } from '../DashboardTabs';

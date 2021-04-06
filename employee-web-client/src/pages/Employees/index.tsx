@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PageWrapper } from 'shared/Layout/Page';
 import { withErrorBoundary } from 'shared/ErrorBoundary';
-import { EmployeesCollection } from 'modules/employees/containers/EmployeesCollection';
+import { EmployeesCollection } from 'modules/employees/presentation/EmployeesCollection';
 
 const Employees = () => {
   return (

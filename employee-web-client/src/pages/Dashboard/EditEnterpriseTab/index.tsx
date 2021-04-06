@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EditEnterpriseForm } from 'modules/enterprise/containers/EditEnterpriseForm';
+import { EditEnterpriseForm } from 'modules/enterprise/presentation/EditEnterpriseForm';
 
 import { DashboardTabs } from '../DashboardTabs';
 
