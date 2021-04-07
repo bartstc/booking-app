@@ -9,7 +9,7 @@ import { DashboardTabs } from '../DashboardTabs';
 const CreateFacilityTab = () => {
   return (
     <DashboardTabs>
-      <Heading mb={{ base: 6, md: 8 }} textAlign='center' as='h2' fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}>
+      <Heading m='0 auto' maxW='670px' mb={{ base: 6, md: 8 }} as='h2' fontSize={{ base: '2xl', md: '3xl' }}>
         <FormattedMessage id='register-new-facility' defaultMessage='Register new facility' />
       </Heading>
       <CreateFacilityForm />
