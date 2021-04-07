@@ -27,9 +27,9 @@ namespace Accessibility.Api.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(CollectionResponse<ScheduleDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetSchedules(
+            [FromRoute] Guid facilityId,
             [FromQuery] DateTime? dateFrom,
-            [FromQuery] DateTime? dateTo,
-            [FromRoute] Guid facilityId)
+            [FromQuery] DateTime? dateTo)
         {
             var schedules = await mediator.Send(new GetSchedulesQuery(facilityId, dateFrom, dateTo));
             return Ok(new CollectionResponse<ScheduleDto>(schedules));
