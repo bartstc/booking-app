@@ -9,7 +9,7 @@ import { OptionType, RequestStatus } from 'types';
 import { customersQueryKey } from 'modules/customers/infrastructure/query';
 
 import { CustomerOption } from './CustomerOption';
-import { ICustomer, ICustomerCollection } from '../../../application/types';
+import { ICustomer, ICustomerCollection } from '../../../customers/application/types';
 
 export type SelectedCustomerOption = OptionType<string> & { customer: ICustomer };
 

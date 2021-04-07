@@ -5,7 +5,7 @@ import { Divider, Text, VStack, Tag, TagLabel } from '@chakra-ui/react';
 import { ContactType } from 'types';
 
 import { SelectedCustomerOption } from './index';
-import { ICustomer } from '../../../application/types';
+import { ICustomer } from '../../../customers/application/types';
 
 interface IProps extends OptionProps<SelectedCustomerOption, false> {}
 

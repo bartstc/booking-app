@@ -7,7 +7,7 @@ import { IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 
 import { IAddCustomerDto } from '../../../../customers/application/types';
-import { AddCustomerModal } from '../../../../customers/presentation/shared/AddCustomerModal';
+import { AddCustomerModal } from '../../../../customers/presentation/components/AddCustomerModal';
 
 interface IProps {
   isDisabled: boolean;

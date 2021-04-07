@@ -3,7 +3,7 @@ import { VStack, HStack, Heading, Text, Avatar, useColorModeValue, Badge } from 
 import { FormattedMessage } from 'react-intl';
 
 import { IOffer } from '../../../application/types';
-import { OfferStatusBadge } from '../../shared/OfferStatusBadge';
+import { OfferStatusBadge } from '../../components/OfferStatusBadge';
 
 interface IProps {
   offer: IOffer;

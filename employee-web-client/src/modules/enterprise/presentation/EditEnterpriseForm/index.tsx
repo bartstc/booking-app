@@ -10,7 +10,7 @@ import { useEnterpriseConsumer } from 'modules/context';
 import { useEnterpriseQuery } from 'modules/enterprise/infrastructure/query';
 import { useCreateEnterprise } from 'modules/enterprise/infrastructure/command';
 
-import { ContactPersonInputs, EnterpriseForm, MetaInputs, useEditEnterpriseNotification } from '../shared/EnterpriseForm';
+import { ContactPersonInputs, EnterpriseForm, MetaInputs, useEditEnterpriseNotification } from '../components/EnterpriseForm';
 
 const EditEnterpriseForm = () => {
   const { push } = useHistory();

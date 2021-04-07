@@ -6,8 +6,8 @@ import { useAutoComplete } from 'hooks';
 import { Currency, OptionType, RequestStatus } from 'types';
 
 import { OfferOption } from './OfferOption';
-import { IOffer, IOfferCollection } from '../../../application/types';
-import { offersQueryKey } from '../../../infrastructure/query';
+import { offersQueryKey } from '../../../offers/infrastructure/query';
+import { IOffer, IOfferCollection } from '../../../offers/application/types';
 
 export type SelectedOfferOption = OptionType<string> & { offer: IOffer };
 

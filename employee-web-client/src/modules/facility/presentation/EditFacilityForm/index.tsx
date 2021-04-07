@@ -3,14 +3,14 @@ import { useHistory, useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { GridItem, HStack, SimpleGrid, VStack } from '@chakra-ui/react';
 
-import { useFacilityQuery } from 'modules/facility/presentation/query';
-import { useCreateFacility } from 'modules/facility/presentation/command';
+import { useFacilityQuery } from 'modules/facility/infrastructure/query';
+import { useCreateFacility } from 'modules/facility/infrastructure/command';
 import { buildUrl } from 'utils';
 import { DEFAULT_PARAMS } from 'utils/constant';
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
 
-import { ContactPersonInputs, AddressInputs, WorkingHoursInputs, MetaInputs, ContactsInputs, FacilityForm } from '../shared/FacilityForm';
+import { ContactPersonInputs, AddressInputs, WorkingHoursInputs, MetaInputs, ContactsInputs, FacilityForm } from '../components/FacilityForm';
 import { useEditFacilityNotification } from './useEditFacilityNotification';
 import { CreateFacilityMapper } from '../../application';
 

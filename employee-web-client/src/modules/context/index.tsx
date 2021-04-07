@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
 import { enterprisesQueryKey, enterprisesQuery } from 'modules/enterprise/infrastructure/query';
-import { facilitiesQueryKey, facilitiesQuery } from 'modules/facility/presentation/query';
+import { facilitiesQueryKey, facilitiesQuery } from 'modules/facility/infrastructure/query';
 
 import { createSharedData } from 'shared/Share';
 import { FetchBoundary } from 'shared/Suspense';

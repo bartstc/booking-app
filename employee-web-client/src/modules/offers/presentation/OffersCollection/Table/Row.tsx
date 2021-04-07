@@ -5,8 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import { GridItem, TruncatedCell } from 'shared/Grid';
 
 import { StatusActionButtons } from './StatusActionButtons';
-import { OfferStatusBadge } from '../../shared/OfferStatusBadge';
-import { PriceModelBadge } from '../../shared/PriceModelBadge';
+import { OfferStatusBadge } from '../../components/OfferStatusBadge';
+import { PriceModelBadge } from '../../components/PriceModelBadge';
 import { IOffer } from '../../../application/types';
 
 interface IProps {

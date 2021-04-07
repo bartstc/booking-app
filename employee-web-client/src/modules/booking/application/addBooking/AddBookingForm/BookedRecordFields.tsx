@@ -14,7 +14,7 @@ import { IAddBookingDto } from '../../../dto';
 import { SelectDateModal } from './SelectDateModal';
 import { Summary } from './Summary';
 import { IOffer } from '../../../../offers/application/types';
-import { OfferSelectFieldAsync } from '../../../../offers/presentation/shared';
+import { OfferSelectFieldAsync } from '../../../../offersShared/presentation';
 
 const BookedRecordFields = () => {
   const { facilityId, currency } = useFacilityConsumer();

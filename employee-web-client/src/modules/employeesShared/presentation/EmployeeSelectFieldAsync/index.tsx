@@ -5,8 +5,8 @@ import { SelectField, SelectFieldProps } from 'react-hook-form-chakra-fields';
 import { useAutoComplete } from 'hooks';
 import { OptionType, RequestStatus } from 'types';
 
-import { IEmployeeCollection } from '../../../application/types';
-import { employeesQueryKey } from '../../../infrastructure/query';
+import { IEmployeeCollection } from '../../../employees/application/types';
+import { employeesQueryKey } from '../../../employees/infrastructure/query';
 
 type IProps = Omit<SelectFieldProps, 'options' | 'onMenuScrollToBottom' | 'isLoading' | 'isClearable' | 'label'> & {
   facilityId: string;

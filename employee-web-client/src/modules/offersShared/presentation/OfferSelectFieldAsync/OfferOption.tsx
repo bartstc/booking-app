@@ -4,7 +4,7 @@ import { HStack, VStack, Divider, Tag, TagLabel } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
 import { SelectedOfferOption } from './index';
-import { IOffer } from '../../../application/types';
+import { IOffer } from '../../../offers/application/types';
 
 interface IProps extends OptionProps<SelectedOfferOption, false> {}
 

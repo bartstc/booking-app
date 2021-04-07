@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@chakra-ui/react';
 
 import { useEnterpriseConsumer } from 'modules/context';
-import { facilitiesQuery, facilitiesQueryKey } from 'modules/facility/presentation/query';
+import { facilitiesQuery, facilitiesQueryKey } from 'modules/facility/infrastructure/query';
 
 import { useInfiniteQuery } from 'hooks';
 

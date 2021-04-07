@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { facilitiesQueryKey, facilitiesQuery } from 'modules/facility/presentation/query';
+import { facilitiesQueryKey, facilitiesQuery } from 'modules/facility/infrastructure/query';
 import { useEnterpriseConsumer } from 'modules/context';
 
 import { Grid } from 'shared/Grid';

@@ -3,8 +3,8 @@ import React from 'react';
 import { useFacilityConsumer } from 'modules/context';
 
 import { OfferStatus } from '../../../application/types';
-import { ActivateOfferIconButton } from '../../shared/ActivateOfferIconButton';
-import { DeactivateOfferIconButton } from '../../shared/DeactivateOfferIconButton';
+import { ActivateOfferIconButton } from '../../components/ActivateOfferIconButton';
+import { DeactivateOfferIconButton } from '../../components/DeactivateOfferIconButton';
 
 interface IProps {
   offerId: string;

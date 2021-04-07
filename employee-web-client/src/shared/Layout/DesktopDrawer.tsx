@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { HStack, Text, useColorModeValue, VStack, ListItem } from '@chakra-ui/react';
+import { HStack, Text, useColorModeValue, VStack } from '@chakra-ui/react';
 import { mdiClose, mdiMenu } from '@mdi/js';
 import { useHistory, useLocation } from 'react-router-dom';
 
