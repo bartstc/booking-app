@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EditFacilityForm } from 'modules/facility/presentation/EditFacilityForm';
+import { EditFacilityForm } from 'modules/facility/presentation';
 
 import { DashboardTabs } from '../DashboardTabs';
 

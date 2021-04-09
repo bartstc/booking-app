@@ -10,7 +10,7 @@ import { DEFAULT_PARAMS } from 'utils/constant';
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
 
-import { ContactPersonInputs, AddressInputs, WorkingHoursInputs, MetaInputs, ContactsInputs, FacilityForm } from '../components/FacilityForm';
+import { ContactPersonInputs, AddressInputs, WorkingHoursInputs, MetaInputs, ContactsInputs, FacilityForm } from '../FacilityForm';
 import { useEditFacilityNotification } from './useEditFacilityNotification';
 import { CreateFacilityMapper } from '../../application';
 

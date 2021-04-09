@@ -5,21 +5,16 @@ import { HStack, VStack, Flex } from '@chakra-ui/react';
 
 import { useCreateFacility } from 'modules/facility/infrastructure/command';
 import { useEnterpriseConsumer } from 'modules/context';
+
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
+import { TreeCounter } from 'shared/TreeCounter';
+
 import { buildUrl } from 'utils';
 import { DEFAULT_PARAMS } from 'utils/constant';
 
-import {
-  ContactPersonInputs,
-  AddressInputs,
-  WorkingHoursInputs,
-  MetaInputs,
-  ContactsInputs,
-  FacilityForm,
-} from '../components/FacilityForm';
+import { ContactPersonInputs, AddressInputs, WorkingHoursInputs, MetaInputs, ContactsInputs, FacilityForm } from '../FacilityForm';
 import { useCreateFacilityNotification } from './useCreateFacilityNotification';
-import { TreeCounter } from '../../../../shared/TreeCounter';
 
 const CreateFacilityForm = () => {
   const { enterpriseId } = useEnterpriseConsumer();

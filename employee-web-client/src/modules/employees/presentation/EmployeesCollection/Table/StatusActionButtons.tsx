@@ -3,7 +3,8 @@ import React from 'react';
 import { useFacilityConsumer } from 'modules/context';
 
 import { EmployeeStatus } from '../../../application/types';
-import { ActivateEmployeeIconButton, DeactivateEmployeeIconButton } from '../../components';
+import { DeactivateEmployeeIconButton } from '../../DeactivateEmployeeIconButton';
+import { ActivateEmployeeIconButton } from '../../ActivateEmployeeIconButton';
 
 interface IProps {
   employeeId: string;

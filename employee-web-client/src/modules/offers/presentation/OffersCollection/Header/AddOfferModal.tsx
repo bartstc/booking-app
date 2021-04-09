@@ -8,7 +8,7 @@ import { SubmitButton } from 'shared/Form';
 import { useFacilityConsumer } from 'modules/context';
 import { useAddOffer } from 'modules/offers/infrastructure/command';
 
-import { AddOfferForm, useAddOfferNotification } from '../../components';
+import { AddOfferForm, useAddOfferNotification } from '../../AddOfferForm';
 
 interface IProps {
   isOpen: boolean;

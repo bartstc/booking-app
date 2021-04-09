@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EnterpriseData } from 'modules/enterprise/presentation/EnterpriseData';
+import { EnterpriseData } from 'modules/enterprise/presentation';
 
 import { DashboardTabs } from '../DashboardTabs';
 

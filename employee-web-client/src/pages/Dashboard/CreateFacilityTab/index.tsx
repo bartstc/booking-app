@@ -2,7 +2,7 @@ import React from 'react';
 import { Heading } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
-import { CreateFacilityForm } from 'modules/facility/presentation/CreateFacilityForm';
+import { CreateFacilityForm } from 'modules/facility/presentation';
 
 import { DashboardTabs } from '../DashboardTabs';
 

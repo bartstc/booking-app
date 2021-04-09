@@ -11,7 +11,7 @@ import { ResponsiveRemoveButton } from 'shared/Buttons';
 
 import { useValidationSchema } from './useValidationSchema';
 import { ICreateScheduleDto } from '../../../dto';
-import { EmployeeSelectFieldAsync } from '../../../../employeesShared/presentation';
+import { EmployeeSelectFieldAsync } from '../../../../employees/presentation';
 
 interface IProps {
   onSubmit: (model: ICreateScheduleDto) => void;

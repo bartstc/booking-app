@@ -6,9 +6,9 @@ import { Button } from 'shared/Button';
 import { SubmitButton } from 'shared/Form';
 
 import { useFacilityConsumer } from 'modules/context';
-import { useAddEmployee } from 'modules/employees/infrastructure/command';
 
-import { AddEmployeeForm, useAddEmployeeNotification } from '../../components';
+import { useAddEmployee } from 'modules/employees/infrastructure/command';
+import { AddEmployeeForm, useAddEmployeeNotification } from '../../AddEmployeeForm';
 
 interface IProps {
   isOpen: boolean;

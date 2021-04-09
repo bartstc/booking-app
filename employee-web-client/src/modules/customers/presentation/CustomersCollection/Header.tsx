@@ -7,7 +7,7 @@ import { isMobileOnly } from 'react-device-detect';
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 
-import { AddCustomerModal } from '../components/AddCustomerModal';
+import { AddCustomerModal } from '../AddCustomerModal';
 
 const Header = () => {
   const { formatMessage } = useIntl();

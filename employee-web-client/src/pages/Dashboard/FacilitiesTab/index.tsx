@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FacilitiesCollection } from 'modules/facility/presentation/FacilitiesCollection';
+import { FacilitiesCollection } from 'modules/facility/presentation';
 
 import { DashboardTabs } from '../DashboardTabs';
 
