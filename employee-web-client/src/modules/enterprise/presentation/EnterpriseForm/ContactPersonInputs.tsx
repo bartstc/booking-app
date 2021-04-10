@@ -9,7 +9,14 @@ const ContactPersonInputs = () => {
   return (
     <SimpleGrid w='100%' columns={4} spacingX={4}>
       <GridItem colSpan={4}>
-        <SectionTitle>
+        <SectionTitle
+          description={
+            <FormattedMessage
+              id='contact-person-description-info'
+              defaultMessage='Data of the person who can be contacted by the booking service administrator.'
+            />
+          }
+        >
           <FormattedMessage id='enterprise-contact-person' defaultMessage='Contact person' />
         </SectionTitle>
       </GridItem>

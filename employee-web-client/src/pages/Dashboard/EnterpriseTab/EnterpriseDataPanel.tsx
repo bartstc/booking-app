@@ -22,13 +22,13 @@ const EnterpriseDataPanel = () => {
       {isMobileOnly ? (
         <IconButton
           onClick={() => push('/dashboard/enterprise/edit')}
-          colorScheme='blue'
+          colorScheme='gray'
           variant='solid'
           title={title}
           icon={<Icon path={mdiContentSaveEdit} />}
         />
       ) : (
-        <Button onClick={() => push('/dashboard/enterprise/edit')} colorScheme='blue' leftIcon={<Icon path={mdiContentSaveEdit} />}>
+        <Button onClick={() => push('/dashboard/enterprise/edit')} colorScheme='gray' leftIcon={<Icon path={mdiContentSaveEdit} />}>
           {title}
         </Button>
       )}

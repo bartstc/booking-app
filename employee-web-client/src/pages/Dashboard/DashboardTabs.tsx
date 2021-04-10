@@ -24,9 +24,6 @@ const DashboardTabs = ({ children }: IProps) => {
         <TabLink isActive={path.includes('dashboard/facilities')} to={buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS)} fontWeight='700'>
           <FormattedMessage id='facilities' defaultMessage='Facilities' />
         </TabLink>
-        <TabLink to={`/dashboard/create-facility`} fontWeight='700'>
-          <FormattedMessage id='add-facility' defaultMessage='Add facility' />
-        </TabLink>
       </TabList>
       <TabPanels>
         <TabPanel p={0} pt={6}>

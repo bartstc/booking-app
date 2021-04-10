@@ -1,0 +1,1 @@
+export { OffersCollectionFiltersModal } from './OffersCollectionFiltersModal';

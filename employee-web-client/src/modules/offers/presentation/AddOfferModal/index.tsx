@@ -7,30 +7,30 @@ import { SubmitButton } from 'shared/Form';
 
 import { useFacilityConsumer } from 'modules/context';
 
-import { useAddEmployee } from 'modules/employees/infrastructure/command';
-import { AddEmployeeForm, useAddEmployeeNotification } from '../../AddEmployeeForm';
+import { AddOfferForm, useAddOfferNotification } from '../AddOfferForm';
+import { useAddOffer } from '../../infrastructure/command';
 
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const AddEmployeeModal = ({ isOpen, onClose }: IProps) => {
+const AddOfferModal = ({ isOpen, onClose }: IProps) => {
   const { facilityId } = useFacilityConsumer();
 
-  const [handler, isLoading] = useAddEmployee(facilityId);
-  const { showSuccessNotification, showFailureNotification } = useAddEmployeeNotification();
+  const [handler, isLoading] = useAddOffer(facilityId);
+  const { showSuccessNotification, showFailureNotification } = useAddOfferNotification();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size='xl'>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <FormattedMessage id='add-new-employee' defaultMessage='Add new employee' />
+          <FormattedMessage id='add-new-offer' defaultMessage='Add new offer' />
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          <AddEmployeeForm
+          <AddOfferForm
             onSubmit={async model => {
               try {
                 await handler(model);
@@ -44,7 +44,7 @@ const AddEmployeeModal = ({ isOpen, onClose }: IProps) => {
           />
         </ModalBody>
         <ModalFooter>
-          <SubmitButton isLoading={isLoading} colorScheme='green' type='submit' form='add-employee-form' />
+          <SubmitButton isLoading={isLoading} colorScheme='green' type='submit' form='add-offer-form' />
           <Button colorScheme='gray' ml={3} onClick={onClose}>
             <FormattedMessage id='close' defaultMessage='Close' />
           </Button>
@@ -54,4 +54,4 @@ const AddEmployeeModal = ({ isOpen, onClose }: IProps) => {
   );
 };
 
-export { AddEmployeeModal };
+export { AddOfferModal };

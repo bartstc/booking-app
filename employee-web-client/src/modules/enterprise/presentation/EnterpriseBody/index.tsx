@@ -30,7 +30,14 @@ const EnterpriseBody = () => {
         </VStack>
       </GridItem>
       <GridItem colSpan={{ base: 3, lg: 1 }}>
-        <SectionTitle>
+        <SectionTitle
+          description={
+            <FormattedMessage
+              id='contact-person-description-info'
+              defaultMessage='Data of the person who can be contacted by the booking service administrator.'
+            />
+          }
+        >
           <FormattedMessage id='enterprise-contact-person' defaultMessage='Contact person' />
         </SectionTitle>
         <VStack spacing={4} align='flex-start'>

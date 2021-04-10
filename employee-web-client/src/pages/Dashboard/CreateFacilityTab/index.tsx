@@ -1,17 +1,34 @@
 import React from 'react';
-import { Heading } from '@chakra-ui/react';
-import { FormattedMessage } from 'react-intl';
+import { Heading, HStack } from '@chakra-ui/react';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { mdiArrowLeft } from '@mdi/js';
+import { useHistory } from 'react-router-dom';
 
+import { buildUrl } from 'utils';
+import { DEFAULT_PARAMS } from 'utils/constant';
 import { CreateFacilityForm } from 'modules/facility/presentation';
+import { IconButton } from 'shared/Button';
+import { Icon } from 'shared/Icon';
 
 import { DashboardTabs } from '../DashboardTabs';
 
 const CreateFacilityTab = () => {
+  const { formatMessage } = useIntl();
+  const { push } = useHistory();
+
   return (
     <DashboardTabs>
-      <Heading m='0 auto' maxW='670px' mb={{ base: 6, md: 8 }} as='h2' fontSize={{ base: '2xl', md: '3xl' }}>
-        <FormattedMessage id='register-new-facility' defaultMessage='Register new facility' />
-      </Heading>
+      <HStack mb={{ base: 4, md: 6 }} m='0 auto' maxW='670px' w='100%'>
+        <IconButton
+          onClick={() => push(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS))}
+          variant='ghost'
+          title={formatMessage({ id: 'bask-to-list', defaultMessage: 'Back to list' })}
+          icon={<Icon path={mdiArrowLeft} />}
+        />
+        <Heading pl={3} as='h2' fontSize={{ base: 'xl', md: '2xl' }}>
+          <FormattedMessage id='register-new-facility' defaultMessage='Register new facility' />
+        </Heading>
+      </HStack>
       <CreateFacilityForm />
     </DashboardTabs>
   );

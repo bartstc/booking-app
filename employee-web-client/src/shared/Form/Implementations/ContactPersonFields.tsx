@@ -16,12 +16,6 @@ const ContactPersonFields = ({ required = true }: IProps) => {
         name='contactPerson.name'
         label={<FormattedMessage id='name' defaultMessage='Name' />}
         id='contact-person-name'
-        helperText={
-          <FormattedMessage
-            id='contact-person-helper-text'
-            defaultMessage='Data of the person who can be contacted by the booking service administrator.'
-          />
-        }
         required={required}
       />
       <MaskedInputField

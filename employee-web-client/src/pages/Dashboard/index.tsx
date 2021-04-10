@@ -24,7 +24,7 @@ const Dashboard = () => {
         <Suspense fallback={<Spinner />}>
           <Switch>
             <Route path='/dashboard/enterprise/edit' component={EditEnterpriseTab} />
-            <Route path='/dashboard/create-facility' component={CreateFacilityTab} />
+            <Route path='/dashboard/facilities-register' component={CreateFacilityTab} />
             <Route path='/dashboard/facilities/:facilitySlug/edit' component={EditFacilityTab} />
             <Route path='/dashboard/facilities/:facilitySlug' component={FacilityTab} />
             <Route path='/dashboard/enterprise' component={ReadEnterpriseTab} />

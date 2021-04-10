@@ -17,14 +17,14 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { ClearFiltersButton, RadioFilterGroup } from 'shared/Filters';
 import { Button } from 'shared/Button';
 
-import { OfferStatus, PriceModel } from '../../../application/types';
+import { OfferStatus, PriceModel } from '../../application/types';
 
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const FiltersModal = ({ isOpen, onClose }: IProps) => {
+const OffersCollectionFiltersModal = ({ isOpen, onClose }: IProps) => {
   const { formatMessage } = useIntl();
 
   const statusLabels = {
@@ -77,4 +77,4 @@ const FiltersModal = ({ isOpen, onClose }: IProps) => {
   );
 };
 
-export { FiltersModal };
+export { OffersCollectionFiltersModal };

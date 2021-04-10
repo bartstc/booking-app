@@ -6,28 +6,29 @@ import { isMobileOnly } from 'react-device-detect';
 
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
-import { AddEmployeeModal } from './AddEmployeeModal';
+
+import { AddCustomerModal } from 'modules/customers/presentation';
 
 const Header = () => {
   const { formatMessage } = useIntl();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const title = formatMessage({
-    id: 'add-employee',
-    defaultMessage: 'Add employee',
+    id: 'add-customer',
+    defaultMessage: 'Add customer',
   });
 
   return (
     <Flex w='100%' justify='space-between'>
       <VStack as='header' align='flex-start'>
         <Heading as='h1' lineHeight={8} fontWeight='900'>
-          <FormattedMessage id='employees-heading' defaultMessage='Employees' />
+          <FormattedMessage id='customers-heading' defaultMessage='Customers' />
         </Heading>
         <Text as='h2' lineHeight={4}>
-          <FormattedMessage id='employees-subheading' defaultMessage='Manage your employee list' />
+          <FormattedMessage id='customers-subheading' defaultMessage='Manage your customer list' />
         </Text>
       </VStack>
-      <AddEmployeeModal isOpen={isOpen} onClose={onClose} />
+      <AddCustomerModal isOpen={isOpen} onClose={onClose} />
       {isMobileOnly ? (
         <IconButton
           colorScheme='primary'

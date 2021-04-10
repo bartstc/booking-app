@@ -16,7 +16,7 @@ const EmptyState = () => {
           src={image}
           alt={formatMessage({
             id: 'empty-error',
-            defaultMessage: 'List is empty',
+            defaultMessage: 'CustomersList is empty',
           })}
           width={size}
           mt={8}

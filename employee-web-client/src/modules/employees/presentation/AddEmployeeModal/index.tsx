@@ -6,31 +6,31 @@ import { Button } from 'shared/Button';
 import { SubmitButton } from 'shared/Form';
 
 import { useFacilityConsumer } from 'modules/context';
-import { useAddOffer } from 'modules/offers/infrastructure/command';
 
-import { AddOfferForm, useAddOfferNotification } from '../../AddOfferForm';
+import { useAddEmployee } from '../../infrastructure/command';
+import { AddEmployeeForm, useAddEmployeeNotification } from '../AddEmployeeForm';
 
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const AddOfferModal = ({ isOpen, onClose }: IProps) => {
+const AddEmployeeModal = ({ isOpen, onClose }: IProps) => {
   const { facilityId } = useFacilityConsumer();
 
-  const [handler, isLoading] = useAddOffer(facilityId);
-  const { showSuccessNotification, showFailureNotification } = useAddOfferNotification();
+  const [handler, isLoading] = useAddEmployee(facilityId);
+  const { showSuccessNotification, showFailureNotification } = useAddEmployeeNotification();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size='xl'>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <FormattedMessage id='add-new-offer' defaultMessage='Add new offer' />
+          <FormattedMessage id='add-new-employee' defaultMessage='Add new employee' />
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          <AddOfferForm
+          <AddEmployeeForm
             onSubmit={async model => {
               try {
                 await handler(model);
@@ -44,7 +44,7 @@ const AddOfferModal = ({ isOpen, onClose }: IProps) => {
           />
         </ModalBody>
         <ModalFooter>
-          <SubmitButton isLoading={isLoading} colorScheme='green' type='submit' form='add-offer-form' />
+          <SubmitButton isLoading={isLoading} colorScheme='green' type='submit' form='add-employee-form' />
           <Button colorScheme='gray' ml={3} onClick={onClose}>
             <FormattedMessage id='close' defaultMessage='Close' />
           </Button>
@@ -54,4 +54,4 @@ const AddOfferModal = ({ isOpen, onClose }: IProps) => {
   );
 };
 
-export { AddOfferModal };
+export { AddEmployeeModal };

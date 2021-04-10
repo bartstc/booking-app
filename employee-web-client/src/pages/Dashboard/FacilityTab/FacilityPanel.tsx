@@ -9,9 +9,9 @@ import { buildUrl } from 'utils';
 import { DEFAULT_PARAMS } from 'utils/constant';
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
+import { IFacility } from 'modules/facility/application/types';
 
 import { ContactMenu } from './ContactMenu';
-import { IFacility } from '../../application/types';
 
 interface IProps {
   facility: IFacility;
@@ -38,7 +38,7 @@ const FacilityPanel = ({ facility }: IProps) => {
         {isMobileOnly ? (
           <IconButton
             onClick={() => push(`/dashboard/facilities/${facility.slug}/edit`)}
-            colorScheme='blue'
+            colorScheme='gray'
             variant='solid'
             title={title}
             icon={<Icon path={mdiContentSaveEdit} />}
@@ -46,7 +46,7 @@ const FacilityPanel = ({ facility }: IProps) => {
         ) : (
           <Button
             onClick={() => push(`/dashboard/facilities/${facility.slug}/edit`)}
-            colorScheme='blue'
+            colorScheme='gray'
             leftIcon={<Icon path={mdiContentSaveEdit} />}
           >
             {title}

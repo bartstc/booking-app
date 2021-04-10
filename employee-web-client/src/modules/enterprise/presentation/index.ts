@@ -1,2 +1,2 @@
 export { EditEnterpriseForm } from './EditEnterpriseForm';
-export { EnterpriseData } from './EnterpriseData';
+export { EnterpriseBody } from './EnterpriseBody';

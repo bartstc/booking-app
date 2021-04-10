@@ -8,7 +8,7 @@ import { ClearFiltersIconButton, FiltersInput } from 'shared/Filters';
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 
-import { FiltersModal } from './FiltersModal';
+import { OffersCollectionFiltersModal } from 'modules/offers/presentation';
 
 const Panel = () => {
   const { formatMessage } = useIntl();
@@ -29,7 +29,7 @@ const Panel = () => {
         filterName='name'
       />
       <HStack>
-        <FiltersModal isOpen={isOpen} onClose={onClose} />
+        <OffersCollectionFiltersModal isOpen={isOpen} onClose={onClose} />
         {isMobileOnly ? (
           <IconButton ml={4} title={title} variant='solid' path={mdiFilter} onClick={onOpen} />
         ) : (

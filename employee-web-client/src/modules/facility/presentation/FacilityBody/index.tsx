@@ -3,10 +3,10 @@ import { GridItem, SimpleGrid, VStack } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
 import { ReadModeArrayValue, ReadModeValue, SectionTitle } from 'shared/ReadMode';
+import { contactTypeMessages } from 'utils/messages';
 
 import { BusinessCategoryDegreeType, IFacility } from '../../application/types';
 import { weekDayMessages } from '../../application/messages';
-import { contactTypeMessages } from '../../../../utils/messages';
 
 interface IProps {
   facility: IFacility;
@@ -75,7 +75,15 @@ const FacilityBody = ({ facility }: IProps) => {
         <ReadModeValue mt={4} value={address} label={<FormattedMessage id='address' defaultMessage='Address' />} />{' '}
         {facility.contactPerson && (
           <>
-            <SectionTitle mt={8}>
+            <SectionTitle
+              description={
+                <FormattedMessage
+                  id='contact-person-description-info'
+                  defaultMessage='Data of the person who can be contacted by the booking service administrator.'
+                />
+              }
+              mt={8}
+            >
               <FormattedMessage id='enterprise-contact-person' defaultMessage='Contact person' />
             </SectionTitle>
             <VStack spacing={4} align='flex-start'>
