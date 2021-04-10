@@ -3,12 +3,14 @@ import { useQueryClient } from 'react-query';
 import { Logger, LogLevel } from 'utils/logger';
 import { managementHttpService } from 'utils/http';
 import { useMutation } from 'shared/Suspense';
+import { useQueryParams } from 'shared/Params';
 
-import { facilityQueryKey } from '../query';
-import { CreateFacilityDto, CreateFacilityFormDto, IFacility } from '../../application/types';
+import { facilitiesQueryKey, facilityQueryKey } from '../query';
+import { CreateFacilityDto, CreateFacilityFormDto, IFacility, IFacilityCollectionQueryParams } from '../../application/types';
 import { CreateFacilityMapper } from '../../application';
 
 export const useCreateFacility = (enterpriseId: string, facilityId?: string) => {
+  const { params } = useQueryParams<IFacilityCollectionQueryParams>();
   const queryClient = useQueryClient();
   const { mutateAsync, isLoading } = useMutation<void, CreateFacilityDto>(model => {
     if (facilityId) {
@@ -27,6 +29,7 @@ export const useCreateFacility = (enterpriseId: string, facilityId?: string) => 
             return { ...input, ...CreateFacilityMapper.formToDto(model) };
           });
         }
+        await queryClient.invalidateQueries(facilitiesQueryKey(enterpriseId, params));
       })
       .catch(e => {
         Logger.log({
