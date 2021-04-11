@@ -17,7 +17,7 @@ export const useCreateFacilityValidationSchema = () => {
 
   return yup.object().shape<DeepNullable<CreateFacilityFormDto>>({
     facilityName: string.min(1).max(999),
-    facilityDescription: yup.string().min(1, requiredMessage).max(9999),
+    facilityDescription: yup.string().nullable().min(1, requiredMessage).max(9999),
     slug: string.max(50),
     currency: string.oneOf(Object.values(Currency), requiredMessage) as yup.Schema<Currency>,
     contactPerson: contactPersonSchema,

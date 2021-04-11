@@ -1,11 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Box, chakra } from '@chakra-ui/react';
+import { SelectInput } from 'react-hook-form-chakra-fields';
 
 import { useAutoComplete } from 'hooks';
 import { OptionType, RequestStatus } from 'types';
-
-import { SelectInput } from 'shared/Inputs/SelectInput';
 
 import { EmployeeOption } from './EmployeeOption';
 import { IBookingTerm } from '../../../../../types';

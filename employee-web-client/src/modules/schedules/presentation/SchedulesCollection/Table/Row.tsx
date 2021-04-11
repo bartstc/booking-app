@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Badge } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
 
 import { GridItem, TruncatedCell } from 'shared/Grid';
 import { FormattedDate } from 'shared/Date';
@@ -13,8 +14,10 @@ interface IProps {
 }
 
 const Row = ({ index, schedule }: IProps) => {
+  const { push } = useHistory();
+
   return (
-    <GridItem>
+    <GridItem onClick={() => push(`/schedules/${schedule.scheduleId}`)}>
       <TruncatedCell>{index}</TruncatedCell>
       <TruncatedCell>{schedule.name}</TruncatedCell>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>
