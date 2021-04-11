@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import dayjs, { extend } from 'dayjs';
-import weekday from 'dayjs/plugin/weekday';
+import dayjs from 'dayjs';
 import { HStack, VStack, Divider, Text, Box } from '@chakra-ui/react';
 import { mdiChevronRight, mdiChevronLeft } from '@mdi/js';
 import { useIntl, FormattedMessage } from 'react-intl';
@@ -18,8 +17,6 @@ import { WeekRadioGroup } from './WeekRadioGroup';
 import { DayRadioGroup } from './DayRadioGroup';
 import { Summary } from './Summary';
 import { Footer } from './Footer';
-
-extend(weekday);
 
 interface IProps {
   offerId: string;

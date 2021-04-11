@@ -21,24 +21,23 @@ const AvailableEmployeesFields = ({ creatorId, employeeId, date }: IProps) => {
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({ control, name: 'availabilities' });
 
+  if (fields.length === 0) {
+    append({
+      creatorId,
+      employeeId,
+      endTime: '',
+      startTime: '',
+    });
+  }
+
   return (
     <VStack w='100%' align='flex-start'>
       {fields.map((field, index) => {
         const isFirst = index === 0;
 
         return (
-          <VStack py={4} borderTop={`1px solid ${borderColor}`} spacing={1} w='100%' key={field.id} align='stretch'>
-            <SimpleGrid columns={10} spacingX={2}>
-              {!isFirst && (
-                <GridItem colSpan={2}>
-                  <IconButton
-                    title={formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
-                    colorScheme='red'
-                    path={mdiDelete}
-                    onClick={() => remove(index)}
-                  />
-                </GridItem>
-              )}
+          <VStack borderTop={`1px solid ${borderColor}`} spacing={1} w='100%' key={field.id} align='stretch'>
+            <SimpleGrid mt={3} columns={10} spacingX={2}>
               <DateTimeOnlyField
                 initDate={date}
                 name={`availabilities[${index}].startTime`}
@@ -53,6 +52,17 @@ const AvailableEmployeesFields = ({ creatorId, employeeId, date }: IProps) => {
                 label={<FormattedMessage id='end-time' defaultMessage='End time' />}
                 colSpan={4}
               />
+              {!isFirst && (
+                <GridItem colSpan={2}>
+                  <IconButton
+                    title={formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
+                    colorScheme='red'
+                    path={mdiDelete}
+                    onClick={() => remove(index)}
+                    mt='32px !important'
+                  />
+                </GridItem>
+              )}
             </SimpleGrid>
 
             <Box display='none'>
@@ -64,6 +74,7 @@ const AvailableEmployeesFields = ({ creatorId, employeeId, date }: IProps) => {
       })}
       <Button
         colorScheme='blue'
+        size='sm'
         onClick={() =>
           append({
             creatorId,

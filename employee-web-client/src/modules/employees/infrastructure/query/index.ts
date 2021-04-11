@@ -1,1 +1,1 @@
-export { employeesQuery, employeesQueryKey } from './employeesQuery';
+export { employeesQuery, employeesQueryKey, useEmployeesQuery } from './employeesQuery';

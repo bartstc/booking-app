@@ -1,5 +1,8 @@
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs, { Dayjs, extend } from 'dayjs';
 import { useState } from 'react';
+import weekday from 'dayjs/plugin/weekday';
+
+extend(weekday);
 
 interface Props {
   dayWithinWeek?: Dayjs;
@@ -16,8 +19,8 @@ export const useWeekRange = ({
   const saturdayIndex = 6;
   const weekDayCount = 7;
 
-  const [sunday, setSunday] = useState(dayjs(dayWithinWeek).weekday(sundayIndex));
-  const [saturday, setSaturday] = useState(dayjs(dayWithinWeek).weekday(saturdayIndex));
+  const [sunday, setSunday] = useState(dayWithinWeek.weekday(sundayIndex));
+  const [saturday, setSaturday] = useState(dayWithinWeek.weekday(saturdayIndex));
 
   const getWeekDates = () => {
     const weekDates = [];
