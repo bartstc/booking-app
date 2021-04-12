@@ -24,7 +24,7 @@ namespace Accessibility.Application.Schedules.DomainServices
                 FROM accessibility.schedules
                 WHERE
                     facility_id = @FacilityId AND
-                    startDate < @EndDate AND
+                    start_Date < @EndDate AND
                     @StartDate < end_date
                 LIMIT 1;",
                 new {
