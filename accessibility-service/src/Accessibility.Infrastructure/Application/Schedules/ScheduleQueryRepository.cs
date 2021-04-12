@@ -22,37 +22,24 @@ namespace Accessibility.Infrastructure.Application.Schedules
 
         public async Task<IEnumerable<ScheduleDto>> GetSchedules(DateTime dateFrom, DateTime dateTo, Guid facilityId)
         {
-            return await connection.QueryAsync<ScheduleDto, AvailabilityDto, ScheduleDto>(
+            return await connection.QueryAsync<ScheduleDto>(
                 @"SELECT
                     s.schedule_id AS ScheduleId,
                     s.name,
                     s.start_date AS StartDate,
                     s.end_date AS EndDate,
-                    s.creation_date AS CreationDate,
-                    a.schedule_id AS ScheduleId,
-                    a.employee_id AS EmployeeId,
-                    a.start_time AS StartTime,
-                    a.end_time AS EndTime,
-                    a.priority,
-                    a.creator_id AS CreatorId,
-                    a.creation_date AS CreationDate
+                    s.creation_date AS CreationDate
                 FROM
-                    accessibility.schedules s
-                        INNER JOIN
-                    accessibility.availabilities a ON s.schedule_id = a. schedule_id
+                    accessibility.schedules
                 WHERE
                     s.start_date >= @dateFrom AND
                     s.end_date <= @dateTo AND
                     s.facility_id = @facilityId;",
-                (schedule, availability) => {
-                    schedule.Availabilities.Add(availability);
-                    return schedule;
-                },
                 new {
                     dateFrom,
                     dateTo,
                     facilityId
-                }, splitOn: "ScheduleId");
+                });
         }
 
         public async Task<IEnumerable<EmployeeAvailability>> GetAllAvailabilities(DateTime dateFrom, DateTime dateTo, Guid facilityId)

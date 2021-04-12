@@ -31,22 +31,6 @@ namespace Accessibility.Application.Schedules.Queries.GetScheduleById
                 new {
                     request.ScheduleId
                 });
-            
-            var availabilities = (await connection.QueryAsync<AvailabilityDto>(
-                @"SELECT
-                    employee_id AS EmployeeId,
-                    start_time AS StartTime,
-                    end_time AS EndTime,
-                    priority,
-                    creator_id AS CreatorId,
-                    creation_date AS CreationDate
-                FROM accessibility.availabilities
-                WHERE schedule_id = @ScheduleId;",
-                new {
-                    request.ScheduleId
-                })).AsList();
-            
-            schedule.Availabilities = availabilities;
 
             return schedule;
         }
