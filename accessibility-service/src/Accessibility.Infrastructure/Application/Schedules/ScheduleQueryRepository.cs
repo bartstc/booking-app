@@ -24,6 +24,7 @@ namespace Accessibility.Infrastructure.Application.Schedules
         {
             return await connection.QueryAsync<ScheduleDto, AvailabilityDto, ScheduleDto>(
                 @"SELECT
+                    s.schedule_id AS ScheduleId,
                     s.name,
                     s.start_date AS StartDate,
                     s.end_date AS EndDate,

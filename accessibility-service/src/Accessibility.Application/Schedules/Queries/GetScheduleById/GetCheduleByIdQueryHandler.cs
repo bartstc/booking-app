@@ -21,6 +21,7 @@ namespace Accessibility.Application.Schedules.Queries.GetScheduleById
 
             var schedule = await connection.QuerySingleOrDefaultAsync<ScheduleDto>(
                 @"SELECT
+                    schedule_id as ScheduleId,
                     name,
                     start_date as StartDate,
                     end_date as EndDate,

@@ -10,6 +10,7 @@ namespace Accessibility.Application.Schedules.Queries
             Availabilities = new List<AvailabilityDto>();
         }
 
+        public Guid ScheduleId { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
