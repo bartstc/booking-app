@@ -57,6 +57,14 @@ export const useWeekRange = ({
       .some(value => value === minDate.format('D-M'));
   };
 
+  const isInRange = (date: Dayjs) => {
+    const resetDate = (date: Dayjs) => date.hour(0).minute(0).second(0).millisecond(0);
+    const start = resetDate(minDate).add(-1, 'day');
+    const end = resetDate(maxDate).add(1, 'day');
+
+    return resetDate(date).isAfter(start) && resetDate(date).isBefore(end);
+  };
+
   return {
     sunday,
     saturday,
@@ -65,5 +73,6 @@ export const useWeekRange = ({
     isNextWeekNotAllowed: isNextWeekNotAllowed(),
     isPrevWeekNotAllowed: isPrevWeekNotAllowed(),
     weekDates: getWeekDates(),
+    isInRange,
   };
 };

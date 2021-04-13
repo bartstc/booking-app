@@ -13,8 +13,8 @@ export const mockedSchedules: IScheduleCollection = {
     {
       scheduleId: '123',
       creationDate: dayjs().toDate().toString(),
-      startDate: dayjs().add(1, 'day').toDate().toString(),
-      endDate: dayjs().add(15, 'day').toDate().toString(),
+      startDate: dayjs().add(1, 'day').hour(0).minute(0).toDate().toString(),
+      endDate: dayjs().add(15, 'day').hour(23).minute(59).toDate().toString(),
       name: 'Mocked schedule',
       availabilities: [
         {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Center, SimpleGrid, VStack, useColorModeValue, useTheme } from '@chakra-ui/react';
+import { Center, SimpleGrid, VStack, useColorModeValue, useTheme, StackProps } from '@chakra-ui/react';
 import dayjs, { Dayjs } from 'dayjs';
 
 import { IAvailableEmployee } from 'modules/schedules/application/types';
@@ -12,17 +12,18 @@ import { EmptyEmployeePopover } from './EmptyEmployeePopover';
 interface IProps {
   weekDates: Dayjs[];
   availabilities: IAvailableEmployee[];
+  isInRange: (date: Dayjs) => boolean;
 }
 
-const AvailableEmployeesGrid = ({ availabilities, weekDates }: IProps) => {
+const AvailableEmployeesGrid = ({ availabilities, weekDates, isInRange }: IProps) => {
   const { facilityId } = useFacilityConsumer();
   const { collection } = useEmployeesQuery(facilityId);
 
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
-  const dayOffBackgroundColor = useColorModeValue(colors.gray[100], colors.gray[700]);
+  const blockedBackgroundColor = useColorModeValue(colors.gray[100], colors.gray[700]);
   const dayOffBorder = useColorModeValue(colors.gray[300], colors.gray[600]);
-  const dayOffBackground = `repeating-linear-gradient(-45deg, ${dayOffBorder}, ${dayOffBorder} 1px, ${dayOffBackgroundColor} 2px, ${dayOffBackgroundColor} 9px)`;
+  const blockedBackground = `repeating-linear-gradient(-45deg, ${dayOffBorder}, ${dayOffBorder} 1px, ${blockedBackgroundColor} 2px, ${blockedBackgroundColor} 9px)`;
 
   return (
     <>
@@ -39,44 +40,58 @@ const AvailableEmployeesGrid = ({ availabilities, weekDates }: IProps) => {
                 employee => dayjs(employee.startTime).format('D-M') === weekDate.format('D-M'),
               );
 
+              if (!isInRange(weekDate)) {
+                return <Cell key={index} background={blockedBackground} />;
+              }
+
+              if (availabilities.length === 0) {
+                return (
+                  <Cell key={index}>
+                    <EmptyEmployeePopover date={weekDate.toDate().toString()} employeeId={employee.employeeId} index={0} />
+                  </Cell>
+                );
+              }
+
               return (
-                <VStack
-                  justify={'flex-start'}
-                  minH='65px'
-                  p={2}
-                  pb={1}
-                  key={index}
-                  border={`1px solid ${borderColor}`}
-                  background={availabilities.length === 0 ? dayOffBackground : 'transparent'}
-                  borderLeft='none'
-                  borderTop='none'
-                  textTransform='capitalize'
-                  spacing={1}
-                >
-                  {availabilities.length === 0 ? (
-                    <>
-                      <EmptyEmployeePopover date={weekDate.toDate().toString()} employeeId={employee.employeeId} index={0} />
-                    </>
-                  ) : (
-                    <>
-                      {availabilities.map((availability, index) => (
-                        <AvailableEmployeePopover
-                          key={index}
-                          index={index}
-                          date={weekDate.toDate().toString()}
-                          availabilities={availabilities}
-                          availability={availability}
-                        />
-                      ))}
-                    </>
-                  )}
-                </VStack>
+                <Cell key={index}>
+                  {availabilities.map((availability, index) => (
+                    <AvailableEmployeePopover
+                      key={index}
+                      index={index}
+                      date={weekDate.toDate().toString()}
+                      availabilities={availabilities}
+                      availability={availability}
+                    />
+                  ))}
+                </Cell>
               );
             })}
           </SimpleGrid>
         );
       })}
     </>
+  );
+};
+
+const Cell = ({ children, ...props }: StackProps) => {
+  const { colors } = useTheme();
+  const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
+
+  return (
+    <VStack
+      justify='flex-start'
+      minH='65px'
+      p={2}
+      pb={1}
+      border={`1px solid ${borderColor}`}
+      borderLeft='none'
+      borderTop='none'
+      textTransform='capitalize'
+      spacing={1}
+      {...props}
+    >
+      {children}
+    </VStack>
   );
 };
 

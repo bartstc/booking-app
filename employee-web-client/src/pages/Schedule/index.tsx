@@ -28,7 +28,7 @@ const Schedule = () => {
 
   const schedule = useScheduleQuery(facilityId, scheduleId);
 
-  const { saturday, sunday, weekDates, nextWeek, prevWeek, isPrevWeekNotAllowed, isNextWeekNotAllowed } = useWeekRange({
+  const { saturday, sunday, weekDates, nextWeek, prevWeek, isPrevWeekNotAllowed, isNextWeekNotAllowed, isInRange } = useWeekRange({
     dayWithinWeek: dayjs(schedule.startDate),
     minDate: dayjs(schedule.startDate),
     maxDate: dayjs(schedule.endDate),
@@ -63,7 +63,7 @@ const Schedule = () => {
         </HStack>
         <WeekDaysGrid weekDates={weekDates} />
         <WorkingDaysGrid workingDays={workingDays} />
-        <AvailableEmployeesGrid weekDates={weekDates} availabilities={schedule.availabilities} />
+        <AvailableEmployeesGrid isInRange={isInRange} weekDates={weekDates} availabilities={schedule.availabilities} />
       </VStack>
     </PageWrapper>
   );
