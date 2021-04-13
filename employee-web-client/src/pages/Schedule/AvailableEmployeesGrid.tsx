@@ -1,5 +1,5 @@
 import React from 'react';
-import { Center, SimpleGrid, VStack, useColorModeValue, useTheme, StackProps } from '@chakra-ui/react';
+import { Avatar, Box, Center, SimpleGrid, StackProps, useColorModeValue, useTheme, VStack, AvatarBadge, HStack } from '@chakra-ui/react';
 import dayjs, { Dayjs } from 'dayjs';
 
 import { IAvailableEmployee } from 'modules/schedules/application/types';
@@ -8,6 +8,7 @@ import { useFacilityConsumer } from 'modules/context';
 
 import { AvailableEmployeePopover } from './AvailableEmployeePopover';
 import { EmptyEmployeePopover } from './EmptyEmployeePopover';
+import { EmployeeStatus } from '../../modules/employees/application/types';
 
 interface IProps {
   weekDates: Dayjs[];
@@ -24,6 +25,7 @@ const AvailableEmployeesGrid = ({ availabilities, weekDates, isInRange }: IProps
   const blockedBackgroundColor = useColorModeValue(colors.gray[100], colors.gray[700]);
   const dayOffBorder = useColorModeValue(colors.gray[300], colors.gray[600]);
   const blockedBackground = `repeating-linear-gradient(-45deg, ${dayOffBorder}, ${dayOffBorder} 1px, ${blockedBackgroundColor} 2px, ${blockedBackgroundColor} 9px)`;
+  const avatarBg = useColorModeValue('gray.300', 'gray.600');
 
   return (
     <>
@@ -32,8 +34,20 @@ const AvailableEmployeesGrid = ({ availabilities, weekDates, isInRange }: IProps
 
         return (
           <SimpleGrid key={employee.employeeId} w='100%' spacingX={0} columns={8}>
-            <Center fontWeight='700' border={`1px solid ${borderColor}`} borderTop='none'>
-              {employee.name}
+            <Center justifyContent='flex-start' fontWeight='700' p={2} border={`1px solid ${borderColor}`} borderTop='none'>
+              <HStack spacing={3}>
+                <Avatar bg={avatarBg} size='sm'>
+                  <AvatarBadge boxSize='1.1em' bg={employee.status === EmployeeStatus.Active ? 'green.300' : 'red.300'} />
+                </Avatar>
+                <VStack align='flex-start' spacing={1}>
+                  <Box lineHeight='.9rem' fontSize='sm'>
+                    {employee.name}
+                  </Box>
+                  <Box fontSize='xs' color='gray.500'>
+                    {employee.position}
+                  </Box>
+                </VStack>
+              </HStack>
             </Center>
             {weekDates.map((weekDate, index) => {
               const availabilities = employeeAvailabilities.filter(

@@ -19,7 +19,7 @@ const WorkingDaysGrid = ({ workingDays }: IProps) => {
 
   return (
     <SimpleGrid w='100%' spacingX={0} columns={8}>
-      <Center fontWeight='700' border={`1px solid ${borderColor}`} borderTop='none'>
+      <Center p={1} fontWeight='700' border={`1px solid ${borderColor}`} borderTop='none'>
         <FormattedMessage id='working-hours' defaultMessage='Working Hours' />
       </Center>
       {weekDays.map(day => {

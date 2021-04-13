@@ -24,7 +24,7 @@ const Header = ({ schedule }: IProps) => {
               values={{
                 date: (
                   <chakra.b ml={1} display='inline-block'>
-                    <FormattedDate value={schedule.startDate} />
+                    <FormattedDate value={schedule.startDate} format='DD MMM YYYY' />
                   </chakra.b>
                 ),
               }}
@@ -38,7 +38,7 @@ const Header = ({ schedule }: IProps) => {
               values={{
                 date: (
                   <chakra.b ml={1} display='inline-block'>
-                    <FormattedDate value={schedule.endDate} />
+                    <FormattedDate value={schedule.endDate} format='DD MMM YYYY' />
                   </chakra.b>
                 ),
               }}

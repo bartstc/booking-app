@@ -41,7 +41,7 @@ const AvailableEmployeePopover = ({ availabilities, date, index, availability }:
       </PopoverTrigger>
       <PopoverContent width={{ base: 320, md: 370 }} position='absolute' transform='translate(-50%, 4px) !important'>
         <PopoverHeader pt={4} fontWeight='bold' border='0'>
-          <FormattedDate value={date} />
+          <FormattedDate value={date} format='DD MMM (dddd)' />
         </PopoverHeader>
         <PopoverCloseButton />
         <PopoverBody>

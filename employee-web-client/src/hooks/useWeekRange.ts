@@ -1,8 +1,6 @@
-import dayjs, { Dayjs, extend } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { useState } from 'react';
-import weekday from 'dayjs/plugin/weekday';
-
-extend(weekday);
+import { dayjs } from 'utils/dayjs';
 
 interface Props {
   dayWithinWeek?: Dayjs;
@@ -19,8 +17,9 @@ export const useWeekRange = ({
   const saturdayIndex = 6;
   const weekDayCount = 7;
 
-  const [sunday, setSunday] = useState(dayWithinWeek.weekday(sundayIndex));
-  const [saturday, setSaturday] = useState(dayWithinWeek.weekday(saturdayIndex));
+  const [trackedDay, setTrackedDay] = useState(dayWithinWeek);
+  const [sunday, setSunday] = useState(trackedDay.weekday(sundayIndex));
+  const [saturday, setSaturday] = useState(trackedDay.weekday(saturdayIndex));
 
   const getWeekDates = () => {
     const weekDates = [];
@@ -35,12 +34,20 @@ export const useWeekRange = ({
     return weekDates;
   };
 
+  const setWeek = (date: Dayjs) => {
+    setTrackedDay(date);
+    setSunday(date.weekday(sundayIndex));
+    setSaturday(date.weekday(saturdayIndex));
+  };
+
   const nextWeek = () => {
+    setTrackedDay(date => date.add(weekDayCount, 'day'));
     setSunday(date => date.add(weekDayCount, 'day'));
     setSaturday(date => date.add(weekDayCount, 'day'));
   };
 
   const prevWeek = () => {
+    setTrackedDay(date => date.add(-weekDayCount, 'day'));
     setSunday(date => date.add(-weekDayCount, 'day'));
     setSaturday(date => date.add(-weekDayCount, 'day'));
   };
@@ -68,8 +75,10 @@ export const useWeekRange = ({
   return {
     sunday,
     saturday,
+    trackedDay,
     nextWeek,
     prevWeek,
+    setWeek,
     isNextWeekNotAllowed: isNextWeekNotAllowed(),
     isPrevWeekNotAllowed: isPrevWeekNotAllowed(),
     weekDates: getWeekDates(),
