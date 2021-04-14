@@ -4,13 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace Accessibility.Application.Schedules.Queries.GetAvailabilites
+namespace Accessibility.Application.Availabilities.Queries.GetAvailabilites
 {
     public class GetAvailabilitiesQueryHandler : IRequestHandler<GetAvailabilitiesQuery, IEnumerable<AvailabilityDto>>
     {
-        private readonly IScheduleQueryRepository repository;
+        private readonly IAvailabilityQueryRepository repository;
 
-        public GetAvailabilitiesQueryHandler(IScheduleQueryRepository repository)
+        public GetAvailabilitiesQueryHandler(IAvailabilityQueryRepository repository)
         {
             this.repository = repository;
         }
@@ -22,14 +22,14 @@ namespace Accessibility.Application.Schedules.Queries.GetAvailabilites
                 return await repository.GetAvailabilities(
                     request.FacilityId,
                     request.ScheduleId,
-                    request.StartTime??DateTime.Now,
+                    request.StartTime??DateTime.MinValue,
                     request.EndTime??DateTime.MaxValue);
             }
             
             return await repository.GetAvailabilities(
                 request.FacilityId,
                 request.ScheduleId,
-                request.StartTime??DateTime.Now,
+                request.StartTime??DateTime.MinValue,
                 request.EndTime??DateTime.MaxValue,
                 request.EmployeeId);
         }

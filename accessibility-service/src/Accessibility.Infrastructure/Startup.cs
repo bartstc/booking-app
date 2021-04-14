@@ -29,6 +29,8 @@ using Accessibility.Application.Bookings.Queries;
 using System.Collections.Generic;
 using Accessibility.Application;
 using Accessibility.Application.Bookings.DomainServices;
+using Accessibility.Application.Availabilities.Queries;
+using Accessibility.Infrastructure.Application.Availabilities;
 
 namespace Accessibility.Infrastructure
 {
@@ -46,6 +48,7 @@ namespace Accessibility.Infrastructure
                 .AddMediatR(typeof(CreateScheduleCommand).Assembly, typeof(ScheduleCreatedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
                 .AddTransient<IScheduleRepository, ScheduleRepository>()
                 .AddTransient<IScheduleQueryRepository, ScheduleQueryRepository>()
+                .AddTransient<IAvailabilityQueryRepository, AvailabilityQueryRepository>()
                 .AddTransient<ISchedulePeriodOfTimeChecker, SchedulePeriodOfTimeChecker>()
                 .AddTransient<IBookingRepository, BookingRepository>()
                 .AddTransient<IBookingQueryRepository, BookingQueryRepository>()

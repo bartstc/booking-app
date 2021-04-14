@@ -7,18 +7,19 @@ using Accessibility.Application.Schedules;
 using MediatR;
 using Accessibility.Application.Facilities;
 using Accessibility.Domain.Extensions;
+using Accessibility.Application.Availabilities.Queries;
 
 namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms
 {
     public class GetAvailableBookingTermsQueryHandler : IRequestHandler<GetAvailableBookingTermsQuery, IEnumerable<AvailableBookingTermDto>>
     {
-        private readonly IScheduleQueryRepository scheduleRepository;
+        private readonly IAvailabilityQueryRepository availabilityRepository;
         private readonly IBookingQueryRepository bookingRepository;
         private readonly IOfferQueryRepository offerRepository;
 
-        public GetAvailableBookingTermsQueryHandler(IScheduleQueryRepository scheduleRepository, IBookingQueryRepository bookingRepository, IOfferQueryRepository offerRepository)
+        public GetAvailableBookingTermsQueryHandler(IAvailabilityQueryRepository availabilityRepository, IBookingQueryRepository bookingRepository, IOfferQueryRepository offerRepository)
         {
-            this.scheduleRepository = scheduleRepository;
+            this.availabilityRepository = availabilityRepository;
             this.bookingRepository = bookingRepository;
             this.offerRepository = offerRepository;
         }
@@ -32,7 +33,7 @@ namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms
                 throw new Exception("Offer not found.");
             }
 
-            var availabilities = await scheduleRepository.GetAllAvailabilities(dateFrom, request.DateTo, request.FacilityId);
+            var availabilities = await availabilityRepository.GetAllAvailabilities(dateFrom, request.DateTo, request.FacilityId);
             var bookedTerms = await bookingRepository.GetBookedTerms(request.FacilityId, dateFrom, request.DateTo);
             var employeeIds = availabilities.Select(a => a.EmployeeId).Distinct().ToList(); // TODO: load employee ids from persisted storage after implementation of employee created event
 
