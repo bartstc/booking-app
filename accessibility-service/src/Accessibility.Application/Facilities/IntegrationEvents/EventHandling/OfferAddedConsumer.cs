@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Accessibility.Application.Facilities.Commands.CreateOffer;
 using Management.Facilities.Events;
@@ -20,12 +21,12 @@ namespace Accessibility.Application.Facilities.IntegrationEvents.EventHandling
             var message = context.Message;
 
             await mediator.Send(new CreateOfferCommand(
-                message.Id,
-                message.FacilityId,
-                message.Name,
-                message.Price,
-                message.Currency,
-                message.Duration
+                message.Dto.OfferId,
+                message.Dto.FacilityId,
+                message.Dto.Name,
+                Convert.ToDecimal(message.Dto.Price.Value),
+                message.Dto.Price.Currency,
+                message.Dto.Duration
             ));
         }
     }
