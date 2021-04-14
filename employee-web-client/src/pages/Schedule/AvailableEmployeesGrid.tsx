@@ -1,5 +1,17 @@
 import React from 'react';
-import { Avatar, Box, Center, SimpleGrid, StackProps, useColorModeValue, useTheme, VStack, AvatarBadge, HStack } from '@chakra-ui/react';
+import {
+  Avatar,
+  Box,
+  Center,
+  SimpleGrid,
+  GridItem,
+  StackProps,
+  useColorModeValue,
+  useTheme,
+  VStack,
+  AvatarBadge,
+  HStack,
+} from '@chakra-ui/react';
 import dayjs, { Dayjs } from 'dayjs';
 
 import { IAvailableEmployee } from 'modules/schedules/application/types';
@@ -34,7 +46,15 @@ const AvailableEmployeesGrid = ({ availabilities, weekDates, isInRange }: IProps
 
         return (
           <SimpleGrid key={employee.employeeId} w='100%' spacingX={0} columns={8}>
-            <Center justifyContent='flex-start' fontWeight='700' p={2} border={`1px solid ${borderColor}`} borderTop='none'>
+            <GridItem
+              as={Center}
+              colSpan={1}
+              justifyContent='flex-start'
+              fontWeight='700'
+              p={2}
+              border={`1px solid ${borderColor}`}
+              borderTop='none'
+            >
               <HStack spacing={3}>
                 <Avatar bg={avatarBg} size='sm'>
                   <AvatarBadge boxSize='1.1em' bg={employee.status === EmployeeStatus.Active ? 'green.300' : 'red.300'} />
@@ -48,7 +68,7 @@ const AvailableEmployeesGrid = ({ availabilities, weekDates, isInRange }: IProps
                   </Box>
                 </VStack>
               </HStack>
-            </Center>
+            </GridItem>
             {weekDates.map((weekDate, index) => {
               const availabilities = employeeAvailabilities.filter(
                 employee => dayjs(employee.startTime).format('D-M') === weekDate.format('D-M'),
@@ -92,7 +112,9 @@ const Cell = ({ children, ...props }: StackProps) => {
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
 
   return (
-    <VStack
+    <GridItem
+      as={VStack}
+      colSpan={1}
       justify='flex-start'
       minH='65px'
       p={2}
@@ -105,7 +127,7 @@ const Cell = ({ children, ...props }: StackProps) => {
       {...props}
     >
       {children}
-    </VStack>
+    </GridItem>
   );
 };
 

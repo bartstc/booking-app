@@ -49,11 +49,11 @@ const Schedule = () => {
   });
 
   return (
-    <PageWrapper>
+    <PageWrapper maxW='1600px'>
       <Header schedule={schedule} />
       <VStack w='100%' spacing={0}>
         <SimpleGrid w='100%' columns={3} spacingX={4}>
-          <GridItem colSpan={1} mt={2}>
+          <GridItem display={{ base: 'none', lg: 'block' }} colSpan={1} mt={2}>
             <Box maxW='270px'>
               <DateInput
                 isClearable={false}
@@ -68,7 +68,7 @@ const Schedule = () => {
               />
             </Box>
           </GridItem>
-          <GridItem as={VStack} colSpan={1} spacing={-1}>
+          <GridItem as={VStack} colSpan={{ base: 3, lg: 1 }} spacing={-1}>
             <HStack spacing={3} fontSize='lg'>
               <IconButton onClick={prevWeek} isDisabled={isPrevWeekNotAllowed} path={mdiChevronLeft} title='' />
               <HStack color={color}>
