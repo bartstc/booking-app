@@ -19,7 +19,7 @@ namespace Accessibility.Infrastructure.Application.Facilities
             builder.Property(b => b.Price).HasColumnName("price");
             builder.Property(b => b.Currency).HasColumnName("currency");
             builder.Property(b => b.Duration).HasColumnName("duration");
-
+            builder.Property(b => b.Status).HasColumnName("status");
         }
     }
 }

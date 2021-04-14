@@ -4,7 +4,7 @@ using Accessibility.Domain.Schedules;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
 
-namespace Accessibility.Application.Schedules.Queries.GetAvailabilites
+namespace Accessibility.Application.Availabilities.Queries.GetAvailabilites
 {
     public class GetAvailabilitiesQuery : IRequest<IEnumerable<AvailabilityDto>>
     {

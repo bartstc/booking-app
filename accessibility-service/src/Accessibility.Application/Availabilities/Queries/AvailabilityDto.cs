@@ -1,7 +1,7 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace Accessibility.Application.Schedules.Queries
+namespace Accessibility.Application.Availabilities.Queries
 {
     public class AvailabilityDto
     {

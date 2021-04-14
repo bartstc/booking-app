@@ -9,6 +9,7 @@ using Accessibility.Application.Bookings;
 using System.Threading.Tasks;
 using System.Linq;
 using Accessibility.Application.Facilities;
+using Accessibility.Application.Availabilities.Queries;
 
 namespace Accessibility.UnitTests.Bookings
 {
@@ -30,14 +31,14 @@ namespace Accessibility.UnitTests.Bookings
             List<BookedTerm> bookedTerms,
             List<AvailableBookingTermDto> expected)
         {
-            var scheduleRepoMock = new Mock<IScheduleQueryRepository>();
+            var availabilityRepoMock = new Mock<IAvailabilityQueryRepository>();
             var bookingRepoMock = new Mock<IBookingQueryRepository>();
             var offerRepoMock = new Mock<IOfferQueryRepository>();
-            scheduleRepoMock.Setup(s => s.GetAllAvailabilities(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<Guid>())).ReturnsAsync(availabilities);
+            availabilityRepoMock.Setup(s => s.GetAllAvailabilities(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<Guid>())).ReturnsAsync(availabilities);
             bookingRepoMock.Setup(b => b.GetBookedTerms(It.IsAny<Guid>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).ReturnsAsync(bookedTerms);
             offerRepoMock.Setup(o => o.GetOfferDuration(It.IsAny<Guid>(), It.IsAny<Guid>())).ReturnsAsync((short)offerDuration);
 
-            var result = await new GetAvailableBookingTermsQueryHandler(scheduleRepoMock.Object, bookingRepoMock.Object, offerRepoMock.Object)
+            var result = await new GetAvailableBookingTermsQueryHandler(availabilityRepoMock.Object, bookingRepoMock.Object, offerRepoMock.Object)
                 .Handle(new GetAvailableBookingTermsQuery(
                         Guid.NewGuid(),
                         Guid.NewGuid(),

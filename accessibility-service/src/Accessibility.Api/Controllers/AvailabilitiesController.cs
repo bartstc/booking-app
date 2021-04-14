@@ -1,8 +1,8 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Accessibility.Application.Schedules.Queries;
-using Accessibility.Application.Schedules.Queries.GetAvailabilites;
+using Accessibility.Application.Availabilities.Queries;
+using Accessibility.Application.Availabilities.Queries.GetAvailabilites;
 using Accessibility.Domain.Schedules;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Accessibility.Api.Controllers
 {
     [ApiController]
-    [Route("facilities/{facilityId}/schedules/{scheduleId}/[controller]")]
+    [Route("facilities/{facilityId}/schedules/{scheduleId}/availabilities")]
     public class AvailabilitiesController : ControllerBase
     {
         private readonly IMediator mediator;

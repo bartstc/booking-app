@@ -29,6 +29,8 @@ using Accessibility.Application.Bookings.Queries;
 using System.Collections.Generic;
 using Accessibility.Application;
 using Accessibility.Application.Bookings.DomainServices;
+using Accessibility.Application.Availabilities.Queries;
+using Accessibility.Infrastructure.Application.Availabilities;
 
 namespace Accessibility.Infrastructure
 {
@@ -46,6 +48,7 @@ namespace Accessibility.Infrastructure
                 .AddMediatR(typeof(CreateScheduleCommand).Assembly, typeof(ScheduleCreatedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
                 .AddTransient<IScheduleRepository, ScheduleRepository>()
                 .AddTransient<IScheduleQueryRepository, ScheduleQueryRepository>()
+                .AddTransient<IAvailabilityQueryRepository, AvailabilityQueryRepository>()
                 .AddTransient<ISchedulePeriodOfTimeChecker, SchedulePeriodOfTimeChecker>()
                 .AddTransient<IBookingRepository, BookingRepository>()
                 .AddTransient<IBookingQueryRepository, BookingQueryRepository>()
@@ -68,7 +71,9 @@ namespace Accessibility.Infrastructure
             {
                 x.AddConsumer<BookingRequestedConsumer>()
                     .Endpoint(e => {e.ConcurrentMessageLimit = 1;});
-                x.AddConsumer<OfferCreatedConsumer>();
+                x.AddConsumer<OfferAddedConsumer>();
+                x.AddConsumer<OfferDeactivatedConsumer>();
+                x.AddConsumer<OfferActivatedConsumer>();
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -81,8 +86,14 @@ namespace Accessibility.Infrastructure
                     cfg.ReceiveEndpoint(eventBusExchanges[EventBusExchange.BookingRequests], e =>
                         e.ConfigureConsumer<BookingRequestedConsumer>(context));
                     
-                    cfg.ReceiveEndpoint("offer-created-listener", e =>
-                        e.ConfigureConsumer<OfferCreatedConsumer>(context));
+                    cfg.ReceiveEndpoint("offer-added-accessibility", e =>
+                        e.ConfigureConsumer<OfferAddedConsumer>(context));
+                    
+                    cfg.ReceiveEndpoint("offer-deactivated-accessibility", e =>
+                        e.ConfigureConsumer<OfferDeactivatedConsumer>(context));
+                    
+                    cfg.ReceiveEndpoint("offer-activated-accessibility", e =>
+                        e.ConfigureConsumer<OfferActivatedConsumer>(context));
                 });
             })
             .AddMassTransitHostedService();

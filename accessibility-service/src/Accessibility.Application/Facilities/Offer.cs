@@ -8,7 +8,7 @@ namespace Accessibility.Application.Facilities
         {
         }
 
-        public Offer(OfferId id, FacilityId facilityId, string name, decimal price, string currency, short duration)
+        public Offer(OfferId id, FacilityId facilityId, string name, decimal price, string currency, short duration, EntityStatus status)
         {
             Id = id;
             FacilityId = facilityId;
@@ -16,6 +16,7 @@ namespace Accessibility.Application.Facilities
             Price = price;
             Currency = currency;
             Duration = duration;
+            Status = status;
         }
 
         public OfferId Id { get; }
@@ -24,5 +25,6 @@ namespace Accessibility.Application.Facilities
         public decimal Price { get; }
         public string Currency { get; }
         public short Duration { get; }
+        public EntityStatus Status { get; internal set; }
     }
 }

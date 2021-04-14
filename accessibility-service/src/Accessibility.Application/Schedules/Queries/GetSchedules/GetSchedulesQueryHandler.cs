@@ -17,7 +17,7 @@ namespace Accessibility.Application.Schedules.Queries.GetSchedules
 
         public async Task<IEnumerable<ScheduleDto>> Handle(GetSchedulesQuery request, CancellationToken cancellationToken)
         {
-            return await repository.GetSchedules(request.DateFrom??DateTime.Now, request.DateTo??DateTime.MaxValue, request.FacilityId);
+            return await repository.GetSchedules(request.DateFrom??DateTime.MinValue, request.DateTo??DateTime.MaxValue, request.FacilityId);
         }
     }
 }

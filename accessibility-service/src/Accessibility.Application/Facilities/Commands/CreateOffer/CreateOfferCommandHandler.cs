@@ -25,7 +25,8 @@ namespace Accessibility.Application.Facilities.Commands.CreateOffer
                 request.Name,
                 request.Price,
                 request.Currency,
-                request.Duration
+                request.Duration,
+                EntityStatus.active
             );
 
             await repository.AddAsync(offer);
