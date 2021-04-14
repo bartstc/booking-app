@@ -21,7 +21,10 @@ namespace Accessibility.Infrastructure.Application.Facilities
         {
             await ctx.AddAsync(offer);
         }
-        
+
+        public async Task<Offer> GetByIdAsync(OfferId id) =>
+            await ctx.Offers.FirstOrDefaultAsync(o => o.Id == id);
+
         public async Task<IEnumerable<Offer>> GetByIdsAsync(IEnumerable<OfferId> ids) =>
             await ctx.Offers
                 .Where(offer => ids.Contains(offer.Id))
