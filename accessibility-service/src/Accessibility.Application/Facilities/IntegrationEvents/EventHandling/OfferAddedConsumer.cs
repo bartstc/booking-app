@@ -1,21 +1,21 @@
 using System.Threading.Tasks;
 using Accessibility.Application.Facilities.Commands.CreateOffer;
-using Accessibility.Application.Facilities.IntegrationEvents.Events;
+using Management.Facilities.Events;
 using MassTransit;
 using MediatR;
 
 namespace Accessibility.Application.Facilities.IntegrationEvents.EventHandling
 {
-    public class OfferCreatedConsumer : IConsumer<OfferCreated>
+    public class OfferAddedConsumer : IConsumer<OfferAdded>
     {
         private readonly IMediator mediator;
 
-        public OfferCreatedConsumer(IMediator mediator)
+        public OfferAddedConsumer(IMediator mediator)
         {
             this.mediator = mediator;
         }
 
-        public async Task Consume(ConsumeContext<OfferCreated> context)
+        public async Task Consume(ConsumeContext<OfferAdded> context)
         {
             var message = context.Message;
 

@@ -1,8 +1,8 @@
 using System;
 
-namespace Accessibility.Application.Facilities.IntegrationEvents.Events
+namespace Management.Facilities.Events
 {
-    public interface OfferCreated
+    public interface OfferAdded
     {
         Guid Id { get; }
         Guid FacilityId { get; }
