@@ -20,7 +20,6 @@ const getDefaultData = (creatorId: string): ICreateScheduleDto => ({
   endDate: '',
   startDate: '',
   creatorId,
-  availabilities: [],
 });
 
 const CreateScheduleForm = ({ onSubmit, creatorId, initialData }: IProps) => {
