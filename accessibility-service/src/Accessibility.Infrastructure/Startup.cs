@@ -72,6 +72,8 @@ namespace Accessibility.Infrastructure
                 x.AddConsumer<BookingRequestedConsumer>()
                     .Endpoint(e => {e.ConcurrentMessageLimit = 1;});
                 x.AddConsumer<OfferAddedConsumer>();
+                x.AddConsumer<OfferDeactivatedConsumer>();
+                x.AddConsumer<OfferActivatedConsumer>();
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -86,6 +88,12 @@ namespace Accessibility.Infrastructure
                     
                     cfg.ReceiveEndpoint("offer-added-accessibility", e =>
                         e.ConfigureConsumer<OfferAddedConsumer>(context));
+                    
+                    cfg.ReceiveEndpoint("offer-deactivated-accessibility", e =>
+                        e.ConfigureConsumer<OfferDeactivatedConsumer>(context));
+                    
+                    cfg.ReceiveEndpoint("offer-activated-accessibility", e =>
+                        e.ConfigureConsumer<OfferActivatedConsumer>(context));
                 });
             })
             .AddMassTransitHostedService();
