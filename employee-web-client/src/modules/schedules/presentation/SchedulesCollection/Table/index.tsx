@@ -24,7 +24,6 @@ const Table = () => {
             templateColumns={{
               base: '80px repeat(2, 1fr)',
               md: '80px repeat(4, 1fr)',
-              lg: '80px repeat(5, 1fr)',
             }}
             mb={4}
           >

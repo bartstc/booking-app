@@ -1,12 +1,14 @@
 import React from 'react';
 import { VStack, Box, HStack, useColorModeValue, SimpleGrid, GridItem } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { mdiChevronRight, mdiChevronLeft } from '@mdi/js';
+import { mdiChevronRight, mdiChevronLeft, mdiArrowLeft } from '@mdi/js';
 import { DateInput } from 'react-hook-form-chakra-fields';
 
 import { useWeekRange } from 'hooks';
 import { dayjs } from 'utils/dayjs';
+import { buildUrl } from 'utils';
+import { DEFAULT_PARAMS } from 'utils/constant';
 
 import { useScheduleQuery } from 'modules/schedules/infrastructure/query';
 import { useFacilityConsumer } from 'modules/context';
@@ -15,6 +17,7 @@ import { PageWrapper } from 'shared/Layout/Page';
 import { withErrorBoundary } from 'shared/ErrorBoundary';
 import { FormattedDate } from 'shared/Date';
 import { IconButton } from 'shared/Button';
+import { Icon } from 'shared/Icon';
 
 import { Header } from './Header';
 import { AvailableEmployeesGrid } from './AvailableEmployeesGrid';
@@ -23,8 +26,10 @@ import { WeekDaysGrid } from './WeekDaysGrid';
 
 const Schedule = () => {
   const { formatMessage } = useIntl();
-  const { facilityId, workingDays } = useFacilityConsumer();
+  const { push } = useHistory();
   const { scheduleId } = useParams<{ scheduleId: string }>();
+
+  const { facilityId, workingDays } = useFacilityConsumer();
 
   const color = useColorModeValue('primary.500', 'primary.300');
   const weekTextColor = useColorModeValue('gray.500', 'gray.400');
@@ -54,7 +59,13 @@ const Schedule = () => {
       <VStack w='100%' spacing={0}>
         <SimpleGrid w='100%' columns={3} spacingX={4}>
           <GridItem display={{ base: 'none', lg: 'block' }} colSpan={1} mt={2}>
-            <Box maxW='270px'>
+            <HStack spacing={4} maxW='300px'>
+              <IconButton
+                onClick={() => push(buildUrl(`/schedules`, DEFAULT_PARAMS))}
+                variant='solid'
+                title={formatMessage({ id: 'bask-to-list', defaultMessage: 'Back to list' })}
+                icon={<Icon path={mdiArrowLeft} />}
+              />
               <DateInput
                 isClearable={false}
                 value={trackedDay?.toDate().toString()}
@@ -66,7 +77,7 @@ const Schedule = () => {
                 minDate={new Date(schedule.startDate)}
                 maxDate={new Date(schedule.endDate)}
               />
-            </Box>
+            </HStack>
           </GridItem>
           <GridItem as={VStack} colSpan={{ base: 3, lg: 1 }} spacing={-1}>
             <HStack spacing={3} fontSize='lg'>
@@ -92,7 +103,7 @@ const Schedule = () => {
         </SimpleGrid>
         <WeekDaysGrid weekDates={weekDates} />
         <WorkingDaysGrid workingDays={workingDays} />
-        <AvailableEmployeesGrid isInRange={isInRange} weekDates={weekDates} availabilities={schedule.availabilities} />
+        <AvailableEmployeesGrid isInRange={isInRange} weekDates={weekDates} />
       </VStack>
     </PageWrapper>
   );

@@ -46,13 +46,13 @@ const ListItem = ({ schedule: { name, endDate, startDate, scheduleId } }: IProps
             <Tag variant='subtle' colorScheme='primary' size='sm'>
               <TagLabel isTruncated width='100%' display='flex'>
                 <FormattedMessage id='start' defaultMessage='Start' />
-                {': '} <FormattedDate value={startDate} />
+                {': '} <FormattedDate value={startDate} format='DD MMM YYYY' />
               </TagLabel>
             </Tag>
             <Tag variant='subtle' colorScheme='primary' size='sm'>
               <TagLabel isTruncated width='100%' display='flex'>
                 <FormattedMessage id='end' defaultMessage='End' />
-                {': '} <FormattedDate value={endDate} />
+                {': '} <FormattedDate value={endDate} format='DD MMM YYYY' />
               </TagLabel>
             </Tag>
           </HStack>

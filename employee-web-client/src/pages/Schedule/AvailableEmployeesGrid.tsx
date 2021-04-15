@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Avatar,
   Box,
@@ -14,23 +15,25 @@ import {
 } from '@chakra-ui/react';
 import dayjs, { Dayjs } from 'dayjs';
 
-import { IAvailableEmployee } from 'modules/schedules/application/types';
+import { EmployeeStatus } from 'modules/employees/application/types';
+import { useAvailableEmployeesQuery } from 'modules/schedules/infrastructure/query';
 import { useEmployeesQuery } from 'modules/employees/infrastructure/query';
 import { useFacilityConsumer } from 'modules/context';
 
 import { AvailableEmployeePopover } from './AvailableEmployeePopover';
 import { EmptyEmployeePopover } from './EmptyEmployeePopover';
-import { EmployeeStatus } from '../../modules/employees/application/types';
 
 interface IProps {
   weekDates: Dayjs[];
-  availabilities: IAvailableEmployee[];
   isInRange: (date: Dayjs) => boolean;
 }
 
-const AvailableEmployeesGrid = ({ availabilities, weekDates, isInRange }: IProps) => {
+const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
+  const params = useParams<{ scheduleId: string }>();
   const { facilityId } = useFacilityConsumer();
-  const { collection } = useEmployeesQuery(facilityId);
+
+  const { collection: employees } = useEmployeesQuery(facilityId);
+  const { collection: availabilities } = useAvailableEmployeesQuery(facilityId, params.scheduleId);
 
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
@@ -41,7 +44,7 @@ const AvailableEmployeesGrid = ({ availabilities, weekDates, isInRange }: IProps
 
   return (
     <>
-      {collection.map(employee => {
+      {employees.map(employee => {
         const employeeAvailabilities = availabilities.filter(availability => availability.employeeId === employee.employeeId);
 
         return (
