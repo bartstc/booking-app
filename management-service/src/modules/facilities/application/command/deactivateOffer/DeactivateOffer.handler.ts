@@ -59,7 +59,7 @@ export class DeactivateOfferHandler
       const entity = await this.offerRepository.persist(offer);
 
       await this.amqpService.sendMessage(
-        new OfferDeactivatedEvent(),
+        new OfferDeactivatedEvent(offer.offerId.id.toString()),
         FacilitiesEvent.OfferDeactivated,
       );
 

@@ -17,15 +17,21 @@ import { AddAvailableEmployeesForm } from 'modules/schedules/presentation';
 import { Button } from 'shared/Button';
 import { FormattedDate } from 'shared/Date';
 import { SubmitButton } from 'shared/Form';
+import { useAddAvailableEmployees } from '../../modules/schedules/infrastructure/command';
+import { useFacilityConsumer } from '../../modules/context';
 
 interface IProps {
   date: string;
   employeeId: string;
+  scheduleId: string;
   index: number;
 }
 
-const EmptyEmployeePopover = ({ date, index, employeeId }: IProps) => {
+const EmptyEmployeePopover = ({ date, index, employeeId, scheduleId }: IProps) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
+  const { facilityId } = useFacilityConsumer();
+
+  const [add, isLoading] = useAddAvailableEmployees(facilityId, scheduleId);
 
   return (
     <Popover isLazy placement='right' onOpen={onOpen} onClose={onClose} isOpen={isOpen}>
@@ -41,8 +47,12 @@ const EmptyEmployeePopover = ({ date, index, employeeId }: IProps) => {
         <PopoverCloseButton />
         <PopoverBody>
           <AddAvailableEmployeesForm
-            onSubmit={model => {
-              console.log(model);
+            onSubmit={async model => {
+              try {
+                await add(model);
+              } catch (e) {
+                console.log(e);
+              }
             }}
             employeeId={employeeId}
             creatorId={employeeId}
@@ -51,7 +61,7 @@ const EmptyEmployeePopover = ({ date, index, employeeId }: IProps) => {
         </PopoverBody>
         <PopoverFooter d='flex' alignItems='center' justifyContent='flex-end' pb={4}>
           <ButtonGroup>
-            <SubmitButton size='sm' form='add-available-employees-form' />
+            <SubmitButton isLoading={isLoading} size='sm' form='add-available-employees-form' />
             <Button size='sm' colorScheme='gray' onClick={onClose}>
               <FormattedMessage id='close' defaultMessage='Close' />
             </Button>

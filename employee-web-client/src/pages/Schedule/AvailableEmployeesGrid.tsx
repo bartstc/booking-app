@@ -84,7 +84,12 @@ const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
               if (availabilities.length === 0) {
                 return (
                   <Cell key={index}>
-                    <EmptyEmployeePopover date={weekDate.toDate().toString()} employeeId={employee.employeeId} index={0} />
+                    <EmptyEmployeePopover
+                      date={weekDate.toDate().toString()}
+                      employeeId={employee.employeeId}
+                      index={0}
+                      scheduleId={params.scheduleId}
+                    />
                   </Cell>
                 );
               }
@@ -95,6 +100,7 @@ const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
                     <AvailableEmployeePopover
                       key={index}
                       index={index}
+                      scheduleId={params.scheduleId}
                       date={weekDate.toDate().toString()}
                       availabilities={availabilities}
                       availability={availability}
