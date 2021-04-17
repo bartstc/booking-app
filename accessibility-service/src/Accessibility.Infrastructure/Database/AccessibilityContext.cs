@@ -15,6 +15,7 @@ namespace Accessibility.Infrastructure.Database
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Offer> Offers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<OutboxNotification> OutboxNotifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

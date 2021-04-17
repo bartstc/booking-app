@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using Accessibility.Application.Facilities;
 
 namespace Management.Facilities.Events
 {
@@ -11,10 +12,16 @@ namespace Management.Facilities.Events
     public interface OfferAddedDto
     {
         Guid OfferId { get; }
+
         Guid FacilityId { get; }
-        string Status { get; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        EntityStatus Status { get; }
+
         string Name { get; }
+
         short Duration { get; }
+
         OfferAddedPrice Price { get; }
     }
 

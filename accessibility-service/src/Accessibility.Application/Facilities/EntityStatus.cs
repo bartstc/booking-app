@@ -2,7 +2,7 @@ namespace Accessibility.Application.Facilities
 {
     public enum EntityStatus
     {
-        active,
-        inactive
+        active = 1,
+        inactive = -1
     }
 }

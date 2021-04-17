@@ -31,6 +31,7 @@ using Accessibility.Application;
 using Accessibility.Application.Bookings.DomainServices;
 using Accessibility.Application.Availabilities.Queries;
 using Accessibility.Infrastructure.Application.Availabilities;
+using Accessibility.Infrastructure.Application.Facilities.Employees;
 
 namespace Accessibility.Infrastructure
 {
@@ -55,6 +56,7 @@ namespace Accessibility.Infrastructure
                 .AddTransient<IBookingPeriodOfTimeChecker, BookingPeriodOfTimeChecker>()
                 .AddTransient<IOfferRepository, OfferRepository>()
                 .AddTransient<IOfferQueryRepository, OfferQueryRepository>()
+                .AddTransient<IEmployeeRepository, EmployeeRepository>()
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()
                 //.AddHostedService<ProcessOutboxHostedService>()
@@ -74,6 +76,9 @@ namespace Accessibility.Infrastructure
                 x.AddConsumer<OfferAddedConsumer>();
                 x.AddConsumer<OfferDeactivatedConsumer>();
                 x.AddConsumer<OfferActivatedConsumer>();
+                x.AddConsumer<EmployeeAddedConsumer>();
+                x.AddConsumer<EmployeeDeactivatedConsumer>();
+                x.AddConsumer<EmployeeActivatedConsumer>();
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -94,6 +99,15 @@ namespace Accessibility.Infrastructure
                     
                     cfg.ReceiveEndpoint("offer-activated-accessibility", e =>
                         e.ConfigureConsumer<OfferActivatedConsumer>(context));
+                    
+                    cfg.ReceiveEndpoint("employee-added-accessibility", e =>
+                        e.ConfigureConsumer<EmployeeAddedConsumer>(context));
+                    
+                    cfg.ReceiveEndpoint("employee-deactivated-accessibility", e =>
+                        e.ConfigureConsumer<EmployeeDeactivatedConsumer>(context));
+                    
+                    cfg.ReceiveEndpoint("employee-activated-accessibility", e =>
+                        e.ConfigureConsumer<EmployeeActivatedConsumer>(context));
                 });
             })
             .AddMassTransitHostedService();
