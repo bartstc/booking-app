@@ -18,11 +18,11 @@ namespace Accessibility.Application.Facilities.IntegrationEvents.EventHandling
 
         public async Task Consume(ConsumeContext<OfferDeactivated> context)
         {
-            var dto = context.Message.Dto;
+            var id = context.Message.OfferId;
 
             await mediator.Send(new ChangeOfferStatusCommand(
-                new OfferId(dto.OfferId),
-                dto.Status
+                new OfferId(id),
+                EntityStatus.inactive
             ));
         }
     }
