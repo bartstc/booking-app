@@ -25,8 +25,7 @@ namespace Accessibility.Application.Schedules.Commands.ApplyCorrection
 
             schedule.CreateCorrection(request.Availabilities.Select(a => new Domain.Schedules.Availabilities.AvailabilityData(
                 new EmployeeId(a.EmployeeId),
-                a.StartTime,
-                a.EndTime,
+                new PeriodOfTime(a.StartTime, a.EndTime),
                 new EmployeeId(a.CreatorId))).ToList()
             );
 

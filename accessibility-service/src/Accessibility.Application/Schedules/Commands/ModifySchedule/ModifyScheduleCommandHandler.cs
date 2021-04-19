@@ -38,12 +38,13 @@ namespace Accessibility.Application.Schedules.Commands.ModifySchedule
                 request.EndDate,
                 request.Availabilities.Select(a => new AvailabilityData(
                     new EmployeeId(a.EmployeeId),
-                    a.StartTime,
-                    a.EndTime,
+                    new PeriodOfTime(a.StartTime, a.EndTime),
                     new EmployeeId(a.CreatorId)
                 )).ToList(),
                 new EmployeeId(request.CreatorId)
             );
+
+            schedule.IncreaseVersion();
 
             await unitOfWork.CommitAsync(cancellationToken);
 

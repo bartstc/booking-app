@@ -7,9 +7,8 @@ namespace Accessibility.Domain.Schedules.Availabilities
     public class Availability : Entity
     {
         internal AvailabilityId Id { get; }
-        private EmployeeId employeeId;
-        internal DateTime StartTime { get; private set; }
-        internal DateTime EndTime { get; private set; }
+        public EmployeeId EmployeeId { get; }
+        public PeriodOfTime PeriodOfTime { get; private set; }
         internal short Priority { get; private set; }
         private EmployeeId creatorId;
         private DateTime creationDate;
@@ -19,32 +18,31 @@ namespace Accessibility.Domain.Schedules.Availabilities
         {
         }
 
-        private Availability(EmployeeId employeeId, DateTime startTime, DateTime endTime, EmployeeId creatorId, short priority)
+        private Availability(EmployeeId employeeId, PeriodOfTime periodOfTime, EmployeeId creatorId, short priority)
         {
             Id = new AvailabilityId(Guid.NewGuid());
-            this.employeeId = employeeId;
-            this.StartTime = startTime;
-            this.EndTime = endTime;
+            this.EmployeeId = employeeId;
+            this.PeriodOfTime = periodOfTime;
             this.creatorId = creatorId;
             this.Priority = priority;
             creationDate = DateTime.Now;
         }
 
-        internal void Correct(DateTime startTime, DateTime endTime, short priority)
+        internal void Correct(PeriodOfTime periodOfTime, short priority)
         {
-            StartTime = startTime < StartTime ? startTime : StartTime;
-            EndTime = endTime > EndTime ? endTime : EndTime;
+            PeriodOfTime.DateFrom = periodOfTime.DateFrom < PeriodOfTime.DateFrom ? periodOfTime.DateFrom : PeriodOfTime.DateFrom;
+            PeriodOfTime.DateTo = periodOfTime.DateTo > PeriodOfTime.DateTo ? periodOfTime.DateTo : PeriodOfTime.DateTo;
             this.Priority = priority;
         }
 
-        internal static Availability Create(EmployeeId employeeId, DateTime startTime, DateTime endTime, EmployeeId creatorId)
+        internal static Availability Create(EmployeeId employeeId, PeriodOfTime periodOfTime, EmployeeId creatorId)
         {
-            return new Availability(employeeId, startTime, endTime, creatorId, 0);
+            return new Availability(employeeId, periodOfTime, creatorId, 0);
         }
 
-        internal static Availability CreateCorrection(EmployeeId employeeId, DateTime startTime, DateTime endTime, EmployeeId creatorId, short priority)
+        internal static Availability CreateCorrection(EmployeeId employeeId, PeriodOfTime periodOfTime, EmployeeId creatorId, short priority)
         {
-            return new Availability(employeeId, startTime, endTime, creatorId, priority);
+            return new Availability(employeeId, periodOfTime, creatorId, priority);
         }
     }
 }

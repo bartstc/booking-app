@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Accessibility.Domain.Extensions;
 using Accessibility.Domain.Schedules.Availabilities;
 using Accessibility.Domain.Schedules.Events;
 using Accessibility.Domain.Schedules.Rules;
@@ -41,6 +40,39 @@ namespace Accessibility.Domain.Schedules
             AddDomainEvent(new ScheduleCreatedEvent(Id));
         }
 
+        public void OverrideAvailabilitiesInPeriodOfTime(PeriodOfTime periodOfTime, IEnumerable<AvailabilityData> availabilities)
+        {
+            CheckRule(new OverridingAvailabilitiesMustFitPeriodOfTimeRule(periodOfTime, availabilities));
+
+            var oldAvailabilities = this.availabilities.Where(a => a.PeriodOfTime.IsInRange(periodOfTime)).ToList();
+
+            var foundAvailabilities = new List<Availability>();
+
+            foreach (var availability in availabilities)
+            {
+                var old = oldAvailabilities.FirstOrDefault(a =>
+                    a.EmployeeId == availability.EmployeeId &&
+                    a.PeriodOfTime.Equals(availability.PeriodOfTime));
+                
+                if (old == null)
+                {
+                    this.availabilities.Add(Availability.Create(availability.EmployeeId, availability.PeriodOfTime, availability.CreatorId));
+                }
+                else
+                {
+                    foundAvailabilities.Add(old);
+                }
+            }
+
+            foreach (var old in oldAvailabilities)
+            {
+                if (!foundAvailabilities.Contains(old))
+                {
+                    this.availabilities.Remove(old);
+                }
+            }
+        }
+
         public void Modify(
             ISchedulePeriodOfTimeChecker schedulePeriodOfTimeChecker,
             string name, DateTime startDate, DateTime endDate, List<AvailabilityData> availabilities, EmployeeId creatorId)
@@ -65,15 +97,15 @@ namespace Accessibility.Domain.Schedules
             foreach (var correction in corrections)
             {
                 var corrected = availabilities.FirstOrDefault(a =>
-                    (a.StartTime, a.EndTime).HasCommonPeriodWithEdges((correction.StartTime, correction.EndTime)));
+                    a.PeriodOfTime.HasCommonPeriodWithEdges(correction.PeriodOfTime));
                 
                 if (corrected != null)
                 {
-                    corrected.Correct(correction.StartTime, correction.EndTime, nextPriority);
+                    corrected.Correct(correction.PeriodOfTime, nextPriority);
                 }
                 else
                 {
-                    availabilities.Add(Availability.Create(correction.EmployeeId, corrected.StartTime, corrected.EndTime, correction.CreatorId));
+                    availabilities.Add(Availability.Create(correction.EmployeeId, corrected.PeriodOfTime, correction.CreatorId));
                 }
             }
 
@@ -92,8 +124,7 @@ namespace Accessibility.Domain.Schedules
             this.creatorId = creatorId;
             this.availabilities = availabilities.Select(a => Availability.Create(
                 a.EmployeeId,
-                a.StartTime,
-                a.EndTime,
+                a.PeriodOfTime,
                 a.EmployeeId
             )).ToList();
         }

@@ -27,9 +27,7 @@ namespace Accessibility.Domain.Schedules.Rules
                 {
                     if (workerGroup
                         .Skip(skipCount)
-                        .Any(a =>
-                            a.StartTime <= availability.StartTime &&
-                            a.EndTime <= availability.EndTime))
+                        .Any(a => a.PeriodOfTime.HasCommonPeriodWithEdges(availability.PeriodOfTime)))
                     {
                         incorrectAvailability = availability;
                         return true;
