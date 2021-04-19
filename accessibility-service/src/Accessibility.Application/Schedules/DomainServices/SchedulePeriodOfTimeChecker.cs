@@ -46,7 +46,7 @@ namespace Accessibility.Application.Schedules.DomainServices
                 WHERE
                     facility_id = @FacilityId AND
                     schedule_id != @ScheduleId AND
-                    startDate < @EndDate AND
+                    start_Date < @EndDate AND
                     @StartDate < end_date
                 LIMIT 1;",
                 new {

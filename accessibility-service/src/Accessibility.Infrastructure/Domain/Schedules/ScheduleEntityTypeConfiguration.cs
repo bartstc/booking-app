@@ -35,10 +35,14 @@ namespace Accessibility.Infrastructure.Domain.Schedules
                 x.HasKey("Id");
                 x.Property("Id").HasColumnName("availability_id");
 
-                x.Property<EmployeeId>("employeeId").HasColumnName("employee_id");
+                x.Property<EmployeeId>(a => a.EmployeeId).HasColumnName("employee_id");
+
+                x.OwnsOne(a => a.PeriodOfTime, p =>
+                {
+                    p.Property(s => s.DateFrom).HasColumnName("start_time");
+                    p.Property(s => s.DateTo).HasColumnName("end_time");
+                });
                 
-                x.Property("StartTime").HasColumnName("start_time");
-                x.Property("EndTime").HasColumnName("end_time");
                 x.Property("Priority").HasColumnName("priority");
 
                 x.Property<EmployeeId>("creatorId").HasColumnName("creator_id");
