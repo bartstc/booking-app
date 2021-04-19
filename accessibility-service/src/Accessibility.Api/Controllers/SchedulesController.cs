@@ -52,7 +52,7 @@ namespace Accessibility.Api.Controllers
             [FromBody] CreateScheduleRequest request
         )
         {
-            var id = await mediator.Send(new CreateScheduleCommand(facilityId, request.Name, request.StartDate, request.EndDate, request.Availabilities, request.CreatorId));
+            var id = await mediator.Send(new CreateScheduleCommand(facilityId, request.Name, request.StartDate, request.EndDate, request.CreatorId));
             return Created(string.Empty, id);
         }
 
@@ -63,20 +63,20 @@ namespace Accessibility.Api.Controllers
             [FromRoute] Guid scheduleId,
             [FromBody] CreateScheduleRequest request)
         {
-            var id = await mediator.Send(new ModifyScheduleCommand(facilityId, scheduleId, request.Name, request.StartDate, request.EndDate, request.Availabilities, request.CreatorId));
+            var id = await mediator.Send(new ModifyScheduleCommand(facilityId, scheduleId, request.Name, request.StartDate, request.EndDate, request.CreatorId));
             return Ok(id);
         }
 
-        [HttpPatch("{scheduleId}")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> CorrectSchedule(
-            [FromRoute] Guid facilityId,
-            [FromRoute] Guid scheduleId,
-            [FromBody] CorrectScheduleRequest request
-        )
-        {
-            await mediator.Send(new ApplyCorrectionCommand(facilityId, scheduleId, request.Availabilities));
-            return Ok();
-        }
+        // [HttpPatch("{scheduleId}")]
+        // [ProducesResponseType((int)HttpStatusCode.OK)]
+        // public async Task<IActionResult> CorrectSchedule(
+        //     [FromRoute] Guid facilityId,
+        //     [FromRoute] Guid scheduleId,
+        //     [FromBody] CorrectScheduleRequest request
+        // )
+        // {
+        //     await mediator.Send(new ApplyCorrectionCommand(facilityId, scheduleId, request.Availabilities));
+        //     return Ok();
+        // }
     }
 }

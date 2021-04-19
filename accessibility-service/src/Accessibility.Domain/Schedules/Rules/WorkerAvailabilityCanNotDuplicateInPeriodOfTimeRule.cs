@@ -7,10 +7,10 @@ namespace Accessibility.Domain.Schedules.Rules
 {
     public class WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule : IBusinessRule
     {
-        private readonly List<AvailabilityData> availabilities;
+        private readonly IEnumerable<AvailabilityData> availabilities;
         private AvailabilityData incorrectAvailability;
 
-        public WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(List<AvailabilityData> availabilities)
+        public WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(IEnumerable<AvailabilityData> availabilities)
         {
             this.availabilities = availabilities;
         }

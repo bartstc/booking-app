@@ -2,7 +2,7 @@ using System;
 using Accessibility.Application.Schedules.Commands;
 using FluentValidation;
 
-namespace Accessibility.Api.Schedules
+namespace Accessibility.Api.Availabilities
 {
     public class AvailabilityDtoValidator : AbstractValidator<AvailabilityDto>
     {

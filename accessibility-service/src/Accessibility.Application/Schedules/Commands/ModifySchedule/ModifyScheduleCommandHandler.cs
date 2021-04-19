@@ -36,11 +36,6 @@ namespace Accessibility.Application.Schedules.Commands.ModifySchedule
                 request.Name,
                 request.StartDate,
                 request.EndDate,
-                request.Availabilities.Select(a => new AvailabilityData(
-                    new EmployeeId(a.EmployeeId),
-                    new PeriodOfTime(a.StartTime, a.EndTime),
-                    new EmployeeId(a.CreatorId)
-                )).ToList(),
                 new EmployeeId(request.CreatorId)
             );
 

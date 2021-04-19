@@ -23,18 +23,17 @@ namespace Accessibility.Domain.Schedules
 
         public Schedule()
         {
+            availabilities = new List<Availability>();
         }
 
         public Schedule(
             ISchedulePeriodOfTimeChecker schedulePeriodOfTimeChecker,
-            FacilityId facilityId, string name, DateTime startDate, DateTime endDate, List<AvailabilityData> availabilities, EmployeeId creatorId)
+            FacilityId facilityId, string name, DateTime startDate, DateTime endDate, EmployeeId creatorId)
         {
-            CheckRule(new ScheduleMustHaveAtLeastOneAvailabilityRule(availabilities));
             CheckRule(new NewSchedulePeriodOfTimeMustBeAvailableRule(schedulePeriodOfTimeChecker, facilityId, startDate, endDate));
-            CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(availabilities));
 
             Id = new ScheduleId(Guid.NewGuid());
-            SetData(facilityId, name, startDate, endDate, availabilities, creatorId);
+            SetData(facilityId, name, startDate, endDate, creatorId);
             creationDate = DateTime.Now;
 
             AddDomainEvent(new ScheduleCreatedEvent(Id));
@@ -43,6 +42,7 @@ namespace Accessibility.Domain.Schedules
         public void OverrideAvailabilitiesInPeriodOfTime(PeriodOfTime periodOfTime, IEnumerable<AvailabilityData> availabilities)
         {
             CheckRule(new OverridingAvailabilitiesMustFitPeriodOfTimeRule(periodOfTime, availabilities));
+            CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(availabilities));
 
             var oldAvailabilities = this.availabilities.Where(a => a.PeriodOfTime.IsInRange(periodOfTime)).ToList();
 
@@ -75,13 +75,11 @@ namespace Accessibility.Domain.Schedules
 
         public void Modify(
             ISchedulePeriodOfTimeChecker schedulePeriodOfTimeChecker,
-            string name, DateTime startDate, DateTime endDate, List<AvailabilityData> availabilities, EmployeeId creatorId)
+            string name, DateTime startDate, DateTime endDate, EmployeeId creatorId)
         {
-            CheckRule(new ScheduleMustHaveAtLeastOneAvailabilityRule(availabilities));
             CheckRule(new ModifiedSchedulePeriodOfTimeMustBeAvailableRule(schedulePeriodOfTimeChecker, FacilityId, Id, startDate, endDate));
-            CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(availabilities));
 
-            SetData(FacilityId, name, startDate, endDate, availabilities, creatorId);
+            SetData(FacilityId, name, startDate, endDate, creatorId);
             
             modifyDate = DateTime.Now;
             IncreaseVersion();
@@ -115,18 +113,13 @@ namespace Accessibility.Domain.Schedules
             AddDomainEvent(new ScheduleCorrectedEvent(Id));
         }
 
-        private void SetData(FacilityId facilityId, string name, DateTime startDate, DateTime endDate, List<AvailabilityData> availabilities, EmployeeId creatorId)
+        private void SetData(FacilityId facilityId, string name, DateTime startDate, DateTime endDate, EmployeeId creatorId)
         {
             this.FacilityId = facilityId;
             this.name = name;
             this.startDate = startDate;
             this.endDate = endDate;
             this.creatorId = creatorId;
-            this.availabilities = availabilities.Select(a => Availability.Create(
-                a.EmployeeId,
-                a.PeriodOfTime,
-                a.EmployeeId
-            )).ToList();
         }
     }
 }
