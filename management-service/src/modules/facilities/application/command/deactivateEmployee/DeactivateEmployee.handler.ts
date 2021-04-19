@@ -67,7 +67,7 @@ export class DeactivateEmployeeHandler
       const entity = await this.employeeRepository.persist(employee);
 
       await this.amqpService.sendMessage(
-        new EmployeeDeactivatedEvent(),
+        new EmployeeDeactivatedEvent(employee.employeeId.id.toString()),
         FacilitiesEvent.EmployeeDeactivated,
       );
 

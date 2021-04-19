@@ -67,7 +67,7 @@ export class ActivateEmployeeHandler
       const entity = await this.employeeRepository.persist(employee);
 
       await this.amqpService.sendMessage(
-        new EmployeeActivatedEvent(),
+        new EmployeeActivatedEvent(employee.employeeId.id.toString()),
         FacilitiesEvent.EmployeeActivated,
       );
 
