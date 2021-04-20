@@ -1,7 +1,7 @@
 import React from 'react';
 import { DateTimeOnlyField, InputField } from 'react-hook-form-chakra-fields';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useFieldArray } from 'react-hook-form';
 import { GridItem, SimpleGrid, useColorModeValue, useTheme, VStack, Box } from '@chakra-ui/react';
 import { mdiDelete } from '@mdi/js';
 
@@ -18,8 +18,7 @@ const AvailableEmployeesFields = ({ creatorId, employeeId, date }: IProps) => {
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
 
-  const { control } = useFormContext();
-  const { fields, append, remove } = useFieldArray({ control, name: 'availabilities' });
+  const { fields, append, remove } = useFieldArray({ name: 'availabilities' });
 
   if (fields.length === 0) {
     append({

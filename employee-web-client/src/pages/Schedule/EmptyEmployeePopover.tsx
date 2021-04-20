@@ -34,13 +34,13 @@ const EmptyEmployeePopover = ({ date, index, employeeId, scheduleId }: IProps) =
   const [add, isLoading] = useAddAvailableEmployees(facilityId, scheduleId);
 
   return (
-    <Popover isLazy placement='right' onOpen={onOpen} onClose={onClose} isOpen={isOpen}>
+    <Popover isLazy onOpen={onOpen} onClose={onClose} isOpen={isOpen} closeOnBlur={false}>
       <PopoverTrigger>
         <Button opacity='.6' colorScheme='gray' w='100%' h='100%' id={`availability-${index}`}>
           <FormattedMessage id='day-off' defaultMessage='Day off' />
         </Button>
       </PopoverTrigger>
-      <PopoverContent width={{ base: 320, md: 370 }} position='absolute' transform='translate(-50%, 4px) !important'>
+      <PopoverContent width={{ base: 320, md: 370 }} mt={12} position='absolute' transform='translate(-50%, 4px) !important'>
         <PopoverHeader pt={4} fontWeight='bold' border='0'>
           <FormattedDate value={date} />
         </PopoverHeader>

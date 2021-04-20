@@ -37,7 +37,7 @@ const AvailableEmployeePopover = ({ availabilities, date, index, availability, s
   const [add, isLoading] = useAddAvailableEmployees(facilityId, scheduleId);
 
   return (
-    <Popover isLazy placement='right' onOpen={onOpen} onClose={onClose} isOpen={isOpen}>
+    <Popover isLazy onOpen={onOpen} onClose={onClose} isOpen={isOpen} closeOnBlur={false}>
       <PopoverTrigger>
         <Button w='100%' id={`availability-${index}`}>
           <FormattedDate value={availability.startTime} format='HH:mm' />
@@ -45,7 +45,7 @@ const AvailableEmployeePopover = ({ availabilities, date, index, availability, s
           <FormattedDate value={availability.endTime} format='HH:mm' />
         </Button>
       </PopoverTrigger>
-      <PopoverContent width={{ base: 320, md: 370 }} position='absolute' transform='translate(-50%, 4px) !important'>
+      <PopoverContent width={{ base: 320, md: 370 }} mt={12} position='absolute' transform='translate(-50%, 4px) !important'>
         <PopoverHeader pt={4} fontWeight='bold' border='0'>
           <FormattedDate value={date} format='DD MMM (dddd)' />
         </PopoverHeader>
