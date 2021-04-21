@@ -1,7 +1,7 @@
 import React from 'react';
 import { VStack, SimpleGrid, Box } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
-import { DateTimeField, InputField } from 'react-hook-form-chakra-fields';
+import { DateField, InputField } from 'react-hook-form-chakra-fields';
 
 import { Form } from 'shared/Form';
 
@@ -20,7 +20,6 @@ const getDefaultData = (creatorId: string): ICreateScheduleDto => ({
   endDate: '',
   startDate: '',
   creatorId,
-  availabilities: [],
 });
 
 const CreateScheduleForm = ({ onSubmit, creatorId, initialData }: IProps) => {
@@ -41,19 +40,19 @@ const CreateScheduleForm = ({ onSubmit, creatorId, initialData }: IProps) => {
             id='schedule-name'
             colSpan={8}
           />
-          <DateTimeField
+          <DateField
             name='startDate'
             id='start-date'
             minDate={dayjs().add(1, 'day').toDate()}
             label={<FormattedMessage id='start-date' defaultMessage='Start date' />}
-            colSpan={{ base: 8, md: 6 }}
+            colSpan={{ base: 8, md: 4 }}
           />
-          <DateTimeField
+          <DateField
             name='endDate'
             id='end-date'
             minDate={dayjs().add(1, 'day').toDate()}
             label={<FormattedMessage id='end-date' defaultMessage='End date' />}
-            colSpan={{ base: 8, md: 6 }}
+            colSpan={{ base: 8, md: 4 }}
           />
         </SimpleGrid>
         <Box display='none'>

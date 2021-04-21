@@ -3,6 +3,7 @@ import { useQueryClient } from 'react-query';
 import { useMutation } from 'shared/Suspense';
 import { accessibilityHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
+import { dayjs } from 'utils/dayjs';
 
 import { schedulesQueryKey } from '../query';
 import { ICreateScheduleDto } from '../../application/types';
@@ -17,7 +18,12 @@ export const useCreateSchedule = (facilityId: string, scheduleId?: string) => {
   });
 
   const handler = (model: ICreateScheduleDto) => {
-    return mutateAsync(model)
+    return mutateAsync({
+      creatorId: model.creatorId,
+      name: model.name,
+      startDate: dayjs(model.startDate).format('YYYY-MM-DDT00:00:00.000'),
+      endDate: dayjs(model.endDate).format('YYYY-MM-DDT00:00:00.000'),
+    })
       .then(async () => {
         await queryClient.invalidateQueries(schedulesQueryKey(facilityId));
       })

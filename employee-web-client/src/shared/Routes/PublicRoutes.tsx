@@ -11,6 +11,7 @@ const Employees = lazy(() => import('../../pages/Employees'));
 const Offers = lazy(() => import('../../pages/Offers'));
 const Dashboard = lazy(() => import('../../pages/Dashboard'));
 const Schedules = lazy(() => import('../../pages/Schedules'));
+const Schedule = lazy(() => import('../../pages/Schedule'));
 
 const PublicRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const PublicRoutes = () => {
           <Route path='/employees' component={Employees} exact />
           <Route path='/offers' component={Offers} exact />
           <Route path='/schedules' component={Schedules} exact />
+          <Route path='/schedules/:scheduleId' component={Schedule} />
           <Route path='/dashboard' component={Dashboard} />
           <Route render={() => <Redirect to={'dashboard/enterprise'} />} />
         </Switch>

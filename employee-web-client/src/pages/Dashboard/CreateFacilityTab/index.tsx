@@ -21,7 +21,7 @@ const CreateFacilityTab = () => {
       <HStack mb={{ base: 4, md: 6 }} m='0 auto' maxW='670px' w='100%'>
         <IconButton
           onClick={() => push(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS))}
-          variant='ghost'
+          variant='solid'
           title={formatMessage({ id: 'bask-to-list', defaultMessage: 'Back to list' })}
           icon={<Icon path={mdiArrowLeft} />}
         />

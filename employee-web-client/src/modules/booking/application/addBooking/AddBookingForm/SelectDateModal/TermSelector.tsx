@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import dayjs, { extend } from 'dayjs';
-import weekday from 'dayjs/plugin/weekday';
-import { HStack, VStack, Center, Divider, Text, Box } from '@chakra-ui/react';
-import { mdiArrowLeft, mdiArrowRight } from '@mdi/js';
+import dayjs from 'dayjs';
+import { HStack, VStack, Divider, Text, Box } from '@chakra-ui/react';
+import { mdiChevronRight, mdiChevronLeft } from '@mdi/js';
 import { useIntl, FormattedMessage } from 'react-intl';
 import { useFormContext } from 'react-hook-form';
 
+import { useWeekRange } from 'hooks';
 import { Button, IconButton } from 'shared/Button';
 import { FormattedDate } from 'shared/Date';
 import { FetchBoundary } from 'shared/Suspense';
@@ -17,8 +17,6 @@ import { WeekRadioGroup } from './WeekRadioGroup';
 import { DayRadioGroup } from './DayRadioGroup';
 import { Summary } from './Summary';
 import { Footer } from './Footer';
-
-extend(weekday);
 
 interface IProps {
   offerId: string;
@@ -33,50 +31,29 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
 
   const selectedEmployeeIdField = watch(`bookedRecords[${index}].employeeId`);
   const selectedTermField = watch(`bookedRecords[${index}].date`);
-  const selectedTermFieldDate = dayjs(!selectedTermField ? dayjs() : selectedTermField);
+  const selectedTermFieldDate = selectedTermField ? dayjs(selectedTermField) : dayjs();
 
-  const mondayIndex = 0;
-  const sundayIndex = 6;
   const weekDayCount = 7;
   const currentDay = dayjs(selectedTermFieldDate).toDate().toString();
 
-  const [monday, setMonday] = useState(dayjs(selectedTermFieldDate).weekday(mondayIndex));
-  const [sunday, setSunday] = useState(dayjs(selectedTermFieldDate).weekday(sundayIndex));
+  const { sunday, saturday, isPrevWeekNotAllowed, weekDates, nextWeek, prevWeek } = useWeekRange({
+    dayWithinWeek: selectedTermFieldDate,
+    minDate: dayjs(),
+  });
   const [selectedDay, setSelectedDay] = useState(currentDay);
   const [selectedTerm, setSelectedTerm] = useState<string>(selectedTermFieldDate.toDate().toString());
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<string | undefined>(
     !selectedEmployeeIdField ? undefined : selectedEmployeeIdField,
   );
 
-  const getCurrentWeekDates = () => {
-    const weekDates = [];
-
-    let currentDate = monday;
-
-    while (currentDate.isBefore(sunday.add(1, 'day'))) {
-      weekDates.push(currentDate);
-      currentDate = currentDate.add(1, 'day');
-    }
-
-    return weekDates;
-  };
-
   const increaseRange = () => {
-    setMonday(date => date.add(weekDayCount, 'day'));
-    setSunday(date => date.add(weekDayCount, 'day'));
+    nextWeek();
     setSelectedDay(date => dayjs(date).add(weekDayCount, 'day').toDate().toString());
   };
 
   const decreaseRange = () => {
-    setMonday(date => date.add(-weekDayCount, 'day'));
-    setSunday(date => date.add(-weekDayCount, 'day'));
+    prevWeek();
     setSelectedDay(date => dayjs(date).add(-weekDayCount, 'day').toDate().toString());
-  };
-
-  const isPrevButtonDisabled = () => {
-    return getCurrentWeekDates()
-      .map(date => date.format('D-M'))
-      .some(value => value === dayjs().format('D-M'));
   };
 
   const prevBtnTitle = formatMessage({ id: 'previous-week', defaultMessage: 'Previous week' });
@@ -85,30 +62,33 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
   return (
     <Box>
       <VStack mt={3} mb={6}>
-        <Center mb={1} textTransform='capitalize'>
-          <FormattedDate value={getCurrentWeekDates()[0].toDate().toString()} format='MMMM YYYY' />
-        </Center>
+        <HStack fontSize={{ base: 'md', md: 'lg' }} mb={1}>
+          <FormattedDate value={sunday.toDate().toString()} format={'DD MMM'} />
+          <Box>-</Box>
+          <FormattedDate value={saturday.toDate().toString()} format={'DD MMM'} />
+          <FormattedDate value={sunday.toDate().toString()} format='YYYY' />
+        </HStack>
         <Divider my={2} />
         <HStack spacing={{ base: 1, md: 2 }} mb={2}>
           <IconButton
             display={{ base: 'none', md: 'flex' }}
             onClick={decreaseRange}
-            isDisabled={isPrevButtonDisabled()}
-            path={mdiArrowLeft}
-            title={isPrevButtonDisabled() ? '' : prevBtnTitle}
+            isDisabled={isPrevWeekNotAllowed}
+            path={mdiChevronLeft}
+            title={isPrevWeekNotAllowed ? '' : prevBtnTitle}
             mt='28px !important'
           />
-          <WeekRadioGroup weekDates={getCurrentWeekDates()} selectedDay={selectedDay} setSelectedDay={day => setSelectedDay(day)} />
+          <WeekRadioGroup weekDates={weekDates} selectedDay={selectedDay} setSelectedDay={day => setSelectedDay(day)} />
           <IconButton
             display={{ base: 'none', md: 'flex' }}
             onClick={increaseRange}
-            path={mdiArrowRight}
+            path={mdiChevronRight}
             title={nextBtnTitle}
             mt='28px !important'
           />
         </HStack>
         <HStack w='100%' maxW='290px' display={{ base: 'flex', md: 'none' }} justify='space-between'>
-          <Button onClick={decreaseRange} isDisabled={isPrevButtonDisabled()}>
+          <Button onClick={decreaseRange} isDisabled={isPrevWeekNotAllowed}>
             {prevBtnTitle}
           </Button>
           <Button onClick={increaseRange}>{nextBtnTitle}</Button>
@@ -127,8 +107,8 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
         </HStack>
         <Divider my={2} />
         <FetchBoundary
-          queryKey={bookingTermsQueryKey(facilityId, { dateFrom: monday.toISOString(), dateTo: sunday.toISOString(), offerId })}
-          queryFn={() => bookingTermsQuery(facilityId, { dateFrom: monday.toISOString(), dateTo: sunday.toISOString(), offerId })}
+          queryKey={bookingTermsQueryKey(facilityId, { dateFrom: sunday.toISOString(), dateTo: saturday.toISOString(), offerId })}
+          queryFn={() => bookingTermsQuery(facilityId, { dateFrom: sunday.toISOString(), dateTo: saturday.toISOString(), offerId })}
         >
           {({ data: { collection } }) => {
             const selectedBookingTerm = collection.find(term => dayjs(term.date).format('H-m') === dayjs(selectedTerm).format('H-m'));

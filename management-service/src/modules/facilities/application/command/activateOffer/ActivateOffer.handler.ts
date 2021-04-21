@@ -59,7 +59,7 @@ export class ActivateOfferHandler
       const entity = await this.offerRepository.persist(offer);
 
       await this.amqpService.sendMessage(
-        new OfferActivatedEvent(),
+        new OfferActivatedEvent(offer.offerId.id.toString()),
         FacilitiesEvent.OfferActivated,
       );
 

@@ -8,8 +8,7 @@ import { Button } from 'shared/Button';
 import { ICreateScheduleDto } from 'modules/schedule/dto';
 
 import { useCreateSchedule } from '../../infrastructure/command';
-import { useCreateScheduleNotification } from '../CreateScheduleForm';
-import { CreateScheduleForm } from '../../../schedule/application/createSchedule/CreateScheduleForm';
+import { useCreateScheduleNotification, CreateScheduleForm } from '../CreateScheduleForm';
 
 interface IProps {
   isOpen: boolean;
@@ -24,7 +23,7 @@ const CreateScheduleModal = ({ onClose, isOpen, creatorId, facilityId, defaultDa
   const { showSuccessNotification, showFailureNotification } = useCreateScheduleNotification();
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size='2xl'>
+    <Modal isOpen={isOpen} onClose={onClose} size='xl'>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
@@ -48,7 +47,6 @@ const CreateScheduleModal = ({ onClose, isOpen, creatorId, facilityId, defaultDa
               }
             }}
             creatorId={creatorId}
-            facilityId={facilityId}
             initialData={defaultData}
           />
         </ModalBody>

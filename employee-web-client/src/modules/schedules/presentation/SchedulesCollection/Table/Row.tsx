@@ -1,6 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Badge } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
 
 import { GridItem, TruncatedCell } from 'shared/Grid';
 import { FormattedDate } from 'shared/Date';
@@ -13,23 +12,20 @@ interface IProps {
 }
 
 const Row = ({ index, schedule }: IProps) => {
+  const { push } = useHistory();
+
   return (
-    <GridItem>
+    <GridItem onClick={() => push(`/schedules/${schedule.scheduleId}`)}>
       <TruncatedCell>{index}</TruncatedCell>
       <TruncatedCell>{schedule.name}</TruncatedCell>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>
-        <FormattedDate value={schedule.startDate} />
+        <FormattedDate value={schedule.startDate} format='DD MMM YYYY' />
       </TruncatedCell>
       <TruncatedCell>
-        <FormattedDate value={schedule.endDate} />
+        <FormattedDate value={schedule.endDate} format='DD MMM YYYY' />
       </TruncatedCell>
       <TruncatedCell display={{ base: 'none', lg: 'flex' }}>
-        <FormattedDate value={schedule.creationDate} />
-      </TruncatedCell>
-      <TruncatedCell display={{ base: 'none', md: 'flex' }}>
-        <Badge colorScheme='purple'>
-          {schedule.availabilities.length} <FormattedMessage id='employees' defaultMessage='Employees' />
-        </Badge>
+        <FormattedDate value={schedule.creationDate} format='DD MMM YYYY' />
       </TruncatedCell>
     </GridItem>
   );

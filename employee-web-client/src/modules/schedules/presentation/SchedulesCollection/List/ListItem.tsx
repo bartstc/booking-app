@@ -1,6 +1,7 @@
 import React from 'react';
 import { VStack, HStack, Heading, Avatar, useColorModeValue, Tag, TagLabel } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
+import { useHistory } from 'react-router-dom';
 
 import { FormattedDate } from 'shared/Date';
 
@@ -10,11 +11,22 @@ interface IProps {
   schedule: ISchedule;
 }
 
-const ListItem = ({ schedule: { name, endDate, startDate } }: IProps) => {
+const ListItem = ({ schedule: { name, endDate, startDate, scheduleId } }: IProps) => {
   const background = useColorModeValue('gray.50', 'gray.700');
+  const { push } = useHistory();
 
   return (
-    <HStack spacing={3} justify='space-between' align='start' w='100%' mb={2} p='10px' borderRadius={8} backgroundColor={background}>
+    <HStack
+      onClick={() => push(`/schedules/${scheduleId}`)}
+      spacing={3}
+      justify='space-between'
+      align='start'
+      w='100%'
+      mb={2}
+      p='10px'
+      borderRadius={8}
+      backgroundColor={background}
+    >
       <HStack align='start' spacing={3}>
         <Avatar name={name} size='sm' />
         <VStack align='flex-start' spacing='10px'>
@@ -34,13 +46,13 @@ const ListItem = ({ schedule: { name, endDate, startDate } }: IProps) => {
             <Tag variant='subtle' colorScheme='primary' size='sm'>
               <TagLabel isTruncated width='100%' display='flex'>
                 <FormattedMessage id='start' defaultMessage='Start' />
-                {': '} <FormattedDate value={startDate} />
+                {': '} <FormattedDate value={startDate} format='DD MMM YYYY' />
               </TagLabel>
             </Tag>
             <Tag variant='subtle' colorScheme='primary' size='sm'>
               <TagLabel isTruncated width='100%' display='flex'>
                 <FormattedMessage id='end' defaultMessage='End' />
-                {': '} <FormattedDate value={endDate} />
+                {': '} <FormattedDate value={endDate} format='DD MMM YYYY' />
               </TagLabel>
             </Tag>
           </HStack>

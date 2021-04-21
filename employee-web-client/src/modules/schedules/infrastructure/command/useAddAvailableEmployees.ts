@@ -1,22 +1,22 @@
-// import { useQueryClient } from 'react-query';
+import { useQueryClient } from 'react-query';
 
 import { useMutation } from 'shared/Suspense';
 import { accessibilityHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 
-// import { schedulesQueryKey } from '../query';
-import { IAddAvailableEmployeeDto } from '../../application/types';
+import { IAddAvailabilitiesDto, IAvailableEmployeesQueryParams } from '../../application/types';
+import { availableEmployeesQueryKey } from '../query';
 
-export const useAddAvailableEmployees = (facilityId: string, scheduleId: string) => {
-  // const queryClient = useQueryClient();
-  const { mutateAsync, isLoading } = useMutation<void, { availabilities: IAddAvailableEmployeeDto[] }>(model =>
-    accessibilityHttpService.patch(`facilities/${facilityId}/schedules/${scheduleId}`, model),
+export const useAddAvailableEmployees = (facilityId: string, scheduleId: string, params: IAvailableEmployeesQueryParams) => {
+  const queryClient = useQueryClient();
+  const { mutateAsync, isLoading } = useMutation<void, IAddAvailabilitiesDto>(model =>
+    accessibilityHttpService.patch(`facilities/${facilityId}/schedules/${scheduleId}/availabilities`, model),
   );
 
-  const handler = (model: { availabilities: IAddAvailableEmployeeDto[] }) => {
+  const handler = (model: IAddAvailabilitiesDto) => {
     return mutateAsync(model)
       .then(async () => {
-        // await queryClient.invalidateQueries(schedulesQueryKey(facilityId));
+        await queryClient.invalidateQueries(availableEmployeesQueryKey(facilityId, scheduleId, params));
       })
       .catch(e => {
         Logger.log({
