@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Dayjs } from 'dayjs';
 import {
   PopoverContent,
   PopoverCloseButton,
@@ -10,34 +11,51 @@ import {
   Popover,
   PopoverTrigger,
   Text,
-  useDisclosure,
 } from '@chakra-ui/react';
 
-import { IAvailableEmployee } from 'modules/schedules/application/types';
-import { AddAvailableEmployeesForm } from 'modules/schedules/presentation';
+import { IAddAvailableEmployeeDto, IAvailableEmployee } from 'modules/schedules/application/types';
+import { AddAvailableEmployeesForm, useRangeWeekDatesConsumer } from 'modules/schedules/presentation';
+import { useAddAvailableEmployees } from 'modules/schedules/infrastructure/command';
+import { useFacilityConsumer } from 'modules/context';
 
+import { useModal } from 'hooks';
 import { Button } from 'shared/Button';
 import { FormattedDate } from 'shared/Date';
 import { SubmitButton } from 'shared/Form';
-import { useAddAvailableEmployees } from '../../modules/schedules/infrastructure/command';
-import { useFacilityConsumer } from '../../modules/context';
 
 interface IProps {
-  date: string;
+  date: Dayjs;
   availabilities: IAvailableEmployee[];
-  availability: IAvailableEmployee;
   scheduleId: string;
   index: number;
 }
 
-const AvailableEmployeePopover = ({ availabilities, date, index, availability, scheduleId }: IProps) => {
-  const { onOpen, onClose, isOpen } = useDisclosure();
+const AvailableEmployeePopover = ({ availabilities, date, index, scheduleId }: IProps) => {
+  const { onOpen, onClose, isOpen, data } = useModal<IAddAvailableEmployeeDto[]>();
   const { facilityId } = useFacilityConsumer();
+  const params = useRangeWeekDatesConsumer();
 
-  const [add, isLoading] = useAddAvailableEmployees(facilityId, scheduleId);
+  const [add, isLoading] = useAddAvailableEmployees(facilityId, scheduleId, params);
+
+  const availability = availabilities[index];
 
   return (
-    <Popover isLazy onOpen={onOpen} onClose={onClose} isOpen={isOpen} closeOnBlur={false}>
+    <Popover
+      isLazy
+      onOpen={() =>
+        onOpen(
+          availabilities.map(value => ({
+            creatorId: value.employeeId,
+            employeeId: value.employeeId,
+            startTime: value.startTime,
+            endTime: value.endTime,
+          })),
+        )
+      }
+      onClose={onClose}
+      isOpen={isOpen}
+      closeOnBlur={false}
+    >
       <PopoverTrigger>
         <Button w='100%' id={`availability-${index}`}>
           <FormattedDate value={availability.startTime} format='HH:mm' />
@@ -47,28 +65,27 @@ const AvailableEmployeePopover = ({ availabilities, date, index, availability, s
       </PopoverTrigger>
       <PopoverContent width={{ base: 320, md: 370 }} mt={12} position='absolute' transform='translate(-50%, 4px) !important'>
         <PopoverHeader pt={4} fontWeight='bold' border='0'>
-          <FormattedDate value={date} format='DD MMM (dddd)' />
+          <FormattedDate value={date.toDate().toString()} format='DD MMM (dddd)' />
         </PopoverHeader>
         <PopoverCloseButton />
         <PopoverBody>
-          <AddAvailableEmployeesForm
-            onSubmit={async model => {
-              try {
-                await add(model);
-              } catch (e) {
-                console.log(e);
-              }
-            }}
-            employeeId={availability.employeeId}
-            creatorId={availability.employeeId}
-            date={availability.startTime}
-            defaultValues={availabilities.map(availability => ({
-              creatorId: availability.employeeId,
-              employeeId: availability.employeeId,
-              startTime: availability.startTime,
-              endTime: availability.endTime,
-            }))}
-          />
+          {data && (
+            <AddAvailableEmployeesForm
+              onSubmit={async model => {
+                try {
+                  await add({ dateFrom: date.format('YYYY-MM-DDT00:00:00.000'), dateTo: date.format('YYYY-MM-DDT23:59:59.000'), ...model });
+                  onClose();
+                } catch (e) {
+                  // todo: notification
+                  console.log(e);
+                }
+              }}
+              employeeId={availability.employeeId}
+              creatorId={availability.employeeId}
+              date={availability.startTime}
+              defaultValues={data}
+            />
+          )}
         </PopoverBody>
         <PopoverFooter d='flex' alignItems='center' justifyContent='flex-end' pb={4}>
           <ButtonGroup>

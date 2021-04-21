@@ -14,13 +14,7 @@ interface IProps {
   defaultValues?: IAddAvailableEmployeeDto[];
 }
 
-const AddAvailableEmployeesForm = ({
-  employeeId,
-  creatorId,
-  onSubmit,
-  date,
-  defaultValues = [{ employeeId, creatorId, endTime: '', startTime: '' }],
-}: IProps) => {
+const AddAvailableEmployeesForm = ({ employeeId, creatorId, onSubmit, date, defaultValues }: IProps) => {
   const schema = useAddAvailableEmployeeValidationSchema();
 
   return (

@@ -2,9 +2,8 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Center, SimpleGrid, Text, useColorModeValue, useTheme, VStack } from '@chakra-ui/react';
 
-import { IWorkingDay, WeekDay } from 'modules/facility/application/types';
-
-const weekDays = [WeekDay.Sunday, WeekDay.Monday, WeekDay.Tuesday, WeekDay.Wednesday, WeekDay.Thursday, WeekDay.Friday, WeekDay.Saturday];
+import { IWorkingDay } from 'modules/facility/application/types';
+import { weekDays } from 'modules/schedules/application';
 
 interface IProps {
   workingDays: IWorkingDay[];

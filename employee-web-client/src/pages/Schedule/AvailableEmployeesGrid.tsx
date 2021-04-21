@@ -13,12 +13,16 @@ import {
   AvatarBadge,
   HStack,
 } from '@chakra-ui/react';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
+
+import { dayjs } from 'utils/dayjs';
 
 import { EmployeeStatus } from 'modules/employees/application/types';
 import { useAvailableEmployeesQuery } from 'modules/schedules/infrastructure/query';
+import { useRangeWeekDatesConsumer } from 'modules/schedules/presentation';
 import { useEmployeesQuery } from 'modules/employees/infrastructure/query';
 import { useFacilityConsumer } from 'modules/context';
+import { useFreeWeekDays } from 'modules/schedules/application';
 
 import { AvailableEmployeePopover } from './AvailableEmployeePopover';
 import { EmptyEmployeePopover } from './EmptyEmployeePopover';
@@ -30,10 +34,12 @@ interface IProps {
 
 const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
   const params = useParams<{ scheduleId: string }>();
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId, workingDays } = useFacilityConsumer();
+  const { endTime, startTime } = useRangeWeekDatesConsumer();
+  const freeWeekDaysIndexes = useFreeWeekDays(workingDays);
 
   const { collection: employees } = useEmployeesQuery(facilityId);
-  const { collection: availabilities } = useAvailableEmployeesQuery(facilityId, params.scheduleId);
+  const { collection: availabilities } = useAvailableEmployeesQuery(facilityId, params.scheduleId, { endTime, startTime });
 
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
@@ -77,19 +83,17 @@ const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
                 employee => dayjs(employee.startTime).format('D-M') === weekDate.format('D-M'),
               );
 
-              if (!isInRange(weekDate)) {
+              const isOutOfSchedule = !isInRange(weekDate);
+              const isFreeWeekDay = freeWeekDaysIndexes.includes(weekDate.weekday());
+
+              if (isOutOfSchedule || isFreeWeekDay) {
                 return <Cell key={index} background={blockedBackground} />;
               }
 
               if (availabilities.length === 0) {
                 return (
                   <Cell key={index}>
-                    <EmptyEmployeePopover
-                      date={weekDate.toDate().toString()}
-                      employeeId={employee.employeeId}
-                      index={0}
-                      scheduleId={params.scheduleId}
-                    />
+                    <EmptyEmployeePopover date={weekDate} employeeId={employee.employeeId} index={0} scheduleId={params.scheduleId} />
                   </Cell>
                 );
               }
@@ -101,9 +105,8 @@ const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
                       key={index}
                       index={index}
                       scheduleId={params.scheduleId}
-                      date={weekDate.toDate().toString()}
+                      date={weekDate}
                       availabilities={availabilities}
-                      availability={availability}
                     />
                   ))}
                 </Cell>

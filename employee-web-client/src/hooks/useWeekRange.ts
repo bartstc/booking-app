@@ -17,7 +17,7 @@ export const useWeekRange = ({
   const saturdayIndex = 6;
   const weekDayCount = 7;
 
-  const [trackedDay, setTrackedDay] = useState(dayWithinWeek);
+  const [trackedDay, setTrackedDay] = useState(dayjs(dayWithinWeek!.format('YYYY-MM-DDT00:00:00.000')));
   const [sunday, setSunday] = useState(trackedDay.weekday(sundayIndex));
   const [saturday, setSaturday] = useState(trackedDay.weekday(saturdayIndex));
 

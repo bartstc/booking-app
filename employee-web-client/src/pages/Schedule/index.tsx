@@ -11,6 +11,7 @@ import { buildUrl } from 'utils';
 import { DEFAULT_PARAMS } from 'utils/constant';
 
 import { useScheduleQuery } from 'modules/schedules/infrastructure/query';
+import { RangeWeekDatesProvider } from 'modules/schedules/presentation';
 import { useFacilityConsumer } from 'modules/context';
 
 import { PageWrapper } from 'shared/Layout/Page';
@@ -103,7 +104,14 @@ const Schedule = () => {
         </SimpleGrid>
         <WeekDaysGrid weekDates={weekDates} />
         <WorkingDaysGrid workingDays={workingDays} />
-        <AvailableEmployeesGrid isInRange={isInRange} weekDates={weekDates} />
+        <RangeWeekDatesProvider
+          data={{
+            startTime: sunday.format('YYYY-MM-DDT00:00:00.000'),
+            endTime: sunday.format('YYYY-MM-DDT23:59:59.000'),
+          }}
+        >
+          <AvailableEmployeesGrid isInRange={isInRange} weekDates={weekDates} />
+        </RangeWeekDatesProvider>
       </VStack>
     </PageWrapper>
   );

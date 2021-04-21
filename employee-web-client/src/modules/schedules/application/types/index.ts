@@ -4,3 +4,5 @@ export type { IScheduleCollection } from './IScheduleCollection';
 export type { ICreateScheduleDto } from './ICreateScheduleDto';
 export type { IAddAvailableEmployeeDto } from './IAddAvailableEmployeeDto';
 export type { IAvailableEmployeeCollection } from './IAvailableEmployeeCollection';
+export type { IAddAvailabilitiesDto } from './IAddAvailabilitiesDto';
+export type { IAvailableEmployeesQueryParams } from './IAvailableEmployeesQueryParams';

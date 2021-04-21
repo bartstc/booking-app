@@ -6,12 +6,12 @@ import { Logger, LogLevel } from 'utils/logger';
 import { dayjs } from 'utils/dayjs';
 
 import { schedulesQueryKey } from '../query';
-import { IAddAvailableEmployeeDto, ICreateScheduleDto } from '../../application/types';
+import { ICreateScheduleDto } from '../../application/types';
 
 export const useCreateSchedule = (facilityId: string, scheduleId?: string) => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isLoading } = useMutation<void, ICreateScheduleDto & { availabilities: IAddAvailableEmployeeDto[] }>(model => {
+  const { mutateAsync, isLoading } = useMutation<void, ICreateScheduleDto>(model => {
     return scheduleId
       ? accessibilityHttpService.put(`facilities/${facilityId}/schedules/${scheduleId}`, model)
       : accessibilityHttpService.post(`facilities/${facilityId}/schedules`, model);
@@ -19,16 +19,10 @@ export const useCreateSchedule = (facilityId: string, scheduleId?: string) => {
 
   const handler = (model: ICreateScheduleDto) => {
     return mutateAsync({
-      ...model,
-      // todo: remove mocked first accessible employee
-      availabilities: [
-        {
-          employeeId: model.creatorId,
-          creatorId: model.creatorId,
-          endTime: dayjs().add(3, 'day').toDate().toISOString(),
-          startTime: dayjs().add(2, 'day').toDate().toISOString(),
-        },
-      ],
+      creatorId: model.creatorId,
+      name: model.name,
+      startDate: dayjs(model.startDate).format('YYYY-MM-DDT00:00:00.000'),
+      endDate: dayjs(model.endDate).format('YYYY-MM-DDT00:00:00.000'),
     })
       .then(async () => {
         await queryClient.invalidateQueries(schedulesQueryKey(facilityId));

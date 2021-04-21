@@ -23,7 +23,7 @@ const CreateScheduleModal = ({ onClose, isOpen, creatorId, facilityId, defaultDa
   const { showSuccessNotification, showFailureNotification } = useCreateScheduleNotification();
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size='2xl'>
+    <Modal isOpen={isOpen} onClose={onClose} size='xl'>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
