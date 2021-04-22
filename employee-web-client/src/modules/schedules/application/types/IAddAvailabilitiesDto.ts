@@ -1,7 +1,7 @@
-import { IAddAvailableEmployeeDto } from './IAddAvailableEmployeeDto';
+import { IAddAvailabilityDto } from './IAddAvailabilityDto';
 
 export interface IAddAvailabilitiesDto {
   dateFrom: string;
   dateTo: string;
-  availabilities: IAddAvailableEmployeeDto[];
+  availabilities: IAddAvailabilityDto[];
 }

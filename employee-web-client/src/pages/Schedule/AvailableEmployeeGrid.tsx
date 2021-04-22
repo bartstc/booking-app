@@ -18,7 +18,7 @@ import { Dayjs } from 'dayjs';
 import { dayjs } from 'utils/dayjs';
 
 import { EmployeeStatus } from 'modules/employees/application/types';
-import { useAvailableEmployeesQuery } from 'modules/schedules/infrastructure/query';
+import { useAvailabilitiesQuery } from 'modules/schedules/infrastructure/query';
 import { useRangeWeekDatesConsumer } from 'modules/schedules/presentation';
 import { useEmployeesQuery } from 'modules/employees/infrastructure/query';
 import { useFacilityConsumer } from 'modules/context';
@@ -32,14 +32,14 @@ interface IProps {
   isInRange: (date: Dayjs) => boolean;
 }
 
-const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
+const AvailableEmployeeGrid = ({ weekDates, isInRange }: IProps) => {
   const params = useParams<{ scheduleId: string }>();
   const { facilityId, workingDays } = useFacilityConsumer();
   const { endTime, startTime } = useRangeWeekDatesConsumer();
   const freeWeekDaysIndexes = useFreeWeekDays(workingDays);
 
   const { collection: employees } = useEmployeesQuery(facilityId);
-  const { collection: availabilities } = useAvailableEmployeesQuery(facilityId, params.scheduleId, { endTime, startTime });
+  const { collection: availabilities } = useAvailabilitiesQuery(facilityId, params.scheduleId, { endTime, startTime });
 
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
@@ -93,7 +93,7 @@ const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
               if (availabilities.length === 0) {
                 return (
                   <Cell key={index}>
-                    <EmptyEmployeePopover date={weekDate} employeeId={employee.employeeId} index={0} scheduleId={params.scheduleId} />
+                    <EmptyEmployeePopover dayDate={weekDate} employeeId={employee.employeeId} index={0} scheduleId={params.scheduleId} />
                   </Cell>
                 );
               }
@@ -105,7 +105,8 @@ const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
                       key={index}
                       index={index}
                       scheduleId={params.scheduleId}
-                      date={weekDate}
+                      employeeId={employee.employeeId}
+                      dayDate={weekDate}
                       availabilities={availabilities}
                     />
                   ))}
@@ -130,7 +131,6 @@ const Cell = ({ children, ...props }: StackProps) => {
       justify='flex-start'
       minH='65px'
       p={2}
-      pb={1}
       border={`1px solid ${borderColor}`}
       borderLeft='none'
       borderTop='none'
@@ -143,4 +143,4 @@ const Cell = ({ children, ...props }: StackProps) => {
   );
 };
 
-export { AvailableEmployeesGrid };
+export { AvailableEmployeeGrid };

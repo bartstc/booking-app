@@ -1,2 +1,2 @@
 export { useCreateSchedule } from './useCreateSchedule';
-export { useAddAvailableEmployees } from './useAddAvailableEmployees';
+export { useAddEmployeeAvailabilities } from './useAddEmployeeAvailabilities';

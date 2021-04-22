@@ -21,7 +21,7 @@ import { IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 
 import { Header } from './Header';
-import { AvailableEmployeesGrid } from './AvailableEmployeesGrid';
+import { AvailableEmployeeGrid } from './AvailableEmployeeGrid';
 import { WorkingDaysGrid } from './WorkingDaysGrid';
 import { WeekDaysGrid } from './WeekDaysGrid';
 
@@ -110,7 +110,7 @@ const Schedule = () => {
             endTime: sunday.format('YYYY-MM-DDT23:59:59.000'),
           }}
         >
-          <AvailableEmployeesGrid isInRange={isInRange} weekDates={weekDates} />
+          <AvailableEmployeeGrid isInRange={isInRange} weekDates={weekDates} />
         </RangeWeekDatesProvider>
       </VStack>
     </PageWrapper>

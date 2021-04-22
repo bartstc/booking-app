@@ -1,8 +1,9 @@
-export type { IAvailableEmployee } from './IAvailableEmployee';
+export type { IAvailability } from './IAvailability';
 export type { ISchedule } from './ISchedule';
 export type { IScheduleCollection } from './IScheduleCollection';
 export type { ICreateScheduleDto } from './ICreateScheduleDto';
-export type { IAddAvailableEmployeeDto } from './IAddAvailableEmployeeDto';
-export type { IAvailableEmployeeCollection } from './IAvailableEmployeeCollection';
+export type { IAddAvailabilityDto } from './IAddAvailabilityDto';
+export type { IAvailabilityCollection } from './IAvailabilityCollection';
 export type { IAddAvailabilitiesDto } from './IAddAvailabilitiesDto';
 export type { IAvailableEmployeesQueryParams } from './IAvailableEmployeesQueryParams';
+export type { IAddAvailabilityFormValues } from './IAddAvailabilityFormValues';

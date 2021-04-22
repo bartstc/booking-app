@@ -2,29 +2,27 @@ import React from 'react';
 
 import { Form } from 'shared/Form';
 
-import { IAddAvailableEmployeeDto } from '../../application/types';
+import { IAddAvailabilityFormValues } from '../../application/types';
 import { useAddAvailableEmployeeValidationSchema } from '../../application';
 import { AvailableEmployeesFields } from './AvailableEmployeesFields';
 
 interface IProps {
-  onSubmit: (model: { availabilities: IAddAvailableEmployeeDto[] }) => void;
-  employeeId: string;
-  creatorId: string;
+  onSubmit: (model: { availabilities: IAddAvailabilityFormValues[] }) => void;
   date: string;
-  defaultValues?: IAddAvailableEmployeeDto[];
+  defaultValues?: IAddAvailabilityFormValues[];
 }
 
-const AddAvailableEmployeesForm = ({ employeeId, creatorId, onSubmit, date, defaultValues }: IProps) => {
+const AddAvailableEmployeesForm = ({ onSubmit, date, defaultValues }: IProps) => {
   const schema = useAddAvailableEmployeeValidationSchema();
 
   return (
-    <Form<{ availabilities: IAddAvailableEmployeeDto[] }>
+    <Form<{ availabilities: IAddAvailabilityFormValues[] }>
       onSubmit={onSubmit}
       schema={schema}
       id='add-available-employees-form'
       defaultValues={{ availabilities: defaultValues }}
     >
-      <AvailableEmployeesFields date={date} creatorId={creatorId} employeeId={employeeId} />
+      <AvailableEmployeesFields date={date} />
     </Form>
   );
 };

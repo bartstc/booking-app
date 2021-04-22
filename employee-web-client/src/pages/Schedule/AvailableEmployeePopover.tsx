@@ -13,9 +13,9 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { IAddAvailableEmployeeDto, IAvailableEmployee } from 'modules/schedules/application/types';
-import { AddAvailableEmployeesForm, useRangeWeekDatesConsumer } from 'modules/schedules/presentation';
-import { useAddAvailableEmployees } from 'modules/schedules/infrastructure/command';
+import { IAddAvailabilityFormValues, IAvailability } from 'modules/schedules/application/types';
+import { AddAvailableEmployeesForm, useAddAvailabilitiesNotification, useRangeWeekDatesConsumer } from 'modules/schedules/presentation';
+import { useAddEmployeeAvailabilities } from 'modules/schedules/infrastructure/command';
 import { useFacilityConsumer } from 'modules/context';
 
 import { useModal } from 'hooks';
@@ -24,18 +24,27 @@ import { FormattedDate } from 'shared/Date';
 import { SubmitButton } from 'shared/Form';
 
 interface IProps {
-  date: Dayjs;
-  availabilities: IAvailableEmployee[];
+  dayDate: Dayjs;
+  availabilities: IAvailability[];
   scheduleId: string;
+  employeeId: string;
   index: number;
 }
 
-const AvailableEmployeePopover = ({ availabilities, date, index, scheduleId }: IProps) => {
-  const { onOpen, onClose, isOpen, data } = useModal<IAddAvailableEmployeeDto[]>();
+const AvailableEmployeePopover = ({ availabilities, dayDate, index, scheduleId, employeeId }: IProps) => {
+  const { onOpen, onClose, isOpen, data } = useModal<IAddAvailabilityFormValues[]>();
   const { facilityId } = useFacilityConsumer();
   const params = useRangeWeekDatesConsumer();
 
-  const [add, isLoading] = useAddAvailableEmployees(facilityId, scheduleId, params);
+  const { showFailureNotification } = useAddAvailabilitiesNotification();
+  const [add, isLoading] = useAddEmployeeAvailabilities({
+    facilityId,
+    scheduleId,
+    employeeId,
+    creatorId: employeeId,
+    dayDate,
+    params,
+  });
 
   const availability = availabilities[index];
 
@@ -45,8 +54,6 @@ const AvailableEmployeePopover = ({ availabilities, date, index, scheduleId }: I
       onOpen={() =>
         onOpen(
           availabilities.map(value => ({
-            creatorId: value.employeeId,
-            employeeId: value.employeeId,
             startTime: value.startTime,
             endTime: value.endTime,
           })),
@@ -65,7 +72,7 @@ const AvailableEmployeePopover = ({ availabilities, date, index, scheduleId }: I
       </PopoverTrigger>
       <PopoverContent width={{ base: 320, md: 370 }} mt={12} position='absolute' transform='translate(-50%, 4px) !important'>
         <PopoverHeader pt={4} fontWeight='bold' border='0'>
-          <FormattedDate value={date.toDate().toString()} format='DD MMM (dddd)' />
+          <FormattedDate value={dayDate.toDate().toString()} format='DD MMM (dddd)' />
         </PopoverHeader>
         <PopoverCloseButton />
         <PopoverBody>
@@ -73,15 +80,12 @@ const AvailableEmployeePopover = ({ availabilities, date, index, scheduleId }: I
             <AddAvailableEmployeesForm
               onSubmit={async model => {
                 try {
-                  await add({ dateFrom: date.format('YYYY-MM-DDT00:00:00.000'), dateTo: date.format('YYYY-MM-DDT23:59:59.000'), ...model });
+                  await add(model.availabilities);
                   onClose();
                 } catch (e) {
-                  // todo: notification
-                  console.log(e);
+                  showFailureNotification();
                 }
               }}
-              employeeId={availability.employeeId}
-              creatorId={availability.employeeId}
               date={availability.startTime}
               defaultValues={data}
             />

@@ -1,4 +1,4 @@
-export interface IAvailableEmployee {
+export interface IAvailability {
   employeeId: string;
   startTime: string;
   endTime: string;

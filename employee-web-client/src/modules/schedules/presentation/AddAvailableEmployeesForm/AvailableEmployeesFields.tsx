@@ -1,19 +1,17 @@
 import React from 'react';
-import { DateTimeOnlyField, InputField } from 'react-hook-form-chakra-fields';
+import { DateTimeOnlyField } from 'react-hook-form-chakra-fields';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useFieldArray } from 'react-hook-form';
-import { GridItem, SimpleGrid, useColorModeValue, useTheme, VStack, Box } from '@chakra-ui/react';
+import { GridItem, SimpleGrid, useColorModeValue, useTheme, VStack } from '@chakra-ui/react';
 import { mdiDelete } from '@mdi/js';
 
 import { Button, IconButton } from 'shared/Button';
 
 interface IProps {
   date: string;
-  creatorId: string;
-  employeeId: string;
 }
 
-const AvailableEmployeesFields = ({ creatorId, employeeId, date }: IProps) => {
+const AvailableEmployeesFields = ({ date }: IProps) => {
   const { formatMessage } = useIntl();
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
@@ -22,8 +20,6 @@ const AvailableEmployeesFields = ({ creatorId, employeeId, date }: IProps) => {
 
   if (fields.length === 0) {
     append({
-      creatorId,
-      employeeId,
       endTime: '',
       startTime: '',
     });
@@ -63,11 +59,6 @@ const AvailableEmployeesFields = ({ creatorId, employeeId, date }: IProps) => {
                 </GridItem>
               )}
             </SimpleGrid>
-
-            <Box display='none'>
-              <InputField label='' name={`availabilities[${index}].creatorId`} id={`availabilities[${index}].creatorId`} />
-              <InputField label='' name={`availabilities[${index}].employeeId`} id={`availabilities[${index}].employeeId`} />
-            </Box>
           </VStack>
         );
       })}
@@ -76,8 +67,6 @@ const AvailableEmployeesFields = ({ creatorId, employeeId, date }: IProps) => {
         size='sm'
         onClick={() =>
           append({
-            creatorId,
-            employeeId,
             endTime: '',
             startTime: '',
           })
