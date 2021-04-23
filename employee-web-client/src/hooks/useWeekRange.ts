@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { dayjs } from 'utils/dayjs';
 
 interface Props {
-  dayWithinWeek?: Dayjs;
+  startDate?: Dayjs;
   minDate?: Dayjs;
   maxDate?: Dayjs;
 }
 
 export const useWeekRange = ({
-  dayWithinWeek = dayjs(),
+  startDate = dayjs(),
   minDate = dayjs().year(1900).month(1).day(1),
   maxDate = dayjs().year(2100).month(1).day(1),
 }: Props) => {
@@ -17,7 +17,7 @@ export const useWeekRange = ({
   const saturdayIndex = 6;
   const weekDayCount = 7;
 
-  const [trackedDay, setTrackedDay] = useState(dayjs(dayWithinWeek!.format('YYYY-MM-DDT00:00:00.000')));
+  const [trackedDay, setTrackedDay] = useState(dayjs(startDate!.format('YYYY-MM-DDT00:00:00.000')));
   const [sunday, setSunday] = useState(trackedDay.weekday(sundayIndex));
   const [saturday, setSaturday] = useState(trackedDay.weekday(saturdayIndex));
 

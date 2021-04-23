@@ -7,10 +7,19 @@ import { IAvailabilityCollection, IAvailableEmployeesQueryParams } from '../../a
 export const availabilitiesQueryKey = (facilityId: string, scheduleId: string, params: IAvailableEmployeesQueryParams) => [
   `facilities/${facilityId}/schedules/${scheduleId}/availabilities`,
   ServiceType.Accessibility,
+  params,
 ];
+
+export const availabilitiesQuery = (facilityId: string, scheduleId: string, params: IAvailableEmployeesQueryParams) => {
+  return accessibilityHttpService.get<IAvailabilityCollection>(
+    buildUrl(`facilities/${facilityId}/schedules/${scheduleId}/availabilities`, params),
+  );
+};
 
 export const useAvailabilitiesQuery = (facilityId: string, scheduleId: string, params: IAvailableEmployeesQueryParams) => {
   return useSuspense(availabilitiesQueryKey(facilityId, scheduleId, params), () =>
-    accessibilityHttpService.get<IAvailabilityCollection>(buildUrl(`facilities/${facilityId}/schedules/${scheduleId}/availabilities`)),
+    accessibilityHttpService.get<IAvailabilityCollection>(
+      buildUrl(`facilities/${facilityId}/schedules/${scheduleId}/availabilities`, params),
+    ),
   ).data;
 };

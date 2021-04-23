@@ -37,7 +37,7 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
   const currentDay = dayjs(selectedTermFieldDate).toDate().toString();
 
   const { sunday, saturday, isPrevWeekNotAllowed, weekDates, nextWeek, prevWeek } = useWeekRange({
-    dayWithinWeek: selectedTermFieldDate,
+    startDate: selectedTermFieldDate,
     minDate: dayjs(),
   });
   const [selectedDay, setSelectedDay] = useState(currentDay);

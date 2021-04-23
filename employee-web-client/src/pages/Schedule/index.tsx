@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { VStack, Box, HStack, useColorModeValue, SimpleGrid, GridItem } from '@chakra-ui/react';
 import { useHistory, useParams } from 'react-router-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -19,6 +19,7 @@ import { withErrorBoundary } from 'shared/ErrorBoundary';
 import { FormattedDate } from 'shared/Date';
 import { IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
+import { useQueryParams } from 'shared/Params';
 
 import { Header } from './Header';
 import { AvailableEmployeeGrid } from './AvailableEmployeeGrid';
@@ -29,6 +30,7 @@ const Schedule = () => {
   const { formatMessage } = useIntl();
   const { push } = useHistory();
   const { scheduleId } = useParams<{ scheduleId: string }>();
+  const { set, params } = useQueryParams<{ startTime: string; endTime: string }>();
 
   const { facilityId, workingDays } = useFacilityConsumer();
 
@@ -49,10 +51,20 @@ const Schedule = () => {
     isNextWeekNotAllowed,
     isInRange,
   } = useWeekRange({
-    dayWithinWeek: dayjs(schedule.startDate),
+    startDate: dayjs(params.startTime ?? schedule.startDate),
     minDate: dayjs(schedule.startDate),
     maxDate: dayjs(schedule.endDate),
   });
+
+  const startTime = sunday.format('YYYY-MM-DDT00:00:00.000');
+  const endTime = sunday.format('YYYY-MM-DDT23:59:59.000');
+
+  useEffect(() => {
+    set({
+      startTime,
+      endTime,
+    });
+  }, [startTime, endTime]);
 
   return (
     <PageWrapper maxW='1600px'>
@@ -107,7 +119,7 @@ const Schedule = () => {
         <RangeWeekDatesProvider
           data={{
             startTime: sunday.format('YYYY-MM-DDT00:00:00.000'),
-            endTime: sunday.format('YYYY-MM-DDT23:59:59.000'),
+            endTime: saturday.format('YYYY-MM-DDT23:59:59.000'),
           }}
         >
           <AvailableEmployeeGrid isInRange={isInRange} weekDates={weekDates} />
