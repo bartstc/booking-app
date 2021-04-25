@@ -1,8 +1,8 @@
 import { ServiceType } from 'utils/http';
 import { useSuspense } from 'shared/Suspense';
-
-import { IBookingTermCollection, IBookingTermCollectionQueryParams } from '../../types';
 import dayjs from 'dayjs';
+
+import { IBookingTermCollection, IBookingTermCollectionQueryParams } from '../../application/types';
 
 export const bookingTermsQueryKey = (facilityId: string, params: IBookingTermCollectionQueryParams) => [
   `facilities/${facilityId}/terms`,
@@ -14,14 +14,20 @@ const today = dayjs();
 const tomorrow = dayjs().add(1, 'day');
 const nextMonth = dayjs().add(32, 'day');
 
+const firstEmployeeId = 'f8c40e23-7d02-4895-9bda-cc497911a74b';
+const secondEmployeeId = '6da99b33-ffa6-4938-97df-764b10c38003';
+const thirdEmployeeId = '8e4569eb-e8b9-4072-ab14-e16b4fc1fe6a';
+
+const dateFormat = 'YYYY-MM-DD';
+
 const mockedBookingTerms: IBookingTermCollection = {
   collection: [
     {
       date: today.hour(8).toDate().toString(),
-      availableEmployeeIds: ['a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
+          employeeId: secondEmployeeId,
           earlierAvailabilityDate: tomorrow.hour(7).toDate().toString(),
           laterAvailableDate: tomorrow.hour(10).toDate().toString(),
         },
@@ -29,10 +35,10 @@ const mockedBookingTerms: IBookingTermCollection = {
     },
     {
       date: today.hour(8).minute(30).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
+          employeeId: thirdEmployeeId,
           earlierAvailabilityDate: tomorrow.hour(7).toDate().toString(),
           laterAvailableDate: tomorrow.hour(10).toDate().toString(),
         },
@@ -40,10 +46,10 @@ const mockedBookingTerms: IBookingTermCollection = {
     },
     {
       date: today.hour(10).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
+          employeeId: thirdEmployeeId,
           earlierAvailabilityDate: tomorrow.hour(7).toDate().toString(),
           laterAvailableDate: tomorrow.hour(10).toDate().toString(),
         },
@@ -51,10 +57,10 @@ const mockedBookingTerms: IBookingTermCollection = {
     },
     {
       date: today.hour(12).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
+          employeeId: thirdEmployeeId,
           earlierAvailabilityDate: tomorrow.hour(7).toDate().toString(),
           laterAvailableDate: tomorrow.hour(10).toDate().toString(),
         },
@@ -62,100 +68,100 @@ const mockedBookingTerms: IBookingTermCollection = {
     },
     {
       date: today.hour(12).minute(30).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
-          earlierAvailabilityDate: new Date(`${tomorrow}T07:00:00.000`).toString(),
-          laterAvailableDate: new Date(`${tomorrow}T10:00:00.000`).toString(),
+          employeeId: thirdEmployeeId,
+          earlierAvailabilityDate: new Date(`${tomorrow.format(dateFormat)}T07:00:00.000`).toString(),
+          laterAvailableDate: new Date(`${tomorrow.format(dateFormat)}T10:00:00.000`).toString(),
         },
       ],
     },
     {
       date: today.hour(15).minute(30).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
-          earlierAvailabilityDate: new Date(`${tomorrow}T07:00:00.000`).toString(),
-          laterAvailableDate: new Date(`${tomorrow}T10:00:00.000`).toString(),
+          employeeId: thirdEmployeeId,
+          earlierAvailabilityDate: new Date(`${tomorrow.format(dateFormat)}T07:00:00.000`).toString(),
+          laterAvailableDate: new Date(`${tomorrow.format(dateFormat)}T10:00:00.000`).toString(),
         },
       ],
     },
     {
       date: today.hour(16).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
-          earlierAvailabilityDate: new Date(`${tomorrow}T07:00:00.000`).toString(),
-          laterAvailableDate: new Date(`${tomorrow}T10:00:00.000`).toString(),
+          employeeId: thirdEmployeeId,
+          earlierAvailabilityDate: new Date(`${tomorrow.format(dateFormat)}T07:00:00.000`).toString(),
+          laterAvailableDate: new Date(`${tomorrow.format(dateFormat)}T10:00:00.000`).toString(),
         },
       ],
     },
     {
       date: today.hour(16).minute(30).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
-          earlierAvailabilityDate: new Date(`${tomorrow}T07:00:00.000`).toString(),
-          laterAvailableDate: new Date(`${tomorrow}T10:00:00.000`).toString(),
+          employeeId: thirdEmployeeId,
+          earlierAvailabilityDate: new Date(`${tomorrow.format(dateFormat)}T07:00:00.000`).toString(),
+          laterAvailableDate: new Date(`${tomorrow.format(dateFormat)}T10:00:00.000`).toString(),
         },
       ],
     },
     {
       date: today.hour(17).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
-          earlierAvailabilityDate: new Date(`${tomorrow}T07:00:00.000`).toString(),
-          laterAvailableDate: new Date(`${tomorrow}T10:00:00.000`).toString(),
+          employeeId: thirdEmployeeId,
+          earlierAvailabilityDate: new Date(`${tomorrow.format(dateFormat)}T07:00:00.000`).toString(),
+          laterAvailableDate: new Date(`${tomorrow.format(dateFormat)}T10:00:00.000`).toString(),
         },
       ],
     },
     {
       date: today.hour(17).minute(30).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
-          earlierAvailabilityDate: new Date(`${tomorrow}T07:00:00.000`).toString(),
-          laterAvailableDate: new Date(`${tomorrow}T10:00:00.000`).toString(),
+          employeeId: thirdEmployeeId,
+          earlierAvailabilityDate: new Date(`${tomorrow.format(dateFormat)}T07:00:00.000`).toString(),
+          laterAvailableDate: new Date(`${tomorrow.format(dateFormat)}T10:00:00.000`).toString(),
         },
       ],
     },
     {
       date: today.hour(19).minute(30).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
-          earlierAvailabilityDate: new Date(`${tomorrow}T07:00:00.000`).toString(),
-          laterAvailableDate: new Date(`${tomorrow}T10:00:00.000`).toString(),
+          employeeId: thirdEmployeeId,
+          earlierAvailabilityDate: new Date(`${tomorrow.format(dateFormat)}T07:00:00.000`).toString(),
+          laterAvailableDate: new Date(`${tomorrow.format(dateFormat)}T10:00:00.000`).toString(),
         },
       ],
     },
     {
       date: tomorrow.hour(8).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
-          earlierAvailabilityDate: new Date(`${tomorrow}T07:00:00.000`).toString(),
-          laterAvailableDate: new Date(`${tomorrow}T10:00:00.000`).toString(),
+          employeeId: thirdEmployeeId,
+          earlierAvailabilityDate: new Date(`${tomorrow.format(dateFormat)}T07:00:00.000`).toString(),
+          laterAvailableDate: new Date(`${tomorrow.format(dateFormat)}T10:00:00.000`).toString(),
         },
       ],
     },
     {
       date: nextMonth.hour(8).toDate().toString(),
-      availableEmployeeIds: ['8e6f4d76-7b59-48b9-9129-508786459a34', 'a68425fa-51fd-4974-be26-9b4613621928'],
+      availableEmployeeIds: [firstEmployeeId, secondEmployeeId],
       unavailableEmployees: [
         {
-          employeeId: 'f3d37ff4-ff19-4dd7-ad75-2ee9ef565019',
-          earlierAvailabilityDate: new Date(`${tomorrow}T07:00:00.000`).toString(),
-          laterAvailableDate: new Date(`${tomorrow}T10:00:00.000`).toString(),
+          employeeId: thirdEmployeeId,
+          earlierAvailabilityDate: new Date(`${tomorrow.format(dateFormat)}T07:00:00.000`).toString(),
+          laterAvailableDate: new Date(`${tomorrow.format(dateFormat)}T10:00:00.000`).toString(),
         },
       ],
     },

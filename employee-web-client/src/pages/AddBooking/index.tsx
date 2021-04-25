@@ -3,7 +3,7 @@ import { Box } from '@chakra-ui/react';
 
 import { PageWrapper } from 'shared/Layout/Page';
 
-import { AddBookingForm } from 'modules/booking/application/addBooking';
+import { AddBookingForm } from 'modules/booking/presentation';
 import { useFacilityConsumer } from 'modules/context';
 
 import { Header } from './Header';
