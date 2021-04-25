@@ -4,3 +4,4 @@ export type { IBookingTermCollectionQueryParams } from './IBookingTermCollection
 export type { IBookedRecordCollection } from './IBookedRecordCollection';
 export type { IBookingTermCollection } from './IBookingTermCollection';
 export type { IAddBookingDto, IAddBookedRecordDto } from './IAddBookingDto';
+export type { IBookedRecordCollectionQueryParams } from './IBookedRecordCollectionQueryParams';

@@ -6,17 +6,25 @@ import { FormattedDate } from 'shared/Date';
 
 interface IProps {
   weekDates: Dayjs[];
+  ignoreFirst?: boolean;
 }
 
-const WeekDaysGrid = ({ weekDates }: IProps) => {
+const WeekDaysGrid = ({ weekDates, ignoreFirst = false }: IProps) => {
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
 
   return (
-    <SimpleGrid w='100%' spacingX={0} columns={8}>
-      <Box border={`1px solid ${borderColor}`} minH='65px'></Box>
+    <SimpleGrid w='100%' spacingX={0} columns={ignoreFirst ? 7 : 8}>
+      {!ignoreFirst && <Box border={`1px solid ${borderColor}`} minH='65px'></Box>}
       {weekDates.map((date, index) => (
-        <VStack justify='center' minH='65px' key={index} border={`1px solid ${borderColor}`} borderLeft='none' textTransform='capitalize'>
+        <VStack
+          justify='center'
+          minH='60px'
+          key={index}
+          border={`1px solid ${borderColor}`}
+          borderLeft={ignoreFirst ? `1px solid ${borderColor}` : 'none'}
+          textTransform='capitalize'
+        >
           <Center as={VStack} spacing={0}>
             <Box fontWeight='700'>
               <FormattedDate value={date.toDate().toString()} format={'ddd'} />
