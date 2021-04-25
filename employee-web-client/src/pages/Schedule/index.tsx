@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
 import { VStack, Box, HStack, useColorModeValue, SimpleGrid, GridItem } from '@chakra-ui/react';
-import { useHistory, useParams } from 'react-router-dom';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { mdiChevronRight, mdiChevronLeft, mdiArrowLeft } from '@mdi/js';
-import { DateInput } from 'react-hook-form-chakra-fields';
+import { useParams } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+import { mdiChevronRight, mdiChevronLeft } from '@mdi/js';
 
 import { useWeekRange } from 'hooks';
 import { dayjs } from 'utils/dayjs';
-import { buildUrl } from 'utils';
-import { DEFAULT_PARAMS } from 'utils/constant';
 
 import { useScheduleQuery } from 'modules/schedules/infrastructure/query';
 import { RangeWeekDatesProvider } from 'modules/schedules/presentation';
@@ -18,17 +15,15 @@ import { PageWrapper } from 'shared/Layout/Page';
 import { withErrorBoundary } from 'shared/ErrorBoundary';
 import { FormattedDate } from 'shared/Date';
 import { IconButton } from 'shared/Button';
-import { Icon } from 'shared/Icon';
 import { useQueryParams } from 'shared/Params';
 
 import { Header } from './Header';
-import { AvailableEmployeeGrid } from './AvailableEmployeeGrid';
+import { AvailableEmployeesGrid } from './AvailableEmployeesGrid';
 import { WorkingDaysGrid } from './WorkingDaysGrid';
 import { WeekDaysGrid } from './WeekDaysGrid';
+import { ScheduleDatePicker } from './AvailableEmployeesGrid/ScheduleDatePicker';
 
 const Schedule = () => {
-  const { formatMessage } = useIntl();
-  const { push } = useHistory();
   const { scheduleId } = useParams<{ scheduleId: string }>();
   const { set, params } = useQueryParams<{ startTime: string; endTime: string }>();
 
@@ -71,27 +66,7 @@ const Schedule = () => {
       <Header schedule={schedule} />
       <VStack w='100%' spacing={0}>
         <SimpleGrid w='100%' columns={3} spacingX={4}>
-          <GridItem display={{ base: 'none', lg: 'block' }} colSpan={1} mt={2}>
-            <HStack spacing={4} maxW='300px'>
-              <IconButton
-                onClick={() => push(buildUrl(`/schedules`, DEFAULT_PARAMS))}
-                variant='solid'
-                title={formatMessage({ id: 'bask-to-list', defaultMessage: 'Back to list' })}
-                icon={<Icon path={mdiArrowLeft} />}
-              />
-              <DateInput
-                isClearable={false}
-                value={trackedDay?.toDate().toString()}
-                placeholderText={formatMessage({ id: 'select-week', defaultMessage: 'Select week' })}
-                onChange={value => {
-                  if (Array.isArray(value) || !value) return;
-                  setWeek(dayjs(value));
-                }}
-                minDate={new Date(schedule.startDate)}
-                maxDate={new Date(schedule.endDate)}
-              />
-            </HStack>
-          </GridItem>
+          <ScheduleDatePicker trackedDay={trackedDay} setWeek={setWeek} startDate={schedule.startDate} endDate={schedule.endDate} />
           <GridItem as={VStack} colSpan={{ base: 3, lg: 1 }} spacing={-1}>
             <HStack spacing={3} fontSize='lg'>
               <IconButton onClick={prevWeek} isDisabled={isPrevWeekNotAllowed} path={mdiChevronLeft} title='' />
@@ -122,7 +97,7 @@ const Schedule = () => {
             endTime: saturday.format('YYYY-MM-DDT23:59:59.000'),
           }}
         >
-          <AvailableEmployeeGrid isInRange={isInRange} weekDates={weekDates} />
+          <AvailableEmployeesGrid isInRange={isInRange} weekDates={weekDates} />
         </RangeWeekDatesProvider>
       </VStack>
     </PageWrapper>

@@ -31,7 +31,7 @@ interface IProps {
   index: number;
 }
 
-const AvailableEmployeePopover = ({ availabilities, dayDate, index, scheduleId, employeeId }: IProps) => {
+const FilledAvailabilityPopover = ({ availabilities, dayDate, index, scheduleId, employeeId }: IProps) => {
   const { onOpen, onClose, isOpen, data } = useModal<IAddAvailabilityFormValues[]>();
   const { facilityId } = useFacilityConsumer();
   const params = useRangeWeekDatesConsumer();
@@ -104,4 +104,4 @@ const AvailableEmployeePopover = ({ availabilities, dayDate, index, scheduleId, 
   );
 };
 
-export { AvailableEmployeePopover };
+export { FilledAvailabilityPopover };
