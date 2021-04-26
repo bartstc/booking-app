@@ -18,9 +18,16 @@ import { useBookedRecordsQuery } from 'modules/booking/infrastructure/query';
 
 import { Header } from './Header';
 import { BookingDatePicker } from './BookingDatePicker';
+import { EmployeeSelect } from './EmployeeSelect';
+
+export interface BookingPageQueryParams {
+  dateFrom: string;
+  dateTo: string;
+  employeeId?: string;
+}
 
 const Booking = () => {
-  const { set, params } = useQueryParams<{ dateFrom: string; dateTo: string }>();
+  const { set, params } = useQueryParams<BookingPageQueryParams>();
   const { colors } = useTheme();
 
   const color = useColorModeValue('primary.500', 'primary.300');
@@ -84,8 +91,9 @@ const Booking = () => {
               />
             </Box>
           </GridItem>
-          <GridItem as={HStack} colSpan={3} mb={4}>
+          <GridItem as={HStack} colSpan={3} mb={4} w='100%'>
             <BookingDatePicker trackedDay={trackedDay} setWeek={setWeek} />
+            <EmployeeSelect facilityId={facilityId} />
           </GridItem>
         </SimpleGrid>
         <WeekDaysGrid weekDates={weekDates} ignoreFirst />

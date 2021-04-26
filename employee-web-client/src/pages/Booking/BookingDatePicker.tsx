@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { Dayjs } from 'dayjs';
-import { GridItem, HStack } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
 import { DateInput } from 'react-hook-form-chakra-fields';
 
 import { dayjs } from 'utils/dayjs';
@@ -15,20 +15,18 @@ const BookingDatePicker = ({ setWeek, trackedDay }: IProps) => {
   const { formatMessage } = useIntl();
 
   return (
-    <GridItem display={{ base: 'none', lg: 'block' }} colSpan={1} mt={2}>
-      <HStack maxW='270px'>
-        <DateInput
-          isClearable={false}
-          value={trackedDay?.toDate().toString()}
-          placeholderText={formatMessage({ id: 'select-week', defaultMessage: 'Select week' })}
-          onChange={value => {
-            if (Array.isArray(value) || !value) return;
-            setWeek(dayjs(value));
-          }}
-          minDate={new Date()}
-        />
-      </HStack>
-    </GridItem>
+    <HStack w='100%' maxW='260px' display={{ base: 'none', lg: 'block' }}>
+      <DateInput
+        isClearable={false}
+        value={trackedDay?.toDate().toString()}
+        placeholderText={formatMessage({ id: 'select-week', defaultMessage: 'Select week' })}
+        onChange={value => {
+          if (Array.isArray(value) || !value) return;
+          setWeek(dayjs(value));
+        }}
+        minDate={new Date()}
+      />
+    </HStack>
   );
 };
 
