@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, SimpleGrid, useColorModeValue, VStack, HStack, useTheme, GridItem, Center, chakra } from '@chakra-ui/react';
+import { Box, SimpleGrid, useColorModeValue, VStack, HStack, useTheme, GridItem, Center, chakra, Text } from '@chakra-ui/react';
 import { mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 import { FormattedMessage } from 'react-intl';
 
@@ -36,21 +36,12 @@ const Booking = () => {
 
   const { facilityId } = useFacilityConsumer();
 
-  const {
-    saturday,
-    sunday,
-    trackedDay,
-    weekDates,
-    nextWeek,
-    prevWeek,
-    setWeek,
-    isPrevWeekNotAllowed,
-    isNextWeekNotAllowed,
-    isInRange,
-  } = useWeekRange({
-    startDate: params.dateFrom ? dayjs(params.dateFrom) : undefined,
-    minDate: dayjs(),
-  });
+  const { saturday, sunday, trackedDay, weekDates, nextWeek, prevWeek, setWeek, isPrevWeekNotAllowed, isNextWeekNotAllowed } = useWeekRange(
+    {
+      startDate: params.dateFrom ? dayjs(params.dateFrom) : undefined,
+      minDate: dayjs(),
+    },
+  );
 
   const dateFrom = sunday.format('YYYY-MM-DDT00:00:00.000');
   const dateTo = sunday.format('YYYY-MM-DDT23:59:59.000');
@@ -66,7 +57,6 @@ const Booking = () => {
   const bookedRecords = useBookedRecordsQuery(facilityId, { dateTo, dateFrom });
 
   const gridPitch = 5;
-  const rowHeight = 6;
 
   return (
     <PageWrapper maxW='1600px' spacing={4}>
@@ -166,14 +156,6 @@ const Booking = () => {
             return (
               <GridItem position='relative' colSpan={2} key={index} borderLeft={`1px dashed ${borderColor}`}>
                 <SimpleGrid position='absolute' w='100%' h='2400px' rows={288}>
-                  {/*<GridItem rowStart={1} rowEnd={13} backgroundColor='green.500'></GridItem>*/}
-                  {/*<GridItem rowStart={13} rowEnd={25} backgroundColor='blue.500'></GridItem>*/}
-                  {/*<GridItem rowStart={25} rowEnd={49} backgroundColor='purple.500'></GridItem>*/}
-                  {/*<GridItem mt='3px' position='relative' rowStart={49} rowEnd={49 + 12} backgroundColor='orange.500'>*/}
-                  {/*  <HStack position='absolute' top={0} left={0} w='100%' h='100%'>*/}
-                  {/*    <p>test</p>*/}
-                  {/*  </HStack>*/}
-                  {/*</GridItem>*/}
                   {dayRecords.map(record => {
                     const rows = (new Date(record.dateFrom).getMinutes() + new Date(record.dateFrom).getHours() * 60) / gridPitch;
 
@@ -184,24 +166,25 @@ const Booking = () => {
                         rowEnd={rows + record.duration / gridPitch + 1}
                         position='relative'
                       >
-                        <HStack position='absolute' top={0} left={0} w='100%' h='100%' opacity={0.65} backgroundColor='yellow.500'></HStack>
-                        <HStack borderRadius={6} top={0} left={0} w='100%' h='100%' position='absolute'>
-                          <HStack opacity={1}>
-                            <Button>Testowy</Button>
+                        <HStack top={1} left={1} right={1} bottom={1} position='absolute'>
+                          <HStack opacity={1} w='100%' h='100%'>
+                            <Button colorScheme='primary' opacity={0.7} w='100%' h='100%'>
+                              <VStack spacing={1} w='100%' align='flex-start'>
+                                <chakra.p fontWeight='700'>{record.offerName}</chakra.p>
+                                <HStack fontSize='sm'>
+                                  <FormattedDate value={record.dateFrom} format='HH:mm' />
+                                  <Text> - </Text>
+                                  <FormattedDate value={record.dateTo} format='HH:mm' />
+                                </HStack>
+                              </VStack>
+                            </Button>
                           </HStack>
                         </HStack>
                       </GridItem>
                     );
                   })}
-                  {/*<GridItem m={1} borderRadius={3} backgroundColor='blue.400' rowStart={100} rowEnd={112}>*/}
-                  {/*  test*/}
-                  {/*</GridItem>*/}
-                  {/*<GridItem m={1} borderRadius={3} backgroundColor='blue.400' rowStart={205} rowEnd={210}>*/}
-                  {/*  test 2*/}
-                  {/*</GridItem>*/}
-                  <GridItem rowStart={289} rowEnd={289}></GridItem>
                 </SimpleGrid>
-                <SimpleGrid w='100%' h='2389px' rows={24} columns={1}>
+                <SimpleGrid w='100%' h='2405px' rows={24} columns={1}>
                   {Array.from(Array(24).keys()).map((value, index) => (
                     <GridItem
                       as={Center}

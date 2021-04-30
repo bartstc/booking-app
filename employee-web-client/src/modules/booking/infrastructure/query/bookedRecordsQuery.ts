@@ -16,7 +16,7 @@ const firstEmployeeId = 'f8c40e23-7d02-4895-9bda-cc497911a74b';
 
 const offerId = '123';
 
-const today = dayjs().add(1, 'day');
+const today = dayjs().add(-2, 'day');
 // const tomorrow = dayjs().add(1, 'day');
 // const nextMonth = dayjs().add(32, 'day');
 
