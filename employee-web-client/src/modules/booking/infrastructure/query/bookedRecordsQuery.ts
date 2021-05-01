@@ -8,7 +8,7 @@ import { IBookedRecordCollection, IBookedRecordCollectionQueryParams } from '../
 
 const bookedRecordId = 'f8c40e23-7d02-4895-9bda-cc497911a74x';
 const bookingId = 'f8c40e23-7d02-4895-9bda-cc497911a75x';
-const customerId = 'f8c40e23-7d02-4895-9bda-cc497911a76x';
+const customerId = '009e2b38-fc44-4111-bdc9-319c39443ef8';
 
 const firstEmployeeId = 'f8c40e23-7d02-4895-9bda-cc497911a74b';
 // const secondEmployeeId = '6da99b33-ffa6-4938-97df-764b10c38003';
