@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Accessibility.Application.Configuration.Database;
@@ -20,13 +19,19 @@ namespace Accessibility.Infrastructure.Application.Facilities
         public async Task<short> GetOfferDuration(Guid facilityId, Guid offerId) =>
             await connection.QueryFirstOrDefaultAsync<short>(
                 @"SELECT
-                    offer_id
+                    duration
                 FROM
                     facility.offers
                 WHERE
                     facility_id = @facilityId AND
-                    offer_id = @offerId
+                    offer_id = @offerId AND
+                    status = @status
                 limit 1;",
-                new { facilityId, offerId });
+                new
+                {
+                    facilityId,
+                    offerId,
+                    status = EntityStatus.active
+                });
     }
 }

@@ -26,7 +26,7 @@ namespace Accessibility.Api.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(CollectionResponse<AvailableBookingTermDto>), (int)HttpStatusCode.OK)]
         public async Task<CollectionResponse<AvailableBookingTermDto>> GetAvailableBookingTerms(
-            [FromQuery] Guid facilityId,
+            [FromRoute] Guid facilityId,
             [FromQuery] Guid offerId,
             [FromQuery] DateTime dateFrom,
             [FromQuery] DateTime dateTo) =>
