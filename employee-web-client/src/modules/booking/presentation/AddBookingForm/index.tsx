@@ -13,6 +13,7 @@ import { CustomerSelectFieldAsync, SelectedCustomerOption } from '../../../custo
 
 interface IProps {
   onSubmit: (model: IAddBookingDto) => void;
+  isLoading: boolean;
   facilityId: string;
 }
 
@@ -27,7 +28,7 @@ const defaultValues = {
   ],
 };
 
-const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
+const AddBookingForm = ({ onSubmit, facilityId, isLoading }: IProps) => {
   const [newCustomer, setNewCustomer] = useState<SelectedCustomerOption>();
 
   return (
@@ -70,7 +71,7 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
           <BookedRecordFields />
           <PreventLossData />
           <HStack w='100%' pt={{ base: 6, md: 8 }}>
-            <Button type='submit' form='add-booking-form' colorScheme='green' size='lg'>
+            <Button isLoading={isLoading} type='submit' form='add-booking-form' colorScheme='green' size='lg'>
               <FormattedMessage id='confirm-booking' defaultMessage='Confirm booking' />
             </Button>
           </HStack>
