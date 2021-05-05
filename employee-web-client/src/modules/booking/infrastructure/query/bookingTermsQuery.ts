@@ -1,8 +1,9 @@
-import { ServiceType } from 'utils/http';
+import { accessibilityHttpService, ServiceType } from 'utils/http';
 import { useSuspense } from 'shared/Suspense';
 import dayjs from 'dayjs';
 
 import { IBookingTermCollection, IBookingTermCollectionQueryParams } from '../../application/types';
+import { buildUrl } from '../../../../utils';
 
 export const bookingTermsQueryKey = (facilityId: string, params: IBookingTermCollectionQueryParams) => [
   `facilities/${facilityId}/terms`,
@@ -173,11 +174,11 @@ const mockedBookingTerms: IBookingTermCollection = {
   },
 };
 
-// export const getBookingTerms = (facilityId: string, params: IBookingTermCollectionQueryParams) =>
-//   accessibilityHttpService.get<IBookingTermCollection>(buildUrl(`facilities/${facilityId}/terms`, params));
-
 export const bookingTermsQuery = (facilityId: string, params: IBookingTermCollectionQueryParams) =>
-  new Promise<IBookingTermCollection>(resolve => resolve(mockedBookingTerms));
+  accessibilityHttpService.get<IBookingTermCollection>(buildUrl(`facilities/${facilityId}/bookings/terms`, params));
+
+// export const bookingTermsQuery = (facilityId: string, params: IBookingTermCollectionQueryParams) =>
+//   new Promise<IBookingTermCollection>(resolve => resolve(mockedBookingTerms));
 
 export const useBookingTermsQuery = (facilityId: string, params: IBookingTermCollectionQueryParams) => {
   return useSuspense(bookingTermsQueryKey(facilityId, params), () => bookingTermsQuery(facilityId, params));
