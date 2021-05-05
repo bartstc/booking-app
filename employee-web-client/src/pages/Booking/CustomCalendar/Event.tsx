@@ -9,11 +9,12 @@ interface IProps {
 }
 
 const Event = ({ record }: IProps) => {
-  const gridPitch = 5;
+  const gridPitch = 5; // 1 grid row === 5 min
+  const offset = 1; // colStart / colEnd - starts from 1
   const rows = (new Date(record.dateFrom).getMinutes() + new Date(record.dateFrom).getHours() * 60) / gridPitch;
 
   return (
-    <GridItem key={record.bookedRecordId} rowStart={rows + 1} rowEnd={rows + record.duration / gridPitch + 1} position='relative'>
+    <GridItem key={record.bookedRecordId} rowStart={rows + offset} rowEnd={rows + record.duration / gridPitch + offset} position='relative'>
       <HStack top={1} left={1} right={1} bottom={1} position='absolute'>
         <HStack opacity={1} w='100%' h='100%'>
           <EventPopover record={record} />

@@ -37,7 +37,7 @@ const CustomCalendar = () => {
   );
 
   const dateFrom = sunday.format('YYYY-MM-DDT00:00:00.000');
-  const dateTo = sunday.format('YYYY-MM-DDT23:59:59.000');
+  const dateTo = saturday.format('YYYY-MM-DDT23:59:59.000');
 
   useEffect(() => {
     set({
@@ -113,8 +113,9 @@ const CustomCalendar = () => {
                 {dayRecords.map(record => (
                   <Event key={record.bookedRecordId} record={record} />
                 ))}
+                <GridItem rowStart={289} rowEnd={289}></GridItem>
               </SimpleGrid>
-              <SimpleGrid w='100%' h='2405px' rows={24} columns={1}>
+              <SimpleGrid w='100%' h='2390px' rows={24} columns={1}>
                 {Array.from(Array(24).keys()).map((value, index) => (
                   <GridItem as={Center} key={value} rowStart={index + 1} rowEnd={index + 2} borderTop={`1px dashed ${borderColor}`} />
                 ))}
