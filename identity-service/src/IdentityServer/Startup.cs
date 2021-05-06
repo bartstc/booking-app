@@ -104,7 +104,7 @@ namespace IdentityServer
                 try
                 {
                     context.Database.Migrate();
-                    CreateRoles(services).Wait();
+                    //CreateRoles(services).Wait();
                     break;
                 }
                 catch (Exception)

@@ -11,7 +11,12 @@ namespace IdentityServer
             new IdentityResource[]
             { 
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.Profile(),
+                new IdentityResource(
+                    "contextType",
+                    "Your account type",
+                    new[] { "contextType" }
+                )
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -56,6 +61,7 @@ namespace IdentityServer
                     ClientSecrets = { new Secret("secret".Sha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
 
                     // where to redirect to after login
                     RedirectUris = { "https://localhost:5002/signin-oidc" },
@@ -69,7 +75,8 @@ namespace IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "api1"
+                        "api1",
+                        "contextType"
                     }
                 }
             };
