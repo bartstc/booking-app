@@ -17,7 +17,13 @@ const Table = () => {
   const { facilityId } = useFacilityConsumer();
 
   return (
-    <FetchBoundary<IOfferCollection> queryKey={offersQueryKey(facilityId, params)} queryFn={() => offersQuery(facilityId, params)}>
+    <FetchBoundary<IOfferCollection>
+      queryKey={offersQueryKey(facilityId, params)}
+      queryFn={() => offersQuery(facilityId, params)}
+      options={{
+        keepPreviousData: true,
+      }}
+    >
       {({ data: { collection, meta } }) => (
         <>
           <Grid

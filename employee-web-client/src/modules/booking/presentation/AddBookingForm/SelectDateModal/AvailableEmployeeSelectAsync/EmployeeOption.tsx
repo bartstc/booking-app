@@ -5,7 +5,7 @@ import { chakra, Divider, Tag, TagLabel, Text, VStack } from '@chakra-ui/react';
 
 import { FormattedDate } from 'shared/Date';
 
-import { IBookingTerm } from '../../../../../types';
+import { IBookingTerm } from '../../../../application/types';
 import { AvailableEmployeeOption } from './index';
 
 interface EmployeeOptionProps extends OptionProps<AvailableEmployeeOption, false> {}
@@ -42,7 +42,7 @@ const EmployeeOption = memo(
                   values={{
                     date: (
                       <chakra.strong ml={1}>
-                        <FormattedDate value={laterAvailableDate} format={'ddd DD MMM HH:mm'} />
+                        <FormattedDate value={laterAvailableDate ?? ''} format={'ddd DD MMM HH:mm'} />
                       </chakra.strong>
                     ),
                   }}

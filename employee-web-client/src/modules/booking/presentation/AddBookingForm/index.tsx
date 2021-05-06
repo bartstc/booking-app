@@ -6,13 +6,14 @@ import { Form, PreventLossData } from 'shared/Form';
 import { Button } from 'shared/Button';
 import { OptionType } from 'types';
 
-import { IAddBookingDto } from '../../../dto';
+import { IAddBookingDto } from '../../application/types';
 import { AddNewCustomer } from './AddNewCustomer';
 import { BookedRecordFields } from './BookedRecordFields';
-import { CustomerSelectFieldAsync, SelectedCustomerOption } from '../../../../customers/presentation';
+import { CustomerSelectFieldAsync, SelectedCustomerOption } from '../../../customers/presentation';
 
 interface IProps {
   onSubmit: (model: IAddBookingDto) => void;
+  isLoading: boolean;
   facilityId: string;
 }
 
@@ -27,7 +28,7 @@ const defaultValues = {
   ],
 };
 
-const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
+const AddBookingForm = ({ onSubmit, facilityId, isLoading }: IProps) => {
   const [newCustomer, setNewCustomer] = useState<SelectedCustomerOption>();
 
   return (
@@ -70,7 +71,7 @@ const AddBookingForm = ({ onSubmit, facilityId }: IProps) => {
           <BookedRecordFields />
           <PreventLossData />
           <HStack w='100%' pt={{ base: 6, md: 8 }}>
-            <Button type='submit' form='add-booking-form' colorScheme='green' size='lg'>
+            <Button isLoading={isLoading} type='submit' form='add-booking-form' colorScheme='green' size='lg'>
               <FormattedMessage id='confirm-booking' defaultMessage='Confirm booking' />
             </Button>
           </HStack>

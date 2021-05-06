@@ -11,7 +11,7 @@ export interface IBookedRecord {
   dateFrom: string;
   dateTo: string;
   duration: number;
-  status: number;
+  status: number; // todo: status
   price: number;
   currency: Currency;
 }

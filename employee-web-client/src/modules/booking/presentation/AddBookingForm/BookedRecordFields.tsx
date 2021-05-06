@@ -9,12 +9,12 @@ import { ResponsiveRemoveButton } from 'shared/Buttons';
 import { Money } from 'shared/Money';
 import { FormattedDate } from 'shared/Date';
 
-import { useFacilityConsumer } from '../../../../context';
-import { IAddBookingDto } from '../../../dto';
+import { useFacilityConsumer } from '../../../context';
+import { IAddBookingDto } from '../../application/types';
 import { SelectDateModal } from './SelectDateModal';
+import { IOffer } from '../../../offers/application/types';
+import { OfferSelectFieldAsync } from '../../../offers/presentation';
 import { Summary } from './Summary';
-import { IOffer } from '../../../../offers/application/types';
-import { OfferSelectFieldAsync } from '../../../../offers/presentation';
 
 const BookedRecordFields = () => {
   const { facilityId, currency } = useFacilityConsumer();
