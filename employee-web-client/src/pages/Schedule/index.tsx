@@ -16,11 +16,10 @@ import { withErrorBoundary } from 'shared/ErrorBoundary';
 import { FormattedDate } from 'shared/Date';
 import { IconButton } from 'shared/Button';
 import { useQueryParams } from 'shared/Params';
+import { WeekDaysGrid, WorkingDaysGrid } from 'shared/Calendar';
 
 import { Header } from './Header';
 import { AvailableEmployeesGrid } from './AvailableEmployeesGrid';
-import { WorkingDaysGrid } from './WorkingDaysGrid';
-import { WeekDaysGrid } from './WeekDaysGrid';
 import { ScheduleDatePicker } from './AvailableEmployeesGrid/ScheduleDatePicker';
 
 const Schedule = () => {

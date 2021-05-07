@@ -6,8 +6,8 @@ import { useIntl } from 'react-intl';
 import { IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 
-import { IAddCustomerDto } from '../../../../customers/application/types';
-import { AddCustomerModal } from '../../../../customers/presentation';
+import { IAddCustomerDto } from '../../../customers/application/types';
+import { AddCustomerModal } from '../../../customers/presentation';
 
 interface IProps {
   isDisabled: boolean;

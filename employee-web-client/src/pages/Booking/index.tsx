@@ -2,16 +2,24 @@ import React from 'react';
 
 import { PageWrapper } from 'shared/Layout/Page';
 
-import { Calendar } from './Calendar';
+import { withErrorBoundary } from 'shared/ErrorBoundary';
+
 import { Header } from './Header';
+import { CustomCalendar } from './CustomCalendar';
+
+export interface BookingPageQueryParams {
+  dateFrom: string;
+  dateTo: string;
+  employeeId?: string;
+}
 
 const Booking = () => {
   return (
-    <PageWrapper>
+    <PageWrapper maxW='1600px' spacing={4}>
       <Header />
-      <Calendar />
+      <CustomCalendar />
     </PageWrapper>
   );
 };
 
-export default Booking;
+export default withErrorBoundary(Booking);

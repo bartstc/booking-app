@@ -10,8 +10,8 @@ import { Button, IconButton } from 'shared/Button';
 import { FormattedDate } from 'shared/Date';
 import { FetchBoundary } from 'shared/Suspense';
 
-import { bookingTermsQueryKey, bookingTermsQuery } from '../../../../infrastructure/query';
-import { useFacilityConsumer } from '../../../../../context';
+import { bookingTermsQueryKey, bookingTermsQuery } from '../../../infrastructure/query';
+import { useFacilityConsumer } from '../../../../context';
 import { AvailableEmployeeSelectAsync } from './AvailableEmployeeSelectAsync';
 import { WeekRadioGroup } from './WeekRadioGroup';
 import { DayRadioGroup } from './DayRadioGroup';

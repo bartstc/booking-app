@@ -7,9 +7,9 @@ import { useAutoComplete } from 'hooks';
 import { OptionType, RequestStatus } from 'types';
 
 import { EmployeeOption } from './EmployeeOption';
-import { IBookingTerm } from '../../../../../types';
-import { employeesQueryKey } from '../../../../../../employees/infrastructure/query';
-import { IEmployeeCollection } from '../../../../../../employees/application/types';
+import { IBookingTerm } from '../../../../application/types';
+import { employeesQueryKey } from '../../../../../employees/infrastructure/query';
+import { IEmployeeCollection } from '../../../../../employees/application/types';
 
 interface IProps {
   bookingTerm?: IBookingTerm;

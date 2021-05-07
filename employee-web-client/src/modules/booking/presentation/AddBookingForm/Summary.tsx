@@ -7,8 +7,8 @@ import { useFormContext } from 'react-hook-form';
 import { Button } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 
-import { IAddBookingDto } from '../../../dto';
-import { useFacilityConsumer } from '../../../../context';
+import { IAddBookingDto } from '../../application/types';
+import { useFacilityConsumer } from '../../../context';
 
 interface IProps {
   total: number;

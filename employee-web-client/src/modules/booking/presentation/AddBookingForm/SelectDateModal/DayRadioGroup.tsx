@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react';
 import { HStack, VStack, useRadioGroup, Box, RadioProps, useBreakpointValue, useColorModeValue, Center } from '@chakra-ui/react';
 import dayjs from 'dayjs';
-import { RadioPill } from '../../../../../../shared/RadioPill';
-import { FormattedDate } from '../../../../../../shared/Date';
-import { Icon } from '../../../../../../shared/Icon';
 import { mdiCalendarRemove } from '@mdi/js';
+
+import { RadioPill } from 'shared/RadioPill';
+import { FormattedDate } from 'shared/Date';
+import { Icon } from 'shared/Icon';
 
 interface IProps {
   setSelectedTerm: (term: string) => void;

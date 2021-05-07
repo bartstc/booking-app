@@ -27,7 +27,7 @@ const WorkingDaysGrid = ({ workingDays }: IProps) => {
         return (
           <VStack
             justify='center'
-            minH='65px'
+            minH='60px'
             key={day}
             border={`1px solid ${borderColor}`}
             background={!hours ? dayOffBackground : 'transparent'}
