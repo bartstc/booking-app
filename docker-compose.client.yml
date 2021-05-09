@@ -52,6 +52,7 @@ services:
       - RabbitMQ:Hostname=rabbit
       - RabbitMQ:Username=admin
       - RabbitMQ:Password=admin
+      - Authentication:Authority=identity
 
   management:
     image: mangement

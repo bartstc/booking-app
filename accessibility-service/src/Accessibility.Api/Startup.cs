@@ -11,6 +11,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Accessibility.Api.Options;
+using IdentityServer4.AccessTokenValidation;
 
 namespace Accessibility.Api
 {
@@ -39,6 +40,26 @@ namespace Accessibility.Api
             });
             services.AddControllers()
                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = Configuration["Authentication:Authority"];
+                    options.ApiName = "accessibilityapi";
+                    options.ApiSecret = "apisecret";
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "MustBeEmployee",
+                    policyBuilder =>
+                    {
+                        policyBuilder.RequireAuthenticatedUser();
+                        policyBuilder.RequireClaim("contextType", "employee");
+                    }
+                );
+            });
 
             services.Configure<BookingRulesOptions>(Configuration.GetSection(
                 BookingRulesOptions.BookingRules
@@ -85,6 +106,7 @@ namespace Accessibility.Api
 
             app.UseCors(corsPolicyName);
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -13,7 +13,7 @@ namespace IdentityServer
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
                 new IdentityResource(
-                    "contextType",
+                    "contexttype",
                     "Your account type",
                     new[] { "contextType" }
                 )
@@ -23,12 +23,53 @@ namespace IdentityServer
             new List<ApiScope>
             {
                 new ApiScope("api1", "My API"),
-                new ApiScope("gateway", "Gateway API")
+                new ApiScope("gatewayapi", "Gateway API scope"),
+                new ApiScope("accessibilityapi", "Accessibility API scope")
+            };
+        
+        public static IEnumerable<ApiResource> ApiResources =>
+            new ApiResource[] {
+                new ApiResource(
+                    "accessibilityapi",
+                    "Accessibility API",
+                    new [] { "contextType" })
+                    {
+                        Scopes = { "accessibilityapi" },
+                        ApiSecrets = { new Secret("apisecret".Sha256()) }
+                    }
             };
 
         public static IEnumerable<Client> Clients =>
             new List<Client>
             {
+                new Client
+                {
+                    // AllowOfflineAccess = true,
+                    ClientName = "Employee Web Client",
+                    ClientId = "employeewebclient",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RedirectUris = new List<string>()
+                    {
+                        "https://localhost:5002/signin-oidc"
+                    },
+                    PostLogoutRedirectUris = new List<string>()
+                    {
+                        "https://localhost:5002/signout-callback-oidc"
+                    },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "gatewayapi",
+                        "accessibilityapi",
+                        "contexttype"
+                    },
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    }
+                },
                 new Client
                 {
                     ClientId = "client",
