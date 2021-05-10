@@ -31,11 +31,11 @@ namespace IdentityServer
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddDbContext<IdentityServerContext>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("IdentityServer")));
+            services.AddDbContext<IdentityDbContext>(options =>
+                    options.UseNpgsql(Configuration.GetConnectionString("Identity")));
 
             services.AddIdentity<IdentityServerUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<IdentityServerContext>()
+                .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();
 
             var builder = services.AddIdentityServer()
@@ -50,12 +50,12 @@ namespace IdentityServer
                 
             builder.AddConfigurationStore(options =>
                 {
-                    options.ConfigureDbContext = b => b.UseNpgsql(Configuration.GetConnectionString("IdentityServer"),
+                    options.ConfigureDbContext = b => b.UseNpgsql(Configuration.GetConnectionString("Identity"),
                         sql => sql.MigrationsAssembly(migrationsAssembly));
                 })
                 .AddOperationalStore(options =>
                 {
-                    options.ConfigureDbContext = b => b.UseNpgsql(Configuration.GetConnectionString("IdentityServer"),
+                    options.ConfigureDbContext = b => b.UseNpgsql(Configuration.GetConnectionString("Identity"),
                         sql => sql.MigrationsAssembly(migrationsAssembly));
                 });
 
@@ -69,7 +69,7 @@ namespace IdentityServer
             IApplicationBuilder app,
             IWebHostEnvironment env,
             IServiceProvider services,
-            IdentityServerContext context,
+            IdentityDbContext context,
             PersistedGrantDbContext persistedGrantContext,
             ConfigurationDbContext configurationContext)
         {
@@ -107,7 +107,7 @@ namespace IdentityServer
 
         private void PrepareDb(
             IServiceProvider services,
-            IdentityServerContext context)
+            IdentityDbContext context)
         {
             var retryCount = 3;
             int currentRetry = 0;

@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace IdentityServer.Migrations
+namespace IdentityServer.Data.Migrations.IdentityDb
 {
-    [DbContext(typeof(IdentityServerContext))]
-    [Migration("20210504173946_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [DbContext(typeof(IdentityDbContext))]
+    [Migration("20210510190922_IdentitySchema")]
+    partial class IdentitySchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

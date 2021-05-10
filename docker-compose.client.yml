@@ -79,7 +79,7 @@ services:
     ports:
       - "83:80"
     environment:
-      - ConnectionStrings:IdentityServer=Host=db;Database=identity;Username=postgres;Password=pg
+      - ConnectionStrings:Identity=Host=db;Database=identity;Username=postgres;Password=pg
 
   employee-web-client:
     image: employee-web-client
