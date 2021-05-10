@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Accessibility.Api.Options;
 using IdentityServer4.AccessTokenValidation;
+using Accessibility.Api.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Accessibility.Api
 {
@@ -41,6 +43,10 @@ namespace Accessibility.Api
             services.AddControllers()
                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<Startup>());
 
+            services.AddHttpContextAccessor();
+
+            services.AddScoped<IAuthorizationHandler, MustBeEmployeeOfFacilityHandler>();
+
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
                 {
@@ -52,11 +58,14 @@ namespace Accessibility.Api
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(
-                    "MustBeEmployee",
+                    "MustBeEmployeeOfFacility",
                     policyBuilder =>
                     {
                         policyBuilder.RequireAuthenticatedUser();
                         policyBuilder.RequireClaim("contextType", "employee");
+                        policyBuilder.AddRequirements(
+                            new MustBeEmployeeOfFacilityRequirement()
+                        );
                     }
                 );
             });

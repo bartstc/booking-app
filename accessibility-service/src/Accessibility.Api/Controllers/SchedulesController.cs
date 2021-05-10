@@ -15,7 +15,7 @@ namespace Accessibility.Api.Controllers
 {
     [ApiController]
     [Route("facilities/{facilityId}/schedules")]
-    [Authorize("MustBeEmployee")]
+    [Authorize("MustBeEmployeeOfFacility")]
     public class SchedulesController : ControllerBase
     {
         private readonly IMediator mediator;
