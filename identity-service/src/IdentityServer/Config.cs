@@ -16,6 +16,11 @@ namespace IdentityServer
                     "contexttype",
                     "Your account type",
                     new[] { "contextType" }
+                ),
+                new IdentityResource(
+                    "facilityid",
+                    "Identifier of Your facility",
+                    new[] { "facilityId" }
                 )
             };
 
@@ -32,7 +37,7 @@ namespace IdentityServer
                 new ApiResource(
                     "accessibilityapi",
                     "Accessibility API",
-                    new [] { "contextType" })
+                    new [] { "contextType", "facilityId" })
                     {
                         Scopes = { "accessibilityapi" },
                         ApiSecrets = { new Secret("apisecret".Sha256()) }
@@ -63,7 +68,8 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.Profile,
                         "gatewayapi",
                         "accessibilityapi",
-                        "contexttype"
+                        "contexttype",
+                        "facilityid"
                     },
                     ClientSecrets =
                     {

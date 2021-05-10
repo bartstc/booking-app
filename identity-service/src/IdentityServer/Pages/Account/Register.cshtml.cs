@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using IdentityServer.Data;
+using System;
+using System.Security.Claims;
 
 namespace IdentityServer.Areas.Identity.Pages.Account
 {
@@ -38,6 +40,8 @@ namespace IdentityServer.Areas.Identity.Pages.Account
 
         public string ReturnUrl { get; set; }
 
+        public Guid? FacilityId { get; set; }
+
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public class InputModel
@@ -59,13 +63,14 @@ namespace IdentityServer.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string returnUrl = null, Guid? facilityId = null)
         {
             ReturnUrl = returnUrl;
+            FacilityId = facilityId;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null, Guid? facilityId = null)
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -76,7 +81,21 @@ namespace IdentityServer.Areas.Identity.Pages.Account
                 IdentityResult claimResult = null;
                 if (result.Succeeded)
                 {
-                    claimResult = await _userManager.AddClaimAsync(user, ContextTypeClaimValues.customer.ToClaim());
+                    if (facilityId.HasValue)
+                    {
+                        claimResult = await _userManager.AddClaimsAsync(
+                            user,
+                            new []
+                            {
+                                ContextTypeClaimValues.employee.ToClaim(),
+                                new Claim("facilityId", facilityId.Value.ToString())
+                            });
+                    }
+                    else
+                        claimResult = await _userManager.AddClaimsAsync(
+                            user,
+                            new [] { ContextTypeClaimValues.customer.ToClaim() });
+                    
                     if (claimResult.Succeeded)
                     {
                         _logger.LogInformation("User created a new account with password.");
