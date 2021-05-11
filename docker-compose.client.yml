@@ -52,6 +52,7 @@ services:
       - RabbitMQ:Hostname=rabbit
       - RabbitMQ:Username=admin
       - RabbitMQ:Password=admin
+      - Authentication:Authority=identity
 
   management:
     image: mangement
@@ -78,7 +79,7 @@ services:
     ports:
       - "83:80"
     environment:
-      - ConnectionStrings:IdentityServer=Host=db;Database=identity;Username=postgres;Password=pg
+      - ConnectionStrings:Identity=Host=db;Database=identity;Username=postgres;Password=pg
 
   employee-web-client:
     image: employee-web-client

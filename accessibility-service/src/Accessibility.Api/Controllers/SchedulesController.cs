@@ -2,19 +2,20 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Accessibility.Api.Schedules;
-using Accessibility.Application.Schedules.Commands.ApplyCorrection;
 using Accessibility.Application.Schedules.Commands.CreateSchedule;
 using Accessibility.Application.Schedules.Commands.ModifySchedule;
 using Accessibility.Application.Schedules.Queries;
 using Accessibility.Application.Schedules.Queries.GetScheduleById;
 using Accessibility.Application.Schedules.Queries.GetSchedules;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accessibility.Api.Controllers
 {
     [ApiController]
     [Route("facilities/{facilityId}/schedules")]
+    [Authorize("MustBeEmployeeOfFacility")]
     public class SchedulesController : ControllerBase
     {
         private readonly IMediator mediator;

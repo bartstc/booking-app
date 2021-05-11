@@ -1,7 +1,11 @@
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using IdentityServer.Areas.Identity.Data;
 using IdentityServer.Data;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,32 +31,33 @@ namespace IdentityServer
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddDbContext<IdentityServerContext>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("IdentityServer")));
+            services.AddDbContext<IdentityDbContext>(options =>
+                    options.UseNpgsql(Configuration.GetConnectionString("Identity")));
 
             services.AddIdentity<IdentityServerUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<IdentityServerContext>()
+                .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();
 
-            var builder = services.AddIdentityServer(options =>
-            {
-                // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
-                options.EmitStaticAudienceClaim = true;
-            })
-                .AddInMemoryIdentityResources(Config.IdentityResources)
-                .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryClients(Config.Clients)
+            var builder = services.AddIdentityServer()
+                // .AddInMemoryIdentityResources(Config.IdentityResources)
+                // .AddInMemoryApiResources(Config.ApiResources)
+                // .AddInMemoryApiScopes(Config.ApiScopes)
+                // .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<IdentityServerUser>();
-                // .AddConfigurationStore(options =>
-                // {
-                //     options.ConfigureDbContext = b => b.UseSqlite(Configuration.GetConnectionString("Identity"),
-                //         sql => sql.MigrationsAssembly(migrationsAssembly));
-                // })
-                // .AddOperationalStore(options =>
-                // {
-                //     options.ConfigureDbContext = b => b.UseSqlite(Configuration.GetConnectionString("Identity"),
-                //         sql => sql.MigrationsAssembly(migrationsAssembly));
-                // });
+            
+            var migrationsAssembly = typeof(Startup)
+                .GetTypeInfo().Assembly.GetName().Name;
+                
+            builder.AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = b => b.UseNpgsql(Configuration.GetConnectionString("Identity"),
+                        sql => sql.MigrationsAssembly(migrationsAssembly));
+                })
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = b => b.UseNpgsql(Configuration.GetConnectionString("Identity"),
+                        sql => sql.MigrationsAssembly(migrationsAssembly));
+                });
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
@@ -60,7 +65,13 @@ namespace IdentityServer
             services.AddScoped<IProfileService, ProfileService>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services, IdentityServerContext context)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            IServiceProvider services,
+            IdentityDbContext context,
+            PersistedGrantDbContext persistedGrantContext,
+            ConfigurationDbContext configurationContext)
         {
             if (env.IsDevelopment())
             {
@@ -91,9 +102,12 @@ namespace IdentityServer
             });
 
             PrepareDb(services, context);
+            PerepareIDPDbs(persistedGrantContext, configurationContext);
         }
 
-        private void PrepareDb(IServiceProvider services, IdentityServerContext context)
+        private void PrepareDb(
+            IServiceProvider services,
+            IdentityDbContext context)
         {
             var retryCount = 3;
             int currentRetry = 0;
@@ -104,7 +118,6 @@ namespace IdentityServer
                 try
                 {
                     context.Database.Migrate();
-                    CreateRoles(services).Wait();
                     break;
                 }
                 catch (Exception)
@@ -121,14 +134,87 @@ namespace IdentityServer
             }
         }
 
-        private async Task CreateRoles(IServiceProvider services)
+        private void PerepareIDPDbs(
+            PersistedGrantDbContext persistedGrantDbContext,
+            ConfigurationDbContext configurationContext
+        )
         {
-            var customerRole = "Customer";
-            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            var retryCount = 3;
+            int currentRetry = 0;
+            var delay = TimeSpan.FromSeconds(5);
 
-            if (!(await roleManager.RoleExistsAsync(customerRole)))
+            for (;;)
             {
-                await roleManager.CreateAsync(new IdentityRole(customerRole));
+                try
+                {
+                    persistedGrantDbContext.Database.Migrate();
+                    break;
+                }
+                catch (Exception)
+                {
+                    currentRetry++;
+
+                    if (currentRetry > retryCount)
+                    {
+                        throw;
+                    }
+
+                    Task.Delay(delay);
+                }
+            }
+
+            for (;;)
+            {
+                try
+                {
+                    configurationContext.Database.Migrate();
+                    if (!configurationContext.Clients.Any())
+                    {
+                        foreach (var client in Config.Clients)
+                        {
+                            configurationContext.Clients.Add(client.ToEntity());
+                        }
+                        configurationContext.SaveChanges();
+                    }
+
+                    if (!configurationContext.IdentityResources.Any())
+                    {
+                        foreach (var resource in Config.IdentityResources)
+                        {
+                            configurationContext.IdentityResources.Add(resource.ToEntity());
+                        }
+                        configurationContext.SaveChanges();
+                    }
+
+                    if (!configurationContext.ApiResources.Any())
+                    {
+                        foreach (var resource in Config.ApiResources)
+                        {
+                            configurationContext.ApiResources.Add(resource.ToEntity());
+                        }
+                        configurationContext.SaveChanges();
+                    }
+                    if (!configurationContext.ApiScopes.Any())
+                    {
+                        foreach (var resource in Config.ApiScopes)
+                        {
+                            configurationContext.ApiScopes.Add(resource.ToEntity());
+                        }
+                        configurationContext.SaveChanges();
+                    }
+                    break;
+                }
+                catch (Exception)
+                {
+                    currentRetry++;
+
+                    if (currentRetry > retryCount)
+                    {
+                        throw;
+                    }
+
+                    Task.Delay(delay);
+                }
             }
         }
     }

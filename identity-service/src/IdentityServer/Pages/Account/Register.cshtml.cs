@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using IdentityServer.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using IdentityServer.Data;
+using System;
+using System.Security.Claims;
 
 namespace IdentityServer.Areas.Identity.Pages.Account
 {
@@ -40,6 +40,8 @@ namespace IdentityServer.Areas.Identity.Pages.Account
 
         public string ReturnUrl { get; set; }
 
+        public Guid? FacilityId { get; set; }
+
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public class InputModel
@@ -61,13 +63,14 @@ namespace IdentityServer.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string returnUrl = null, Guid? facilityId = null)
         {
             ReturnUrl = returnUrl;
+            FacilityId = facilityId;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null, Guid? facilityId = null)
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -75,11 +78,25 @@ namespace IdentityServer.Areas.Identity.Pages.Account
             {
                 var user = new IdentityServerUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                IdentityResult roleResult = null;
+                IdentityResult claimResult = null;
                 if (result.Succeeded)
                 {
-                    roleResult = await _userManager.AddToRoleAsync(user, "Customer");
-                    if (roleResult.Succeeded)
+                    if (facilityId.HasValue)
+                    {
+                        claimResult = await _userManager.AddClaimsAsync(
+                            user,
+                            new []
+                            {
+                                ContextTypeClaimValues.employee.ToClaim(),
+                                new Claim("facilityId", facilityId.Value.ToString())
+                            });
+                    }
+                    else
+                        claimResult = await _userManager.AddClaimsAsync(
+                            user,
+                            new [] { ContextTypeClaimValues.customer.ToClaim() });
+                    
+                    if (claimResult.Succeeded)
                     {
                         _logger.LogInformation("User created a new account with password.");
 
@@ -109,9 +126,9 @@ namespace IdentityServer.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-                if (roleResult != null)
+                if (claimResult != null)
                 {
-                    foreach (var error in roleResult.Errors)
+                    foreach (var error in claimResult.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
