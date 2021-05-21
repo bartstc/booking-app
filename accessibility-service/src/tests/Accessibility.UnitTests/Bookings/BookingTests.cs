@@ -8,6 +8,7 @@ using Accessibility.Domain.BookingServices.Rules;
 using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.Bookings;
 using Accessibility.Domain.Bookings.BookedRecords.Rules;
+using Accessibility.Domain.Bookings.Events;
 
 namespace Accessibility.UnitTests.Bookings
 {

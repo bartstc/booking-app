@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Accessibility.Domain.Bookings.BookedRecords;
+using Accessibility.Domain.Bookings.Events;
 using Accessibility.Domain.Bookings.Rules;
 using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
@@ -79,6 +80,7 @@ namespace Accessibility.Domain.Bookings
 
             status = BookingStatus.Booked;
             bookedDate = DateTime.Now;
+            AddDomainEvent(new BookingConfirmedEvent(Id, FacilityId));
         }
 
         public void ChangeRecordStatus(BookedRecordId serviceId, BookedRecordStatus recordStatus)

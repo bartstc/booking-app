@@ -1,6 +1,6 @@
 using Accessibility.Domain.SeedWork;
 
-namespace Accessibility.Domain.Bookings
+namespace Accessibility.Domain.Bookings.Events
 {
     public class BookingFinishedEvent : DomainEventBase
     {
