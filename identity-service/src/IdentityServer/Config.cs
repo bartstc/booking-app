@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using IdentityServer4;
 using IdentityServer4.Models;
@@ -56,7 +55,7 @@ namespace IdentityServer
                     RequirePkce = true,
                     RedirectUris = new List<string>()
                     {
-                        "https://localhost:5002/signin-oidc"
+                        "http://localhost:3001/dashboard"
                     },
                     PostLogoutRedirectUris = new List<string>()
                     {
