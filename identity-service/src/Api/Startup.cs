@@ -10,6 +10,8 @@ namespace Api
 {
     public class Startup
     {
+        private const string corsPolicyName = "mainCorsPolicy";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -19,6 +21,16 @@ namespace Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var corsOrigins = Configuration.GetSection("CorsOrigins").Get<string[]>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(corsPolicyName, builder =>
+                {
+                    builder.WithOrigins(corsOrigins)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -58,6 +70,7 @@ namespace Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(corsPolicyName);
 
             app.UseAuthentication();
             app.UseAuthorization();
