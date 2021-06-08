@@ -53,6 +53,9 @@ namespace IdentityServer
                     ClientId = "employeewebclient",
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
+                    AllowedCorsOrigins = new List<string> {
+                        "http://localhost:3001"
+                    },
                     RedirectUris = new List<string>()
                     {
                         "http://localhost:3001/dashboard"
@@ -77,16 +80,35 @@ namespace IdentityServer
                 },
                 new Client
                 {
-                    ClientId = "client",
-
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-
+                    // AllowOfflineAccess = true,
+                    ClientName = "Test Client",
+                    ClientId = "testclient",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    AllowedCorsOrigins = new List<string> {
+                        "http://localhost:3001"
+                    },
+                    RedirectUris = new List<string>()
+                    {
+                        "https://localhost:5001"
+                    },
+                    PostLogoutRedirectUris = new List<string>()
+                    {
+                        "https://localhost:5002/signout-callback-oidc"
+                    },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "gatewayapi",
+                        "accessibilityapi",
+                        "contexttype",
+                        "facilityid"
+                    },
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
-                    },
-
-                    AllowedScopes = { "api1", "gateway" }
+                    }
                 },
                 new Client
                 {
