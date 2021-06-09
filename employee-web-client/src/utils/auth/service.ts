@@ -15,7 +15,7 @@ export class AuthService {
       // tslint:disable-next-line:object-literal-sort-keys
       post_logout_redirect_uri: `${this.clientHost}`,
       response_type: 'code',
-      scope: 'gateway',
+      scope: 'gatewayapi',
     };
     this.userManager = new UserManager(settings);
 
