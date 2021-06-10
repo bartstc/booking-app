@@ -8,7 +8,7 @@ export const corsOptionsDelegate: unknown = (
   req: Request,
   callback: (err: Error, options: CorsOptions) => void,
 ) => {
-  const allowedOrigins = ['http://localhost:3001'];
+  const allowedOrigins = ['http://localhost:3001', 'https://localhost:3001'];
   const allowedPaths = [];
 
   const corsOptions: CorsOptions = {
