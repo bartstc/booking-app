@@ -54,11 +54,13 @@ namespace IdentityServer
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
                     AllowedCorsOrigins = new List<string> {
-                        "http://localhost:3001"
+                        "http://localhost:3001",
+                        "https://localhost:3001"
                     },
                     RedirectUris = new List<string>()
                     {
-                        "http://localhost:3001/dashboard"
+                        "http://localhost:3001/dashboard",
+                        "https://localhost:3001/dashboard"
                     },
                     PostLogoutRedirectUris = new List<string>()
                     {
