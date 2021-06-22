@@ -1,5 +1,5 @@
 using System;
-using Accessibility.Domain.SeedWork;
+using Core.Domain;
 
 namespace Accessibility.Domain.Bookings
 {

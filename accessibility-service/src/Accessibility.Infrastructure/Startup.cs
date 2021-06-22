@@ -1,116 +1,41 @@
-using Accessibility.Application.Configuration.Database;
-using Accessibility.Domain.SeedWork;
 using Accessibility.Infrastructure.Database;
-using Accessibility.Infrastructure.Domain;
-using Accessibility.Infrastructure.Processing;
-using Accessibility.Infrastructure.Processing.Outbox;
-using Accessibility.Infrastructure.SeedWork;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
-using MediatR;
-using System.Reflection;
-using Accessibility.Domain.Schedules;
-using Accessibility.Application.Schedules.DomainServices;
-using Accessibility.Infrastructure.Domain.Schedules;
 using Microsoft.Extensions.Configuration;
-using Accessibility.Application.Schedules.Commands.CreateSchedule;
-using Accessibility.Infrastructure.Application.Facilities;
-using Accessibility.Application.Facilities;
-using Accessibility.Domain.Bookings;
-using Accessibility.Infrastructure.Domain.Bookings;
 using MassTransit;
-using Accessibility.Application.Bookings.IntegrationEvents.EventHandling;
-using Accessibility.Application.Facilities.IntegrationEvents.EventHandling;
-using Accessibility.Application.Schedules;
-using Accessibility.Infrastructure.Application.Schedules;
-using Accessibility.Infrastructure.Application.Bookings;
-using Accessibility.Application.Bookings.Queries;
-using System.Collections.Generic;
-using Accessibility.Application;
-using Accessibility.Application.Bookings.DomainServices;
-using Accessibility.Application.Availabilities.Queries;
-using Accessibility.Infrastructure.Application.Availabilities;
-using Accessibility.Infrastructure.Application.Facilities.Employees;
+using Core.Persistence.Postgres;
+using Core.RabbitMQ.MassTransit;
+using Core.Processing;
+using System.Reflection;
 
 namespace Accessibility.Infrastructure
 {
     public static class Startup
     {
-        // TODO: split registrations into modules
-        public static IServiceCollection ConfigureAccessibility(this IServiceCollection services, IConfiguration configuration, Assembly applicationAssembly, Dictionary<EventBusExchange, string> eventBusExchanges)
+        public static IServiceCollection AddAccessibilityModule(this IServiceCollection services,
+            IConfiguration configuration,
+            Assembly applicationAssembly)
         {
             var connectionString = configuration.GetConnectionString("Accessibility");
 
-            services.AddDbContext<AccessibilityContext>(options =>
-                options
-                    .ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>()
-                    .UseNpgsql(connectionString))
-                .AddMediatR(typeof(CreateScheduleCommand).Assembly, typeof(ScheduleCreatedEvent).Assembly, typeof(ProcessOutboxCommand).Assembly)
-                .AddTransient<IScheduleRepository, ScheduleRepository>()
-                .AddTransient<IScheduleQueryRepository, ScheduleQueryRepository>()
-                .AddTransient<IAvailabilityQueryRepository, AvailabilityQueryRepository>()
-                .AddTransient<ISchedulePeriodOfTimeChecker, SchedulePeriodOfTimeChecker>()
-                .AddTransient<IBookingRepository, BookingRepository>()
-                .AddTransient<IBookingQueryRepository, BookingQueryRepository>()
-                .AddTransient<IBookingPeriodOfTimeChecker, BookingPeriodOfTimeChecker>()
-                .AddTransient<IOfferRepository, OfferRepository>()
-                .AddTransient<IOfferQueryRepository, OfferQueryRepository>()
-                .AddTransient<IEmployeeRepository, EmployeeRepository>()
-                .AddTransient<IUnitOfWork, UnitOfWork>()
-                .AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>()
-                //.AddHostedService<ProcessOutboxHostedService>()
-                .AddScoped<ISqlConnectionFactory>(x => new SqlConnectionFactory(connectionString))
-                .AddSingleton<IAssemblyProvider>(x => new AssemblyProvider(applicationAssembly))
-                .ConfigureEventBus(configuration, eventBusExchanges);
-
-            return services;
-        }
-
-        private static IServiceCollection ConfigureEventBus(this IServiceCollection services, IConfiguration configuration, Dictionary<EventBusExchange, string> eventBusExchanges)
-        {
-            return services.AddMassTransit(x =>
-            {
-                x.AddConsumer<BookingRequestedConsumer>()
-                    .Endpoint(e => {e.ConcurrentMessageLimit = 1;});
-                x.AddConsumer<OfferAddedConsumer>();
-                x.AddConsumer<OfferDeactivatedConsumer>();
-                x.AddConsumer<OfferActivatedConsumer>();
-                x.AddConsumer<EmployeeAddedConsumer>();
-                x.AddConsumer<EmployeeDeactivatedConsumer>();
-                x.AddConsumer<EmployeeActivatedConsumer>();
-
-                x.UsingRabbitMq((context, cfg) =>
-                {
-                    cfg.Host(configuration["RabbitMQ:HostName"], cfgH =>
+            services
+                .AddBooking()
+                .AddSchedule()
+                .AddFacility()
+                .AddPostgres<AccessibilityContext>(connectionString)
+                .AddProcessing<AccessibilityContext>(applicationAssembly)
+                .AddMassTransit(configuration,
+                    x =>
                     {
-                        cfgH.Username(configuration["RabbitMQ:Username"]);
-                        cfgH.Password(configuration["RabbitMQ:Password"]);
+                        x.AddBookingConsumers();
+                        x.AddFacilityConsumers();
+                    },
+                    (context, cfg) =>
+                    {
+                        cfg.AddBookingEndpoints(context);
+                        cfg.AddFacilityEndpoints(context);
                     });
-                    
-                    cfg.ReceiveEndpoint(eventBusExchanges[EventBusExchange.BookingRequests], e =>
-                        e.ConfigureConsumer<BookingRequestedConsumer>(context));
-                    
-                    cfg.ReceiveEndpoint("offer-added-accessibility", e =>
-                        e.ConfigureConsumer<OfferAddedConsumer>(context));
-                    
-                    cfg.ReceiveEndpoint("offer-deactivated-accessibility", e =>
-                        e.ConfigureConsumer<OfferDeactivatedConsumer>(context));
-                    
-                    cfg.ReceiveEndpoint("offer-activated-accessibility", e =>
-                        e.ConfigureConsumer<OfferActivatedConsumer>(context));
-                    
-                    cfg.ReceiveEndpoint("employee-added-accessibility", e =>
-                        e.ConfigureConsumer<EmployeeAddedConsumer>(context));
-                    
-                    cfg.ReceiveEndpoint("employee-deactivated-accessibility", e =>
-                        e.ConfigureConsumer<EmployeeDeactivatedConsumer>(context));
-                    
-                    cfg.ReceiveEndpoint("employee-activated-accessibility", e =>
-                        e.ConfigureConsumer<EmployeeActivatedConsumer>(context));
-                });
-            })
-            .AddMassTransitHostedService();
+            return services;
         }
     }
 }

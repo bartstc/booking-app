@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
-using Accessibility.Application.Configuration.DomainEvents;
 using Accessibility.Domain.Bookings;
 using Accessibility.Domain.Bookings.Events;
 using Accessibility.Domain.SharedKernel;
+using Core.DomainEvents;
 
 namespace Accessibility.Application.Bookings.Commands.ProcessBookingRequest
 {

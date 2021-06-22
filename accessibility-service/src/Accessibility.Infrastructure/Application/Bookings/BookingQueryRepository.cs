@@ -4,9 +4,9 @@ using System.Data;
 using System.Threading.Tasks;
 using Accessibility.Application.Bookings.Queries;
 using Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms;
-using Accessibility.Application.Configuration.Database;
 using Accessibility.Domain.Bookings;
 using Accessibility.Domain.SharedKernel;
+using Core.Database;
 using Dapper;
 
 namespace Accessibility.Infrastructure.Application.Bookings

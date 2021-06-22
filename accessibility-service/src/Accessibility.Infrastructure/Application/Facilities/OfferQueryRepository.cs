@@ -1,8 +1,8 @@
 using System;
 using System.Data;
 using System.Threading.Tasks;
-using Accessibility.Application.Configuration.Database;
 using Accessibility.Application.Facilities;
+using Core.Database;
 using Dapper;
 
 namespace Accessibility.Infrastructure.Application.Facilities

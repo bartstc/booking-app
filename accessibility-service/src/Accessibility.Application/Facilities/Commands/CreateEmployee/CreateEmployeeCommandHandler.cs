@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Accessibility.Domain.SeedWork;
+using Core.Domain.UnitOfWork;
 using MediatR;
 
 namespace Accessibility.Application.Facilities.Commands.CreateEmployee

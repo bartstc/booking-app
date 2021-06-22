@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Accessibility.Infrastructure;
 using FluentValidation.AspNetCore;
-using Accessibility.Application.Schedules.Commands.CreateSchedule;
 using Accessibility.Infrastructure.Database;
 using System;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +13,10 @@ using Accessibility.Api.Options;
 using IdentityServer4.AccessTokenValidation;
 using Accessibility.Api.Authorization;
 using Microsoft.AspNetCore.Authorization;
+using Core;
+using Accessibility.Application.Bookings.Commands.CreateBookingRequest;
+using Core.DomainEvents;
+using Accessibility.Application.Bookings.Commands.ProcessBookingRequest;
 
 namespace Accessibility.Api
 {
@@ -30,21 +33,36 @@ namespace Accessibility.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var corsOrigins = Configuration.GetSection("CorsOrigins").Get<string[]>();
-            services.AddCors(options =>
-            {
-                options.AddPolicy(corsPolicyName, builder =>
-                {
-                    builder.WithOrigins(corsOrigins)
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
-                });
-            });
             services.AddControllers()
                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<Startup>());
 
+            services.AddSwaggerGen(options =>
+                    options.CustomSchemaIds(x => x.FullName));
+
             services.AddHttpContextAccessor();
 
+            ConfigureAuth(services);
+            ConfigureOptions(services);
+            ConfigureCors(services);
+
+            var applicationAssembly = typeof(CreateBookingRequestCommand).Assembly;
+            services.AddCoreServices(applicationAssembly);
+            services.AddAccessibilityModule(Configuration, typeof(BookingConfirmedNotification).Assembly);
+        }
+
+        private void ConfigureOptions(IServiceCollection services)
+        {
+            services.Configure<BookingRulesOptions>(Configuration.GetSection(
+                    BookingRulesOptions.BookingRules
+                ))
+                .Configure<EventBusOptions>((settings) =>
+                {
+                    Configuration.GetSection(EventBusOptions.EventBus).Bind(settings);
+                });
+        }
+
+        private void ConfigureAuth(IServiceCollection services)
+        {
             services.AddScoped<IAuthorizationHandler, MustBeEmployeeOfFacilityHandler>();
 
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
@@ -69,23 +87,20 @@ namespace Accessibility.Api
                     }
                 );
             });
+        }
 
-            services.Configure<BookingRulesOptions>(Configuration.GetSection(
-                BookingRulesOptions.BookingRules
-            ))
-            .Configure<EventBusOptions>((settings) =>
+        private void ConfigureCors(IServiceCollection services)
+        {
+            var corsOrigins = Configuration.GetSection("CorsOrigins").Get<string[]>();
+            services.AddCors(options =>
             {
-                Configuration.GetSection(EventBusOptions.EventBus).Bind(settings);
+                options.AddPolicy(corsPolicyName, builder =>
+                {
+                    builder.WithOrigins(corsOrigins)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
             });
-            
-            var eventBusOptions = Configuration.GetSection(EventBusOptions.EventBus).Get<EventBusOptions>();
-
-            services.ConfigureAccessibility(
-                Configuration,
-                typeof(CreateScheduleCommand).Assembly,
-                eventBusOptions.Exchanges)
-            .AddSwaggerGen(options =>
-                    options.CustomSchemaIds(x => x.FullName));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AccessibilityContext context)

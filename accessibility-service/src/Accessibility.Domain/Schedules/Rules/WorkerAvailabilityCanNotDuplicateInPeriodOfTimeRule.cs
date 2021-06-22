@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Accessibility.Domain.Schedules.Availabilities;
-using Accessibility.Domain.SeedWork;
+using Core.Domain;
 
 namespace Accessibility.Domain.Schedules.Rules
 {

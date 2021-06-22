@@ -2,17 +2,14 @@
   <ItemGroup>
     <ProjectReference Include="..\Accessibility.Domain\Accessibility.Domain.csproj" />
     <ProjectReference Include="..\Accessibility.Application\Accessibility.Application.csproj" />
+    <ProjectReference Include="..\Core.Persistence.Postgres\Core.Persistence.Postgres.csproj" />
+    <ProjectReference Include="..\Core.RabbitMQ.MassTransit\Core.RabbitMQ.MassTransit.csproj" />
+    <ProjectReference Include="..\Core.Processing\Core.Processing.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MassTransit" Version="7.1.6" />
-    <PackageReference Include="MassTransit.AspNetCore" Version="7.1.6" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="7.1.6" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="5.0.1" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
-    <PackageReference Include="RabbitMQ.Client" Version="6.2.1" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>

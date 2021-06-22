@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using Accessibility.Domain.SeedWork;
+using Core.Domain;
 using Xunit;
 
 namespace Accessibility.UnitTests.SeedWork

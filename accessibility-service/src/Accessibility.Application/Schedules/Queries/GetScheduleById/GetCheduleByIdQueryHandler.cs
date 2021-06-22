@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Accessibility.Application.Configuration.Database;
 using MediatR;
 using Dapper;
+using Core.Database;
 
 namespace Accessibility.Application.Schedules.Queries.GetScheduleById
 {

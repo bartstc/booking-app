@@ -1,4 +1,4 @@
-using Accessibility.Domain.SeedWork;
+using Core.Domain;
 
 namespace Accessibility.Domain.Schedules.Events
 {

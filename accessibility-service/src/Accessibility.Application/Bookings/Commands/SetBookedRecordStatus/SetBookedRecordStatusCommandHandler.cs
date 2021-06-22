@@ -2,9 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.Bookings;
 using Accessibility.Domain.Bookings.BookedRecords;
-using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
+using Core.Domain.UnitOfWork;
 
 namespace Accessibility.Application.Bookings.Commands.SetBookedRecordStatus
 {

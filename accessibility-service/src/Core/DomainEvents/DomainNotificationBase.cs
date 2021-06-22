@@ -1,6 +1,6 @@
 using System;
-using Accessibility.Domain.SeedWork;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+using Core.Domain;
 
 namespace Core.DomainEvents
 {

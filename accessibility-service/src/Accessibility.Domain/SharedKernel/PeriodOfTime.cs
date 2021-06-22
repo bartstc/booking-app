@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Accessibility.Domain.Extensions;
-using Accessibility.Domain.SeedWork;
+using Core.Domain;
 
 namespace Accessibility.Domain.SharedKernel
 {

@@ -2,7 +2,7 @@ using Accessibility.Domain.Bookings;
 using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SharedKernel;
 using Accessibility.Infrastructure.Database;
-using Accessibility.Infrastructure.SeedWork;
+using Core.Persistence.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;

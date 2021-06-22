@@ -1,36 +1,35 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Accessibility.Application.Bookings.IntegrationEvents.Events;
 using Accessibility.Application.Facilities;
 using Accessibility.Domain.Bookings;
 using Accessibility.Domain.Bookings.BookedRecords;
-using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
-using MassTransit;
 using MediatR;
+using Core.Domain.UnitOfWork;
+using Core.Commands;
+using Core.IntegrationEvents;
 
 namespace Accessibility.Application.Bookings.Commands.CreateBookingRequest
 {
-    public class CreateBookingRequestCommandHandler : IRequestHandler<CreateBookingRequestCommand>
+    public class CreateBookingRequestCommandHandler : ICommandHandler<CreateBookingRequestCommand>
     {
         private readonly IOfferRepository offerRepository;
         private readonly IBookingRepository bookingRepository;
         private readonly IUnitOfWork unitOfWork;
-        private readonly ISendEndpointProvider sendEndpointProvider;
+        private readonly IMessageBus messageBus;
 
         public CreateBookingRequestCommandHandler(
             IOfferRepository offerRepository,
             IBookingRepository bookingRepository,
             IUnitOfWork unitOfWork,
-            ISendEndpointProvider sendEndpointProvider)
+            IMessageBus messageBus)
         {
             this.offerRepository = offerRepository;
             this.bookingRepository = bookingRepository;
             this.unitOfWork = unitOfWork;
-            this.sendEndpointProvider = sendEndpointProvider;
+            this.messageBus = messageBus;
         }
 
         public async Task<Unit> Handle(CreateBookingRequestCommand request, CancellationToken cancellationToken)
@@ -49,13 +48,12 @@ namespace Accessibility.Application.Bookings.Commands.CreateBookingRequest
             );
 
             await bookingRepository.AddAsync(booking);
-            await unitOfWork.CommitAsync();
 
-            var sendEndpoint = await sendEndpointProvider.GetSendEndpoint(new Uri($"exchange:{request.EventBusExchanges[EventBusExchange.BookingRequests]}"));
-
-            await sendEndpoint.Send(new BookingRequested(
-                facilityId,
-                booking.Id)
+            await messageBus.SendAsync(
+                request.EventBusExchanges[EventBusExchange.BookingRequests],
+                new BookingRequested(
+                    facilityId,
+                    booking.Id)
             );
 
             return Unit.Value;

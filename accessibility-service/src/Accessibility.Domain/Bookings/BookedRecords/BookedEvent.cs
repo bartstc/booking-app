@@ -1,4 +1,4 @@
-using Accessibility.Domain.SeedWork;
+using Core.Domain;
 using Accessibility.Domain.SharedKernel;
 
 namespace Accessibility.Domain.Bookings.BookedRecords

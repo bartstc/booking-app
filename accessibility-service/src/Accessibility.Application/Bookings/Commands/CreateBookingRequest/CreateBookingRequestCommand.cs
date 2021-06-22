@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using MediatR;
+using Core.Commands;
 
 namespace Accessibility.Application.Bookings.Commands.CreateBookingRequest
 {
-    public class CreateBookingRequestCommand : IRequest
+    public class CreateBookingRequestCommand : ICommand
     {
         public CreateBookingRequestCommand(Guid customerId, Guid facilityId, List<BookedRecordDto> bookedRecords, Dictionary<EventBusExchange, string> eventBusExchanges)
         {

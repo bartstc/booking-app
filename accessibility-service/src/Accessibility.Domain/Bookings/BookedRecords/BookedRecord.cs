@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Accessibility.Domain.Bookings.BookedRecords.Rules;
 using Accessibility.Domain.BookingServices.Rules;
-using Accessibility.Domain.SeedWork;
+using Core.Domain;
 using Accessibility.Domain.SharedKernel;
 
 namespace Accessibility.Domain.Bookings.BookedRecords

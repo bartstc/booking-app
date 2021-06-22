@@ -2,9 +2,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.Schedules;
-using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
+using Core.Domain.UnitOfWork;
 
 namespace Accessibility.Application.Schedules.Commands.ApplyCorrection
 {

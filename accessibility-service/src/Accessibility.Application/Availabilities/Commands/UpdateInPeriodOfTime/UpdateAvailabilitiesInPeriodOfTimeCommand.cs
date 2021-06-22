@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Accessibility.Application.SeedWork;
 using Accessibility.Domain.Schedules;
 using Accessibility.Domain.SharedKernel;
+using Core.Commands;
 using MediatR;
 
 namespace Accessibility.Application.Availabilities.Commands.UpdateInPeriodOfTime

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Accessibility.Application.Configuration.Database;
 using Accessibility.Application.Schedules;
 using Accessibility.Application.Schedules.Queries;
+using Core.Database;
 using Dapper;
 
 namespace Accessibility.Infrastructure.Application.Schedules

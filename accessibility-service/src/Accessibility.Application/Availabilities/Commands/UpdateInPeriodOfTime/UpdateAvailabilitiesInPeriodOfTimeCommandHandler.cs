@@ -1,12 +1,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Accessibility.Application.SeedWork;
 using Accessibility.Domain.Schedules;
 using Accessibility.Domain.Schedules.Availabilities;
-using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
+using Core.Domain.UnitOfWork;
+using Core.Commands;
 
 namespace Accessibility.Application.Availabilities.Commands.UpdateInPeriodOfTime
 {

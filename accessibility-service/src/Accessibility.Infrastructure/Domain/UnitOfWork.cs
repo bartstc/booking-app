@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Accessibility.Domain.SeedWork;
 using Accessibility.Infrastructure.Database;
-using Accessibility.Infrastructure.Processing;
+using Core.Domain.UnitOfWork;
+using Core.Processing;
 
 namespace Accessibility.Infrastructure.Domain
 {

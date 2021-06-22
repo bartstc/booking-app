@@ -1,12 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.Bookings;
-using Accessibility.Domain.SeedWork;
+using Core.Commands;
+using Core.Domain.UnitOfWork;
 using MediatR;
 
 namespace Accessibility.Application.Bookings.Commands.ProcessBookingRequest
 {
-    public class ProcessBookingRequestCommandHandler : IRequestHandler<ProcessBookingRequestCommand, BookingId>
+    public class ProcessBookingRequestCommandHandler : ICommandHandler<ProcessBookingRequestCommand>
     {
         private readonly IBookingRepository repository;
         private readonly IUnitOfWork unitOfWork;
@@ -19,12 +20,12 @@ namespace Accessibility.Application.Bookings.Commands.ProcessBookingRequest
             this.checker = checker;
         }
 
-        public async Task<BookingId> Handle(ProcessBookingRequestCommand request, CancellationToken cancellationToken)
-        {            
+        public async Task<Unit> Handle(ProcessBookingRequestCommand request, CancellationToken cancellationToken)
+        {
             var booking = await repository.GetByIdAsync(request.BookingId, request.FacilityId);
             await booking.SetBooked(checker);
-            await unitOfWork.CommitAsync();
-            return booking.Id;
+
+            return Unit.Value;
         }
     }
 }

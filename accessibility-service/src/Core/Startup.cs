@@ -1,12 +1,17 @@
-using System;
+using System.Reflection;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace booking_app.accessibility_service.src.Core
+namespace Core
 {
     public static class Startup
     {
-        public static IServiceCollection AddCore(this IServiceCollection services)
+        public static IServiceCollection AddCoreServices(this IServiceCollection services, Assembly applicationAssembly)
         {
-            return services;
+            return services
+                .AddMediatR(applicationAssembly)
+                .AddSingleton<IAssemblyProvider>(sp =>
+                    new AssemblyProvider(applicationAssembly));
         }
     }
 }

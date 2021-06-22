@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using Accessibility.Application.Configuration.Database;
 using Accessibility.Domain.Bookings;
 using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SharedKernel;
+using Core.Database;
 using Dapper;
 
 namespace Accessibility.Application.Bookings.DomainServices

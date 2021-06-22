@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
+using Core.Domain.UnitOfWork;
 
 namespace Accessibility.Application.Facilities.Commands.CreateOffer
 {

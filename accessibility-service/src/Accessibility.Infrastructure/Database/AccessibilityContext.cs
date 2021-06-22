@@ -1,7 +1,7 @@
 using Accessibility.Application.Facilities;
 using Accessibility.Domain.Bookings;
 using Accessibility.Domain.Schedules;
-using Accessibility.Infrastructure.Processing.Outbox;
+using Core.Processing.Outbox;
 using Microsoft.EntityFrameworkCore;
 
 namespace Accessibility.Infrastructure.Database
@@ -21,6 +21,7 @@ namespace Accessibility.Infrastructure.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AccessibilityContext).Assembly);
+            modelBuilder.ApplyConfiguration<OutboxNotification>(new OutboxMessageEntityTypeConfiguration());
         }
     }
 }

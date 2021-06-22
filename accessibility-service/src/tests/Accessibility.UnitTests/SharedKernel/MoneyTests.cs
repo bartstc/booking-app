@@ -1,6 +1,6 @@
 using System;
-using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.SharedKernel;
+using Core.Domain;
 using Xunit;
 
 namespace Accessibility.UnitTests.SharedKernel

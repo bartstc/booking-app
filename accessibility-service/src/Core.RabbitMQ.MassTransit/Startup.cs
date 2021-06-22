@@ -1,4 +1,5 @@
 using System;
+using Core.IntegrationEvents;
 using MassTransit;
 using MassTransit.ExtensionsDependencyInjectionIntegration;
 using MassTransit.RabbitMqTransport;
@@ -14,26 +15,29 @@ namespace Core.RabbitMQ.MassTransit
         public static IServiceCollection AddMassTransit(this IServiceCollection services,
             IConfiguration config,
             Action<IServiceCollectionBusConfigurator> configureConsumers = null,
-            Action<IRabbitMqBusFactoryConfigurator> configureReceiveEndpoints = null)
+            Action<IBusRegistrationContext, IRabbitMqBusFactoryConfigurator> configureReceiveEndpoints = null)
         {
             var rabbitMqConfig = config.GetSection(configKey).Get<Config>();
 
-            return services.AddMassTransit(x =>
-            {
-                configureConsumers?.Invoke(x);
-
-                x.UsingRabbitMq((context, cfg) =>
+            return services
+                .AddMassTransit(x =>
                 {
-                    cfg.Host(rabbitMqConfig.HostName, cfgH =>
-                    {
-                        cfgH.Username(rabbitMqConfig.Username);
-                        cfgH.Password(rabbitMqConfig.Password);
-                    });
+                    configureConsumers?.Invoke(x);
 
-                    configureReceiveEndpoints?.Invoke(cfg);
-                });
-            })
-            .AddMassTransitHostedService();
+                    x.UsingRabbitMq((context, cfg) =>
+                    {
+                        cfg.Host(rabbitMqConfig.HostName, cfgH =>
+                        {
+                            cfgH.Username(rabbitMqConfig.Username);
+                            cfgH.Password(rabbitMqConfig.Password);
+                        });
+
+                        configureReceiveEndpoints?.Invoke(context, cfg);
+                    });
+                })
+                .AddMassTransitHostedService()
+                .AddTransient<IMessageBus, RabbitMQMessageBus>();
+            
         }
     }
 }

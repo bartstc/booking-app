@@ -1,7 +1,7 @@
 using System;
-using Accessibility.Application.Configuration.Database;
 using Accessibility.Domain.Schedules;
 using Accessibility.Domain.SharedKernel;
+using Core.Database;
 using Dapper;
 
 namespace Accessibility.Application.Schedules.DomainServices

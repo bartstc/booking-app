@@ -1,11 +1,10 @@
-using System;
 using Accessibility.Domain.Bookings;
 using Accessibility.Domain.SharedKernel;
-using MediatR;
+using Core.Commands;
 
 namespace Accessibility.Application.Bookings.Commands.ProcessBookingRequest
 {
-    public class ProcessBookingRequestCommand : IRequest<BookingId>
+    public class ProcessBookingRequestCommand : ICommand
     {
         public ProcessBookingRequestCommand(BookingId bookingId, FacilityId facilityId)
         {

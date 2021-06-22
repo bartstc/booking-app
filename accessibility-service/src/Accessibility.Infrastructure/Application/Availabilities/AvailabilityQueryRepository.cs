@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Accessibility.Application.Availabilities.Queries;
-using Accessibility.Application.Configuration.Database;
 using Accessibility.Application.Schedules;
 using Accessibility.Domain.Schedules;
 using Accessibility.Domain.SharedKernel;
+using Core.Database;
 using Dapper;
 
 namespace Accessibility.Infrastructure.Application.Availabilities

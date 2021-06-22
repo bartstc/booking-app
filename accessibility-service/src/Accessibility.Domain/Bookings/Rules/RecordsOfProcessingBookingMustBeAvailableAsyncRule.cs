@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Accessibility.Domain.Bookings.BookedRecords;
-using Accessibility.Domain.SeedWork;
+using Core.Domain;
 
 namespace Accessibility.Domain.Bookings.Rules
 {

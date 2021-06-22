@@ -4,7 +4,7 @@ using System.Linq;
 using Accessibility.Domain.Schedules.Availabilities;
 using Accessibility.Domain.Schedules.Events;
 using Accessibility.Domain.Schedules.Rules;
-using Accessibility.Domain.SeedWork;
+using Core.Domain;
 using Accessibility.Domain.SharedKernel;
 
 namespace Accessibility.Domain.Schedules

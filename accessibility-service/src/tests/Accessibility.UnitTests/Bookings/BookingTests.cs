@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using Xunit;
 using Accessibility.UnitTests.SeedWork;
 using System.Linq;
-using Accessibility.Domain.SeedWork;
 using Accessibility.Domain.BookingServices.Rules;
 using Accessibility.Domain.Bookings.BookedRecords;
-using Accessibility.Domain.Bookings;
 using Accessibility.Domain.Bookings.BookedRecords.Rules;
 using Accessibility.Domain.Bookings.Events;
+using Core.Domain;
 
 namespace Accessibility.UnitTests.Bookings
 {
