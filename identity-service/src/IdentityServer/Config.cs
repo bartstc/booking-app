@@ -60,7 +60,9 @@ namespace IdentityServer
                     RedirectUris = new List<string>()
                     {
                         "http://localhost:3001/dashboard",
-                        "https://localhost:3001/dashboard"
+                        "https://localhost:3001/dashboard",
+                        "http://localhost:3001/signin-callback.html",
+                        "https://localhost:3001/signin-callback.html"
                     },
                     PostLogoutRedirectUris = new List<string>()
                     {
