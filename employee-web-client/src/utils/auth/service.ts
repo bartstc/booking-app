@@ -1,4 +1,4 @@
-import { Log, User, UserManager } from 'oidc-client';
+import { Log, User, UserManager, WebStorageStateStore } from 'oidc-client';
 
 export class AuthService {
   public userManager: UserManager;
@@ -8,14 +8,16 @@ export class AuthService {
 
   constructor() {
     const settings = {
-      authority: this.domain,
+      authority: `${this.domain}/`,
       client_id: this.clientId,
-      redirect_uri: `${this.clientHost}/dashboard`,
-      silent_redirect_uri: `${this.clientHost}dashboard`,
+      redirect_uri: `${this.clientHost}/signin-callback.html`,
+      // silent_redirect_uri: `${this.clientHost}/signin-callback.html`,
       // tslint:disable-next-line:object-literal-sort-keys
-      post_logout_redirect_uri: `${this.clientHost}`,
+      post_logout_redirect_uri: `${this.clientHost}/`,
       response_type: 'code',
-      scope: 'gatewayapi',
+      scope: 'contexttype facilityid openid gatewayapi accessibilityapi',
+      monitorSession: false,
+      userStore: new WebStorageStateStore({ store: window.localStorage }),
     };
     this.userManager = new UserManager(settings);
 
