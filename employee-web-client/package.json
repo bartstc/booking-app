@@ -21,6 +21,7 @@
     "dayjs": "^1.9.8",
     "framer-motion": "^4",
     "intl-dateformat": "^0.1.4",
+    "oidc-client": "^1.11.5",
     "query-string": "^6.13.7",
     "react": "^17.0.2",
     "react-big-calendar": "^0.33.2",
