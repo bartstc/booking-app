@@ -4,12 +4,14 @@ export class AuthService {
   public userManager: UserManager;
   private domain: string = process.env.REACT_APP_AUTH0_DOMAIN!;
   private clientId: string = process.env.REACT_APP_AUTH0_CLIENT_ID!;
+  private clientSecret: string = process.env.REACT_APP_AUTH0_CLIENT_SECRET!;
   private clientHost: string = process.env.REACT_APP_CLIENT_HOST!;
 
   constructor() {
     const settings = {
       authority: `${this.domain}/`,
       client_id: this.clientId,
+      client_secret: this.clientSecret,
       redirect_uri: `${this.clientHost}/signin-callback.html`,
       // silent_redirect_uri: `${this.clientHost}/signin-callback.html`,
       // tslint:disable-next-line:object-literal-sort-keys
