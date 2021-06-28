@@ -10,7 +10,7 @@ import { customerQuery } from './customerQuery';
 
 export const useFetchCustomer = (customerId: string) => {
   const [customer, setCustomer] = useState<ICustomer>();
-  const { status, setStatus } = useRequestStatus();
+  const [status, setStatus] = useRequestStatus();
 
   const { facilityId } = useFacilityConsumer();
 

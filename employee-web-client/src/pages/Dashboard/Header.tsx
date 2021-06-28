@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Flex, Heading, Text, VStack } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
 import { AuthButton } from 'modules/auth/presentation';
-import { authService } from 'utils/auth';
 
 const Header = () => {
-  useEffect(() => {
-    authService.getUser().then(user => {
-      console.log(user);
-    });
-  }, [authService]);
-
   return (
     <Flex w='100%' justify='space-between'>
       <VStack as='header' align='flex-start'>
