@@ -17,7 +17,7 @@ export const useEditFacilityNotification = () => {
       addNotification({
         title: formatMessage({ id: 'create-facility', defaultMessage: 'Update facility' }),
         description: formatMessage({ id: 'update-facility-failure', defaultMessage: 'An error occurred during updating facility' }),
-        type: 'success',
+        type: 'error',
       }),
   };
 };
