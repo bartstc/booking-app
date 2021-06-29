@@ -4,6 +4,8 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { Layout } from '../Layout';
 import { Spinner } from '../Spinner';
 
+import { LogoutCallback, Logout, Callback, SilentRenew } from './AuthRoutes';
+
 const Booking = lazy(() => import('../../pages/Booking'));
 const AddBooking = lazy(() => import('../../pages/AddBooking'));
 const Customers = lazy(() => import('../../pages/Customers'));
@@ -26,6 +28,12 @@ const PublicRoutes = () => {
           <Route path='/schedules' component={Schedules} exact />
           <Route path='/schedules/:scheduleId' component={Schedule} />
           <Route path='/dashboard' component={Dashboard} />
+
+          <Route path='/signin-oidc' component={Callback} />
+          <Route path='/logout' component={Logout} />
+          <Route path='/logout-callback' component={LogoutCallback} />
+          <Route path='/silentrenew' component={SilentRenew} />
+
           <Route render={() => <Redirect to={'dashboard/enterprise'} />} />
         </Switch>
       </Suspense>

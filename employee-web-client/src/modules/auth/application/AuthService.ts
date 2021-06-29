@@ -13,9 +13,9 @@ export class AuthService {
       authority: `${this.domain}/`,
       client_id: this.clientId,
       client_secret: this.clientSecret,
-      redirect_uri: `${this.clientHost}/signin-callback.html`,
-      silent_redirect_uri: `${this.clientHost}/signin-callback.html`,
-      post_logout_redirect_uri: `${this.clientHost}/`,
+      redirect_uri: `${this.clientHost}/signin-oidc`,
+      silent_redirect_uri: `${this.clientHost}/signin-oidc`,
+      post_logout_redirect_uri: `${this.clientHost}/logout-callback`,
       response_type: 'code',
       scope: 'contexttype facilityid openid gatewayapi accessibilityapi',
       monitorSession: false,
@@ -28,13 +28,13 @@ export class AuthService {
   }
 
   public signinRedirectCallback = async (): Promise<void> => {
-    this.userManager.signinRedirectCallback().then(() => '');
+    this.userManager.signinRedirectCallback().then(() => {
+      window.location.replace('/');
+    });
   };
 
   public getUser = async (): Promise<IUser | null> => {
     const user = await this.userManager.getUser();
-
-    console.log(user);
 
     if (!user) {
       return (await this.userManager.signinRedirectCallback()) as IUser;
