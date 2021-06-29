@@ -72,7 +72,9 @@ namespace IdentityServer
                     },
                     PostLogoutRedirectUris = new List<string>()
                     {
-                        "https://localhost:5002/signout-callback-oidc"
+                        "https://localhost:5002/signout-callback-oidc",
+                        "http://localhost:3001/logout-callback",
+                        "https://localhost:3001/logout-callback"
                     },
                     AllowedScopes =
                     {
