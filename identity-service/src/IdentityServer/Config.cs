@@ -59,9 +59,15 @@ namespace IdentityServer
                     },
                     RedirectUris = new List<string>()
                     {
-                        "http://localhost:3001/dashboard",
-                        "https://localhost:3001/dashboard",
+                        "http://localhost:3001/signin-oidc",
+                        "http://localhost:3001/logout",
+                        "http://localhost:3001/logout/callback",
+                        "http://localhost:3001/silentrenew",
                         "http://localhost:3001/signin-callback.html",
+                        "https://localhost:3001/signin-oidc",
+                        "https://localhost:3001/logout",
+                        "https://localhost:3001/logout/callback",
+                        "https://localhost:3001/silentrenew",
                         "https://localhost:3001/signin-callback.html"
                     },
                     PostLogoutRedirectUris = new List<string>()
