@@ -2,12 +2,12 @@ import React from 'react';
 
 import { LogoutButton } from './LogoutButton';
 import { LoginButton } from './LoginButton';
-import { useAuth } from '../application';
+import { useAuthContextSelector } from '../application';
 
 const AuthButton = () => {
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = useAuthContextSelector(state => state.isAuthenticated);
 
-  return isAuthenticated ? <LogoutButton /> : <LoginButton />;
+  return isAuthenticated() ? <LogoutButton /> : <LoginButton />;
 };
 
 export { AuthButton };

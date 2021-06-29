@@ -2,10 +2,10 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button } from 'shared/Button';
-import { useAuth } from 'modules/auth/application';
+import { useAuthContextSelector } from 'modules/auth/application';
 
 const LoginButton = () => {
-  const { login } = useAuth();
+  const login = useAuthContextSelector(state => state.login);
 
   return (
     <Button colorScheme='blue' onClick={login}>

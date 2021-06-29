@@ -1,7 +1,7 @@
 import { Log, UserManager, WebStorageStateStore, UserManagerSettings } from 'oidc-client';
 import { IUser } from './types/IUser';
 
-class AuthService {
+export class AuthService {
   public userManager: UserManager;
   private domain: string = process.env.REACT_APP_AUTH0_DOMAIN!;
   private clientId: string = process.env.REACT_APP_AUTH0_CLIENT_ID!;
@@ -34,6 +34,8 @@ class AuthService {
   public getUser = async (): Promise<IUser | null> => {
     const user = await this.userManager.getUser();
 
+    console.log(user);
+
     if (!user) {
       return (await this.userManager.signinRedirectCallback()) as IUser;
     }
@@ -47,13 +49,13 @@ class AuthService {
     return JSON.parse(window.atob(base64));
   };
 
-  public signinRedirect = () => {
+  public login = () => {
     localStorage.setItem('redirectUri', window.location.pathname);
-    this.userManager.signinRedirect({});
+    this.userManager.signinRedirect();
   };
 
   public isAuthenticated = () => {
-    const oidcStorage = JSON.parse(window.sessionStorage.getItem(`oidc.user:${this.domain}:${this.clientId}`)!);
+    const oidcStorage = JSON.parse(window.localStorage.getItem(`oidc.user:${this.domain}/:${this.clientId}`)!);
 
     return !!oidcStorage && !!oidcStorage.access_token;
   };
@@ -62,9 +64,11 @@ class AuthService {
     this.userManager
       .signinSilent()
       .then(user => {
+        // eslint-disable-next-line no-console
         console.log('signed in', user);
       })
       .catch(err => {
+        // eslint-disable-next-line no-console
         console.log(err);
       });
   };
