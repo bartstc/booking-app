@@ -82,9 +82,7 @@ export class AuthService {
   };
 
   public logout = () => {
-    this.userManager.signoutRedirect({
-      id_token_hint: localStorage.getItem('id_token'),
-    });
+    this.userManager.signoutRedirect();
     this.userManager.clearStaleState();
   };
 
