@@ -20,20 +20,20 @@ const Dashboard = () => {
   return (
     <PageWrapper spacing={{ base: 6, md: 10 }}>
       <Header />
-      <VStack w='100%' maxW='1200px' pb={{ base: 4, md: 10 }}>
-        <Suspense fallback={<Spinner />}>
-          <Switch>
-            <Route path='/dashboard/enterprise/edit' component={EditEnterpriseTab} />
-            <Route path='/dashboard/facilities-register' component={CreateFacilityTab} />
-            <Route path='/dashboard/facilities/:facilitySlug/edit' component={EditFacilityTab} />
-            <Route path='/dashboard/facilities/:facilitySlug' component={FacilityTab} />
-            <Route path='/dashboard/enterprise' component={ReadEnterpriseTab} />
-            <Route path='/dashboard/facilities' component={FacilitiesTab} exact />
-            <Route path='/dashboard/schedules' component={SchedulesTab} exact />
-            <Route render={() => <Redirect to='/dashboard/enterprise' />} />
-          </Switch>
-        </Suspense>
-      </VStack>
+      {/*<VStack w='100%' maxW='1200px' pb={{ base: 4, md: 10 }}>*/}
+      {/*  <Suspense fallback={<Spinner />}>*/}
+      {/*    <Switch>*/}
+      {/*      <Route path='/dashboard/enterprise/edit' component={EditEnterpriseTab} />*/}
+      {/*      <Route path='/dashboard/facilities-register' component={CreateFacilityTab} />*/}
+      {/*      <Route path='/dashboard/facilities/:facilitySlug/edit' component={EditFacilityTab} />*/}
+      {/*      <Route path='/dashboard/facilities/:facilitySlug' component={FacilityTab} />*/}
+      {/*      <Route path='/dashboard/enterprise' component={ReadEnterpriseTab} />*/}
+      {/*      <Route path='/dashboard/facilities' component={FacilitiesTab} exact />*/}
+      {/*      <Route path='/dashboard/schedules' component={SchedulesTab} exact />*/}
+      {/*      <Route render={() => <Redirect to='/dashboard/enterprise' />} />*/}
+      {/*    </Switch>*/}
+      {/*  </Suspense>*/}
+      {/*</VStack>*/}
     </PageWrapper>
   );
 };

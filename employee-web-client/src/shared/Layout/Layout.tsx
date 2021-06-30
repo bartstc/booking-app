@@ -16,6 +16,8 @@ interface IProps {
 const Layout = ({ children }: IProps) => {
   const [extended, toggleNavigation] = useToggle();
 
+  return <>{children}</>;
+
   if (isMobile) {
     return (
       <Context>

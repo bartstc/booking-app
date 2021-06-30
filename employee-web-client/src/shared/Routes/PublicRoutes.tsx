@@ -20,13 +20,13 @@ const PublicRoutes = () => {
     <Layout>
       <Suspense fallback={<Spinner />}>
         <Switch>
-          <Route path='/bookings' component={Booking} exact />
-          <Route path='/add-booking' component={AddBooking} exact />
-          <Route path='/customers' component={Customers} exact />
-          <Route path='/employees' component={Employees} exact />
-          <Route path='/offers' component={Offers} exact />
-          <Route path='/schedules' component={Schedules} exact />
-          <Route path='/schedules/:scheduleId' component={Schedule} />
+          {/*<Route path='/bookings' component={Booking} exact />*/}
+          {/*<Route path='/add-booking' component={AddBooking} exact />*/}
+          {/*<Route path='/customers' component={Customers} exact />*/}
+          {/*<Route path='/employees' component={Employees} exact />*/}
+          {/*<Route path='/offers' component={Offers} exact />*/}
+          {/*<Route path='/schedules' component={Schedules} exact />*/}
+          {/*<Route path='/schedules/:scheduleId' component={Schedule} />*/}
           <Route path='/dashboard' component={Dashboard} />
 
           <Route path='/signin-oidc' component={Callback} />
