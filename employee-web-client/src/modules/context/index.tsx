@@ -35,7 +35,6 @@ const Context = ({ children }: IProps) => {
               </FacilityProvider>
             )}
           </FetchBoundary>
-          {children}
         </EnterpriseProvider>
       )}
     </FetchBoundary>

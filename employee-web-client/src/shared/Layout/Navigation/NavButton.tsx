@@ -35,7 +35,10 @@ const NavButton = ({ path, children, isActive = false, ...props }: IProps) => {
   );
 };
 
-const StyledButton = styled(Button)<{ hoverColor: string; hoverBg: string }>`
+const StyledButton = styled(Button, { shouldForwardProp: propName => !['hoverBg', 'hoverColor'].includes(propName as string) })<{
+  hoverColor: string;
+  hoverBg: string;
+}>`
   &:hover {
     path {
       fill: ${props => `${props.hoverColor} !important`};
