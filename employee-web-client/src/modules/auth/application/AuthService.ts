@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Log, UserManager, WebStorageStateStore, UserManagerSettings } from 'oidc-client';
 import { IUser } from './types/IUser';
 
@@ -17,15 +18,42 @@ export class AuthService {
       silent_redirect_uri: `${this.clientHost}/signin-oidc`,
       post_logout_redirect_uri: `${this.clientHost}/logout-callback`,
       response_type: 'code',
-      scope: 'contexttype facilityid openid gatewayapi accessibilityapi',
+      response_mode: 'query',
+      scope: '',
       monitorSession: false,
       userStore: new WebStorageStateStore({ store: window.localStorage }),
+      metadata: {
+        issuer: `${this.domain}/`,
+        authorization_endpoint: `${this.domain}/authorize`,
+        userinfo_endpoint: `${this.domain}/userinfo`,
+        token_endpoint: `${this.domain}/oauth/token`,
+        jwks_uri: `${this.domain}/.well-known/jwks.json`,
+        end_session_endpoint: `${this.domain}/v2/logout?returnTo=${this.clientHost}/logout-callback&client_id=${this.clientId}`,
+      },
     };
     this.userManager = new UserManager(settings);
 
     Log.logger = console;
     Log.level = Log.INFO;
+
+    this.userManager.events.addUserLoaded(() => {
+      if (window.location.href.indexOf('signin-oidc') !== -1) {
+        this.navigateToScreen();
+      }
+    });
+    this.userManager.events.addSilentRenewError(e => {
+      console.log('silent renew error', e.message);
+    });
+
+    this.userManager.events.addAccessTokenExpired(() => {
+      console.log('token expired');
+      this.logout();
+    });
   }
+
+  private navigateToScreen = () => {
+    window.location.replace('/dashboard');
+  };
 
   public signinRedirectCallback = async (): Promise<void> => {
     this.userManager.signinRedirectCallback().then(() => {
@@ -82,7 +110,9 @@ export class AuthService {
   };
 
   public logout = () => {
-    this.userManager.signoutRedirect();
+    this.userManager.signoutRedirect({
+      id_token_hint: localStorage.getItem('id_token'),
+    });
     this.userManager.clearStaleState();
   };
 
