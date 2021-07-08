@@ -1,11 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Core.Commands;
 using Core.Domain.UnitOfWork;
 using MediatR;
 
 namespace Accessibility.Application.Facilities.Commands.ChangeOfferStatus
 {
-    public class ChangeOfferStatusCommandHandler : IRequestHandler<ChangeOfferStatusCommand>
+    public class ChangeOfferStatusCommandHandler : ICommandHandler<ChangeOfferStatusCommand>
     {
         private readonly IOfferRepository repository;
         private readonly IUnitOfWork unitOfWork;
@@ -23,7 +24,6 @@ namespace Accessibility.Application.Facilities.Commands.ChangeOfferStatus
             if (offer != null)
             {
                 offer.Status = request.Status;
-                await unitOfWork.CommitAsync();
             }
             
             return Unit.Value;

@@ -5,10 +5,11 @@ using Accessibility.Domain.Schedules;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
 using Core.Domain.UnitOfWork;
+using Core.Commands;
 
 namespace Accessibility.Application.Schedules.Commands.ApplyCorrection
 {
-    public class ApplyCorrectionCommandHandler : IRequestHandler<ApplyCorrectionCommand>
+    public class ApplyCorrectionCommandHandler : ICommandHandler<ApplyCorrectionCommand>
     {
         private readonly IScheduleRepository repository;
         private readonly IUnitOfWork unitOfWork;
@@ -30,8 +31,6 @@ namespace Accessibility.Application.Schedules.Commands.ApplyCorrection
             );
 
             schedule.IncreaseVersion();
-
-            await unitOfWork.CommitAsync();
 
             return Unit.Value;
         }

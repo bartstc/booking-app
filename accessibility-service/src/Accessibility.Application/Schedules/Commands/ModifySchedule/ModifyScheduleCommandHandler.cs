@@ -1,14 +1,14 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.Schedules;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
 using Core.Domain.UnitOfWork;
+using Core.Commands;
 
 namespace Accessibility.Application.Schedules.Commands.ModifySchedule
 {
-    public class ModifyScheduleCommandHandler : IRequestHandler<ModifyScheduleCommand, Guid>
+    public class ModifyScheduleCommandHandler : ICommandHandler<ModifyScheduleCommand>
     {
         private readonly IScheduleRepository repository;
         private readonly ISchedulePeriodOfTimeChecker schedulePeriodOfTimeChecker;
@@ -24,7 +24,7 @@ namespace Accessibility.Application.Schedules.Commands.ModifySchedule
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<Guid> Handle(ModifyScheduleCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ModifyScheduleCommand request, CancellationToken cancellationToken)
         {
             var facilityId = new FacilityId(request.FacilityId);
             var schedule = await repository.GetByIdAsync(new ScheduleId(request.ScheduleId), facilityId);
@@ -39,9 +39,7 @@ namespace Accessibility.Application.Schedules.Commands.ModifySchedule
 
             schedule.IncreaseVersion();
 
-            await unitOfWork.CommitAsync(cancellationToken);
-
-            return schedule.Id.Value;
+            return Unit.Value;
         }
     }
 }

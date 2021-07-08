@@ -1,9 +1,9 @@
 using System;
-using MediatR;
+using Core.Commands;
 
 namespace Accessibility.Application.Facilities.Commands.CreateOffer
 {
-    public class CreateOfferCommand : IRequest
+    public class CreateOfferCommand : ICommand
     {
         public CreateOfferCommand(Guid id, Guid facilityId, string name, decimal price, string currency, short duration)
         {

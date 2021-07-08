@@ -1,10 +1,10 @@
 using System;
 using Accessibility.Domain.Bookings.BookedRecords;
-using MediatR;
+using Core.Commands;
 
 namespace Accessibility.Application.Bookings.Commands.SetBookedRecordStatus
 {
-    public class SetBookedRecordStatusCommand : IRequest
+    public class SetBookedRecordStatusCommand : ICommand
     {
         public SetBookedRecordStatusCommand(Guid bookingId, Guid facilityId, Guid bookedRecordId, BookedRecordStatus status)
         {

@@ -1,9 +1,9 @@
 using System;
-using MediatR;
+using Core.Commands;
 
 namespace Accessibility.Application.Schedules.Commands.ModifySchedule
 {
-    public class ModifyScheduleCommand : IRequest<Guid>
+    public class ModifyScheduleCommand : ICommand
     {
         public ModifyScheduleCommand(Guid facilityId, Guid scheduleId, string name, DateTime startDate, DateTime endDate, Guid creatorId)
         {

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using MediatR;
+using Core.Commands;
 
 namespace Accessibility.Application.Schedules.Commands.ApplyCorrection
 {
-    public class ApplyCorrectionCommand : IRequest
+    public class ApplyCorrectionCommand : ICommand
     {
         public ApplyCorrectionCommand(Guid facilityId, Guid scheduleId, List<AvailabilityDto> availabilities)
         {

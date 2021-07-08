@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Application.Schedules;
-using MediatR;
 using Accessibility.Application.Facilities;
 using Accessibility.Domain.Extensions;
 using Accessibility.Application.Availabilities.Queries;
+using Core.Queries;
 
 namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms
 {
-    public class GetAvailableBookingTermsQueryHandler : IRequestHandler<GetAvailableBookingTermsQuery, IEnumerable<AvailableBookingTermDto>>
+    public class GetAvailableBookingTermsQueryHandler : IQueryHandler<GetAvailableBookingTermsQuery, IEnumerable<AvailableBookingTermDto>>
     {
         private readonly IAvailabilityQueryRepository availabilityRepository;
         private readonly IBookingQueryRepository bookingRepository;

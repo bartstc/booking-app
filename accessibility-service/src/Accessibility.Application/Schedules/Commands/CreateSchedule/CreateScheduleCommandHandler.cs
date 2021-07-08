@@ -1,14 +1,14 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.Schedules;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
 using Core.Domain.UnitOfWork;
+using Core.Commands;
 
 namespace Accessibility.Application.Schedules.Commands.CreateSchedule
 {
-    public class CreateScheduleCommandHandler : IRequestHandler<CreateScheduleCommand, Guid>
+    public class CreateScheduleCommandHandler : ICommandHandler<CreateScheduleCommand>
     {
         private readonly IScheduleRepository repository;
         private readonly ISchedulePeriodOfTimeChecker schedulePeriodOfTimeChecker;
@@ -21,7 +21,7 @@ namespace Accessibility.Application.Schedules.Commands.CreateSchedule
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<Guid> Handle(CreateScheduleCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateScheduleCommand request, CancellationToken cancellationToken)
         {
             var schedule = new Schedule(
                 schedulePeriodOfTimeChecker,
@@ -33,9 +33,8 @@ namespace Accessibility.Application.Schedules.Commands.CreateSchedule
             );
 
             await repository.AddAsync(schedule);
-            await unitOfWork.CommitAsync(cancellationToken);
 
-            return schedule.Id.Value;
+            return Unit.Value;
         }
     }
 }

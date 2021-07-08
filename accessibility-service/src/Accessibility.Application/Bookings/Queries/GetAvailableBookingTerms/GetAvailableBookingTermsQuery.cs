@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using MediatR;
+using Core.Queries;
 
 namespace Accessibility.Application.Bookings.Queries.GetAvailableBookingTerms
 {
-    public class GetAvailableBookingTermsQuery : IRequest<IEnumerable<AvailableBookingTermDto>>
+    public class GetAvailableBookingTermsQuery : IQuery<IEnumerable<AvailableBookingTermDto>>
     {
         public GetAvailableBookingTermsQuery(Guid facilityId, Guid offerId, DateTime dateFrom, DateTime dateTo, BookingRulesData bookingRules)
         {

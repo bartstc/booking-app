@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using MediatR;
+using Core.Queries;
 
 namespace Accessibility.Application.Schedules.Queries.GetSchedules
 {
-    public class GetSchedulesQuery : IRequest<IEnumerable<ScheduleDto>>
+    public class GetSchedulesQuery : IQuery<IEnumerable<ScheduleDto>>
     {
         public GetSchedulesQuery(Guid facilityId, DateTime? dateFrom, DateTime? dateTo)
         {

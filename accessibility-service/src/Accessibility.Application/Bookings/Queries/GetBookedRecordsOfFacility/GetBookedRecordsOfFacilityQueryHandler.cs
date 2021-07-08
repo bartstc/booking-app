@@ -1,13 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Dapper;
 using System.Collections.Generic;
 using Core.Database;
+using Core.Queries;
 
 namespace Accessibility.Application.Bookings.Queries.GetBookedRecordsOfFacility
 {
-    public class GetBookedRecordsOfFacilityQueryHandler : IRequestHandler<GetBookedRecordsOfFacilityQuery, List<BookedRecordOfFacilityDto>>
+    public class GetBookedRecordsOfFacilityQueryHandler : IQueryHandler<GetBookedRecordsOfFacilityQuery, List<BookedRecordOfFacilityDto>>
     {
         private readonly ISqlConnectionFactory sqlConnectionFactory;
 

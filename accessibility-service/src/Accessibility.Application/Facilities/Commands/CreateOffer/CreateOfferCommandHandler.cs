@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
 using Core.Domain.UnitOfWork;
+using Core.Commands;
 
 namespace Accessibility.Application.Facilities.Commands.CreateOffer
 {
-    public class CreateOfferCommandHandler : IRequestHandler<CreateOfferCommand>
+    public class CreateOfferCommandHandler : ICommandHandler<CreateOfferCommand>
     {
         private readonly IOfferRepository repository;
         private readonly IUnitOfWork unitOfWork;
@@ -30,7 +31,6 @@ namespace Accessibility.Application.Facilities.Commands.CreateOffer
             );
 
             await repository.AddAsync(offer);
-            await unitOfWork.CommitAsync();
 
             return Unit.Value;
         }

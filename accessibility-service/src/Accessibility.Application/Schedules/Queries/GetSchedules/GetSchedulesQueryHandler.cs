@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
+using Core.Queries;
 
 namespace Accessibility.Application.Schedules.Queries.GetSchedules
 {
-    public class GetSchedulesQueryHandler : IRequestHandler<GetSchedulesQuery, IEnumerable<ScheduleDto>>
+    public class GetSchedulesQueryHandler : IQueryHandler<GetSchedulesQuery, IEnumerable<ScheduleDto>>
     {
         private readonly IScheduleQueryRepository repository;
 

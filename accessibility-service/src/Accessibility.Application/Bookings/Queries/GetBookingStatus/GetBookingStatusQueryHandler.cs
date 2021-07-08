@@ -1,11 +1,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.Bookings;
-using MediatR;
+using Core.Queries;
 
 namespace Accessibility.Application.Bookings.Queries.GetBookingStatus
 {
-    public class GetBookingStatusQueryHandler : IRequestHandler<GetBookingStatusQuery, BookingStatus?>
+    public class GetBookingStatusQueryHandler : IQueryHandler<GetBookingStatusQuery, BookingStatus?>
     {
         private readonly IBookingQueryRepository repository;
 

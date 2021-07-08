@@ -10,13 +10,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Accessibility.Api.Options;
-using IdentityServer4.AccessTokenValidation;
 using Accessibility.Api.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Core;
 using Accessibility.Application.Bookings.Commands.CreateBookingRequest;
-using Core.DomainEvents;
-using Accessibility.Application.Bookings.Commands.ProcessBookingRequest;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Accessibility.Api
 {
@@ -47,7 +45,7 @@ namespace Accessibility.Api
 
             var applicationAssembly = typeof(CreateBookingRequestCommand).Assembly;
             services.AddCoreServices(applicationAssembly);
-            services.AddAccessibilityModule(Configuration, typeof(BookingConfirmedNotification).Assembly);
+            services.AddAccessibilityModule(Configuration, applicationAssembly);
         }
 
         private void ConfigureOptions(IServiceCollection services)
@@ -65,28 +63,32 @@ namespace Accessibility.Api
         {
             services.AddScoped<IAuthorizationHandler, MustBeEmployeeOfFacilityHandler>();
 
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(options =>
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
                 {
                     options.Authority = Configuration["Authentication:Authority"];
-                    options.ApiName = "accessibilityapi";
-                    options.ApiSecret = "apisecret";
+                    options.Audience = "accessibility";
                 });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(
-                    "MustBeEmployeeOfFacility",
-                    policyBuilder =>
-                    {
-                        policyBuilder.RequireAuthenticatedUser();
-                        policyBuilder.RequireClaim("contextType", "employee");
-                        policyBuilder.AddRequirements(
-                            new MustBeEmployeeOfFacilityRequirement()
-                        );
-                    }
-                );
-            });
+            // services.AddAuthorization(options =>
+            // {
+            //     options.AddPolicy(
+            //         "MustBeEmployeeOfFacility",
+            //         policyBuilder =>
+            //         {
+            //             policyBuilder.RequireAuthenticatedUser();
+            //             policyBuilder.RequireClaim("contextType", "employee");
+            //             policyBuilder.AddRequirements(
+            //                 new MustBeEmployeeOfFacilityRequirement()
+            //             );
+            //         }
+            //     );
+            // });
         }
 
         private void ConfigureCors(IServiceCollection services)

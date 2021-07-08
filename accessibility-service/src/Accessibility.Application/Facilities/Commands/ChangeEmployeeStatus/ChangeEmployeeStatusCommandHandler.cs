@@ -1,11 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Core.Commands;
 using Core.Domain.UnitOfWork;
 using MediatR;
 
 namespace Accessibility.Application.Facilities.Commands.ChangeEmployeeStatus
 {
-    public class ChangeEmployeeStatusCommandHandler : IRequestHandler<ChangeEmployeeStatusCommand>
+    public class ChangeEmployeeStatusCommandHandler : ICommandHandler<ChangeEmployeeStatusCommand>
     {
         private readonly IEmployeeRepository repository;
         private readonly IUnitOfWork unitOfWork;
@@ -23,7 +24,6 @@ namespace Accessibility.Application.Facilities.Commands.ChangeEmployeeStatus
             if (employee != null)
             {
                 employee.Status = request.Status;
-                await unitOfWork.CommitAsync();
             }
 
             return Unit.Value;

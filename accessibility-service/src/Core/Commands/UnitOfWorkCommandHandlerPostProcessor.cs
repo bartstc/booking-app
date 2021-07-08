@@ -4,7 +4,7 @@ using Core.Commands;
 using Core.Domain.UnitOfWork;
 using MediatR.Pipeline;
 
-namespace Core.Processing
+namespace Core.Commands
 {
     public class UnitOfWorkCommandHandlerPostProcessor<TCommand, TResult> : IRequestPostProcessor<TCommand, TResult>
         where TCommand : ICommand

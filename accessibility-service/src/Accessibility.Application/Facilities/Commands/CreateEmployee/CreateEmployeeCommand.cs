@@ -1,9 +1,9 @@
 using Accessibility.Domain.SharedKernel;
-using MediatR;
+using Core.Commands;
 
 namespace Accessibility.Application.Facilities.Commands.CreateEmployee
 {
-    public class CreateEmployeeCommand : IRequest
+    public class CreateEmployeeCommand : ICommand
     {
         public CreateEmployeeCommand(EmployeeId employeeId, FacilityId facilityId, string name, string position, EntityStatus status)
         {

@@ -1,11 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Core.Commands;
 using Core.Domain.UnitOfWork;
 using MediatR;
 
 namespace Accessibility.Application.Facilities.Commands.CreateEmployee
 {
-    public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand>
+    public class CreateEmployeeCommandHandler : ICommandHandler<CreateEmployeeCommand>
     {
         private readonly IEmployeeRepository repository;
         private readonly IUnitOfWork unitOfWork;
@@ -27,7 +28,6 @@ namespace Accessibility.Application.Facilities.Commands.CreateEmployee
             );
 
             await repository.AddAsync(employee);
-            await unitOfWork.CommitAsync();
 
             return Unit.Value;
         }

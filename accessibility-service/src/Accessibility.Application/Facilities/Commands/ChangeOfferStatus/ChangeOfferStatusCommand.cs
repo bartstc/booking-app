@@ -1,9 +1,9 @@
 using Accessibility.Domain.SharedKernel;
-using MediatR;
+using Core.Commands;
 
 namespace Accessibility.Application.Facilities.Commands.ChangeOfferStatus
 {
-    public class ChangeOfferStatusCommand : IRequest
+    public class ChangeOfferStatusCommand : ICommand
     {
         public ChangeOfferStatusCommand(OfferId offerId, EntityStatus status)
         {

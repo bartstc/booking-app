@@ -1,16 +1,16 @@
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Dapper;
 using Core.Database;
+using Core.Queries;
 
 namespace Accessibility.Application.Schedules.Queries.GetScheduleById
 {
-    public class GetCheduleByIdQueryHandler : IRequestHandler<GetScheduleByIdQuery, ScheduleDto>
+    public class GetScheduleByIdQueryHandler : IQueryHandler<GetScheduleByIdQuery, ScheduleDto>
     {
         private readonly ISqlConnectionFactory sqlConnectionFactory;
 
-        public GetCheduleByIdQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
+        public GetScheduleByIdQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
         {
             this.sqlConnectionFactory = sqlConnectionFactory;
         }

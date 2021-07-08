@@ -1,9 +1,9 @@
 using Accessibility.Domain.SharedKernel;
-using MediatR;
+using Core.Commands;
 
 namespace Accessibility.Application.Facilities.Commands.ChangeEmployeeStatus
 {
-    public class ChangeEmployeeStatusCommand : IRequest
+    public class ChangeEmployeeStatusCommand : ICommand
     {
         public ChangeEmployeeStatusCommand(EmployeeId employeeId, EntityStatus status)
         {

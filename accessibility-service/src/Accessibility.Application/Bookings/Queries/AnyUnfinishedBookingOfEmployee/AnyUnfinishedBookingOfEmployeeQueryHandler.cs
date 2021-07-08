@@ -1,12 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Dapper;
 using Core.Database;
+using Core.Queries;
 
 namespace Accessibility.Application.Bookings.Queries.AnyUnfinishedBookingOfEmployee
 {
-    public class AnyUnfinishedBookingOfEmployeeQueryHandler : IRequestHandler<AnyUnfinishedBookingOfEmployeeQuery, bool>
+    public class AnyUnfinishedBookingOfEmployeeQueryHandler : IQueryHandler<AnyUnfinishedBookingOfEmployeeQuery, bool>
     {
         private readonly ISqlConnectionFactory sqlConnectionFactory;
 

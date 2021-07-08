@@ -1,10 +1,10 @@
 using Accessibility.Domain.Bookings;
 using Accessibility.Domain.SharedKernel;
-using MediatR;
+using Core.Queries;
 
 namespace Accessibility.Application.Bookings.Queries.GetBookingStatus
 {
-    public class GetBookingStatusQuery : IRequest<BookingStatus?>
+    public class GetBookingStatusQuery : IQuery<BookingStatus?>
     {
         public GetBookingStatusQuery(BookingId bookingId, FacilityId facilityId)
         {

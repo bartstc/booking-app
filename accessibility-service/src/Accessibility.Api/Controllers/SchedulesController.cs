@@ -47,14 +47,14 @@ namespace Accessibility.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
         public async Task<IActionResult> CreateSchedule(
             [FromRoute] Guid facilityId,
             [FromBody] CreateScheduleRequest request
         )
         {
-            var id = await mediator.Send(new CreateScheduleCommand(facilityId, request.Name, request.StartDate, request.EndDate, request.CreatorId));
-            return Created(string.Empty, id);
+            await mediator.Send(new CreateScheduleCommand(facilityId, request.Name, request.StartDate, request.EndDate, request.CreatorId));
+            return Created(string.Empty, null);
         }
 
         [HttpPut("{scheduleId}")]
@@ -64,8 +64,8 @@ namespace Accessibility.Api.Controllers
             [FromRoute] Guid scheduleId,
             [FromBody] CreateScheduleRequest request)
         {
-            var id = await mediator.Send(new ModifyScheduleCommand(facilityId, scheduleId, request.Name, request.StartDate, request.EndDate, request.CreatorId));
-            return Ok(id);
+            await mediator.Send(new ModifyScheduleCommand(facilityId, scheduleId, request.Name, request.StartDate, request.EndDate, request.CreatorId));
+            return Ok();
         }
 
         // [HttpPatch("{scheduleId}")]

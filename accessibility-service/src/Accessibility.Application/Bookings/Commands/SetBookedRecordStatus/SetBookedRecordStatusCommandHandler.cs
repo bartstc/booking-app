@@ -5,10 +5,11 @@ using Accessibility.Domain.Bookings.BookedRecords;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
 using Core.Domain.UnitOfWork;
+using Core.Commands;
 
 namespace Accessibility.Application.Bookings.Commands.SetBookedRecordStatus
 {
-    public class SetBookedRecordStatusCommandHandler : IRequestHandler<SetBookedRecordStatusCommand>
+    public class SetBookedRecordStatusCommandHandler : ICommandHandler<SetBookedRecordStatusCommand>
     {
         private readonly IBookingRepository repo;
         private readonly IUnitOfWork unitOfWork;
@@ -24,8 +25,6 @@ namespace Accessibility.Application.Bookings.Commands.SetBookedRecordStatus
             var booking = await repo.GetByIdAsync(new BookingId(request.BookingId), new FacilityId(request.FacilityId));
 
             booking.ChangeRecordStatus(new BookedRecordId(request.BookedRecordId), request.Status);
-
-            await unitOfWork.CommitAsync();
 
             return Unit.Value;
         }

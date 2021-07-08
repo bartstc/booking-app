@@ -1,9 +1,9 @@
 using System;
-using MediatR;
+using Core.Queries;
 
 namespace Accessibility.Application.Bookings.Queries.AnyUnfinishedBookingOfOffer
 {
-    public class AnyUnfinishedBookingOfOfferQuery : IRequest<bool>
+    public class AnyUnfinishedBookingOfOfferQuery : IQuery<bool>
     {
         public AnyUnfinishedBookingOfOfferQuery(Guid facilityId, Guid offerId)
         {

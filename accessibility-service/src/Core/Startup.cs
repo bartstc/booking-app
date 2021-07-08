@@ -1,5 +1,7 @@
 using System.Reflection;
+using Core.Commands;
 using MediatR;
+using MediatR.Pipeline;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core
@@ -10,6 +12,7 @@ namespace Core
         {
             return services
                 .AddMediatR(applicationAssembly)
+                .AddScoped(typeof(IRequestPostProcessor<,>), typeof(UnitOfWorkCommandHandlerPostProcessor<,>))
                 .AddSingleton<IAssemblyProvider>(sp =>
                     new AssemblyProvider(applicationAssembly));
         }
