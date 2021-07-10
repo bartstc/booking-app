@@ -24,7 +24,7 @@ const SortableCell = ({ children, name, ...props }: ISortableCellProps) => {
   const { currentSortType, change } = useSort(name);
   const { colors } = useTheme();
   const textColor = useColorModeValue('gray.700', 'gray.400');
-  const borderColor = useColorModeValue(colors.gray[200], colors.gray[500]);
+  const borderColor = useColorModeValue(colors.gray[200], colors.gray[700]);
 
   const isActive = currentSortType !== SortingType.DEFAULT;
 
@@ -36,6 +36,7 @@ const SortableCell = ({ children, name, ...props }: ISortableCellProps) => {
       cursor='pointer'
       isTruncated
       spacing={1}
+      fontWeight='600'
     >
       <chakra.span fontSize='sm' color={textColor} isTruncated>
         {children}
@@ -53,10 +54,10 @@ const SortableCell = ({ children, name, ...props }: ISortableCellProps) => {
 const Cell = ({ children, ...props }: ICell) => {
   const { colors } = useTheme();
   const textColor = useColorModeValue('gray.700', 'gray.400');
-  const borderColor = useColorModeValue(colors.gray[200], colors.gray[500]);
+  const borderColor = useColorModeValue(colors.gray[200], colors.gray[700]);
 
   return (
-    <HStack borderBottom={`1px solid ${borderColor}`} {...props} isTruncated>
+    <HStack fontWeight='600' borderBottom={`1px solid ${borderColor}`} {...props} isTruncated>
       <chakra.span fontSize='sm' color={textColor} isTruncated>
         {children}
       </chakra.span>

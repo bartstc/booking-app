@@ -12,7 +12,8 @@ import {
 } from '@chakra-ui/react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { ToggleThemeButton, NavButton, useGetLinks } from './Navigation';
+import { NavButton, useGetLinks } from './Navigation';
+import { UserMenu } from './UserMenu';
 
 interface IProps {
   extended: boolean;
@@ -44,7 +45,7 @@ const MobileDrawer = ({ toggle, extended }: IProps) => {
             </VStack>
             <VStack align='flex-start' width='100%'>
               <HStack>
-                <ToggleThemeButton extended={extended} fontSize='md' />
+                <UserMenu extended={true} />
               </HStack>
             </VStack>
           </DrawerBody>

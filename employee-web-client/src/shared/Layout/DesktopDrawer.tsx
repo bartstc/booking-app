@@ -1,10 +1,11 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { HStack, Text, useColorModeValue, VStack } from '@chakra-ui/react';
+import { HStack, Text, useColorModeValue, VStack, useTheme } from '@chakra-ui/react';
 import { mdiClose, mdiMenu } from '@mdi/js';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { NavButton, ToggleThemeButton, useGetLinks, NavIconButton } from './Navigation';
+import { NavButton, useGetLinks, NavIconButton } from './Navigation';
+import { UserMenu } from './UserMenu';
 
 interface IProps {
   extended: boolean;
@@ -13,31 +14,33 @@ interface IProps {
 
 const DesktopDrawer = ({ toggle, extended }: IProps) => {
   const { formatMessage } = useIntl();
+  const { colors } = useTheme();
   const { push } = useHistory();
   const { pathname } = useLocation();
   const links = useGetLinks();
-  const background = useColorModeValue('white', 'blackAlpha.300');
+  const background = useColorModeValue('white', '#141821');
+  const borderColor = useColorModeValue(colors.gray[200], colors.gray[800]);
 
   return (
     <VStack
-      w={extended ? '240px' : '60px'}
+      w={extended ? '255px' : '80px'}
       h='100vh'
       transition='all .25s ease-in-out'
       position='fixed'
       backgroundColor={background}
-      overflow='hidden'
       zIndex={5}
+      borderRight={`2px solid ${borderColor}`}
     >
       <NavIconButton
         onClick={toggle}
         title={formatMessage({ id: 'toggle-menu', defaultMessage: 'Toggle menu' })}
         position='absolute'
         top='15px'
-        left='10px'
+        left='20px'
         path={extended ? mdiClose : mdiMenu}
       />
       <VStack justify='space-between' width='100%' height='100%' pb={10} pt={20}>
-        <VStack spacing={3} as='ul' px='10px' align='flex-start' width='100%'>
+        <VStack spacing={4} as='ul' px='20px' align='flex-start' width='100%' overflow='hidden'>
           {links.map(({ label, to, path, signature }) => (
             <HStack w='100%' key={to} as='li'>
               {extended ? (
@@ -52,9 +55,9 @@ const DesktopDrawer = ({ toggle, extended }: IProps) => {
             </HStack>
           ))}
         </VStack>
-        <VStack pl='10px' align='flex-start' width='100%'>
+        <VStack pl='20px' align='flex-start' width='100%'>
           <HStack>
-            <ToggleThemeButton extended={extended} />
+            <UserMenu extended={extended} />
           </HStack>
         </VStack>
       </VStack>

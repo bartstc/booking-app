@@ -15,7 +15,7 @@ interface IProps {
 
 const Layout = ({ children }: IProps) => {
   const [extended, toggleNavigation] = useToggle();
-  const background = useColorModeValue('gray.50', 'gray.900');
+  const background = useColorModeValue('white', 'blackAlpha.400');
 
   if (isMobile) {
     return (

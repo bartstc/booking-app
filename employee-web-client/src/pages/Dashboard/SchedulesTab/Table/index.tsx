@@ -20,7 +20,6 @@ const Table = () => {
         <>
           <Grid
             itemsCount={collection.length}
-            rowGap={1}
             templateColumns={{
               base: '80px repeat(2, 1fr)',
               md: '80px repeat(4, 1fr)',

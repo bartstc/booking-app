@@ -2,8 +2,6 @@ import React from 'react';
 import { Flex, Heading, Text, VStack } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
-import { AuthButton } from 'modules/auth/presentation';
-
 const Header = () => {
   return (
     <Flex w='100%' justify='space-between'>
@@ -15,7 +13,6 @@ const Header = () => {
           <FormattedMessage id='enterprise-subheading' defaultMessage='Manage your business like a boss' />
         </Text>
       </VStack>
-      <AuthButton />
     </Flex>
   );
 };

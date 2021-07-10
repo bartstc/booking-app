@@ -9,26 +9,18 @@ interface IProps extends ChakraProps {
 
 const GridItem = ({ children, onClick, ...props }: IProps) => {
   const { colors } = useTheme();
-  const cellBackground = useColorModeValue(colors.gray[50], colors.gray[700]);
-  const cellHover = useColorModeValue(colors.gray[100], colors.gray[600]);
+  const cellHover = useColorModeValue(colors.gray[200], colors.gray[700]);
+  const borderColor = useColorModeValue(colors.gray[200], colors.gray[700]);
 
   return (
-    <Item
-      display='contents'
-      cursor='pointer'
-      onClick={onClick}
-      colors={colors}
-      cellBackground={cellBackground}
-      cellHover={cellHover}
-      {...props}
-    >
+    <Item display='contents' cursor='pointer' onClick={onClick} cellHover={cellHover} borderColor={borderColor} {...props}>
       {children}
     </Item>
   );
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Item = styled(chakra.div)<{ colors: any; cellBackground: string; cellHover: string }>`
+const Item = styled(chakra.div)<{ cellHover: string; borderColor: string }>`
   .cell:first-of-type {
     padding-left: 1rem;
     font-size: 0.85rem;
@@ -39,10 +31,10 @@ const Item = styled(chakra.div)<{ colors: any; cellBackground: string; cellHover
   }
 
   & > .cell {
-    background-color: ${props => props.cellBackground};
-    min-height: 46px;
+    min-height: 48px;
     align-items: center;
     padding-right: 0.75rem;
+    border-bottom: ${props => `1px solid ${props.borderColor}`};
   }
 
   :hover > .cell {
