@@ -15,7 +15,7 @@ const NavIconButton = ({ path, isActive, ...props }: IProps) => {
   const { colors } = useTheme();
   const iconColor = useColorModeValue('gray.700', 'white');
   const hoverColor = useColorModeValue(colors.gray[50], colors.gray[800]);
-  const hoverBg = useColorModeValue(colors.gray[700], 'white');
+  const hoverBg = useColorModeValue(colors.gray[800], 'white');
 
   return (
     <StyledIconButton

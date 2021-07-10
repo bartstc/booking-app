@@ -9,21 +9,18 @@ import { NavButton, ToggleThemeButton, useGetLinks, NavIconButton } from './Navi
 interface IProps {
   extended: boolean;
   toggle: () => void;
-  facilityId?: string;
 }
 
-const DesktopDrawer = ({ toggle, extended, facilityId }: IProps) => {
+const DesktopDrawer = ({ toggle, extended }: IProps) => {
   const { formatMessage } = useIntl();
   const { push } = useHistory();
   const { pathname } = useLocation();
-  const allLinks = useGetLinks();
-  const background = useColorModeValue('gray.50', 'gray.700');
-
-  const links = facilityId ? allLinks : [allLinks[0]];
+  const links = useGetLinks();
+  const background = useColorModeValue('white', 'blackAlpha.300');
 
   return (
     <VStack
-      w={extended ? '220px' : '60px'}
+      w={extended ? '240px' : '60px'}
       h='100vh'
       transition='all .25s ease-in-out'
       position='fixed'
@@ -40,12 +37,12 @@ const DesktopDrawer = ({ toggle, extended, facilityId }: IProps) => {
         path={extended ? mdiClose : mdiMenu}
       />
       <VStack justify='space-between' width='100%' height='100%' pb={10} pt={20}>
-        <VStack spacing={2} as='ul' px='10px' align='flex-start' width='100%'>
+        <VStack spacing={3} as='ul' px='10px' align='flex-start' width='100%'>
           {links.map(({ label, to, path, signature }) => (
             <HStack w='100%' key={to} as='li'>
               {extended ? (
                 <NavButton onClick={() => push(`/${to}`)} path={path} isActive={pathname.includes(signature)}>
-                  <Text pl={1} fontWeight='700' lineHeight='100%'>
+                  <Text pl={2} fontWeight='400' lineHeight='100%'>
                     {label}
                   </Text>
                 </NavButton>

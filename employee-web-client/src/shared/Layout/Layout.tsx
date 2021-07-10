@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { isMobile } from 'react-device-detect';
 
 import { useToggle } from 'hooks';
@@ -15,16 +15,17 @@ interface IProps {
 
 const Layout = ({ children }: IProps) => {
   const [extended, toggleNavigation] = useToggle();
+  const background = useColorModeValue('gray.50', 'gray.900');
 
   if (isMobile) {
     return (
       <Context>
-        {(enterprise, facility) => {
+        {() => {
           return (
-            <Flex minH='100vh' position='relative' overflow='hidden' pt={{ base: 16, md: 10, xl: 0 }}>
+            <Flex backgroundColor={background} minH='100vh' position='relative' overflow='hidden' pt={{ base: 16, md: 10, xl: 0 }}>
               <Header toggle={toggleNavigation} />
               {children}
-              <MobileDrawer extended={extended} toggle={toggleNavigation} facilityId={facility?.facilityId} />
+              <MobileDrawer extended={extended} toggle={toggleNavigation} />
             </Flex>
           );
         }}
@@ -34,11 +35,17 @@ const Layout = ({ children }: IProps) => {
 
   return (
     <Context>
-      {(enterprise, facility) => {
+      {() => {
         return (
           <>
-            <DesktopDrawer extended={extended} toggle={toggleNavigation} facilityId={facility?.facilityId} />
-            <Flex minH='100vh' transition='all .25s ease-in-out' pl={!isMobile && extended ? '250px' : '70px'} position='relative'>
+            <DesktopDrawer extended={extended} toggle={toggleNavigation} />
+            <Flex
+              backgroundColor={background}
+              minH='100vh'
+              transition='all .25s ease-in-out'
+              pl={!isMobile && extended ? '250px' : '70px'}
+              position='relative'
+            >
               {children}
             </Flex>
           </>

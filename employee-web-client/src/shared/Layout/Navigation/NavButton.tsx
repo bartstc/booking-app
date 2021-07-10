@@ -12,9 +12,10 @@ interface IProps extends ButtonProps {
 
 const NavButton = ({ path, children, isActive = false, ...props }: IProps) => {
   const { colors } = useTheme();
-  const iconColor = useColorModeValue('gray.900', 'gray.50');
-  const hoverColor = useColorModeValue(colors.gray[900], colors.gray[50]);
-  const hoverBg = useColorModeValue(colors.gray[200], colors.gray[600]);
+  const iconColor = useColorModeValue('gray.800', 'gray.50');
+  const iconHoverColor = useColorModeValue('whiteAlpha.900', 'gray.800');
+  const hoverColor = useColorModeValue(colors.whiteAlpha[900], colors.gray[900]);
+  const hoverBg = useColorModeValue(colors.gray[800], colors.whiteAlpha[900]);
 
   return (
     <StyledButton
@@ -27,7 +28,7 @@ const NavButton = ({ path, children, isActive = false, ...props }: IProps) => {
       variant='ghost'
       display='flex'
       justifyContent='flex-start'
-      leftIcon={<Icon path={path} color={isActive ? hoverColor : iconColor} size='24px' />}
+      leftIcon={<Icon path={path} color={isActive ? iconHoverColor : iconColor} size='24px' />}
       {...props}
     >
       {children}
