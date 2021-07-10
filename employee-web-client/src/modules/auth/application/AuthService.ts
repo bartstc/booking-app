@@ -118,7 +118,8 @@ export class AuthService {
 
   public signoutRedirectCallback = () => {
     this.userManager.signoutRedirectCallback().then(() => {
-      localStorage.clear();
+      localStorage.removeItem('redirectUri');
+      localStorage.removeItem(`oidc.user:${this.domain}/:${this.clientId}`);
       window.location.replace('/');
     });
     this.userManager.clearStaleState();
