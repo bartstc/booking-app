@@ -18,14 +18,14 @@ const CreateFacilityTab = () => {
 
   return (
     <DashboardTabs>
-      <HStack mb={{ base: 4, md: 6 }} m='0 auto' maxW='670px' w='100%'>
+      <HStack mb={{ base: 6, md: 10 }} m='0 auto' w='100%'>
         <IconButton
           onClick={() => push(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS))}
           variant='solid'
           title={formatMessage({ id: 'bask-to-list', defaultMessage: 'Back to list' })}
           icon={<Icon path={mdiArrowLeft} />}
         />
-        <Heading pl={3} as='h2' fontSize={{ base: 'xl', md: '2xl' }}>
+        <Heading pl={3} as='h2' fontWeight='500' fontSize={{ base: 'xl', md: '2xl' }}>
           <FormattedMessage id='register-new-facility' defaultMessage='Register new facility' />
         </Heading>
       </HStack>

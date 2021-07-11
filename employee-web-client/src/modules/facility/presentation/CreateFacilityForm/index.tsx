@@ -1,14 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { HStack, VStack, Flex } from '@chakra-ui/react';
+import { HStack, VStack, Divider } from '@chakra-ui/react';
 
 import { useCreateFacility } from 'modules/facility/infrastructure/command';
 import { useEnterpriseConsumer } from 'modules/context';
 
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
-import { TreeCounter } from 'shared/TreeCounter';
+import { SectionContainer } from 'shared/ReadMode';
 
 import { buildUrl } from 'utils';
 import { DEFAULT_PARAMS } from 'utils/constant';
@@ -34,27 +34,18 @@ const CreateFacilityForm = () => {
         }
       }}
     >
-      <VStack w='100%' m='0 auto' maxW='670px' align='stretch' spacing={6}>
-        <Flex>
-          <TreeCounter index={0} fieldsCount={2} />
+      <VStack w='100%' m='0 auto' align='stretch' spacing={6} pb={8}>
+        <SectionContainer>
           <MetaInputs />
-        </Flex>
-        <Flex>
-          <TreeCounter index={1} fieldsCount={2} />
+          <Divider />
           <WorkingHoursInputs />
-        </Flex>
-        <Flex>
-          <TreeCounter index={2} fieldsCount={2} />
+          <Divider />
           <ContactsInputs />
-        </Flex>
-        <Flex>
-          <TreeCounter index={3} fieldsCount={2} />
+          <Divider />
           <AddressInputs />
-        </Flex>
-        <Flex>
-          <TreeCounter index={4} fieldsCount={2} />
+          <Divider />
           <ContactPersonInputs />
-        </Flex>
+        </SectionContainer>
         <HStack justify='flex-end'>
           <SubmitButton form='create-facility' isLoading={isLoading} />
           <Button colorScheme='gray' ml={3} onClick={() => push(buildUrl(`dashboard/facilities`, DEFAULT_PARAMS))}>

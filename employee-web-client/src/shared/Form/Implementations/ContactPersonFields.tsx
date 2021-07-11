@@ -12,7 +12,7 @@ const ContactPersonFields = ({ required = true }: IProps) => {
   return (
     <>
       <InputField
-        colSpan={4}
+        colSpan={{ base: 4, md: 3 }}
         name='contactPerson.name'
         label={<FormattedMessage id='name' defaultMessage='Name' />}
         id='contact-person-name'
