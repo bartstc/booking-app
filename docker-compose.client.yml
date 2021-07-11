@@ -85,8 +85,9 @@ services:
     image: employee-web-client
     build:
       context: ./employee-web-client
+      dockerfile: ./Dockerfile.prod
     ports:
-      - 3001:3001
+      - 3001:80
     depends_on:
       - db
       - rabbit

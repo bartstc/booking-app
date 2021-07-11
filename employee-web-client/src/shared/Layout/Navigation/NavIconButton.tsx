@@ -15,7 +15,7 @@ const NavIconButton = ({ path, isActive, ...props }: IProps) => {
   const { colors } = useTheme();
   const iconColor = useColorModeValue('gray.700', 'white');
   const hoverColor = useColorModeValue(colors.gray[50], colors.gray[800]);
-  const hoverBg = useColorModeValue(colors.gray[700], 'white');
+  const hoverBg = useColorModeValue(colors.gray[800], 'white');
 
   return (
     <StyledIconButton
@@ -28,7 +28,10 @@ const NavIconButton = ({ path, isActive, ...props }: IProps) => {
   );
 };
 
-const StyledIconButton = styled(IconButton)<{ hoverColor: string; hoverBg: string }>`
+const StyledIconButton = styled(IconButton, { shouldForwardProp: propName => !['hoverBg', 'hoverColor'].includes(propName as string) })<{
+  hoverColor: string;
+  hoverBg: string;
+}>`
   &:hover {
     path {
       fill: ${props => `${props.hoverColor} !important`};

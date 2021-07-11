@@ -37,7 +37,7 @@ export function useAutoComplete<
   const [error, setError] = useState();
   const [offset, setOffset] = useState(0);
   const [total, setTotal] = useState(0);
-  const { status, setStatus } = useRequestStatus();
+  const [status, setStatus] = useRequestStatus();
 
   const { current: search$ } = useRef(new BehaviorSubject<string>(''));
   const { current: pagination$ } = useRef(new Subject<number>());

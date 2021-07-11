@@ -1,10 +1,11 @@
 import React from 'react';
-import { HStack, VStack, SimpleGrid, GridItem } from '@chakra-ui/react';
+import { HStack, VStack, Divider } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
+import { SectionContainer } from 'shared/ReadMode';
 
 import { useEnterpriseConsumer } from 'modules/context';
 import { useEnterpriseQuery } from 'modules/enterprise/infrastructure/query';
@@ -40,14 +41,11 @@ const EditEnterpriseForm = () => {
             <FormattedMessage id='cancel' defaultMessage='Cancel' />
           </Button>
         </HStack>
-        <SimpleGrid columns={2} spacingY={{ base: 8, md: 0 }} spacingX={{ md: 8, lg: 14 }}>
-          <GridItem colSpan={{ base: 2, lg: 1 }}>
-            <MetaInputs />
-          </GridItem>
-          <GridItem colSpan={{ base: 2, lg: 1 }}>
-            <ContactPersonInputs />
-          </GridItem>
-        </SimpleGrid>
+        <SectionContainer>
+          <MetaInputs />
+          <Divider />
+          <ContactPersonInputs />
+        </SectionContainer>
       </VStack>
     </EnterpriseForm>
   );

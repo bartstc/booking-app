@@ -1,2 +1,2 @@
 export { Layout } from './Layout';
-export { PageWrapper } from './Page';
+export { PageWrapper, Card } from './Page';

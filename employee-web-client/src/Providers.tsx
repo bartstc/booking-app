@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { theme } from './theme';
 import { QueryParamsProvider } from './shared/Params';
+import { AuthProvider, authService } from './modules/auth/application';
 
 interface IProps {
   children: ReactNode;
@@ -30,7 +31,10 @@ const Providers = ({ children }: IProps) => {
       <ReactRouterQueryParamsProvider>
         <QueryClientProvider client={queryClient}>
           <ChakraProvider theme={theme}>
-            <IntlProvider locale='en'>{children}</IntlProvider>
+            <IntlProvider locale='en'>
+              {/*eslint-disable-next-line @typescript-eslint/no-explicit-any*/}
+              <AuthProvider value={authService}>{children}</AuthProvider>
+            </IntlProvider>
           </ChakraProvider>
         </QueryClientProvider>
       </ReactRouterQueryParamsProvider>

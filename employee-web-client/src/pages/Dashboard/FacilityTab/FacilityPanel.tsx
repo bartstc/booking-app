@@ -30,7 +30,7 @@ const FacilityPanel = ({ facility }: IProps) => {
     <HStack w='100%' justify='space-between'>
       <IconButton
         onClick={() => push(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS))}
-        variant='solid'
+        variant='ghost'
         title={formatMessage({ id: 'bask-to-list', defaultMessage: 'Back to list' })}
         icon={<Icon path={mdiArrowLeft} />}
       />
