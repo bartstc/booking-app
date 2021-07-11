@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
 
-import { ICreateScheduleDto } from 'modules/schedule/dto';
+import { ICreateScheduleDto } from 'modules/schedules/application/types';
 
 import { useCreateSchedule } from '../../infrastructure/command';
 import { useCreateScheduleNotification, CreateScheduleForm } from '../CreateScheduleForm';
