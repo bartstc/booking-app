@@ -29,7 +29,7 @@ const ScheduleDatePicker = ({ setWeek, trackedDay, endDate, startDate }: IProps)
       <HStack spacing={4} maxW='300px'>
         <IconButton
           onClick={() => push(buildUrl(`/schedules`, DEFAULT_PARAMS))}
-          variant='solid'
+          variant='ghost'
           title={formatMessage({ id: 'bask-to-list', defaultMessage: 'Back to list' })}
           icon={<Icon path={mdiArrowLeft} />}
         />

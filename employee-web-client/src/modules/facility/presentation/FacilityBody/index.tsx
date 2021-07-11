@@ -36,7 +36,10 @@ const FacilityBody = ({ facility }: IProps) => {
               <FormattedMessage id='facility-base-data' defaultMessage='Base information' />
             </SectionTitle>
             <SectionSubtitle>
-              <FormattedMessage id='facility-base-data-description' defaultMessage='Base data about facility.' />
+              <FormattedMessage
+                id='facility-base-data-description'
+                defaultMessage='Base data about facility.This fields identifies your facility in the system and on the market. '
+              />
             </SectionSubtitle>
           </SectionHeader>
         </GridItem>
@@ -65,6 +68,9 @@ const FacilityBody = ({ facility }: IProps) => {
             <SectionTitle>
               <FormattedMessage id='working-hours' defaultMessage='Working hours' />
             </SectionTitle>
+            <SectionSubtitle>
+              <FormattedMessage id='working-hours-description' defaultMessage='The facility opens during the week.' />
+            </SectionSubtitle>
           </SectionHeader>
         </GridItem>
         {!!facility.workingDays.length && (
@@ -85,6 +91,12 @@ const FacilityBody = ({ facility }: IProps) => {
           <SectionTitle>
             <FormattedMessage id='facility-contact' defaultMessage='Facility Contact' />
           </SectionTitle>
+          <SectionSubtitle>
+            <FormattedMessage
+              id='facility-address-and-contacts-description'
+              defaultMessage='The exact location of your facility and contact information.'
+            />
+          </SectionSubtitle>
         </GridItem>
         <GridItem as={VStack} spacing={4} align='flex-start' colSpan={{ base: 3, lg: 2 }}>
           {facility.contacts.map(contact => (
