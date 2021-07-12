@@ -1,8 +1,16 @@
 import React from 'react';
-import { GridItem, SimpleGrid, VStack } from '@chakra-ui/react';
+import { GridItem, VStack, Divider } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
-import { ReadModeArrayValue, ReadModeValue, SectionTitle } from 'shared/ReadMode';
+import {
+  ReadModeValue,
+  ReadModeArrayValue,
+  SectionTitle,
+  SectionHeader,
+  SectionSubtitle,
+  SectionContainer,
+  SectionGrid,
+} from 'shared/ReadMode';
 import { contactTypeMessages } from 'utils/messages';
 
 import { BusinessCategoryDegreeType, IFacility } from '../../application/types';
@@ -20,12 +28,22 @@ const FacilityBody = ({ facility }: IProps) => {
   const address = `${facility.address.postCode}, ${facility.address.city}, ${facility.address.street}`;
 
   return (
-    <SimpleGrid w='100%' columns={2} spacingY={{ base: 8, md: 0 }} spacingX={{ md: 8, lg: 14 }}>
-      <GridItem colSpan={{ base: 2, md: 1 }}>
-        <SectionTitle>
-          <FormattedMessage id='enterprise-base-data' defaultMessage='Base facility data' />
-        </SectionTitle>
-        <VStack spacing={4} align='flex-start'>
+    <SectionContainer>
+      <SectionGrid>
+        <GridItem colSpan={{ base: 3, lg: 1 }}>
+          <SectionHeader>
+            <SectionTitle>
+              <FormattedMessage id='facility-base-data' defaultMessage='Base information' />
+            </SectionTitle>
+            <SectionSubtitle>
+              <FormattedMessage
+                id='facility-base-data-description'
+                defaultMessage='Base data about facility.This fields identifies your facility in the system and on the market. '
+              />
+            </SectionSubtitle>
+          </SectionHeader>
+        </GridItem>
+        <GridItem as={VStack} spacing={4} align='flex-start' colSpan={{ base: 3, lg: 2 }}>
           <ReadModeValue value={facility.name} label={<FormattedMessage id='facility-name' defaultMessage='Facility name' />} />
           <ReadModeValue value={facility.slug} label={<FormattedMessage id='facility-slug' defaultMessage='Facility slug' />} />
           <ReadModeValue value={facility.description} label={<FormattedMessage id='description' defaultMessage='Description' />} />
@@ -41,12 +59,22 @@ const FacilityBody = ({ facility }: IProps) => {
             label={<FormattedMessage id='subordinate-business-categories' defaultMessage='Subordinate business categories' />}
             value={subordinateBusinessCategories}
           />
-        </VStack>
-        <SectionTitle mt={8}>
-          <FormattedMessage id='working-hours' defaultMessage='Working hours' />
-        </SectionTitle>
+        </GridItem>
+      </SectionGrid>
+      <Divider />
+      <SectionGrid>
+        <GridItem colSpan={{ base: 3, lg: 1 }}>
+          <SectionHeader>
+            <SectionTitle>
+              <FormattedMessage id='working-hours' defaultMessage='Working hours' />
+            </SectionTitle>
+            <SectionSubtitle>
+              <FormattedMessage id='working-hours-description' defaultMessage='The facility opens during the week.' />
+            </SectionSubtitle>
+          </SectionHeader>
+        </GridItem>
         {!!facility.workingDays.length && (
-          <VStack spacing={4} align='flex-start'>
+          <GridItem as={VStack} spacing={4} align='flex-start' colSpan={{ base: 3, lg: 2 }}>
             {facility.workingDays.map(day => (
               <ReadModeArrayValue
                 key={day.dayName}
@@ -54,39 +82,45 @@ const FacilityBody = ({ facility }: IProps) => {
                 value={day.hours.map(hours => `${hours.until} - ${hours.to}`)}
               />
             ))}
-          </VStack>
+          </GridItem>
         )}
-      </GridItem>
-      <GridItem colSpan={{ base: 2, md: 1 }}>
-        <SectionTitle>
-          <FormattedMessage id='facility-contact' defaultMessage='Facility Contact' />
-        </SectionTitle>
-        {!!facility.contacts.length && (
-          <VStack spacing={4} align='flex-start'>
-            {facility.contacts.map(contact => (
-              <ReadModeValue
-                key={contact.value}
-                label={<FormattedMessage {...contactTypeMessages[contact.type]} />}
-                value={contact.value}
-              />
-            ))}
-          </VStack>
-        )}
-        <ReadModeValue mt={4} value={address} label={<FormattedMessage id='address' defaultMessage='Address' />} />{' '}
-        {facility.contactPerson && (
-          <>
-            <SectionTitle
-              description={
+      </SectionGrid>
+      <Divider />
+      <SectionGrid>
+        <GridItem colSpan={{ base: 3, lg: 1 }}>
+          <SectionTitle>
+            <FormattedMessage id='facility-contact' defaultMessage='Facility Contact' />
+          </SectionTitle>
+          <SectionSubtitle>
+            <FormattedMessage
+              id='facility-address-and-contacts-description'
+              defaultMessage='The exact location of your facility and contact information.'
+            />
+          </SectionSubtitle>
+        </GridItem>
+        <GridItem as={VStack} spacing={4} align='flex-start' colSpan={{ base: 3, lg: 2 }}>
+          {facility.contacts.map(contact => (
+            <ReadModeValue key={contact.value} label={<FormattedMessage {...contactTypeMessages[contact.type]} />} value={contact.value} />
+          ))}
+          <ReadModeValue value={address} label={<FormattedMessage id='address' defaultMessage='Address' />} />
+        </GridItem>
+      </SectionGrid>
+      {facility.contactPerson && (
+        <>
+          <Divider />
+          <SectionGrid>
+            <GridItem colSpan={{ base: 3, lg: 1 }}>
+              <SectionTitle>
+                <FormattedMessage id='enterprise-contact-person' defaultMessage='Contact person' />
+              </SectionTitle>
+              <SectionSubtitle>
                 <FormattedMessage
                   id='contact-person-description-info'
                   defaultMessage='Data of the person who can be contacted by the booking service administrator.'
                 />
-              }
-              mt={8}
-            >
-              <FormattedMessage id='enterprise-contact-person' defaultMessage='Contact person' />
-            </SectionTitle>
-            <VStack spacing={4} align='flex-start'>
+              </SectionSubtitle>
+            </GridItem>
+            <GridItem as={VStack} spacing={4} align='flex-start' colSpan={{ base: 3, lg: 2 }}>
               <ReadModeValue value={facility.contactPerson.name} label={<FormattedMessage id='name' defaultMessage='Name' />} />
               <ReadModeValue
                 value={facility.contactPerson.phone}
@@ -97,11 +131,11 @@ const FacilityBody = ({ facility }: IProps) => {
                 value={facility.contactPerson.email}
                 label={<FormattedMessage id='email-address' defaultMessage='Email address' />}
               />
-            </VStack>
-          </>
-        )}
-      </GridItem>
-    </SimpleGrid>
+            </GridItem>
+          </SectionGrid>
+        </>
+      )}
+    </SectionContainer>
   );
 };
 

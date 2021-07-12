@@ -14,7 +14,6 @@ const EditFacilityTab = lazy(() => import('./EditFacilityTab'));
 const CreateFacilityTab = lazy(() => import('./CreateFacilityTab'));
 const ReadEnterpriseTab = lazy(() => import('./EnterpriseTab'));
 const EditEnterpriseTab = lazy(() => import('./EditEnterpriseTab'));
-const SchedulesTab = lazy(() => import('./SchedulesTab'));
 
 const Dashboard = () => {
   return (
@@ -29,7 +28,6 @@ const Dashboard = () => {
             <Route path='/dashboard/facilities/:facilitySlug' component={FacilityTab} />
             <Route path='/dashboard/enterprise' component={ReadEnterpriseTab} />
             <Route path='/dashboard/facilities' component={FacilitiesTab} exact />
-            <Route path='/dashboard/schedules' component={SchedulesTab} exact />
             <Route render={() => <Redirect to='/dashboard/enterprise' />} />
           </Switch>
         </Suspense>

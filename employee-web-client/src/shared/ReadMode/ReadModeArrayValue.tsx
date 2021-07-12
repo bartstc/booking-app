@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Text, VStack } from '@chakra-ui/react';
+import { Text, useColorModeValue, VStack } from '@chakra-ui/react';
 
 interface IProps {
   label: ReactNode | string;
@@ -8,11 +8,13 @@ interface IProps {
 }
 
 const ReadModeArrayValue = ({ value, label, separator = ', ' }: IProps) => {
+  const color = useColorModeValue('gray.500', 'gray.400');
+
   if (!value?.length) return null;
 
   return (
     <VStack align='flex-start' spacing={0}>
-      <Text color='gray.500' fontSize='sm'>
+      <Text color={color} fontSize='sm'>
         {label}
       </Text>
       <Text>{value.join(separator)}</Text>

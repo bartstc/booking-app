@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { Logger, logHandler } from 'utils/logger';
+
 import reportWebVitals from './reportWebVitals';
 import { Providers } from './Providers';
-import { PublicRoutes } from './shared/Routes';
-import { Logger, logHandler } from './utils/logger';
+import { App } from './App';
 
 Logger.init(logHandler);
 
 ReactDOM.render(
   <React.StrictMode>
     <Providers>
-      <PublicRoutes />
+      <App />
     </Providers>
   </React.StrictMode>,
   document.getElementById('root'),

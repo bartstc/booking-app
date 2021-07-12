@@ -3,5 +3,5 @@ import { RequestStatus } from '../types';
 
 export const useRequestStatus = () => {
   const [status, setStatus] = useState<RequestStatus>(RequestStatus.Init);
-  return useMemo(() => ({ status, setStatus }), [status]);
+  return useMemo(() => [status, setStatus] as const, [status]);
 };
