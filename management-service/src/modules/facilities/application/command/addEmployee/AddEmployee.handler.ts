@@ -16,6 +16,7 @@ import { EmployeeMap } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 import { IAmqpService } from '../../../../../amqp';
+import { IAuthService } from '../../../../../auth';
 import { EmployeeAddedEvent, FacilitiesEvent } from '../../../domain/events';
 import { EmployeeTransformer } from '../../../infra';
 
@@ -34,6 +35,8 @@ export class AddEmployeeHandler
     private connection: Connection,
     @Inject(InfrastructureKeys.AmqpService)
     private amqpService: IAmqpService,
+    @Inject(InfrastructureKeys.AuthService)
+    private authService: IAuthService,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
     @Inject(FacilityKeys.EmployeeRepository)
@@ -42,9 +45,10 @@ export class AddEmployeeHandler
 
   async execute({
     facilityId,
-    dto,
+    dto: addEmployeeDto,
   }: AddEmployeeCommand): Promise<AddEmployeeResponse> {
     const queryRunner = this.connection.createQueryRunner();
+    const { password, ...dto } = addEmployeeDto;
 
     let facility: Facility;
 
@@ -60,6 +64,8 @@ export class AddEmployeeHandler
       if (!employeeOrError.isSuccess) {
         return left(Result.fail(employeeOrError.error));
       }
+
+      await this.authService.signup(dto.employeeEmail, password);
 
       const employee = employeeOrError.getValue();
       facility.addEmployee(employee);

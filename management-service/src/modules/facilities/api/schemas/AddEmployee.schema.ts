@@ -13,6 +13,8 @@ export const addEmployeeSchema = yup.object().shape<AddEmployeeDto>({
     .test('email format', 'invalidFormat', function (value) {
       return TextValidator.validateEmailAddress(value);
     }),
+  // todo: password validation
+  password: yup.string().required().min(8),
   employeeName: yup.string().required().min(1).max(999),
   birthDate: yup.date().required(),
   employmentDate: yup.date().required(),

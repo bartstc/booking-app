@@ -37,4 +37,14 @@ export class ConfigService implements IConfigService {
       prefetch: Number(this.config.get('RABBITMQ_PREFETCH')),
     };
   }
+
+  get auth() {
+    return {
+      employeeWebClientAuthClientId: this.config.get(
+        'EMPLOYEE_WEB_CLIENT_AUTH_CLIENT_ID',
+      ),
+      authDomain: this.config.get('AUTH_DOMAIN'),
+      authDbConnection: this.config.get('AUTH_DB_CONNECTION'),
+    };
+  }
 }

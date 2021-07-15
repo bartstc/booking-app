@@ -3,6 +3,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 
 import { DatabaseModule } from 'database';
 import { AmqpModule } from 'amqp';
+import { AuthModule } from 'auth';
 
 import { providers } from './facility.providers';
 import { EnterpriseModule } from '../enterprise/enterprise.module';
@@ -54,7 +55,13 @@ import {
 } from './api/controllers/query';
 
 @Module({
-  imports: [CqrsModule, EnterpriseModule, DatabaseModule, AmqpModule],
+  imports: [
+    CqrsModule,
+    EnterpriseModule,
+    DatabaseModule,
+    AmqpModule,
+    AuthModule,
+  ],
   controllers: [
     CreateFacilityController,
     UpdateFacilityController,

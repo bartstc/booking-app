@@ -23,4 +23,9 @@ export interface IConfigService {
     reconnectDelay: number;
     prefetch: number;
   };
+  auth: {
+    employeeWebClientAuthClientId: string;
+    authDomain: string;
+    authDbConnection: string;
+  };
 }
