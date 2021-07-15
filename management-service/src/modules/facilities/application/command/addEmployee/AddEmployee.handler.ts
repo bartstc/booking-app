@@ -12,7 +12,7 @@ import {
 } from '../../../domain';
 import { AddEmployeeErrors } from './AddEmployee.errors';
 import { AddEmployeeCommand } from './AddEmployee.command';
-import { EmployeeMap } from '../../../adapter';
+import { EmployeeMap, EmployeeQuery } from '../../../adapter';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 import { IAmqpService } from '../../../../../amqp';
@@ -23,7 +23,8 @@ import { EmployeeTransformer } from '../../../infra';
 export type AddEmployeeResponse = Either<
   | AppError.ValidationError
   | AppError.UnexpectedError
-  | AddEmployeeErrors.FacilityNotFoundError,
+  | AddEmployeeErrors.FacilityNotFoundError
+  | AddEmployeeErrors.EmployeeEmailAlreadyInUseError,
   Result<EmployeeId>
 >;
 
@@ -41,6 +42,8 @@ export class AddEmployeeHandler
     private facilityRepository: FacilityRepository,
     @Inject(FacilityKeys.EmployeeRepository)
     private employeeRepository: EmployeeRepository,
+    @Inject(FacilityKeys.EmployeeQuery)
+    private employeeQuery: EmployeeQuery,
   ) {}
 
   async execute({
@@ -58,6 +61,20 @@ export class AddEmployeeHandler
       } catch {
         return left(new AddEmployeeErrors.FacilityNotFoundError());
       }
+
+      try {
+        const employee = await this.employeeQuery.getEmployeeByEmail(
+          dto.employeeEmail,
+        );
+
+        if (employee) {
+          return left(
+            new AddEmployeeErrors.EmployeeEmailAlreadyInUseError(
+              dto.employeeEmail,
+            ),
+          );
+        }
+      } catch {}
 
       const employeeOrError = EmployeeMap.dtoToDomain(dto, facilityId);
 

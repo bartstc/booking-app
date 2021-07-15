@@ -8,4 +8,12 @@ export namespace AddEmployeeErrors {
       });
     }
   }
+
+  export class EmployeeEmailAlreadyInUseError extends Result<UseCaseError> {
+    constructor(email: string) {
+      super(false, {
+        message: `Employee with email ${email} already in use`,
+      });
+    }
+  }
 }
