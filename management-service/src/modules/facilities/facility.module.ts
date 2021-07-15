@@ -20,6 +20,7 @@ import { ActivateEmployeeHandler } from './application/command/activateEmployee'
 import { DeactivateEmployeeHandler } from './application/command/deactivateEmployee';
 
 import { GetEmployeeHandler } from './application/query/getEmployee';
+import { GetEmployeeByEmailHandler } from './application/query/getEmployeeByEmail';
 import { GetEmployeesHandler } from './application/query/getEmployees';
 import { GetFacilityByIdHandler } from './application/query/getFacilityById';
 import { GetFacilityBySlugHandler } from './application/query/getFacilityBySlug';
@@ -42,6 +43,7 @@ import {
 } from './api/controllers/command';
 
 import {
+  GetEmployeeByEmailController,
   GetEmployeeController,
   GetEmployeesController,
   GetFacilitiesController,
@@ -72,6 +74,7 @@ import {
     GetOffersController,
     GetEmployeesController,
     GetEmployeeController,
+    GetEmployeeByEmailController,
   ],
   providers: [
     CreateFacilityHandler,
@@ -85,13 +88,15 @@ import {
     DeactivateOfferHandler,
     ActivateEmployeeHandler,
     DeactivateEmployeeHandler,
-    GetEmployeeHandler,
+    GetEmployeeByEmailHandler,
     GetEmployeesHandler,
     GetFacilityByIdHandler,
     GetFacilityBySlugHandler,
     GetFacilitiesHandler,
     GetOfferHandler,
     GetOffersHandler,
+    GetEmployeeHandler,
+    GetEmployeeByEmailHandler,
     ...providers,
   ],
   exports: [providers[0]],

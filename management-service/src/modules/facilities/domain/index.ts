@@ -18,6 +18,7 @@ export { WorkingDay } from './WorkingDay';
 export { Availability } from './Availability';
 export { Facility } from './Facility';
 export { Slug } from './Slug';
+export { EmployeeEmail } from './EmployeeEmail';
 export {
   OfferRepository,
   EmployeeRepository,

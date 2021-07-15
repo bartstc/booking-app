@@ -5,6 +5,7 @@ import { EmployeeCollectionQueryParams } from './params';
 
 export interface EmployeeQuery {
   getEmployeeById(employeeId: string): Promise<EmployeeDto>;
+  getEmployeeByEmail(employeeEmail: string): Promise<EmployeeDto>;
   getEmployees(
     facilityId: string,
     params: EmployeeCollectionQueryParams,

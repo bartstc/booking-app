@@ -7,6 +7,9 @@ export class BuildEmployeeDto {
   employeeName: string;
 
   @ApiProperty()
+  employeeEmail: string;
+
+  @ApiProperty()
   position: string;
 
   @ApiProperty()

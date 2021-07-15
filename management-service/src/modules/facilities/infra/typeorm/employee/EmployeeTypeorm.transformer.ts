@@ -11,6 +11,7 @@ export class EmployeeTypeormTransformer {
       employeeId: employee.employee_id,
       facilityId: employee.facility_id,
       status: employee.status,
+      email: employee.details.email,
       name: employee.details.name,
       position: employee.details.position,
       contacts: employee.details.contacts,

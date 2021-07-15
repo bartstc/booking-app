@@ -3,6 +3,7 @@ import { Result } from 'shared/core';
 
 import {
   Employee,
+  EmployeeEmail,
   EmployeeName,
   EmployeePosition,
   FacilityId,
@@ -20,6 +21,7 @@ export class EmployeeMap {
     const position = EmployeePosition.create({
       value: dto.position,
     });
+    const email = EmployeeEmail.create({ value: dto.employeeEmail });
     const contactList: Contact[] = [];
 
     if (dto.contacts?.length) {
@@ -36,6 +38,7 @@ export class EmployeeMap {
           new UniqueEntityID(facilityId),
         ).getValue(),
         status: EmployeeStatus.Active,
+        email: email.getValue(),
         name: name.getValue(),
         position: position.getValue(),
         contacts,
@@ -51,6 +54,7 @@ export class EmployeeMap {
     const position = EmployeePosition.create({
       value: entity.details.position,
     });
+    const email = EmployeeEmail.create({ value: entity.details.email });
     const contactList: Contact[] = [];
 
     entity.details.contacts.forEach((contact) => {
@@ -65,6 +69,7 @@ export class EmployeeMap {
           new UniqueEntityID(entity.facility_id),
         ).getValue(),
         status: entity.status,
+        email: email.getValue(),
         birthDate: entity.details.birthDate,
         employmentDate: entity.details.employmentDate,
         name: name.getValue(),
@@ -91,6 +96,7 @@ export class EmployeeMap {
       facility_id: employee.facilityId,
       status: employee.status,
       details: {
+        email: employee.email.value,
         name: employee.name.value,
         position: employee.position.value,
         birthDate: employee.birthDate,

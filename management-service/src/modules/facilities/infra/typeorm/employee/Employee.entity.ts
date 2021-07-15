@@ -23,6 +23,7 @@ export class EmployeeEntity extends AbstractEntity {
 
   @Column('jsonb')
   details: {
+    email: string;
     name: string;
     position: string;
     birthDate: Date;

@@ -14,6 +14,7 @@ interface Props {
 
 const defaultDto: BuildEmployeeDto = {
   employeeName: 'Jane Doe',
+  employeeEmail: 'janedoe@gmail.com',
   position: 'Hairdresser',
   birthDate: new Date(),
   employmentDate: new Date(),

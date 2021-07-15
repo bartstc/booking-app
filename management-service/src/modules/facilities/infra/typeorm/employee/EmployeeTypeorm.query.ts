@@ -17,6 +17,17 @@ export class EmployeeTypeormQuery
     return EmployeeTypeormTransformer.toDto(employee);
   }
 
+  async getEmployeeByEmail(employeeEmail: string): Promise<EmployeeDto> {
+    const employee = await this.createQueryBuilder('employee')
+      .where(`employee.details::jsonb->>'email' = :employeeEmail`, {
+        employeeEmail,
+      })
+      .getOne();
+
+    if (!employee) throw new Error('Employee not found');
+    return EmployeeTypeormTransformer.toDto(employee);
+  }
+
   async getEmployees(
     facilityId: string,
     {

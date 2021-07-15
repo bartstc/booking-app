@@ -14,6 +14,9 @@ export class EmployeeDto {
   status: EmployeeStatus;
 
   @ApiProperty()
+  email: string;
+
+  @ApiProperty()
   name: string;
 
   @ApiProperty()

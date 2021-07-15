@@ -5,6 +5,7 @@ import { EmployeeId } from './EmployeeId';
 import { FacilityId } from './FacilityId';
 import { EmployeeName } from './EmployeeName';
 import { EmployeePosition } from './EmployeePosition';
+import { EmployeeEmail } from './EmployeeEmail';
 import { EmployeeStatus } from './types';
 import {
   EmployeeCannotBeActiveRule,
@@ -19,6 +20,7 @@ interface IProps {
   contacts: Contacts;
   birthDate: Date;
   employmentDate: Date;
+  email: EmployeeEmail;
   isRemoved?: boolean;
 }
 
@@ -33,6 +35,10 @@ export class Employee extends Entity<IProps> {
 
   get status() {
     return this.props.status;
+  }
+
+  get email() {
+    return this.props.email;
   }
 
   get name() {
@@ -79,6 +85,10 @@ export class Employee extends Entity<IProps> {
       {
         argument: props.name,
         argumentName: 'employee.name',
+      },
+      {
+        argument: props.email,
+        argumentName: 'employee.email',
       },
       {
         argument: props.position,
