@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { facilitiesQueryKey, facilitiesQuery } from 'modules/facility/infrastructure/query';
-import { useEnterpriseConsumer } from 'modules/context';
+import { useEnterpriseContextSelector } from 'modules/context';
 
 import { Grid } from 'shared/Grid';
 import { Pagination } from 'shared/Pagination';
@@ -14,7 +14,7 @@ import { IFacilityCollection, IFacilityCollectionQueryParams } from '../../../ap
 
 const Table = () => {
   const { params } = useQueryParams<IFacilityCollectionQueryParams>();
-  const { enterpriseId } = useEnterpriseConsumer();
+  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
 
   return (
     <FetchBoundary<IFacilityCollection>

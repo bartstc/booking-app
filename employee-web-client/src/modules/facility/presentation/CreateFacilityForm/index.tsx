@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { HStack, VStack, Divider } from '@chakra-ui/react';
 
 import { useCreateFacility } from 'modules/facility/infrastructure/command';
-import { useEnterpriseConsumer } from 'modules/context';
+import { useEnterpriseContextSelector } from 'modules/context';
 
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
@@ -17,7 +17,7 @@ import { ContactPersonInputs, AddressInputs, WorkingHoursInputs, MetaInputs, Con
 import { useCreateFacilityNotification } from './useCreateFacilityNotification';
 
 const CreateFacilityForm = () => {
-  const { enterpriseId } = useEnterpriseConsumer();
+  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
   const { push } = useHistory();
   const [handler, isLoading] = useCreateFacility(enterpriseId);
   const { showCreateFailureNotification, showCreateSuccessNotification } = useCreateFacilityNotification();

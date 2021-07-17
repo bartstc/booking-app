@@ -24,19 +24,17 @@ export class GetEmployeeByEmailController extends BaseController {
     super();
   }
 
-  @Get('facilities/:facilityId/employees/email/:email')
+  @Get('employees/email/:email')
   @ApiTags('Employees')
   @ApiOkResponse({ type: EmployeeDto })
-  @ApiNotFoundResponse({ description: 'Facility not found' })
   @ApiNotFoundResponse({ description: 'Employee not found' })
   async getEmployeeByEmail(
     @Param('email') email: string,
-    @Param('facilityId') facilityId: string,
     @Res() res: Response,
   ) {
     try {
       const result: GetEmployeeByEmailResponse = await this.queryBus.execute(
-        new GetEmployeeByEmailQuery(email, facilityId),
+        new GetEmployeeByEmailQuery(email),
       );
 
       if (result.isLeft()) {
@@ -45,7 +43,6 @@ export class GetEmployeeByEmailController extends BaseController {
 
         switch (error.constructor) {
           case GetEmployeeByEmailErrors.EmployeeDoesNotExistError:
-          case GetEmployeeByEmailErrors.FacilityNotFoundError:
             return this.notFound(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());

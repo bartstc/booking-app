@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@chakra-ui/react';
 
 import { employeesQuery, employeesQueryKey } from 'modules/employees/infrastructure/query';
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 
 import { useInfiniteQuery } from 'hooks/useInfiniteQuery';
 
@@ -16,7 +16,7 @@ import { IEmployeeCollectionQueryParams, IEmployeeCollection } from '../../../ap
 
 const List = () => {
   const { params } = useQueryParams<IEmployeeCollectionQueryParams>();
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId } = useFacilityContextSelector();
 
   const limit = 10;
 

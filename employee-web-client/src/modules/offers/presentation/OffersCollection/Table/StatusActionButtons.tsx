@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 
 import { OfferStatus } from '../../../application/types';
 import { ActivateOfferIconButton } from '../../ActivateOfferIconButton';
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const StatusActionButtons = ({ status, offerId }: IProps) => {
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId } = useFacilityContextSelector();
 
   if (status === OfferStatus.Inactive) {
     return <ActivateOfferIconButton facilityId={facilityId} offerId={offerId} />;

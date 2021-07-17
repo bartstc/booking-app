@@ -14,7 +14,7 @@ import {
 
 import { AddAvailableEmployeesForm, useAddAvailabilitiesNotification, useRangeWeekDatesConsumer } from 'modules/schedules/presentation';
 import { useAddEmployeeAvailabilities } from 'modules/schedules/infrastructure/command';
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 import { IAddAvailabilityFormValues } from 'modules/schedules/application/types';
 
 import { useModal } from 'hooks';
@@ -31,7 +31,7 @@ interface IProps {
 
 const EmptyAvailabilityPopover = ({ dayDate, index, employeeId, scheduleId }: IProps) => {
   const { onOpen, onClose, isOpen, data } = useModal<IAddAvailabilityFormValues[]>();
-  const { facilityId } = useFacilityConsumer();
+  const facilityId = useFacilityContextSelector(state => state.facilityId);
   const params = useRangeWeekDatesConsumer();
 
   const { showFailureNotification } = useAddAvailabilitiesNotification();

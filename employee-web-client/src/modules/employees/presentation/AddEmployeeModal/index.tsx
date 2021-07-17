@@ -5,7 +5,7 @@ import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalFooter, Modal
 import { Button } from 'shared/Button';
 import { SubmitButton } from 'shared/Form';
 
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 
 import { EmailAlreadyExistsError, useAddEmployee } from '../../infrastructure/command';
 import { AddEmployeeForm, useAddEmployeeNotification } from '../AddEmployeeForm';
@@ -16,7 +16,7 @@ interface IProps {
 }
 
 const AddEmployeeModal = ({ isOpen, onClose }: IProps) => {
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId } = useFacilityContextSelector();
 
   const [handler, isLoading] = useAddEmployee(facilityId);
   const { showSuccessNotification, showFailureNotification, showEmailInUseNotification } = useAddEmployeeNotification();

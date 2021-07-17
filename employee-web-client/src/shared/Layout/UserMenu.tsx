@@ -21,6 +21,7 @@ import {
 import { useAuthContextSelector } from 'modules/auth/application';
 
 import { Icon } from '../Icon';
+import { useEmployeeContextSelector } from '../../modules/context';
 
 interface IProps {
   extended: boolean;
@@ -49,11 +50,15 @@ const UserMenu = ({ extended }: IProps) => {
   );
 };
 
-const Button = () => (
-  <MenuButton as={ChButton} variant='ghost' w='100%' leftIcon={<Avatar size='sm' mr={2} />}>
-    John Doe
-  </MenuButton>
-);
+const Button = () => {
+  const employeeName = useEmployeeContextSelector(state => state.name);
+
+  return (
+    <MenuButton as={ChButton} variant='ghost' w='100%' leftIcon={<Avatar size='sm' mr={2} />}>
+      {employeeName}
+    </MenuButton>
+  );
+};
 
 const IconButton = () => <MenuButton as={ChIconButton} variant='ghost' icon={<Avatar size='sm' />} />;
 

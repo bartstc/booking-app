@@ -9,7 +9,7 @@ import { ResponsiveRemoveButton } from 'shared/Buttons';
 import { Money } from 'shared/Money';
 import { FormattedDate } from 'shared/Date';
 
-import { useFacilityConsumer } from '../../../context';
+import { useFacilityContextSelector } from '../../../context';
 import { IAddBookingDto } from '../../application/types';
 import { SelectDateModal } from './SelectDateModal';
 import { IOffer } from '../../../offers/application/types';
@@ -17,7 +17,8 @@ import { OfferSelectFieldAsync } from '../../../offers/presentation';
 import { Summary } from './Summary';
 
 const BookedRecordFields = () => {
-  const { facilityId, currency } = useFacilityConsumer();
+  const facilityId = useFacilityContextSelector(state => state.facilityId);
+  const currency = useFacilityContextSelector(state => state.currency);
   const color = useColorModeValue('primary.500', 'primary.300');
   const [selectedOffers, setSelectedOffers] = useState<{ fieldId: string; offer: IOffer }[]>([]);
 

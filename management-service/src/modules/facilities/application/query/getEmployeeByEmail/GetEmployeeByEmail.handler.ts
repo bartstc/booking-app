@@ -8,7 +8,7 @@ import { GetEmployeeByEmailErrors } from './GetEmployeeByEmail.errors';
 import { GetEmployeeByEmailQuery } from './GetEmployeeByEmail.query';
 import { FacilityKeys } from '../../../FacilityKeys';
 import { EmployeeQuery } from '../../../adapter';
-import { FacilityRepository } from '../../../domain/repositories';
+import { FacilityRepository } from '../../../domain';
 
 export type GetEmployeeByEmailResponse = Either<
   AppError.UnexpectedError | GetEmployeeByEmailErrors.EmployeeDoesNotExistError,
@@ -27,19 +27,11 @@ export class GetEmployeeByEmailHandler
   ) {}
 
   async execute({
-    facilityId,
     employeeEmail,
   }: GetEmployeeByEmailQuery): Promise<GetEmployeeByEmailResponse> {
     let dto;
 
     try {
-      const facilityExists = await this.facilityRepository.exists(facilityId);
-      if (!facilityExists) {
-        return left(
-          new GetEmployeeByEmailErrors.FacilityNotFoundError(facilityId),
-        );
-      }
-
       try {
         dto = await this.employeeQuery.getEmployeeByEmail(employeeEmail);
       } catch {

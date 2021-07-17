@@ -8,7 +8,7 @@ import { Button } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 
 import { IAddBookingDto } from '../../application/types';
-import { useFacilityConsumer } from '../../../context';
+import { useFacilityContextSelector } from '../../../context';
 
 interface IProps {
   total: number;
@@ -16,7 +16,7 @@ interface IProps {
 }
 
 const Summary = ({ total, append }: IProps) => {
-  const { currency } = useFacilityConsumer();
+  const { currency } = useFacilityContextSelector();
   const { getValues } = useFormContext<IAddBookingDto>();
 
   const bookedRecords = getValues().bookedRecords;

@@ -4,7 +4,7 @@ import { Grid } from 'shared/Grid';
 import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
 
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 
 import { Header } from './Header';
 import { Row } from './Row';
@@ -12,7 +12,7 @@ import { schedulesQuery, schedulesQueryKey } from '../../../infrastructure/query
 import { IScheduleCollection } from '../../../application/types';
 
 const Table = () => {
-  const { facilityId } = useFacilityConsumer();
+  const facilityId = useFacilityContextSelector(state => state.facilityId);
 
   return (
     <FetchBoundary<IScheduleCollection> queryKey={schedulesQueryKey(facilityId)} queryFn={() => schedulesQuery(facilityId)}>
