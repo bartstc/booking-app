@@ -21,6 +21,10 @@ export const useAddEmployee = (facilityId: string) => {
         await queryClient.invalidateQueries(employeesQueryKey(facilityId, params));
       })
       .catch(e => {
+        if (e.response.message === 'emailInUse') {
+          throw new EmailAlreadyExistsError();
+        }
+
         Logger.log({
           name: e.name,
           message: JSON.stringify(e),
@@ -32,3 +36,9 @@ export const useAddEmployee = (facilityId: string) => {
 
   return [handler, isLoading] as const;
 };
+
+export class EmailAlreadyExistsError extends Error {
+  constructor() {
+    super('Email already in use');
+  }
+}

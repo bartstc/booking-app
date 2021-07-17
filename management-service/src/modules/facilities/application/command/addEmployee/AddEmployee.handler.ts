@@ -68,11 +68,7 @@ export class AddEmployeeHandler
         );
 
         if (employee) {
-          return left(
-            new AddEmployeeErrors.EmployeeEmailAlreadyInUseError(
-              dto.employeeEmail,
-            ),
-          );
+          return left(new AddEmployeeErrors.EmployeeEmailAlreadyInUseError());
         }
       } catch {}
 

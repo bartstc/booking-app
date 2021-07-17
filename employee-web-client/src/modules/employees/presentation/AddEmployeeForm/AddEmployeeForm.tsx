@@ -24,6 +24,8 @@ const AddEmployeeForm = ({ onSubmit }: IProps) => {
       onSubmit={onSubmit}
       defaultValues={{
         employeeName: '',
+        employeeEmail: '',
+        password: '',
         position: '',
         birthDate: '',
         employmentDate: '',
@@ -59,6 +61,24 @@ const AddEmployeeForm = ({ onSubmit }: IProps) => {
           label={<FormattedMessage id='employment-date' defaultMessage='Employment date' />}
           id='employment-date'
           colSpan={{ base: 3, md: 2 }}
+        />
+        <InputField
+          name='employeeEmail'
+          label={<FormattedMessage id='email' defaultMessage='Email' />}
+          id='employee-email'
+          colSpan={{ base: 3, md: 2 }}
+        />
+        <InputField
+          name='password'
+          label={<FormattedMessage id='password' defaultMessage='Password' />}
+          id='employee-password'
+          colSpan={{ base: 3, md: 2 }}
+          tip={
+            <FormattedMessage
+              id='password-tip'
+              defaultMessage='Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.'
+            />
+          }
         />
       </SimpleGrid>
       <ContactsFields />

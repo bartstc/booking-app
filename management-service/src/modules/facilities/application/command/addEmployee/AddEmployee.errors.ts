@@ -10,9 +10,9 @@ export namespace AddEmployeeErrors {
   }
 
   export class EmployeeEmailAlreadyInUseError extends Result<UseCaseError> {
-    constructor(email: string) {
+    constructor() {
       super(false, {
-        message: `Employee with email ${email} already in use`,
+        message: `emailInUse`,
       });
     }
   }
