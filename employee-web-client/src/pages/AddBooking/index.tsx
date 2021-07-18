@@ -15,9 +15,9 @@ const AddBooking = () => {
   const { showFailureNotification, showSuccessNotification } = useAddBookingNotification();
 
   return (
-    <PageWrapper spacing={{ base: 6, md: 10 }}>
+    <PageWrapper maxW='1300px'>
       <Header />
-      <Box w='100%' maxW='700px' pb={{ base: 10, md: 16, lg: 20 }}>
+      <Box w='100%'>
         <AddBookingForm
           onSubmit={async model => {
             try {

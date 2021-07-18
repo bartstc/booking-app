@@ -44,7 +44,7 @@ const Summary = ({ total, append }: IProps) => {
             onClick={() => append({ employerId: '', offerId: '', dateFrom: '' })}
             size='sm'
           >
-            <FormattedMessage id='add-another-offer' defaultMessage='Add another offer' />
+            <FormattedMessage id='book-another-visit' defaultMessage='Book another visit' />
           </Button>
         )}
       </HStack>
