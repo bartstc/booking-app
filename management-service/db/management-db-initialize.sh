@@ -16,7 +16,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname management <<-EOSQL
 
     CREATE TABLE management.facility ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "facility_id" character varying NOT NULL, "slug" character varying NOT NULL, "details" jsonb NOT NULL, "enterprise_id" character varying NOT NULL, CONSTRAINT "UQ_bd805f2d9e0577b66b928973d87" UNIQUE ("slug"), CONSTRAINT "PK_7af67950bfb9092b0b39bd8f66c" PRIMARY KEY ("facility_id"));
 
-    CREATE TABLE management.customer ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "customer_id" character varying NOT NULL, "details" jsonb NOT NULL, "facility_id" character varying NOT NULL, CONSTRAINT "PK_5defaada33692b58b70b33b9fd4" PRIMARY KEY ("customer_id"));
+    CREATE TABLE management.customer ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "customer_id" character varying NOT NULL, "is_systemic" boolean NOT NULL, "details" jsonb NOT NULL, "facility_id" character varying NOT NULL, CONSTRAINT "PK_5defaada33692b58b70b33b9fd4" PRIMARY KEY ("customer_id"));
 
     ALTER TABLE management.employee ADD CONSTRAINT "FK_5cbeaf098b50de7e0397e9ed9f7" FOREIGN KEY ("facility_id") REFERENCES "management"."facility"("facility_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 

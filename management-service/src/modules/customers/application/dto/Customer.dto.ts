@@ -11,6 +11,9 @@ export class CustomerDto {
   facilityId: string;
 
   @ApiProperty()
+  isSystemic: boolean;
+
+  @ApiProperty()
   fullName: string;
 
   @ApiProperty()

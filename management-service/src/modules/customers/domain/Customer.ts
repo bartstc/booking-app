@@ -14,6 +14,7 @@ interface IProps {
   address: Address;
   description: CustomerDescription | null;
   birthDate: Date;
+  isSystemic: boolean;
 }
 
 export class Customer extends AggregateRoot<IProps> {
@@ -23,6 +24,10 @@ export class Customer extends AggregateRoot<IProps> {
 
   get facilityId() {
     return this.props.facilityId.id.toString();
+  }
+
+  get isSystemic() {
+    return this.props.isSystemic;
   }
 
   get fullName() {
