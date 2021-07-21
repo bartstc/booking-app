@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@chakra-ui/react';
 
 import { employeesQuery, employeesQueryKey } from 'modules/employees/infrastructure/query';
-import { useFacilityContextSelector } from 'modules/context';
+import { useEnterpriseContextSelector } from 'modules/context';
 
 import { useInfiniteQuery } from 'hooks/useInfiniteQuery';
 
@@ -16,12 +16,12 @@ import { IEmployeeCollectionQueryParams, IEmployeeCollection } from '../../../ap
 
 const List = () => {
   const { params } = useQueryParams<IEmployeeCollectionQueryParams>();
-  const { facilityId } = useFacilityContextSelector();
+  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
 
   const limit = 10;
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(employeesQueryKey(facilityId, params), ({ pageParam = 0 }) => {
-    return employeesQuery(facilityId, { ...params, limit, offset: pageParam });
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(employeesQueryKey(enterpriseId, params), ({ pageParam = 0 }) => {
+    return employeesQuery(enterpriseId, { ...params, limit, offset: pageParam });
   });
 
   if (isLoading) {

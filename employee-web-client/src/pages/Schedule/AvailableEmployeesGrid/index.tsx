@@ -26,12 +26,13 @@ const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
   const params = useParams<{ scheduleId: string }>();
 
   const facilityId = useFacilityContextSelector(state => state.facilityId);
+  const enterpriseId = useFacilityContextSelector(state => state.enterpriseId);
   const workingDays = useFacilityContextSelector(state => state.workingDays);
 
   const { endTime, startTime } = useRangeWeekDatesConsumer();
   const freeWeekDaysIndexes = useFreeWeekDays(workingDays);
 
-  const { collection: employees } = useEmployeesQuery(facilityId);
+  const { collection: employees } = useEmployeesQuery(enterpriseId);
 
   return (
     <FetchBoundary

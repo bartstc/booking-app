@@ -79,7 +79,7 @@ const AddBookingForm = ({ onSubmit, facilityId, isLoading }: IProps) => {
                       setNewCustomer({
                         value: customerId,
                         label: model.fullName,
-                        customer: { ...model, customerId, facilityId, description: model.description ?? null },
+                        customer: { ...model, isSystemic: false, customerId, facilityId, description: model.description ?? null },
                       });
                       setValue('customerId', customerId);
                     }}

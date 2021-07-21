@@ -1,7 +1,7 @@
 import React, { ReactNode, Suspense, useEffect, useState } from 'react';
 
 import { useEnterpriseQuery } from 'modules/enterprise/infrastructure/query';
-import { useFacilityByIdQuery } from 'modules/facility/infrastructure/query';
+import { useFacilitiesQuery } from 'modules/facility/infrastructure/query';
 
 import { Spinner } from 'shared/Spinner';
 
@@ -45,13 +45,14 @@ const Context = ({ children }: IProps) => {
 
 const Content = ({ email, children }: { email: string; children: ReactNode }) => {
   const employee = useEmployeeByEmailQuery(email);
-  const facility = useFacilityByIdQuery(employee.facilityId);
-  const enterprise = useEnterpriseQuery(facility.enterpriseId);
+  const enterprise = useEnterpriseQuery(employee.enterpriseId);
+  // const facility = useFacilityByIdQuery(employee.facilityId);
+  const { collection } = useFacilitiesQuery(enterprise.enterpriseId);
 
   return (
     <EmployeeProvider value={employee}>
       <EnterpriseProvider value={enterprise}>
-        <FacilityProvider value={facility}>{children}</FacilityProvider>
+        <FacilityProvider value={collection[0]}>{children}</FacilityProvider>
       </EnterpriseProvider>
     </EmployeeProvider>
   );

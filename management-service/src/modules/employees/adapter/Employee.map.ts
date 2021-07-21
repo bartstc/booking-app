@@ -14,7 +14,7 @@ import { EnterpriseId } from '../../enterprise/domain';
 export class EmployeeMap {
   public static dtoToDomain<T extends BuildEmployeeDto>(
     dto: T,
-    enterpriseId?: string,
+    enterpriseId: string,
     employeeId?: string,
   ): Result<Employee> {
     const name = EmployeeName.create({ value: dto.employeeName });
@@ -91,6 +91,8 @@ export class EmployeeMap {
   }
 
   public static toPersistence(employee: Employee): Partial<any> {
+    console.log(employee);
+
     return {
       employee_id: employee.employeeId.id.toString(),
       enterprise_id: employee.enterpriseId,
