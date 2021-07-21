@@ -12,9 +12,7 @@ namespace Core
         {
             return services
                 .AddMediatR(applicationAssembly)
-                .AddScoped(typeof(IRequestPostProcessor<,>), typeof(UnitOfWorkCommandHandlerPostProcessor<,>))
-                .AddSingleton<IAssemblyProvider>(sp =>
-                    new AssemblyProvider(applicationAssembly));
+                .AddScoped(typeof(IRequestPostProcessor<,>), typeof(UnitOfWorkCommandHandlerPostProcessor<,>));
         }
     }
 }

@@ -26,13 +26,13 @@ namespace Core.Domain
             uncommittedEvents.Enqueue(@event);
         }
 
-        protected void CheckRule(IBusinessRule rule)
+        protected static void CheckRule(IBusinessRule rule)
         {
             if (rule.IsBroken())
                 throw new BusinessRuleValidationException(rule);
         }
 
-        protected async Task CheckRuleAsync(IBusinessRuleAsync rule)
+        protected static async Task CheckRuleAsync(IBusinessRuleAsync rule)
         {
             if (await rule.IsBrokenAsync())
                 throw new BusinessRuleValidationException(rule);

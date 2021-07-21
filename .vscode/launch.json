@@ -65,6 +65,26 @@
         }
     },
     {
+        "name": "community Launch",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "community-build",
+        "program": "${workspaceFolder}/community-service/src/Community.Api/bin/Debug/net5.0/Community.Api.dll",
+        "args": [],
+        "cwd": "${workspaceFolder}/community-service/src/Community.Api",
+        "stopAtEntry": false,
+        "serverReadyAction": {
+            "action": "openExternally",
+            "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+        },
+        "env": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+        },
+        "sourceFileMap": {
+            "/Views": "${workspaceFolder}/Views"
+        }
+    },
+    {
         "name": "gateway Launch",
         "type": "coreclr",
         "request": "launch",

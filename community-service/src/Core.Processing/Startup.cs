@@ -1,4 +1,3 @@
-using System.Reflection;
 using Core.Domain.UnitOfWork;
 using Core.Marten.DomainEvents;
 using Core.Processing.DomainEventDispatcher;
@@ -8,7 +7,7 @@ namespace Core.Processing
 {
     public static class Startup
     {
-        public static IServiceCollection AddProcessing(this IServiceCollection services, Assembly applicationAssembly)
+        public static IServiceCollection AddProcessing(this IServiceCollection services)
         {
             services
                 .AddScoped<IUnitOfWork, UnitOfWork>()
