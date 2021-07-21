@@ -4,6 +4,7 @@ import { AbstractEntity } from 'shared/core';
 import { IContactPerson } from 'shared/domain';
 
 import { FacilityEntity } from '../../../facilities/infra';
+import { EmployeeEntity } from '../../../employees/infra';
 import { EntityName } from '../../adapter';
 
 @Entity({ name: EntityName.Enterprise, schema: 'management' })
@@ -28,4 +29,10 @@ export class EnterpriseEntity extends AbstractEntity {
     onUpdate: 'CASCADE',
   })
   facilities: FacilityEntity[];
+
+  @OneToMany(() => EmployeeEntity, (employee) => employee.enterprise, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  employees: EmployeeEntity[];
 }

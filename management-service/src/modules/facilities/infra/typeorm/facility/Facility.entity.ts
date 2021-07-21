@@ -16,7 +16,6 @@ import {
   IBusinessCategory,
   IWorkingDay,
 } from '../../../domain/types';
-import { EmployeeEntity } from '../employee';
 import { OfferEntity } from '../offer';
 import { EnterpriseEntity } from '../../../../enterprise/infra';
 import { CustomerEntity } from '../../../../customers/infra/typeorm';
@@ -41,13 +40,6 @@ export class FacilityEntity extends AbstractEntity {
     contacts: IContact[];
     workingDays: IWorkingDay[];
   };
-
-  @OneToMany(() => EmployeeEntity, (employee) => employee.facility, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    eager: true,
-  })
-  employees: EmployeeEntity[];
 
   @OneToMany(() => OfferEntity, (offer) => offer.facility, {
     onDelete: 'CASCADE',

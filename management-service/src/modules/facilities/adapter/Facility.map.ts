@@ -11,7 +11,6 @@ import {
   Availability,
   BusinessCategories,
   BusinessCategory,
-  Employees,
   Facility,
   FacilityDescription,
   FacilityName,
@@ -20,7 +19,6 @@ import {
   WorkingDay,
 } from '../domain';
 import { EnterpriseId } from '../../enterprise/domain';
-import { EmployeeMap } from './Employee.map';
 import { OfferMap } from './Offer.map';
 import { BuildFacilityDto } from './BuildFacility.dto';
 
@@ -67,11 +65,6 @@ export class FacilityMap {
         address: address.getValue(),
         businessCategories,
         availability: availability.getValue(),
-        employees: Employees.create(
-          entity.employees.map((employee) =>
-            EmployeeMap.entityToDomain(employee),
-          ),
-        ),
         offers: Offers.create(
           entity.offers.map((offer) => OfferMap.entityToDomain(offer)),
         ),
@@ -132,7 +125,6 @@ export class FacilityMap {
         address: address.getValue(),
         businessCategories,
         availability: availability.getValue(),
-        employees: Employees.create(),
         offers: Offers.create(),
       },
       new UniqueEntityID(facilityId),

@@ -7,6 +7,7 @@ export enum InfrastructureKeys {
   AuthLoggerService = 'auth_logger_service',
   AmqpLoggerService = 'amqp_logger_service',
   FacilitiesLoggerService = 'facilities_logger_service',
+  EmployeesLoggerService = 'employees_logger_service',
   CustomersLoggerService = 'customers_logger_service',
   EnterpriseLoggerService = 'enterprise_logger_service',
 }
