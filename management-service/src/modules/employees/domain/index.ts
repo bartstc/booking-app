@@ -5,3 +5,5 @@ export { EmployeeId } from './EmployeeId';
 export { Employee } from './Employee';
 export { EmployeePosition } from './EmployeePosition';
 export { EmployeeName } from './EmployeeName';
+export { EmployeeScope } from './EmployeeScope';
+export { EmployeeScopeId } from './EmployeeScopeId';

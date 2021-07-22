@@ -6,3 +6,4 @@ export {
   EmployeeCollectionQueryParams,
   EmployeeCollectionOrder,
 } from './params';
+export { EmployeeScopeQuery } from './EmployeeScopeQuery';
