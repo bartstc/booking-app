@@ -21,4 +21,5 @@ export const addEmployeeSchema = yup.object().shape<AddEmployeeDto>({
   employmentDate: yup.date().required(),
   position: yup.string().required().min(1).max(999),
   contacts: contactsSchema,
+  facilityIds: yup.array().of(yup.string()).nullable(true),
 });
