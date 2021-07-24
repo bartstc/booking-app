@@ -68,7 +68,7 @@ export class CreateOwnerEmployeeHandler
         }
       } catch {}
 
-      const employeeOrError = EmployeeMap.dtoToDomain(dto, enterpriseId);
+      const employeeOrError = EmployeeMap.dtoToDomain({ dto, enterpriseId });
 
       if (!employeeOrError.isSuccess) {
         return left(Result.fail(employeeOrError.error));

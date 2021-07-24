@@ -15,7 +15,12 @@ import { EmployeeTransformer } from '../../../infra';
 import { EmployeeKeys } from '../../../EmployeeKeys';
 import { EmployeeAddedEvent, EmployeesEvent } from '../../../domain/events';
 import { EnterpriseKeys } from '../../../../enterprise/EnterpriseKeys';
-import { EnterpriseRepository } from '../../../../enterprise/domain';
+import {
+  Enterprise,
+  EnterpriseId,
+  EnterpriseRepository,
+} from '../../../../enterprise/domain';
+import { UniqueEntityID } from '../../../../../shared/domain';
 
 export type AddEmployeeResponse = Either<
   | AppError.ValidationError
@@ -69,7 +74,10 @@ export class AddEmployeeHandler
         }
       } catch {}
 
-      const employeeOrError = EmployeeMap.dtoToDomain(dto, enterpriseId);
+      const employeeOrError = EmployeeMap.dtoToDomain({
+        dto,
+        enterpriseId,
+      });
 
       if (!employeeOrError.isSuccess) {
         return left(Result.fail(employeeOrError.error));
