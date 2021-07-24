@@ -19,6 +19,7 @@ export class EmployeeMap {
     dto: T,
     enterpriseId: string,
     employeeId?: string,
+    activeFacilityId?: string,
   ): Result<Employee> {
     const name = EmployeeName.create({ value: dto.employeeName });
     const position = EmployeePosition.create({
@@ -46,7 +47,11 @@ export class EmployeeMap {
           )
         : [],
       contextType: ContextType.Employee,
-      activeFacilityId: null,
+      activeFacilityId: activeFacilityId
+        ? FacilityId.create(new UniqueEntityID(activeFacilityId)).getValue()
+        : dto.facilityIds?.length
+        ? FacilityId.create(new UniqueEntityID(dto.facilityIds[0])).getValue()
+        : null,
     }).getValue();
 
     return Employee.create(
@@ -133,13 +138,15 @@ export class EmployeeMap {
       enterprise_id: employee.enterpriseId.id.toString(),
       status: employee.status,
       scope: {
-        employee_id: employee.employeeId.id.toString(),
+        employeeId: employee.employeeId.id.toString(),
         contextType: ContextType.Employee,
         enterpriseId: employee.enterpriseId.id.toString(),
         facilityIds: employee.scope.facilityIds.map((facilityId) =>
           facilityId.id.toString(),
         ),
-        activeFacilityId: employee.scope.activeFacilityId.id.toString(),
+        activeFacilityId: employee.scope.activeFacilityId
+          ? employee.scope.activeFacilityId.id.toString()
+          : null,
       },
       details: {
         email: employee.email.value,

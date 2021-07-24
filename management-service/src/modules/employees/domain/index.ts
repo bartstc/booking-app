@@ -1,5 +1,5 @@
 export { EmployeeStatus } from './types';
-export { EmployeeRepository, EmployeeScopeRepository } from './repositories';
+export { EmployeeRepository } from './repositories';
 export { EmployeeEmail } from './EmployeeEmail';
 export { EmployeeId } from './EmployeeId';
 export { Employee } from './Employee';

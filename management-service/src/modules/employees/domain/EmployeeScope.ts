@@ -31,7 +31,7 @@ export class EmployeeScope extends ValueObject<IProps> {
     return this.props.facilityIds;
   }
 
-  get activeFacilityId() {
+  get activeFacilityId(): FacilityId | null {
     return this.props.activeFacilityId;
   }
 
