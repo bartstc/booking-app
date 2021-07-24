@@ -3,9 +3,6 @@ import { ContextType } from 'shared/domain';
 
 export class EmployeeScopeDto {
   @ApiProperty()
-  employeeScopeId: string;
-
-  @ApiProperty()
   employeeId: string;
 
   @ApiProperty()

@@ -1,7 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { ContactDto } from 'shared/domain/dto';
-import { EmployeeStatus } from '../../domain/types';
+
+import { EmployeeStatus } from '../../domain';
+import { EmployeeScopeDto } from './EmployeeScope.dto';
 
 export class EmployeeDto {
   @ApiProperty()
@@ -30,4 +32,7 @@ export class EmployeeDto {
 
   @ApiProperty({ type: [ContactDto] })
   contacts: ContactDto[];
+
+  @ApiProperty({ type: [EmployeeScopeDto] })
+  scope: EmployeeScopeDto;
 }

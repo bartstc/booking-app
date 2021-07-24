@@ -5,6 +5,7 @@ import { EmployeeId } from './EmployeeId';
 import { EmployeeName } from './EmployeeName';
 import { EmployeePosition } from './EmployeePosition';
 import { EmployeeEmail } from './EmployeeEmail';
+import { EmployeeScope } from './EmployeeScope';
 import { EmployeeStatus } from './types';
 import {
   EmployeeCannotBeActiveRule,
@@ -21,6 +22,7 @@ interface IProps {
   birthDate: Date;
   employmentDate: Date;
   email: EmployeeEmail;
+  scope: EmployeeScope;
   isRemoved?: boolean;
 }
 
@@ -30,7 +32,7 @@ export class Employee extends Entity<IProps> {
   }
 
   get enterpriseId() {
-    return this.props.enterpriseId.id.toString();
+    return this.props.enterpriseId;
   }
 
   get status() {
@@ -59,6 +61,10 @@ export class Employee extends Entity<IProps> {
 
   get contacts() {
     return this.props.contacts;
+  }
+
+  get scope() {
+    return this.props.scope;
   }
 
   get isActive() {

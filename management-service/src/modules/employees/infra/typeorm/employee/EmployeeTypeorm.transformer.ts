@@ -17,6 +17,7 @@ export class EmployeeTypeormTransformer {
       contacts: employee.details.contacts,
       birthDate: employee.details.birthDate,
       employmentDate: employee.details.employmentDate,
+      scope: employee.scope,
     };
   }
 }

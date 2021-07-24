@@ -1,15 +1,18 @@
-import { Contact, Contacts, UniqueEntityID } from 'shared/domain';
+import { Contact, Contacts, ContextType, UniqueEntityID } from 'shared/domain';
 import { Result } from 'shared/core';
 
 import {
   Employee,
   EmployeeEmail,
+  EmployeeId,
   EmployeeName,
   EmployeePosition,
+  EmployeeScope,
+  EmployeeStatus,
 } from '../domain';
 import { BuildEmployeeDto } from './BuildEmployee.dto';
-import { EmployeeStatus } from '../domain/types';
 import { EnterpriseId } from '../../enterprise/domain';
+import { FacilityId } from '../../facilities/domain';
 
 export class EmployeeMap {
   public static dtoToDomain<T extends BuildEmployeeDto>(
@@ -32,11 +35,26 @@ export class EmployeeMap {
 
     const contacts = Contacts.create(contactList);
 
+    const scope = EmployeeScope.create({
+      employeeId: EmployeeId.create(new UniqueEntityID(employeeId)).getValue(),
+      enterpriseId: EnterpriseId.create(
+        new UniqueEntityID(enterpriseId),
+      ).getValue(),
+      facilityIds: dto.facilityIds?.length
+        ? dto.facilityIds.map((facilityId) =>
+            FacilityId.create(new UniqueEntityID(facilityId)).getValue(),
+          )
+        : [],
+      contextType: ContextType.Employee,
+      activeFacilityId: null,
+    }).getValue();
+
     return Employee.create(
       {
         enterpriseId: EnterpriseId.create(
           new UniqueEntityID(enterpriseId),
         ).getValue(),
+        scope,
         status: EmployeeStatus.Active,
         email: email.getValue(),
         name: name.getValue(),
@@ -63,11 +81,30 @@ export class EmployeeMap {
 
     const contacts = Contacts.create(contactList);
 
+    const scope = EmployeeScope.create({
+      employeeId: EmployeeId.create(
+        new UniqueEntityID(entity.employee_id),
+      ).getValue(),
+      enterpriseId: EnterpriseId.create(
+        new UniqueEntityID(entity.enterprise_id),
+      ).getValue(),
+      facilityIds: entity.scope.facilityIds.length
+        ? entity.scope.facilityIds.map((facilityId) =>
+            FacilityId.create(new UniqueEntityID(facilityId)).getValue(),
+          )
+        : [],
+      contextType: ContextType.Employee,
+      activeFacilityId: FacilityId.create(
+        new UniqueEntityID(entity.scope.activeFacilityId),
+      ).getValue(),
+    }).getValue();
+
     const employeeOfError = Employee.create(
       {
         enterpriseId: EnterpriseId.create(
           new UniqueEntityID(entity.enterprise_id),
         ).getValue(),
+        scope,
         status: entity.status,
         email: email.getValue(),
         birthDate: entity.details.birthDate,
@@ -91,12 +128,19 @@ export class EmployeeMap {
   }
 
   public static toPersistence(employee: Employee): Partial<any> {
-    console.log(employee);
-
     return {
       employee_id: employee.employeeId.id.toString(),
-      enterprise_id: employee.enterpriseId,
+      enterprise_id: employee.enterpriseId.id.toString(),
       status: employee.status,
+      scope: {
+        employee_id: employee.employeeId.id.toString(),
+        contextType: ContextType.Employee,
+        enterpriseId: employee.enterpriseId.id.toString(),
+        facilityIds: employee.scope.facilityIds.map((facilityId) =>
+          facilityId.id.toString(),
+        ),
+        activeFacilityId: employee.scope.activeFacilityId.id.toString(),
+      },
       details: {
         email: employee.email.value,
         name: employee.name.value,

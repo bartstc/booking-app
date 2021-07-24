@@ -8,7 +8,7 @@ EOSQL
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname management <<-EOSQL
     CREATE SCHEMA management;
 
-    CREATE TABLE management.employee ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "employee_id" character varying NOT NULL, "status" character varying NOT NULL, "details" jsonb NOT NULL, "enterprise_id" character varying NOT NULL, CONSTRAINT "PK_1d2f9b4274acef0fca192f725be" PRIMARY KEY ("employee_id"));
+    CREATE TABLE management.employee ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "employee_id" character varying NOT NULL, "status" character varying NOT NULL, "details" jsonb NOT NULL, "scope" jsonb NOT NULL, "enterprise_id" character varying NOT NULL, CONSTRAINT "PK_1d2f9b4274acef0fca192f725be" PRIMARY KEY ("employee_id"));
 
     CREATE TABLE management.offer ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "offer_id" character varying NOT NULL, "status" character varying NOT NULL, "details" jsonb NOT NULL, "facility_id" character varying NOT NULL, CONSTRAINT "PK_ab750b0447223d1539665686fae" PRIMARY KEY ("offer_id"));
 

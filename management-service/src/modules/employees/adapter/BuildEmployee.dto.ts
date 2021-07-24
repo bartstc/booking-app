@@ -20,4 +20,7 @@ export class BuildEmployeeDto {
 
   @ApiProperty({ type: [ContactDto] })
   contacts?: ContactDto[];
+
+  @ApiProperty({ isArray: true })
+  facilityIds?: string[];
 }

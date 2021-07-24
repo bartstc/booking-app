@@ -3,17 +3,16 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryColumn,
 } from 'typeorm/index';
 
 import { AbstractEntity } from 'shared/core';
 import { IContact } from 'shared/domain/types';
+import { ContextType } from 'shared/domain';
 
 import { EntityName } from '../../../adapter';
-import { EmployeeStatus } from '../../../domain/types';
+import { EmployeeStatus } from '../../../domain';
 import { EnterpriseEntity } from '../../../../enterprise/infra';
-import { EmployeeScopeEntity } from '../employeeScope';
 
 @Entity({ name: EntityName.Employee, schema: 'management' })
 export class EmployeeEntity extends AbstractEntity {
@@ -24,6 +23,15 @@ export class EmployeeEntity extends AbstractEntity {
   status: EmployeeStatus;
 
   @Column('jsonb')
+  scope: {
+    employeeId: string;
+    contextType: ContextType;
+    enterpriseId: string;
+    facilityIds: string[];
+    activeFacilityId: string | null;
+  };
+
+  @Column('jsonb')
   details: {
     email: string;
     name: string;
@@ -32,16 +40,6 @@ export class EmployeeEntity extends AbstractEntity {
     employmentDate: Date;
     contacts: IContact[];
   };
-
-  @OneToOne(
-    () => EmployeeScopeEntity,
-    (employeeScope) => employeeScope.employee,
-  )
-  @JoinColumn({ name: 'employee_scope_id' })
-  employeeScope: EmployeeScopeEntity;
-
-  @Column()
-  employee_scope_id: string;
 
   @ManyToOne(() => EnterpriseEntity, (enterprise) => enterprise.employees)
   @JoinColumn({ name: 'enterprise_id' })

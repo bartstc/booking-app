@@ -1,14 +1,12 @@
-import { ContextType, Entity, UniqueEntityID } from 'shared/domain';
+import { ContextType, UniqueEntityID, ValueObject } from 'shared/domain';
 import { Guard, Result } from 'shared/core';
 
 import { EnterpriseId } from '../../enterprise/domain';
 import { FacilityId } from '../../facilities/domain';
 
-import { EmployeeScopeId } from './EmployeeScopeId';
 import { EmployeeId } from './EmployeeId';
 
 interface IProps {
-  employeeScopeId: EmployeeScopeId;
   employeeId: EmployeeId;
   enterpriseId: EnterpriseId;
   contextType: ContextType;
@@ -16,17 +14,13 @@ interface IProps {
   activeFacilityId: FacilityId | null;
 }
 
-export class EmployeeScope extends Entity<IProps> {
-  get employeeScopeId() {
-    return EmployeeScopeId.create(this._id).getValue();
-  }
-
+export class EmployeeScope extends ValueObject<IProps> {
   get employeeId() {
-    return this.props.employeeId.id.toString();
+    return this.props.employeeId;
   }
 
   get enterpriseId() {
-    return this.props.enterpriseId.id.toString();
+    return this.props.enterpriseId;
   }
 
   get contextType() {
@@ -38,7 +32,7 @@ export class EmployeeScope extends Entity<IProps> {
   }
 
   get activeFacilityId() {
-    return this.props.activeFacilityId.id.toString();
+    return this.props.activeFacilityId;
   }
 
   public static create(
@@ -64,6 +58,6 @@ export class EmployeeScope extends Entity<IProps> {
       return Result.fail(nullGuard);
     }
 
-    return Result.ok(new EmployeeScope(props, id));
+    return Result.ok(new EmployeeScope(props));
   }
 }
