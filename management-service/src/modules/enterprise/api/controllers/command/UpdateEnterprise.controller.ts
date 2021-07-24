@@ -12,7 +12,7 @@ import {
   UpdateEnterpriseCommand,
 } from 'modules/enterprise/application/command/updateEnterprise';
 
-import { createEnterpriseSchema } from '../../schemas';
+import { updateEnterpriseSchema } from '../../schemas';
 import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 import { ILoggerService } from '../../../../../logger';
 
@@ -38,7 +38,7 @@ export class UpdateEnterpriseController extends BaseController {
     try {
       const formErrors = await ValidationTransformer.validateSchema(
         dto,
-        createEnterpriseSchema,
+        updateEnterpriseSchema,
       );
 
       if (formErrors.isLeft()) {

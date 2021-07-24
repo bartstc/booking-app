@@ -12,6 +12,9 @@ export class EnterpriseEntity extends AbstractEntity {
   @PrimaryColumn()
   enterprise_id: string;
 
+  @Column()
+  owner_id: string;
+
   @Column({
     type: 'jsonb',
     array: false,

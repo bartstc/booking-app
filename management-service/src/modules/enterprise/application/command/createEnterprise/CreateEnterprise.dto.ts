@@ -1,3 +1,5 @@
 import { BuildEnterpriseDto } from '../../../adapter';
 
-export class CreateEnterpriseDto extends BuildEnterpriseDto {}
+export class CreateEnterpriseDto extends BuildEnterpriseDto {
+  ownerId: string;
+}

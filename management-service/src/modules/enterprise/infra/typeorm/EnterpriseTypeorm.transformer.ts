@@ -11,6 +11,7 @@ export class EnterpriseTypeormTransformer {
       contactPerson: enterprise.details.contactPerson,
       createdAt: enterprise.created_at,
       updatedAt: enterprise.updated_at,
+      ownerId: enterprise.owner_id,
     };
   }
 

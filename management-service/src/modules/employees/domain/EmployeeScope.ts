@@ -1,4 +1,4 @@
-import { ContextType, UniqueEntityID, ValueObject } from 'shared/domain';
+import { ContextType, ValueObject } from 'shared/domain';
 import { Guard, Result } from 'shared/core';
 
 import { EnterpriseId } from '../../enterprise/domain';
@@ -35,10 +35,7 @@ export class EmployeeScope extends ValueObject<IProps> {
     return this.props.activeFacilityId;
   }
 
-  public static create(
-    props: IProps,
-    id?: UniqueEntityID,
-  ): Result<EmployeeScope> {
+  public static create(props: IProps): Result<EmployeeScope> {
     const nullGuard = Guard.againstNullOrUndefinedBulk([
       {
         argument: props.enterpriseId,

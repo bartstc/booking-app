@@ -26,7 +26,7 @@ export class CreateEnterpriseHandler
     createEnterpriseDto: dto,
   }: CreateEnterpriseCommand): Promise<CreateEnterpriseResponse> {
     try {
-      const enterpriseOrError = EnterpriseMap.dtoToDomain(dto);
+      const enterpriseOrError = EnterpriseMap.dtoToDomain(dto, dto.ownerId);
 
       if (!enterpriseOrError.isSuccess) {
         return left(Result.fail(enterpriseOrError.error));

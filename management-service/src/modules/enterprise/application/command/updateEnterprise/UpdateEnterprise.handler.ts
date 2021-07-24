@@ -7,7 +7,7 @@ import { UpdateEnterpriseErrors } from './UpdateEnterprise.errors';
 import { UpdateEnterpriseCommand } from './UpdateEnterprise.command';
 import { EnterpriseMap } from '../../../adapter';
 import { EnterpriseKeys } from '../../../EnterpriseKeys';
-import { EnterpriseRepository } from '../../../domain';
+import { Enterprise, EnterpriseRepository } from '../../../domain';
 
 export type UpdateEnterpriseResponse = Either<
   | AppError.UnexpectedError
@@ -29,15 +29,22 @@ export class UpdateEnterpriseHandler
     enterpriseId,
     dto,
   }: UpdateEnterpriseCommand): Promise<UpdateEnterpriseResponse> {
+    let enterprise: Enterprise;
+
     try {
-      const enterpriseExists = await this.repository.exists(enterpriseId);
-      if (!enterpriseExists) {
+      try {
+        enterprise = await this.repository.getEnterpriseById(enterpriseId);
+      } catch {
         return left(
           new UpdateEnterpriseErrors.EnterpriseNotFoundError(enterpriseId),
         );
       }
 
-      const enterpriseOrError = EnterpriseMap.dtoToDomain(dto, enterpriseId);
+      const enterpriseOrError = EnterpriseMap.dtoToDomain(
+        dto,
+        enterprise.ownerId.id.toString(),
+        enterpriseId,
+      );
       if (!enterpriseOrError.isSuccess) {
         return left(Result.fail(enterpriseOrError.error));
       }

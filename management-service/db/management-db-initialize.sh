@@ -12,7 +12,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname management <<-EOSQL
 
     CREATE TABLE management.offer ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "offer_id" character varying NOT NULL, "status" character varying NOT NULL, "details" jsonb NOT NULL, "facility_id" character varying NOT NULL, CONSTRAINT "PK_ab750b0447223d1539665686fae" PRIMARY KEY ("offer_id"));
 
-    CREATE TABLE management.enterprise ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "enterprise_id" character varying NOT NULL, "details" jsonb NOT NULL, CONSTRAINT "PK_46befd90b5c670b4b6fbfe65948" PRIMARY KEY ("enterprise_id"));
+    CREATE TABLE management.enterprise ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "enterprise_id" character varying NOT NULL, "owner_id" character varying NOT NULL, "details" jsonb NOT NULL, CONSTRAINT "PK_46befd90b5c670b4b6fbfe65948" PRIMARY KEY ("enterprise_id"));
 
     CREATE TABLE management.facility ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "facility_id" character varying NOT NULL, "slug" character varying NOT NULL, "details" jsonb NOT NULL, "enterprise_id" character varying NOT NULL, CONSTRAINT "UQ_261945422d1ed8720db04803bd0" UNIQUE ("slug"), CONSTRAINT "PK_ce2c19c9109f1abfbea939b9751" PRIMARY KEY ("facility_id"));
 
