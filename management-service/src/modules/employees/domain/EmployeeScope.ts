@@ -5,12 +5,13 @@ import { EnterpriseId } from '../../enterprise/domain';
 import { FacilityId } from '../../facilities/domain';
 
 import { EmployeeId } from './EmployeeId';
+import { ScopeFacilityIds } from './ScopeFacilityIds';
 
 interface IProps {
   employeeId: EmployeeId;
   enterpriseId: EnterpriseId;
   contextType: ContextType;
-  facilityIds: Array<FacilityId>;
+  facilityIds: ScopeFacilityIds;
   activeFacilityId: FacilityId | null;
 }
 

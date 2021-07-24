@@ -13,14 +13,24 @@ import {
 import { BuildEmployeeDto } from './BuildEmployee.dto';
 import { EnterpriseId } from '../../enterprise/domain';
 import { FacilityId } from '../../facilities/domain';
+import { ScopeFacilityIds } from '../domain/ScopeFacilityIds';
+
+interface IDtoToDomainProps<T extends BuildEmployeeDto> {
+  dto: T;
+  enterpriseId: string;
+  employeeId?: EmployeeId;
+  activeFacilityId?: FacilityId;
+  facilityIds?: ScopeFacilityIds;
+}
 
 export class EmployeeMap {
-  public static dtoToDomain<T extends BuildEmployeeDto>(
-    dto: T,
-    enterpriseId: string,
-    employeeId?: string,
-    activeFacilityId?: string,
-  ): Result<Employee> {
+  public static dtoToDomain<T extends BuildEmployeeDto>({
+    dto,
+    enterpriseId,
+    employeeId,
+    facilityIds,
+    activeFacilityId,
+  }: IDtoToDomainProps<T>): Result<Employee> {
     const name = EmployeeName.create({ value: dto.employeeName });
     const position = EmployeePosition.create({
       value: dto.position,
@@ -37,21 +47,15 @@ export class EmployeeMap {
     const contacts = Contacts.create(contactList);
 
     const scope = EmployeeScope.create({
-      employeeId: EmployeeId.create(new UniqueEntityID(employeeId)).getValue(),
+      employeeId:
+        employeeId ?? EmployeeId.create(new UniqueEntityID()).getValue(),
       enterpriseId: EnterpriseId.create(
         new UniqueEntityID(enterpriseId),
       ).getValue(),
-      facilityIds: dto.facilityIds?.length
-        ? dto.facilityIds.map((facilityId) =>
-            FacilityId.create(new UniqueEntityID(facilityId)).getValue(),
-          )
-        : [],
+      facilityIds: facilityIds ?? ScopeFacilityIds.create(),
       contextType: ContextType.Employee,
-      activeFacilityId: activeFacilityId
-        ? FacilityId.create(new UniqueEntityID(activeFacilityId)).getValue()
-        : dto.facilityIds?.length
-        ? FacilityId.create(new UniqueEntityID(dto.facilityIds[0])).getValue()
-        : null,
+      activeFacilityId:
+        activeFacilityId ?? facilityIds ? facilityIds.getItems()[0] : null,
     }).getValue();
 
     return Employee.create(
@@ -68,7 +72,7 @@ export class EmployeeMap {
         birthDate: dto.birthDate,
         employmentDate: dto.employmentDate,
       },
-      new UniqueEntityID(employeeId),
+      new UniqueEntityID(employeeId.id.toString()),
     );
   }
 
@@ -86,6 +90,12 @@ export class EmployeeMap {
 
     const contacts = Contacts.create(contactList);
 
+    const scopeFacilityIds = ScopeFacilityIds.create(
+      entity.scope.facilityIds.map((facilityId) =>
+        FacilityId.create(new UniqueEntityID(facilityId)).getValue(),
+      ),
+    );
+
     const scope = EmployeeScope.create({
       employeeId: EmployeeId.create(
         new UniqueEntityID(entity.employee_id),
@@ -93,11 +103,7 @@ export class EmployeeMap {
       enterpriseId: EnterpriseId.create(
         new UniqueEntityID(entity.enterprise_id),
       ).getValue(),
-      facilityIds: entity.scope.facilityIds.length
-        ? entity.scope.facilityIds.map((facilityId) =>
-            FacilityId.create(new UniqueEntityID(facilityId)).getValue(),
-          )
-        : [],
+      facilityIds: scopeFacilityIds,
       contextType: ContextType.Employee,
       activeFacilityId: FacilityId.create(
         new UniqueEntityID(entity.scope.activeFacilityId),
@@ -141,9 +147,9 @@ export class EmployeeMap {
         employeeId: employee.employeeId.id.toString(),
         contextType: ContextType.Employee,
         enterpriseId: employee.enterpriseId.id.toString(),
-        facilityIds: employee.scope.facilityIds.map((facilityId) =>
-          facilityId.id.toString(),
-        ),
+        facilityIds: employee.scope.facilityIds
+          .getItems()
+          .map((facilityId) => facilityId.id.toString()),
         activeFacilityId: employee.scope.activeFacilityId
           ? employee.scope.activeFacilityId.id.toString()
           : null,
