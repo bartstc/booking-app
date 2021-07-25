@@ -24,7 +24,7 @@ export class GetEmployeeController extends BaseController {
     super();
   }
 
-  @Get('enterprise/:enterpriseId/employees/:employeeId')
+  @Get('enterprises/:enterpriseId/employees/:employeeId')
   @ApiTags('Employees')
   @ApiOkResponse({ type: EmployeeDto })
   @ApiNotFoundResponse({ description: 'Enterprise not found' })

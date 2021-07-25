@@ -7,25 +7,24 @@ import { ContactType } from 'types';
 import { Form } from 'shared/Form';
 import { ContactsFields } from 'shared/Form/Implementations';
 
-import { IAddEmployeeDto } from '../../application/types';
-import { useAddEmployeeValidationSchema } from '../../application';
+import { ICreateOwnerEmployeeDto } from '../../application/types';
+import { useCreateOwnerEmployeeValidationSchema } from '../../application';
 
 interface IProps {
-  onSubmit: (model: IAddEmployeeDto) => void;
+  onSubmit: (model: ICreateOwnerEmployeeDto) => void;
 }
 
-const AddEmployeeForm = ({ onSubmit }: IProps) => {
-  const schema = useAddEmployeeValidationSchema();
+const CreateOwnerEmployeeForm = ({ onSubmit }: IProps) => {
+  const schema = useCreateOwnerEmployeeValidationSchema();
 
   return (
-    <Form<IAddEmployeeDto>
-      id='add-employee-form'
+    <Form<ICreateOwnerEmployeeDto>
+      id='create-employee-form'
       schema={schema}
       onSubmit={onSubmit}
       defaultValues={{
         employeeName: '',
         employeeEmail: '',
-        password: '',
         position: '',
         birthDate: '',
         employmentDate: '',
@@ -68,22 +67,10 @@ const AddEmployeeForm = ({ onSubmit }: IProps) => {
           id='employee-email'
           colSpan={{ base: 3, md: 2 }}
         />
-        <InputField
-          name='password'
-          label={<FormattedMessage id='password' defaultMessage='Password' />}
-          id='employee-password'
-          colSpan={{ base: 3, md: 2 }}
-          tip={
-            <FormattedMessage
-              id='password-tip'
-              defaultMessage='Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.'
-            />
-          }
-        />
       </SimpleGrid>
       <ContactsFields />
     </Form>
   );
 };
 
-export { AddEmployeeForm };
+export { CreateOwnerEmployeeForm };

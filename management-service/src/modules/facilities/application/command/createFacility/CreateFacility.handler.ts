@@ -4,7 +4,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
-import { Slug, FacilityRepository } from '../../../domain';
+import { Slug, FacilityRepository, FacilityId } from '../../../domain';
 import { CreateFacilityCommand } from './CreateFacility.command';
 import { CreateFacilityErrors } from './CreateFacility.errors';
 
@@ -23,7 +23,7 @@ export type CreateFacilityResponse = Either<
   | CreateFacilityErrors.SlugAlreadyExistsError
   | CreateFacilityErrors.EnterpriseDoesNotExistError
   | CreateFacilityErrors.CreatorDoesNotExistError,
-  Result<void>
+  Result<FacilityId>
 >;
 
 @CommandHandler(CreateFacilityCommand)
@@ -93,7 +93,7 @@ export class CreateFacilityHandler
 
       await queryRunner.commitTransaction();
 
-      return right(Result.ok());
+      return right(Result.ok(facility.facilityId));
     } catch (err) {
       return left(new AppError.UnexpectedError(err));
     }

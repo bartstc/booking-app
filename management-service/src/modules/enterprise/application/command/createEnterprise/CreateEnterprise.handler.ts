@@ -3,14 +3,14 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
 
-import { Enterprise, EnterpriseRepository } from '../../../domain';
+import { EnterpriseId, EnterpriseRepository } from '../../../domain';
 import { EnterpriseMap } from '../../../adapter';
 import { CreateEnterpriseCommand } from './CreateEnterprise.command';
 import { EnterpriseKeys } from '../../../EnterpriseKeys';
 
 export type CreateEnterpriseResponse = Either<
   AppError.ValidationError | AppError.UnexpectedError,
-  Result<Enterprise>
+  Result<EnterpriseId>
 >;
 
 @CommandHandler(CreateEnterpriseCommand)
@@ -37,7 +37,7 @@ export class CreateEnterpriseHandler
       );
       entity.save();
 
-      return right(Result.ok());
+      return right(Result.ok(enterpriseOrError.getValue().enterpriseId));
     } catch (err) {
       return left(new AppError.UnexpectedError(err));
     }

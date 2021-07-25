@@ -6,7 +6,7 @@ import { TextValidator, useContactsValidationSchema } from 'utils/validation';
 
 import { IAddEmployeeDto } from './types';
 
-export const useAddOfferValidationSchema = () => {
+export const useAddEmployeeValidationSchema = () => {
   const { formatMessage } = useIntl();
   const requiredMessage = useRequiredFieldMessage();
   const contactsValidationSchema = useContactsValidationSchema();

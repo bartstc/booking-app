@@ -66,7 +66,9 @@ export class CreateFacilityController extends BaseController {
       }
 
       this.logger.log('Facility successfully created');
-      return this.ok(res);
+      return this.ok(res, {
+        facilityId: result.value.getValue().id.toString(),
+      });
     } catch (err) {
       this.logger.error(err);
       return this.fail(res, err);

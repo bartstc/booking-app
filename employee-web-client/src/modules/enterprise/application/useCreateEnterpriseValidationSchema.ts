@@ -11,7 +11,7 @@ export const useCreateEnterpriseValidationSchema = () => {
   const invalidFormatMessage = useInvalidFormatFieldMessage();
   const contactPersonSchema = useContactPersonValidationSchema();
 
-  return yup.object().shape<ICreateEnterpriseDto>({
+  return yup.object().shape<Omit<ICreateEnterpriseDto, 'ownerId'>>({
     enterpriseName: yup.string().required(requiredMessage).min(1).max(999),
     enterpriseDescription: yup.string().required(requiredMessage).min(1).max(9999),
     enterpriseUrl: yup

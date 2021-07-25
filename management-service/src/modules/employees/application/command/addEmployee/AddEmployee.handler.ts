@@ -15,12 +15,7 @@ import { EmployeeTransformer } from '../../../infra';
 import { EmployeeKeys } from '../../../EmployeeKeys';
 import { EmployeeAddedEvent, EmployeesEvent } from '../../../domain/events';
 import { EnterpriseKeys } from '../../../../enterprise/EnterpriseKeys';
-import {
-  Enterprise,
-  EnterpriseId,
-  EnterpriseRepository,
-} from '../../../../enterprise/domain';
-import { UniqueEntityID } from '../../../../../shared/domain';
+import { EnterpriseRepository } from '../../../../enterprise/domain';
 
 export type AddEmployeeResponse = Either<
   | AppError.ValidationError

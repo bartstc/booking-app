@@ -72,7 +72,7 @@ export class EmployeeMap {
         birthDate: dto.birthDate,
         employmentDate: dto.employmentDate,
       },
-      new UniqueEntityID(employeeId.id.toString()),
+      new UniqueEntityID(employeeId ? employeeId.id.toString() : undefined),
     );
   }
 

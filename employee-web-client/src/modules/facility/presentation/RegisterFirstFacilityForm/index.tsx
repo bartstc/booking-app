@@ -1,28 +1,40 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { useQueryClient } from 'react-query';
 import { HStack, VStack, Divider } from '@chakra-ui/react';
 
 import { useCreateFacility } from 'modules/facility/infrastructure/command';
 
 import { SubmitButton } from 'shared/Form';
-import { Button } from 'shared/Button';
 import { SectionContainer } from 'shared/ReadMode';
 
-import { buildUrl } from 'utils';
-import { DEFAULT_PARAMS } from 'utils/constant';
-
 import { ContactPersonInputs, AddressInputs, WorkingHoursInputs, MetaInputs, ContactsInputs, FacilityForm } from '../FacilityForm';
-import { useCreateFacilityNotification } from './useCreateFacilityNotification';
+import { useCreateFacilityNotification } from '../CreateFacilityForm/useCreateFacilityNotification';
+import { IEmployee } from '../../../employees/application/types';
+import { employeeByEmailQueryKey } from '../../../employees/infrastructure/query';
 
 interface IProps {
   enterpriseId: string;
   employeeId: string;
+  employeeEmail: string;
 }
 
-const CreateFacilityForm = ({ enterpriseId, employeeId }: IProps) => {
-  const { push } = useHistory();
-  const [handler, isLoading] = useCreateFacility(enterpriseId, employeeId);
+const RegisterFirstFacilityForm = ({ enterpriseId, employeeId, employeeEmail }: IProps) => {
+  const queryClient = useQueryClient();
+
+  const [handler, isLoading] = useCreateFacility(enterpriseId, employeeId, async facilityId => {
+    await queryClient.setQueryData<IEmployee | undefined>(employeeByEmailQueryKey(employeeEmail), data => {
+      if (!data) return;
+
+      return {
+        ...data,
+        scope: {
+          ...data.scope,
+          facilityIds: [facilityId],
+        },
+      };
+    });
+  });
+
   const { showCreateFailureNotification, showCreateSuccessNotification } = useCreateFacilityNotification();
 
   return (
@@ -31,7 +43,6 @@ const CreateFacilityForm = ({ enterpriseId, employeeId }: IProps) => {
         try {
           await handler(model);
           showCreateSuccessNotification();
-          push(buildUrl(`dashboard/facilities`, DEFAULT_PARAMS));
         } catch {
           showCreateFailureNotification();
         }
@@ -50,14 +61,11 @@ const CreateFacilityForm = ({ enterpriseId, employeeId }: IProps) => {
           <ContactPersonInputs />
         </SectionContainer>
         <HStack justify='flex-end'>
-          <SubmitButton form='create-facility' isLoading={isLoading} />
-          <Button colorScheme='gray' ml={3} onClick={() => push(buildUrl(`dashboard/facilities`, DEFAULT_PARAMS))}>
-            <FormattedMessage id='cancel' defaultMessage='Cancel' />
-          </Button>
+          <SubmitButton size='lg' form='create-facility' isLoading={isLoading} />
         </HStack>
       </VStack>
     </FacilityForm>
   );
 };
 
-export { CreateFacilityForm };
+export { RegisterFirstFacilityForm };
