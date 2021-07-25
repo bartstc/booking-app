@@ -8,9 +8,14 @@ import { Spinner } from 'shared/Spinner';
 import { useAuthContextSelector } from '../auth/application';
 import { useEmployeeByEmailQuery } from '../employees/infrastructure/query';
 import { ErrorBoundary } from '../../shared/ErrorBoundary';
-import { EmployeeProvider, useEmployeeContextSelector } from './EmployeeProvider';
-import { FacilityProvider, useFacilityContextSelector } from './FacilityProvider';
-import { EnterpriseProvider, useEnterpriseContextSelector } from './EnterpriseProvider';
+import {
+  EmployeeProvider,
+  useEmployeeContextSelector,
+  FacilityProvider,
+  useFacilityContextSelector,
+  EnterpriseProvider,
+  useEnterpriseContextSelector,
+} from './application';
 
 interface IProps {
   children: ReactNode;

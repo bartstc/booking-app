@@ -6,6 +6,7 @@ export interface IEnterprise {
   enterpriseDescription: string;
   enterpriseUrl: string;
   contactPerson: IContactPerson;
+  ownerId: string;
   createdAt: Date;
   updatedAt: Date;
 }

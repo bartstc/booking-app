@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { createContext, useContextSelector } from 'use-context-selector';
 
-import { IFacility } from '../facility/application/types';
+import { IFacility } from '../../facility/application/types';
 
 const context = createContext<Partial<IFacility>>({});
 

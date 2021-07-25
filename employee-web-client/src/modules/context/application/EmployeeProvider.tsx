@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { createContext, useContextSelector } from 'use-context-selector';
 
-import { IEmployee } from '../employees/application/types';
+import { IEmployee } from '../../employees/application/types';
 
 const context = createContext<Partial<IEmployee>>({});
 
