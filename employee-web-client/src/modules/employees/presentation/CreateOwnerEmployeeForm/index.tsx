@@ -12,9 +12,10 @@ import { useCreateOwnerEmployeeValidationSchema } from '../../application';
 
 interface IProps {
   onSubmit: (model: ICreateOwnerEmployeeDto) => void;
+  ownerEmail: string;
 }
 
-const CreateOwnerEmployeeForm = ({ onSubmit }: IProps) => {
+const CreateOwnerEmployeeForm = ({ onSubmit, ownerEmail }: IProps) => {
   const schema = useCreateOwnerEmployeeValidationSchema();
 
   return (
@@ -24,7 +25,7 @@ const CreateOwnerEmployeeForm = ({ onSubmit }: IProps) => {
       onSubmit={onSubmit}
       defaultValues={{
         employeeName: '',
-        employeeEmail: '',
+        employeeEmail: ownerEmail,
         position: '',
         birthDate: '',
         employmentDate: '',
@@ -66,6 +67,7 @@ const CreateOwnerEmployeeForm = ({ onSubmit }: IProps) => {
           label={<FormattedMessage id='email' defaultMessage='Email' />}
           id='employee-email'
           colSpan={{ base: 3, md: 2 }}
+          disabled
         />
       </SimpleGrid>
       <ContactsFields />

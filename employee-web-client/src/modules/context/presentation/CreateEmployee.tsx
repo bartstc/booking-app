@@ -43,6 +43,7 @@ const CreateEmployee = ({ ownerEmail, enterpriseId }: IProps) => {
             showFailureNotification();
           }
         }}
+        ownerEmail={ownerEmail}
       />
       <HStack justify='flex-end'>
         <SubmitButton form='create-employee-form' size='lg' isLoading={isLoading} />
