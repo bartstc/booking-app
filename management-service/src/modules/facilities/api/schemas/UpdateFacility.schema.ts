@@ -13,9 +13,10 @@ import {
   IWorkingHours,
   WeekDay,
 } from 'modules/facilities/domain/types';
-import { CreateFacilityDto } from 'modules/facilities/application/command/createFacility';
 
-export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
+import { UpdateFacilityDto } from '../../application/command/updateFacility';
+
+export const updateFacilitySchema = yup.object().shape<UpdateFacilityDto>({
   facilityName: yup.string().required().min(1).max(999),
   facilityDescription: yup.string().min(1).max(9999),
   slug: yup.string().required().min(1).max(50),
@@ -72,5 +73,4 @@ export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
           }),
       }),
     ),
-  creatorId: yup.string().required(),
 });

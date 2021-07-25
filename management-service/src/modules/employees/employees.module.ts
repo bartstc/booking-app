@@ -61,5 +61,6 @@ import {
     CreateOwnerEmployeeHandler,
     ...providers,
   ],
+  exports: [providers[0]],
 })
 export class EmployeesModule {}

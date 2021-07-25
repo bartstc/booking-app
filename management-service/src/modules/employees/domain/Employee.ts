@@ -10,8 +10,10 @@ import { EmployeeStatus } from './types';
 import {
   EmployeeCannotBeActiveRule,
   EmployeeCannotBeInactiveRule,
+  EmployeeHasAlreadyAccessToProvidedFacilityRule,
 } from './rules';
 import { EnterpriseId } from '../../enterprise/domain';
+import { FacilityId } from '../../facilities/domain';
 
 interface IProps {
   enterpriseId: EnterpriseId;
@@ -84,6 +86,19 @@ export class Employee extends Entity<IProps> {
   public remove() {
     this.checkRule(new EmployeeCannotBeActiveRule(this.status));
     this.props.isRemoved = true;
+  }
+
+  public extendAvailableFacilities(newFacilityIds: Array<FacilityId>) {
+    this.checkRule(
+      new EmployeeHasAlreadyAccessToProvidedFacilityRule(
+        newFacilityIds,
+        this.props.scope.facilityIds.getItems(),
+      ),
+    );
+
+    newFacilityIds.forEach((facilityId) => {
+      this.props.scope.facilityIds.add(facilityId);
+    });
   }
 
   public static create(props: IProps, id?: UniqueEntityID): Result<Employee> {

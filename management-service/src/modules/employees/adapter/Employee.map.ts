@@ -105,9 +105,11 @@ export class EmployeeMap {
       ).getValue(),
       facilityIds: scopeFacilityIds,
       contextType: ContextType.Employee,
-      activeFacilityId: FacilityId.create(
-        new UniqueEntityID(entity.scope.activeFacilityId),
-      ).getValue(),
+      activeFacilityId: entity.scope.activeFacilityId
+        ? FacilityId.create(
+            new UniqueEntityID(entity.scope.activeFacilityId),
+          ).getValue()
+        : null,
     }).getValue();
 
     const employeeOfError = Employee.create(

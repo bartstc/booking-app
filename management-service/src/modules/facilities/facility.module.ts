@@ -38,9 +38,16 @@ import {
   GetOfferController,
   GetOffersController,
 } from './api/controllers/query';
+import { EmployeesModule } from '../employees/employees.module';
 
 @Module({
-  imports: [CqrsModule, EnterpriseModule, DatabaseModule, AmqpModule],
+  imports: [
+    CqrsModule,
+    EnterpriseModule,
+    DatabaseModule,
+    AmqpModule,
+    EmployeesModule,
+  ],
   controllers: [
     CreateFacilityController,
     UpdateFacilityController,

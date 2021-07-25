@@ -1,4 +1,5 @@
 import { Inject } from '@nestjs/common';
+import { Connection } from 'typeorm';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { AppError, Either, left, Result, right } from 'shared/core';
@@ -12,11 +13,16 @@ import { EnterpriseKeys } from '../../../../enterprise/EnterpriseKeys';
 import { EnterpriseRepository } from '../../../../enterprise/domain';
 import { FacilityKeys } from '../../../FacilityKeys';
 
+import { EmployeeKeys } from '../../../../employees/EmployeeKeys';
+import { Employee, EmployeeRepository } from '../../../../employees/domain';
+import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
+
 export type CreateFacilityResponse = Either<
   | AppError.ValidationError
   | AppError.UnexpectedError
   | CreateFacilityErrors.SlugAlreadyExistsError
-  | CreateFacilityErrors.EnterpriseDoesNotExist,
+  | CreateFacilityErrors.EnterpriseDoesNotExistError
+  | CreateFacilityErrors.CreatorDoesNotExistError,
   Result<void>
 >;
 
@@ -24,22 +30,31 @@ export type CreateFacilityResponse = Either<
 export class CreateFacilityHandler
   implements ICommandHandler<CreateFacilityCommand, CreateFacilityResponse> {
   constructor(
+    @Inject(InfrastructureKeys.DbService)
+    private connection: Connection,
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
     @Inject(EnterpriseKeys.EnterpriseRepository)
     private enterpriseRepository: EnterpriseRepository,
+    // todo: instead of injecting repo from separate module, send event about change in employee aggregate
+    @Inject(EmployeeKeys.EmployeeRepository)
+    private employeeRepository: EmployeeRepository,
   ) {}
 
   async execute({
     dto,
     enterpriseId,
   }: CreateFacilityCommand): Promise<CreateFacilityResponse> {
+    const queryRunner = this.connection.createQueryRunner();
+
+    let employee: Employee;
+
     try {
       const enterpriseExists = await this.enterpriseRepository.exists(
         enterpriseId,
       );
       if (!enterpriseExists) {
-        return left(new CreateFacilityErrors.EnterpriseDoesNotExist());
+        return left(new CreateFacilityErrors.EnterpriseDoesNotExistError());
       }
 
       const slug = Slug.create({ value: dto.slug });
@@ -51,6 +66,12 @@ export class CreateFacilityHandler
         return left(new CreateFacilityErrors.SlugAlreadyExistsError());
       }
 
+      try {
+        employee = await this.employeeRepository.getEmployeeById(dto.creatorId);
+      } catch {
+        return left(new CreateFacilityErrors.CreatorDoesNotExistError());
+      }
+
       const facilityOrError = FacilityMap.dtoToDomain(dto, enterpriseId);
 
       if (!facilityOrError.isSuccess) {
@@ -58,8 +79,19 @@ export class CreateFacilityHandler
       }
 
       const facility = facilityOrError.getValue();
-      const facilityEntity = await this.facilityRepository.persist(facility);
-      await facilityEntity.save();
+      employee.extendAvailableFacilities([facility.facilityId]);
+
+      await queryRunner.connect();
+      await queryRunner.startTransaction();
+
+      await queryRunner.manager.save(
+        await this.facilityRepository.persist(facility),
+      );
+      await queryRunner.manager.save(
+        await this.employeeRepository.persist(employee),
+      );
+
+      await queryRunner.commitTransaction();
 
       return right(Result.ok());
     } catch (err) {

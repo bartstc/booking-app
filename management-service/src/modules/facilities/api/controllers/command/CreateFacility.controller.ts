@@ -8,6 +8,7 @@ import { BaseController, ValidationTransformer } from 'shared/core';
 import {
   CreateFacilityCommand,
   CreateFacilityDto,
+  CreateFacilityErrors,
   CreateFacilityResponse,
 } from 'modules/facilities/application/command/createFacility';
 
@@ -52,7 +53,16 @@ export class CreateFacilityController extends BaseController {
         const error = result.value;
         this.logger.error(error.errorValue());
 
-        return this.fail(res, error.errorValue());
+        switch (error.constructor) {
+          case CreateFacilityErrors.EnterpriseDoesNotExistError:
+            return this.notFound(res, error.errorValue());
+          case CreateFacilityErrors.SlugAlreadyExistsError:
+            return this.clientError(res, error.errorValue());
+          case CreateFacilityErrors.CreatorDoesNotExistError:
+            return this.notFound(res, error.errorValue());
+          default:
+            return this.fail(res, error.errorValue());
+        }
       }
 
       this.logger.log('Facility successfully created');
