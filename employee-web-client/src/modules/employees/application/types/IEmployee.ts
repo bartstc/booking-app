@@ -1,6 +1,7 @@
 import { IContact } from 'types';
 
 import { EmployeeStatus } from './EmployeeStatus';
+import { IEmployeeScope } from './IEmployeeScope';
 
 export interface IEmployee {
   employeeId: string;
@@ -11,4 +12,5 @@ export interface IEmployee {
   birthDate: Date;
   employmentDate: Date;
   contacts: IContact[];
+  scope: IEmployeeScope;
 }
