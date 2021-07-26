@@ -12,6 +12,7 @@ import { RemoveEmployeeHandler } from './application/command/removeEmployee';
 import { ActivateEmployeeHandler } from './application/command/activateEmployee';
 import { DeactivateEmployeeHandler } from './application/command/deactivateEmployee';
 import { CreateOwnerEmployeeHandler } from './application/command/createOwnerEmployee';
+import { ChangeActiveFacilityHandler } from './application/command/changeActiveFacility';
 
 import { GetEmployeeHandler } from './application/query/getEmployee';
 import { GetEmployeeByEmailHandler } from './application/query/getEmployeeByEmail';
@@ -23,6 +24,7 @@ import {
   DeactivateEmployeeController,
   RemoveEmployeeController,
   CreateOwnerEmployeeController,
+  ChangeActiveFacilityController,
 } from './api/controllers/command';
 
 import {
@@ -48,6 +50,7 @@ import {
     GetEmployeeController,
     GetEmployeeByEmailController,
     CreateOwnerEmployeeController,
+    ChangeActiveFacilityController,
   ],
   providers: [
     AddEmployeeHandler,
@@ -59,6 +62,7 @@ import {
     GetEmployeeHandler,
     GetEmployeeByEmailHandler,
     CreateOwnerEmployeeHandler,
+    ChangeActiveFacilityHandler,
     ...providers,
   ],
   exports: [providers[0]],

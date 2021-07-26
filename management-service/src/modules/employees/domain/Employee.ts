@@ -101,6 +101,10 @@ export class Employee extends Entity<IProps> {
     });
   }
 
+  public changeActiveFacility(facilityId: FacilityId) {
+    this.scope.changeActiveFacility(facilityId);
+  }
+
   public static create(props: IProps, id?: UniqueEntityID): Result<Employee> {
     const nullGuard = Guard.againstNullOrUndefinedBulk([
       {

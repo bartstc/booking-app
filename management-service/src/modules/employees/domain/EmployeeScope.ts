@@ -36,6 +36,10 @@ export class EmployeeScope extends ValueObject<IProps> {
     return this.props.activeFacilityId;
   }
 
+  public changeActiveFacility(facilityId: FacilityId) {
+    this.props.activeFacilityId = facilityId;
+  }
+
   public static create(props: IProps): Result<EmployeeScope> {
     const nullGuard = Guard.againstNullOrUndefinedBulk([
       {
