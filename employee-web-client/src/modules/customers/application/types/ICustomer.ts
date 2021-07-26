@@ -10,4 +10,5 @@ export interface ICustomer {
   description: string | null;
   contacts: Contact[];
   address: IAddress;
+  isSystemic: boolean;
 }

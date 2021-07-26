@@ -19,6 +19,9 @@ export class EnterpriseDto {
   contactPerson: ContactPersonDto;
 
   @ApiProperty()
+  ownerId: string;
+
+  @ApiProperty()
   createdAt: Date;
 
   @ApiProperty()

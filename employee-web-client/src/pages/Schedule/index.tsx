@@ -9,7 +9,7 @@ import { dayjs } from 'utils/dayjs';
 
 import { useScheduleQuery } from 'modules/schedules/infrastructure/query';
 import { RangeWeekDatesProvider } from 'modules/schedules/presentation';
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 
 import { PageWrapper } from 'shared/Layout/Page';
 import { withErrorBoundary } from 'shared/ErrorBoundary';
@@ -26,7 +26,8 @@ const Schedule = () => {
   const { scheduleId } = useParams<{ scheduleId: string }>();
   const { set, params } = useQueryParams<{ startTime: string; endTime: string }>();
 
-  const { facilityId, workingDays } = useFacilityConsumer();
+  const facilityId = useFacilityContextSelector(state => state.facilityId);
+  const workingDays = useFacilityContextSelector(state => state.workingDays);
 
   const color = useColorModeValue('primary.500', 'primary.300');
   const weekTextColor = useColorModeValue('gray.500', 'gray.400');

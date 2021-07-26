@@ -7,6 +7,7 @@ import { DatabaseModule } from '../../database';
 import { CreateEnterpriseHandler } from './application/command/createEnterprise';
 import { UpdateEnterpriseHandler } from './application/command/updateEnterprise';
 import { GetEnterpriseHandler } from './application/query/getEnterprise';
+import { GetEnterpriseByOwnerIdHandler } from './application/query/getEnterpriseByOwnerId';
 
 import {
   CreateEnterpriseController,
@@ -15,6 +16,7 @@ import {
 import {
   GetEnterpriseController,
   GetEnterprisesController,
+  GetEnterpriseByOwnerIdController,
 } from './api/controllers/query';
 
 @Module({
@@ -24,11 +26,13 @@ import {
     UpdateEnterpriseController,
     GetEnterpriseController,
     GetEnterprisesController,
+    GetEnterpriseByOwnerIdController,
   ],
   providers: [
     CreateEnterpriseHandler,
     UpdateEnterpriseHandler,
     GetEnterpriseHandler,
+    GetEnterpriseByOwnerIdHandler,
     ...providers,
   ],
   exports: [providers[0]],

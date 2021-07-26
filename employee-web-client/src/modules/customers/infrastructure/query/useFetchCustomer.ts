@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Logger, LogLevel } from 'utils/logger';
 import { useRequestStatus } from 'hooks';
 import { RequestStatus } from 'types';
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 
 import { ICustomer } from '../../application/types';
 import { customerQuery } from './customerQuery';
@@ -12,7 +12,7 @@ export const useFetchCustomer = (customerId: string) => {
   const [customer, setCustomer] = useState<ICustomer>();
   const [status, setStatus] = useRequestStatus();
 
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId } = useFacilityContextSelector();
 
   useEffect(() => {
     const fetchCustomer = async () => {

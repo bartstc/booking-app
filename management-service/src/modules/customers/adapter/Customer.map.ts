@@ -20,7 +20,7 @@ export class CustomerMap {
       : null;
     const contactList: Contact[] = [];
 
-    entity.details.contacts.forEach(contact => {
+    entity.details.contacts.forEach((contact) => {
       contactList.push(Contact.create(contact).getValue());
     });
 
@@ -34,6 +34,7 @@ export class CustomerMap {
         address,
         description,
         birthDate: entity.details.birthDate,
+        isSystemic: entity.is_systemic,
         contacts,
       },
       new UniqueEntityID(entity.customer_id),
@@ -49,6 +50,7 @@ export class CustomerMap {
   public static dtoToDomain<T extends BuildCustomerDto>(
     dto: T,
     facilityId: string,
+    isSystemic: boolean,
   ): Result<Customer> {
     const fullName = FullName.create({
       value: dto.fullName,
@@ -60,7 +62,7 @@ export class CustomerMap {
       : null;
     const contactList: Contact[] = [];
 
-    dto.contacts.forEach(contact => {
+    dto.contacts.forEach((contact) => {
       contactList.push(Contact.create(contact).getValue());
     });
 
@@ -73,6 +75,7 @@ export class CustomerMap {
       address,
       description,
       birthDate: dto.birthDate,
+      isSystemic,
       contacts,
     });
   }
@@ -81,12 +84,13 @@ export class CustomerMap {
     return {
       customer_id: customer.customerId.id.toString(),
       facility_id: customer.facilityId,
+      is_systemic: customer.isSystemic,
       details: {
         fullName: customer.fullName.value,
         description: customer.description ? customer.description.value : null,
         birthDate: customer.birthDate,
         address: customer.address.props,
-        contacts: customer.contacts.getItems().map(contact => contact.props),
+        contacts: customer.contacts.getItems().map((contact) => contact.props),
       },
     };
   }

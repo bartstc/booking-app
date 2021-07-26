@@ -5,7 +5,7 @@ import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
 import { customersQueryKey, customersQuery } from 'modules/customers/infrastructure/query';
 import { useQueryParams } from 'shared/Params';
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 
 import { Header } from './Header';
 import { Row } from './Row';
@@ -13,7 +13,7 @@ import { ICustomerCollection, ICustomerCollectionQueryParams } from '../../../ap
 
 const Table = () => {
   const { params } = useQueryParams<ICustomerCollectionQueryParams>();
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId } = useFacilityContextSelector();
 
   return (
     <FetchBoundary<ICustomerCollection> queryKey={customersQueryKey(facilityId, params)} queryFn={() => customersQuery(facilityId, params)}>

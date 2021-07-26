@@ -10,15 +10,15 @@ import { useActivateEmployeeNotification } from './useActivateEmployeeNotificati
 import { useActivateEmployee } from '../../infrastructure/command';
 
 interface IProps extends Omit<IconButtonProps, 'title' | 'onClick'> {
-  facilityId: string;
+  enterpriseId: string;
   employeeId: string;
 }
 
-const ActivateEmployeeIconButton = ({ facilityId, employeeId, ...props }: IProps) => {
+const ActivateEmployeeIconButton = ({ enterpriseId, employeeId, ...props }: IProps) => {
   const { formatMessage } = useIntl();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { showFailureNotification, showSuccessNotification } = useActivateEmployeeNotification();
-  const [activate, isActivating] = useActivateEmployee(facilityId, employeeId);
+  const [activate, isActivating] = useActivateEmployee(enterpriseId, employeeId);
 
   return (
     <>

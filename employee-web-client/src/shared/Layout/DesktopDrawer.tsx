@@ -6,6 +6,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { NavButton, useGetLinks, NavIconButton } from './Navigation';
 import { UserMenu } from './UserMenu';
+import { ScopeMenu } from './ScopeMenu';
 
 interface IProps {
   extended: boolean;
@@ -55,10 +56,11 @@ const DesktopDrawer = ({ toggle, extended }: IProps) => {
             </HStack>
           ))}
         </VStack>
-        <VStack pl='20px' align='flex-start' width='100%'>
-          <HStack>
+        <VStack px='20px' align='flex-start' w='100%'>
+          <VStack align='flex-start' w='100%'>
+            <ScopeMenu extended={extended} />
             <UserMenu extended={extended} />
-          </HStack>
+          </VStack>
         </VStack>
       </VStack>
     </VStack>

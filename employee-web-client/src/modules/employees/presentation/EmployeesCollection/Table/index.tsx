@@ -5,7 +5,7 @@ import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
 
-import { useFacilityConsumer } from 'modules/context';
+import { useEnterpriseContextSelector } from 'modules/context';
 import { employeesQueryKey, employeesQuery } from 'modules/employees/infrastructure/query';
 
 import { Header } from './Header';
@@ -14,10 +14,13 @@ import { IEmployeeCollection, IEmployeeCollectionQueryParams } from '../../../ap
 
 const Table = () => {
   const { params } = useQueryParams<IEmployeeCollectionQueryParams>();
-  const { facilityId } = useFacilityConsumer();
+  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
 
   return (
-    <FetchBoundary<IEmployeeCollection> queryKey={employeesQueryKey(facilityId, params)} queryFn={() => employeesQuery(facilityId, params)}>
+    <FetchBoundary<IEmployeeCollection>
+      queryKey={employeesQueryKey(enterpriseId, params)}
+      queryFn={() => employeesQuery(enterpriseId, params)}
+    >
       {({ data: { collection, meta } }) => (
         <>
           <Grid

@@ -5,9 +5,9 @@ import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalFooter, Modal
 import { Button } from 'shared/Button';
 import { SubmitButton } from 'shared/Form';
 
-import { useFacilityConsumer } from 'modules/context';
+import { useEnterpriseContextSelector } from 'modules/context';
 
-import { useAddEmployee } from '../../infrastructure/command';
+import { EmailAlreadyExistsError, useAddEmployee } from '../../infrastructure/command';
 import { AddEmployeeForm, useAddEmployeeNotification } from '../AddEmployeeForm';
 
 interface IProps {
@@ -16,10 +16,10 @@ interface IProps {
 }
 
 const AddEmployeeModal = ({ isOpen, onClose }: IProps) => {
-  const { facilityId } = useFacilityConsumer();
+  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
 
-  const [handler, isLoading] = useAddEmployee(facilityId);
-  const { showSuccessNotification, showFailureNotification } = useAddEmployeeNotification();
+  const [handler, isLoading] = useAddEmployee(enterpriseId);
+  const { showSuccessNotification, showFailureNotification, showEmailInUseNotification } = useAddEmployeeNotification();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size='xl'>
@@ -36,7 +36,11 @@ const AddEmployeeModal = ({ isOpen, onClose }: IProps) => {
                 await handler(model);
                 showSuccessNotification();
               } catch (e) {
-                showFailureNotification();
+                if (e instanceof EmailAlreadyExistsError) {
+                  showEmailInUseNotification();
+                } else {
+                  showFailureNotification();
+                }
               } finally {
                 onClose();
               }

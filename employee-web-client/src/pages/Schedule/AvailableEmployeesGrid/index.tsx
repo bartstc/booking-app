@@ -9,7 +9,7 @@ import { FetchBoundary } from 'shared/Suspense';
 import { availabilitiesQuery, availabilitiesQueryKey } from 'modules/schedules/infrastructure/query';
 import { useRangeWeekDatesConsumer } from 'modules/schedules/presentation';
 import { useEmployeesQuery } from 'modules/employees/infrastructure/query';
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 import { useFreeWeekDays } from 'modules/schedules/application';
 
 import { FilledAvailabilityPopover } from './FilledAvailabilityPopover';
@@ -24,11 +24,15 @@ interface IProps {
 
 const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
   const params = useParams<{ scheduleId: string }>();
-  const { facilityId, workingDays } = useFacilityConsumer();
+
+  const facilityId = useFacilityContextSelector(state => state.facilityId);
+  const enterpriseId = useFacilityContextSelector(state => state.enterpriseId);
+  const workingDays = useFacilityContextSelector(state => state.workingDays);
+
   const { endTime, startTime } = useRangeWeekDatesConsumer();
   const freeWeekDaysIndexes = useFreeWeekDays(workingDays);
 
-  const { collection: employees } = useEmployeesQuery(facilityId);
+  const { collection: employees } = useEmployeesQuery(enterpriseId);
 
   return (
     <FetchBoundary

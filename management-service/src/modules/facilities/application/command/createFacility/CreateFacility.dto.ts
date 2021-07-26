@@ -1,3 +1,5 @@
 import { BuildFacilityDto } from '../../../adapter';
 
-export class CreateFacilityDto extends BuildFacilityDto {}
+export class CreateFacilityDto extends BuildFacilityDto {
+  creatorId: string;
+}

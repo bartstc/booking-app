@@ -4,6 +4,7 @@ import { Result } from 'shared/core';
 import { EnterpriseName } from './EnterpriseName';
 import { EnterpriseDescription } from './EnterpriseDescription';
 import { EnterpriseId } from './EnterpriseId';
+import { OwnerId } from './OwnerId';
 
 interface IProps {
   // isActive: boolean;
@@ -11,6 +12,7 @@ interface IProps {
   enterpriseDescription: EnterpriseDescription;
   enterpriseUrl: Link;
   contactPerson: ContactPerson;
+  ownerId: OwnerId;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -34,6 +36,10 @@ export class Enterprise extends Entity<IProps> {
 
   get contactPerson() {
     return this.props.contactPerson;
+  }
+
+  get ownerId() {
+    return this.props.ownerId;
   }
 
   get createdAt() {

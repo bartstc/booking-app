@@ -8,7 +8,7 @@ import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 
 import { CreateScheduleModal } from 'modules/schedules/presentation';
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 
 interface IProps {
   onOpen: () => void;
@@ -18,7 +18,7 @@ interface IProps {
 
 const Header = ({ onOpen, isOpen, onClose }: IProps) => {
   const { formatMessage } = useIntl();
-  const { facilityId } = useFacilityConsumer();
+  const facilityId = useFacilityContextSelector(state => state.facilityId);
 
   const title = formatMessage({
     id: 'add-schedule',

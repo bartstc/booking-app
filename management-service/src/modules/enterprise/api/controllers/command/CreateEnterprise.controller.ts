@@ -55,7 +55,9 @@ export class CreateEnterpriseController extends BaseController {
       }
 
       this.logger.log('Enterprise successfully created');
-      return this.ok(res);
+      return this.ok(res, {
+        enterpriseId: result.value.getValue().id.toString(),
+      });
     } catch (err) {
       this.logger.error(err);
       return this.fail(res, err);

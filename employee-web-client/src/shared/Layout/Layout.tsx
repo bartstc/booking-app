@@ -20,37 +20,27 @@ const Layout = ({ children }: IProps) => {
   if (isMobile) {
     return (
       <Context>
-        {() => {
-          return (
-            <Flex backgroundColor={background} minH='100vh' position='relative' overflow='hidden' pt={{ base: 16, md: 10, xl: 0 }}>
-              <Header toggle={toggleNavigation} />
-              {children}
-              <MobileDrawer extended={extended} toggle={toggleNavigation} />
-            </Flex>
-          );
-        }}
+        <Flex backgroundColor={background} minH='100vh' position='relative' overflow='hidden' pt={{ base: 16, md: 10, xl: 0 }}>
+          <Header toggle={toggleNavigation} />
+          {children}
+          <MobileDrawer extended={extended} toggle={toggleNavigation} />
+        </Flex>
       </Context>
     );
   }
 
   return (
     <Context>
-      {() => {
-        return (
-          <>
-            <DesktopDrawer extended={extended} toggle={toggleNavigation} />
-            <Flex
-              backgroundColor={background}
-              minH='100vh'
-              transition='all .25s ease-in-out'
-              pl={!isMobile && extended ? '250px' : '70px'}
-              position='relative'
-            >
-              {children}
-            </Flex>
-          </>
-        );
-      }}
+      <DesktopDrawer extended={extended} toggle={toggleNavigation} />
+      <Flex
+        backgroundColor={background}
+        minH='100vh'
+        transition='all .25s ease-in-out'
+        pl={!isMobile && extended ? '250px' : '70px'}
+        position='relative'
+      >
+        {children}
+      </Flex>
     </Context>
   );
 };

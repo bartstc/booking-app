@@ -3,13 +3,14 @@ import { CustomerDto } from '../../application/dto';
 
 export class CustomerTypeormTransformer {
   public static toDtoBulk(customers: CustomerEntity[]): CustomerDto[] {
-    return customers.map(customer => this.toDto(customer));
+    return customers.map((customer) => this.toDto(customer));
   }
 
   public static toDto(customer: CustomerEntity): CustomerDto {
     return {
       customerId: customer.customer_id,
       facilityId: customer.facility_id,
+      isSystemic: customer.is_systemic,
       ...customer.details,
     };
   }

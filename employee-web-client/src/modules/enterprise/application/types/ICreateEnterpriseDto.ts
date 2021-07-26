@@ -1,8 +1,5 @@
-import { IContactPerson } from 'types';
+import { IUpdateEnterpriseDto } from './IUpdateEnterpriseDto';
 
-export interface ICreateEnterpriseDto {
-  enterpriseName: string;
-  enterpriseDescription: string;
-  enterpriseUrl: string;
-  contactPerson: IContactPerson;
+export interface ICreateEnterpriseDto extends IUpdateEnterpriseDto {
+  ownerId: string; // required when creating new one
 }

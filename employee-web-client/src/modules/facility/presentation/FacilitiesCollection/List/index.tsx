@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@chakra-ui/react';
 
-import { useEnterpriseConsumer } from 'modules/context';
+import { useEnterpriseContextSelector } from 'modules/context';
 import { facilitiesQuery, facilitiesQueryKey } from 'modules/facility/infrastructure/query';
 
 import { useInfiniteQuery } from 'hooks';
@@ -16,7 +16,7 @@ import { IFacilityCollection, IFacilityCollectionQueryParams } from '../../../ap
 
 const List = () => {
   const { params } = useQueryParams<IFacilityCollectionQueryParams>();
-  const { enterpriseId } = useEnterpriseConsumer();
+  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
 
   const limit = 10;
 

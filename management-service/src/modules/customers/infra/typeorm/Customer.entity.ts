@@ -18,6 +18,9 @@ export class CustomerEntity extends AbstractEntity {
   @PrimaryColumn()
   customer_id: string;
 
+  @Column()
+  is_systemic: boolean;
+
   @Column('jsonb')
   details: {
     fullName: string;
@@ -27,10 +30,7 @@ export class CustomerEntity extends AbstractEntity {
     address: IAddress;
   };
 
-  @ManyToOne(
-    () => FacilityEntity,
-    facility => facility.customers,
-  )
+  @ManyToOne(() => FacilityEntity, (facility) => facility.customers)
   @JoinColumn({ name: 'facility_id' })
   facility: FacilityEntity;
 

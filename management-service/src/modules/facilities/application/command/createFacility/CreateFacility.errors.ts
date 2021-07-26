@@ -9,10 +9,18 @@ export namespace CreateFacilityErrors {
     }
   }
 
-  export class EnterpriseDoesNotExist extends Result<UseCaseError> {
+  export class EnterpriseDoesNotExistError extends Result<UseCaseError> {
     constructor() {
       super(false, {
         message: 'enterpriseDoesNotExist',
+      });
+    }
+  }
+
+  export class CreatorDoesNotExistError extends Result<UseCaseError> {
+    constructor() {
+      super(false, {
+        message: `creatorDoesNotExist`,
       });
     }
   }
