@@ -3,7 +3,6 @@ import { useIntl } from 'react-intl';
 import { isMobile } from 'react-device-detect';
 import { mdiAccount, mdiLogout, mdiWeatherNight, mdiWeatherSunny } from '@mdi/js';
 import {
-  Avatar,
   Button as ChButton,
   Menu,
   MenuButton,
@@ -19,9 +18,9 @@ import {
 } from '@chakra-ui/react';
 
 import { useAuthContextSelector } from 'modules/auth/application';
+import { useEmployeeContextSelector } from 'modules/context';
 
 import { Icon } from '../Icon';
-import { useEmployeeContextSelector } from '../../modules/context';
 
 interface IProps {
   extended: boolean;
@@ -54,13 +53,15 @@ const Button = () => {
   const employeeName = useEmployeeContextSelector(state => state.name);
 
   return (
-    <MenuButton as={ChButton} variant='ghost' w='100%' leftIcon={<Avatar size='sm' mr={2} />}>
-      {employeeName}
+    <MenuButton as={ChButton} variant='ghost' w='100%' leftIcon={<Icon path={mdiAccount} size='24px' />}>
+      <chakra.div pl={1} textAlign='start'>
+        {employeeName}
+      </chakra.div>
     </MenuButton>
   );
 };
 
-const IconButton = () => <MenuButton as={ChIconButton} variant='ghost' icon={<Avatar size='sm' />} />;
+const IconButton = () => <MenuButton as={ChIconButton} variant='ghost' icon={<Icon path={mdiAccount} size='24px' />} />;
 
 const ThemeMenuItem = () => {
   const { colorMode, toggleColorMode } = useColorMode();

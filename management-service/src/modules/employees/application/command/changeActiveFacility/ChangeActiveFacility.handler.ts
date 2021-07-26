@@ -43,8 +43,6 @@ export class ChangeActiveFacilityHandler
         FacilityId.create(new UniqueEntityID(dto.facilityId)).getValue(),
       );
 
-      console.log(employee.scope.activeFacilityId);
-
       const entity = await this.employeeRepository.persist(employee);
       await entity.save();
 

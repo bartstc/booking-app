@@ -14,6 +14,6 @@ export class EmployeeScopeDto {
   @ApiProperty({ isArray: true })
   facilityIds: Array<string>;
 
-  @ApiProperty({ nullable: true })
-  activeFacilityId: string | null;
+  @ApiProperty()
+  activeFacilityId: string;
 }

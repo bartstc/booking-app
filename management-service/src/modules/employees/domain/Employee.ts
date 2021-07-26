@@ -99,6 +99,10 @@ export class Employee extends Entity<IProps> {
     newFacilityIds.forEach((facilityId) => {
       this.props.scope.facilityIds.add(facilityId);
     });
+
+    if (this.scope.activeFacilityId === null) {
+      this.scope.changeActiveFacility(newFacilityIds[0]);
+    }
   }
 
   public changeActiveFacility(facilityId: FacilityId) {

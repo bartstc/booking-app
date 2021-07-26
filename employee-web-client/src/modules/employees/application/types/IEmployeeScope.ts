@@ -5,5 +5,5 @@ export interface IEmployeeScope {
   enterpriseId: string;
   contextType: ContextType.Employee;
   facilityIds: string[];
-  activeFacilityId: string | null;
+  activeFacilityId: string;
 }
