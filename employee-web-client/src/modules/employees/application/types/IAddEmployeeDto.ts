@@ -8,4 +8,5 @@ export interface IAddEmployeeDto {
   position: string;
   contacts: IContact[];
   password: string;
+  facilityIds: string[];
 }

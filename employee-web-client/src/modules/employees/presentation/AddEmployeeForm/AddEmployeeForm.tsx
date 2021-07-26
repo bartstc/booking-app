@@ -9,12 +9,15 @@ import { ContactsFields } from 'shared/Form/Implementations';
 
 import { IAddEmployeeDto } from '../../application/types';
 import { useAddEmployeeValidationSchema } from '../../application';
+import { FacilitiesSelectFieldAsync } from '../../../facility/presentation/FacilitiesSelectFieldAsync';
+import { useEnterpriseContextSelector } from '../../../context';
 
 interface IProps {
   onSubmit: (model: IAddEmployeeDto) => void;
 }
 
 const AddEmployeeForm = ({ onSubmit }: IProps) => {
+  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
   const schema = useAddEmployeeValidationSchema();
 
   return (
@@ -79,6 +82,13 @@ const AddEmployeeForm = ({ onSubmit }: IProps) => {
               defaultMessage='Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.'
             />
           }
+        />
+        <FacilitiesSelectFieldAsync
+          enterpriseId={enterpriseId}
+          id='facility-ids'
+          name='facilityIds'
+          colSpan={3}
+          tip={<FormattedMessage id='facility-ids-tip' defaultMessage='Select all facilities to which the employee should have access.' />}
         />
       </SimpleGrid>
       <ContactsFields />

@@ -1,6 +1,12 @@
 import React, { ReactNode, Suspense, useEffect, useState } from 'react';
 
-import { useEnterpriseByOwnerIdQuery, useEnterpriseQuery } from 'modules/enterprise/infrastructure/query';
+import {
+  enterpriseByOwnerIdQuery,
+  enterpriseByOwnerIdQueryKey,
+  enterpriseQuery,
+  enterpriseQueryKey,
+  useEnterpriseQuery,
+} from 'modules/enterprise/infrastructure/query';
 import { useFacilityByIdQuery } from 'modules/facility/infrastructure/query';
 
 import { Spinner } from 'shared/Spinner';
@@ -17,6 +23,7 @@ import {
   useEnterpriseContextSelector,
 } from './application';
 import { CreateEnterprise, CreateEmployee, CreateFacility } from './presentation';
+import { useSuspense } from '../../shared/Suspense';
 
 interface IProps {
   children: ReactNode;
@@ -55,7 +62,9 @@ const Context = ({ children }: IProps) => {
 
 const Content = ({ email, userId, children }: { email: string; userId: string; children: ReactNode }) => {
   const employee = useEmployeeByEmailQuery(email);
-  const enterprise = useEnterpriseByOwnerIdQuery(userId);
+  const { data: enterprise } = useSuspense(employee ? enterpriseQueryKey(employee.enterpriseId) : enterpriseByOwnerIdQueryKey(userId), () =>
+    employee ? enterpriseQuery(employee.enterpriseId) : enterpriseByOwnerIdQuery(userId),
+  );
 
   if (!enterprise) {
     return <CreateEnterprise ownerId={userId} />;

@@ -2,8 +2,10 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { HStack, VStack, Divider } from '@chakra-ui/react';
+import { useQueryClient } from 'react-query';
 
 import { useCreateFacility } from 'modules/facility/infrastructure/command';
+import { employeeQueryKey } from 'modules/employees/infrastructure/query';
 
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
@@ -21,8 +23,12 @@ interface IProps {
 }
 
 const CreateFacilityForm = ({ enterpriseId, employeeId }: IProps) => {
+  const queryClient = useQueryClient();
   const { push } = useHistory();
-  const [handler, isLoading] = useCreateFacility(enterpriseId, employeeId);
+
+  const [handler, isLoading] = useCreateFacility(enterpriseId, employeeId, async () => {
+    await queryClient.invalidateQueries(employeeQueryKey(enterpriseId, employeeId));
+  });
   const { showCreateFailureNotification, showCreateSuccessNotification } = useCreateFacilityNotification();
 
   return (

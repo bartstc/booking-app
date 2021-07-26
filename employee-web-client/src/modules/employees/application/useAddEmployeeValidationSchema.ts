@@ -31,5 +31,6 @@ export const useAddEmployeeValidationSchema = () => {
         if (!password) return false;
         return TextValidator.validatePassword(password);
       }),
+    facilityIds: yup.array().of(yup.string()).min(1) as yup.Schema<string[]>,
   });
 };

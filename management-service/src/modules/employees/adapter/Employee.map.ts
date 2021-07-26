@@ -52,7 +52,15 @@ export class EmployeeMap {
       enterpriseId: EnterpriseId.create(
         new UniqueEntityID(enterpriseId),
       ).getValue(),
-      facilityIds: facilityIds ?? ScopeFacilityIds.create(),
+      facilityIds:
+        facilityIds ??
+        ScopeFacilityIds.create(
+          dto.facilityIds
+            ? dto.facilityIds.map((facilityId) =>
+                FacilityId.create(new UniqueEntityID(facilityId)).getValue(),
+              )
+            : [],
+        ),
       contextType: ContextType.Employee,
       activeFacilityId:
         activeFacilityId ?? facilityIds ? facilityIds.getItems()[0] : null,
