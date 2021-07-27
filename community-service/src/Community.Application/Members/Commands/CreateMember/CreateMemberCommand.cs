@@ -1,4 +1,5 @@
 using System;
+using Community.Domain.Members.ValueObjects;
 using Core.Commands;
 
 namespace Community.Application.Members.Commands.CreateMember
@@ -7,6 +8,7 @@ namespace Community.Application.Members.Commands.CreateMember
         string FullName,
         string Email,
         string Phone,
-        DateTime? BirthDate
+        DateTime? BirthDate,
+        Address Address
     ) : ICommand;
 }

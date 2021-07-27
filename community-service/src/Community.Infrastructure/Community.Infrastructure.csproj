@@ -3,9 +3,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Community.Application\Community.Application.csproj" />
     <ProjectReference Include="..\Core.Processing\Core.Processing.csproj" />
+    <ProjectReference Include="..\Core.RabbitMQ.MassTransit\Core.RabbitMQ.MassTransit.csproj" />
+    <ProjectReference Include="..\..\..\shared\ExternalEvents\ExternalEvents.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
   </ItemGroup>
 

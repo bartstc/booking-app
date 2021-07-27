@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Core.Marten;
 using Core.Processing;
+using Core.RabbitMQ.MassTransit;
 
 namespace Community.Infrastructure
 {
@@ -17,7 +18,9 @@ namespace Community.Infrastructure
                 .AddMarten(configuration, options =>
                 {
                     options.ConfigureMembers();
-                });
+                })
+                .AddMassTransit(configuration)
+                .AddAutoMapper(typeof(Startup).Assembly);
         }
     }
 }

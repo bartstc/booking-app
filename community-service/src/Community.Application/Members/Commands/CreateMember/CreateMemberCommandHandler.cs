@@ -22,7 +22,9 @@ namespace Community.Application.Members.Commands.CreateMember
 
         public async Task<Unit> Handle(CreateMemberCommand request, CancellationToken cancellationToken)
         {
-            var member = await Member.Create(request.FullName, request.Email, request.Phone, request.BirthDate, memberUniquenessChecker);
+            var member = new Member();
+            await member.InitializeNew(request.FullName, request.Email, request.Phone, request.BirthDate, request.Address, memberUniquenessChecker);
+            
             memberRepository.Store(member, cancellationToken);
 
             return Unit.Value;
