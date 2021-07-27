@@ -15,4 +15,5 @@ export const createEnterpriseSchema = yup.object().shape<CreateEnterpriseDto>({
       return TextValidator.validateWebURL(url);
     }),
   contactPerson: contactPersonSchema,
+  ownerId: yup.string().required(),
 });

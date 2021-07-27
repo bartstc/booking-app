@@ -7,18 +7,18 @@ import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
 import { SectionContainer } from 'shared/ReadMode';
 
-import { useEnterpriseConsumer } from 'modules/context';
+import { useEnterpriseContextSelector } from 'modules/context';
 import { useEnterpriseQuery } from 'modules/enterprise/infrastructure/query';
-import { useCreateEnterprise } from 'modules/enterprise/infrastructure/command';
+import { useUpdateEnterprise } from 'modules/enterprise/infrastructure/command';
 
 import { ContactPersonInputs, EnterpriseForm, MetaInputs, useEditEnterpriseNotification } from '../EnterpriseForm';
 
 const EditEnterpriseForm = () => {
   const { push } = useHistory();
-  const { enterpriseId } = useEnterpriseConsumer();
+  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
   const enterprise = useEnterpriseQuery(enterpriseId);
 
-  const [handler, isLoading] = useCreateEnterprise(enterpriseId);
+  const [handler, isLoading] = useUpdateEnterprise(enterpriseId);
   const { showUpdateFailureNotification, showUpdateSuccessNotification } = useEditEnterpriseNotification();
 
   return (

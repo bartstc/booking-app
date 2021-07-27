@@ -11,7 +11,7 @@ import { IconButton } from 'shared/Button';
 import { FormattedDate } from 'shared/Date';
 import { WeekDaysGrid } from 'shared/Calendar';
 
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 import { useBookedRecordsQuery } from 'modules/booking/infrastructure/query';
 
 import { BookingPageQueryParams } from '../index';
@@ -27,7 +27,7 @@ const CustomCalendar = () => {
   const weekTextColor = useColorModeValue('gray.500', 'gray.400');
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
 
-  const { facilityId } = useFacilityConsumer();
+  const facilityId = useFacilityContextSelector(state => state.facilityId);
 
   const { saturday, sunday, trackedDay, weekDates, nextWeek, prevWeek, setWeek, isPrevWeekNotAllowed, isNextWeekNotAllowed } = useWeekRange(
     {

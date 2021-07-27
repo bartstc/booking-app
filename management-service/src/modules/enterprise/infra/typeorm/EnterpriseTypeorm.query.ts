@@ -20,6 +20,12 @@ export class EnterpriseTypeormQuery
     return EnterpriseTypeormTransformer.toDto(enterpriseRaw);
   }
 
+  async getEnterpriseByOwnerId(ownerId: string): Promise<EnterpriseDto> {
+    const enterpriseRaw = await this.findOne({ owner_id: ownerId });
+    if (!enterpriseRaw) throw new Error('Enterprise not found');
+    return EnterpriseTypeormTransformer.toDto(enterpriseRaw);
+  }
+
   async getEnterprises(): Promise<EnterpriseDto[]> {
     const rawEnterprises = await this.find();
     return EnterpriseTypeormTransformer.toDtoBulk(rawEnterprises);

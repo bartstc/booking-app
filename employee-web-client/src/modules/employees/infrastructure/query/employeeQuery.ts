@@ -3,13 +3,13 @@ import { managementHttpService, ServiceType } from 'utils/http';
 
 import { IEmployee } from '../../application/types';
 
-export const employeeQueryKey = (facilityId: string, employeeId: string) => [
-  `facilities/${facilityId}/employees/${employeeId}`,
+export const employeeQueryKey = (enterpriseId: string, employeeId: string) => [
+  `enterprises/${enterpriseId}/employees/${employeeId}`,
   ServiceType.Management,
 ];
 
-export const useEmployeeQuery = (facilityId: string, employeeId: string) => {
-  return useSuspense(employeeQueryKey(facilityId, employeeId), () =>
-    managementHttpService.get<IEmployee>(`facilities/${facilityId}/employees/${employeeId}`),
+export const useEmployeeQuery = (enterpriseId: string, employeeId: string) => {
+  return useSuspense(employeeQueryKey(enterpriseId, employeeId), () =>
+    managementHttpService.get<IEmployee>(`enterprises/${enterpriseId}/employees/${employeeId}`),
   ).data;
 };

@@ -9,3 +9,4 @@ export { ContactPerson } from './ContactPerson';
 export { Link } from './Link';
 export { Contact } from './Contact';
 export { Contacts } from './Contacts';
+export { ContextType } from './ContextType';

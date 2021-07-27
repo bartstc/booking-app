@@ -53,11 +53,11 @@ describe('AddCustomerHandler', () => {
   };
   const facilityId = '123';
 
-  it(`should return "FacilityNotFoundError" error`, async function() {
+  it(`should return "FacilityNotFoundError" error`, async function () {
     facilityRepository.exists.mockResolvedValue(false);
 
     const result = await addCustomerHandler.execute(
-      new AddCustomerCommand(addCustomerDto, facilityId),
+      new AddCustomerCommand(addCustomerDto, facilityId, false),
     );
 
     expect(result.value.constructor).toBe(
@@ -65,11 +65,11 @@ describe('AddCustomerHandler', () => {
     );
   });
 
-  it('should return Customer model', async function() {
+  it('should return Customer model', async function () {
     facilityRepository.exists.mockResolvedValue(true);
 
     const result = await addCustomerHandler.execute(
-      new AddCustomerCommand(addCustomerDto, facilityId),
+      new AddCustomerCommand(addCustomerDto, facilityId, false),
     );
     expect(result.value.isSuccess).toBeTruthy();
   });

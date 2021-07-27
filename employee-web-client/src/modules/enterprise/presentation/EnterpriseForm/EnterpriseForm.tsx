@@ -3,10 +3,10 @@ import { UseFormMethods } from 'react-hook-form';
 
 import { Form } from 'shared/Form';
 
-import { ICreateEnterpriseDto } from '../../application/types';
+import { IUpdateEnterpriseDto } from '../../application/types';
 import { useCreateEnterpriseValidationSchema } from '../../application';
 
-const createDefaultValues: ICreateEnterpriseDto = {
+const createDefaultValues: IUpdateEnterpriseDto = {
   enterpriseName: '',
   enterpriseDescription: '',
   enterpriseUrl: '',
@@ -19,16 +19,16 @@ const createDefaultValues: ICreateEnterpriseDto = {
 };
 
 interface IProps {
-  onSubmit: (model: ICreateEnterpriseDto, methods: UseFormMethods<ICreateEnterpriseDto>) => void;
+  onSubmit: (model: IUpdateEnterpriseDto, methods: UseFormMethods<IUpdateEnterpriseDto>) => void;
   children: ReactNode;
-  defaultValues?: ICreateEnterpriseDto;
+  defaultValues?: IUpdateEnterpriseDto;
 }
 
 const EnterpriseForm = ({ onSubmit, children, defaultValues = createDefaultValues }: IProps) => {
   const schema = useCreateEnterpriseValidationSchema();
 
   return (
-    <Form<ICreateEnterpriseDto> onSubmit={onSubmit} id='create-enterprise' schema={schema} defaultValues={defaultValues}>
+    <Form<IUpdateEnterpriseDto> onSubmit={onSubmit} id='create-enterprise' schema={schema} defaultValues={defaultValues}>
       {children}
     </Form>
   );

@@ -4,27 +4,25 @@ import { managementHttpService } from 'utils/http';
 import { Logger, LogLevel } from 'utils/logger';
 import { useMutation } from 'shared/Suspense';
 
-import { enterpriseQueryKey } from '../query';
-import { ICreateEnterpriseDto, IEnterprise } from '../../application/types';
+import { IEnterprise, IUpdateEnterpriseDto } from '../../application/types';
+import { enterpriseByOwnerIdQueryKey } from '../query';
 
-export const useCreateEnterprise = (enterpriseId?: string) => {
+export const useCreateEnterprise = (ownerId: string) => {
   const queryClient = useQueryClient();
-  const { mutateAsync, isLoading } = useMutation<void, ICreateEnterpriseDto>(model => {
-    if (enterpriseId) {
-      return managementHttpService.put(`enterprises/${enterpriseId}`, model);
-    }
-    return managementHttpService.post(`enterprises`, model);
+
+  const { mutateAsync, isLoading } = useMutation<{ enterpriseId: string }, IUpdateEnterpriseDto>(model => {
+    return managementHttpService.post(`enterprises`, { ...model, ownerId });
   });
 
-  const handler = (model: ICreateEnterpriseDto) => {
+  const handler = (model: IUpdateEnterpriseDto) => {
     return mutateAsync(model)
-      .then(async () => {
-        if (!enterpriseId) return;
-
-        await queryClient.setQueryData<IEnterprise | undefined>(enterpriseQueryKey(enterpriseId), input => {
-          if (!input) return;
-
-          return { ...input, ...model };
+      .then(async ({ enterpriseId }) => {
+        await queryClient.setQueryData<IEnterprise | undefined>(enterpriseByOwnerIdQueryKey(ownerId), () => {
+          return {
+            enterpriseId,
+            ownerId,
+            ...model,
+          } as IEnterprise;
         });
       })
       .catch(e => {

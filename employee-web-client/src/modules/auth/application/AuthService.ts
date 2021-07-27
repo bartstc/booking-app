@@ -19,7 +19,7 @@ export class AuthService {
       post_logout_redirect_uri: `${this.clientHost}/logout-callback`,
       response_type: 'code',
       response_mode: 'query',
-      scope: 'openid',
+      scope: 'openid email profile',
       monitorSession: false,
       userStore: new WebStorageStateStore({ store: window.localStorage }),
       metadata: {

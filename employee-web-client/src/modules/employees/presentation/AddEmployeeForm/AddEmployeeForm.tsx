@@ -8,14 +8,17 @@ import { Form } from 'shared/Form';
 import { ContactsFields } from 'shared/Form/Implementations';
 
 import { IAddEmployeeDto } from '../../application/types';
-import { useAddOfferValidationSchema } from '../../application';
+import { useAddEmployeeValidationSchema } from '../../application';
+import { FacilitiesSelectFieldAsync } from '../../../facility/presentation/FacilitiesSelectFieldAsync';
+import { useEnterpriseContextSelector } from '../../../context';
 
 interface IProps {
   onSubmit: (model: IAddEmployeeDto) => void;
 }
 
 const AddEmployeeForm = ({ onSubmit }: IProps) => {
-  const schema = useAddOfferValidationSchema();
+  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
+  const schema = useAddEmployeeValidationSchema();
 
   return (
     <Form<IAddEmployeeDto>
@@ -24,6 +27,8 @@ const AddEmployeeForm = ({ onSubmit }: IProps) => {
       onSubmit={onSubmit}
       defaultValues={{
         employeeName: '',
+        employeeEmail: '',
+        password: '',
         position: '',
         birthDate: '',
         employmentDate: '',
@@ -59,6 +64,31 @@ const AddEmployeeForm = ({ onSubmit }: IProps) => {
           label={<FormattedMessage id='employment-date' defaultMessage='Employment date' />}
           id='employment-date'
           colSpan={{ base: 3, md: 2 }}
+        />
+        <InputField
+          name='employeeEmail'
+          label={<FormattedMessage id='email' defaultMessage='Email' />}
+          id='employee-email'
+          colSpan={{ base: 3, md: 2 }}
+        />
+        <InputField
+          name='password'
+          label={<FormattedMessage id='password' defaultMessage='Password' />}
+          id='employee-password'
+          colSpan={{ base: 3, md: 2 }}
+          tip={
+            <FormattedMessage
+              id='password-tip'
+              defaultMessage='Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.'
+            />
+          }
+        />
+        <FacilitiesSelectFieldAsync
+          enterpriseId={enterpriseId}
+          id='facility-ids'
+          name='facilityIds'
+          colSpan={3}
+          tip={<FormattedMessage id='facility-ids-tip' defaultMessage='Select all facilities to which the employee should have access.' />}
         />
       </SimpleGrid>
       <ContactsFields />

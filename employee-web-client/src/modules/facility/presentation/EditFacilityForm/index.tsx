@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { HStack, Divider, VStack } from '@chakra-ui/react';
 
 import { useFacilityQuery } from 'modules/facility/infrastructure/query';
-import { useCreateFacility } from 'modules/facility/infrastructure/command';
+import { useUpdateFacility } from 'modules/facility/infrastructure/command';
 import { buildUrl } from 'utils';
 import { DEFAULT_PARAMS } from 'utils/constant';
 import { SubmitButton } from 'shared/Form';
@@ -20,7 +20,7 @@ const EditFacilityForm = () => {
   const { push } = useHistory();
   const facility = useFacilityQuery(params.facilitySlug);
 
-  const [handler, isLoading] = useCreateFacility(facility.enterpriseId, facility.facilityId);
+  const [handler, isLoading] = useUpdateFacility(facility.enterpriseId, facility.facilityId);
   const { showEditFailureNotification, showEditSuccessNotification } = useEditFacilityNotification();
 
   return (

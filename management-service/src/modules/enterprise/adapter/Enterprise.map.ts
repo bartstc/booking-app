@@ -3,10 +3,12 @@ import { Link, UniqueEntityID, ContactPerson } from 'shared/domain';
 
 import { Enterprise, EnterpriseDescription, EnterpriseName } from '../domain';
 import { BuildEnterpriseDto } from './BuildEnterprise.dto';
+import { OwnerId } from '../domain/OwnerId';
 
 export class EnterpriseMap {
   public static dtoToDomain<T extends BuildEnterpriseDto>(
     dto: T,
+    ownerId: string,
     enterpriseId?: string,
   ): Result<Enterprise> {
     const name = EnterpriseName.create({ value: dto.enterpriseName });
@@ -22,6 +24,7 @@ export class EnterpriseMap {
         enterpriseDescription: description.getValue(),
         enterpriseUrl: url.getValue(),
         contactPerson: contactPerson.getValue(),
+        ownerId: OwnerId.create(new UniqueEntityID(ownerId)).getValue(),
       },
       new UniqueEntityID(enterpriseId),
     );
@@ -41,6 +44,7 @@ export class EnterpriseMap {
         enterpriseDescription: description.getValue(),
         enterpriseUrl: url.getValue(),
         contactPerson: contactPerson.getValue(),
+        ownerId: OwnerId.create(new UniqueEntityID(entity.owner_id)).getValue(),
       },
       new UniqueEntityID(entity.enterprise_id),
     );
@@ -55,6 +59,7 @@ export class EnterpriseMap {
   public static toPersistence(enterprise: Enterprise): Partial<any> {
     return {
       enterprise_id: enterprise.enterpriseId.id.toString(),
+      owner_id: enterprise.ownerId.id.toString(),
       details: {
         name: enterprise.enterpriseName.value,
         description: enterprise.enterpriseDescription.value,

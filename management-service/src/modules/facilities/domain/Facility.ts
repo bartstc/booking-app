@@ -12,11 +12,9 @@ import { EnterpriseId } from '../../enterprise/domain';
 import { FacilityDescription } from './FacilityDescription';
 import { Address } from './Address';
 import { BusinessCategories } from './BusinessCategories';
-import { Employees } from './Employees';
 import { Offers } from './Offers';
 import { Availability } from './Availability';
 import { Offer } from './Offer';
-import { Employee } from './Employee';
 import { Slug } from './Slug';
 import { Currency } from './types';
 
@@ -29,7 +27,6 @@ interface IProps {
   address: Address;
   businessCategories: BusinessCategories;
   contacts: Contacts;
-  employees: Employees;
   offers: Offers;
   availability: Availability;
   currency: Currency;
@@ -72,10 +69,6 @@ export class Facility extends AggregateRoot<IProps> {
     return this.props.contacts;
   }
 
-  get employees() {
-    return this.props.employees;
-  }
-
   get offers() {
     return this.props.offers;
   }
@@ -95,15 +88,6 @@ export class Facility extends AggregateRoot<IProps> {
   public removeOffer(offer: Offer) {
     offer.remove();
     this.offers.remove(offer);
-  }
-
-  public addEmployee(employee: Employee) {
-    this.employees.add(employee);
-  }
-
-  public removeEmployee(employee: Employee) {
-    employee.remove();
-    this.employees.remove(employee);
   }
 
   public static create(props: IProps, id?: UniqueEntityID): Result<Facility> {

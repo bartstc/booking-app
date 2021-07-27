@@ -5,7 +5,7 @@ import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalFooter, Modal
 import { Button } from 'shared/Button';
 import { SubmitButton } from 'shared/Form';
 
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 
 import { AddOfferForm, useAddOfferNotification } from '../AddOfferForm';
 import { useAddOffer } from '../../infrastructure/command';
@@ -16,7 +16,7 @@ interface IProps {
 }
 
 const AddOfferModal = ({ isOpen, onClose }: IProps) => {
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId } = useFacilityContextSelector();
 
   const [handler, isLoading] = useAddOffer(facilityId);
   const { showSuccessNotification, showFailureNotification } = useAddOfferNotification();

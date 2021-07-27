@@ -14,6 +14,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { NavButton, useGetLinks } from './Navigation';
 import { UserMenu } from './UserMenu';
+import { ScopeMenu } from './ScopeMenu';
 
 interface IProps {
   extended: boolean;
@@ -44,9 +45,10 @@ const MobileDrawer = ({ toggle, extended }: IProps) => {
               ))}
             </VStack>
             <VStack align='flex-start' width='100%'>
-              <HStack>
-                <UserMenu extended={true} />
-              </HStack>
+              <VStack align='flex-start' w='100%'>
+                <ScopeMenu extended={extended} />
+                <UserMenu extended={extended} />
+              </VStack>
             </VStack>
           </DrawerBody>
         </DrawerContent>
