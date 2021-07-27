@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@chakra-ui/react';
 
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 
 import { useInfiniteQuery } from 'hooks/useInfiniteQuery';
 
@@ -14,7 +14,7 @@ import { schedulesQuery, schedulesQueryKey } from '../../../infrastructure/query
 import { IScheduleCollection } from '../../../application/types';
 
 const List = () => {
-  const { facilityId } = useFacilityConsumer();
+  const facilityId = useFacilityContextSelector(state => state.facilityId);
 
   const limit = 10;
 

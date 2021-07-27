@@ -8,20 +8,20 @@ import { Logger, LogLevel } from 'utils/logger';
 import { employeesQueryKey } from '../query';
 import { EmployeeStatus, IEmployeeCollection, IEmployeeCollectionQueryParams } from '../../application/types';
 
-export const useActivateEmployee = (facilityId: string, employeeId: string) => {
+export const useActivateEmployee = (enterpriseId: string, employeeId: string) => {
   const { params } = useQueryParams<IEmployeeCollectionQueryParams>();
   const queryClient = useQueryClient();
 
   const { mutateAsync, isLoading } = useMutation<void, void>(() =>
-    managementHttpService.patch(`facilities/${facilityId}/employees/${employeeId}/activate`),
+    managementHttpService.patch(`enterprises/${enterpriseId}/employees/${employeeId}/activate`),
   );
 
   const handler = () => {
     return mutateAsync()
       .then(async () => {
-        await queryClient.setQueryData(employeesQueryKey(facilityId, params), (data?: IEmployeeCollection) => {
+        await queryClient.setQueryData(employeesQueryKey(enterpriseId, params), (data?: IEmployeeCollection) => {
           if (!data) {
-            throw new Error(`Cache is empty for given key: ${employeesQueryKey(facilityId, params)}`);
+            throw new Error(`Cache is empty for given key: ${employeesQueryKey(enterpriseId, params)}`);
           }
 
           return {

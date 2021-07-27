@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useFacilityConsumer } from 'modules/context';
+import { useEnterpriseContextSelector } from 'modules/context';
 
 import { EmployeeStatus } from '../../../application/types';
 import { DeactivateEmployeeIconButton } from '../../DeactivateEmployeeIconButton';
@@ -12,13 +12,13 @@ interface IProps {
 }
 
 const StatusActionButtons = ({ employeeId, status }: IProps) => {
-  const { facilityId } = useFacilityConsumer();
+  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
 
   if (status === EmployeeStatus.Inactive) {
-    return <ActivateEmployeeIconButton facilityId={facilityId} employeeId={employeeId} />;
+    return <ActivateEmployeeIconButton enterpriseId={enterpriseId} employeeId={employeeId} />;
   }
 
-  return <DeactivateEmployeeIconButton facilityId={facilityId} employeeId={employeeId} />;
+  return <DeactivateEmployeeIconButton enterpriseId={enterpriseId} employeeId={employeeId} />;
 };
 
 export { StatusActionButtons };

@@ -12,7 +12,7 @@ import {
   UpdateFacilityCommand,
 } from 'modules/facilities/application/command/updateFacility';
 
-import { createFacilitySchema } from '../../schemas';
+import { updateFacilitySchema } from '../../schemas';
 import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 import { ILoggerService } from '../../../../../logger';
 
@@ -39,7 +39,7 @@ export class UpdateFacilityController extends BaseController {
     try {
       const formErrors = await ValidationTransformer.validateSchema(
         dto,
-        createFacilitySchema,
+        updateFacilitySchema,
       );
 
       if (formErrors.isLeft()) {

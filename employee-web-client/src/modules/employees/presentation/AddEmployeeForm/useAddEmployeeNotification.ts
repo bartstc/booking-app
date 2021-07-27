@@ -18,5 +18,11 @@ export const useAddEmployeeNotification = () => {
         description: formatMessage({ id: 'add-new-employee-failure', defaultMessage: 'An error occurred during adding new employee' }),
         type: 'error',
       }),
+    showEmailInUseNotification: () =>
+      addNotification({
+        title: formatMessage({ id: 'add-new-employee', defaultMessage: 'Add new employee' }),
+        description: formatMessage({ id: 'add-new-employee-email-in-use', defaultMessage: 'Provided email already in use' }),
+        type: 'warning',
+      }),
   };
 };

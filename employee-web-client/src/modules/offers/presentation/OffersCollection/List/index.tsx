@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@chakra-ui/react';
 
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 import { offersQuery, offersQueryKey } from 'modules/offers/infrastructure/query';
 
 import { useInfiniteQuery } from 'hooks/useInfiniteQuery';
@@ -16,7 +16,7 @@ import { IOfferCollection, IOfferCollectionQueryParams } from '../../../applicat
 
 const List = () => {
   const { params } = useQueryParams<IOfferCollectionQueryParams>();
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId } = useFacilityContextSelector();
 
   const limit = 10;
 

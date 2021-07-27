@@ -46,7 +46,7 @@ export class AddCustomerController extends BaseController {
       }
 
       const result: AddCustomerResponse = await this.commandBus.execute(
-        new AddCustomerCommand(dto, facilityId),
+        new AddCustomerCommand(dto, facilityId, false),
       );
 
       if (result.isLeft()) {

@@ -1,35 +1,19 @@
-import { useQueryClient } from 'react-query';
-
 import { Logger, LogLevel } from 'utils/logger';
 import { managementHttpService } from 'utils/http';
 import { useMutation } from 'shared/Suspense';
-import { useQueryParams } from 'shared/Params';
 
-import { facilitiesQueryKey, facilityQueryKey } from '../query';
-import { CreateFacilityDto, CreateFacilityFormDto, IFacility, IFacilityCollectionQueryParams } from '../../application/types';
+import { CreateFacilityDto, CreateFacilityFormDto } from '../../application/types';
 import { CreateFacilityMapper } from '../../application';
 
-export const useCreateFacility = (enterpriseId: string, facilityId?: string) => {
-  const { params } = useQueryParams<IFacilityCollectionQueryParams>();
-  const queryClient = useQueryClient();
-  const { mutateAsync, isLoading } = useMutation<void, CreateFacilityDto>(model => {
-    if (facilityId) {
-      return managementHttpService.put(`enterprises/${enterpriseId}/facilities/${facilityId}`, model);
-    }
-    return managementHttpService.post(`enterprises/${enterpriseId}/facilities`, model);
+export const useCreateFacility = (enterpriseId: string, creatorId: string, onSuccess?: (facilityId: string) => Promise<void>) => {
+  const { mutateAsync, isLoading } = useMutation<{ facilityId: string }, CreateFacilityDto>(model => {
+    return managementHttpService.post(`enterprises/${enterpriseId}/facilities`, { ...model, creatorId });
   });
 
   const handler = (model: CreateFacilityFormDto) => {
     return mutateAsync(CreateFacilityMapper.formToDto(model))
-      .then(async () => {
-        if (facilityId) {
-          await queryClient.setQueryData<IFacility | undefined>(facilityQueryKey(facilityId), input => {
-            if (!input) return;
-
-            return { ...input, ...CreateFacilityMapper.formToDto(model) };
-          });
-        }
-        await queryClient.invalidateQueries(facilitiesQueryKey(enterpriseId, params));
+      .then(async ({ facilityId }) => {
+        if (onSuccess) await onSuccess(facilityId);
       })
       .catch(e => {
         Logger.log({

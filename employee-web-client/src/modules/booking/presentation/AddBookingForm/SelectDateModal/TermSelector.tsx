@@ -11,7 +11,7 @@ import { FormattedDate } from 'shared/Date';
 import { FetchBoundary } from 'shared/Suspense';
 
 import { bookingTermsQueryKey, bookingTermsQuery } from '../../../infrastructure/query';
-import { useFacilityConsumer } from '../../../../context';
+import { useFacilityContextSelector } from '../../../../context';
 import { AvailableEmployeeSelectAsync } from './AvailableEmployeeSelectAsync';
 import { WeekRadioGroup } from './WeekRadioGroup';
 import { DayRadioGroup } from './DayRadioGroup';
@@ -26,7 +26,7 @@ interface IProps {
 
 const TermSelector = ({ offerId, index, onClose }: IProps) => {
   const { formatMessage } = useIntl();
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId } = useFacilityContextSelector();
   const { setValue, watch } = useFormContext();
 
   const selectedEmployeeIdField = watch(`bookedRecords[${index}].employeeId`);

@@ -2,11 +2,11 @@ import React from 'react';
 import { GridItem, VStack, Divider } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
-import { useEnterpriseConsumer } from 'modules/context';
+import { useEnterpriseContextSelector } from 'modules/context';
 import { ReadModeValue, SectionTitle, SectionHeader, SectionSubtitle, SectionContainer, SectionGrid } from 'shared/ReadMode';
 
 const EnterpriseBody = () => {
-  const enterprise = useEnterpriseConsumer();
+  const enterprise = useEnterpriseContextSelector(state => state);
 
   return (
     <SectionContainer>

@@ -4,12 +4,7 @@ export {
   OfferEntity,
   OfferTransformer,
 } from './typeorm/offer';
-export {
-  EmployeeQuery,
-  EmployeeRepository,
-  EmployeeEntity,
-  EmployeeTransformer,
-} from './typeorm/employee';
+
 export {
   FacilityQuery,
   FacilityRepository,

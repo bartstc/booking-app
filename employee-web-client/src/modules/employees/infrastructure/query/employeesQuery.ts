@@ -5,17 +5,17 @@ import { useSuspense } from 'shared/Suspense';
 import { IEmployeeCollection, IEmployeeCollectionQueryParams } from '../../application/types';
 
 export const employeesQueryKey = (
-  facilityId: string,
+  enterpriseId: string,
   params?: IEmployeeCollectionQueryParams,
 ): [string, ServiceType, IEmployeeCollectionQueryParams | undefined] => [
-  `facilities/${facilityId}/employees`,
+  `enterprises/${enterpriseId}/employees`,
   ServiceType.Management,
   params,
 ];
 
-export const employeesQuery = (facilityId: string, params?: IEmployeeCollectionQueryParams) =>
-  managementHttpService.get<IEmployeeCollection>(buildUrl(`facilities/${facilityId}/employees`, params));
+export const employeesQuery = (enterpriseId: string, params?: IEmployeeCollectionQueryParams) =>
+  managementHttpService.get<IEmployeeCollection>(buildUrl(`enterprises/${enterpriseId}/employees`, params));
 
-export const useEmployeesQuery = (facilityId: string, params?: IEmployeeCollectionQueryParams) => {
-  return useSuspense(employeesQueryKey(facilityId, params), () => employeesQuery(facilityId, params)).data;
+export const useEmployeesQuery = (enterpriseId: string, params?: IEmployeeCollectionQueryParams) => {
+  return useSuspense(employeesQueryKey(enterpriseId, params), () => employeesQuery(enterpriseId, params)).data;
 };

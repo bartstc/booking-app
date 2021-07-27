@@ -31,6 +31,7 @@ export class AddCustomerHandler
   async execute({
     facilityId,
     dto,
+    isSystemic,
   }: AddCustomerCommand): Promise<AddCustomerResponse> {
     try {
       const facilityExists = await this.facilityRepository.exists(facilityId);
@@ -38,7 +39,11 @@ export class AddCustomerHandler
         return left(new AddCustomerErrors.FacilityNotFoundError());
       }
 
-      const customerOrError = CustomerMap.dtoToDomain(dto, facilityId);
+      const customerOrError = CustomerMap.dtoToDomain(
+        dto,
+        facilityId,
+        isSystemic,
+      );
 
       if (!customerOrError.isSuccess) {
         return left(Result.fail(customerOrError.error));

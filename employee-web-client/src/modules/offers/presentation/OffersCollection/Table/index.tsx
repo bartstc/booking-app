@@ -5,7 +5,7 @@ import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
 
-import { useFacilityConsumer } from 'modules/context';
+import { useFacilityContextSelector } from 'modules/context';
 import { offersQueryKey, offersQuery } from 'modules/offers/infrastructure/query';
 
 import { Header } from './Header';
@@ -14,7 +14,7 @@ import { IOfferCollection, IOfferCollectionQueryParams } from '../../../applicat
 
 const Table = () => {
   const { params } = useQueryParams<IOfferCollectionQueryParams>();
-  const { facilityId } = useFacilityConsumer();
+  const { facilityId } = useFacilityContextSelector();
 
   return (
     <FetchBoundary<IOfferCollection>

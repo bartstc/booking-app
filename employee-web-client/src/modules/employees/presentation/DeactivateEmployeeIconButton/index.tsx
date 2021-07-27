@@ -10,15 +10,15 @@ import { useDeactivateEmployeeNotification } from './useDeactivateEmployeeNotifi
 import { useDeactivateEmployee } from '../../infrastructure/command';
 
 interface IProps extends Omit<IconButtonProps, 'title' | 'onClick'> {
-  facilityId: string;
+  enterpriseId: string;
   employeeId: string;
 }
 
-const DeactivateEmployeeIconButton = ({ facilityId, employeeId, ...props }: IProps) => {
+const DeactivateEmployeeIconButton = ({ enterpriseId, employeeId, ...props }: IProps) => {
   const { formatMessage } = useIntl();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { showFailureNotification, showSuccessNotification } = useDeactivateEmployeeNotification();
-  const [deactivate, isDeactivating] = useDeactivateEmployee(facilityId, employeeId);
+  const [deactivate, isDeactivating] = useDeactivateEmployee(enterpriseId, employeeId);
 
   return (
     <>

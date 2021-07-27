@@ -72,4 +72,5 @@ export const createFacilitySchema = yup.object().shape<CreateFacilityDto>({
           }),
       }),
     ),
+  creatorId: yup.string().required(),
 });
