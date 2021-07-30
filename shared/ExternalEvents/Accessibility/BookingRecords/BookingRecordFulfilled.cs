@@ -5,9 +5,9 @@ namespace ExternalEvents.Accessibility.BookingRecords
 {
     public class BookingRecordFulfilled
     {
-        public BookingRecordFulfilled(Guid customerId, Offer offer, Facility facility, Employee employee, DateTime date, short duration, Guid bookedRecordId)
+        public BookingRecordFulfilled(Guid publicCustomerId, Offer offer, Facility facility, Employee employee, DateTime date, short duration, Guid bookedRecordId)
         {
-            CustomerId = customerId;
+            PublicCustomerId = publicCustomerId;
             Offer = offer;
             Facility = facility;
             Employee = employee;
@@ -16,7 +16,7 @@ namespace ExternalEvents.Accessibility.BookingRecords
             BookedRecordId = bookedRecordId;
         }
 
-        public Guid CustomerId { get; }
+        public Guid PublicCustomerId { get; }
         public Offer Offer { get; }
         public Facility Facility { get; }
         public Employee Employee { get; }
