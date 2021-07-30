@@ -21,3 +21,18 @@ todo
 
 ## Project Structure and Architecture
 todo
+
+## Tech Stack/Patterns (.NET services)
+* .NET Core
+* Event-driven architecture
+* MassTransit
+* EventSourcing
+* Marten
+* Outbox pattern
+* Entity Framework Core
+* Dapper
+* Scrutor
+* Outbox pattern
+* Decorator pattern
+* Optimistic concurrency
+* Gateway
