@@ -19,9 +19,11 @@ namespace Accessibility.Infrastructure.Domain.Bookings
             builder.Property(b => b.Id).HasColumnName("booking_id");
 
             builder.Property("customerId").HasConversion(new StronglyTypedIdValueConverter<CustomerId>()).HasColumnName("customer_id");
+            builder.Property(b => b.PublicCustomerId).HasConversion(new StronglyTypedIdValueConverter<PublicCustomerId>()).HasColumnName("public_customer_id");
             builder.Property(b => b.FacilityId).HasConversion(new StronglyTypedIdValueConverter<FacilityId>()).HasColumnName("facility_id");
 
             builder.Property("status").HasConversion(new EnumToNumberConverter<BookingStatus, short>());
+            builder.Property(b => b.IsMadeManually).HasColumnName("is_made_manually");
             builder.Property("requestedDate").HasColumnName("requested_date");
             builder.Property("bookedDate").HasColumnName("booked_date");
 

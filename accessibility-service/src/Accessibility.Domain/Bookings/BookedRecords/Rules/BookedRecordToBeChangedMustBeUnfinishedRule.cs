@@ -13,6 +13,6 @@ namespace Accessibility.Domain.Bookings.BookedRecords.Rules
 
         public string Message => "Booking to be changed must be unfinished";
 
-        public bool IsBroken() => bookedRecord.IsFinished;
+        public bool IsBroken() => bookedRecord.IsCompleted;
     }
 }

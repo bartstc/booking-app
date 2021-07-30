@@ -17,12 +17,20 @@ namespace Accessibility.Domain.Bookings
             bookedRecords = new List<BookedRecord>();
         }
 
-        private Booking(CustomerId customerId, FacilityId facilityId, BookingStatus status, List<BookedRecordData> records) : this()
+        private Booking(
+            CustomerId customerId,
+            PublicCustomerId publicCustomerId,
+            FacilityId facilityId,
+            BookingStatus status,
+            List<BookedRecordData> records,
+            bool isMadeManually) : this()
         {
             Id = new BookingId(Guid.NewGuid());
             this.customerId = customerId;
+            this.PublicCustomerId = publicCustomerId;
             this.FacilityId = facilityId;
             this.status = status;
+            this.IsMadeManually = isMadeManually;
 
             foreach (var service in records)
             {
@@ -51,23 +59,38 @@ namespace Accessibility.Domain.Bookings
         public BookingId Id { get; }
         public FacilityId FacilityId { get; }
         private CustomerId customerId;
+        public PublicCustomerId PublicCustomerId { get; }
         private List<BookedRecord> bookedRecords;
         private BookingStatus status;
+        public bool IsMadeManually { get; }
         private DateTime requestedDate;
         private DateTime bookedDate;
         
-        public bool IsFinished => bookedRecords.All(s => s.IsFinished);
-
-        public static Booking CreateRequested(CustomerId customerId, FacilityId facilityId, List<BookedRecordData> records)
+        public bool IsCompleted => bookedRecords.All(s => s.IsCompleted);
+        
+        public static Booking CreateRequested(
+            PublicCustomerId publicCustomerId,
+            FacilityId facilityId,
+            List<BookedRecordData> records)
         {
-            var booking = new Booking(customerId, facilityId, BookingStatus.Requested, records);
+            var booking = new Booking(null, publicCustomerId, facilityId, BookingStatus.Requested, records, false);
+            booking.requestedDate = DateTime.Now;
+            return booking;
+        }
+
+        public static Booking CreateRequestedManually(
+            CustomerId customerId,
+            FacilityId facilityId,
+            List<BookedRecordData> records)
+        {
+            var booking = new Booking(customerId, null, facilityId, BookingStatus.Requested, records, true);
             booking.requestedDate = DateTime.Now;
             return booking;
         }
 
         public static Booking CreateBooked(CustomerId customerId, FacilityId facilityId, List<BookedRecordData> records)
         {
-            var booking = new Booking(customerId, facilityId, BookingStatus.Booked, records);
+            var booking = new Booking(customerId, null, facilityId, BookingStatus.Booked, records, true);
             booking.bookedDate = DateTime.Now;
             return booking;
         }
@@ -89,7 +112,7 @@ namespace Accessibility.Domain.Bookings
                 .First(s => s.Id == serviceId)
                 .ChangeStatus(recordStatus);
             
-            if (IsFinished)
+            if (IsCompleted)
             {
                 status = BookingStatus.Finished;
                 AddDomainEvent(new BookingFinishedEvent(Id));

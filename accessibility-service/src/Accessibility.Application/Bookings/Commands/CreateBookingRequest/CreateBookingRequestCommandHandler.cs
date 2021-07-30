@@ -34,18 +34,23 @@ namespace Accessibility.Application.Bookings.Commands.CreateBookingRequest
 
         public async Task<Unit> Handle(CreateBookingRequestCommand request, CancellationToken cancellationToken)
         {
-            var customerId = new CustomerId(request.CustomerId);
+            var customerId = request.IsMadeManually ? new CustomerId(request.CustomerId) : null;
+            var publicCustomerId = request.IsMadeManually ? new PublicCustomerId(request.CustomerId) : null;
             var facilityId = new FacilityId(request.FacilityId);
             var offerIds = request.BookedRecords.Select(r => new OfferId(r.OfferId));
             var offers = await offerRepository.GetByIdsAsync(offerIds);
 
             var bookedRecords = MappBookedRecords(request, offers);
-
-            var booking = Booking.CreateRequested(
-                customerId,
-                facilityId,
-                bookedRecords
-            );
+            
+            var booking = request.IsMadeManually ?
+                    Booking.CreateRequestedManually(
+                        customerId,
+                        facilityId,
+                        bookedRecords) :
+                    Booking.CreateRequested(
+                        publicCustomerId,
+                        facilityId,
+                        bookedRecords);
 
             await bookingRepository.AddAsync(booking);
 

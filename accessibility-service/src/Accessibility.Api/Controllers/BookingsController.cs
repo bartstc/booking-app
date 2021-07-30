@@ -31,9 +31,11 @@ namespace Accessibility.Api.Controllers
         public async Task<IActionResult> CreateBookingRequest(
             [FromRoute] Guid facilityId,
             [FromBody] CreateBookingRequestDto request,
-            [FromServices] IOptions<EventBusOptions> options)
+            [FromServices] IOptions<EventBusOptions> options,
+            [FromQuery] bool isMadeManually = true
+        )
         {
-            var bookingId = await mediator.Send(new CreateBookingRequestCommand(request.CustomerId, facilityId, request.BookedRecords, options.Value.Exchanges));
+            var bookingId = await mediator.Send(new CreateBookingRequestCommand(request.CustomerId, facilityId, request.BookedRecords, isMadeManually, options.Value.Exchanges));
             return Accepted();
         }
 
