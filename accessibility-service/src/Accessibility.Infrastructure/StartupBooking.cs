@@ -8,7 +8,6 @@ using Accessibility.Infrastructure.IntegrationEvents.EventHandling.Bookings;
 using MassTransit;
 using MassTransit.ExtensionsDependencyInjectionIntegration;
 using MassTransit.RabbitMqTransport;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Accessibility.Infrastructure
@@ -18,7 +17,6 @@ namespace Accessibility.Infrastructure
         public static IServiceCollection AddBooking(this IServiceCollection services)
         {
             return services
-                .AddScoped<IRequestHandler<CreateBookingRequestCommand>, CreateBookingRequestCommandHandler>()
                 .AddTransient<IBookingRepository, BookingRepository>()
                 .AddTransient<IBookingQueryRepository, BookingQueryRepository>()
                 .AddTransient<IBookingPeriodOfTimeChecker, BookingPeriodOfTimeChecker>();
@@ -26,14 +24,16 @@ namespace Accessibility.Infrastructure
 
         public static void AddBookingConsumers(this IServiceCollectionBusConfigurator cfg)
         {
-            cfg.AddConsumer<BookingRequestedConsumer>()
+            cfg.AddConsumer<ProcessBookingRequestConsumer>()
                 .Endpoint(e => {e.ConcurrentMessageLimit = 1;});
+            
+            cfg.AddRequestClient<ProcessBookingRequest>();
         }
 
         public static void AddBookingEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IBusRegistrationContext context)
         {
             cfg.ReceiveEndpoint("booking-requests", e =>
-                e.ConfigureConsumer<BookingRequestedConsumer>(context));
+                e.ConfigureConsumer<ProcessBookingRequestConsumer>(context));
         }
     }
 }

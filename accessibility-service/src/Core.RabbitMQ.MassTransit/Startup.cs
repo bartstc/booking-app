@@ -36,8 +36,8 @@ namespace Core.RabbitMQ.MassTransit
                     });
                 })
                 .AddMassTransitHostedService()
-                .AddTransient<IMessageBus, RabbitMQMessageBus>();
-            
+                .AddTransient<IMessageBus, RabbitMQMessageBus>()
+                .AddTransient(typeof(IRequestBus<>), typeof(RabbitMQRequestBus<>));
         }
     }
 }
