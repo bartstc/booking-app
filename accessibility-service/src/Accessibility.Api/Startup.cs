@@ -13,8 +13,8 @@ using Accessibility.Api.Options;
 using Accessibility.Api.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Core;
-using Accessibility.Application.Bookings.Commands.CreateBookingRequest;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Accessibility.Application.Bookings.Commands.CreateBooking;
 
 namespace Accessibility.Api
 {
@@ -43,7 +43,7 @@ namespace Accessibility.Api
             ConfigureOptions(services);
             ConfigureCors(services);
 
-            var applicationAssembly = typeof(CreateBookingRequestCommand).Assembly;
+            var applicationAssembly = typeof(CreateBookingCommand).Assembly;
             services.AddCoreServices(applicationAssembly);
             services.AddAccessibilityModule(Configuration, applicationAssembly);
         }

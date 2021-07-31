@@ -28,7 +28,7 @@ namespace Accessibility.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> CreateBooking(
             [FromRoute] Guid facilityId,
-            [FromBody] CreateBookingRequestDto request,
+            [FromBody] CreateBookingRequest request,
             [FromQuery] bool isMadeManually = true
         )
         {

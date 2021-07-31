@@ -8,7 +8,6 @@ using Accessibility.Infrastructure.IntegrationEvents.EventHandling.Bookings;
 using MassTransit;
 using MassTransit.ExtensionsDependencyInjectionIntegration;
 using MassTransit.RabbitMqTransport;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Accessibility.Infrastructure
@@ -18,7 +17,6 @@ namespace Accessibility.Infrastructure
         public static IServiceCollection AddBooking(this IServiceCollection services)
         {
             return services
-                .AddScoped<IRequestHandler<CreateBookingRequestCommand>, CreateBookingRequestCommandHandler>()
                 .AddTransient<IBookingRepository, BookingRepository>()
                 .AddTransient<IBookingQueryRepository, BookingQueryRepository>()
                 .AddTransient<IBookingPeriodOfTimeChecker, BookingPeriodOfTimeChecker>();
