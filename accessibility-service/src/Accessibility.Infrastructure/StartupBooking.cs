@@ -26,14 +26,16 @@ namespace Accessibility.Infrastructure
 
         public static void AddBookingConsumers(this IServiceCollectionBusConfigurator cfg)
         {
-            cfg.AddConsumer<BookingRequestedConsumer>()
+            cfg.AddConsumer<ProcessBookingRequestConsumer>()
                 .Endpoint(e => {e.ConcurrentMessageLimit = 1;});
+            
+            cfg.AddRequestClient<ProcessBookingRequest>();
         }
 
         public static void AddBookingEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IBusRegistrationContext context)
         {
             cfg.ReceiveEndpoint("booking-requests", e =>
-                e.ConfigureConsumer<BookingRequestedConsumer>(context));
+                e.ConfigureConsumer<ProcessBookingRequestConsumer>(context));
         }
     }
 }

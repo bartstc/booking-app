@@ -2,8 +2,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Accessibility.Api.Bookings;
-using Accessibility.Api.Options;
-using Accessibility.Application.Bookings.Commands.CreateBookingRequest;
+using Accessibility.Application.Bookings.Commands.CreateBooking;
 using Accessibility.Application.Bookings.Queries.AnyUnfinishedBookingOfEmployee;
 using Accessibility.Application.Bookings.Queries.AnyUnfinishedBookingOfOffer;
 using Accessibility.Application.Bookings.Queries.GetBookingStatus;
@@ -11,7 +10,6 @@ using Accessibility.Domain.Bookings;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace Accessibility.Api.Controllers
 {
@@ -27,16 +25,15 @@ namespace Accessibility.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(BookingIdDto), (int)HttpStatusCode.Accepted)]
-        public async Task<IActionResult> CreateBookingRequest(
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<IActionResult> CreateBooking(
             [FromRoute] Guid facilityId,
             [FromBody] CreateBookingRequestDto request,
-            [FromServices] IOptions<EventBusOptions> options,
             [FromQuery] bool isMadeManually = true
         )
         {
-            var bookingId = await mediator.Send(new CreateBookingRequestCommand(request.CustomerId, facilityId, request.BookedRecords, isMadeManually, options.Value.Exchanges));
-            return Accepted();
+            var bookingId = await mediator.Send(new CreateBookingCommand(request.CustomerId, facilityId, request.BookedRecords, isMadeManually));
+            return Ok();
         }
 
         [HttpGet("{bookingId}/status")]
