@@ -24,7 +24,7 @@ namespace Core.Domain
                 throw new BusinessRuleValidationException(rule);
         }
 
-        protected async Task CheckRuleAsync(IBusinessRuleAsync rule)
+        protected static async Task CheckRuleAsync(IBusinessRuleAsync rule)
         {
             if (await rule.IsBrokenAsync())
                 throw new BusinessRuleValidationException(rule);

@@ -88,10 +88,33 @@ namespace Accessibility.Domain.Bookings
             return booking;
         }
 
-        public static Booking CreateBooked(CustomerId customerId, FacilityId facilityId, List<BookedRecordData> records)
+        public static async Task<Booking> CreateBooked(
+            PublicCustomerId customerId,
+            FacilityId facilityId,
+            List<BookedRecordData> records,
+            IBookingPeriodOfTimeChecker checker)
+        {
+            var booking = new Booking(null, customerId, facilityId, BookingStatus.Booked, records, false);
+
+            await CheckRuleAsync(new RecordsOfProcessingBookingMustBeAvailableAsyncRule(booking, booking.bookedRecords, checker));
+
+            booking.requestedDate = booking.bookedDate = DateTime.Now;
+
+            return booking;
+        }
+
+        public static async Task<Booking> CreateBookedManually(
+            CustomerId customerId,
+            FacilityId facilityId,
+            List<BookedRecordData> records,
+            IBookingPeriodOfTimeChecker checker)
         {
             var booking = new Booking(customerId, null, facilityId, BookingStatus.Booked, records, true);
-            booking.bookedDate = DateTime.Now;
+
+            await CheckRuleAsync(new RecordsOfProcessingBookingMustBeAvailableAsyncRule(booking, booking.bookedRecords, checker));
+
+            booking.requestedDate = booking.bookedDate = DateTime.Now;
+            
             return booking;
         }
 
