@@ -6,7 +6,7 @@ using Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using Core.DomainEvents;
 using Core.Processing.Outbox;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace Core.Processing
 {
@@ -63,7 +63,7 @@ namespace Core.Processing
                 var entity = new OutboxNotification(
                     notification.GetType().FullName,
                     notification.DomainEvent.OccuredOn,
-                    JsonSerializer.Serialize(notification)
+                    JsonConvert.SerializeObject(notification)
                 );
                 await ctx.AddAsync(entity);
             }

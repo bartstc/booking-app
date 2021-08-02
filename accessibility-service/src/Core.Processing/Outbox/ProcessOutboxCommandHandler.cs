@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Core.Database;
 using Core.DomainEvents;
 using Dapper;
 using MediatR;
+using Newtonsoft.Json;
 
 namespace Core.Processing.Outbox
 {
@@ -53,7 +53,7 @@ namespace Core.Processing.Outbox
                 foreach (var entity in entities)
                 {
                     var type = assemblyProvider.Application.GetType(entity.Type);
-                    var notification = JsonSerializer.Deserialize(entity.Data, type) as IDomainEventNotification;
+                    var notification = JsonConvert.DeserializeObject(entity.Data, type) as IDomainEventNotification;
 
                     await mediator.Publish(notification, cancellationToken);
 

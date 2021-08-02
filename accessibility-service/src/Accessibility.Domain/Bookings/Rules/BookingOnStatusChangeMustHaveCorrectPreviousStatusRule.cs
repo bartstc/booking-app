@@ -23,7 +23,7 @@ namespace Accessibility.Domain.Bookings.Rules
             }
             if (previousStatus == BookingStatus.Booked)
             {
-                return newStatus != BookingStatus.Finished;
+                return newStatus != BookingStatus.Completed;
             }
             return true;
         }

@@ -41,7 +41,7 @@ namespace Accessibility.UnitTests.Bookings
 
             booking.ChangeRecordStatus(serviceId, serviceStatus);
 
-            Assert.True(booking.IsFinished);
+            Assert.True(booking.IsCompleted);
             AssertDomainEventPublished<BookingFinishedEvent>(booking);
         }
 
@@ -57,7 +57,7 @@ namespace Accessibility.UnitTests.Bookings
 
             booking.ChangeRecordStatus(serviceId, serviceStatus);
 
-            Assert.False(booking.IsFinished);
+            Assert.False(booking.IsCompleted);
         }
         
         // [Fact]

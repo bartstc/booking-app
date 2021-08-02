@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Accessibility.Domain\Accessibility.Domain.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\..\..\shared\ExternalEvents\ExternalEvents.csproj" />
   </ItemGroup>
 
 </Project>

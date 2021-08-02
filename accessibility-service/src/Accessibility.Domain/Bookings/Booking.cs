@@ -14,15 +14,23 @@ namespace Accessibility.Domain.Bookings
     {
         private Booking()
         {
-            bookedRecords = new List<BookedRecord>();
+            BookedRecords = new List<BookedRecord>();
         }
 
-        private Booking(CustomerId customerId, FacilityId facilityId, BookingStatus status, List<BookedRecordData> records) : this()
+        private Booking(
+            CustomerId customerId,
+            PublicCustomerId publicCustomerId,
+            FacilityId facilityId,
+            BookingStatus status,
+            List<BookedRecordData> records,
+            bool isMadeManually) : this()
         {
             Id = new BookingId(Guid.NewGuid());
             this.customerId = customerId;
+            this.PublicCustomerId = publicCustomerId;
             this.FacilityId = facilityId;
-            this.status = status;
+            this.Status = status;
+            this.IsMadeManually = isMadeManually;
 
             foreach (var service in records)
             {
@@ -34,7 +42,7 @@ namespace Accessibility.Domain.Bookings
                     service.DurationInMinutes
                 );
 
-                bookedRecords.Add(bookedRecord);
+                BookedRecords.Add(bookedRecord);
                 
                 if (status == BookingStatus.Booked)
                 {
@@ -51,48 +59,102 @@ namespace Accessibility.Domain.Bookings
         public BookingId Id { get; }
         public FacilityId FacilityId { get; }
         private CustomerId customerId;
-        private List<BookedRecord> bookedRecords;
-        private BookingStatus status;
+        public PublicCustomerId PublicCustomerId { get; }
+        public List<BookedRecord> BookedRecords { get; }
+        public BookingStatus Status { get; private set; }
+        public bool IsMadeManually { get; }
         private DateTime requestedDate;
         private DateTime bookedDate;
         
-        public bool IsFinished => bookedRecords.All(s => s.IsFinished);
-
-        public static Booking CreateRequested(CustomerId customerId, FacilityId facilityId, List<BookedRecordData> records)
+        public bool IsCompleted => Status == BookingStatus.Completed;// || bookedRecords.All(s => s.IsCompleted);
+        
+        public static Booking CreateRequested(
+            PublicCustomerId publicCustomerId,
+            FacilityId facilityId,
+            List<BookedRecordData> records)
         {
-            var booking = new Booking(customerId, facilityId, BookingStatus.Requested, records);
+            var booking = new Booking(null, publicCustomerId, facilityId, BookingStatus.Requested, records, false);
             booking.requestedDate = DateTime.Now;
             return booking;
         }
 
-        public static Booking CreateBooked(CustomerId customerId, FacilityId facilityId, List<BookedRecordData> records)
+        public static Booking CreateRequestedManually(
+            CustomerId customerId,
+            FacilityId facilityId,
+            List<BookedRecordData> records)
         {
-            var booking = new Booking(customerId, facilityId, BookingStatus.Booked, records);
-            booking.bookedDate = DateTime.Now;
+            var booking = new Booking(customerId, null, facilityId, BookingStatus.Requested, records, true);
+            booking.requestedDate = DateTime.Now;
+            return booking;
+        }
+
+        public static async Task<Booking> CreateBooked(
+            PublicCustomerId customerId,
+            FacilityId facilityId,
+            List<BookedRecordData> records,
+            IBookingPeriodOfTimeChecker checker)
+        {
+            var booking = new Booking(null, customerId, facilityId, BookingStatus.Booked, records, false);
+
+            await CheckRuleAsync(new RecordsOfProcessingBookingMustBeAvailableAsyncRule(booking, booking.BookedRecords, checker));
+
+            booking.requestedDate = booking.bookedDate = DateTime.Now;
+
+            return booking;
+        }
+
+        public static async Task<Booking> CreateBookedManually(
+            CustomerId customerId,
+            FacilityId facilityId,
+            List<BookedRecordData> records,
+            IBookingPeriodOfTimeChecker checker)
+        {
+            var booking = new Booking(customerId, null, facilityId, BookingStatus.Booked, records, true);
+
+            await CheckRuleAsync(new RecordsOfProcessingBookingMustBeAvailableAsyncRule(booking, booking.BookedRecords, checker));
+
+            booking.requestedDate = booking.bookedDate = DateTime.Now;
+            
             return booking;
         }
 
         public async Task SetBooked(IBookingPeriodOfTimeChecker checker)
         {
-            CheckRule(new BookingOnStatusChangeMustHaveCorrectPreviousStatusRule(status, BookingStatus.Booked));
+            CheckRule(new BookingOnStatusChangeMustHaveCorrectPreviousStatusRule(Status, BookingStatus.Booked));
             CheckRule(new BookingRequestingCannotExceedTimeoutRule(requestedDate));
-            await CheckRuleAsync(new RecordsOfProcessingBookingMustBeAvailableAsyncRule(this, bookedRecords, checker));
+            await CheckRuleAsync(new RecordsOfProcessingBookingMustBeAvailableAsyncRule(this, BookedRecords, checker));
 
-            status = BookingStatus.Booked;
+            Status = BookingStatus.Booked;
             bookedDate = DateTime.Now;
             AddDomainEvent(new BookingConfirmedEvent(Id, FacilityId));
         }
 
         public void ChangeRecordStatus(BookedRecordId serviceId, BookedRecordStatus recordStatus)
         {
-            bookedRecords
+            BookedRecords
                 .First(s => s.Id == serviceId)
                 .ChangeStatus(recordStatus);
-            
-            if (IsFinished)
+        }
+
+        public void Archive()
+        {
+            var bookings = BookedRecords.Where(r => r.Status == BookedRecordStatus.Booked);
+
+            foreach (var booking in bookings)
             {
-                status = BookingStatus.Finished;
-                AddDomainEvent(new BookingFinishedEvent(Id));
+                booking.ChangeStatus(BookedRecordStatus.Fulfilled);
+            }
+
+            if (!IsMadeManually)
+            {
+                AddDomainEvent(new BookingArchivedEvent(PublicCustomerId, BookedRecords.Select(record => new ArchivedBookedRecord(
+                    record.Id,
+                    record.EmployeeId,
+                    record.OfferId,
+                    record.Date,
+                    record.DurationInMinutes,
+                    record.Status
+                ))));
             }
         }
     }

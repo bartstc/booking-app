@@ -1,6 +1,6 @@
 using System;
-using System.Text.Json.Serialization;
 using Core.Domain;
+using Newtonsoft.Json;
 
 namespace Core.DomainEvents
 {
