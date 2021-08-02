@@ -4,6 +4,6 @@ namespace Accessibility.Domain.Bookings
     {
         Requested,
         Booked,
-        Finished
+        Completed
     }
 }

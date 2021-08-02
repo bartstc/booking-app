@@ -22,12 +22,12 @@ namespace Accessibility.Infrastructure.Domain.Bookings
             builder.Property(b => b.PublicCustomerId).HasConversion(new StronglyTypedIdValueConverter<PublicCustomerId>()).HasColumnName("public_customer_id");
             builder.Property(b => b.FacilityId).HasConversion(new StronglyTypedIdValueConverter<FacilityId>()).HasColumnName("facility_id");
 
-            builder.Property("status").HasConversion(new EnumToNumberConverter<BookingStatus, short>());
+            builder.Property(b => b.Status).HasConversion(new EnumToNumberConverter<BookingStatus, short>()).HasColumnName("status");
             builder.Property(b => b.IsMadeManually).HasColumnName("is_made_manually");
             builder.Property("requestedDate").HasColumnName("requested_date");
             builder.Property("bookedDate").HasColumnName("booked_date");
 
-            builder.OwnsMany<BookedRecord>("bookedRecords", x =>
+            builder.OwnsMany<BookedRecord>(b => b.BookedRecords, x =>
             {
                 x.WithOwner().HasForeignKey("booking_id");
                 x.ToTable("booked_records", SchemaNames.Booking);
@@ -35,20 +35,20 @@ namespace Accessibility.Infrastructure.Domain.Bookings
                 x.HasKey("Id");
                 x.Property("Id").HasColumnName("booked_record_id");
 
-                x.OwnsOne<EmployeeId>("employeeId", e =>
+                x.OwnsOne<EmployeeId>(b => b.EmployeeId, e =>
                     e.Property(p => p.Value).HasColumnName("employee_id"));
-                x.OwnsOne<OfferId>("offerId", e =>
+                x.OwnsOne<OfferId>(b => b.OfferId, e =>
                     e.Property(p => p.Value).HasColumnName("offer_id"));
                 
-                x.OwnsOne<Money>("price", m =>
+                x.OwnsOne<Money>(b => b.Price, m =>
                 {
                     m.Property(p => p.Value).HasColumnName("price");
                     m.Property(p => p.Currency).HasColumnName("currency");
                 });
 
-                x.Property("date");
-                x.Property("durationInMinutes").HasColumnName("duration");
-                x.Property("status").HasConversion(new EnumToNumberConverter<BookedRecordStatus, short>());
+                x.Property(b => b.Date).HasColumnName("date");
+                x.Property(b => b.DurationInMinutes).HasColumnName("duration");
+                x.Property("Status").HasConversion(new EnumToNumberConverter<BookedRecordStatus, short>()).HasColumnName("status");
                 x.Property("changeDate").HasColumnName("change_date");
             });
         }

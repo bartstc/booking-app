@@ -1,6 +1,6 @@
 using System;
 
-namespace ExternalEvents.Accessibility.BookingRecords.Dtos
+namespace ExternalEvents.Accessibility.Bookings.Dtos
 {
     public class Employee
     {
