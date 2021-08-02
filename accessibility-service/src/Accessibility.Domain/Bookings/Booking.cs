@@ -147,7 +147,14 @@ namespace Accessibility.Domain.Bookings
 
             if (!IsMadeManually)
             {
-                AddDomainEvent(new BookingCompletedEvent(PublicCustomerId, BookedRecords));
+                AddDomainEvent(new BookingArchivedEvent(PublicCustomerId, BookedRecords.Select(record => new ArchivedBookedRecord(
+                    record.Id,
+                    record.EmployeeId,
+                    record.OfferId,
+                    record.Date,
+                    record.DurationInMinutes,
+                    record.Status
+                ))));
             }
         }
     }

@@ -18,18 +18,18 @@ namespace Accessibility.Domain.Bookings.BookedRecords
             CheckRule(new DateMustBeFromTheFutureRule(date));
 
             this.Id = new BookedRecordId(Guid.NewGuid());
-            this.employeeId = employeeId;
-            this.offerId = offerId;
-            this.price = price;
+            this.EmployeeId = employeeId;
+            this.OfferId = offerId;
+            this.Price = price;
             this.Date = date;
             this.DurationInMinutes = durationInMinutes;
             this.Status = BookedRecordStatus.Booked;
         }
 
-        internal BookedRecordId Id;
-        private EmployeeId employeeId;
-        private OfferId offerId;
-        private Money price;
+        public BookedRecordId Id { get; }
+        public EmployeeId EmployeeId { get; }
+        public OfferId OfferId { get; }
+        public Money Price { get ;}
         public DateTime Date { get; }
         public short DurationInMinutes { get; }
         public BookedRecordStatus Status { get; private set; }
@@ -51,6 +51,6 @@ namespace Accessibility.Domain.Bookings.BookedRecords
         }
 
         internal async Task<bool> IsTermAvailable(BookingId bookingId, FacilityId facilityId, IBookingPeriodOfTimeChecker checker) =>
-            await checker.IsRecordAvailable(bookingId, facilityId, employeeId, Date, Date.AddMinutes(DurationInMinutes));
+            await checker.IsRecordAvailable(bookingId, facilityId, EmployeeId, Date, Date.AddMinutes(DurationInMinutes));
     }
 }

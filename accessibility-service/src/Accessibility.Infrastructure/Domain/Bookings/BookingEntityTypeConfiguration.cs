@@ -35,12 +35,12 @@ namespace Accessibility.Infrastructure.Domain.Bookings
                 x.HasKey("Id");
                 x.Property("Id").HasColumnName("booked_record_id");
 
-                x.OwnsOne<EmployeeId>("employeeId", e =>
+                x.OwnsOne<EmployeeId>(b => b.EmployeeId, e =>
                     e.Property(p => p.Value).HasColumnName("employee_id"));
-                x.OwnsOne<OfferId>("offerId", e =>
+                x.OwnsOne<OfferId>(b => b.OfferId, e =>
                     e.Property(p => p.Value).HasColumnName("offer_id"));
                 
-                x.OwnsOne<Money>("price", m =>
+                x.OwnsOne<Money>(b => b.Price, m =>
                 {
                     m.Property(p => p.Value).HasColumnName("price");
                     m.Property(p => p.Currency).HasColumnName("currency");
