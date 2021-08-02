@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using Core;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Accessibility.Application.Bookings.Commands.CreateBooking;
+using Accessibility.Api.HostedServices;
 
 namespace Accessibility.Api
 {
@@ -46,6 +47,7 @@ namespace Accessibility.Api
             var applicationAssembly = typeof(CreateBookingCommand).Assembly;
             services.AddCoreServices(applicationAssembly);
             services.AddAccessibilityModule(Configuration, applicationAssembly);
+            services.AddHostedService<BookingArchiverHostedService>();
         }
 
         private void ConfigureOptions(IServiceCollection services)
