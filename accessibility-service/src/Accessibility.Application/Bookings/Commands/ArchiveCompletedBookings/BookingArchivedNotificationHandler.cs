@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -43,7 +44,7 @@ namespace Accessibility.Application.Bookings.Commands.ArchiveCompletedBookings
 
             var message = new BookingCompleted(notification.CustomerId.Value, messageBookedRecords);
 
-            await messageBus.SendAsync("booking-completed", message);
+            await messageBus.PublishAsync(message);
         }
 
         private List<BookedRecord> MapBookedRecords(BookingArchivedNotification notification, IEnumerable<Offer> offers, IEnumerable<Employee> employees)
@@ -62,7 +63,7 @@ namespace Accessibility.Application.Bookings.Commands.ArchiveCompletedBookings
                     bookedRecord.Date,
                     bookedRecord.DurationInMinutes,
                     bookedRecord.Id.Value,
-                    (BookedRecordStatus)bookedRecord.Status
+                    (BookedRecordStatus)Enum.Parse(typeof(BookedRecordStatus), bookedRecord.Status.ToString())
                 ));
             }
 
