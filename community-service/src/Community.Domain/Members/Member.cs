@@ -47,7 +47,7 @@ namespace Community.Domain.Members
 
         public void AddFulfilledBooking(BookingOffer offer, BookingFacility facility, BookingEmployee employee, DateTime date, short duration, Guid bookedRecordId)
         {
-            var @event = new BookingFulfilled(offer, facility, employee, date, duration, bookedRecordId);
+            var @event = new BookingFulfilled(Id, offer, facility, employee, date, duration, bookedRecordId);
 
             Enqueue(@event);
             Apply(@event);
@@ -62,6 +62,28 @@ namespace Community.Domain.Members
                 @event.Date,
                 @event.Duration,
                 BookingStatus.Fulfilled,
+                null,
+                @event.BookedRecordId
+            ));
+        }
+
+        public void AddCanceledBooking(BookingOffer offer, BookingFacility facility, BookingEmployee employee, DateTime date, short duration, Guid bookedRecordId)
+        {
+            var @event = new BookingCanceled(Id, offer, facility, employee, date, duration, bookedRecordId);
+
+            Enqueue(@event);
+            Apply(@event);
+        }
+
+        public void Apply(BookingCanceled @event)
+        {
+            ArchivalBookings.Add(new ArchivalBooking(
+                @event.Offer,
+                @event.Facility,
+                @event.Employee,
+                @event.Date,
+                @event.Duration,
+                BookingStatus.Canceled,
                 null,
                 @event.BookedRecordId
             ));

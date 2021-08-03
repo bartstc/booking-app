@@ -6,8 +6,9 @@ namespace Community.Domain.Members.Events
 {
     public class BookingFulfilled : IEvent
     {
-        public BookingFulfilled(BookingOffer offer, BookingFacility facility, BookingEmployee employee, DateTime date, short duration, Guid bookedRecordId)
+        public BookingFulfilled(Guid memberId, BookingOffer offer, BookingFacility facility, BookingEmployee employee, DateTime date, short duration, Guid bookedRecordId)
         {
+            MemberId = memberId;
             Offer = offer;
             Facility = facility;
             Employee = employee;
@@ -16,6 +17,7 @@ namespace Community.Domain.Members.Events
             BookedRecordId = bookedRecordId;
         }
 
+        public Guid MemberId { get; }
         public BookingOffer Offer { get; }
         public BookingFacility Facility { get; }
         public BookingEmployee Employee { get; }
