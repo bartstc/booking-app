@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Community.Application.Members.Commands.CreateMember;
 using Community.Infrastructure;
 using Core;
@@ -21,7 +22,10 @@ namespace Community.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Community.Api", Version = "v1" });
