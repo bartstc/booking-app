@@ -63,6 +63,18 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "community-build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/community-service/src/Community.Api/Community.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "gateway-build",
             "command": "dotnet",
             "type": "process",
