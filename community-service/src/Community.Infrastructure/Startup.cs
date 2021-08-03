@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Core.Marten;
@@ -19,7 +18,15 @@ namespace Community.Infrastructure
                 {
                     options.ConfigureMembers();
                 })
-                .AddMassTransit(configuration)
+                .AddMassTransit(configuration,
+                    x =>
+                    {
+                        x.AddMemberConsumers();
+                    },
+                    (context, cfg) =>
+                    {
+                        cfg.AddMemberEndpoints(context);
+                    })
                 .AddAutoMapper(typeof(Startup).Assembly);
         }
     }

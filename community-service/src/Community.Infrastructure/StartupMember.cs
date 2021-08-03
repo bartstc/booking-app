@@ -2,6 +2,7 @@ using Community.Application.Members;
 using Community.Application.Members.DomainServices;
 using Community.Domain.Members;
 using Community.Infrastructure.Application.Members;
+using Community.Infrastructure.Application.Members.Projections;
 using Community.Infrastructure.IntegrationEvents.Members;
 using Core.Domain.Repositories;
 using Core.Marten.Repositories;
@@ -28,19 +29,18 @@ namespace Community.Infrastructure
             // TODO: Use specyfic projection instead
             options.Projections.SelfAggregate<Member>();
             
-            // projections
-            // options.Projections.Add<>();
+            options.Projections.Add<MemberArchivalBookingsProjection>();
         }
 
         internal static void AddMemberConsumers(this IServiceCollectionBusConfigurator cfg)
         {
-            cfg.AddConsumer<BookingRecordFulfilledConsumer>();
+            cfg.AddConsumer<BookingCompletedConsumer>();
         }
 
         internal static void AddMemberEndpoints(this IRabbitMqBusFactoryConfigurator cfg, IBusRegistrationContext context)
         {
-            cfg.ReceiveEndpoint("booking-record-fulfilled-community", e =>
-                e.ConfigureConsumer<BookingRecordFulfilledConsumer>(context));
+            cfg.ReceiveEndpoint("booking-completed-community", e =>
+                e.ConfigureConsumer<BookingCompletedConsumer>(context));
         }
     }
 }
