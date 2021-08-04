@@ -66,7 +66,7 @@ namespace Accessibility.Domain.Bookings
         private DateTime requestedDate;
         private DateTime bookedDate;
         
-        public bool IsCompleted => Status == BookingStatus.Completed;// || bookedRecords.All(s => s.IsCompleted);
+        public bool IsCompleted => Status == BookingStatus.Completed || BookedRecords.All(s => s.IsCompleted);
         
         public static Booking CreateRequested(
             PublicCustomerId publicCustomerId,
@@ -129,20 +129,20 @@ namespace Accessibility.Domain.Bookings
             AddDomainEvent(new BookingConfirmedEvent(Id, FacilityId));
         }
 
-        public void ChangeRecordStatus(BookedRecordId serviceId, BookedRecordStatus recordStatus)
+        public void ChangeRecordStatus(BookedRecordId bookedRecord, BookedRecordStatus status, string caution = null)
         {
             BookedRecords
-                .First(s => s.Id == serviceId)
-                .ChangeStatus(recordStatus);
+                .First(s => s.Id == bookedRecord)
+                .ChangeStatus(status, caution);
         }
 
         public void Archive()
         {
-            var bookings = BookedRecords.Where(r => r.Status == BookedRecordStatus.Booked);
+            var records = BookedRecords.Where(r => r.Status == BookedRecordStatus.Booked);
 
-            foreach (var booking in bookings)
+            foreach (var record in records)
             {
-                booking.ChangeStatus(BookedRecordStatus.Fulfilled);
+                record.ChangeStatus(BookedRecordStatus.Fulfilled);
             }
 
             if (!IsMadeManually)

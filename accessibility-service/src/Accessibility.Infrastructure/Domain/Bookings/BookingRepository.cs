@@ -34,7 +34,8 @@ namespace Accessibility.Infrastructure.Domain.Bookings
                 .Where(b =>
                     b.Status == BookingStatus.Completed ||
                     b.BookedRecords.All(r => 
-                        r.Status == BookedRecordStatus.Canceled ||
+                        r.Status == BookedRecordStatus.CanceledByClient ||
+                        r.Status == BookedRecordStatus.CanceledByFacility ||
                         r.Status == BookedRecordStatus.NotRealized ||
                         r.Status == BookedRecordStatus.Fulfilled ||
                         r.Date.AddMinutes(r.DurationInMinutes) <= DateTime.Now
