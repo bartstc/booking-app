@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Accessibility.Application.Bookings.Commands.SetBookedRecordStatus;
+using Accessibility.Api.BookedRecords;
+using Accessibility.Application.BookedRecords.SetBookedRecordStatus;
 using Accessibility.Application.Bookings.Queries.GetBookedRecordsOfFacility;
 using Accessibility.Domain.Bookings.BookedRecords;
 using MediatR;
@@ -20,36 +21,24 @@ namespace Accessibility.Api.Controllers
         {
             this.mediator = mediator;
         }
-        
-        [HttpPut("{bookingId}/records/{bookedRecordId}/fulfill")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> FulfillBookedRecord(
-            [FromRoute] Guid bookingId,
-            [FromRoute] Guid facilityId,
-            [FromRoute] Guid bookedRecordId
-        )
-        {
-            await mediator.Send(new SetBookedRecordStatusCommand(
-                bookingId,
-                facilityId,
-                bookedRecordId,
-                BookedRecordStatus.Fulfilled));
-            return Ok();
-        }
 
         [HttpPut("{bookingId}/records/{bookedRecordId}/cancel")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> CancelBookedRecord(
             [FromRoute] Guid bookingId,
             [FromRoute] Guid facilityId,
-            [FromRoute] Guid bookedRecordId
+            [FromRoute] Guid bookedRecordId,
+            [FromBody] SetBookedRecordNotRealizedRequest request
         )
         {
+            // TODO: depends on requesting user set status to CanceledByClient or CanceledByFacility
             await mediator.Send(new SetBookedRecordStatusCommand(
                 bookingId,
                 facilityId,
                 bookedRecordId,
-                BookedRecordStatus.Canceled));
+                BookedRecordStatus.CanceledByFacility,
+                request?.Caution));
+
             return Ok();
         }
 
@@ -58,14 +47,16 @@ namespace Accessibility.Api.Controllers
         public async Task<IActionResult> SetBookedRecordAsNotRealized(
             [FromRoute] Guid bookingId,
             [FromRoute] Guid facilityId,
-            [FromRoute] Guid bookedRecordId
+            [FromRoute] Guid bookedRecordId,
+            [FromBody] SetBookedRecordNotRealizedRequest request
         )
         {
             await mediator.Send(new SetBookedRecordStatusCommand(
                 bookingId,
                 facilityId,
                 bookedRecordId,
-                BookedRecordStatus.NotRealized));
+                BookedRecordStatus.NotRealized,
+                request?.Caution));
             return Ok();
         }
         

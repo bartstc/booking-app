@@ -33,20 +33,23 @@ namespace Accessibility.Domain.Bookings.BookedRecords
         public DateTime Date { get; }
         public short DurationInMinutes { get; }
         public BookedRecordStatus Status { get; private set; }
+        public string Caution { get; private set; }
         // TODO: change to modifyDate
         private DateTime? changeDate;
 
         internal bool IsCompleted =>
-            Status == BookedRecordStatus.Canceled ||
+            Status == BookedRecordStatus.CanceledByClient ||
+            Status == BookedRecordStatus.CanceledByFacility ||
             Status == BookedRecordStatus.Fulfilled ||
             Status == BookedRecordStatus.NotRealized ||
-            Date.AddMinutes(DurationInMinutes) >= DateTime.Now;
+            Date.AddMinutes(DurationInMinutes) <= DateTime.Now;
 
-        internal void ChangeStatus(BookedRecordStatus newStatus)
+        internal void ChangeStatus(BookedRecordStatus newStatus, string caution = null)
         {
             CheckRule(new BookedRecordToBeChangedMustBeUnfinishedRule(this));
 
             Status = newStatus;
+            Caution = caution;
             changeDate = DateTime.Now;
         }
 

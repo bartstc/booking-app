@@ -4,7 +4,8 @@ namespace Accessibility.Domain.Bookings.BookedRecords
     {
         Booked,
         Fulfilled,
-        Canceled,
+        CanceledByClient,
+        CanceledByFacility,
         NotRealized
     }
 }

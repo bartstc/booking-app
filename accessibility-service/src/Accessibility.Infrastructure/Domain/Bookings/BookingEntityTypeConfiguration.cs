@@ -49,6 +49,7 @@ namespace Accessibility.Infrastructure.Domain.Bookings
                 x.Property(b => b.Date).HasColumnName("date");
                 x.Property(b => b.DurationInMinutes).HasColumnName("duration");
                 x.Property("Status").HasConversion(new EnumToNumberConverter<BookedRecordStatus, short>()).HasColumnName("status");
+                x.Property(b => b.Caution).HasColumnName("caution");
                 x.Property("changeDate").HasColumnName("change_date");
             });
         }
