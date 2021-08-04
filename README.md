@@ -28,7 +28,6 @@ todo
 * MassTransit
 * EventSourcing
 * Marten
-* Outbox pattern
 * Entity Framework Core
 * Dapper
 * Scrutor
