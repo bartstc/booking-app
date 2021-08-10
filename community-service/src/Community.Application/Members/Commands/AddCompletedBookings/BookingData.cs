@@ -15,5 +15,6 @@ namespace Community.Application.Members.Commands.AddCompletedBookings
         public short Duration { get; private set; }
         public Guid BookedRecordId { get; private set; }
         public BookingStatus Status { get; private set; }
+        public string Caution { get; set; }
     }
 }

@@ -37,6 +37,7 @@ namespace Community.Domain.Members.ValueObjects
     {
         Fulfilled,
         Canceled,
+        CanceledByFacility,
         NotRealized
     }
 }
