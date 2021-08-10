@@ -1,7 +1,7 @@
 using System;
 using Core.Domain;
 
-namespace Accessibility.Domain.BookingServices.Rules
+namespace Accessibility.Domain.Bookings.BookedRecords.Rules
 {
     public class DateMustBeFromTheFutureRule : IBusinessRule
     {

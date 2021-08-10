@@ -153,7 +153,8 @@ namespace Accessibility.Domain.Bookings
                     record.OfferId,
                     record.Date,
                     record.DurationInMinutes,
-                    record.Status
+                    record.Status,
+                    record.Caution
                 ))));
             }
         }
