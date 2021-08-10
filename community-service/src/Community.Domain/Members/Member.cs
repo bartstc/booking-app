@@ -88,5 +88,27 @@ namespace Community.Domain.Members
                 @event.BookedRecordId
             ));
         }
+
+        public void AddCanceledByFacilityBooking(BookingOffer offer, BookingFacility facility, BookingEmployee employee, DateTime date, short duration, Guid bookedRecordId, string caution)
+        {
+            var @event = new BookingCanceledByFacility(Id, offer, facility, employee, date, duration, bookedRecordId, caution);
+
+            Enqueue(@event);
+            Apply(@event);
+        }
+
+        public void Apply(BookingCanceledByFacility @event)
+        {
+            ArchivalBookings.Add(new ArchivalBooking(
+                @event.Offer,
+                @event.Facility,
+                @event.Employee,
+                @event.Date,
+                @event.Duration,
+                BookingStatus.CanceledByFacility,
+                @event.Caution,
+                @event.BookedRecordId
+            ));
+        }
     }
 }
