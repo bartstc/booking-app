@@ -18,7 +18,7 @@ namespace ExternalEvents.Accessibility.Bookings
 
     public class BookedRecord
     {
-        public BookedRecord(Offer offer, Facility facility, Employee employee, DateTime date, short duration, Guid bookedRecordId, BookedRecordStatus status)
+        public BookedRecord(Offer offer, Facility facility, Employee employee, DateTime date, short duration, Guid bookedRecordId, BookedRecordStatus status, string caution)
         {
             Offer = offer;
             Facility = facility;
@@ -27,6 +27,7 @@ namespace ExternalEvents.Accessibility.Bookings
             Duration = duration;
             BookedRecordId = bookedRecordId;
             Status = status;
+            Caution = caution;
         }
 
         public Offer Offer { get; }
@@ -36,12 +37,14 @@ namespace ExternalEvents.Accessibility.Bookings
         public short Duration { get; }
         public Guid BookedRecordId { get; }
         public BookedRecordStatus Status { get; }
+        public string Caution { get; }
     }
 
     public enum BookedRecordStatus
     {
         Fulfilled,
-        Canceled,
+        CanceledByClient,
+        CanceledByFacility,
         NotRealized
     }
 }

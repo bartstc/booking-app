@@ -5,7 +5,7 @@ namespace Accessibility.Domain.Bookings.BookedRecords
 {
     public class ArchivedBookedRecord
     {
-        public ArchivedBookedRecord(BookedRecordId id, EmployeeId employeeId, OfferId offerId, DateTime date, short durationInMinutes, BookedRecordStatus status)
+        public ArchivedBookedRecord(BookedRecordId id, EmployeeId employeeId, OfferId offerId, DateTime date, short durationInMinutes, BookedRecordStatus status, string caution)
         {
             Id = id;
             EmployeeId = employeeId;
@@ -13,6 +13,7 @@ namespace Accessibility.Domain.Bookings.BookedRecords
             Date = date;
             DurationInMinutes = durationInMinutes;
             Status = status;
+            Caution = caution;
         }
 
         public BookedRecordId Id { get; set; }
@@ -21,5 +22,6 @@ namespace Accessibility.Domain.Bookings.BookedRecords
         public DateTime Date { get; }
         public short DurationInMinutes { get; }
         public BookedRecordStatus Status { get; }
+        public string Caution { get; }
     }
 }

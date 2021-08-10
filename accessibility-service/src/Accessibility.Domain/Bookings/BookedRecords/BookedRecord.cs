@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Accessibility.Domain.Bookings.BookedRecords.Rules;
-using Accessibility.Domain.BookingServices.Rules;
 using Core.Domain;
 using Accessibility.Domain.SharedKernel;
 
@@ -46,8 +45,6 @@ namespace Accessibility.Domain.Bookings.BookedRecords
 
         internal void ChangeStatus(BookedRecordStatus newStatus, string caution = null)
         {
-            CheckRule(new BookedRecordToBeChangedMustBeUnfinishedRule(this));
-
             Status = newStatus;
             Caution = caution;
             changeDate = DateTime.Now;

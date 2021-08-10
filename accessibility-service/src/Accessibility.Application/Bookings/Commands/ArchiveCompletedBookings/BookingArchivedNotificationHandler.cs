@@ -63,7 +63,8 @@ namespace Accessibility.Application.Bookings.Commands.ArchiveCompletedBookings
                     bookedRecord.Date,
                     bookedRecord.DurationInMinutes,
                     bookedRecord.Id.Value,
-                    (BookedRecordStatus)Enum.Parse(typeof(BookedRecordStatus), bookedRecord.Status.ToString())
+                    (BookedRecordStatus)Enum.Parse(typeof(BookedRecordStatus), bookedRecord.Status.ToString()),
+                    bookedRecord.Caution
                 ));
             }
 
