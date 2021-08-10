@@ -61,5 +61,19 @@ namespace Community.Infrastructure.Application.Members.Projections
                 @event.BookedRecordId
             ));
         }
+
+        public void Apply(BookingNotRealized @event, MemberArchivalBookings view)
+        {
+            view.ArchivalBookings.Add(new ArchivalBooking(
+                @event.Offer,
+                @event.Facility,
+                @event.Employee,
+                @event.Date,
+                @event.Duration,
+                BookingStatus.NotRealized,
+                @event.Caution,
+                @event.BookedRecordId
+            ));
+        }
     }
 }

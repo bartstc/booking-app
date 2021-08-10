@@ -37,6 +37,9 @@ namespace Community.Application.Members.Commands.AddCompletedBookings
                     case BookingStatus.CanceledByFacility:
                         member.AddCanceledByFacilityBooking(offer, null, employee, booking.Date, booking.Duration, booking.BookedRecordId, booking.Caution);
                         break;
+                    case BookingStatus.NotRealized:
+                        member.AddNotRealizedBooking(offer, null, employee, booking.Date, booking.Duration, booking.BookedRecordId, booking.Caution);
+                        break;
                 }
             }
 
