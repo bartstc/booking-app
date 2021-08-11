@@ -1,18 +1,16 @@
 import React from 'react';
 
-function App() {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { PrivateRoutes, PublicRoutes } from 'shared/Routes';
+import { useAuthContextSelector } from 'modules/auth/application';
 
-export default App;
+const App = () => {
+  const isAuthenticated = useAuthContextSelector(state => state.isAuthenticated);
+
+  if (isAuthenticated()) {
+    return <PrivateRoutes />;
+  }
+
+  return <PublicRoutes />;
+};
+
+export { App };
