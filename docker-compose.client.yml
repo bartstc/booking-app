@@ -95,5 +95,19 @@ services:
       - accessibility
       - management
 
+  customer-web-client:
+    image: customer-web-client
+    build:
+      context: ./customer-web-client
+      dockerfile: ./Dockerfile.prod
+    ports:
+      - 3002:80
+    depends_on:
+      - db
+      - rabbit
+      - adminer
+      - accessibility
+      - management
+
 volumes:
   pgdata:

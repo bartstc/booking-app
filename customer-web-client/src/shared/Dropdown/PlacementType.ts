@@ -1,0 +1,17 @@
+export enum PlacementType {
+  BOTTOM_END = 'bottom-end',
+  AUTO = 'auto',
+  AUTO_START = 'auto-start',
+  AUTO_END = 'auto-end',
+  TOP = 'top',
+  BOTTOM = 'bottom',
+  RIGHT = 'right',
+  LEFT = 'left',
+  TOP_START = 'top-start',
+  TOP_END = 'top-end',
+  BOTTOM_START = 'bottom-start',
+  RIGHT_START = 'right-start',
+  RIGHT_END = 'right-end',
+  LEFT_START = 'left-start',
+  LEFT_END = 'left-end',
+}
