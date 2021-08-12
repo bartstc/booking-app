@@ -22,7 +22,18 @@ todo
 ## Project Structure and Architecture
 todo
 
-## Tech Stack/Patterns (.NET services)
+## Services & Environments
+* Accessibility - .NET Core
+* Community - .NET Core
+* Gateway - .NET Core
+* Identity - .NET Core
+* Management - NodeJS (NestJS)
+* Employee Web Client - React & TypeScript
+* Customer Web Client - React & TypeScript
+
+## Tech Stack/Patterns
+
+### .NET environment
 * .NET Core
 * Event-driven architecture
 * MassTransit
@@ -35,3 +46,21 @@ todo
 * Decorator pattern
 * Optimistic concurrency
 * Gateway
+
+### NodeJS environment
+* NestJS
+* TypeScript
+* CQRS
+* TypeORM
+* Event-driven architecture
+* AMQP (Rabbit)
+
+### Web Clients environment
+* React
+* TypeScript
+* Chakra UI
+* React Intl
+* OIDC Client
+* React Query
+* React Hook Form
+* RxJS
