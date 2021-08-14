@@ -20,6 +20,7 @@ import { GetFacilityBySlugHandler } from './application/query/getFacilityBySlug'
 import { GetFacilitiesHandler } from './application/query/getFacilities';
 import { GetOfferHandler } from './application/query/getOffer';
 import { GetOffersHandler } from './application/query/getOffers';
+import { GetPublicOffersHandler } from './application/query/getPublicOffers';
 
 import {
   ActivateOfferController,
@@ -37,6 +38,7 @@ import {
   GetFacilityBySlugController,
   GetOfferController,
   GetOffersController,
+  GetPublicOffersController,
 } from './api/controllers/query';
 import { EmployeesModule } from '../employees/employees.module';
 
@@ -61,6 +63,7 @@ import { EmployeesModule } from '../employees/employees.module';
     GetFacilitiesController,
     GetOfferController,
     GetOffersController,
+    GetPublicOffersController,
   ],
   providers: [
     CreateFacilityHandler,
@@ -75,6 +78,7 @@ import { EmployeesModule } from '../employees/employees.module';
     GetFacilitiesHandler,
     GetOfferHandler,
     GetOffersHandler,
+    GetPublicOffersHandler,
     ...providers,
   ],
   exports: [providers[0]],
