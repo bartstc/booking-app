@@ -9,9 +9,14 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
 
-import { Button, IconButton } from "shared/Button";
+import { IconButton } from "shared/Button";
+import { SignInButton, SignUpButton } from "../components";
 
-const Header = () => {
+interface IProps {
+  toggle: () => void;
+}
+
+const Header = ({ toggle }: IProps) => {
   const { formatMessage } = useIntl();
 
   const { toggleColorMode: toggleMode, colorMode } = useColorMode();
@@ -47,12 +52,8 @@ const Header = () => {
       </Text>
       <Flex justify="flex-end" align="center" color="gray.400">
         <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-          <Button colorScheme="brand" variant="ghost" size="sm">
-            {formatMessage({ defaultMessage: "Sign in", id: "sign-in" })}
-          </Button>
-          <Button colorScheme="primary" variant="solid" size="sm">
-            {formatMessage({ defaultMessage: "Sign up", id: "sign-up" })}
-          </Button>
+          <SignInButton />
+          <SignUpButton />
         </HStack>
         <HStack spacing={1}>
           <IconButton
@@ -87,7 +88,7 @@ const Header = () => {
             variant="ghost"
             withoutTooltip
             icon={<HamburgerIcon />}
-            // onClick={mobileNav.onOpen}
+            onClick={toggle}
           />
         </HStack>
       </Flex>
