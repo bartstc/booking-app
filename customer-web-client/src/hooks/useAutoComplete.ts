@@ -1,12 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
-import { uniqBy } from 'lodash';
-import { BehaviorSubject, EMPTY, NEVER, pipe, Subject } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { useEffect, useRef, useState } from "react";
+import { uniqBy } from "lodash";
+import { BehaviorSubject, EMPTY, NEVER, pipe, Subject } from "rxjs";
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from "rxjs/operators";
 
-import { buildUrl } from 'utils';
-import { getJSON, ServiceType } from 'utils/http';
-import { ICollection, IQueryParams, RequestStatus } from 'types';
-import { useRequestStatus } from 'hooks';
+import { buildUrl } from "utils";
+import { getJSON, ServiceType } from "utils/http";
+import { ICollection, IQueryParams, RequestStatus } from "types";
+import { useRequestStatus } from "hooks";
 
 type Options<Item, Response> = {
   url: string;
@@ -26,9 +34,9 @@ export function useAutoComplete<
 >({
   url,
   limit = 20,
-  offsetKey = 'offset',
-  queryKey = 'query',
-  map: mapFn = response => response.collection,
+  offsetKey = "offset",
+  queryKey = "query",
+  map: mapFn = (response) => response.collection,
   params = {},
   initialData,
   reFetchWhenChange = [],
@@ -39,31 +47,34 @@ export function useAutoComplete<
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useRequestStatus();
 
-  const { current: search$ } = useRef(new BehaviorSubject<string>(''));
+  const { current: search$ } = useRef(new BehaviorSubject<string>(""));
   const { current: pagination$ } = useRef(new Subject<number>());
 
   const fetchData$ = (params: Params) => {
     setStatus(RequestStatus.InProgress);
-    return getJSON<Response>(buildUrl(url, params), ServiceType.Management).pipe(
+    return getJSON<Response>(
+      buildUrl(url, params),
+      ServiceType.Management
+    ).pipe(
       map((response: Response) => {
         setTotal(response.meta.total);
         return mapFn(response) as Array<Item>;
       }),
-      tap(response => {
+      tap((response) => {
         setOffset(params[offsetKey] as number);
-        setData(state => uniqBy([...state, ...response], 'value'));
+        setData((state) => uniqBy([...state, ...response], "value"));
         setStatus(RequestStatus.Done);
       }),
-      catchError(err => {
+      catchError((err) => {
         setError(err);
         setStatus(RequestStatus.Failure);
         return EMPTY;
-      }),
+      })
     );
   };
 
   const mapParams$ = map(({ query, offset, limit }: Params) => {
-    if (query === '') {
+    if (query === "") {
       return {
         limit,
         [offsetKey]: offset,
@@ -79,7 +90,7 @@ export function useAutoComplete<
       .pipe(
         distinctUntilChanged(),
         debounceTime(400),
-        map(value => {
+        map((value) => {
           return {
             limit,
             offset: 0,
@@ -94,27 +105,28 @@ export function useAutoComplete<
           }
 
           return fetchData$(value);
-        }),
+        })
       )
       .subscribe();
 
     const subscriber = pagination$
       .pipe(
         withLatestFrom(search$),
-        map(value => {
+        map((value) => {
           return {
             limit,
             offset: value[0],
             query: value[1],
           };
         }),
-        pipe(mapParams$, switchMap(fetchData$)),
+        pipe(mapParams$, switchMap(fetchData$))
       )
       .subscribe();
 
     return () => {
       subscriber.unsubscribe();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...reFetchWhenChange]);
 
   const nextPage = () => {
