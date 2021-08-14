@@ -1,7 +1,6 @@
 import React from "react";
 import {
   HStack,
-  Text,
   useColorModeValue,
   VStack,
   Drawer,
