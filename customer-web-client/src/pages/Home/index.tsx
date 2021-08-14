@@ -1,12 +1,16 @@
-import React from "react";
+import React from 'react';
+import {VStack, chakra} from "@chakra-ui/react"
 
-import { HeroSection } from "./HeroSection";
+import {OffersList} from 'modules/offers/presentation'
+
+import {HeroSection} from "./HeroSection";
 
 const Home = () => {
   return (
-    <div>
+    <VStack spacing={4}>
       <HeroSection />
-    </div>
+      <OffersList />
+    </VStack>
   );
 };
 

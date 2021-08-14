@@ -1,1 +1,1 @@
-export { List } from "./OffersList";
+export { OffersList } from "./OffersList";
