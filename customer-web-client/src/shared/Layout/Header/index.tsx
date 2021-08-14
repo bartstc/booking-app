@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import {
   HStack,
   Text,
@@ -11,11 +12,12 @@ import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Button, IconButton } from "shared/Button";
 
 const Header = () => {
-  const { toggleColorMode: toggleMode } = useColorMode();
+  const { formatMessage } = useIntl();
+
+  const { toggleColorMode: toggleMode, colorMode } = useColorMode();
   const textColor = useColorModeValue("gray.700", "primary.300");
   const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
   const bg = useColorModeValue("white", "gray.900");
-  const themeText = useColorModeValue("dark", "light");
   const borderColor = useColorModeValue("gray.100", "gray.800");
 
   return (
@@ -46,17 +48,27 @@ const Header = () => {
       <Flex justify="flex-end" align="center" color="gray.400">
         <HStack spacing="5" display={{ base: "none", md: "flex" }}>
           <Button colorScheme="brand" variant="ghost" size="sm">
-            Sign in
+            {formatMessage({ defaultMessage: "Sign in", id: "sign-in" })}
           </Button>
           <Button colorScheme="primary" variant="solid" size="sm">
-            Sign up
+            {formatMessage({ defaultMessage: "Sign up", id: "sign-up" })}
           </Button>
         </HStack>
         <HStack spacing={1}>
           <IconButton
             size="md"
             fontSize="lg"
-            title={`Switch to ${themeText} mode`}
+            title={
+              colorMode === "light"
+                ? formatMessage({
+                    id: "switch-to-dark",
+                    defaultMessage: "Switch to dark mode",
+                  })
+                : formatMessage({
+                    id: "switch-to-light",
+                    defaultMessage: "Switch to light mode",
+                  })
+            }
             variant="ghost"
             color="current"
             ml={{ base: "0", md: "3" }}
@@ -66,7 +78,10 @@ const Header = () => {
           />
           <IconButton
             display={{ base: "flex", md: "none" }}
-            title="Open menu"
+            title={formatMessage({
+              defaultMessage: "Open menu",
+              id: "open-menu",
+            })}
             fontSize="20px"
             color={useColorModeValue("gray.800", "inherit")}
             variant="ghost"
