@@ -7,7 +7,10 @@ import { OfferEntity } from './Offer.entity';
 import { OfferTypeormTransformer } from './OfferTypeorm.transformer';
 import { OfferDto } from '../../../application/dto';
 import { OfferQuery } from '../../../adapter';
-import { OfferCollectionQueryParams } from '../../../adapter/params';
+import {
+  OfferCollectionQueryParams,
+  PublicOfferCollectionQueryParams,
+} from '../../../adapter/params';
 
 @EntityRepository(OfferEntity)
 export class OfferTypeormQuery
@@ -50,6 +53,44 @@ export class OfferTypeormQuery
         query = query.orderBy(`offer.details::jsonb->'price'->>'type'`, order);
       } else if (sort === 'status') {
         query = query.orderBy(`offer.status`, order);
+      }
+    }
+
+    const [collection, total] = await query.getManyAndCount();
+
+    return {
+      collection: OfferTypeormTransformer.toDtoBulk(collection),
+      meta: {
+        total,
+        offset,
+        limit,
+      },
+    };
+  }
+  async getPublicOffers({
+    limit = 10,
+    offset = 0,
+    name = '',
+    priceType = '' as any,
+    currency = '' as any,
+    order: orderKey,
+  }: PublicOfferCollectionQueryParams): Promise<QueryListResult<OfferDto>> {
+    let query = this.paginatedQueryBuilder('offer', {
+      limit,
+      offset,
+    })
+      .where(`offer.status ilike '%active%'`)
+      .andWhere(`offer.details::jsonb->>'name' ilike '%${name}%'`)
+      .andWhere(`offer.details::jsonb->'price'->>'type' ilike '%${priceType}%'`)
+      .andWhere(
+        `offer.details::jsonb->'price'->>'currency' ilike '%${currency}%'`,
+      );
+
+    if (orderKey) {
+      const [sort, order] = this.extractOrder(orderKey);
+
+      if (sort === 'priceType') {
+        query = query.orderBy(`offer.details::jsonb->'price'->>'type'`, order);
       }
     }
 

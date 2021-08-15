@@ -48,7 +48,7 @@
     "zustand": "^3.5.7"
   },
   "scripts": {
-    "start": "PORT=3002 react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -78,6 +78,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/react-select": "^3.1.2",
     "@types/react-text-mask": "^5.4.6",
-    "@types/yup": "^0.29.11"
+    "@types/yup": "^0.29.11",
+    "prettier": "^2.3.2"
   }
 }
