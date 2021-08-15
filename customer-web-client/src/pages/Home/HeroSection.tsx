@@ -12,31 +12,19 @@ import {
 
 import { FiltersInput } from "shared/Filters";
 
+import barberImg from "assets/images/barberswg.svg";
+
 const HeroSection = () => {
   const { formatMessage } = useIntl();
 
   return (
-    <SimpleGrid
-      columns={{ base: 1, md: 2 }}
-      spacing={0}
-      position="relative"
-      _after={{
-        bg: "primary.500",
-        opacity: 0.25,
-        pos: "absolute",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-        content: '" "',
-      }}
-    >
+    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={0} position="relative">
       <Flex
         direction="column"
         alignItems="start"
         justifyContent="center"
         px={{ base: 4, lg: 20 }}
-        py={{ base: 10, md: 16, lg: 24 }}
+        py={{ base: 10, md: 16 }}
         zIndex={1}
       >
         <Badge
@@ -52,7 +40,7 @@ const HeroSection = () => {
         </Badge>
         <chakra.h1
           mb={6}
-          fontSize={{ base: "4xl", md: "4xl", lg: "5xl" }}
+          fontSize={{ base: "2xl", lg: "3xl", "2xl": "6xl" }}
           fontWeight="bold"
           lineHeight="shorter"
         >
@@ -64,7 +52,7 @@ const HeroSection = () => {
             {
               accent: (
                 <chakra.strong
-                  color={useColorModeValue("primary.500", "gray.300")}
+                  color={useColorModeValue("primary.500", "primary.300")}
                 >
                   {formatMessage({
                     id: "home-hero-title-accent",
@@ -75,7 +63,7 @@ const HeroSection = () => {
             }
           )}
         </chakra.h1>
-        <chakra.div w="100%" mb={6}>
+        <chakra.div w="100%" mb={{ base: 6, md: 8, lg: 16 }}>
           <chakra.div
             background={useColorModeValue("white", "transparent")}
             maxW="360px"
@@ -93,7 +81,7 @@ const HeroSection = () => {
         <chakra.p
           pr={{ base: 0, lg: 16 }}
           mb={4}
-          fontSize="sm"
+          fontSize={{ base: "sm", xl: "lg" }}
           letterSpacing="wider"
         >
           {formatMessage(
@@ -123,15 +111,18 @@ const HeroSection = () => {
           )}
         </chakra.p>
       </Flex>
-      <Box zIndex={1}>
+      <Box
+        display={{ base: "none", md: "block" }}
+        zIndex={1}
+        p={{ base: 4, xl: 10 }}
+      >
         <Image
-          src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+          src={barberImg}
           alt="Barber shop"
           fit="cover"
           w="full"
           h={{ base: 64, md: "full" }}
-          maxH={{ base: "400px", lg: "520px" }}
-          bg="gray.100"
+          maxH={{ "2xl": "520px" }}
           loading="lazy"
         />
       </Box>
