@@ -6,7 +6,6 @@ import { Spinner } from "shared/Spinner";
 import { LogoutCallback, Logout, Callback, SilentRenew } from "./AuthRoutes";
 import { Layout } from "../Layout";
 
-const Search = lazy(() => import("../../pages/Search"));
 const OfferDetails = lazy(() => import("../../pages/OfferDetails"));
 const Home = lazy(() => import("../../pages/Home"));
 
@@ -16,7 +15,6 @@ const PublicRoutes = () => {
       <Suspense fallback={<Spinner />}>
         <Switch>
           <Route path="/" component={Home} exact />
-          <Route path="/search" component={Search} exact />
           <Route path="/offers/:offerId" component={OfferDetails} />
 
           <Route path="/signin-oidc" component={Callback} />
