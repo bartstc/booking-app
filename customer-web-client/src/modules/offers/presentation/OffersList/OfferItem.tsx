@@ -1,13 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import {
+  Badge,
   Box,
-  Flex,
-  useColorModeValue,
-  Image,
   chakra,
+  Flex,
   HStack,
+  Image,
+  useColorModeValue,
 } from "@chakra-ui/react";
+import { StarIcon } from "@chakra-ui/icons";
 import { mdiMapMarker, mdiTag } from "@mdi/js";
 
 import { useFacilityByIdQuery } from "modules/facility/infrastructure/query";
@@ -18,8 +20,11 @@ import {
 } from "modules/facility/application";
 
 import { Icon } from "shared/Icon";
+import { Button } from "shared/Button";
 
-import { IOffer } from "../../application";
+import { ContactType } from "types";
+
+import { IOffer, PriceModel } from "../../application";
 
 interface IProps {
   offer: IOffer;
@@ -36,6 +41,10 @@ const OfferItem = ({ offer, index }: IProps) => {
       (category) => category.degree === BusinessCategoryDegreeType.Main
     )?.type ?? BusinessCategoryType.Other;
   const address = `${facility.address.postCode}, ${facility.address.city}, ${facility.address.street}`;
+  const contact = facility.contacts.find(
+    (contact) =>
+      contact.type === ContactType.Phone || contact.type === ContactType.Email
+  );
 
   return (
     <Flex w="full" maxW={{ base: "480px", md: "100%" }} m="0 auto" mb={10}>
@@ -72,7 +81,7 @@ const OfferItem = ({ offer, index }: IProps) => {
           </Flex>
         </chakra.div>
 
-        <chakra.div>
+        <chakra.div w={{ base: "full", md: "60%" }}>
           <Box py={4} px={6}>
             <chakra.h1
               fontSize="xl"
@@ -95,41 +104,71 @@ const OfferItem = ({ offer, index }: IProps) => {
                 {address}
               </chakra.p>
             </HStack>
+            <Box py="6">
+              <HStack alignItems="baseline">
+                {offer.price.type === PriceModel.Free && (
+                  <Badge rounded="full" px="2" colorScheme="teal">
+                    Free
+                  </Badge>
+                )}
+                <Box
+                  color="gray.500"
+                  fontWeight="semibold"
+                  letterSpacing="wide"
+                  fontSize="xs"
+                  textTransform="uppercase"
+                >
+                  {offer.duration} min &bull;{" "}
+                  {contact
+                    ? contact.value
+                    : formatMessage({
+                        defaultMessage: "contact not available",
+                        id: "contact-not-available",
+                      })}
+                </Box>
+              </HStack>
 
-            <Flex
-              alignItems="center"
-              mt={4}
-              color={useColorModeValue("gray.700", "gray.200")}
-            >
-              <Icon path={mdiTag} />
+              <Box
+                mt="1"
+                fontWeight="semibold"
+                as="h4"
+                lineHeight="tight"
+                fontSize="lg"
+                isTruncated
+              >
+                {offer.name}
+              </Box>
 
-              <chakra.h1 px={2} fontSize="sm">
-                Choc UI
-              </chakra.h1>
-            </Flex>
+              <Box>
+                {offer.price.value} {offer.price.currency.toUpperCase()}
+              </Box>
 
-            <Flex
-              alignItems="center"
-              mt={4}
-              color={useColorModeValue("gray.700", "gray.200")}
-            >
-              <Icon path={mdiTag} />
-
-              <chakra.h1 px={2} fontSize="sm">
-                California
-              </chakra.h1>
-            </Flex>
-            <Flex
-              alignItems="center"
-              mt={4}
-              color={useColorModeValue("gray.700", "gray.200")}
-            >
-              <Icon path={mdiTag} />
-
-              <chakra.h1 px={2} fontSize="sm">
-                patterson@example.com
-              </chakra.h1>
-            </Flex>
+              <HStack align="flex-end" justify="space-between">
+                <Flex d="flex" mt="8" alignItems="center">
+                  {Array(5)
+                    .fill("")
+                    .map((_, i) => (
+                      <StarIcon
+                        key={i}
+                        color={i < 4 ? "gray.600" : "gray.300"}
+                      />
+                    ))}
+                  <Box as="span" ml="2" color="gray.600" fontSize="sm">
+                    16 reviews
+                  </Box>
+                </Flex>
+                <Button
+                  size="sm"
+                  colorScheme="primary"
+                  textTransform="uppercase"
+                >
+                  {formatMessage({
+                    defaultMessage: "book it",
+                    id: "book-it",
+                  })}
+                </Button>
+              </HStack>
+            </Box>
           </Box>
         </chakra.div>
       </Flex>
