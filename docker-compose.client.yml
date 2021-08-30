@@ -81,6 +81,19 @@ services:
     environment:
       - ConnectionStrings:Identity=Host=db;Database=identity;Username=postgres;Password=pg
 
+  community:
+    image: community
+    build:
+      context: .
+      dockerfile: community-service/Dockerfile
+    ports:
+      - "84:80"
+    environment:
+      - EventStore:ConnectionString=Host=db;Database=community;Username=postgres;Password=pg
+      - RabbitMQ:Hostname=rabbit
+      - RabbitMQ:Username=admin
+      - RabbitMQ:Password=admin
+
   employee-web-client:
     image: employee-web-client
     build:
