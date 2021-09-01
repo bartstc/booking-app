@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { Link } from "react-router-dom";
 import {
   HStack,
   Text,
@@ -43,13 +44,15 @@ const Header = ({ toggle }: IProps) => {
       borderBottom="2px solid"
       borderBottomColor={borderColor}
     >
-      <Text
-        fontWeight="700"
-        color={textColor}
-        fontSize={{ base: "md", lg: "xl" }}
-      >
-        Booking App
-      </Text>
+      <Link to="/">
+        <Text
+          fontWeight="700"
+          color={textColor}
+          fontSize={{ base: "md", lg: "xl" }}
+        >
+          Booking App
+        </Text>
+      </Link>
       <Flex justify="flex-end" align="center" color="gray.400">
         <HStack spacing="5" display={{ base: "none", md: "flex" }}>
           <SignInButton />
