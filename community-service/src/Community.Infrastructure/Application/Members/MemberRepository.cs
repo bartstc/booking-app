@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Community.Application.Members;
-using Community.Domain.Members;
 using Community.Domain.Members.ValueObjects;
 using Community.Infrastructure.Application.Members.Projections;
 using Marten;
@@ -13,18 +12,18 @@ namespace Community.Infrastructure.Application.Members
     public class MemberRepository : IMemberRepository
     {
         private readonly IQuerySession querySession;
-        private readonly IDocumentSession documentSession;
 
-        public MemberRepository(IQuerySession querySession, IDocumentSession documentSession)
+        public MemberRepository(IQuerySession querySession)
         {
             this.querySession = querySession;
-            this.documentSession = documentSession;
         }
 
         public async Task<bool> ExistsAsync(string email)
         {
-            // TODO: Use projection instead of querying aggregate
-            var result = (await querySession.QueryAsync<Member>("where data ->> 'Email' = ?", parameters: email)).FirstOrDefault();
+            var result = await querySession.Query<ActiveMemberEmail>()
+                .Where(m => m.Email == email)
+                .SingleOrDefaultAsync();
+                
             return result != null;
         }
 

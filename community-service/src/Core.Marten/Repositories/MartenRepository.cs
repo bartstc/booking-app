@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Core.Domain;
 using Core.Domain.Repositories;
-using Core.Marten.DomainEvents;
+using Core.Marten.UnitOfWork;
 using Marten;
 
 namespace Core.Marten.Repositories
@@ -11,14 +11,11 @@ namespace Core.Marten.Repositories
     public class MartenRepository<TAggregate> : IRepository<TAggregate> where TAggregate : class, IAggregate
     {
         private readonly IDocumentSession documentSession;
-        private readonly IDomainEventCollector domainEventCollector;
 
         public MartenRepository(
-            IDocumentSession documentSession,
-            IDomainEventCollector domainEventCollector)
+            ITransactionalDocumentSessionFactory dbConnectionFactory)
         {
-            this.documentSession = documentSession;
-            this.domainEventCollector = domainEventCollector;
+            this.documentSession = dbConnectionFactory.DocumentSession;
         }
 
         public async Task<TAggregate> FindAsync(Guid id, CancellationToken cancellationToken) =>
@@ -27,13 +24,14 @@ namespace Core.Marten.Repositories
         public void Store(TAggregate aggregate, CancellationToken cancellationToken)
         {
             var events = aggregate.DequeueUncommittedEvents();
-            
-            domainEventCollector.AppendAll(events);
 
             documentSession.Events.Append(
                 aggregate.Id,
                 events
             );
         }
+
+        public Task SaveChangesAsync() =>
+            documentSession.SaveChangesAsync();
     }
 }

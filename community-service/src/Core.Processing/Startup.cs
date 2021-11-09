@@ -1,6 +1,7 @@
 using Core.Domain.UnitOfWork;
-using Core.Marten.DomainEvents;
+using Core.Marten.UnitOfWork;
 using Core.Processing.DomainEventDispatcher;
+using Core.Processing.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Processing
@@ -10,8 +11,10 @@ namespace Core.Processing
         public static IServiceCollection AddProcessing(this IServiceCollection services)
         {
             services
-                .AddScoped<IUnitOfWork, UnitOfWork>()
-                .AddScoped<IDomainEventCollector, DomainEventCollector>();
+                .AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>()
+                .AddScoped<ITransactionalDocumentSessionFactory, TransactionalDocumentSessionFactory>()
+                .AddScoped<IDomainEventsDispatcher, DomainEventsDispatcher>()
+                .AddSingleton<IDomainEventNotificationProvider, DomainEventNotificationProvider>();
             
             return services;
         }

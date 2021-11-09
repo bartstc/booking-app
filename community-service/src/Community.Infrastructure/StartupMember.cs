@@ -1,3 +1,5 @@
+using Auth0.AuthenticationApi;
+using Auth0.ManagementApi;
 using Community.Application.Members;
 using Community.Application.Members.DomainServices;
 using Community.Domain.Members;
@@ -21,14 +23,15 @@ namespace Community.Infrastructure
             return services
                 .AddScoped<IRepository<Member>, MartenRepository<Member>>()
                 .AddScoped<IMemberRepository, MemberRepository>()
-                .AddTransient<IMemberUniquenessChecker, MemberUniquenessChecker>();
+                .AddTransient<IMemberUniquenessChecker, MemberUniquenessChecker>()
+                .AddSingleton<IAuthenticationConnection, HttpClientAuthenticationConnection>()
+                .AddSingleton<IManagementConnection, HttpClientManagementConnection>()
+                .AddScoped<IIdpUserService, Auth0UserService>();
         }
 
         internal static void ConfigureMembers(this StoreOptions options)
-        {
-            // TODO: Use specyfic projection instead
-            options.Projections.SelfAggregate<Member>();
-            
+        {            
+            options.Projections.Add<ActiveMemberEmailProjection>();
             options.Projections.Add<MemberArchivalBookingsProjection>();
         }
 

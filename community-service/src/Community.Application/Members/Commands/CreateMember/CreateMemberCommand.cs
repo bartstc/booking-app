@@ -9,6 +9,7 @@ namespace Community.Application.Members.Commands.CreateMember
         string Email,
         string Phone,
         DateTime? BirthDate,
-        Address Address
+        Address Address,
+        string Password
     ) : ICommand;
 }

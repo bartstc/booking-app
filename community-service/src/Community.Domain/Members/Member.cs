@@ -16,6 +16,7 @@ namespace Community.Domain.Members
         public DateTime? BirthDate { get; private set; }
         public Address Address { get; private set; }
         public ICollection<ArchivalBooking> ArchivalBookings { get; private set; }
+        public bool Status { get; private set; }
 
         // for serialization
         public Member()
@@ -43,6 +44,19 @@ namespace Community.Domain.Members
             BirthDate = @event.BirthDate;
             Address = @event.Address;
             ArchivalBookings = new List<ArchivalBooking>();
+        }
+
+        public void Activate()
+        {
+            var @event = new MemberActivated(Id, Email);
+
+            Enqueue(@event);
+            Apply(@event);
+        }
+
+        private void Apply(MemberActivated @event)
+        {
+            Status = true;
         }
 
         public void AddFulfilledBooking(BookingOffer offer, BookingFacility facility, BookingEmployee employee, DateTime date, short duration, Guid bookedRecordId)

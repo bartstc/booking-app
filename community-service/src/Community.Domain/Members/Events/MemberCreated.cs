@@ -5,7 +5,7 @@ using Core.Domain;
 
 namespace Community.Domain.Members.Events
 {
-    public class MemberCreated : IEvent
+    public class MemberCreated : EventBase
     {
         [JsonConstructor]
         public MemberCreated(Guid id, string fullName, string email, string phone, DateTime? birthDate, Address address)
