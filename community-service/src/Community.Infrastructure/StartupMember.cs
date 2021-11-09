@@ -1,10 +1,12 @@
 using Auth0.AuthenticationApi;
 using Auth0.ManagementApi;
+using Community.Application;
 using Community.Application.Members;
 using Community.Application.Members.DomainServices;
 using Community.Domain.Members;
 using Community.Infrastructure.Application.Members;
 using Community.Infrastructure.Application.Members.Projections;
+using Community.Infrastructure.IdentityProvider.Auth0;
 using Community.Infrastructure.IntegrationEvents.Members;
 using Core.Domain.Repositories;
 using Core.Marten.Repositories;
