@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Marten;
 using System;
@@ -8,18 +7,14 @@ namespace Core.Marten
 {
     public static class Startup
     {
-        private const string configKey = "EventStore";
-
         public static IServiceCollection AddMarten(this IServiceCollection services,
-            IConfiguration config,
+            Config config,
             Action<StoreOptions> configureOptions = null)
         {
-            var eventStoreConfig = config.GetSection(configKey).Get<Config>();
-
             var documentStore = services
                 .AddMarten(options =>
                 {
-                    options.Connection(eventStoreConfig.ConnectionString);
+                    options.Connection(config.ConnectionString);
 
                     options.AutoCreateSchemaObjects = AutoCreate.All;
 

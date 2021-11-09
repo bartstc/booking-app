@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
+using Community.Api.HostedServices;
 using Community.Application.Members.Commands.CreateMember;
 using Community.Infrastructure;
+using Community.Infrastructure.Options;
 using Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +36,9 @@ namespace Community.Api
             var applicationAssembly = typeof(CreateMemberCommand).Assembly;
             services
                 .AddCoreServices(applicationAssembly)
-                .AddCommunityModule(Configuration);
+                .AddCommunityModule(Configuration)
+                .Configure<Auth0Options>(Configuration.GetSection(Auth0Options.Auth0))
+                .AddHostedService<RefreshAuth0TokenHostedService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

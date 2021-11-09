@@ -1,22 +1,31 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Core.Domain.UnitOfWork;
+using Core.Marten.UnitOfWork;
+using Core.Processing.DomainEventDispatcher;
 using Marten;
 
-namespace Core.Processing
+namespace Core.Processing.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IDocumentSession documentSession;
+        private readonly ITransactionalDocumentSessionFactory dbConnectionFactory;
+        private readonly IDocumentSession session;
+        private readonly IDomainEventsDispatcher domainEventsDispatcher;
 
-        public UnitOfWork(IDocumentSession documentSession)
+        public UnitOfWork(
+            ITransactionalDocumentSessionFactory dbConnectionFactory,
+            IDomainEventsDispatcher domainEventsDispatcher)
         {
-            this.documentSession = documentSession;
+            this.dbConnectionFactory = dbConnectionFactory;
+            this.session = dbConnectionFactory.DocumentSession;
+            this.domainEventsDispatcher = domainEventsDispatcher;
         }
 
         public async Task CommitAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            await documentSession.SaveChangesAsync(cancellationToken);
+            await domainEventsDispatcher.DispatchAsync();
+            await session.SaveChangesAsync();
         }
     }
 }

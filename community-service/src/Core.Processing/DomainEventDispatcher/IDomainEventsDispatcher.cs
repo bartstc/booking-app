@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Core.Processing
+namespace Core.Processing.DomainEventDispatcher
 {
     public interface IDomainEventsDispatcher
     {

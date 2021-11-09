@@ -8,5 +8,6 @@ namespace Core.Domain.Repositories
     {
         void Store(TAggregate aggregate, CancellationToken cancellationToken);
         Task<TAggregate> FindAsync(Guid id, CancellationToken cancellationToken);
+        Task SaveChangesAsync();
     }
 }

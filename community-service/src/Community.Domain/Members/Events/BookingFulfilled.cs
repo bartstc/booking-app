@@ -4,7 +4,7 @@ using Core.Domain;
 
 namespace Community.Domain.Members.Events
 {
-    public class BookingFulfilled : IEvent
+    public class BookingFulfilled : EventBase
     {
         public BookingFulfilled(Guid memberId, BookingOffer offer, BookingFacility facility, BookingEmployee employee, DateTime date, short duration, Guid bookedRecordId)
         {
