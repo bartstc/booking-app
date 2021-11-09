@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Community.Application.Members
+namespace Community.Application
 {
     public interface IIdpUserService
     {

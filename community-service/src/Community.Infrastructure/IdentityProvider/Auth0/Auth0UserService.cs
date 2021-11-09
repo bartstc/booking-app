@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
 using Auth0.ManagementApi;
 using Auth0.ManagementApi.Models;
-using Community.Application.Members;
-using Community.Infrastructure.IdentityProvider.Auth0;
+using Community.Application;
 using Community.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 
-namespace Community.Infrastructure.Application.Members
+namespace Community.Infrastructure.IdentityProvider.Auth0
 {
     public class Auth0UserService : IIdpUserService
     {
