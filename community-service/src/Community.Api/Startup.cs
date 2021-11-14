@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json.Serialization;
 using Community.Api.HostedServices;
 using Community.Application.Members.Commands.CreateMember;
@@ -15,12 +16,27 @@ namespace Community.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public IConfiguration Configuration { get; }
+
+        private string GetHerokuConnectionString()
+        {
+            string connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+            var databaseUri = new Uri(connectionUrl);
+
+            string db = databaseUri.LocalPath.TrimStart('/');
+            string[] userInfo = databaseUri.UserInfo.Split(':', StringSplitOptions.RemoveEmptyEntries);
+
+            return $"Host={databaseUri.Host};Database={db};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=True;";
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -34,6 +50,10 @@ namespace Community.Api
             });
 
             var applicationAssembly = typeof(CreateMemberCommand).Assembly;
+
+            if (!webHostEnvironment.IsDevelopment())
+                Configuration["EventStore:ConnectionString"] = GetHerokuConnectionString();
+
             services
                 .AddCoreServices(applicationAssembly)
                 .AddCommunityModule(Configuration)
