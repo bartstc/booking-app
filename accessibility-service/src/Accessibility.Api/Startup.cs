@@ -22,13 +22,26 @@ namespace Accessibility.Api
     public class Startup
     {
         private const string corsPolicyName = "mainCorsPolicy";
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public IConfiguration Configuration { get; }
+
+        private string GetHerokuConnectionString() {
+            string connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+            var databaseUri = new Uri(connectionUrl);
+
+            string db = databaseUri.LocalPath.TrimStart('/');
+            string[] userInfo = databaseUri.UserInfo.Split(':', StringSplitOptions.RemoveEmptyEntries);
+
+            return $"Host={databaseUri.Host};Database={db};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=True;";
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -43,6 +56,9 @@ namespace Accessibility.Api
             ConfigureAuth(services);
             ConfigureOptions(services);
             ConfigureCors(services);
+
+            if (!webHostEnvironment.IsDevelopment())
+                Configuration["ConnectionStrings:Accessibility"] = GetHerokuConnectionString();
 
             var applicationAssembly = typeof(CreateBookingCommand).Assembly;
             services.AddCoreServices(applicationAssembly);
@@ -64,7 +80,7 @@ namespace Accessibility.Api
         private void ConfigureAuth(IServiceCollection services)
         {
             services.AddScoped<IAuthorizationHandler, MustBeEmployeeOfFacilityHandler>();
-
+            
             services
                 .AddAuthentication(options =>
                 {
