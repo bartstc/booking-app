@@ -57,7 +57,7 @@ namespace Accessibility.Api
             ConfigureOptions(services);
             ConfigureCors(services);
 
-            if (!webHostEnvironment.IsDevelopment())
+            if (!webHostEnvironment.IsDevelopment() && Configuration["Deployment"] == "Heroku")
                 Configuration["ConnectionStrings:Accessibility"] = GetHerokuConnectionString();
 
             var applicationAssembly = typeof(CreateBookingCommand).Assembly;
