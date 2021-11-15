@@ -88,11 +88,8 @@ services:
       dockerfile: community-service/Dockerfile
     ports:
       - "84:80"
-    environment:
-      - EventStore:ConnectionString=Host=db;Database=community;Username=postgres;Password=pg
-      - RabbitMQ:Hostname=rabbit
-      - RabbitMQ:Username=admin
-      - RabbitMQ:Password=admin
+    env_file:
+      - ./community.env
 
   employee-web-client:
     image: employee-web-client
