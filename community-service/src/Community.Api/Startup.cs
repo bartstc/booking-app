@@ -51,7 +51,7 @@ namespace Community.Api
 
             var applicationAssembly = typeof(CreateMemberCommand).Assembly;
 
-            if (!webHostEnvironment.IsDevelopment())
+            if (!webHostEnvironment.IsDevelopment() && Configuration["Deployment"] == "Heroku")
                 Configuration["EventStore:ConnectionString"] = GetHerokuConnectionString();
 
             services
