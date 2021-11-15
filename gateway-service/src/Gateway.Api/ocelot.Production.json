@@ -29,6 +29,18 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
+                    "Host": "community",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/community/{everything}",
+            "UpstreamHttpMethod": []
+        },
+        {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
                     "Host": "management",
                     "Port": 80
                 }
