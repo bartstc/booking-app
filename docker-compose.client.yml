@@ -47,12 +47,8 @@ services:
       dockerfile: accessibility-service/Dockerfile
     ports:
       - "80:80"
-    environment:
-      - ConnectionStrings:Accessibility=Host=db;Database=accessibility;Username=postgres;Password=pg
-      - RabbitMQ:Hostname=rabbit
-      - RabbitMQ:Username=admin
-      - RabbitMQ:Password=admin
-      - Authentication:Authority=identity
+    env_file:
+      - ./accessibility.env
 
   management:
     image: mangement
