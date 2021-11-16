@@ -19,6 +19,7 @@ namespace Core.Processing.Outbox
         // TODO: delay time from configuration
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            await Task.Delay(1000 * 30, stoppingToken);
             while(!stoppingToken.IsCancellationRequested)
             {
                 using (var scope = serviceScopeFactory.CreateScope())
