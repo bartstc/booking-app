@@ -10,8 +10,10 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
 
+import { LoginButton } from "modules/auth/presentation";
 import { IconButton } from "shared/Button";
-import { SignInButton, SignUpButton } from "../components";
+
+import { SignUpButton } from "../components";
 
 interface IProps {
   toggle: () => void;
@@ -55,7 +57,7 @@ const Header = ({ toggle }: IProps) => {
       </Link>
       <Flex justify="flex-end" align="center" color="gray.400">
         <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-          <SignInButton />
+          <LoginButton />
           <SignUpButton />
         </HStack>
         <HStack spacing={1}>
