@@ -48,7 +48,7 @@ namespace Community.Domain.Members
 
         public void Activate()
         {
-            var @event = new MemberActivated(Id, Email);
+            var @event = new MemberActivated(Id, FullName, Email, Phone, BirthDate, Address);
 
             Enqueue(@event);
             Apply(@event);
