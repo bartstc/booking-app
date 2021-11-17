@@ -23,10 +23,10 @@ export const useSignUpMemberSchema = () => {
       .test("phone format", invalidFormatMessage, function (value) {
         return TextValidator.validatePhoneNumber(value!);
       }),
-    birthDate: yup
-      .string()
-      .required(requiredMessage)
-      .nullable(true) as yup.Schema<string>,
+    // birthDate: yup
+    //   .string()
+    //   .required(requiredMessage)
+    //   .nullable(true) as yup.Schema<string>,
     email: yup
       .string()
       .required(requiredMessage)

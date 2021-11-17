@@ -1,1 +1,1 @@
-export { crateModalStore } from './createModelStore';
+export { createModalStore } from "./createModelStore";

@@ -24,7 +24,7 @@ const SignUpMemberForm = ({ onSubmit }: IProps) => {
         fullName: "",
         email: "",
         password: "",
-        birthDate: "",
+        phone: "",
       }}
     >
       <SimpleGrid
@@ -52,15 +52,8 @@ const SignUpMemberForm = ({ onSubmit }: IProps) => {
           mask={masks.phone}
           colSpan={{ base: 4, md: 3 }}
         />
-        {/*<DateField*/}
-        {/*  name="birthDate"*/}
-        {/*  label={*/}
-        {/*    <FormattedMessage id="birth-date" defaultMessage="Birth date" />*/}
-        {/*  }*/}
-        {/*  id="birth-date"*/}
-        {/*  colSpan={{ base: 4, md: 3 }}*/}
-        {/*/>*/}
         <InputField
+          type="password"
           name="password"
           label={<FormattedMessage id="password" defaultMessage="Password" />}
           id="employee-password"
