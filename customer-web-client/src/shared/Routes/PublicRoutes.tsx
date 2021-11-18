@@ -8,6 +8,7 @@ import { Layout } from "../Layout";
 
 const OfferDetails = lazy(() => import("../../pages/OfferDetails"));
 const Home = lazy(() => import("../../pages/Home"));
+const SignUpMember = lazy(() => import("../../pages/SignUp"));
 
 const PublicRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const PublicRoutes = () => {
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/offers/:offerId" component={OfferDetails} />
+          <Route path="/sign-up" component={SignUpMember} />
 
           <Route path="/signin-oidc" component={Callback} />
           <Route path="/logout" component={Logout} />

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
-import { useDebounce } from 'hooks';
+import { useDebounce } from "hooks";
 
-import { useQueryParams } from '../Params';
+import { useQueryParams } from "../Params";
 
 export const useFilterInput = (filterName: string, delay = 300) => {
   const { params, change, resetPagination, remove } = useQueryParams();
-  const param = (params as any)[filterName] ?? '';
+  const param = (params as any)[filterName] ?? "";
 
   const [state, setState] = useState(param);
   const currentState = useRef(state);
@@ -22,9 +22,10 @@ export const useFilterInput = (filterName: string, delay = 300) => {
 
   useEffect(() => {
     if (!state) {
-      setState('');
+      setState("");
       remove(filterName);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   useDebounce(
@@ -42,7 +43,7 @@ export const useFilterInput = (filterName: string, delay = 300) => {
       resetPagination(filterName);
     },
     delay,
-    [state],
+    [state]
   );
 
   const onChange = (value: string) => {

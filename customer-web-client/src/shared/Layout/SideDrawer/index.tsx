@@ -9,7 +9,10 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-import { SignInButton, SignUpButton } from "../components";
+
+import { LoginButton } from "modules/auth/presentation";
+
+import { SignUpButton } from "../components";
 
 interface IProps {
   isOpen: boolean;
@@ -33,7 +36,7 @@ const SideDrawer = ({ toggle, isOpen }: IProps) => {
             pt={16}
           >
             <HStack w="full" spacing={3} align="flex-end">
-              <SignInButton />
+              <LoginButton />
               <SignUpButton />
             </HStack>
           </DrawerBody>

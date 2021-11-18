@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { get, isEmpty } from 'lodash';
-import { Controller, useFormContext } from 'react-hook-form';
-import { useIntl } from 'react-intl';
-import { SelectInput, SelectInputProps } from 'react-hook-form-chakra-fields';
+import React, { useEffect } from "react";
+import { get, isEmpty } from "lodash";
+import { Controller, useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { SelectInput, SelectInputProps } from "react-hook-form-chakra-fields";
 
-import { Currency, OptionType } from 'types';
-import { currencyOptions } from './Builders';
+import { Currency, OptionType } from "types";
+import { currencyOptions } from "./Builders";
 
-interface IProps extends Omit<SelectInputProps, 'options'> {
+interface IProps extends Omit<SelectInputProps, "options"> {
   name: string;
   moneyName: string;
 }
@@ -24,7 +24,8 @@ const CurrencySelectField = ({ name, moneyName, ...props }: IProps) => {
 
   const currencyValue = watch(name);
   const moneyValue = watch(moneyName);
-  const isInvalid = Boolean(get(touched, moneyName)) && Boolean(get(errors, moneyName));
+  const isInvalid =
+    Boolean(get(touched, moneyName)) && Boolean(get(errors, moneyName));
 
   useEffect(() => {
     if (name) {
@@ -35,29 +36,39 @@ const CurrencySelectField = ({ name, moneyName, ...props }: IProps) => {
         clearErrors(name);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [moneyValue]);
 
   return (
     <Controller
       name={name}
-      render={fieldProps => {
+      render={(fieldProps) => {
         return (
           <SelectInput
             {...props}
             options={currencyOptions}
             inputId={name}
             defaultValue={currencyOptions[0]}
-            placeholder={formatMessage({ id: 'currency-placeholder', defaultMessage: 'Currency' })}
+            placeholder={formatMessage({
+              id: "currency-placeholder",
+              defaultMessage: "Currency",
+            })}
             isSearchable={false}
             backspaceRemovesValue={false}
             isMulti={false}
             isClearable={false}
             isInvalid={isInvalid}
             {...fieldProps}
-            onChange={option => {
+            onChange={(option) => {
               setValue(name, (option as OptionType).value);
             }}
-            value={currencyValue ? currencyOptions.find(option => option.value === currencyValue) : null}
+            value={
+              currencyValue
+                ? currencyOptions.find(
+                    (option) => option.value === currencyValue
+                  )
+                : null
+            }
           />
         );
       }}

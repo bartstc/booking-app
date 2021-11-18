@@ -1,4 +1,5 @@
 export enum ServiceType {
-  Management = 'management',
-  Accessibility = 'accessibility',
+  Management = "management",
+  Accessibility = "accessibility",
+  Community = "community",
 }

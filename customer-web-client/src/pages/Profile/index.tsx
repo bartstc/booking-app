@@ -1,7 +1,9 @@
-import React from 'react';
+import React from "react";
+
+import { UnderConstructionState } from "shared/States";
 
 const Profile = () => {
-  return <h1>Profil klienta</h1>;
+  return <UnderConstructionState />;
 };
 
 export default Profile;

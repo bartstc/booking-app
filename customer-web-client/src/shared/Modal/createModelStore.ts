@@ -7,7 +7,7 @@ type IModalStore<Item> = {
   onClose(): void;
 };
 
-export function crateModalStore<Item>(store?: Partial<IModalStore<Item>>) {
+export function createModalStore<Item>(store?: Partial<IModalStore<Item>>) {
   return create<IModalStore<Item>>(set => {
     return {
       selectedItem: null,
