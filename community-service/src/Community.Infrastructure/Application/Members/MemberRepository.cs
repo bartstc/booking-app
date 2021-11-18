@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Community.Application.Members;
+using Community.Application.Members.Queries.GetMemberByEmail;
 using Community.Domain.Members.ValueObjects;
 using Community.Infrastructure.Application.Members.Projections;
 using Marten;
@@ -20,7 +21,7 @@ namespace Community.Infrastructure.Application.Members
 
         public async Task<bool> ExistsAsync(string email)
         {
-            var result = await querySession.Query<ActiveMemberEmail>()
+            var result = await querySession.Query<MemberData>()
                 .Where(m => m.Email == email)
                 .SingleOrDefaultAsync();
                 
@@ -32,5 +33,10 @@ namespace Community.Infrastructure.Application.Members
             var projection = await querySession.LoadAsync<MemberArchivalBookings>(memberId);
             return projection.ArchivalBookings;
         }
+
+        public Task<MemberData> GetByEmail(string email) =>
+            querySession.Query<MemberData>()
+                .Where(m => m.Email == email)
+                .SingleOrDefaultAsync();
     }
 }

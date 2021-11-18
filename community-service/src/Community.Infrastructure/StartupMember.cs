@@ -33,7 +33,7 @@ namespace Community.Infrastructure
 
         internal static void ConfigureMembers(this StoreOptions options)
         {            
-            options.Projections.Add<ActiveMemberEmailProjection>();
+            options.Projections.Add<ActiveMemberProjection>();
             options.Projections.Add<MemberArchivalBookingsProjection>();
         }
 
