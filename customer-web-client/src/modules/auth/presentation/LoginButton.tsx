@@ -9,11 +9,19 @@ interface IProps extends ButtonProps {}
 
 const LoginButton = ({ onClick, ...props }: IProps) => {
   const { formatMessage } = useIntl();
+  const isAuthenticated = useAuthContextSelector(
+    (state) => state.isAuthenticated
+  );
   const login = useAuthContextSelector((state) => state.login);
+
+  if (isAuthenticated()) {
+    return null;
+  }
 
   return (
     <Button
       colorScheme="gray"
+      size="sm"
       onClick={(e) => {
         login();
         if (onClick) onClick(e);

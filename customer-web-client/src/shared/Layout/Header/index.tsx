@@ -1,30 +1,20 @@
 import React from "react";
-import { useIntl } from "react-intl";
 import { Link } from "react-router-dom";
-import {
-  HStack,
-  Text,
-  Flex,
-  useColorModeValue,
-  useColorMode,
-} from "@chakra-ui/react";
-import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { HStack, Text, Flex, useColorModeValue } from "@chakra-ui/react";
 
 import { LoginButton } from "modules/auth/presentation";
-import { IconButton } from "shared/Button";
 
 import { SignUpButton } from "../components";
+import { UserMenu } from "./UserMenu";
+import { SwitchThemeIconButton } from "./SwitchThemeIconButton";
+import { OpenMenuIconButton } from "./OpenMenuIconButton";
 
 interface IProps {
   toggle: () => void;
 }
 
 const Header = ({ toggle }: IProps) => {
-  const { formatMessage } = useIntl();
-
-  const { toggleColorMode: toggleMode, colorMode } = useColorMode();
   const textColor = useColorModeValue("gray.700", "primary.300");
-  const SwitchIcon = useColorModeValue(MoonIcon, SunIcon);
   const bg = useColorModeValue("white", "gray.900");
   const borderColor = useColorModeValue("gray.100", "gray.800");
 
@@ -42,7 +32,6 @@ const Header = ({ toggle }: IProps) => {
       borderTop="5px solid"
       borderTopColor="primary.400"
       w="full"
-      overflowY="hidden"
       borderBottom="2px solid"
       borderBottomColor={borderColor}
     >
@@ -61,40 +50,9 @@ const Header = ({ toggle }: IProps) => {
           <SignUpButton />
         </HStack>
         <HStack spacing={1}>
-          <IconButton
-            size="md"
-            fontSize="lg"
-            title={
-              colorMode === "light"
-                ? formatMessage({
-                    id: "switch-to-dark",
-                    defaultMessage: "Switch to dark mode",
-                  })
-                : formatMessage({
-                    id: "switch-to-light",
-                    defaultMessage: "Switch to light mode",
-                  })
-            }
-            variant="ghost"
-            color="current"
-            ml={{ base: "0", md: "3" }}
-            onClick={toggleMode}
-            icon={<SwitchIcon />}
-            withoutTooltip
-          />
-          <IconButton
-            display={{ base: "flex", md: "none" }}
-            title={formatMessage({
-              defaultMessage: "Open menu",
-              id: "open-menu",
-            })}
-            fontSize="20px"
-            color={useColorModeValue("gray.800", "inherit")}
-            variant="ghost"
-            withoutTooltip
-            icon={<HamburgerIcon />}
-            onClick={toggle}
-          />
+          <UserMenu />
+          <SwitchThemeIconButton />
+          <OpenMenuIconButton toggle={toggle} />
         </HStack>
       </Flex>
     </HStack>
