@@ -1,15 +1,15 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { isMobile } from 'react-device-detect';
-import { Menu, MenuButton, MenuItem, MenuList, chakra, MenuGroup, Button as ChButton, IconButton as ChIconButton } from '@chakra-ui/react';
+import { Menu, MenuButton, MenuItem, MenuList, MenuGroup, Button as ChButton, IconButton as ChIconButton, chakra } from '@chakra-ui/react';
 import { mdiOfficeBuilding } from '@mdi/js';
 
 import { useEmployeeContextSelector } from 'modules/context/application';
 import { useFacilityByIdQuery } from 'modules/facility/infrastructure/query';
+import { useChangeActiveFacility } from 'modules/employees/infrastructure/command';
+import { useChangeActiveFacilityNotifications } from 'modules/employees/presentation';
 
 import { Icon } from '../Icon';
-import { useChangeActiveFacility } from '../../modules/employees/infrastructure/command';
-import { useChangeActiveFacilityNotifications } from '../../modules/employees/presentation';
 
 interface IProps {
   extended: boolean;
@@ -65,7 +65,7 @@ const Button = () => {
 
   return (
     <MenuButton as={ChButton} variant='ghost' w='100%' leftIcon={<Icon path={mdiOfficeBuilding} size='24px' />}>
-      <chakra.div pl={1} textAlign='start'>
+      <chakra.div isTruncated pl={1} textAlign='start'>
         {facility.name}
       </chakra.div>
     </MenuButton>

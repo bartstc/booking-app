@@ -25,13 +25,13 @@ const Row = ({ index, employee }: IProps) => {
   return (
     <GridItem>
       <TruncatedCell>{index}</TruncatedCell>
-      <TruncatedCell>{employee.name}</TruncatedCell>
+      <TruncatedCell isBold>{employee.name}</TruncatedCell>
       <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
         <EmployeeStatusBadge status={employee.status} />
       </Flex>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>{employee.position}</TruncatedCell>
       <TruncatedCell>{phone ?? '---'}</TruncatedCell>
-      <TruncatedCell display={{ base: 'none', lg: 'flex' }}>
+      <TruncatedCell isNumeric display={{ base: 'none', lg: 'flex' }}>
         <FormattedDate value={employee.birthDate} />
       </TruncatedCell>
       <TruncatedCell justify='flex-end'>

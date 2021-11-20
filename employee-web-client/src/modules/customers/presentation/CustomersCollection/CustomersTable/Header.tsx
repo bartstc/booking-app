@@ -22,7 +22,7 @@ const Header = () => {
       <HeaderCell>
         <FormattedMessage id='phone' defaultMessage='Phone number' />
       </HeaderCell>
-      <HeaderCell name='birthDate' display={{ base: 'none', lg: 'flex' }}>
+      <HeaderCell isNumeric name='birthDate' display={{ base: 'none', lg: 'flex' }}>
         <FormattedMessage id='birth-date' defaultMessage='Birth date' />
       </HeaderCell>
       <HeaderCell>{''}</HeaderCell>

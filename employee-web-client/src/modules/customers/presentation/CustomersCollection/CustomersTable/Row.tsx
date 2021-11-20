@@ -24,15 +24,15 @@ const Row = ({ index, customer }: IProps) => {
   return (
     <GridItem>
       <TruncatedCell>{index}</TruncatedCell>
-      <TruncatedCell>{customer.fullName}</TruncatedCell>
+      <TruncatedCell isBold>{customer.fullName}</TruncatedCell>
       <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
-        <Badge variant='solid' colorScheme='gray'>
+        <Badge variant='subtle' colorScheme='gray'>
           0 pending
         </Badge>
       </Flex>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>{address ?? '---'}</TruncatedCell>
       <TruncatedCell>{phone}</TruncatedCell>
-      <TruncatedCell display={{ base: 'none', lg: 'flex' }}>
+      <TruncatedCell isNumeric display={{ base: 'none', lg: 'flex' }}>
         <FormattedDate value={customer.birthDate} />
       </TruncatedCell>
       <TruncatedCell justify='flex-end'>

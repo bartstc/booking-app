@@ -9,7 +9,7 @@ interface IProps {
 
 const PriceModelBadge = ({ type }: IProps) => {
   return (
-    <Badge variant='solid' colorScheme={type === PriceModel.Free ? 'green' : 'blue'}>
+    <Badge variant='subtle' colorScheme={type === PriceModel.Free ? 'green' : 'blue'}>
       {type}
     </Badge>
   );

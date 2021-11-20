@@ -10,11 +10,11 @@ interface IProps {
 
 const OfferStatusBadge = ({ status }: IProps) => {
   return status === OfferStatus.Active ? (
-    <Badge variant='solid' colorScheme='green'>
+    <Badge variant='subtle' colorScheme='green'>
       <FormattedMessage id='active' defaultMessage='Active' />
     </Badge>
   ) : (
-    <Badge variant='solid' colorScheme='red'>
+    <Badge variant='subtle' colorScheme='red'>
       <FormattedMessage id='inactive' defaultMessage='Inactive' />
     </Badge>
   );

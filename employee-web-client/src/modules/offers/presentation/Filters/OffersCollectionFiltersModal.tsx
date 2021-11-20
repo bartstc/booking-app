@@ -1,21 +1,22 @@
 import React from 'react';
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalCloseButton,
-  ModalFooter,
-  ModalBody,
-  ModalHeader,
-  Text,
-  VStack,
   Box,
   Divider,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  VStack,
 } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ClearFiltersButton, RadioFilterGroup } from 'shared/Filters';
 import { Button } from 'shared/Button';
+import { ProTip, ProTipType } from 'shared/ProTip';
 
 import { OfferStatus, PriceModel } from '../../application/types';
 
@@ -50,21 +51,24 @@ const OffersCollectionFiltersModal = ({ isOpen, onClose }: IProps) => {
           <FormattedMessage id='more-filters' defaultMessage='More filters' />
         </ModalHeader>
         <ModalCloseButton />
-        <ModalBody as={VStack} align='flex-start'>
-          <Box mb={4} w='100%'>
+        <ModalBody as={VStack} spacing={4} align='flex-start'>
+          <Box w='100%'>
             <Text fontWeight='700' mb='.8rem'>
               <FormattedMessage id='offer-status' defaultMessage='Offer status' />
             </Text>
             <RadioFilterGroup filterName='status' options={statusOptions} />
             <Divider mt='1.2rem' />
           </Box>
-          <Box mb={4} w='100%'>
+          <Box w='100%'>
             <Text fontWeight='700' mb='.8rem'>
               <FormattedMessage id='offer-price-model' defaultMessage='Price type' />
             </Text>
             <RadioFilterGroup filterName='priceType' options={priceModelOptions} />
             <Divider mt='1.2rem' />
           </Box>
+          <ProTip tipName={ProTipType.Close_filters_model_on_space} pt={2}>
+            <FormattedMessage id='space-shortcut' defaultMessage='press space to close the modal' />
+          </ProTip>
         </ModalBody>
         <ModalFooter>
           <ClearFiltersButton colorScheme='gray' />

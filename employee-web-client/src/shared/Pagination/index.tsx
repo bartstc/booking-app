@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
-import { Flex, HStack, Input, useColorModeValue } from '@chakra-ui/react';
+import { Flex, HStack, Input, useColorModeValue, useTheme } from '@chakra-ui/react';
 import { mdiArrowLeft, mdiArrowRight } from '@mdi/js';
 import { useIntl } from 'react-intl';
 import { isMobile } from 'react-device-detect';
@@ -37,6 +37,7 @@ interface IPaginationComponentProps {
 }
 
 export const PaginationComponent = ({ current, onChange, totalPages, margin = 3, isLoading = false }: IPaginationComponentProps) => {
+  const { colors } = useTheme();
   const { formatMessage } = useIntl();
 
   const isFirstPage = current === 1;
@@ -48,7 +49,7 @@ export const PaginationComponent = ({ current, onChange, totalPages, margin = 3,
   const leftPages = pages.length > 7 ? pages.slice(index, margin + index).filter(page => page !== lastPage) : pages;
 
   const buttonBg = useColorModeValue('primary.600', 'primary.500');
-  const buttonColor = useColorModeValue('white', 'white');
+  const buttonColor = useColorModeValue(colors.primary['200'], colors.whiteAlpha['600']);
   const selectedButtonCss = `
     &[disabled] {
       color: ${buttonColor};

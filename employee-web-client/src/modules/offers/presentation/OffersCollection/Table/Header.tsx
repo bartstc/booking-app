@@ -16,10 +16,10 @@ const Header = () => {
       <HeaderCell name='status' display={{ base: 'none', md: 'flex' }}>
         <FormattedMessage id='status' defaultMessage='Status' />
       </HeaderCell>
-      <HeaderCell display={{ base: 'none', md: 'flex' }}>
+      <HeaderCell isNumeric display={{ base: 'none', md: 'flex' }}>
         <FormattedMessage id='duration' defaultMessage='Duration' />
       </HeaderCell>
-      <HeaderCell>
+      <HeaderCell isNumeric>
         <FormattedMessage id='price' defaultMessage='Price' />
       </HeaderCell>
       <HeaderCell name='priceType' display={{ base: 'none', lg: 'flex' }}>

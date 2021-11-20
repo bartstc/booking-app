@@ -8,22 +8,24 @@ import { Icon } from '../Icon';
 
 interface IProps extends ChakraProps {
   children: ReactNode;
+  isNumeric?: boolean;
   name?: string;
 }
 
 interface ICell extends ChakraProps {
   children: ReactNode;
+  isNumeric?: boolean;
 }
 
-interface ISortableCellProps extends ChakraProps {
+interface ISortableCellProps extends ICell {
   name: string;
   children: ReactNode;
 }
 
-const SortableCell = ({ children, name, ...props }: ISortableCellProps) => {
+const SortableCell = ({ children, name, isNumeric, ...props }: ISortableCellProps) => {
   const { currentSortType, change } = useSort(name);
   const { colors } = useTheme();
-  const textColor = useColorModeValue('gray.700', 'gray.400');
+  const textColor = useColorModeValue('gray.600', 'gray.400');
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[700]);
 
   const isActive = currentSortType !== SortingType.DEFAULT;
@@ -37,6 +39,9 @@ const SortableCell = ({ children, name, ...props }: ISortableCellProps) => {
       isTruncated
       spacing={1}
       fontWeight='600'
+      p='0.7rem 0.5rem'
+      pr={isNumeric ? '1rem' : '0.5rem'}
+      justify={isNumeric ? 'flex-end' : 'flex-start'}
     >
       <chakra.span fontSize='sm' color={textColor} isTruncated>
         {children}
@@ -51,13 +56,21 @@ const SortableCell = ({ children, name, ...props }: ISortableCellProps) => {
   );
 };
 
-const Cell = ({ children, ...props }: ICell) => {
+const Cell = ({ children, isNumeric, ...props }: ICell) => {
   const { colors } = useTheme();
-  const textColor = useColorModeValue('gray.700', 'gray.400');
+  const textColor = useColorModeValue('gray.600', 'gray.400');
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[700]);
 
   return (
-    <HStack fontWeight='600' borderBottom={`1px solid ${borderColor}`} {...props} isTruncated>
+    <HStack
+      p='0.7rem 0.5rem'
+      pr={isNumeric ? '1.5rem' : '0.5rem'}
+      justify={isNumeric ? 'flex-end' : 'flex-start'}
+      fontWeight='600'
+      borderBottom={`1px solid ${borderColor}`}
+      {...props}
+      isTruncated
+    >
       <chakra.span fontSize='sm' color={textColor} isTruncated>
         {children}
       </chakra.span>
@@ -65,12 +78,12 @@ const Cell = ({ children, ...props }: ICell) => {
   );
 };
 
-const HeaderCell = ({ name, ...props }: IProps) => {
+const HeaderCell = ({ name, isNumeric = false, ...props }: IProps) => {
   if (name) {
-    return <SortableCell name={name} {...props} />;
+    return <SortableCell name={name} isNumeric={isNumeric} {...props} />;
   }
 
-  return <Cell {...props} />;
+  return <Cell isNumeric={isNumeric} {...props} />;
 };
 
 export { HeaderCell };

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Badge, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
 import { GridItem, TruncatedCell } from 'shared/Grid';
+import { MoneyText } from 'shared/Money';
 
 import { StatusActionButtons } from './StatusActionButtons';
 import { OfferStatusBadge } from '../../OfferStatusBadge';
@@ -18,17 +19,15 @@ const Row = ({ index, offer }: IProps) => {
   return (
     <GridItem>
       <TruncatedCell>{index}</TruncatedCell>
-      <TruncatedCell>{offer.name}</TruncatedCell>
+      <TruncatedCell isBold>{offer.name}</TruncatedCell>
       <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
         <OfferStatusBadge status={offer.status} />
       </Flex>
-      <TruncatedCell display={{ base: 'none', md: 'flex' }}>
+      <TruncatedCell isNumeric display={{ base: 'none', md: 'flex' }}>
         {offer.duration} <FormattedMessage id='minutes-short' defaultMessage='min' />
       </TruncatedCell>
-      <TruncatedCell>
-        <Badge variant='solid' colorScheme='yellow'>
-          {offer.price.value} {offer.price.currency}
-        </Badge>
+      <TruncatedCell isNumeric>
+        <MoneyText value={offer.price.value} currency={offer.price.currency} />
       </TruncatedCell>
       <TruncatedCell display={{ base: 'none', lg: 'flex' }}>
         <PriceModelBadge type={offer.price.type} />
