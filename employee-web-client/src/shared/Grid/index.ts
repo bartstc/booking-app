@@ -4,3 +4,4 @@ export { GridItem } from './GridItem';
 export { TruncatedCell } from './TruncatedCell';
 export { PrimaryText } from './PrimaryText';
 export { SecondaryText } from './SecondaryText';
+export { Skeleton } from './Skeleton';

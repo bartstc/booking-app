@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid } from 'shared/Grid';
+import { Grid, Skeleton } from 'shared/Grid';
 import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
 import { customersQueryKey, customersQuery } from 'modules/customers/infrastructure/query';
@@ -16,7 +16,11 @@ const Table = () => {
   const { facilityId } = useFacilityContextSelector();
 
   return (
-    <FetchBoundary<ICustomerCollection> queryKey={customersQueryKey(facilityId, params)} queryFn={() => customersQuery(facilityId, params)}>
+    <FetchBoundary<ICustomerCollection>
+      queryKey={customersQueryKey(facilityId, params)}
+      queryFn={() => customersQuery(facilityId, params)}
+      fallback={<Skeleton />}
+    >
       {({ data: { collection, meta } }) => (
         <>
           <Grid

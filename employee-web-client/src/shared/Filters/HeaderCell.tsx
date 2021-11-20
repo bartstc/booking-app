@@ -26,7 +26,7 @@ const SortableCell = ({ children, name, isNumeric, ...props }: ISortableCellProp
   const { currentSortType, change } = useSort(name);
   const { colors } = useTheme();
   const textColor = useColorModeValue('gray.600', 'gray.400');
-  const borderColor = useColorModeValue(colors.gray[200], colors.gray[700]);
+  const borderColor = useColorModeValue(colors.gray[300], colors.gray[700]);
 
   const isActive = currentSortType !== SortingType.DEFAULT;
 
@@ -59,7 +59,7 @@ const SortableCell = ({ children, name, isNumeric, ...props }: ISortableCellProp
 const Cell = ({ children, isNumeric, ...props }: ICell) => {
   const { colors } = useTheme();
   const textColor = useColorModeValue('gray.600', 'gray.400');
-  const borderColor = useColorModeValue(colors.gray[200], colors.gray[700]);
+  const borderColor = useColorModeValue(colors.gray[300], colors.gray[700]);
 
   return (
     <HStack

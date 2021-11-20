@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid } from 'shared/Grid';
+import { Grid, Skeleton } from 'shared/Grid';
 import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
@@ -20,6 +20,7 @@ const Table = () => {
     <FetchBoundary<IEmployeeCollection>
       queryKey={employeesQueryKey(enterpriseId, params)}
       queryFn={() => employeesQuery(enterpriseId, params)}
+      fallback={<Skeleton />}
     >
       {({ data: { collection, meta } }) => (
         <>

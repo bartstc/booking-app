@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid } from 'shared/Grid';
+import { Grid, Skeleton } from 'shared/Grid';
 import { Pagination } from 'shared/Pagination';
 import { FetchBoundary } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
@@ -23,6 +23,7 @@ const Table = () => {
       options={{
         keepPreviousData: true,
       }}
+      fallback={<Skeleton />}
     >
       {({ data: { collection, meta } }) => (
         <>
