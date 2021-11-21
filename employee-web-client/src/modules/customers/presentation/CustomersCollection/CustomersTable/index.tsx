@@ -36,7 +36,7 @@ const Table = () => {
               <Row key={customer.customerId} customer={customer} />
             ))}
           </Grid>
-          <GridFooter meta={meta} />
+          <GridFooter meta={meta} collectionCount={collection.length} />
         </>
       )}
     </FetchBoundary>

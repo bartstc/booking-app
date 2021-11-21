@@ -3,8 +3,7 @@ import React from 'react';
 import { facilitiesQueryKey, facilitiesQuery } from 'modules/facility/infrastructure/query';
 import { useEnterpriseContextSelector } from 'modules/context';
 
-import { Grid } from 'shared/Grid';
-import { Pagination } from 'shared/Pagination';
+import { Grid, GridFooter } from 'shared/Grid';
 import { FetchBoundary } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
 
@@ -26,18 +25,18 @@ const Table = () => {
           <Grid
             itemsCount={collection.length}
             templateColumns={{
-              base: '80px repeat(2, 1fr) max(110px)',
-              md: '80px repeat(4, 1fr) max(110px)',
-              lg: '80px repeat(5, 1fr) max(110px)',
+              base: 'repeat(2, 1fr) max(110px)',
+              md: 'repeat(4, 1fr) max(110px)',
+              lg: 'repeat(5, 1fr) max(110px)',
             }}
             mb={4}
           >
             <Header />
-            {collection.map((facility, index) => (
-              <Row index={index + 1 + Number(meta.offset)} key={facility.facilityId} facility={facility} />
+            {collection.map(facility => (
+              <Row key={facility.facilityId} facility={facility} />
             ))}
           </Grid>
-          <Pagination limit={meta.limit} total={meta.total} />
+          <GridFooter meta={meta} collectionCount={collection.length} />
         </>
       )}
     </FetchBoundary>

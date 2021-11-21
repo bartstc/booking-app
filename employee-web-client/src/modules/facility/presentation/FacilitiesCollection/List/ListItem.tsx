@@ -61,7 +61,7 @@ const ListItem = ({ facility: { address, name, contactPerson, slug } }: IProps) 
           </HStack>
         </VStack>
       </HStack>
-      <ActionButtons {...contactPerson} />
+      <ActionButtons {...contactPerson} slug={slug} />
     </HStack>
   );
 };

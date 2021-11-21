@@ -1,44 +1,42 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { mdiPhone } from '@mdi/js';
-import { StackProps, HStack, IconButton, useColorModeValue } from '@chakra-ui/react';
+import { ButtonGroup, ButtonGroupProps } from '@chakra-ui/react';
 import Linkify from 'react-linkify';
+import { useHistory } from 'react-router-dom';
+import { mdiClipboardArrowRightOutline } from '@mdi/js';
 
-import { Icon } from 'shared/Icon';
 import { Dropdown, DropdownItem } from 'shared/Dropdown';
+import { IconButton } from 'shared/Button';
 
-interface IProps extends StackProps {
+interface IProps extends ButtonGroupProps {
+  slug: string;
   phone?: string;
   email?: string;
   url?: string;
 }
 
-const ActionButtons = ({ phone, email, url, ...props }: IProps) => {
+const ActionButtons = ({ slug, phone, email, url, ...props }: IProps) => {
   const { formatMessage } = useIntl();
-  const iconColor = useColorModeValue('gray.700', 'gray.100');
+  const { push } = useHistory();
 
-  const hideMoreButton = !email && !url;
-
-  const callToTitle = formatMessage({
-    id: 'aria-label-call-employer',
-    defaultMessage: `Call to facility's manager`,
-  });
+  const hideMoreButton = !email && !url && !phone;
 
   return (
-    <HStack spacing={1} {...props}>
-      {phone && (
-        <IconButton
-          as='a'
-          href={`tel:${phone}`}
-          color='primary.500'
-          aria-label={callToTitle}
-          title={callToTitle}
-          background='transparent'
-          icon={<Icon path={mdiPhone} color={iconColor} />}
-        />
-      )}
+    <ButtonGroup {...props}>
+      <IconButton
+        title={formatMessage({ id: 'go-to-details', defaultMessage: 'Go to details' })}
+        path={mdiClipboardArrowRightOutline}
+        onClick={() => push(`/dashboard/facilities/${slug}`)}
+      />
       {!hideMoreButton && (
         <Dropdown>
+          {phone && (
+            <a href={`tel:${email}`}>
+              <DropdownItem>
+                <FormattedMessage id='aria-label-call-manager' defaultMessage={`Call to manager`} />
+              </DropdownItem>
+            </a>
+          )}
           {email && (
             <a href={`mailto:${email}`}>
               <DropdownItem>
@@ -64,7 +62,7 @@ const ActionButtons = ({ phone, email, url, ...props }: IProps) => {
           )}
         </Dropdown>
       )}
-    </HStack>
+    </ButtonGroup>
   );
 };
 

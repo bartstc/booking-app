@@ -8,11 +8,15 @@ import { Pagination } from '../Pagination';
 
 interface IProps extends ChakraProps {
   meta: IMeta;
+  collectionCount: number;
 }
 
-const GridFooter = ({ meta, ...props }: IProps) => {
+const GridFooter = ({ meta, collectionCount, ...props }: IProps) => {
   const { formatMessage } = useIntl();
   const color = useColorModeValue('gray.600', 'gray.400');
+
+  const endCount =
+    Number(meta.limit) === collectionCount ? Number(meta.offset) + Number(meta.limit) : Number(meta.offset) + collectionCount;
 
   return (
     <HStack pt={2} w='100%' justify='space-between' {...props}>
@@ -20,7 +24,7 @@ const GridFooter = ({ meta, ...props }: IProps) => {
         {formatMessage(
           { id: 'table-meta-summary', defaultMessage: '{offset} of {total} results' },
           {
-            offset: `${Number(meta.offset) + 1} - ${Number(meta.offset) + Number(meta.limit)}`,
+            offset: `${Number(meta.offset) + 1} - ${endCount}`,
             total: meta.total,
           },
         )}

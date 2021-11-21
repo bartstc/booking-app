@@ -40,7 +40,7 @@ const Table = () => {
               <Row key={offer.offerId} offer={offer} />
             ))}
           </Grid>
-          <GridFooter meta={meta} />
+          <GridFooter meta={meta} collectionCount={collection.length} />
         </>
       )}
     </FetchBoundary>

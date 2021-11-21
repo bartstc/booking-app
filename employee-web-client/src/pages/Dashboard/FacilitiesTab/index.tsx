@@ -9,7 +9,7 @@ import { Panel } from './Panel';
 const FacilitiesTab = () => {
   return (
     <DashboardTabs>
-      <VStack spacing={6}>
+      <VStack>
         <Panel />
         <FacilitiesCollection />
       </VStack>
