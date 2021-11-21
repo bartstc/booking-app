@@ -25,9 +25,9 @@ const Table = () => {
           <Grid
             itemsCount={collection.length}
             templateColumns={{
-              base: 'repeat(2, 1fr) max(110px)',
-              md: 'repeat(4, 1fr) max(110px)',
-              lg: 'repeat(5, 1fr) max(110px)',
+              base: ' 42px repeat(2, 1fr) max(110px)',
+              md: '42px repeat(4, 1fr) max(110px)',
+              lg: '42px repeat(5, 1fr) max(110px)',
             }}
             mb={4}
           >

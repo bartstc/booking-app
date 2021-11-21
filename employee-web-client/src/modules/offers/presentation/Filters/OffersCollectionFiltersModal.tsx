@@ -11,6 +11,7 @@ import {
   ModalOverlay,
   Text,
   VStack,
+  Kbd,
 } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -67,7 +68,13 @@ const OffersCollectionFiltersModal = ({ isOpen, onClose }: IProps) => {
             <Divider mt='1.2rem' />
           </Box>
           <ProTip tipName={ProTipType.Close_filters_model_on_esc} pt={2}>
-            <FormattedMessage id='space-shortcut' defaultMessage='press esc to close the modal' />
+            <FormattedMessage
+              id='space-shortcut'
+              defaultMessage='press {key} to close the modal'
+              values={{
+                key: <Kbd fontSize='sm'>esc</Kbd>,
+              }}
+            />
           </ProTip>
         </ModalBody>
         <ModalFooter>

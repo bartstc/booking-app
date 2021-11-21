@@ -7,6 +7,7 @@ import { HeaderCell } from 'shared/Filters';
 const Header = () => {
   return (
     <GridHeader>
+      <HeaderCell>{''}</HeaderCell>
       <HeaderCell name='name'>
         <FormattedMessage id='facility-name' defaultMessage='Facility name' />
       </HeaderCell>

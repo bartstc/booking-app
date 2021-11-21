@@ -6,4 +6,5 @@ export { PrimaryText } from './PrimaryText';
 export { SecondaryText } from './SecondaryText';
 export { Skeleton } from './Skeleton';
 export { GridFooter } from './GridFooter';
-export { ExpandedGridItem } from './ExpandedGridItem';
+export { CollapseGridItem } from './CollapseGridItem';
+export { CollapseIcon } from './CollapseIcon';
