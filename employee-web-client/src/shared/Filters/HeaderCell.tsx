@@ -77,6 +77,7 @@ const Cell = ({ children, isNumeric, withTooltip = true, ...props }: ICellProps)
       isTruncated
       fontWeight='600'
       p='0.7rem 0.5rem'
+      minH='57px'
       pr={isNumeric ? '1.5rem' : '0.5rem'}
       justify={isNumeric ? 'flex-end' : 'flex-start'}
       borderBottom={`1px solid ${borderColor}`}
