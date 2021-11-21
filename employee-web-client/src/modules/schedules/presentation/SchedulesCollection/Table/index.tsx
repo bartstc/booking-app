@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Grid } from 'shared/Grid';
-import { Pagination } from 'shared/Pagination';
+import { Grid, GridFooter } from 'shared/Grid';
 import { FetchBoundary } from 'shared/Suspense';
 
 import { useFacilityContextSelector } from 'modules/context';
@@ -16,22 +15,22 @@ const Table = () => {
 
   return (
     <FetchBoundary<IScheduleCollection> queryKey={schedulesQueryKey(facilityId)} queryFn={() => schedulesQuery(facilityId)}>
-      {({ data: { collection } }) => (
+      {({ data: { collection, meta } }) => (
         <>
           <Grid
             itemsCount={collection.length}
             templateColumns={{
-              base: '80px repeat(2, 1fr)',
-              md: '80px repeat(4, 1fr)',
+              base: 'repeat(2, 1fr)',
+              md: 'repeat(4, 1fr)',
             }}
             mb={4}
           >
             <Header />
-            {collection.map((schedule, index) => (
-              <Row index={index + 1} key={schedule.name} schedule={schedule} />
+            {collection.map(schedule => (
+              <Row key={schedule.name} schedule={schedule} />
             ))}
           </Grid>
-          <Pagination limit={1} total={1} />
+          <GridFooter meta={meta} collectionCount={collection.length} />
         </>
       )}
     </FetchBoundary>

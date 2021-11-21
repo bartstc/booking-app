@@ -21,7 +21,7 @@ const Row = ({ customer }: IProps) => {
   const address = `${customer.address.city}, ${customer.address.street}`;
 
   return (
-    <GridItem>
+    <GridItem id={customer.customerId}>
       <TruncatedCell isBold>{customer.fullName}</TruncatedCell>
       <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
         <Badge variant='subtle' colorScheme='gray'>

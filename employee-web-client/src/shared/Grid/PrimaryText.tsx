@@ -8,9 +8,9 @@ interface IProps extends ChakraProps {
 
 const PrimaryText = ({ isBold = false, children, ...props }: IProps) => {
   return (
-    <chakra.p isTruncated fontWeight={isBold ? '600' : 'inherit'} {...props}>
+    <chakra.div isTruncated fontWeight={isBold ? '600' : 'inherit'} {...props}>
       {children}
-    </chakra.p>
+    </chakra.div>
   );
 };
 

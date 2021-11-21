@@ -20,7 +20,7 @@ const Row = ({ facility }: IProps) => {
 
   return (
     <>
-      <GridItem isExpanded={isOpen} onClick={onToggle}>
+      <GridItem id={facility.facilityId} isExpanded={isOpen} onClick={onToggle}>
         <TruncatedCell>
           <CollapseIcon isOpen={isOpen} />
         </TruncatedCell>

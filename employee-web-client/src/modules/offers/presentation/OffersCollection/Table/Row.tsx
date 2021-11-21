@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { GridItem, TruncatedCell } from 'shared/Grid';
 import { MoneyText } from 'shared/Money';
+import { CheckboxChild } from 'shared/Selectable';
 
 import { StatusActionButtons } from './StatusActionButtons';
 import { OfferStatusBadge } from '../../OfferStatusBadge';
@@ -16,7 +17,10 @@ interface IProps {
 
 const Row = ({ offer }: IProps) => {
   return (
-    <GridItem>
+    <GridItem id={offer.offerId}>
+      <TruncatedCell>
+        <CheckboxChild value={offer.offerId} />
+      </TruncatedCell>
       <TruncatedCell isBold>{offer.name}</TruncatedCell>
       <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
         <OfferStatusBadge status={offer.status} />

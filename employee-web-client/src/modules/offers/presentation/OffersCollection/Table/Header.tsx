@@ -3,10 +3,18 @@ import { FormattedMessage } from 'react-intl';
 
 import { GridHeader } from 'shared/Grid';
 import { HeaderCell } from 'shared/Filters';
+import { CheckboxParent } from 'shared/Selectable';
 
-const Header = () => {
+interface IProps {
+  collectionIds: string[];
+}
+
+const Header = ({ collectionIds }: IProps) => {
   return (
     <GridHeader>
+      <HeaderCell withTooltip={false}>
+        <CheckboxParent items={collectionIds} />
+      </HeaderCell>
       <HeaderCell>
         <FormattedMessage id='offer-name' defaultMessage='Offer name' />
       </HeaderCell>

@@ -4,17 +4,19 @@ import styled from '@emotion/styled';
 
 interface IProps extends ChakraProps {
   children: ReactNode | string;
+  id: string;
   isExpanded?: boolean;
   onClick?: () => void;
 }
 
-const GridItem = ({ children, onClick, isExpanded = false, ...props }: IProps) => {
+const GridItem = ({ children, onClick, isExpanded = false, id, ...props }: IProps) => {
   const { colors } = useTheme();
   const cellHover = useColorModeValue(colors.gray[200], colors.gray[700]);
   const borderColor = useColorModeValue(colors.gray[300], colors.gray[700]);
 
   return (
     <Item
+      id={id}
       display='contents'
       cursor='pointer'
       fontSize='sm'

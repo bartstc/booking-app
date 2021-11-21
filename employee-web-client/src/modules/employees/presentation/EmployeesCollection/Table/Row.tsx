@@ -22,7 +22,7 @@ const Row = ({ employee }: IProps) => {
   const phone = employee.contacts.find(contact => contact.type === ContactType.Phone)?.value;
 
   return (
-    <GridItem>
+    <GridItem id={employee.employeeId}>
       <TruncatedCell isBold>{employee.name}</TruncatedCell>
       <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
         <EmployeeStatusBadge status={employee.status} />

@@ -29,13 +29,13 @@ const Table = () => {
           <Grid
             itemsCount={collection.length}
             templateColumns={{
-              base: 'repeat(2, 1fr) max(110px)',
-              md: '2fr repeat(3, 1fr) max(110px)',
-              lg: '2fr repeat(4, 1fr) max(110px)',
+              base: '54px repeat(2, 1fr) max(110px)',
+              md: '54px 2fr repeat(3, 1fr) max(110px)',
+              lg: '54px 2fr repeat(4, 1fr) max(110px)',
             }}
             mb={4}
           >
-            <Header />
+            <Header collectionIds={collection.map(offer => offer.offerId)} />
             {collection.map(offer => (
               <Row key={offer.offerId} offer={offer} />
             ))}

@@ -7,16 +7,14 @@ import { FormattedDate } from 'shared/Date';
 import { ISchedule } from '../../../application/types';
 
 interface IProps {
-  index: number;
   schedule: ISchedule;
 }
 
-const Row = ({ index, schedule }: IProps) => {
+const Row = ({ schedule }: IProps) => {
   const { push } = useHistory();
 
   return (
-    <GridItem onClick={() => push(`/schedules/${schedule.scheduleId}`)}>
-      <TruncatedCell>{index}</TruncatedCell>
+    <GridItem id={schedule.scheduleId} onClick={() => push(`/schedules/${schedule.scheduleId}`)}>
       <TruncatedCell>{schedule.name}</TruncatedCell>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>
         <FormattedDate value={schedule.startDate} format='DD MMM YYYY' />
