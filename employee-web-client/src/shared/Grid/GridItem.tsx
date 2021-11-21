@@ -16,9 +16,10 @@ const GridItem = ({ children, onClick, isExpanded = false, id, ...props }: IProp
   const cellHover = useColorModeValue(colors.gray[200], colors.gray[700]);
   const borderColor = useColorModeValue(colors.gray[300], colors.gray[700]);
   const primaryColor = useColorModeValue(colors.primary[500], colors.primary[500]);
+  const primaryBgColor = useColorModeValue(colors.primary[300], colors.primary[900]);
 
-  const includes = useCollectionStoreContextSelector(store => store.includes);
-  const isSelected = includes(id);
+  const includes = useCollectionStoreContextSelector(store => store?.includes);
+  const isSelected = includes ? includes(id) : false;
 
   return (
     <Item
@@ -30,6 +31,7 @@ const GridItem = ({ children, onClick, isExpanded = false, id, ...props }: IProp
       cellHover={cellHover}
       borderColor={borderColor}
       primaryColor={primaryColor}
+      primaryBgColor={primaryBgColor}
       isExpanded={isExpanded}
       isSelected={isSelected}
       {...props}
@@ -40,7 +42,14 @@ const GridItem = ({ children, onClick, isExpanded = false, id, ...props }: IProp
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Item = styled(chakra.div)<{ cellHover: string; borderColor: string; primaryColor: string; isExpanded: boolean; isSelected: boolean }>`
+const Item = styled(chakra.div)<{
+  cellHover: string;
+  borderColor: string;
+  primaryColor: string;
+  primaryBgColor: string;
+  isExpanded: boolean;
+  isSelected: boolean;
+}>`
   .cell:first-of-type {
     padding-left: 0.65rem; // 0.75rem - first header cell
     border-left: ${props =>
@@ -55,6 +64,7 @@ const Item = styled(chakra.div)<{ cellHover: string; borderColor: string; primar
     min-height: 57px;
     align-items: center;
     padding-left: 0.5rem;
+    background-color: ${props => (props.isSelected ? `${props.primaryBgColor}28` : 'transparent')};
     border-bottom: ${props => `1px solid ${props.borderColor}`};
   }
 
