@@ -2,9 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { Checkbox, CheckboxProps, chakra } from '@chakra-ui/react';
 import intersection from 'lodash/intersection';
 
-import { createCollectionStore } from './createCollectionStore';
-
-export const useCheckboxStore = createCollectionStore<string>();
+import { useCollectionStoreContextSelector } from './CollectionProvider';
 
 interface IProps extends CheckboxProps {
   items: string[];
@@ -12,12 +10,9 @@ interface IProps extends CheckboxProps {
 
 const CheckboxParent = (props: IProps) => {
   const { items: available } = props;
-
-  const { checked, add, remove } = useCheckboxStore(store => ({
-    checked: store.items,
-    add: store.add,
-    remove: store.remove,
-  }));
+  const checked = useCollectionStoreContextSelector(store => store.items);
+  const add = useCollectionStoreContextSelector(store => store.add);
+  const remove = useCollectionStoreContextSelector(store => store.remove);
 
   const allChecked = intersection(checked, available).length === available.length;
   const isIndeterminate = intersection(checked, available).length > 0 && !allChecked;

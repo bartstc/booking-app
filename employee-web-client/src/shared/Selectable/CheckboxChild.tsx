@@ -1,14 +1,12 @@
 import React from 'react';
 import { Checkbox, CheckboxProps, chakra } from '@chakra-ui/react';
 
-import { useCheckboxStore } from './CheckboxParent';
+import { useCollectionStoreContextSelector } from './CollectionProvider';
 
 const CheckboxChild = (props: CheckboxProps) => {
-  const { add, remove, includes } = useCheckboxStore(store => ({
-    add: store.add,
-    remove: store.remove,
-    includes: store.includes,
-  }));
+  const includes = useCollectionStoreContextSelector(store => store.includes);
+  const add = useCollectionStoreContextSelector(store => store.add);
+  const remove = useCollectionStoreContextSelector(store => store.remove);
 
   return (
     <chakra.div p='3px'>

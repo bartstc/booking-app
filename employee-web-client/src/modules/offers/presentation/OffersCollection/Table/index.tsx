@@ -3,6 +3,7 @@ import React from 'react';
 import { Grid, GridFooter, Skeleton } from 'shared/Grid';
 import { FetchBoundary } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
+import { CollectionStoreProvider, createCollectionStore } from 'shared/Selectable';
 
 import { useFacilityContextSelector } from 'modules/context';
 import { offersQueryKey, offersQuery } from 'modules/offers/infrastructure/query';
@@ -11,9 +12,12 @@ import { Header } from './Header';
 import { Row } from './Row';
 import { IOfferCollection, IOfferCollectionQueryParams } from '../../../application/types';
 
+export const useCheckboxStore = createCollectionStore<string>();
+
 const Table = () => {
   const { params } = useQueryParams<IOfferCollectionQueryParams>();
   const { facilityId } = useFacilityContextSelector();
+  const store = useCheckboxStore();
 
   return (
     <FetchBoundary<IOfferCollection>
@@ -25,7 +29,7 @@ const Table = () => {
       fallback={<Skeleton />}
     >
       {({ data: { collection, meta } }) => (
-        <>
+        <CollectionStoreProvider value={store}>
           <Grid
             itemsCount={collection.length}
             templateColumns={{
@@ -41,7 +45,7 @@ const Table = () => {
             ))}
           </Grid>
           <GridFooter meta={meta} collectionCount={collection.length} />
-        </>
+        </CollectionStoreProvider>
       )}
     </FetchBoundary>
   );
