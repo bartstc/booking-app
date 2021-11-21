@@ -19,26 +19,28 @@ const Row = ({ facility }: IProps) => {
     facility.businessCategories.find(category => category.degree === BusinessCategoryDegreeType.Main)?.type ?? BusinessCategoryType.Other;
 
   return (
-    <GridItem isExpanded={isOpen} onClick={onToggle}>
-      <TruncatedCell>
-        <CollapseIcon isOpen={isOpen} />
-      </TruncatedCell>
-      <TruncatedCell isBold>{facility.name}</TruncatedCell>
-      <TruncatedCell>{facility.contactPerson?.phone ?? '---'}</TruncatedCell>
-      <TruncatedCell display={{ base: 'none', md: 'flex' }}>{address}</TruncatedCell>
-      <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
-        <Badge variant='solid' colorScheme='yellow'>
-          {mainBusinessCategory}
-        </Badge>
-      </Flex>
-      <TruncatedCell display={{ base: 'none', lg: 'flex' }}>{facility.contactPerson?.email ?? '---'}</TruncatedCell>
-      <TruncatedCell justify='flex-end'>
-        <ActionButtons {...facility.contactPerson} slug={facility.slug} />
-      </TruncatedCell>
+    <>
+      <GridItem isExpanded={isOpen} onClick={onToggle}>
+        <TruncatedCell>
+          <CollapseIcon isOpen={isOpen} />
+        </TruncatedCell>
+        <TruncatedCell isBold>{facility.name}</TruncatedCell>
+        <TruncatedCell>{facility.contactPerson?.phone ?? '---'}</TruncatedCell>
+        <TruncatedCell display={{ base: 'none', md: 'flex' }}>{address}</TruncatedCell>
+        <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
+          <Badge variant='subtle' colorScheme='yellow'>
+            {mainBusinessCategory}
+          </Badge>
+        </Flex>
+        <TruncatedCell display={{ base: 'none', lg: 'flex' }}>{facility.contactPerson?.email ?? '---'}</TruncatedCell>
+        <TruncatedCell justify='flex-end'>
+          <ActionButtons {...facility.contactPerson} slug={facility.slug} />
+        </TruncatedCell>
+      </GridItem>
       <CollapseGridItem isOpen={isOpen}>
         <FacilityBody facility={facility} />
       </CollapseGridItem>
-    </GridItem>
+    </>
   );
 };
 

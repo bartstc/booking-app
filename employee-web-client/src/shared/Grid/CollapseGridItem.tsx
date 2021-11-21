@@ -12,7 +12,9 @@ const CollapseGridItem = ({ children, isOpen, ...props }: IProps) => {
 
   return (
     <GridItem borderLeft={`3px solid ${borderColor}`} in={isOpen} animateOpacity as={Collapse} gridColumn='1/-1' {...props}>
-      <chakra.div p='0.75rem'>{children}</chakra.div>
+      <chakra.div p='1rem 0.75rem' pl='2.95rem'>
+        {children}
+      </chakra.div>
     </GridItem>
   );
 };
