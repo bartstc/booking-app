@@ -25,6 +25,7 @@ const FiltersInput = ({ filterName = 'query', ...props }: IProps) => {
       <Input onChange={e => onChange(e.target.value)} value={value} {...props} />
       <InputRightElement>
         <IconButton
+          display={value ? 'block' : 'none'}
           size='sm'
           icon={<Icon path={mdiClose} color='gray.500' />}
           title={formatMessage({ id: 'clear', defaultMessage: 'Clear' })}

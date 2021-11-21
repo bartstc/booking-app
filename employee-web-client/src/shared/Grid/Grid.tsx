@@ -14,7 +14,7 @@ const Grid = ({ children, itemsCount, ...props }: IProps) => {
   }
 
   return (
-    <ChakraGrid w='100%' {...props}>
+    <ChakraGrid w='100%' position='relative' {...props}>
       {children}
     </ChakraGrid>
   );

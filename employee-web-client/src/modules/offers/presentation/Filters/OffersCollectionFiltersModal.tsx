@@ -66,8 +66,8 @@ const OffersCollectionFiltersModal = ({ isOpen, onClose }: IProps) => {
             <RadioFilterGroup filterName='priceType' options={priceModelOptions} />
             <Divider mt='1.2rem' />
           </Box>
-          <ProTip tipName={ProTipType.Close_filters_model_on_space} pt={2}>
-            <FormattedMessage id='space-shortcut' defaultMessage='press space to close the modal' />
+          <ProTip tipName={ProTipType.Close_filters_model_on_esc} pt={2}>
+            <FormattedMessage id='space-shortcut' defaultMessage='press esc to close the modal' />
           </ProTip>
         </ModalBody>
         <ModalFooter>

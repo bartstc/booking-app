@@ -2,7 +2,7 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
 export enum ProTipType {
-  Close_filters_model_on_space = 'close-filters-modal-on-space',
+  Close_filters_model_on_esc = 'close-filters-modal-on-esc',
 }
 
 type ProTipStore = {
@@ -15,7 +15,7 @@ export const proTipStore = create<ProTipStore>(
     set => {
       return {
         tips: {
-          [ProTipType.Close_filters_model_on_space]: true as boolean,
+          [ProTipType.Close_filters_model_on_esc]: true as boolean,
         },
         toggle(name: ProTipType) {
           set(state => ({
