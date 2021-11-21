@@ -5,24 +5,27 @@ import { chakra, ChakraProps, HStack, useTheme, useColorModeValue } from '@chakr
 import { SortingType, useSort } from 'hooks';
 
 import { Icon } from '../Icon';
+import { Tooltip } from '../Tooltip';
 
 interface IProps extends ChakraProps {
   children: ReactNode;
-  isNumeric?: boolean;
   name?: string;
+  isNumeric?: boolean;
+  withTooltip?: boolean;
 }
 
-interface ICell extends ChakraProps {
+interface ICellProps extends ChakraProps {
   children: ReactNode;
   isNumeric?: boolean;
+  withTooltip?: boolean;
 }
 
-interface ISortableCellProps extends ICell {
+interface ISortableCellProps extends ICellProps {
   name: string;
   children: ReactNode;
 }
 
-const SortableCell = ({ children, name, isNumeric, ...props }: ISortableCellProps) => {
+const SortableCell = ({ children, name, isNumeric, withTooltip = true, ...props }: ISortableCellProps) => {
   const { currentSortType, change } = useSort(name);
   const { colors } = useTheme();
   const textColor = useColorModeValue('gray.600', 'gray.400');
@@ -32,20 +35,28 @@ const SortableCell = ({ children, name, isNumeric, ...props }: ISortableCellProp
 
   return (
     <HStack
-      borderBottom={isActive ? `2px solid ${colors.primary[500]}` : `1px solid ${borderColor}`}
-      onClick={change}
-      {...props}
-      cursor='pointer'
       isTruncated
-      spacing={1}
       fontWeight='600'
       p='0.7rem 0.5rem'
       pr={isNumeric ? '1rem' : '0.5rem'}
       justify={isNumeric ? 'flex-end' : 'flex-start'}
+      borderBottom={isActive ? `2px solid ${colors.primary[500]}` : `1px solid ${borderColor}`}
+      onClick={change}
+      {...props}
+      cursor='pointer'
+      spacing={1}
     >
-      <chakra.span fontSize='sm' color={textColor} isTruncated>
-        {children}
-      </chakra.span>
+      {withTooltip ? (
+        <Tooltip label={children}>
+          <chakra.span fontSize='sm' color={textColor} isTruncated>
+            {children}
+          </chakra.span>
+        </Tooltip>
+      ) : (
+        <chakra.span fontSize='sm' color={textColor} isTruncated>
+          {children}
+        </chakra.span>
+      )}
       <Icon
         path={currentSortType === SortingType.DEFAULT ? mdiMenuSwap : mdiMenuUp}
         size='24px'
@@ -56,24 +67,32 @@ const SortableCell = ({ children, name, isNumeric, ...props }: ISortableCellProp
   );
 };
 
-const Cell = ({ children, isNumeric, ...props }: ICell) => {
+const Cell = ({ children, isNumeric, withTooltip = true, ...props }: ICellProps) => {
   const { colors } = useTheme();
   const textColor = useColorModeValue('gray.600', 'gray.400');
   const borderColor = useColorModeValue(colors.gray[300], colors.gray[700]);
 
   return (
     <HStack
+      isTruncated
+      fontWeight='600'
       p='0.7rem 0.5rem'
       pr={isNumeric ? '1.5rem' : '0.5rem'}
       justify={isNumeric ? 'flex-end' : 'flex-start'}
-      fontWeight='600'
       borderBottom={`1px solid ${borderColor}`}
       {...props}
-      isTruncated
     >
-      <chakra.span fontSize='sm' color={textColor} isTruncated>
-        {children}
-      </chakra.span>
+      {withTooltip ? (
+        <Tooltip label={children}>
+          <chakra.span fontSize='sm' color={textColor} isTruncated>
+            {children}
+          </chakra.span>
+        </Tooltip>
+      ) : (
+        <chakra.span fontSize='sm' color={textColor} isTruncated>
+          {children}
+        </chakra.span>
+      )}
     </HStack>
   );
 };
