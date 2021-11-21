@@ -11,11 +11,10 @@ import { ContactType } from 'types';
 import { ICustomer } from '../../../application/types';
 
 interface IProps {
-  index: number;
   customer: ICustomer;
 }
 
-const Row = ({ index, customer }: IProps) => {
+const Row = ({ customer }: IProps) => {
   const { formatMessage } = useIntl();
 
   const phone = customer.contacts.find(contact => contact.type === ContactType.Phone)?.value;
@@ -23,7 +22,6 @@ const Row = ({ index, customer }: IProps) => {
 
   return (
     <GridItem>
-      <TruncatedCell>{index}</TruncatedCell>
       <TruncatedCell isBold>{customer.fullName}</TruncatedCell>
       <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
         <Badge variant='subtle' colorScheme='gray'>

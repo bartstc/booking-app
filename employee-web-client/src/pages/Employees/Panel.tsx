@@ -8,7 +8,7 @@ const Panel = () => {
   const { formatMessage } = useIntl();
 
   return (
-    <Flex justify='space-between' w='100%' mb={{ base: 2, md: 4 }}>
+    <Flex justify='space-between' w='100%'>
       <FiltersInput
         placeholder={`${formatMessage({
           id: 'search-employee-name-or-position',

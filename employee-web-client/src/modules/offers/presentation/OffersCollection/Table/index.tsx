@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Grid, Skeleton } from 'shared/Grid';
-import { Pagination } from 'shared/Pagination';
+import { Grid, GridFooter, Skeleton } from 'shared/Grid';
 import { FetchBoundary } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
 
@@ -30,18 +29,18 @@ const Table = () => {
           <Grid
             itemsCount={collection.length}
             templateColumns={{
-              // base: '80px repeat(2, 1fr) max(110px)',
-              // md: '80px 2fr repeat(3, 1fr) max(110px)',
-              base: '80px 2fr repeat(4, 1fr) max(110px)',
+              base: 'repeat(2, 1fr) max(110px)',
+              md: '2fr repeat(3, 1fr) max(110px)',
+              lg: '2fr repeat(4, 1fr) max(110px)',
             }}
             mb={4}
           >
             <Header />
-            {collection.map((offer, index) => (
-              <Row index={index + 1 + Number(meta.offset)} key={offer.offerId} offer={offer} />
+            {collection.map(offer => (
+              <Row key={offer.offerId} offer={offer} />
             ))}
           </Grid>
-          <Pagination limit={meta.limit} total={meta.total} />
+          <GridFooter meta={meta} />
         </>
       )}
     </FetchBoundary>

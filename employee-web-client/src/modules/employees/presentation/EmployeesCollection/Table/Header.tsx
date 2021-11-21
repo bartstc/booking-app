@@ -8,9 +8,6 @@ const Header = () => {
   return (
     <GridHeader>
       <HeaderCell>
-        <FormattedMessage id='lp-label' defaultMessage='Lp' />
-      </HeaderCell>
-      <HeaderCell>
         <FormattedMessage id='full-name' defaultMessage='Full name' />
       </HeaderCell>
       <HeaderCell name='status' display={{ base: 'none', md: 'flex' }}>

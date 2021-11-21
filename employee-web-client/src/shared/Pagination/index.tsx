@@ -63,7 +63,7 @@ export const PaginationComponent = ({ current, onChange, totalPages, margin = 3,
   if (totalPages <= 1) return null;
 
   return (
-    <HStack width='100%' justify='center' mt={8}>
+    <HStack>
       <PaginationButton
         title={formatMessage({
           id: 'pagination-back-button',

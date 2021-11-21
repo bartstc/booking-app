@@ -7,9 +7,6 @@ import { HeaderCell } from 'shared/Filters';
 const Header = () => {
   return (
     <GridHeader>
-      <HeaderCell>
-        <FormattedMessage id='lp-label' defaultMessage='Lp' />
-      </HeaderCell>
       <HeaderCell name='fullName'>
         <FormattedMessage id='full-name' defaultMessage='Full name' />
       </HeaderCell>

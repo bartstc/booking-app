@@ -13,18 +13,16 @@ import { IEmployee } from '../../../application/types';
 import { EmployeeStatusBadge } from '../../EmployeeStatusBadge';
 
 interface IProps {
-  index: number;
   employee: IEmployee;
 }
 
-const Row = ({ index, employee }: IProps) => {
+const Row = ({ employee }: IProps) => {
   const { formatMessage } = useIntl();
 
   const phone = employee.contacts.find(contact => contact.type === ContactType.Phone)?.value;
 
   return (
     <GridItem>
-      <TruncatedCell>{index}</TruncatedCell>
       <TruncatedCell isBold>{employee.name}</TruncatedCell>
       <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
         <EmployeeStatusBadge status={employee.status} />

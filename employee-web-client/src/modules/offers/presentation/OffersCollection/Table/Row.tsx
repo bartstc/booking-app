@@ -11,14 +11,12 @@ import { PriceModelBadge } from '../../PriceModelBadge';
 import { IOffer } from '../../../application/types';
 
 interface IProps {
-  index: number;
   offer: IOffer;
 }
 
-const Row = ({ index, offer }: IProps) => {
+const Row = ({ offer }: IProps) => {
   return (
     <GridItem>
-      <TruncatedCell>{index}</TruncatedCell>
       <TruncatedCell isBold>{offer.name}</TruncatedCell>
       <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
         <OfferStatusBadge status={offer.status} />
