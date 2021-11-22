@@ -14,7 +14,7 @@ const Row = ({ schedule }: IProps) => {
   const { push } = useHistory();
 
   return (
-    <GridItem id={schedule.scheduleId} onClick={() => push(`/schedules/${schedule.scheduleId}`)}>
+    <GridItem onClick={() => push(`/schedules/${schedule.scheduleId}`)}>
       <TruncatedCell>{schedule.name}</TruncatedCell>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>
         <FormattedDate value={schedule.startDate} format='DD MMM YYYY' />
