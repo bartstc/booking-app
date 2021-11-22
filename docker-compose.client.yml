@@ -6,6 +6,7 @@ services:
     restart: always
     volumes:
       - ./management-service/db/management-db-initialize.sh:/docker-entrypoint-initdb.d/management-db-initialize.sh
+      - ./db-initialize.sh:/docker-entrypoint-initdb.d/db-initialize.sh
       - pgdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=pg
