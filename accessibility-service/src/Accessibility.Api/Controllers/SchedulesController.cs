@@ -8,14 +8,12 @@ using Accessibility.Application.Schedules.Queries;
 using Accessibility.Application.Schedules.Queries.GetScheduleById;
 using Accessibility.Application.Schedules.Queries.GetSchedules;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accessibility.Api.Controllers
 {
     [ApiController]
     [Route("facilities/{facilityId}/schedules")]
-    [Authorize("MustBeEmployeeOfFacility")]
     public class SchedulesController : ControllerBase
     {
         private readonly IMediator mediator;
