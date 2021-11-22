@@ -8,7 +8,8 @@ services:
       - ./management-service/db/management-db-initialize.sh:/docker-entrypoint-initdb.d/management-db-initialize.sh
       - pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: pg
+      - POSTGRES_PASSWORD=pg
+      - TZ=Europe/Warsaw
     ports:
       - "5433:5432"
 
