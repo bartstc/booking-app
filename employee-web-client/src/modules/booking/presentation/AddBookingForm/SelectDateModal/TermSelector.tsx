@@ -26,7 +26,8 @@ interface IProps {
 
 const TermSelector = ({ offerId, index, onClose }: IProps) => {
   const { formatMessage } = useIntl();
-  const { facilityId } = useFacilityContextSelector();
+  const facilityId = useFacilityContextSelector(state => state.facilityId);
+  const enterpriseId = useFacilityContextSelector(state => state.enterpriseId);
   const { setValue, watch } = useFormContext();
 
   const selectedEmployeeIdField = watch(`bookedRecords[${index}].employeeId`);
@@ -125,7 +126,7 @@ const TermSelector = ({ offerId, index, onClose }: IProps) => {
                   selectedDay={selectedDay}
                 />
                 <AvailableEmployeeSelectAsync
-                  facilityId={facilityId}
+                  enterpriseId={enterpriseId}
                   bookingTerm={selectedBookingTerm}
                   selectedEmployeeId={selectedEmployeeId}
                   setEmployeeId={setSelectedEmployeeId}

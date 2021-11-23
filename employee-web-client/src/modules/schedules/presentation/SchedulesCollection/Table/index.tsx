@@ -30,7 +30,7 @@ const Table = () => {
               <Row key={schedule.name} schedule={schedule} />
             ))}
           </Grid>
-          <GridFooter meta={meta} collectionCount={collection.length} />
+          <GridFooter meta={{ total: meta.total, limit: 10, offset: 0 }} collectionCount={collection.length} />
         </>
       )}
     </FetchBoundary>

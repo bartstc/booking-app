@@ -13,16 +13,16 @@ import { IEmployeeCollection } from '../../../../../employees/application/types'
 
 interface IProps {
   bookingTerm?: IBookingTerm;
-  facilityId: string;
+  enterpriseId: string;
   selectedEmployeeId: string | undefined;
   setEmployeeId: (id: string) => void;
 }
 
 export type AvailableEmployeeOption = OptionType<string> & { bookingTerm: IBookingTerm; isAvailable: boolean };
 
-const AvailableEmployeeSelectAsync = ({ bookingTerm, facilityId, selectedEmployeeId, setEmployeeId }: IProps) => {
+const AvailableEmployeeSelectAsync = ({ bookingTerm, enterpriseId, selectedEmployeeId, setEmployeeId }: IProps) => {
   const { data, search, nextPage, status } = useAutoComplete<AvailableEmployeeOption, IEmployeeCollection>({
-    url: employeesQueryKey(facilityId)[0],
+    url: employeesQueryKey(enterpriseId)[0],
     limit: 100,
     reFetchWhenChange: [bookingTerm?.date],
     map: ({ collection }) => {
