@@ -5,14 +5,14 @@ import { PageWrapper } from 'shared/Layout/Page';
 import { OffersCollection } from 'modules/offers/presentation';
 
 import { Header } from './Header';
-import { Panel } from './Panel';
+import { OffersCollectionToolbox } from '../../modules/offers/presentation/OffersCollection/OffersCollectionToolbox';
 
 const Offers = () => {
   return (
     <PageWrapper>
       <Header />
       <VStack w='100%' maxW='1200px' pb={{ base: 4, md: 10 }}>
-        <Panel />
+        <OffersCollectionToolbox />
         <OffersCollection />
       </VStack>
     </PageWrapper>

@@ -28,6 +28,7 @@ const CustomCalendar = () => {
   const borderColor = useColorModeValue(colors.gray[200], colors.gray[600]);
 
   const facilityId = useFacilityContextSelector(state => state.facilityId);
+  const enterpriseId = useFacilityContextSelector(state => state.enterpriseId);
 
   const { saturday, sunday, trackedDay, weekDates, nextWeek, prevWeek, setWeek, isPrevWeekNotAllowed, isNextWeekNotAllowed } = useWeekRange(
     {
@@ -75,7 +76,7 @@ const CustomCalendar = () => {
         </GridItem>
         <GridItem as={HStack} colSpan={3} mb={4} w='100%'>
           <BookingDatePicker trackedDay={trackedDay} setWeek={setWeek} />
-          <EmployeeSelect facilityId={facilityId} />
+          <EmployeeSelect enterpriseId={enterpriseId} />
         </GridItem>
       </SimpleGrid>
       <SimpleGrid columns={15} w='100%' pr={4}>

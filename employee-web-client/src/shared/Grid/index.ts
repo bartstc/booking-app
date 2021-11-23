@@ -7,4 +7,5 @@ export { SecondaryText } from './SecondaryText';
 export { Skeleton } from './Skeleton';
 export { GridFooter } from './GridFooter';
 export { CollapseGridItem } from './CollapseGridItem';
-export { CollapseIcon } from './CollapseIcon';
+export { CollapsableCell } from './CollapsableCell';
+export { CheckableCell } from './CheckableCell';

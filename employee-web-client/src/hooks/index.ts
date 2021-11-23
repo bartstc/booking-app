@@ -8,3 +8,4 @@ export { useAutoComplete } from './useAutoComplete';
 export { useModal } from './useModal';
 export { useEventListener, EventType } from './useEventListener';
 export { useWeekRange } from './useWeekRange';
+export { useNotImplementedYet } from './useNotImplementedYet';

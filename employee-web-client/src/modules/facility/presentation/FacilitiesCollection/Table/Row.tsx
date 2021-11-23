@@ -1,7 +1,7 @@
 import React from 'react';
 import { Badge, Flex, useDisclosure } from '@chakra-ui/react';
 
-import { CollapseGridItem, CollapseIcon, GridItem, TruncatedCell } from 'shared/Grid';
+import { CollapsableCell, CollapseGridItem, GridItem, TruncatedCell } from 'shared/Grid';
 
 import { ActionButtons } from '../ActionButtons';
 import { BusinessCategoryDegreeType, BusinessCategoryType, IFacility } from '../../../application/types';
@@ -20,10 +20,8 @@ const Row = ({ facility }: IProps) => {
 
   return (
     <>
-      <GridItem id={facility.facilityId} isExpanded={isOpen} onClick={onToggle}>
-        <TruncatedCell>
-          <CollapseIcon isOpen={isOpen} />
-        </TruncatedCell>
+      <GridItem onClick={onToggle}>
+        <CollapsableCell isOpen={isOpen} />
         <TruncatedCell isBold>{facility.name}</TruncatedCell>
         <TruncatedCell>{facility.contactPerson?.phone ?? '---'}</TruncatedCell>
         <TruncatedCell display={{ base: 'none', md: 'flex' }}>{address}</TruncatedCell>

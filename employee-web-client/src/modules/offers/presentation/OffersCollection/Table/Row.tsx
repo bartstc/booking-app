@@ -2,9 +2,8 @@ import React from 'react';
 import { Flex } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
-import { GridItem, TruncatedCell } from 'shared/Grid';
+import { CheckableCell, GridItem, TruncatedCell } from 'shared/Grid';
 import { MoneyText } from 'shared/Money';
-import { CheckboxChild } from 'shared/Selectable';
 
 import { StatusActionButtons } from './StatusActionButtons';
 import { OfferStatusBadge } from '../../OfferStatusBadge';
@@ -17,10 +16,8 @@ interface IProps {
 
 const Row = ({ offer }: IProps) => {
   return (
-    <GridItem id={offer.offerId}>
-      <TruncatedCell>
-        <CheckboxChild value={offer.offerId} />
-      </TruncatedCell>
+    <GridItem>
+      <CheckableCell value={offer.offerId} />
       <TruncatedCell isBold>{offer.name}</TruncatedCell>
       <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
         <OfferStatusBadge status={offer.status} />

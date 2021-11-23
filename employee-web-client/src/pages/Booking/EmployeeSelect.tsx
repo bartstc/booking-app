@@ -17,14 +17,14 @@ import { BookingPageQueryParams } from './index';
 export type EmployeeOptionType = OptionType<string> & { employee: IEmployee };
 
 type IProps = Omit<SelectInputProps, 'options' | 'onMenuScrollToBottom' | 'isLoading' | 'isClearable' | 'label'> & {
-  facilityId: string;
+  enterpriseId: string;
 };
 
-const EmployeeSelect = ({ facilityId, ...props }: IProps) => {
+const EmployeeSelect = ({ enterpriseId, ...props }: IProps) => {
   const { remove, change, params } = useQueryParams<BookingPageQueryParams>();
 
   const { data, search, nextPage, status } = useAutoComplete<EmployeeOptionType, IEmployeeCollection>({
-    url: employeesQueryKey(facilityId)[0],
+    url: employeesQueryKey(enterpriseId)[0],
     map: ({ collection }) => {
       return collection.map(employee => ({
         label: employee.name,

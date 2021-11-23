@@ -21,8 +21,8 @@ import { Icon } from '../Icon';
 
 interface IProps {
   isOpen: boolean;
-  isLoading: boolean;
   onClose: () => void;
+  isLoading?: boolean;
   onConfirm: () => void;
   iconPath?: string;
   header?: string | ReactNode;
@@ -32,7 +32,7 @@ interface IProps {
 
 const colors = {
   info: 'blue',
-  warning: 'orange',
+  warning: 'yellow',
   error: 'red',
   success: 'green',
 };
@@ -56,7 +56,7 @@ const Confirm = ({
         <ModalHeader></ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          <HStack fontSize={{ base: 'lg', md: 'xl' }} fontWeight='700' color={color}>
+          <HStack fontSize={{ base: 'lg', md: 'xl' }} fontWeight='700'>
             <Icon path={iconPath} size='26px' color={color} />
             <Text>{header}</Text>
           </HStack>

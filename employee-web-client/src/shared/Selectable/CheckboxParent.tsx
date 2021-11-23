@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { Checkbox, CheckboxProps, chakra } from '@chakra-ui/react';
+import { Checkbox, CheckboxProps, chakra, useTheme, useColorModeValue } from '@chakra-ui/react';
 import intersection from 'lodash/intersection';
 
 import { useCollectionStoreContextSelector } from './CollectionProvider';
@@ -9,6 +9,9 @@ interface IProps extends CheckboxProps {
 }
 
 const CheckboxParent = (props: IProps) => {
+  const { colors } = useTheme();
+  const borderColor = useColorModeValue(colors.gray[300], colors.gray[800]);
+
   const { items: available } = props;
   const checked = useCollectionStoreContextSelector(store => store.items);
   const add = useCollectionStoreContextSelector(store => store.add);
@@ -23,7 +26,14 @@ const CheckboxParent = (props: IProps) => {
 
   return (
     <chakra.div p='3px' ml='4px'>
-      <Checkbox colorScheme='primary' {...props} isChecked={allChecked} isIndeterminate={isIndeterminate} onChange={toggleAvailable} />
+      <Checkbox
+        outline={`1px solid ${borderColor}`}
+        colorScheme='primary'
+        {...props}
+        isChecked={allChecked}
+        isIndeterminate={isIndeterminate}
+        onChange={toggleAvailable}
+      />
     </chakra.div>
   );
 };
