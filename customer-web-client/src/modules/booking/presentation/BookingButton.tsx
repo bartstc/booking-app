@@ -4,14 +4,22 @@ import { useIntl } from "react-intl";
 import { Button } from "shared/Button";
 
 import { IOffer } from "modules/offers/application";
+import { useAuthContextSelector } from "modules/auth/application";
 
-import { useBookOfferModalStore } from "./index";
+import { useBookOfferModalStore } from "./SelectDateModal";
+import { useSignInForBookingModalStore } from "./SignInForBookingModal";
 
 interface IProps {
   offer: IOffer;
 }
 
 const BookingButton = ({ offer }: IProps) => {
+  const isAuthenticated = useAuthContextSelector(
+    (state) => state.isAuthenticated
+  );
+
+  const onSignInOpen = useSignInForBookingModalStore((state) => state.onOpen);
+
   const { formatMessage } = useIntl();
   const onOpen = useBookOfferModalStore((store) => store.onOpen);
 
@@ -20,7 +28,13 @@ const BookingButton = ({ offer }: IProps) => {
       size="sm"
       colorScheme="primary"
       textTransform="uppercase"
-      onClick={() => onOpen(offer)}
+      onClick={() => {
+        if (isAuthenticated()) {
+          onOpen(offer);
+        } else {
+          onSignInOpen();
+        }
+      }}
     >
       {formatMessage({
         defaultMessage: "book it",
