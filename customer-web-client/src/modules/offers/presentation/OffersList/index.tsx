@@ -5,6 +5,7 @@ import {
   offersQuery,
   offersQueryKey,
 } from "modules/offers/infrastructure/query";
+import { SelectDateModal } from "modules/booking/presentation";
 
 import { useInfiniteQuery } from "hooks/useInfiniteQuery";
 
@@ -40,6 +41,7 @@ const OffersList = () => {
 
   return (
     <Grid templateColumns="100%" w="100%" maxW="1080px" mx="0 auto">
+      <SelectDateModal />
       <InfinityList<IOfferCollection>
         limit={limit}
         data={data?.pages}
