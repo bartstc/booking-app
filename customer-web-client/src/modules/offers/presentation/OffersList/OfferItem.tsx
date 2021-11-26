@@ -14,13 +14,13 @@ import { mdiMapMarker, mdiTag } from "@mdi/js";
 
 import { useFacilityByIdQuery } from "modules/facility/infrastructure/query";
 import { businessCategoryTypeMessages } from "modules/facility/application/messages";
+import { BookingButton } from "modules/booking/presentation";
 import {
   BusinessCategoryDegreeType,
   BusinessCategoryType,
 } from "modules/facility/application";
 
 import { Icon } from "shared/Icon";
-import { Button } from "shared/Button";
 
 import { ContactType } from "types";
 
@@ -157,16 +157,7 @@ const OfferItem = ({ offer, index }: IProps) => {
                     16 reviews
                   </Box>
                 </Flex>
-                <Button
-                  size="sm"
-                  colorScheme="primary"
-                  textTransform="uppercase"
-                >
-                  {formatMessage({
-                    defaultMessage: "book it",
-                    id: "book-it",
-                  })}
-                </Button>
+                <BookingButton offer={offer} />
               </HStack>
             </Box>
           </Box>

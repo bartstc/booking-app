@@ -15,11 +15,11 @@ import { Button } from "shared/Button";
 
 import { LoginButton } from "modules/auth/presentation";
 
-export const useSignUpSuccessModalStore = createModalStore();
+export const useSignInForBookingModalStore = createModalStore();
 
-const SignUpSuccessModal = () => {
+const SignInForBookingModal = () => {
   const { formatMessage } = useIntl();
-  const [isOpen, onClose] = useSignUpSuccessModalStore((state) => [
+  const [isOpen, onClose] = useSignInForBookingModalStore((state) => [
     state.isOpen,
     state.onClose,
   ]);
@@ -30,24 +30,24 @@ const SignUpSuccessModal = () => {
       <ModalContent>
         <ModalHeader>
           {formatMessage({
-            id: "success",
-            defaultMessage: "Success!",
+            id: "sign-in",
+            defaultMessage: "Sign in",
           })}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           {formatMessage({
-            id: "sign-up-success-description",
+            id: "sign-in-for-booking-description",
             defaultMessage:
-              "Your account has been created successfully. Just log in to use all the possibilities of our application!",
+              "Join our community to book offers for free! Registration is fun and should not take you more than a minute!",
           })}
         </ModalBody>
         <ModalFooter>
           <LoginButton size="md" colorScheme="green" onClick={onClose} />
           <Button colorScheme="gray" ml={3} onClick={onClose}>
             {formatMessage({
-              id: "continue-as-unlogged",
-              defaultMessage: "Continue as unlogged",
+              id: "not-yet",
+              defaultMessage: "Not yet",
             })}
           </Button>
         </ModalFooter>
@@ -56,4 +56,4 @@ const SignUpSuccessModal = () => {
   );
 };
 
-export { SignUpSuccessModal };
+export { SignInForBookingModal };
