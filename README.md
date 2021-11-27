@@ -22,6 +22,32 @@ todo
 ## Project Structure and Architecture
 todo
 
+## Launching the application
+
+At the very beginning, you need to define environment variables for each site. Add the following `.env` files to the repository:
+```
+TODO
+```
+Now you can launch entire application with just one single command:
+```
+docker-compose -f docker-compose.client.yml up -d
+```
+All available services will be launched locally. There are two clients in the application: employee context and client context.
+  - **Employee context** will be running on `localhost:3001`.
+  - **Client context** will be running on `localhost:3002`.
+
+To fully test both client applications (and thus the entire microservices system) you must be logged in.
+  - **Employee context** - there is no registration available this time but there is a test user account dedicated to this.
+      
+      ```
+        Email: john@gmail.com
+        Password: John123$
+      ```
+  - **Client context** - in this case, you will be able to register yourself using your own email address.
+
+**Warning**: Users are stored in the same database and the same authorization provider exists for each client application. To avoid errors with the login session, remember to log out earlier when changing the context (client). Or, even more secure, run both applications in separate browser windows in `incognito mode`.
+
+
 ## Services & Environments
 * Accessibility - .NET Core
 * Community - .NET Core
