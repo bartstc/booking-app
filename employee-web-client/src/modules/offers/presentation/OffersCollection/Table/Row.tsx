@@ -1,5 +1,4 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
 import { CheckableCell, GridItem, TruncatedCell } from 'shared/Grid';
@@ -19,9 +18,9 @@ const Row = ({ offer }: IProps) => {
     <GridItem>
       <CheckableCell value={offer.offerId} />
       <TruncatedCell isBold>{offer.name}</TruncatedCell>
-      <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
+      <TruncatedCell display={{ base: 'none', md: 'flex' }}>
         <OfferStatusBadge status={offer.status} />
-      </Flex>
+      </TruncatedCell>
       <TruncatedCell isNumeric display={{ base: 'none', md: 'flex' }}>
         {offer.duration} <FormattedMessage id='minutes-short' defaultMessage='min' />
       </TruncatedCell>
