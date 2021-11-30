@@ -1,20 +1,17 @@
 using System;
-using System.Collections.Generic;
 using Core.Queries;
 
 namespace Accessibility.Application.Bookings.Queries.GetBookedRecordsOfFacility
 {
-    public class GetBookedRecordsOfFacilityQuery : IQuery<List<BookedRecordOfFacilityDto>>
+    public class GetBookedRecordsOfFacilityQuery : IQuery<QueryCollectionResult<BookedRecordOfFacilityDto>>
     {
-        public GetBookedRecordsOfFacilityQuery(Guid facilityId, DateTime dateFrom, DateTime dateTo)
+        public GetBookedRecordsOfFacilityQuery(Guid facilityId, GetBookedRecordsOfFacilityQueryParams @params)
         {
             FacilityId = facilityId;
-            DateFrom = dateFrom;
-            DateTo = dateTo;
+            Params = @params;
         }
 
-        public Guid FacilityId { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
+        public Guid FacilityId { get; }
+        public GetBookedRecordsOfFacilityQueryParams Params { get; }
     }
 }
