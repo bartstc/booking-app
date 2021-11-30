@@ -11,3 +11,4 @@ export { SecondaryText } from './SecondaryText';
 export { RowCell } from './RowCell';
 export { Skeleton } from './Skeleton';
 export type { ITableConfig } from './ITableConfig';
+export { TableConfigButton } from './TableConfigButton';

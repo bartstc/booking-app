@@ -13,6 +13,9 @@ import { useNotImplementedYet } from 'hooks';
 
 import { OffersCollectionFiltersModal } from './OffersCollectionFiltersModal';
 import { useOffersCollectionCheckboxStore } from '../../application';
+import { TableConfigButton } from '../../../../shared/GridTable';
+import { offersTableConfig } from './offersTableConfig';
+import { useOffersColumnsLabels } from './useOffersColumnsLabels';
 
 const OffersCollectionToolbox = () => {
   const { formatMessage } = useIntl();
@@ -24,6 +27,8 @@ const OffersCollectionToolbox = () => {
     id: 'filters',
     defaultMessage: 'Filters',
   });
+
+  const labels = useOffersColumnsLabels();
 
   if (items.length > 0) {
     return <SelectedToolbox />;
@@ -44,10 +49,11 @@ const OffersCollectionToolbox = () => {
           <IconButton ml={4} title={title} variant='solid' path={mdiFilter} onClick={onOpen} />
         ) : (
           <>
-            <ClearFiltersIconButton />
             <Button colorScheme='gray' onClick={onOpen} leftIcon={<Icon path={mdiFilter} />}>
               {title}
             </Button>
+            <ClearFiltersIconButton />
+            <TableConfigButton config={offersTableConfig} columnsLabels={labels} />
           </>
         )}
       </HStack>
