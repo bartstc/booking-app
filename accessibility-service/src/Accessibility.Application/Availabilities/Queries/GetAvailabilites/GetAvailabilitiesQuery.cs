@@ -1,31 +1,19 @@
 using System;
-using System.Collections.Generic;
-using Accessibility.Domain.Schedules;
-using Accessibility.Domain.SharedKernel;
 using Core.Queries;
 
 namespace Accessibility.Application.Availabilities.Queries.GetAvailabilites
 {
-    public class GetAvailabilitiesQuery : IQuery<IEnumerable<AvailabilityDto>>
+    public class GetAvailabilitiesQuery : IQuery<QueryCollectionResult<AvailabilityDto>>
     {
-        public GetAvailabilitiesQuery(FacilityId facilityId, ScheduleId scheduleId, DateTime? startTime, DateTime? endTime)
+        public GetAvailabilitiesQuery(Guid facilityId, Guid scheduleId, GetAvailabilitiesQueryParams @params)
         {
             FacilityId = facilityId;
             ScheduleId = scheduleId;
-            StartTime = startTime;
-            EndTime = endTime;
+            Params = @params;
         }
 
-        public GetAvailabilitiesQuery(FacilityId facilityId, ScheduleId scheduleId, DateTime? startTime, DateTime? endTime, EmployeeId employeeId)
-            : this(facilityId, scheduleId, startTime, endTime)
-        {
-            EmployeeId = employeeId;
-        }
-
-        public FacilityId FacilityId { get; }
-        public ScheduleId ScheduleId { get; }
-        public DateTime? StartTime { get; }
-        public DateTime? EndTime { get; }
-        public EmployeeId EmployeeId { get; }
+        public Guid FacilityId { get; }
+        public Guid ScheduleId { get; }
+        public GetAvailabilitiesQueryParams Params { get; }
     }
 }
