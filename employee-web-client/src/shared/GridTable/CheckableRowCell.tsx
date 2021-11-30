@@ -6,6 +6,7 @@ import { RowCell } from './RowCell';
 
 interface IProps extends FlexProps {
   value: string;
+  name: string;
 }
 
 const CheckableRowCell = ({ value, ...props }: IProps) => {

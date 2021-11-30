@@ -4,7 +4,7 @@ export interface ITableConfig {
   [name: string]: {
     gridValue: string;
     isVisible: boolean;
-    isSortable: boolean;
+    isSortable?: boolean;
     display?: ResponsiveObject<string>;
   };
 }

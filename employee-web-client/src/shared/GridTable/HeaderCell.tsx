@@ -33,6 +33,7 @@ const SortableCell = ({ children, name, isNumeric, withTooltip = true, ...props 
   const isActive = currentSortType !== SortingType.DEFAULT;
 
   const display = useTableContextSelector(state => state.config[name].display);
+  const isVisible = useTableContextSelector(state => state.config[name].isVisible);
 
   return (
     <HStack
@@ -44,7 +45,7 @@ const SortableCell = ({ children, name, isNumeric, withTooltip = true, ...props 
       borderBottom={isActive ? `2px solid ${colors.primary[500]}` : `1px solid ${borderColor}`}
       onClick={change}
       {...props}
-      display={display}
+      display={isVisible ? display ?? { sm: 'flex' } : 'none'}
       cursor='pointer'
       spacing={1}
     >
@@ -75,6 +76,7 @@ const Cell = ({ children, name, isNumeric, withTooltip = true, ...props }: ICell
   const borderColor = useColorModeValue(colors.gray[300], colors.gray[700]);
 
   const display = useTableContextSelector(state => state.config[name].display);
+  const isVisible = useTableContextSelector(state => state.config[name].isVisible);
 
   return (
     <HStack
@@ -86,7 +88,7 @@ const Cell = ({ children, name, isNumeric, withTooltip = true, ...props }: ICell
       justify={isNumeric ? 'flex-end' : 'flex-start'}
       borderBottom={`1px solid ${borderColor}`}
       {...props}
-      display={display}
+      display={isVisible ? display ?? { sm: 'flex' } : 'none'}
     >
       {withTooltip ? (
         <Tooltip label={children}>

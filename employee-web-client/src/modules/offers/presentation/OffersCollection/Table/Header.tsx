@@ -1,9 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { GridHeader } from 'shared/Grid';
-import { HeaderCell } from 'shared/Filters';
 import { CheckboxParent } from 'shared/Selectable';
+import { GridHeader, HeaderCell } from 'shared/GridTable';
 
 interface IProps {
   collectionIds: string[];
@@ -12,25 +11,25 @@ interface IProps {
 const Header = ({ collectionIds }: IProps) => {
   return (
     <GridHeader>
-      <HeaderCell withTooltip={false}>
+      <HeaderCell name='checkbox' withTooltip={false}>
         <CheckboxParent items={collectionIds} />
       </HeaderCell>
-      <HeaderCell>
+      <HeaderCell name='name'>
         <FormattedMessage id='offer-name' defaultMessage='Offer name' />
       </HeaderCell>
-      <HeaderCell name='status' display={{ base: 'none', md: 'flex' }}>
+      <HeaderCell name='status'>
         <FormattedMessage id='status' defaultMessage='Status' />
       </HeaderCell>
-      <HeaderCell isNumeric display={{ base: 'none', md: 'flex' }}>
+      <HeaderCell name='duration' isNumeric>
         <FormattedMessage id='duration' defaultMessage='Duration' />
       </HeaderCell>
-      <HeaderCell isNumeric>
+      <HeaderCell name='price' isNumeric>
         <FormattedMessage id='price' defaultMessage='Price' />
       </HeaderCell>
-      <HeaderCell name='priceType' display={{ base: 'none', lg: 'flex' }}>
+      <HeaderCell name='priceType'>
         <FormattedMessage id='price-type' defaultMessage='Price type' />
       </HeaderCell>
-      <HeaderCell>{''}</HeaderCell>
+      <HeaderCell name='actions'>{''}</HeaderCell>
     </GridHeader>
   );
 };
