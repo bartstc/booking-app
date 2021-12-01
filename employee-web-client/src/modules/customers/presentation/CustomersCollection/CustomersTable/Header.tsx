@@ -16,7 +16,7 @@ const Header = () => {
       <HeaderCell display={{ base: 'none', md: 'flex' }}>
         <FormattedMessage id='address' defaultMessage='Address' />
       </HeaderCell>
-      <HeaderCell>
+      <HeaderCell isNumeric>
         <FormattedMessage id='phone' defaultMessage='Phone number' />
       </HeaderCell>
       <HeaderCell isNumeric name='birthDate' display={{ base: 'none', lg: 'flex' }}>

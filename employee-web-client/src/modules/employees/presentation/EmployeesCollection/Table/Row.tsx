@@ -28,7 +28,7 @@ const Row = ({ employee }: IProps) => {
         <EmployeeStatusBadge status={employee.status} />
       </Flex>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>{employee.position}</TruncatedCell>
-      <TruncatedCell>{phone ?? '---'}</TruncatedCell>
+      <TruncatedCell isNumeric>{phone ?? '---'}</TruncatedCell>
       <TruncatedCell isNumeric display={{ base: 'none', lg: 'flex' }}>
         <FormattedDate value={employee.birthDate} />
       </TruncatedCell>
