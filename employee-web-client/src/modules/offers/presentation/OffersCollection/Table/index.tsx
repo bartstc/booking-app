@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Grid, GridFooter, Skeleton } from 'shared/Grid';
 import { FetchBoundary } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
 import { CollectionStoreProvider } from 'shared/Selectable';
+import { GridTable, GridFooter, Skeleton } from 'shared/GridTable';
 
 import { useFacilityContextSelector } from 'modules/context';
 import { offersQueryKey, offersQuery } from 'modules/offers/infrastructure/query';
@@ -12,6 +12,7 @@ import { Header } from './Header';
 import { Row } from './Row';
 import { IOfferCollection, IOfferCollectionQueryParams } from '../../../application/types';
 import { useOffersCollectionCheckboxStore } from '../../../application';
+import { offersTableConfig } from '../offersTableConfig';
 
 const Table = () => {
   const { params } = useQueryParams<IOfferCollectionQueryParams>();
@@ -29,20 +30,12 @@ const Table = () => {
     >
       {({ data: { collection, meta } }) => (
         <CollectionStoreProvider value={store}>
-          <Grid
-            itemsCount={collection.length}
-            templateColumns={{
-              base: '54px repeat(2, 1fr) max(110px)',
-              md: '54px 2fr repeat(3, 1fr) max(110px)',
-              lg: '54px 2fr repeat(4, 1fr) max(110px)',
-            }}
-            mb={4}
-          >
+          <GridTable count={collection.length} id='offers' config={offersTableConfig}>
             <Header collectionIds={collection.map(offer => offer.offerId)} />
             {collection.map(offer => (
               <Row key={offer.offerId} offer={offer} />
             ))}
-          </Grid>
+          </GridTable>
           <GridFooter meta={meta} collectionCount={collection.length} />
         </CollectionStoreProvider>
       )}

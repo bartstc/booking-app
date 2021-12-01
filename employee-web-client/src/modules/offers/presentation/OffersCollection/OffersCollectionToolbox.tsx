@@ -44,10 +44,10 @@ const OffersCollectionToolbox = () => {
           <IconButton ml={4} title={title} variant='solid' path={mdiFilter} onClick={onOpen} />
         ) : (
           <>
-            <ClearFiltersIconButton />
             <Button colorScheme='gray' onClick={onOpen} leftIcon={<Icon path={mdiFilter} />}>
               {title}
             </Button>
+            <ClearFiltersIconButton />
           </>
         )}
       </HStack>

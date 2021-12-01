@@ -21,7 +21,6 @@ const ClearFiltersIconButton = <Params extends IQueryParams>({ defaultParams, ..
     <IconButton
       title={formatMessage({ id: 'clear-filters', defaultMessage: 'Clear filters' })}
       path={mdiFilterOff}
-      variant='solid'
       onClick={() => set(defaultParams ?? DEFAULT_PARAMS)}
       {...props}
     />

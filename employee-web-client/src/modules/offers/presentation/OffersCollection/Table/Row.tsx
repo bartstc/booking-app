@@ -1,8 +1,7 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
-import { CheckableCell, GridItem, TruncatedCell } from 'shared/Grid';
+import { CheckableRowCell, GridRow, RowCell } from 'shared/GridTable';
 import { MoneyText } from 'shared/Money';
 
 import { StatusActionButtons } from './StatusActionButtons';
@@ -16,25 +15,27 @@ interface IProps {
 
 const Row = ({ offer }: IProps) => {
   return (
-    <GridItem>
-      <CheckableCell value={offer.offerId} />
-      <TruncatedCell isBold>{offer.name}</TruncatedCell>
-      <Flex display={{ base: 'none', md: 'lex' }} className='cell'>
+    <GridRow>
+      <CheckableRowCell name='checkbox' value={offer.offerId} />
+      <RowCell name='name' isBold>
+        {offer.name}
+      </RowCell>
+      <RowCell name='status'>
         <OfferStatusBadge status={offer.status} />
-      </Flex>
-      <TruncatedCell isNumeric display={{ base: 'none', md: 'flex' }}>
+      </RowCell>
+      <RowCell name='duration' isNumeric>
         {offer.duration} <FormattedMessage id='minutes-short' defaultMessage='min' />
-      </TruncatedCell>
-      <TruncatedCell isNumeric>
+      </RowCell>
+      <RowCell name='price' isNumeric>
         <MoneyText value={offer.price.value} currency={offer.price.currency} />
-      </TruncatedCell>
-      <TruncatedCell display={{ base: 'none', lg: 'flex' }}>
+      </RowCell>
+      <RowCell name='priceType'>
         <PriceModelBadge type={offer.price.type} />
-      </TruncatedCell>
-      <TruncatedCell justify='flex-end'>
+      </RowCell>
+      <RowCell name='actions' justify='flex-end'>
         <StatusActionButtons offerId={offer.offerId} status={offer.status} />
-      </TruncatedCell>
-    </GridItem>
+      </RowCell>
+    </GridRow>
   );
 };
 

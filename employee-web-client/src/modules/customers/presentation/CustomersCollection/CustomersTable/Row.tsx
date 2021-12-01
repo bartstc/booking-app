@@ -29,7 +29,7 @@ const Row = ({ customer }: IProps) => {
         </Badge>
       </Flex>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>{address ?? '---'}</TruncatedCell>
-      <TruncatedCell>{phone}</TruncatedCell>
+      <TruncatedCell isNumeric>{phone}</TruncatedCell>
       <TruncatedCell isNumeric display={{ base: 'none', lg: 'flex' }}>
         <FormattedDate value={customer.birthDate} />
       </TruncatedCell>

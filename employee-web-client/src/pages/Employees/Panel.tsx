@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { Flex, HStack } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
 
 import { ClearFiltersIconButton, FiltersInput } from 'shared/Filters';
 
@@ -8,7 +8,7 @@ const Panel = () => {
   const { formatMessage } = useIntl();
 
   return (
-    <Flex justify='space-between' w='100%'>
+    <HStack minH='56px' justify='space-between' w='100%'>
       <FiltersInput
         placeholder={`${formatMessage({
           id: 'search-employee-name-or-position',
@@ -18,7 +18,7 @@ const Panel = () => {
       <HStack>
         <ClearFiltersIconButton ml={4} />
       </HStack>
-    </Flex>
+    </HStack>
   );
 };
 
