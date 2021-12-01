@@ -1,17 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
-using Accessibility.Domain.Schedules.Availabilities;
 using Core.Domain;
 using Accessibility.Domain.SharedKernel;
 
 namespace Accessibility.Domain.Schedules.Rules
 {
-    public class OverridingAvailabilitiesMustFitPeriodOfTimeRule : IBusinessRule
+    public class OverridenAvailabilitiesMustFitPeriodOfTimeRule : IBusinessRule
     {
         private readonly PeriodOfTime periodOfTime;
-        private readonly IEnumerable<AvailabilityData> availabilities;
+        private readonly IEnumerable<PeriodOfTime> availabilities;
 
-        public OverridingAvailabilitiesMustFitPeriodOfTimeRule(PeriodOfTime periodOfTime, IEnumerable<AvailabilityData> availabilities)
+        public OverridenAvailabilitiesMustFitPeriodOfTimeRule(PeriodOfTime periodOfTime, IEnumerable<PeriodOfTime> availabilities)
         {
             this.periodOfTime = periodOfTime;
             this.availabilities = availabilities;
@@ -20,6 +19,6 @@ namespace Accessibility.Domain.Schedules.Rules
         public string Message => "Not all availabilities are within specified period of time.";
 
         public bool IsBroken() =>
-            availabilities.Any(a => !a.PeriodOfTime.IsInRange(periodOfTime));
+            availabilities.Any(a => !a.IsInRange(periodOfTime));
     }
 }
