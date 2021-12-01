@@ -39,29 +39,32 @@ namespace Accessibility.Domain.Schedules
             AddDomainEvent(new ScheduleCreatedEvent(Id));
         }
 
-        public void OverrideAvailabilitiesInPeriodOfTime(PeriodOfTime periodOfTime, IEnumerable<AvailabilityData> availabilities)
+        public void OverrideAvailabilitiesInPeriodOfTime(
+            PeriodOfTime periodOfTime,
+            EmployeeId employeeId,
+            EmployeeId creatorId,
+            IEnumerable<PeriodOfTime> availabilities)
         {
-            CheckRule(new OverridingAvailabilitiesMustFitPeriodOfTimeRule(periodOfTime, availabilities));
-            CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(availabilities));
+            CheckRule(new OverridenAvailabilitiesMustFitPeriodOfTimeRule(periodOfTime, availabilities));
+            CheckRule(new AvailabilityCanNotDuplicateInPeriodOfTimeRule(availabilities));
 
-            var oldAvailabilities = this.availabilities.Where(a => a.PeriodOfTime.IsInRange(periodOfTime)).ToList();
-
+            var oldAvailabilities = this.availabilities
+                .Where(a =>
+                    a.PeriodOfTime.IsInRange(periodOfTime) &&
+                    a.EmployeeId == employeeId)
+                .ToList();
+            
             var foundAvailabilities = new List<Availability>();
 
             foreach (var availability in availabilities)
             {
                 var old = oldAvailabilities.FirstOrDefault(a =>
-                    a.EmployeeId == availability.EmployeeId &&
-                    a.PeriodOfTime.Equals(availability.PeriodOfTime));
-                
+                    a.PeriodOfTime.Equals(availability));
+
                 if (old == null)
-                {
-                    this.availabilities.Add(Availability.Create(availability.EmployeeId, availability.PeriodOfTime, availability.CreatorId));
-                }
+                    this.availabilities.Add(Availability.Create(employeeId, availability, creatorId));
                 else
-                {
                     foundAvailabilities.Add(old);
-                }
             }
 
             foreach (var old in oldAvailabilities)
@@ -87,7 +90,7 @@ namespace Accessibility.Domain.Schedules
 
         public void CreateCorrection(List<AvailabilityData> corrections)
         {
-            CheckRule(new WorkerAvailabilityCanNotDuplicateInPeriodOfTimeRule(corrections));
+            CheckRule(new AvailabilityCanNotDuplicateInPeriodOfTimeRule(corrections.Select(c => c.PeriodOfTime)));
 
             var currentPriority = availabilities.Max(a => a.Priority);
             var nextPriority = (short)(currentPriority + 1);

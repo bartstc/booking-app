@@ -2,15 +2,15 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Accessibility.Domain.Schedules;
-using Accessibility.Domain.Schedules.Availabilities;
 using Accessibility.Domain.SharedKernel;
 using MediatR;
 using Core.Domain.UnitOfWork;
 using Core.Commands;
+using System;
 
 namespace Accessibility.Application.Availabilities.Commands.UpdateInPeriodOfTime
 {
-    public class UpdateAvailabilitiesInPeriodOfTimeCommandHandler : IRequestHandler<UpdateAvailabilitiesInPeriodOfTimeCommand, CommandResult<int>>
+    public class UpdateAvailabilitiesInPeriodOfTimeCommandHandler : ICommandHandler<UpdateAvailabilitiesInPeriodOfTimeCommand>
     {
         private readonly IScheduleRepository repository;
         private readonly IUnitOfWork unitOfWork;
@@ -21,28 +21,30 @@ namespace Accessibility.Application.Availabilities.Commands.UpdateInPeriodOfTime
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<CommandResult<int>> Handle(UpdateAvailabilitiesInPeriodOfTimeCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateAvailabilitiesInPeriodOfTimeCommand request, CancellationToken cancellationToken)
         {
-            var groupedAvailabilities = request.Availabilities.GroupBy(a => a.StartTime.Date);
+            var facilityId = new FacilityId(request.FacilityId);
+            var scheduleId = new ScheduleId(request.ScheduleId);
+            var employeeId = new EmployeeId(request.Dto.EmployeeId);
+            var creatorId = new EmployeeId(request.Dto.CreatorId);
 
-            var schedule = await repository.GetByIdAsync(request.ScheduleId, request.FacilityId);
+            var schedule = await repository.GetByIdAsync(scheduleId, facilityId);
 
             if (schedule == null)
-                return new CommandResult<int>(false, "Schedule does not exist.");
+                throw new Exception("Schedule does not exist.");
 
             schedule.OverrideAvailabilitiesInPeriodOfTime(
-                new PeriodOfTime(request.DateFrom, request.DateTo),
-                request.Availabilities.Select(a => new AvailabilityData(
-                    new EmployeeId(a.EmployeeId),
-                    new PeriodOfTime(a.StartTime, a.EndTime),
-                    new EmployeeId(a.CreatorId)
-                )));
+                new PeriodOfTime(request.Dto.DateFrom, request.Dto.DateTo),
+                employeeId,
+                creatorId,
+                request.Dto.Availabilities.Select(a => new PeriodOfTime(
+                    a.StartTime,
+                    a.EndTime
+                ))
+            );
             
             schedule.IncreaseVersion();
-
-            await unitOfWork.CommitAsync();
-            
-            return new CommandResult<int>(true, request.Availabilities.Count());
+            return Unit.Value;
         }
     }
 }
