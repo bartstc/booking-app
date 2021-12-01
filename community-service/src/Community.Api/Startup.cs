@@ -16,6 +16,7 @@ namespace Community.Api
 {
     public class Startup
     {
+        private const string corsPolicyName = "mainCorsPolicy";
         private readonly IWebHostEnvironment webHostEnvironment;
 
         public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
@@ -54,11 +55,27 @@ namespace Community.Api
             if (!webHostEnvironment.IsDevelopment() && Configuration["Deployment"] == "Heroku")
                 Configuration["EventStore:ConnectionString"] = GetHerokuConnectionString();
 
+            ConfigureCors(services);
+
             services
                 .AddCoreServices(applicationAssembly)
                 .AddCommunityModule(Configuration)
                 .Configure<Auth0Options>(Configuration.GetSection(Auth0Options.Auth0))
                 .AddHostedService<RefreshAuth0TokenHostedService>();
+        }
+
+        private void ConfigureCors(IServiceCollection services)
+        {
+            var corsOrigins = Configuration.GetSection("CorsOrigins").Get<string[]>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(corsPolicyName, builder =>
+                {
+                    builder.WithOrigins(corsOrigins)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
