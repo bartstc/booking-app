@@ -17,13 +17,13 @@ import {
 } from '@chakra-ui/react';
 import { mdiCog } from '@mdi/js';
 import { useIntl } from 'react-intl';
-
 import { ITableConfig } from './ITableConfig';
 import { Icon } from '../Icon';
 
 interface IProps {
   config: ITableConfig;
   columnsLabels: Record<string, string>;
+  tableId: string;
 }
 
 const TableConfigButton = ({ config, columnsLabels }: IProps) => {
@@ -36,7 +36,7 @@ const TableConfigButton = ({ config, columnsLabels }: IProps) => {
   const ignoredLabels = ['checkbox', 'collapse', 'actions'];
 
   return (
-    <Popover placement='bottom-start'>
+    <Popover placement='bottom-end'>
       <PopoverTrigger>
         <IconButton
           aria-label={formatMessage({ id: 'table-configuration', defaultMessage: 'Table configuration' })}
@@ -50,17 +50,17 @@ const TableConfigButton = ({ config, columnsLabels }: IProps) => {
         <PopoverHeader px={4}>{formatMessage({ id: 'table-configuration', defaultMessage: 'Table configuration' })}</PopoverHeader>
         <PopoverBody p={4}>
           <VStack display='stretch' w='100%' align='flex-start'>
-            <Text fontWeight='600'>{formatMessage({ id: 'visible-columns', defaultMessage: 'Visible columns' })}</Text>
+            <Text fontWeight='300'>{formatMessage({ id: 'column-settings', defaultMessage: 'Column settings' })}</Text>
             {Object.entries(config)
               .filter(([name]) => !ignoredLabels.includes(name))
               .map(([name, configItem]) => {
                 const message = columnsLabels[name];
 
                 return (
-                  <HStack key={name}>
+                  <HStack spacing={3} key={name}>
                     <Checkbox isChecked={configItem.isVisible} />
                     {/* todo: translations */}
-                    <chakra.p>{message ?? name}</chakra.p>
+                    <chakra.p fontWeight='500'>{message ?? name}</chakra.p>
                   </HStack>
                 );
               })}

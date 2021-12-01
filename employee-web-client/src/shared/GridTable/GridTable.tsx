@@ -19,6 +19,7 @@ const GridTable = ({ children, count, config, id, ...props }: IProps) => {
     return <NoResultsState />;
   }
 
+  // use config initially when config is not yet inside store
   const templateColumns = Object.values(config).reduce((config, configItem) => {
     const scopes = ['sm', 'base', 'md', 'lg', 'xl', '2xl'];
 
