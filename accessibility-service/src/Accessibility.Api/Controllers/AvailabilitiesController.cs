@@ -7,6 +7,7 @@ using Accessibility.Application.Availabilities.Queries;
 using Accessibility.Application.Availabilities.Queries.GetAvailabilites;
 using Accessibility.Domain.Schedules;
 using Accessibility.Domain.SharedKernel;
+using Core.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,32 +25,15 @@ namespace Accessibility.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(CollectionResponse<AvailabilityDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(QueryCollectionResult<AvailabilityDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(
             [FromRoute] Guid facilityId,
             [FromRoute] Guid scheduleId,
-            [FromQuery] DateTime? startTime,
-            [FromQuery] DateTime? endTime,
-            [FromQuery] Guid employeeId)
+            [FromQuery] GetAvailabilitiesQueryParams @params)
         {
-            var result = await mediator.Send(employeeId == Guid.Empty ?
-                new GetAvailabilitiesQuery(
-                    new FacilityId(facilityId),
-                    new ScheduleId(scheduleId),
-                    startTime,
-                    endTime
-                ) :
-                new GetAvailabilitiesQuery(
-                    new FacilityId(facilityId),
-                    new ScheduleId(scheduleId),
-                    startTime,
-                    endTime,
-                    new EmployeeId(employeeId)
-                ));
+            var result = await mediator.Send(new GetAvailabilitiesQuery(facilityId, scheduleId, @params));
 
-            return Ok(
-                new CollectionResponse<AvailabilityDto>(result)
-            );
+            return Ok(result);
         }
 
         [HttpPatch]

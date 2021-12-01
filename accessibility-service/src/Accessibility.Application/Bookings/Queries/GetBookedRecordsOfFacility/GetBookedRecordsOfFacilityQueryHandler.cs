@@ -1,56 +1,24 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
-using System.Collections.Generic;
-using Core.Database;
 using Core.Queries;
 
 namespace Accessibility.Application.Bookings.Queries.GetBookedRecordsOfFacility
 {
-    public class GetBookedRecordsOfFacilityQueryHandler : IQueryHandler<GetBookedRecordsOfFacilityQuery, List<BookedRecordOfFacilityDto>>
+    public class GetBookedRecordsOfFacilityQueryHandler : IQueryHandler<GetBookedRecordsOfFacilityQuery, QueryCollectionResult<BookedRecordOfFacilityDto>>
     {
-        private readonly ISqlConnectionFactory sqlConnectionFactory;
+        private readonly IBookingQueryRepository repository;
 
-        public GetBookedRecordsOfFacilityQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
+        public GetBookedRecordsOfFacilityQueryHandler(IBookingQueryRepository repository)
         {
-            this.sqlConnectionFactory = sqlConnectionFactory;
+            this.repository = repository;
         }
 
-        public async Task<List<BookedRecordOfFacilityDto>> Handle(GetBookedRecordsOfFacilityQuery request, CancellationToken cancellationToken)
+        public Task<QueryCollectionResult<BookedRecordOfFacilityDto>> Handle(GetBookedRecordsOfFacilityQuery request, CancellationToken cancellationToken)
         {
-            var connection = sqlConnectionFactory.GetConnection();
-
-            return (await connection.QueryAsync<BookedRecordOfFacilityDto>(
-                @"SELECT
-                    b.booking_id as BookingId,
-                    r.booked_record_id as BookedRecordId,
-                    r.offer_id as OfferId,
-                    o.name as OfferName,
-                    r.employee_id as EmployeeId,
-                    null as EmployeeName,
-                    b.customer_id as CustomerId,
-                    r.date as DateFrom,
-                    r.date + r.duration * INTERVAL '1 minute' as DateTo,
-                    r.duration as Duration,
-                    r.status as Status,
-                    r.price as Price,
-                    r.currency as Currency
-                FROM
-                    booking.bookings b
-                        INNER JOIN
-                    booking.booked_records r ON b.booking_id = r.booking_id
-                        INNER JOIN
-                    facility.offers o ON r.offer_id = o.offer_id
-                WHERE
-                    b.facility_id = @FacilityId AND
-                    r.date BETWEEN @DateFrom::timestamp AND @DateTo::timestamp",
-                new
-                {
-                    request.FacilityId,
-                    request.DateFrom,
-                    request.DateTo
-                }))
-                .AsList();
+            return repository.GetBookedRecords(
+                request.FacilityId,
+                request.Params
+            );
         }
     }
 }

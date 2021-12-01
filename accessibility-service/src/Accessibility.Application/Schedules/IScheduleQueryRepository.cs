@@ -1,12 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Accessibility.Application.Schedules.Queries;
+using Accessibility.Application.Schedules.Queries.GetSchedules;
+using Core.Queries;
 
 namespace Accessibility.Application.Schedules
 {
     public interface IScheduleQueryRepository
     {
-        Task<IEnumerable<ScheduleDto>> GetSchedules(DateTime dateFrom, DateTime dateTo, Guid facilityId);
+        Task<QueryCollectionResult<ScheduleDto>> GetSchedules(Guid facilityId, GetSchedulesQueryParams @params);
     }
 }

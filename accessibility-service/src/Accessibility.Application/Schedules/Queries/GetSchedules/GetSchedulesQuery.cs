@@ -1,20 +1,17 @@
 using System;
-using System.Collections.Generic;
 using Core.Queries;
 
 namespace Accessibility.Application.Schedules.Queries.GetSchedules
 {
-    public class GetSchedulesQuery : IQuery<IEnumerable<ScheduleDto>>
+    public class GetSchedulesQuery : IQuery<QueryCollectionResult<ScheduleDto>>
     {
-        public GetSchedulesQuery(Guid facilityId, DateTime? dateFrom, DateTime? dateTo)
+        public GetSchedulesQuery(Guid facilityId, GetSchedulesQueryParams @params)
         {
             FacilityId = facilityId;
-            DateFrom = dateFrom;
-            DateTo = dateTo;
+            Params = @params;
         }
 
         public Guid FacilityId { get; }
-        public DateTime? DateFrom { get; }
-        public DateTime? DateTo { get; }
+        public GetSchedulesQueryParams Params { get; }
     }
 }

@@ -1,11 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Accessibility.Api.BookedRecords;
 using Accessibility.Application.BookedRecords.SetBookedRecordStatus;
 using Accessibility.Application.Bookings.Queries.GetBookedRecordsOfFacility;
 using Accessibility.Domain.Bookings.BookedRecords;
+using Core.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,16 +62,13 @@ namespace Accessibility.Api.Controllers
         
         
         [HttpGet("records")]
-        [ProducesResponseType(typeof(List<BookedRecordOfFacilityDto>), (int)HttpStatusCode.OK)]
-        public async Task<CollectionResponse<BookedRecordOfFacilityDto>> GetBookedRecords(
+        [ProducesResponseType(typeof(QueryCollectionResult<BookedRecordOfFacilityDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetBookedRecords(
             [FromRoute] Guid facilityId,
-            [FromQuery] DateTime dateFrom,
-            [FromQuery] DateTime dateTo
+            [FromQuery] GetBookedRecordsOfFacilityQueryParams @params
         )
         {
-            return new CollectionResponse<BookedRecordOfFacilityDto>(
-                await mediator.Send(new GetBookedRecordsOfFacilityQuery(facilityId, dateFrom, dateTo))
-            );
+            return Ok(await mediator.Send(new GetBookedRecordsOfFacilityQuery(facilityId, @params)));
         }
     }
 }
