@@ -27,11 +27,9 @@ export const useAddEmployeeAvailabilities = ({ scheduleId, facilityId, dayDate, 
     return mutateAsync({
       dateFrom: dayDate.format('YYYY-MM-DDT00:00:00.000'),
       dateTo: dayDate.format('YYYY-MM-DDT23:59:59.000'),
-      availabilities: model.map(availability => ({
-        ...availability,
-        creatorId,
-        employeeId,
-      })),
+      creatorId,
+      employeeId,
+      availabilities: model,
     })
       .then(async () => {
         await queryClient.invalidateQueries(availabilitiesQueryKey(facilityId, scheduleId, params));

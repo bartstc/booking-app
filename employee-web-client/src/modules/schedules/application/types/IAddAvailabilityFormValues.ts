@@ -1,3 +1,3 @@
 import { IAddAvailabilityDto } from './IAddAvailabilityDto';
 
-export interface IAddAvailabilityFormValues extends Pick<IAddAvailabilityDto, 'startTime' | 'endTime'> {}
+export interface IAddAvailabilityFormValues extends IAddAvailabilityDto {}
