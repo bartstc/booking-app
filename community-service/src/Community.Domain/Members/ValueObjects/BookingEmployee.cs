@@ -6,14 +6,14 @@ namespace Community.Domain.Members.ValueObjects
 {
     public class BookingEmployee : ValueObject
     {
-        public BookingEmployee(string name, Guid id)
+        public BookingEmployee(string name, Guid employeeId)
         {
             Name = name;
-            Id = id;
+            EmployeeId = employeeId;
         }
 
         public string Name { get; }
-        public Guid Id { get; }
+        public Guid EmployeeId { get; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

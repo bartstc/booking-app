@@ -6,14 +6,14 @@ namespace Community.Domain.Members.ValueObjects
 {
     public class BookingOffer : ValueObject
     {
-        public BookingOffer(string name, Guid id)
+        public BookingOffer(string name, Guid offerId)
         {
             Name = name;
-            Id = id;
+            OfferId = offerId;
         }
 
         public string Name { get; }
-        public Guid Id { get; }
+        public Guid OfferId { get; }
         
         protected override IEnumerable<object> GetEqualityComponents()
         {
