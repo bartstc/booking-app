@@ -8,9 +8,8 @@ services:
       - ./management-service/db/management-db-initialize.sh:/docker-entrypoint-initdb.d/management-db-initialize.sh
       - ./db-initialize.sh:/docker-entrypoint-initdb.d/db-initialize.sh
       - pgdata:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=pg
-      - TZ=Europe/Warsaw
+    env_file:
+      - ./.docker-envs/db.env
     ports:
       - "5433:5432"
 
@@ -27,8 +26,8 @@ services:
       dockerfile: gateway-service/Dockerfile
     ports:
       - "8085:80"
-    environment:
-      - IdentityUrl=http://identity
+    env_file:
+      - ./.docker-envs/gateway.env
 
   rabbit:
     image: rabbitmq:3-management
@@ -40,7 +39,7 @@ services:
     expose:
       - "5672"
     env_file:
-      - ./rabbitmq.env
+      - ./.docker-envs/rabbitmq.env
 
   accessibility:
     image: accessibility
@@ -50,7 +49,10 @@ services:
     ports:
       - "80:80"
     env_file:
-      - ./accessibility.env
+      - ./.docker-envs/accessibility.env
+    depends_on:
+      - db
+      - rabbit
 
   management:
     image: mangement
@@ -62,22 +64,10 @@ services:
     ports:
       - 82:80
     env_file:
-      - ./management.env
+      - ./.docker-envs/management.env
     depends_on:
       - db
       - rabbit
-
-  identity:
-    image: identity
-    build:
-      context: .
-      dockerfile: identity-service/Dockerfile
-    depends_on:
-      - "db"
-    ports:
-      - "83:80"
-    environment:
-      - ConnectionStrings:Identity=Host=db;Database=identity;Username=postgres;Password=pg
 
   community:
     image: community
@@ -87,7 +77,10 @@ services:
     ports:
       - "84:80"
     env_file:
-      - ./community.env
+      - ./.docker-envs/community.env
+    depends_on:
+      - db
+      - rabbit
 
   employee-web-client:
     image: employee-web-client
