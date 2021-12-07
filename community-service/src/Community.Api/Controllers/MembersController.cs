@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Community.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("members")]
     public class MembersController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -47,7 +47,7 @@ namespace Community.Api.Controllers
             return Ok();
         }
 
-        [HttpGet("{memberId}/[action]")]
+        [HttpGet("{memberId}/bookings")]
         [ProducesResponseType(typeof(GetMemberArchivalBookingsResponse), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Bookings(
             [FromRoute] Guid memberId
