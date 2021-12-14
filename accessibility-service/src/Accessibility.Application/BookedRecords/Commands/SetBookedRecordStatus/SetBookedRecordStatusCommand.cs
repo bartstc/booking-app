@@ -2,7 +2,7 @@ using System;
 using Accessibility.Domain.Bookings.BookedRecords;
 using Core.Commands;
 
-namespace Accessibility.Application.BookedRecords.SetBookedRecordStatus
+namespace Accessibility.Application.BookedRecords.Commands.SetBookedRecordStatus
 {
     public record SetBookedRecordStatusCommand(
         Guid BookingId,
