@@ -1,7 +1,9 @@
+using Accessibility.Application.BookedRecords.Queries;
 using Accessibility.Application.Bookings.Commands.CreateBookingRequest;
 using Accessibility.Application.Bookings.DomainServices;
 using Accessibility.Application.Bookings.Queries;
 using Accessibility.Domain.Bookings;
+using Accessibility.Infrastructure.Application.BookedRecords;
 using Accessibility.Infrastructure.Application.Bookings;
 using Accessibility.Infrastructure.Domain.Bookings;
 using Accessibility.Infrastructure.IntegrationEvents.EventHandling.Bookings;
@@ -19,6 +21,7 @@ namespace Accessibility.Infrastructure
             return services
                 .AddTransient<IBookingRepository, BookingRepository>()
                 .AddTransient<IBookingQueryRepository, BookingQueryRepository>()
+                .AddTransient<IBookedRecordQueryRepository, BookedRecordQueryRepository>()
                 .AddTransient<IBookingPeriodOfTimeChecker, BookingPeriodOfTimeChecker>();
         }
 

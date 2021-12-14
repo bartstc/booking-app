@@ -6,7 +6,7 @@ using Accessibility.Domain.SharedKernel;
 using Core.Commands;
 using MediatR;
 
-namespace Accessibility.Application.BookedRecords.SetBookedRecordStatus
+namespace Accessibility.Application.BookedRecords.Commands.SetBookedRecordStatus
 {
     public class SetBookedRecordStatusCommandHandler : ICommandHandler<SetBookedRecordStatusCommand>
     {

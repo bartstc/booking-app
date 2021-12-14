@@ -2,7 +2,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Accessibility.Api.BookedRecords;
-using Accessibility.Application.BookedRecords.SetBookedRecordStatus;
+using Accessibility.Application.BookedRecords.Commands.SetBookedRecordStatus;
+using Accessibility.Application.BookedRecords.Queries;
+using Accessibility.Application.BookedRecords.Queries.GetBookedRecordsOfCustomer;
 using Accessibility.Application.Bookings.Queries.GetBookedRecordsOfFacility;
 using Accessibility.Domain.Bookings.BookedRecords;
 using Core.Queries;
@@ -12,7 +14,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Accessibility.Api.Controllers
 {
     [ApiController]
-    [Route("facilities/{facilityId}/bookings")]
     public class BookedRecordsController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -22,7 +23,7 @@ namespace Accessibility.Api.Controllers
             this.mediator = mediator;
         }
 
-        [HttpPut("{bookingId}/records/{bookedRecordId}/cancel")]
+        [HttpPut("facilities/{facilityId}/bookings/{bookingId}/records/{bookedRecordId}/cancel")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> CancelBookedRecord(
             [FromRoute] Guid bookingId,
@@ -42,7 +43,7 @@ namespace Accessibility.Api.Controllers
             return Ok();
         }
 
-        [HttpPut("{bookingId}/records/{bookedRecordId}/set-not-realized")]
+        [HttpPut("facilities/{facilityId}/bookings/{bookingId}/records/{bookedRecordId}/set-not-realized")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> SetBookedRecordAsNotRealized(
             [FromRoute] Guid bookingId,
@@ -61,7 +62,7 @@ namespace Accessibility.Api.Controllers
         }
         
         
-        [HttpGet("records")]
+        [HttpGet("facilities/{facilityId}/bookings/records")]
         [ProducesResponseType(typeof(QueryCollectionResult<BookedRecordOfFacilityDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetBookedRecords(
             [FromRoute] Guid facilityId,
@@ -69,6 +70,16 @@ namespace Accessibility.Api.Controllers
         )
         {
             return Ok(await mediator.Send(new GetBookedRecordsOfFacilityQuery(facilityId, @params)));
+        }
+
+        [HttpGet("customers/{customerId}/bookings/records")]
+        [ProducesResponseType(typeof(QueryCollectionResult<BookedRecordDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetBookedRecords(
+            [FromRoute] Guid customerId,
+            [FromQuery] GetBookedRecordsOfCustomerQueryParams @params
+        )
+        {
+            return Ok(await mediator.Send(new GetBookedRecordsOfCustomerQuery(customerId, @params)));
         }
     }
 }
