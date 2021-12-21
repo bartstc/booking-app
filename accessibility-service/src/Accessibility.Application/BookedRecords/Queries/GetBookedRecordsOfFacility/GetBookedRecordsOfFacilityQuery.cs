@@ -1,9 +1,9 @@
 using System;
 using Core.Queries;
 
-namespace Accessibility.Application.Bookings.Queries.GetBookedRecordsOfFacility
+namespace Accessibility.Application.BookedRecords.Queries.GetBookedRecordsOfFacility
 {
-    public class GetBookedRecordsOfFacilityQuery : IQuery<QueryCollectionResult<BookedRecordOfFacilityDto>>
+    public class GetBookedRecordsOfFacilityQuery : IQuery<QueryCollectionResult<BookedRecordDto>>
     {
         public GetBookedRecordsOfFacilityQuery(Guid facilityId, GetBookedRecordsOfFacilityQueryParams @params)
         {

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Accessibility.Application.BookedRecords.Queries;
 using Accessibility.Application.BookedRecords.Queries.GetBookedRecordsOfCustomer;
+using Accessibility.Application.BookedRecords.Queries.GetBookedRecordsOfFacility;
 using Core.Database;
 using Core.Persistence.Postgres;
 using Core.Queries;
@@ -48,6 +49,41 @@ namespace Accessibility.Infrastructure.Application.BookedRecords
                         "facility.employees as e", "r.employee_id", "e.employee_id")
                     .Where(@params.IsMadeManually ? "b.customer_id" : "b.public_customer_id", customerId)
                     .Where("e.status", 1),
+                @params
+            );
+
+        public Task<QueryCollectionResult<BookedRecordDto>> GetBookedRecords(
+            Guid facilityId,
+            GetBookedRecordsOfFacilityQueryParams @params
+        ) =>
+            GetCollectionResultAsync<BookedRecordDto>(
+                new Query()
+                    .Select(
+                        "b.booking_id as BookingId",
+                        "r.booked_record_id as BookedRecordId",
+                        "r.offer_id as OfferId",
+                        "o.name as OfferName",
+                        "r.employee_id as EmployeeId",
+                        "e.name as EmployeeName",
+                        "b.customer_id as CustomerId",
+                        "r.date as DateFrom")
+                    .ForPostgreSql(q => q.SelectRaw("r.date + r.duration * INTERVAL '1 minute' as DateTo"))
+                    .Select(
+                        "r.duration as Duration",
+                        "r.status as Status",
+                        "r.price as Price",
+                        "r.currency as Currency")
+                    .From(
+                        "booking.bookings as b")
+                    .Join(
+                        "booking.booked_records as r", "b.booking_id", "r.booking_id")
+                    .Join(
+                        "facility.offers as o", "r.offer_id", "o.offer_id")
+                    .Join(
+                        "facility.employees as e", "r.employee_id", "e.employee_id")
+                    .Where("b.facility_id", facilityId)
+                    .Where("e.status", 1)
+                    .WhereBetween("r.date", @params.DateFrom, @params.DateTo),
                 @params
             );
     }

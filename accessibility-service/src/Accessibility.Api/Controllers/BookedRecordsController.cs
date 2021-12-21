@@ -5,7 +5,7 @@ using Accessibility.Api.BookedRecords;
 using Accessibility.Application.BookedRecords.Commands.SetBookedRecordStatus;
 using Accessibility.Application.BookedRecords.Queries;
 using Accessibility.Application.BookedRecords.Queries.GetBookedRecordsOfCustomer;
-using Accessibility.Application.Bookings.Queries.GetBookedRecordsOfFacility;
+using Accessibility.Application.BookedRecords.Queries.GetBookedRecordsOfFacility;
 using Accessibility.Domain.Bookings.BookedRecords;
 using Core.Queries;
 using MediatR;
@@ -63,7 +63,7 @@ namespace Accessibility.Api.Controllers
         
         
         [HttpGet("facilities/{facilityId}/bookings/records")]
-        [ProducesResponseType(typeof(QueryCollectionResult<BookedRecordOfFacilityDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(QueryCollectionResult<BookedRecordDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetBookedRecords(
             [FromRoute] Guid facilityId,
             [FromQuery] GetBookedRecordsOfFacilityQueryParams @params
