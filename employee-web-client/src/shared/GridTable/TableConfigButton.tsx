@@ -25,7 +25,6 @@ interface IProps {
   config: ITableConfig;
   toggle(columnName: string): void;
   columnsLabels: Record<string, string>;
-  tableId: string;
 }
 
 const TableConfigButton = ({ config, columnsLabels, toggle }: IProps) => {

@@ -54,7 +54,7 @@ const OffersCollectionToolbox = () => {
             <Button colorScheme='gray' onClick={onOpen} leftIcon={<Icon path={mdiFilter} />}>
               {title}
             </Button>
-            <TableConfigButton {...config} columnsLabels={labels} tableId='offers' />
+            <TableConfigButton {...config} columnsLabels={labels} />
           </>
         )}
       </HStack>
