@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { set as lodSet } from 'lodash';
+import { set as lodSet, debounce } from 'lodash';
 
 import { ITableConfig } from './ITableConfig';
 
@@ -12,9 +12,15 @@ interface ITableConfigStore {
 
 type LSTableConfigStore = Record<string, ITableConfig>;
 
+const lsKey = 'table-configuration';
+
 export function createTableConfigurationStore(initialConfig: ITableConfig, id: string) {
+  const setLSStore = debounce(
+    (configStore: LSTableConfigStore, config: ITableConfig) => localStorage.setItem(lsKey, JSON.stringify(lodSet(configStore, id, config))),
+    500,
+  );
+
   return create<ITableConfigStore>((set, get) => {
-    const lsKey = 'table-configuration';
     const lsValue = localStorage.getItem(lsKey);
     const configStore: LSTableConfigStore = lsValue ? JSON.parse(lsValue) : {};
 
@@ -35,7 +41,7 @@ export function createTableConfigurationStore(initialConfig: ITableConfig, id: s
             },
           };
 
-          localStorage.setItem(lsKey, JSON.stringify(lodSet(configStore, id, config)));
+          setLSStore(configStore, config);
 
           return {
             config,

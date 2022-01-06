@@ -3,6 +3,7 @@ import { mdiDeleteOutline, mdiFilter, mdiFormatListChecks, mdiLockOutline, mdiTa
 import { useIntl } from 'react-intl';
 import { HStack, Text, ButtonGroup, Divider, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { isMobileOnly } from 'react-device-detect';
+import shallow from 'zustand/shallow';
 
 import { FiltersInput } from 'shared/Filters';
 import { Button, IconButton } from 'shared/Button';
@@ -16,14 +17,13 @@ import { useOffersCollectionCheckboxStore } from '../../application';
 import { OffersCollectionFiltersModal } from './OffersCollectionFiltersModal';
 import { useOffersTableConfig } from './useOffersTableConfig';
 import { useOffersColumnsLabels } from './useOffersColumnsLabels';
-import shallow from 'zustand/shallow';
 
 const OffersCollectionToolbox = () => {
   const { formatMessage } = useIntl();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const items = useOffersCollectionCheckboxStore(store => store.items);
-  const [config, toggle] = useOffersTableConfig(state => [state.config, state.toggle], shallow);
+  const config = useOffersTableConfig(state => ({ config: state.config, toggle: state.toggle }), shallow);
 
   const labels = useOffersColumnsLabels();
 
@@ -54,8 +54,7 @@ const OffersCollectionToolbox = () => {
             <Button colorScheme='gray' onClick={onOpen} leftIcon={<Icon path={mdiFilter} />}>
               {title}
             </Button>
-            {/*<ClearFiltersIconButton />*/}
-            <TableConfigButton config={config} toggle={toggle} columnsLabels={labels} tableId='offers' />
+            <TableConfigButton {...config} columnsLabels={labels} tableId='offers' />
           </>
         )}
       </HStack>
