@@ -10,17 +10,19 @@ import { offersQueryKey, offersQuery } from 'modules/offers/infrastructure/query
 
 import { Header } from './Header';
 import { Row } from './Row';
-import { IOfferCollection, IOfferCollectionQueryParams } from '../../../application/types';
+import { IOfferCollectionQueryParams } from '../../../application/types';
 import { useOffersCollectionCheckboxStore } from '../../../application';
-import { offersTableConfig } from '../offersTableConfig';
+import { useOffersTableConfig } from '../useOffersTableConfig';
 
 const Table = () => {
   const { params } = useQueryParams<IOfferCollectionQueryParams>();
   const { facilityId } = useFacilityContextSelector();
+
   const store = useOffersCollectionCheckboxStore();
+  const config = useOffersTableConfig(state => state.config);
 
   return (
-    <FetchBoundary<IOfferCollection>
+    <FetchBoundary
       queryKey={offersQueryKey(facilityId, params)}
       queryFn={() => offersQuery(facilityId, params)}
       options={{
@@ -30,7 +32,7 @@ const Table = () => {
     >
       {({ data: { collection, meta } }) => (
         <CollectionStoreProvider value={store}>
-          <GridTable count={collection.length} id='offers' config={offersTableConfig}>
+          <GridTable count={collection.length} id='offers' config={config}>
             <Header collectionIds={collection.map(offer => offer.offerId)} />
             {collection.map(offer => (
               <Row key={offer.offerId} offer={offer} />

@@ -10,6 +10,7 @@ type TableConfigurationStore = {
   getConfig(tableId: string): ITableConfig;
 };
 
+/** @deprecated use createTableConfigurationStore instead */
 export const tableConfigurationStore = create<TableConfigurationStore>(
   persist(
     (set, get) => {
