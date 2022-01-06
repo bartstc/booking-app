@@ -36,4 +36,4 @@ const offersTableConfig: ITableConfig = {
   },
 };
 
-export const useOffersTableConfig = createTableConfigurationStore(offersTableConfig);
+export const useOffersTableConfig = createTableConfigurationStore(offersTableConfig, 'offers');

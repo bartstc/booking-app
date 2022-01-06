@@ -1,4 +1,5 @@
 import create from 'zustand';
+import { set as lodSet } from 'lodash';
 
 import { ITableConfig } from './ITableConfig';
 
@@ -9,10 +10,18 @@ interface ITableConfigStore {
   isColumnVisible(columnName: string): boolean;
 }
 
-export function createTableConfigurationStore(initialConfig: ITableConfig) {
+type LSTableConfigStore = Record<string, ITableConfig>;
+
+export function createTableConfigurationStore(initialConfig: ITableConfig, id: string) {
   return create<ITableConfigStore>((set, get) => {
+    const lsKey = 'table-configuration';
+    const lsValue = localStorage.getItem(lsKey);
+    const configStore: LSTableConfigStore = lsValue ? JSON.parse(lsValue) : {};
+
+    const defaultConfig = configStore[id] ? configStore[id] : initialConfig;
+
     return {
-      config: initialConfig,
+      config: defaultConfig,
       get() {
         return get().config;
       },
@@ -25,6 +34,8 @@ export function createTableConfigurationStore(initialConfig: ITableConfig) {
               isVisible: !state.config[columnName].isVisible,
             },
           };
+
+          localStorage.setItem(lsKey, JSON.stringify(lodSet(configStore, id, config)));
 
           return {
             config,
