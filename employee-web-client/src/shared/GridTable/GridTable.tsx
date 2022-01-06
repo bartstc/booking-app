@@ -19,11 +19,12 @@ const GridTable = ({ children, count, config, id, ...props }: IProps) => {
     return <NoResultsState />;
   }
 
-  // use config initially when config is not yet inside store
   const templateColumns = Object.values(config).reduce((config, configItem) => {
     const scopes = ['sm', 'base', 'md', 'lg', 'xl', '2xl'];
 
     const getHiddenScopes = () => {
+      if (!configItem.isVisible) return scopes;
+
       if (!configItem.display) return [];
 
       const hiddenScope = Object.entries(configItem.display).find(([, value]) => value === 'none');
@@ -37,7 +38,7 @@ const GridTable = ({ children, count, config, id, ...props }: IProps) => {
       return scopes.slice(hiddenScopeIndex, showingScopeIndex).concat(scopes.filter((scope, index) => index < hiddenScopeIndex));
     };
 
-    const concatTemplateColumns = (key: string): string => {
+    const genTemplateColumns = (key: string): string => {
       const isHidden = getHiddenScopes().includes(key);
 
       if (config[key]) {
@@ -49,12 +50,12 @@ const GridTable = ({ children, count, config, id, ...props }: IProps) => {
 
     return {
       ...config,
-      sm: isEmpty(concatTemplateColumns('sm')) ? undefined : concatTemplateColumns('sm'),
-      base: isEmpty(concatTemplateColumns('base')) ? undefined : concatTemplateColumns('base'),
-      md: isEmpty(concatTemplateColumns('md')) ? undefined : concatTemplateColumns('md'),
-      lg: isEmpty(concatTemplateColumns('lg')) ? undefined : concatTemplateColumns('lg'),
-      xl: isEmpty(concatTemplateColumns('xl')) ? undefined : concatTemplateColumns('xl'),
-      '2xl': isEmpty(concatTemplateColumns('2xl')) ? undefined : concatTemplateColumns('2xl'),
+      sm: isEmpty(genTemplateColumns('sm')) ? undefined : genTemplateColumns('sm'),
+      base: isEmpty(genTemplateColumns('base')) ? undefined : genTemplateColumns('base'),
+      md: isEmpty(genTemplateColumns('md')) ? undefined : genTemplateColumns('md'),
+      lg: isEmpty(genTemplateColumns('lg')) ? undefined : genTemplateColumns('lg'),
+      xl: isEmpty(genTemplateColumns('xl')) ? undefined : genTemplateColumns('xl'),
+      '2xl': isEmpty(genTemplateColumns('2xl')) ? undefined : genTemplateColumns('2xl'),
     };
   }, {} as ResponsiveObject<string>);
 

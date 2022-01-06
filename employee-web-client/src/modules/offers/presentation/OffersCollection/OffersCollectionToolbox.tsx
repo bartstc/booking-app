@@ -4,21 +4,28 @@ import { useIntl } from 'react-intl';
 import { HStack, Text, ButtonGroup, Divider, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { isMobileOnly } from 'react-device-detect';
 
-import { ClearFiltersIconButton, FiltersInput } from 'shared/Filters';
+import { FiltersInput } from 'shared/Filters';
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 import { Confirm } from 'shared/Confirm';
+import { TableConfigButton } from 'shared/GridTable';
 
 import { useNotImplementedYet } from 'hooks';
 
-import { OffersCollectionFiltersModal } from './OffersCollectionFiltersModal';
 import { useOffersCollectionCheckboxStore } from '../../application';
+import { OffersCollectionFiltersModal } from './OffersCollectionFiltersModal';
+import { useOffersTableConfig } from './useOffersTableConfig';
+import { useOffersColumnsLabels } from './useOffersColumnsLabels';
+import shallow from 'zustand/shallow';
 
 const OffersCollectionToolbox = () => {
   const { formatMessage } = useIntl();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const items = useOffersCollectionCheckboxStore(store => store.items);
+  const [config, toggle] = useOffersTableConfig(state => [state.config, state.toggle], shallow);
+
+  const labels = useOffersColumnsLabels();
 
   const title = formatMessage({
     id: 'filters',
@@ -47,7 +54,8 @@ const OffersCollectionToolbox = () => {
             <Button colorScheme='gray' onClick={onOpen} leftIcon={<Icon path={mdiFilter} />}>
               {title}
             </Button>
-            <ClearFiltersIconButton />
+            {/*<ClearFiltersIconButton />*/}
+            <TableConfigButton config={config} toggle={toggle} columnsLabels={labels} tableId='offers' />
           </>
         )}
       </HStack>

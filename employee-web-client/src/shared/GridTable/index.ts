@@ -12,3 +12,4 @@ export { RowCell } from './RowCell';
 export { Skeleton } from './Skeleton';
 export type { ITableConfig } from './ITableConfig';
 export { TableConfigButton } from './TableConfigButton';
+export { createTableConfigurationStore } from './createTableConfigurationStore';
