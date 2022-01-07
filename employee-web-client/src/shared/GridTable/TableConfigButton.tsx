@@ -1,7 +1,6 @@
 import React from 'react';
 import { isMobile } from 'react-device-detect';
 import {
-  Text,
   HStack,
   chakra,
   Checkbox,
@@ -30,14 +29,32 @@ interface IProps {
 const TableConfigButton = ({ config, columnsLabels, toggle }: IProps) => {
   const { formatMessage } = useIntl();
 
+  const ignoredLabels = ['checkbox', 'collapse', 'actions'];
+
+  // const [dragItemIndex, setDragItemIndex] = useState<number>(0);
+  // const [columns, setColumns] = useState<DragItem[]>(Object.entries(config).filter(([name]) => !ignoredLabels.includes(name)));
+
   if (isMobile) {
     return null;
   }
 
-  const ignoredLabels = ['checkbox', 'collapse', 'actions'];
+  // const handleDragStart = (index: number) => {
+  //   setDragItemIndex(index);
+  // };
+  //
+  // const handleDragEnter = (e: DragEvent<HTMLDivElement>, index: number) => {
+  //   const newList = [...columns];
+  //   const draggableItem = newList[dragItemIndex];
+  //
+  //   newList.splice(dragItemIndex, 1);
+  //   newList.splice(index, 0, draggableItem);
+  //   setDragItemIndex(index);
+  //   setColumns(newList);
+  //   // drag(index);
+  // };
 
-  const checkableColumns = Object.entries(config).filter(([name]) => !ignoredLabels.includes(name));
-  const maxColumnsUnmarked = checkableColumns.filter(([, config]) => !config.isVisible).length + 1 === checkableColumns.length;
+  const columns = Object.entries(config).filter(([name]) => !ignoredLabels.includes(name));
+  const maxColumnsUnmarked = columns.filter(([, config]) => !config.isVisible).length + 1 === columns.length;
 
   return (
     <Popover placement='bottom-end'>
@@ -53,18 +70,33 @@ const TableConfigButton = ({ config, columnsLabels, toggle }: IProps) => {
         <PopoverCloseButton />
         <PopoverHeader px={4}>{formatMessage({ id: 'table-configuration', defaultMessage: 'Table configuration' })}</PopoverHeader>
         <PopoverBody p={4}>
-          <VStack display='stretch' w='100%' align='flex-start'>
-            <Text fontWeight='300'>{formatMessage({ id: 'column-settings', defaultMessage: 'Column settings' })}</Text>
-            {checkableColumns.map(([name, configItem]) => {
+          <VStack as='ul' display='stretch' w='100%' align='flex-start'>
+            {columns.map(([name, configItem]) => {
               const message = columnsLabels[name];
 
               return (
-                <HStack spacing={3} key={name}>
-                  <Checkbox
-                    onChange={() => toggle(name)}
-                    isChecked={configItem.isVisible}
-                    isDisabled={configItem.isVisible && maxColumnsUnmarked}
-                  />
+                <HStack
+                  as='li'
+                  spacing={3}
+                  key={name}
+                  // draggable
+                  // onDragStart={() => handleDragStart(index)}
+                  // onDragEnter={e => handleDragEnter(e, index)}
+                  // onDragOver={e => e.preventDefault()}
+                >
+                  <HStack spacing={1}>
+                    {/*<IconButton*/}
+                    {/*  aria-label={formatMessage({ id: 'drag-and-drop-button', defaultMessage: 'Drag and drop button' })}*/}
+                    {/*  variant='ghost'*/}
+                    {/*  size='xs'*/}
+                    {/*  icon={<Icon path={mdiDrag} size='18px' />}*/}
+                    {/*/>*/}
+                    <Checkbox
+                      onChange={() => toggle(name)}
+                      isChecked={configItem.isVisible}
+                      isDisabled={configItem.isVisible && maxColumnsUnmarked}
+                    />
+                  </HStack>
                   <chakra.p fontWeight='500'>{message ?? name}</chakra.p>
                 </HStack>
               );

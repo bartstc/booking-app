@@ -10,6 +10,6 @@ export { PrimaryText } from './PrimaryText';
 export { SecondaryText } from './SecondaryText';
 export { RowCell } from './RowCell';
 export { Skeleton } from './Skeleton';
-export type { ITableConfig } from './ITableConfig';
+export type { ITableConfig, ITableColumnConfig } from './ITableConfig';
 export { TableConfigButton } from './TableConfigButton';
 export { createTableConfigurationStore } from './createTableConfigurationStore';
