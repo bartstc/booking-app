@@ -11,6 +11,7 @@ import {
   Popover,
   PopoverTrigger,
   Text,
+  Button,
 } from '@chakra-ui/react';
 
 import { IAddAvailabilityFormValues, IAvailability } from 'modules/schedules/application/types';
@@ -19,7 +20,6 @@ import { useAddEmployeeAvailabilities } from 'modules/schedules/infrastructure/c
 import { useFacilityContextSelector } from 'modules/context';
 
 import { useModal } from 'hooks';
-import { Button } from 'shared/Button';
 import { FormattedDate } from 'shared/Date';
 import { SubmitButton } from 'shared/Form';
 
@@ -70,7 +70,7 @@ const FilledAvailabilityPopover = ({ availabilities, dayDate, index, scheduleId,
           <FormattedDate value={availability.endTime} format='HH:mm' />
         </Button>
       </PopoverTrigger>
-      <PopoverContent width={{ base: 320, md: 370 }} mt={12} position='absolute' transform='translate(-50%, 4px) !important'>
+      <PopoverContent width={{ base: 320, md: 370 }}>
         <PopoverHeader pt={4} fontWeight='bold' border='0'>
           <FormattedDate value={dayDate.toDate().toString()} format='DD MMM (dddd)' />
         </PopoverHeader>

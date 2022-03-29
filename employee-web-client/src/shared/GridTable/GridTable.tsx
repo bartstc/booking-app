@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import { isEmpty } from 'lodash';
-import { Grid as ChakraGrid, GridProps } from '@chakra-ui/react';
-import { ResponsiveObject } from '@chakra-ui/styled-system/dist/types/utils/types';
+import { Grid as ChakraGrid, GridProps, ResponsiveObject } from '@chakra-ui/react';
 
 import { NoResultsState } from '../States';
 import { ITableConfig } from './ITableConfig';

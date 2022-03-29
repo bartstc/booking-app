@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 import { FormattedMessage } from 'react-intl';
-import { Box, Center, chakra, GridItem, HStack, SimpleGrid, useColorModeValue, useTheme, VStack } from '@chakra-ui/react';
+import { Box, Center, chakra, GridItem, HStack, SimpleGrid, useColorModeValue, useTheme, VStack, Grid } from '@chakra-ui/react';
 
 import { dayjs } from 'utils/dayjs';
 import { useWeekRange } from 'hooks';
@@ -95,7 +95,7 @@ const CustomCalendar = () => {
         columns={15}
       >
         <GridItem colSpan={1}>
-          <SimpleGrid h='2400px' rows={288} columns={1}>
+          <Grid h='2400px' gridTemplateRows='repeat(288, 1fr)' gridTemplateColumns='1fr'>
             {Array.from(Array(24).keys()).map(value => (
               <GridItem key={value} rowSpan={12}>
                 <chakra.p fontWeight='700' mt={-3}>
@@ -103,24 +103,24 @@ const CustomCalendar = () => {
                 </chakra.p>
               </GridItem>
             ))}
-          </SimpleGrid>
+          </Grid>
         </GridItem>
         {weekDates.map((day, index) => {
           const dayRecords = bookedRecords.filter(record => dayjs(record.dateFrom).format('D-M') === day.format('D-M'));
 
           return (
             <GridItem position='relative' colSpan={2} key={index} borderLeft={`1px dashed ${borderColor}`}>
-              <SimpleGrid position='absolute' w='100%' h='2400px' rows={288}>
+              <Grid position='absolute' w='100%' h='2400px' gridTemplateRows='repeat(288, 1fr)'>
                 {dayRecords.map(record => (
                   <Event key={record.bookedRecordId} record={record} />
                 ))}
                 <GridItem rowStart={289} rowEnd={289}></GridItem>
-              </SimpleGrid>
-              <SimpleGrid w='100%' h='2390px' rows={24} columns={1}>
+              </Grid>
+              <Grid w='100%' h='2390px' gridTemplateColumns='1fr' gridTemplateRows='repeat(24, 1fr)'>
                 {Array.from(Array(24).keys()).map((value, index) => (
                   <GridItem as={Center} key={value} rowStart={index + 1} rowEnd={index + 2} borderTop={`1px dashed ${borderColor}`} />
                 ))}
-              </SimpleGrid>
+              </Grid>
             </GridItem>
           );
         })}

@@ -1,4 +1,4 @@
-import { ResponsiveObject } from '@chakra-ui/styled-system/dist/types/utils/types';
+import { ResponsiveObject } from '@chakra-ui/react';
 
 export interface ITableColumnConfig {
   gridValue: string;

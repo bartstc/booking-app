@@ -10,6 +10,7 @@ import {
   ButtonGroup,
   Popover,
   PopoverTrigger,
+  Button,
 } from '@chakra-ui/react';
 
 import { AddAvailableEmployeesForm, useAddAvailabilitiesNotification, useRangeWeekDatesConsumer } from 'modules/schedules/presentation';
@@ -18,7 +19,6 @@ import { useFacilityContextSelector } from 'modules/context';
 import { IAddAvailabilityFormValues } from 'modules/schedules/application/types';
 
 import { useModal } from 'hooks';
-import { Button } from 'shared/Button';
 import { FormattedDate } from 'shared/Date';
 import { SubmitButton } from 'shared/Form';
 
@@ -64,7 +64,7 @@ const EmptyAvailabilityPopover = ({ dayDate, index, employeeId, scheduleId }: IP
           <FormattedMessage id='day-off' defaultMessage='Day off' />
         </Button>
       </PopoverTrigger>
-      <PopoverContent width={{ base: 320, md: 370 }} mt={12} position='absolute' transform='translate(-50%, 4px) !important'>
+      <PopoverContent width={{ base: 320, md: 370 }}>
         <PopoverHeader pt={4} fontWeight='bold' border='0'>
           <FormattedDate value={dayDate.toDate().toString()} format='DD MMM (dddd)' />
         </PopoverHeader>

@@ -33,6 +33,7 @@ const AvailableEmployeesFields = ({ date }: IProps) => {
         return (
           <VStack borderTop={`1px solid ${borderColor}`} spacing={1} w='100%' key={field.id} align='stretch'>
             <SimpleGrid mt={3} columns={10} spacingX={2}>
+              {/*@ts-ignore*/}
               <DateTimeOnlyField
                 initDate={date}
                 name={`availabilities[${index}].startTime`}
@@ -40,6 +41,7 @@ const AvailableEmployeesFields = ({ date }: IProps) => {
                 label={<FormattedMessage id='start-time' defaultMessage='Start time' />}
                 colSpan={4}
               />
+              {/*@ts-ignore*/}
               <DateTimeOnlyField
                 initDate={date}
                 name={`availabilities[${index}].endTime`}
