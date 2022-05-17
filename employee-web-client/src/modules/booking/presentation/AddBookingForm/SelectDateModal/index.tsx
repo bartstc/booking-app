@@ -27,7 +27,6 @@ const SelectDateModal = ({ offerId, index, isFilled }: IProps) => {
 
   return (
     <>
-      {' '}
       <Button
         leftIcon={<Icon path={mdiClock} size='18px' />}
         isDisabled={!offerId}

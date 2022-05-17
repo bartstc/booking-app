@@ -1,11 +1,25 @@
 import React, { ReactNode } from 'react';
-import { HStack, VStack, useRadioGroup, Box, RadioProps, useBreakpointValue, useColorModeValue, Center } from '@chakra-ui/react';
+import {
+  HStack,
+  VStack,
+  useRadioGroup,
+  Box,
+  RadioProps,
+  useBreakpointValue,
+  useColorModeValue,
+  Center,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { mdiCalendarRemove } from '@mdi/js';
 
 import { RadioPill } from 'shared/RadioPill';
 import { FormattedDate } from 'shared/Date';
 import { Icon } from 'shared/Icon';
+import { useIntl } from 'react-intl';
 
 interface IProps {
   setSelectedTerm: (term: string) => void;
@@ -54,7 +68,9 @@ const RadioColumn = ({ rowCount, children }: { rowCount: number; children: React
 };
 
 const DayRadioGroup = ({ selectedTerm, selectedDay, setSelectedTerm, availableTerms }: IProps) => {
+  const { formatMessage } = useIntl();
   const emptyStateIconSize = useBreakpointValue({ base: '96px', md: '150px' });
+
   const midday = dayjs(selectedDay).startOf('day');
   const afternoon = dayjs(selectedDay).hour(11).minute(59);
   const evening = dayjs(selectedDay).hour(17).minute(59);
@@ -73,7 +89,26 @@ const DayRadioGroup = ({ selectedTerm, selectedDay, setSelectedTerm, availableTe
   const eveningTerms = availableTerms.filter(term => dayjs(term).isAfter(evening) && dayjs(term).isBefore(moon));
 
   if (morningTerms.length === 0 && afternoonTerms.length === 0 && eveningTerms.length === 0) {
-    return <NoAvailableDatesIcon size={emptyStateIconSize} />;
+    return (
+      <VStack>
+        <Alert status='warning'>
+          <AlertIcon />
+          <AlertTitle>
+            {formatMessage({
+              id: 'no-deadlines-warning-description',
+              defaultMessage: 'No deadlines.',
+            })}
+          </AlertTitle>
+          <AlertDescription>
+            {formatMessage({
+              id: 'no-deadlines-warning-title',
+              defaultMessage: 'Everything has already been reserved or the work schedule for the selected period has not yet been defined.',
+            })}
+          </AlertDescription>
+        </Alert>
+        <NoAvailableDatesIcon size={emptyStateIconSize} />
+      </VStack>
+    );
   }
 
   return (
