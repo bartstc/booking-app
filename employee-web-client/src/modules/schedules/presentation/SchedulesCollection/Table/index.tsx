@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Grid, GridFooter } from 'shared/Grid';
+import { Grid, GridFooter, Skeleton } from 'shared/Grid';
 import { FetchBoundary } from 'shared/Suspense';
 
 import { useFacilityContextSelector } from 'modules/context';
@@ -14,7 +14,11 @@ const Table = () => {
   const facilityId = useFacilityContextSelector(state => state.facilityId);
 
   return (
-    <FetchBoundary<IScheduleCollection> queryKey={schedulesQueryKey(facilityId)} queryFn={() => schedulesQuery(facilityId)}>
+    <FetchBoundary<IScheduleCollection>
+      queryKey={schedulesQueryKey(facilityId)}
+      queryFn={() => schedulesQuery(facilityId)}
+      fallback={<Skeleton />}
+    >
       {({ data: { collection, meta } }) => (
         <>
           <Grid

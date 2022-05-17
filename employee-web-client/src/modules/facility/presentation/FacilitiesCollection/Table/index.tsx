@@ -3,7 +3,7 @@ import React from 'react';
 import { facilitiesQueryKey, facilitiesQuery } from 'modules/facility/infrastructure/query';
 import { useEnterpriseContextSelector } from 'modules/context';
 
-import { Grid, GridFooter } from 'shared/Grid';
+import { Grid, GridFooter, Skeleton } from 'shared/Grid';
 import { FetchBoundary } from 'shared/Suspense';
 import { useQueryParams } from 'shared/Params';
 
@@ -19,6 +19,7 @@ const Table = () => {
     <FetchBoundary<IFacilityCollection>
       queryKey={facilitiesQueryKey(enterpriseId, params)}
       queryFn={() => facilitiesQuery(enterpriseId, params)}
+      fallback={<Skeleton />}
     >
       {({ data: { collection, meta } }) => (
         <>
