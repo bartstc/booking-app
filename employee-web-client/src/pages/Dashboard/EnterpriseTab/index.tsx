@@ -6,7 +6,7 @@ import { EnterpriseBody } from 'modules/enterprise/presentation';
 import { DashboardTabs } from '../DashboardTabs';
 import { EnterpriseDataPanel } from './EnterpriseDataPanel';
 
-const ReadEnterpriseTab = () => {
+const EnterpriseTab = () => {
   return (
     <DashboardTabs>
       <VStack spacing={6}>
@@ -17,4 +17,4 @@ const ReadEnterpriseTab = () => {
   );
 };
 
-export default ReadEnterpriseTab;
+export default EnterpriseTab;

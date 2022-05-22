@@ -18,11 +18,14 @@ const DashboardTabs = ({ children }: IProps) => {
   return (
     <ChakraTabs w='100%' size={tabSize}>
       <TabList>
-        <TabLink isActive={path.includes('dashboard/enterprise')} to={`/dashboard/enterprise`} fontWeight='700'>
+        <TabLink isActive={path.includes('dashboard/enterprise')} to={`/dashboard/enterprise`} fontWeight='500'>
           <FormattedMessage id='enterprise' defaultMessage='Enterprise' />
         </TabLink>
-        <TabLink isActive={path.includes('dashboard/facilities')} to={buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS)} fontWeight='700'>
+        <TabLink isActive={path.includes('dashboard/facilities')} to={buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS)} fontWeight='500'>
           <FormattedMessage id='facilities' defaultMessage='Facilities' />
+        </TabLink>
+        <TabLink isActive={path.includes('dashboard/new-facility')} to={'/dashboard/new-facility'} fontWeight='500'>
+          <FormattedMessage id='register-facility' defaultMessage='New facility' />
         </TabLink>
       </TabList>
       <TabPanels>

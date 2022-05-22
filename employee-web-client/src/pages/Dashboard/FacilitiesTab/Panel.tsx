@@ -30,15 +30,14 @@ const Panel = () => {
       <HStack>
         {isMobileOnly ? (
           <IconButton
-            onClick={() => push('/dashboard/facilities-register')}
+            onClick={() => push('/dashboard/new-facility')}
             ml={2}
             colorScheme='primary'
-            variant='solid'
             title={title}
             icon={<Icon path={mdiHomePlus} color='gray.800' />}
           />
         ) : (
-          <Button onClick={() => push('/dashboard/facilities-register')} colorScheme='primary' leftIcon={<Icon path={mdiHomePlus} />}>
+          <Button onClick={() => push('/dashboard/new-facility')} colorScheme='primary' leftIcon={<Icon path={mdiHomePlus} />}>
             {title}
           </Button>
         )}
