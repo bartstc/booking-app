@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { VStack, Divider } from '@chakra-ui/react';
 
-import { SectionHeader, SectionSubtitle, SectionTitle } from 'shared/ReadMode';
+import { SectionHeader, SectionSubtitle, SectionTitle } from 'shared/DescriptionList';
 
 import { CreateEnterpriseForm } from 'modules/enterprise/presentation';
 

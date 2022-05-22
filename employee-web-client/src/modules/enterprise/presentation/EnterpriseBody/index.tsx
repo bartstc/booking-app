@@ -1,9 +1,18 @@
 import React from 'react';
-import { GridItem, VStack, Divider } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
 import { useEnterpriseContextSelector } from 'modules/context';
-import { ReadModeValue, SectionTitle, SectionHeader, SectionSubtitle, SectionContainer, SectionGrid } from 'shared/ReadMode';
+import {
+  Value,
+  SectionTitle,
+  SectionHeader,
+  SectionSubtitle,
+  SectionContainer,
+  SectionGrid,
+  SectionGridItem,
+  ValueList,
+  SectionDivider,
+} from 'shared/DescriptionList';
 
 const EnterpriseBody = () => {
   const enterprise = useEnterpriseContextSelector(state => state);
@@ -11,7 +20,7 @@ const EnterpriseBody = () => {
   return (
     <SectionContainer>
       <SectionGrid>
-        <GridItem colSpan={{ base: 3, lg: 1 }}>
+        <SectionGridItem colSpan={{ base: 3, lg: 1 }}>
           <SectionHeader>
             <SectionTitle>
               <FormattedMessage id='enterprise-base-data' defaultMessage='Base information' />
@@ -20,27 +29,18 @@ const EnterpriseBody = () => {
               <FormattedMessage id='enterprise-base-data-description' defaultMessage='Base data about enterprise.' />
             </SectionSubtitle>
           </SectionHeader>
-        </GridItem>
-        <GridItem colSpan={{ base: 3, lg: 2 }}>
-          <VStack spacing={4} align='flex-start'>
-            <ReadModeValue
-              value={enterprise.enterpriseName}
-              label={<FormattedMessage id='enterprise-name' defaultMessage='Enterprise name' />}
-            />
-            <ReadModeValue
-              value={enterprise.enterpriseDescription}
-              label={<FormattedMessage id='description' defaultMessage='Description' />}
-            />
-            <ReadModeValue
-              value={enterprise.enterpriseUrl}
-              label={<FormattedMessage id='enterprise-url' defaultMessage='Website url address' />}
-            />
-          </VStack>
-        </GridItem>
+        </SectionGridItem>
+        <SectionGridItem colSpan={{ base: 3, lg: 2 }}>
+          <ValueList>
+            <Value value={enterprise.enterpriseName} label={<FormattedMessage id='enterprise-name' defaultMessage='Enterprise name' />} />
+            <Value value={enterprise.enterpriseDescription} label={<FormattedMessage id='description' defaultMessage='Description' />} />
+            <Value value={enterprise.enterpriseUrl} label={<FormattedMessage id='enterprise-url' defaultMessage='Website url address' />} />
+          </ValueList>
+        </SectionGridItem>
       </SectionGrid>
-      <Divider />
+      <SectionDivider />
       <SectionGrid>
-        <GridItem colSpan={{ base: 3, lg: 1 }}>
+        <SectionGridItem colSpan={{ base: 3, lg: 1 }}>
           <SectionHeader>
             <SectionTitle>
               <FormattedMessage id='enterprise-contact-person' defaultMessage='Contact person' />
@@ -52,21 +52,15 @@ const EnterpriseBody = () => {
               />
             </SectionSubtitle>
           </SectionHeader>
-        </GridItem>
-        <GridItem colSpan={{ base: 3, lg: 2 }}>
-          <VStack spacing={4} align='flex-start'>
-            <ReadModeValue value={enterprise.contactPerson.name} label={<FormattedMessage id='name' defaultMessage='Name' />} />
-            <ReadModeValue
-              value={enterprise.contactPerson.phone}
-              label={<FormattedMessage id='phone-number' defaultMessage='Phone number' />}
-            />
-            <ReadModeValue value={enterprise.contactPerson.fax} label={<FormattedMessage id='fax-number' defaultMessage='Fax' />} />
-            <ReadModeValue
-              value={enterprise.contactPerson.email}
-              label={<FormattedMessage id='email-address' defaultMessage='Email address' />}
-            />
-          </VStack>
-        </GridItem>
+        </SectionGridItem>
+        <SectionGridItem colSpan={{ base: 3, lg: 2 }}>
+          <ValueList>
+            <Value value={enterprise.contactPerson.name} label={<FormattedMessage id='name' defaultMessage='Name' />} />
+            <Value value={enterprise.contactPerson.phone} label={<FormattedMessage id='phone-number' defaultMessage='Phone number' />} />
+            <Value value={enterprise.contactPerson.fax} label={<FormattedMessage id='fax-number' defaultMessage='Fax' />} />
+            <Value value={enterprise.contactPerson.email} label={<FormattedMessage id='email-address' defaultMessage='Email address' />} />
+          </ValueList>
+        </SectionGridItem>
       </SectionGrid>
     </SectionContainer>
   );

@@ -7,7 +7,7 @@ interface IProps {
   separator?: string;
 }
 
-const ReadModeArrayValue = ({ value, label, separator = ', ' }: IProps) => {
+const ArrayValue = ({ value, label, separator = ', ' }: IProps) => {
   const color = useColorModeValue('gray.500', 'gray.400');
 
   if (!value?.length) return null;
@@ -22,4 +22,4 @@ const ReadModeArrayValue = ({ value, label, separator = ', ' }: IProps) => {
   );
 };
 
-export { ReadModeArrayValue };
+export { ArrayValue };

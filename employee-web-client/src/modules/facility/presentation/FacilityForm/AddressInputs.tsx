@@ -3,7 +3,7 @@ import { GridItem, SimpleGrid } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 import { InputField, MaskedInputField } from 'react-hook-form-chakra-fields';
 
-import { SectionTitle, SectionGrid, SectionSubtitle } from 'shared/ReadMode';
+import { SectionTitle, SectionGrid, SectionSubtitle } from 'shared/DescriptionList';
 import { masks } from 'shared/Form/Builders';
 
 const AddressInputs = () => {

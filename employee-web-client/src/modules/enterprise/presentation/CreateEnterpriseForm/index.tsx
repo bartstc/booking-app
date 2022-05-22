@@ -2,7 +2,7 @@ import React from 'react';
 import { Divider, HStack, VStack } from '@chakra-ui/react';
 
 import { SubmitButton } from 'shared/Form';
-import { SectionContainer } from 'shared/ReadMode';
+import { SectionContainer } from 'shared/DescriptionList';
 
 import { ContactPersonInputs, EnterpriseForm, MetaInputs, useEditEnterpriseNotification } from '../EnterpriseForm';
 import { useCreateEnterprise } from '../../infrastructure/command';

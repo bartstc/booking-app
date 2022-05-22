@@ -5,7 +5,7 @@ import { HStack, VStack, Divider } from '@chakra-ui/react';
 import { useCreateFacility } from 'modules/facility/infrastructure/command';
 
 import { SubmitButton } from 'shared/Form';
-import { SectionContainer } from 'shared/ReadMode';
+import { SectionContainer } from 'shared/DescriptionList';
 
 import { ContactPersonInputs, AddressInputs, WorkingHoursInputs, MetaInputs, ContactsInputs, FacilityForm } from '../FacilityForm';
 import { useCreateFacilityNotification } from '../CreateFacilityForm/useCreateFacilityNotification';

@@ -4,7 +4,7 @@ import { GridItem, HStack, SimpleGrid, VStack } from '@chakra-ui/react';
 
 import { Form, PreventLossData } from 'shared/Form';
 import { Button } from 'shared/Button';
-import { SectionContainer, SectionGrid, SectionHeader, SectionSubtitle, SectionTitle } from 'shared/ReadMode';
+import { SectionContainer, SectionGrid, SectionHeader, SectionSubtitle, SectionTitle } from 'shared/DescriptionList';
 import { OptionType } from 'types';
 
 import { IAddBookingDto } from '../../application/types';

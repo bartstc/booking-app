@@ -2,7 +2,7 @@ import React from 'react';
 import { SimpleGrid, GridItem } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
-import { SectionGrid, SectionHeader, SectionSubtitle, SectionTitle } from 'shared/ReadMode';
+import { SectionGrid, SectionHeader, SectionSubtitle, SectionTitle } from 'shared/DescriptionList';
 import { ContactPersonFields } from 'shared/Form/Implementations';
 
 const ContactPersonInputs = () => {

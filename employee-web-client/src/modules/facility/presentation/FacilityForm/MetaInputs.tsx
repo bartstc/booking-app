@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { useIntl } from 'react-intl';
 import { InputField, OptionType, SelectField } from 'react-hook-form-chakra-fields';
 
-import { SectionTitle, SectionHeader, SectionSubtitle, SectionGrid } from 'shared/ReadMode';
+import { SectionTitle, SectionHeader, SectionSubtitle, SectionGrid } from 'shared/DescriptionList';
 import { currencyOptions } from 'shared/Form/Builders';
 
 import { BusinessCategoryType } from '../../application/types';

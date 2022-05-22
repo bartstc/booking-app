@@ -9,7 +9,7 @@ import { employeeQueryKey } from 'modules/employees/infrastructure/query';
 
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
-import { SectionContainer } from 'shared/ReadMode';
+import { SectionContainer } from 'shared/DescriptionList';
 
 import { buildUrl } from 'utils';
 import { DEFAULT_PARAMS } from 'utils/constant';

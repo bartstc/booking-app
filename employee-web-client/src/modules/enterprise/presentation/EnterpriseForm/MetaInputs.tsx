@@ -3,7 +3,7 @@ import { GridItem, SimpleGrid } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 import { InputField } from 'react-hook-form-chakra-fields';
 
-import { SectionTitle, SectionHeader, SectionSubtitle, SectionGrid } from 'shared/ReadMode';
+import { SectionTitle, SectionHeader, SectionSubtitle, SectionGrid } from 'shared/DescriptionList';
 
 const MetaInputs = () => {
   return (

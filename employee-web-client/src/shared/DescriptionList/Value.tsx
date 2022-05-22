@@ -6,7 +6,7 @@ interface IProps extends StackProps {
   label: ReactNode | string;
 }
 
-const ReadModeValue = ({ value, label, ...props }: IProps) => {
+const Value = ({ value, label, ...props }: IProps) => {
   const color = useColorModeValue('gray.500', 'gray.400');
 
   if (!value) return null;
@@ -21,4 +21,4 @@ const ReadModeValue = ({ value, label, ...props }: IProps) => {
   );
 };
 
-export { ReadModeValue };
+export { Value };

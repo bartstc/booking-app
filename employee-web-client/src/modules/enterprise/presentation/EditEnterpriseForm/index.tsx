@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
-import { SectionContainer } from 'shared/ReadMode';
+import { SectionContainer } from 'shared/DescriptionList';
 
 import { useEnterpriseContextSelector } from 'modules/context';
 import { useEnterpriseQuery } from 'modules/enterprise/infrastructure/query';

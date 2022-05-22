@@ -7,7 +7,7 @@ import { InputField } from 'react-hook-form-chakra-fields';
 import { ResponsiveRemoveButton } from 'shared/Buttons';
 import { Money } from 'shared/Money';
 import { FormattedDate } from 'shared/Date';
-import { SectionGrid, SectionHeader, SectionSubtitle, SectionTitle } from 'shared/ReadMode';
+import { SectionGrid, SectionHeader, SectionSubtitle, SectionTitle } from 'shared/DescriptionList';
 
 import { useFacilityContextSelector } from '../../../context';
 import { IAddBookingDto } from '../../application/types';

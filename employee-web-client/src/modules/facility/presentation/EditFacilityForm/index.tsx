@@ -9,7 +9,7 @@ import { buildUrl } from 'utils';
 import { DEFAULT_PARAMS } from 'utils/constant';
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
-import { SectionContainer } from 'shared/ReadMode';
+import { SectionContainer } from 'shared/DescriptionList';
 
 import { ContactPersonInputs, AddressInputs, WorkingHoursInputs, MetaInputs, ContactsInputs, FacilityForm } from '../FacilityForm';
 import { useEditFacilityNotification } from './useEditFacilityNotification';

@@ -7,7 +7,7 @@ import { SelectField, MaskedInputField, OptionType } from 'react-hook-form-chakr
 
 import { masks } from 'shared/Form';
 import { Button, IconButton } from 'shared/Button';
-import { SectionTitle, SectionHeader, SectionGrid, SectionSubtitle } from 'shared/ReadMode';
+import { SectionTitle, SectionHeader, SectionGrid, SectionSubtitle } from 'shared/DescriptionList';
 
 import { WeekDay } from '../../application/types';
 import { weekDayMessages } from '../../application/messages';
