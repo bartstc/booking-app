@@ -1,12 +1,12 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
-import { Flex, Heading, Text, VStack } from '@chakra-ui/react';
 import { isMobileOnly } from 'react-device-detect';
 import { mdiCalendar } from '@mdi/js';
 
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
+import { PageDescription, PageHeader, PageHeading, PageSubheading } from 'shared/Layout';
 
 const Header = () => {
   const { formatMessage } = useIntl();
@@ -18,15 +18,15 @@ const Header = () => {
   });
 
   return (
-    <Flex w='100%' justify='space-between'>
-      <VStack as='header' align='flex-start'>
-        <Heading as='h1' lineHeight={8} fontWeight='900'>
+    <PageHeader>
+      <PageDescription>
+        <PageHeading>
           <FormattedMessage id='bookings-heading' defaultMessage='Bookings' />
-        </Heading>
-        <Text as='h2' lineHeight={4}>
+        </PageHeading>
+        <PageSubheading>
           <FormattedMessage id='bookings-subheading' defaultMessage='Manage yours bookings' />
-        </Text>
-      </VStack>
+        </PageSubheading>
+      </PageDescription>
       {isMobileOnly ? (
         <IconButton
           onClick={() => push('add-booking')}
@@ -40,7 +40,7 @@ const Header = () => {
           {title}
         </Button>
       )}
-    </Flex>
+    </PageHeader>
   );
 };
 

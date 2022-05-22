@@ -1,2 +1,5 @@
 export { PageWrapper } from './PageWrapper';
-export { Card } from './Card';
+export { PageHeader } from './PageHeader';
+export { PageDescription } from './PageDescription';
+export { PageHeading } from './PageHeading';
+export { PageSubheading } from './PageSubheading';

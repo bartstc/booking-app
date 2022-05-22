@@ -1,11 +1,12 @@
 import React from 'react';
-import { Flex, Heading, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { mdiBook } from '@mdi/js';
 import { isMobileOnly } from 'react-device-detect';
 
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
+import { PageDescription, PageHeader, PageHeading, PageSubheading } from 'shared/Layout';
 
 import { AddOfferModal } from 'modules/offers/presentation';
 
@@ -19,15 +20,15 @@ const Header = () => {
   });
 
   return (
-    <Flex w='100%' justify='space-between'>
-      <VStack as='header' align='flex-start'>
-        <Heading as='h1' lineHeight={8} fontWeight='900'>
+    <PageHeader>
+      <PageDescription>
+        <PageHeading>
           <FormattedMessage id='offers-heading' defaultMessage='Offers' />
-        </Heading>
-        <Text as='h2' lineHeight={4}>
+        </PageHeading>
+        <PageSubheading>
           <FormattedMessage id='offers-subheading' defaultMessage='Manage your offer list' />
-        </Text>
-      </VStack>
+        </PageSubheading>
+      </PageDescription>
       <AddOfferModal isOpen={isOpen} onClose={onClose} />
       {isMobileOnly ? (
         <IconButton colorScheme='primary' variant='solid' title={title} icon={<Icon path={mdiBook} color='gray.800' />} onClick={onOpen} />
@@ -36,7 +37,7 @@ const Header = () => {
           {title}
         </Button>
       )}
-    </Flex>
+    </PageHeader>
   );
 };
 

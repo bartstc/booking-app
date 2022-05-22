@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Flex, VStack, Heading, Text } from '@chakra-ui/react';
 import { isMobileOnly } from 'react-device-detect';
 import { mdiFile } from '@mdi/js';
 
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
+import { PageDescription, PageHeader, PageHeading, PageSubheading } from 'shared/Layout';
 
 import { CreateScheduleModal } from 'modules/schedules/presentation';
 import { useFacilityContextSelector } from 'modules/context';
@@ -26,15 +26,15 @@ const Header = ({ onOpen, isOpen, onClose }: IProps) => {
   });
 
   return (
-    <Flex w='100%' justify='space-between'>
-      <VStack as='header' align='flex-start'>
-        <Heading as='h1' lineHeight={8} fontWeight='900'>
+    <PageHeader>
+      <PageDescription>
+        <PageHeading>
           <FormattedMessage id='schedules-heading' defaultMessage='Schedules' />
-        </Heading>
-        <Text as='h2' lineHeight={4}>
+        </PageHeading>
+        <PageSubheading>
           <FormattedMessage id='schedules-subheading' defaultMessage='Manage your schedules' />
-        </Text>
-      </VStack>
+        </PageSubheading>
+      </PageDescription>
       <CreateScheduleModal isOpen={isOpen} onClose={onClose} creatorId={facilityId} facilityId={facilityId} />
       {isMobileOnly ? (
         <IconButton
@@ -50,7 +50,7 @@ const Header = ({ onOpen, isOpen, onClose }: IProps) => {
           {title}
         </Button>
       )}
-    </Flex>
+    </PageHeader>
   );
 };
 

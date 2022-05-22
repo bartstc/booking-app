@@ -1,12 +1,13 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
-import { Flex, Heading, Text, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import { isMobileOnly } from 'react-device-detect';
 import { mdiCalendar } from '@mdi/js';
 
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
+import { PageDescription, PageHeader, PageHeading, PageSubheading } from 'shared/Layout';
 
 import { Breadcrumbs } from './Breadcrumbs';
 
@@ -21,15 +22,15 @@ const Header = () => {
 
   return (
     <VStack spacing={6} w='100%' align='stretch'>
-      <Flex justify='space-between'>
-        <VStack as='header' align='flex-start'>
-          <Heading as='h1' lineHeight={8} fontWeight='900'>
+      <PageHeader>
+        <PageDescription>
+          <PageHeading>
             <FormattedMessage id='bookings-heading' defaultMessage='Bookings' />
-          </Heading>
-          <Text as='h2' lineHeight={4}>
+          </PageHeading>
+          <PageSubheading>
             <FormattedMessage id='add-booking-subheading' defaultMessage='Add new booking' />
-          </Text>
-        </VStack>
+          </PageSubheading>
+        </PageDescription>
         {isMobileOnly ? (
           <IconButton
             onClick={() => push('bookings')}
@@ -43,7 +44,7 @@ const Header = () => {
             {title}
           </Button>
         )}
-      </Flex>
+      </PageHeader>
       <Breadcrumbs />
     </VStack>
   );

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Flex, Heading, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { mdiAccount } from '@mdi/js';
 import { isMobileOnly } from 'react-device-detect';
 
 import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
+import { PageDescription, PageHeader, PageHeading, PageSubheading } from 'shared/Layout';
 
 import { AddEmployeeModal } from 'modules/employees/presentation';
 
@@ -19,15 +20,15 @@ const Header = () => {
   });
 
   return (
-    <Flex w='100%' justify='space-between'>
-      <VStack as='header' align='flex-start'>
-        <Heading as='h1' lineHeight={8} fontWeight='900'>
+    <PageHeader>
+      <PageDescription>
+        <PageHeading>
           <FormattedMessage id='employees-heading' defaultMessage='Employees' />
-        </Heading>
-        <Text as='h2' lineHeight={4}>
+        </PageHeading>
+        <PageSubheading>
           <FormattedMessage id='employees-subheading' defaultMessage='Manage your employee list' />
-        </Text>
-      </VStack>
+        </PageSubheading>
+      </PageDescription>
       <AddEmployeeModal isOpen={isOpen} onClose={onClose} />
       {isMobileOnly ? (
         <IconButton
@@ -42,7 +43,7 @@ const Header = () => {
           {title}
         </Button>
       )}
-    </Flex>
+    </PageHeader>
   );
 };
 

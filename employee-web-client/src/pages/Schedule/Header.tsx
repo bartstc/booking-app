@@ -1,9 +1,10 @@
 import React from 'react';
-import { Flex, Heading, Text, VStack, chakra, HStack } from '@chakra-ui/react';
+import { Text, chakra, HStack } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
 
 import { ISchedule } from 'modules/schedules/application/types';
 import { FormattedDate } from 'shared/Date';
+import { PageDescription, PageHeader, PageHeading } from 'shared/Layout';
 
 interface IProps {
   schedule: ISchedule;
@@ -11,11 +12,9 @@ interface IProps {
 
 const Header = ({ schedule }: IProps) => {
   return (
-    <Flex w='100%' justify='space-between'>
-      <VStack as='header' align='flex-start'>
-        <Heading as='h1' lineHeight={8} fontWeight='900'>
-          {schedule.name}
-        </Heading>
+    <PageHeader>
+      <PageDescription>
+        <PageHeading>{schedule.name}</PageHeading>
         <HStack as='h2' lineHeight={4}>
           <Text>
             <FormattedMessage
@@ -45,8 +44,8 @@ const Header = ({ schedule }: IProps) => {
             />
           </Text>
         </HStack>
-      </VStack>
-    </Flex>
+      </PageDescription>
+    </PageHeader>
   );
 };
 
