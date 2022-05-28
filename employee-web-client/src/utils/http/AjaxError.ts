@@ -1,19 +1,28 @@
-interface IAjaxError<R = unknown> extends Error {
+interface IAjaxError<R> extends Error {
   message: string;
   status: number;
   response: R;
+  request: RequestInit;
 }
 
-export class AjaxError implements IAjaxError {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class AjaxError<R = any> implements IAjaxError<R> {
   message: string;
   status: number;
-  response: unknown;
-  request: unknown;
+  response: R;
   name: string;
+  request: RequestInit;
 
-  constructor(errorStatus: number, errorMessage = 'Ajax Error') {
+  constructor(
+    errorStatus: number,
+    response: R,
+    request: IAjaxError<R>["request"]
+  ) {
     this.status = errorStatus;
-    this.message = errorMessage;
-    this.name = 'Ajax Error';
+    // @ts-ignore
+    this.message = response?.message ?? "Ajax Error Message";
+    this.response = response;
+    this.name = "Ajax Error";
+    this.request = request;
   }
 }

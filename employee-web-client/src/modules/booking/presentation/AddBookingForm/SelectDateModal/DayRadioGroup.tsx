@@ -93,18 +93,21 @@ const DayRadioGroup = ({ selectedTerm, selectedDay, setSelectedTerm, availableTe
       <VStack>
         <Alert status='warning'>
           <AlertIcon />
-          <AlertTitle>
-            {formatMessage({
-              id: 'no-deadlines-warning-description',
-              defaultMessage: 'No deadlines.',
-            })}
-          </AlertTitle>
-          <AlertDescription>
-            {formatMessage({
-              id: 'no-deadlines-warning-title',
-              defaultMessage: 'Everything has already been reserved or the work schedule for the selected period has not yet been defined.',
-            })}
-          </AlertDescription>
+          <VStack spacing={0} align='flex-start'>
+            <AlertTitle>
+              {formatMessage({
+                id: 'no-deadlines-warning-description',
+                defaultMessage: 'No deadlines.',
+              })}
+            </AlertTitle>
+            <AlertDescription>
+              {formatMessage({
+                id: 'no-deadlines-warning-title',
+                defaultMessage:
+                  'Everything has already been reserved or the work schedule for the selected period has not yet been defined.',
+              })}
+            </AlertDescription>
+          </VStack>
         </Alert>
         <NoAvailableDatesIcon size={emptyStateIconSize} />
       </VStack>
