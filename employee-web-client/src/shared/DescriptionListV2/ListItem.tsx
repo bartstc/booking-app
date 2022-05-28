@@ -6,7 +6,7 @@ interface IProps extends GridItemProps {
   children: ReactNode;
 }
 
-const ListStack = ({ children, ...props }: IProps) => {
+const ListItem = ({ children, ...props }: IProps) => {
   return (
     <GridItem colSpan={3} {...props}>
       {children}
@@ -14,4 +14,4 @@ const ListStack = ({ children, ...props }: IProps) => {
   );
 };
 
-export { ListStack };
+export { ListItem };
