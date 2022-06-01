@@ -7,7 +7,7 @@ interface IProps {
 
 const ValueText = ({ children }: IProps) => {
   return (
-    <Text fontSize='md' whiteSpace='pre-line' w='100%' m={0}>
+    <Text fontSize='md' fontWeight='500' whiteSpace='pre-line' w='100%' m={0}>
       {children}
     </Text>
   );

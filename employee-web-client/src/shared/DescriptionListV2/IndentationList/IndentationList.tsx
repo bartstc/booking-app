@@ -11,7 +11,7 @@ interface IProps extends SimpleGridProps {
 const IndentationList = ({ children, ...props }: IProps) => {
   return (
     <ListItem colSpan={{ base: 3, lg: 2 }}>
-      <List columns={1} pt={2} {...props}>
+      <List columns={1} pt={{ base: 0, lg: 2 }} mb={{ base: 0, lg: 2 }} {...props}>
         {children}
       </List>
     </ListItem>
