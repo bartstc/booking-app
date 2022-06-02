@@ -1,68 +1,106 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { useEnterpriseContextSelector } from 'modules/context';
 import {
-  Value,
-  SectionTitle,
-  SectionHeader,
-  SectionSubtitle,
-  SectionContainer,
-  SectionGrid,
-  SectionGridItem,
-  ValueList,
-  SectionDivider,
-} from 'shared/DescriptionList';
+  List,
+  Divider,
+  IndentationLabel,
+  IndentationList,
+  IndentLabel,
+  IndentValue,
+  Header,
+  Heading,
+  SubHeading,
+} from 'shared/DescriptionListV2';
 
 const EnterpriseBody = () => {
+  const { formatMessage } = useIntl();
   const enterprise = useEnterpriseContextSelector(state => state);
+  const { contactPerson } = enterprise;
 
   return (
-    <SectionContainer>
-      <SectionGrid>
-        <SectionGridItem colSpan={{ base: 3, lg: 1 }}>
-          <SectionHeader>
-            <SectionTitle>
-              <FormattedMessage id='enterprise-base-data' defaultMessage='Base information' />
-            </SectionTitle>
-            <SectionSubtitle>
-              <FormattedMessage id='enterprise-base-data-description' defaultMessage='Base data about enterprise.' />
-            </SectionSubtitle>
-          </SectionHeader>
-        </SectionGridItem>
-        <SectionGridItem colSpan={{ base: 3, lg: 2 }}>
-          <ValueList>
-            <Value value={enterprise.enterpriseName} label={<FormattedMessage id='enterprise-name' defaultMessage='Enterprise name' />} />
-            <Value value={enterprise.enterpriseDescription} label={<FormattedMessage id='description' defaultMessage='Description' />} />
-            <Value value={enterprise.enterpriseUrl} label={<FormattedMessage id='enterprise-url' defaultMessage='Website url address' />} />
-          </ValueList>
-        </SectionGridItem>
-      </SectionGrid>
-      <SectionDivider />
-      <SectionGrid>
-        <SectionGridItem colSpan={{ base: 3, lg: 1 }}>
-          <SectionHeader>
-            <SectionTitle>
-              <FormattedMessage id='enterprise-contact-person' defaultMessage='Contact person' />
-            </SectionTitle>
-            <SectionSubtitle>
-              <FormattedMessage
-                id='contact-person-description-info'
-                defaultMessage='Data of the person who can be contacted by the booking service administrator.'
-              />
-            </SectionSubtitle>
-          </SectionHeader>
-        </SectionGridItem>
-        <SectionGridItem colSpan={{ base: 3, lg: 2 }}>
-          <ValueList>
-            <Value value={enterprise.contactPerson.name} label={<FormattedMessage id='name' defaultMessage='Name' />} />
-            <Value value={enterprise.contactPerson.phone} label={<FormattedMessage id='phone-number' defaultMessage='Phone number' />} />
-            <Value value={enterprise.contactPerson.fax} label={<FormattedMessage id='fax-number' defaultMessage='Fax' />} />
-            <Value value={enterprise.contactPerson.email} label={<FormattedMessage id='email-address' defaultMessage='Email address' />} />
-          </ValueList>
-        </SectionGridItem>
-      </SectionGrid>
-    </SectionContainer>
+    <List spacingY={4}>
+      <IndentationLabel>
+        <Header>
+          <Heading>
+            {formatMessage({
+              id: 'enterprise-base-data',
+              defaultMessage: 'Base information',
+            })}
+          </Heading>
+          <SubHeading>
+            {formatMessage({
+              id: 'enterprise-base-data-description',
+              defaultMessage: 'Base data about enterprise.',
+            })}
+          </SubHeading>
+        </Header>
+      </IndentationLabel>
+      <IndentationList>
+        <IndentLabel>
+          {formatMessage({
+            id: 'enterprise-name',
+            defaultMessage: 'Enterprise name',
+          })}
+        </IndentLabel>
+        <IndentValue>{enterprise.enterpriseName}</IndentValue>
+        <IndentLabel>
+          {formatMessage({
+            id: 'description',
+            defaultMessage: 'Description',
+          })}
+        </IndentLabel>
+        <IndentValue>{enterprise.enterpriseDescription}</IndentValue>
+        <IndentLabel>
+          {formatMessage({
+            id: 'enterprise-url',
+            defaultMessage: 'Website url address',
+          })}
+        </IndentLabel>
+        <IndentValue>{enterprise.enterpriseUrl}</IndentValue>
+      </IndentationList>
+      <Divider />
+      <IndentationLabel>
+        <Header>
+          <Heading>
+            {formatMessage({
+              id: 'enterprise-contact-person',
+              defaultMessage: 'Contact person',
+            })}
+          </Heading>
+          <SubHeading>
+            {formatMessage({
+              id: 'contact-person-description-info',
+              defaultMessage: 'Data of the person who can be contacted by the booking service administrator.',
+            })}
+          </SubHeading>
+        </Header>
+      </IndentationLabel>
+      <IndentationList>
+        <IndentLabel>
+          {formatMessage({
+            id: 'name',
+            defaultMessage: 'Name',
+          })}
+        </IndentLabel>
+        <IndentValue>{contactPerson.name}</IndentValue>
+        <IndentLabel>
+          {formatMessage({
+            id: 'phone-number',
+            defaultMessage: 'Phone number',
+          })}
+        </IndentLabel>
+        <IndentValue>{contactPerson.phone}</IndentValue>
+        <IndentLabel>
+          {formatMessage({
+            id: 'email-address',
+            defaultMessage: 'Email address',
+          })}
+        </IndentLabel>
+        <IndentValue>{contactPerson.email}</IndentValue>
+      </IndentationList>
+    </List>
   );
 };
 
