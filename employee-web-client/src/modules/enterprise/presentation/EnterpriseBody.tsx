@@ -13,10 +13,12 @@ import {
   Heading,
   SubHeading,
 } from 'shared/DescriptionListV2';
+import { useEnterpriseQuery } from '../infrastructure/query';
 
 const EnterpriseBody = () => {
   const { formatMessage } = useIntl();
-  const enterprise = useEnterpriseContextSelector(state => state);
+  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
+  const enterprise = useEnterpriseQuery(enterpriseId);
   const { contactPerson } = enterprise;
 
   return (

@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 
-import { SimpleGrid, SimpleGridProps } from "@chakra-ui/react";
+import { SimpleGrid, SimpleGridProps } from '@chakra-ui/react';
 
 interface IProps extends SimpleGridProps {
   children: ReactNode;
