@@ -2,25 +2,12 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { EnterpriseBody } from './index';
-import { IEnterprise } from '../application/types';
 import { EnterpriseProvider } from '../../context/application';
+import { EnterpriseFixture } from '../../../utils/fixtures';
 
 const ENTERPRISE_ID = '1';
 
-const enterprise: IEnterprise = {
-  enterpriseId: ENTERPRISE_ID,
-  enterpriseName: 'Hardcut Barber',
-  enterpriseDescription: 'asdasd',
-  enterpriseUrl: 'hardcut.com',
-  createdAt: new Date(),
-  ownerId: '2',
-  updatedAt: new Date(),
-  contactPerson: {
-    email: 'hardcut@test.com',
-    phone: '+48 555555555',
-    name: 'John Doe',
-  },
-};
+const enterprise = EnterpriseFixture.createPermutation({ enterpriseId: ENTERPRISE_ID });
 
 export default {
   title: 'modules/enterprise/EnterpriseBody',
