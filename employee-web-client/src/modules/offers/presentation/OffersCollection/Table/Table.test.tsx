@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { FacilityFixture, OfferFixture, renderWithProviders } from '../../../../../utils';
+import { FacilityFixture, OfferFixture, renderWithProviders, mockResponseFactory, MetaFixture } from '../../../../../utils';
 
 import { Table } from './index';
 import { IOfferCollection, OfferStatus } from '../../../application/types';
@@ -28,27 +28,9 @@ const offer_2 = OfferFixture.createPermutation({
   status: OfferStatus.Inactive,
 });
 
-type MockFn<Response> = (response: Response) => Function;
-
-function mockStructure<Structure>(defaultData: Structure, mockFn: MockFn<Structure>) {
-  return (response: Partial<Structure> = {}): Structure => {
-    const resp: Structure = {
-      ...defaultData,
-      ...response,
-    };
-
-    mockFn(resp);
-    return resp;
-  };
-}
-
-const mockOffers = mockStructure<IOfferCollection>(
+const mockOffers = mockResponseFactory<IOfferCollection>(
   {
-    meta: {
-      offset: 0,
-      limit: 10,
-      total: 2,
-    },
+    meta: MetaFixture.createPermutation({ total: 2 }),
     collection: [offer_1, offer_2],
   },
   resp => managementMockService.get(offersQueryKey(FACILITY_ID)[0], resp),
@@ -69,7 +51,7 @@ describe('OffersCollection', function () {
   });
 
   it('should render row with active offer', async function () {
-    mockOffers({ collection: [offer_1] });
+    mockOffers({ collection: [offer_1], meta: MetaFixture.createPermutation({ total: 1 }) });
     renderTable();
 
     await waitFor(() => {
@@ -79,7 +61,7 @@ describe('OffersCollection', function () {
   });
 
   it('should render row with inactive offer', async function () {
-    mockOffers({ collection: [offer_2] });
+    mockOffers({ collection: [offer_2], meta: MetaFixture.createPermutation({ total: 1 }) });
     renderTable();
 
     await waitFor(() => {
