@@ -28,6 +28,7 @@ interface IProps {
   header?: string | ReactNode;
   description?: string | ReactNode;
   status?: AlertStatus;
+  id?: string;
 }
 
 const colors = {
@@ -37,6 +38,7 @@ const colors = {
   success: 'green',
 };
 
+// todo: rebuild into composition
 const Confirm = ({
   isOpen,
   isLoading,
@@ -46,6 +48,7 @@ const Confirm = ({
   header = <FormattedMessage id='confirmation' defaultMessage='Confirmation' />,
   description = <FormattedMessage id='confirmation-description' defaultMessage='Are you sure to perform this operation?' />,
   status = 'warning',
+  id = 'confirm',
 }: IProps) => {
   const color = useColorModeValue(`${colors[status]}.500`, `${colors[status]}.300`);
 
@@ -63,7 +66,7 @@ const Confirm = ({
           <Text mt={2}>{description}</Text>
         </ModalBody>
         <ModalFooter>
-          <SubmitButton isLoading={isLoading} colorScheme={colors[status]} onClick={onConfirm} />
+          <SubmitButton isLoading={isLoading} colorScheme={colors[status]} onClick={onConfirm} id={`${id}-confirm`} />
           <Button colorScheme='gray' ml={3} onClick={onClose}>
             <FormattedMessage id='close' defaultMessage='Close' />
           </Button>

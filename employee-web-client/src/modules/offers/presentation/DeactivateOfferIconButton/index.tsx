@@ -23,6 +23,7 @@ const DeactivateOfferIconButton = ({ facilityId, offerId, ...props }: IProps) =>
   return (
     <>
       <Confirm
+        id='deactivate-offer'
         isOpen={isOpen}
         isLoading={isDeactivating}
         onClose={onClose}

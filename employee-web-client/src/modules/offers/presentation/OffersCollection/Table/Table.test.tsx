@@ -1,13 +1,13 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { FacilityFixture, OfferFixture, renderWithProviders, mockResponseFactory, MetaFixture } from '../../../../../utils';
+import { FacilityFixture, OfferFixture, renderWithProviders, mockResponseFactory, MetaFixture } from 'utils';
+import { managementMockService } from 'utils/mock';
 
 import { Table } from './index';
 import { IOfferCollection, OfferStatus } from '../../../application/types';
 import { FacilityProvider } from '../../../../context/application';
 import React from 'react';
-import { managementMockService } from '../../../../../utils/mock';
 import { offersQueryKey } from '../../../infrastructure/query';
 
 const FACILITY_ID = '1';
@@ -67,6 +67,26 @@ describe('OffersCollection', function () {
     await waitFor(() => {
       expect(screen.getByText('Inactive')).toBeInTheDocument();
       expect(screen.getByLabelText('Activate offer')).toBeInTheDocument();
+    });
+  });
+
+  it('should deactivate active offer', async function () {
+    mockOffers({ collection: [offer_1] });
+    managementMockService.patch(`facilities/${FACILITY_ID}/offers/${OFFER_ID_1}/deactivate`, {});
+
+    renderTable();
+
+    // https://kentcdodds.com/blog/common-mistakes-with-react-testing-library#using-waitfor-to-wait-for-elements-that-can-be-queried-with-find
+    const deactivateButton = await screen.findByLabelText('Deactivate offer');
+    userEvent.click(deactivateButton);
+
+    expect(screen.getByText('Are you sure to perform this operation? Offer will not be available.')).toBeInTheDocument();
+
+    userEvent.click(screen.getByText('Submit'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Offer was successfully deactivated'));
+      expect(screen.getByText('Inactive')).toBeInTheDocument();
     });
   });
 });
