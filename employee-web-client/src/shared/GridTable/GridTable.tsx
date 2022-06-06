@@ -59,7 +59,7 @@ const GridTable = ({ children, count, config, id, ...props }: IProps) => {
   }, {} as ResponsiveObject<string>);
 
   return (
-    <ChakraGrid id={id} w='100%' position='relative' templateColumns={templateColumns} {...props}>
+    <ChakraGrid id={id} data-testid={id} w='100%' position='relative' templateColumns={templateColumns} {...props}>
       <TableProvider value={{ config }}>{children}</TableProvider>
     </ChakraGrid>
   );

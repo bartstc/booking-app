@@ -1,6 +1,6 @@
 import { ITableConfig, createTableConfigurationStore } from 'shared/GridTable';
 
-const offersTableConfig: ITableConfig = {
+export const offersTableConfig: ITableConfig = {
   checkbox: {
     gridValue: '54px',
     isVisible: true,

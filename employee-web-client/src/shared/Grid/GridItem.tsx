@@ -13,7 +13,7 @@ const GridItem = ({ children, onClick, ...props }: IProps) => {
   const borderColor = useColorModeValue(colors.gray[300], colors.gray[700]);
 
   return (
-    <Item display='contents' cursor='pointer' fontSize='sm' onClick={onClick} cellHover={cellHover} borderColor={borderColor} {...props}>
+    <Item display='contents' cursor='pointer' fontSize='sm' onClick={onClick} cellhover={cellHover} bordercolor={borderColor} {...props}>
       {children}
     </Item>
   );
@@ -21,8 +21,8 @@ const GridItem = ({ children, onClick, ...props }: IProps) => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Item = styled(chakra.div)<{
-  cellHover: string;
-  borderColor: string;
+  cellhover: string;
+  bordercolor: string;
 }>`
   .cell:first-of-type {
     padding-left: 0.65rem; // 0.75rem - first header cell

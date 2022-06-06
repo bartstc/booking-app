@@ -5,7 +5,7 @@ interface IProps extends SkeletonProps {}
 
 const Skeleton = (props: IProps) => {
   return (
-    <VStack w='100%'>
+    <VStack data-testid='loading-skeleton' w='100%'>
       {Array.from(Array(11).keys()).map(value => (
         <ChSkeleton key={value} w='100%' h='46px' {...props} />
       ))}
