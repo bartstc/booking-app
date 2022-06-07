@@ -1,14 +1,13 @@
 import React, { ReactNode } from 'react';
 import { SimpleGridProps } from '@chakra-ui/react';
 
-import { List } from '../List';
-import { ListItem } from '../ListItem';
+import { List, ListItem } from 'shared/DescriptionListV2';
 
 interface IProps extends SimpleGridProps {
   children: ReactNode;
 }
 
-const IndentationList = ({ children, ...props }: IProps) => {
+const IndentList = ({ children, ...props }: IProps) => {
   return (
     <ListItem colSpan={{ base: 3, lg: 2 }}>
       <List columns={1} pt={{ base: 0, lg: 2 }} mb={{ base: 0, lg: 2 }} {...props}>
@@ -18,4 +17,4 @@ const IndentationList = ({ children, ...props }: IProps) => {
   );
 };
 
-export { IndentationList };
+export { IndentList };

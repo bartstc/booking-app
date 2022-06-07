@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { GridItemProps } from '@chakra-ui/react';
 
-import { Label } from '../Label';
+import { ListItem } from 'shared/DescriptionListV2';
 
 interface IProps extends GridItemProps {
   children: ReactNode;
@@ -9,9 +9,9 @@ interface IProps extends GridItemProps {
 
 const IndentLabel = ({ children, ...props }: IProps) => {
   return (
-    <Label colSpan={1} py={0} {...props}>
+    <ListItem colSpan={{ base: 3, lg: 1 }} py={2} pb={{ base: 0, lg: 2 }} {...props}>
       {children}
-    </Label>
+    </ListItem>
   );
 };
 

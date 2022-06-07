@@ -2,28 +2,17 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { useEnterpriseContextSelector } from 'modules/context';
-import {
-  List,
-  Divider,
-  IndentationLabel,
-  IndentationList,
-  IndentLabel,
-  IndentValue,
-  Header,
-  Heading,
-  SubHeading,
-} from 'shared/DescriptionListV2';
-import { useEnterpriseQuery } from '../infrastructure/query';
+import { Divider, Header, Heading, SubHeading } from 'shared/DescriptionListV2';
+import { Label, Value, List, IndentLabel, IndentList } from 'shared/IndentiationList';
 
 const EnterpriseBody = () => {
   const { formatMessage } = useIntl();
-  const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
-  const enterprise = useEnterpriseQuery(enterpriseId);
+  const enterprise = useEnterpriseContextSelector(state => state);
   const { contactPerson } = enterprise;
 
   return (
-    <List spacingY={4}>
-      <IndentationLabel>
+    <List>
+      <IndentLabel>
         <Header>
           <Heading>
             {formatMessage({
@@ -38,32 +27,32 @@ const EnterpriseBody = () => {
             })}
           </SubHeading>
         </Header>
-      </IndentationLabel>
-      <IndentationList>
-        <IndentLabel>
+      </IndentLabel>
+      <IndentList>
+        <Label>
           {formatMessage({
             id: 'enterprise-name',
             defaultMessage: 'Enterprise name',
           })}
-        </IndentLabel>
-        <IndentValue>{enterprise.enterpriseName}</IndentValue>
-        <IndentLabel>
+        </Label>
+        <Value>{enterprise.enterpriseName}</Value>
+        <Label>
           {formatMessage({
             id: 'description',
             defaultMessage: 'Description',
           })}
-        </IndentLabel>
-        <IndentValue>{enterprise.enterpriseDescription}</IndentValue>
-        <IndentLabel>
+        </Label>
+        <Value>{enterprise.enterpriseDescription}</Value>
+        <Label>
           {formatMessage({
             id: 'enterprise-url',
             defaultMessage: 'Website url address',
           })}
-        </IndentLabel>
-        <IndentValue>{enterprise.enterpriseUrl}</IndentValue>
-      </IndentationList>
+        </Label>
+        <Value>{enterprise.enterpriseUrl}</Value>
+      </IndentList>
       <Divider />
-      <IndentationLabel>
+      <IndentLabel>
         <Header>
           <Heading>
             {formatMessage({
@@ -78,30 +67,30 @@ const EnterpriseBody = () => {
             })}
           </SubHeading>
         </Header>
-      </IndentationLabel>
-      <IndentationList>
-        <IndentLabel>
+      </IndentLabel>
+      <IndentList>
+        <Label>
           {formatMessage({
             id: 'name',
             defaultMessage: 'Name',
           })}
-        </IndentLabel>
-        <IndentValue>{contactPerson.name}</IndentValue>
-        <IndentLabel>
+        </Label>
+        <Value>{contactPerson.name}</Value>
+        <Label>
           {formatMessage({
             id: 'phone-number',
             defaultMessage: 'Phone number',
           })}
-        </IndentLabel>
-        <IndentValue>{contactPerson.phone}</IndentValue>
-        <IndentLabel>
+        </Label>
+        <Value>{contactPerson.phone}</Value>
+        <Label>
           {formatMessage({
             id: 'email-address',
             defaultMessage: 'Email address',
           })}
-        </IndentLabel>
-        <IndentValue>{contactPerson.email}</IndentValue>
-      </IndentationList>
+        </Label>
+        <Value>{contactPerson.email}</Value>
+      </IndentList>
     </List>
   );
 };

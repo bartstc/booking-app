@@ -13,20 +13,19 @@ const GridRow = ({ children, onClick, ...props }: IProps) => {
   const borderColor = useColorModeValue(colors.gray[300], colors.gray[700]);
 
   return (
-    <Item display='contents' cursor='pointer' fontSize='sm' onClick={onClick} cellhover={cellHover} borderColor={borderColor} {...props}>
+    <Item display='contents' cursor='pointer' fontSize='sm' onClick={onClick} cellhover={cellHover} bordercolor={borderColor} {...props}>
       {children}
     </Item>
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Item = styled(chakra.div)<{
-  cellHover: string;
-  borderColor: string;
+  cellhover: string;
+  bordercolor: string;
 }>`
   .cell:first-of-type {
     padding-left: 0.65rem; // 0.75rem - first header cell
-    // border-left: ${props => (props.isExpanded ? `3px solid ${props.borderColor}` : '3px solid transparent')};
+    // border-left: ${props => (props.isExpanded ? `3px solid ${props.bordercolor}` : '3px solid transparent')};
   }
 
   .cell:last-of-type {
@@ -37,13 +36,13 @@ const Item = styled(chakra.div)<{
     min-height: 57px;
     align-items: center;
     padding-left: 0.5rem;
-    border-bottom: ${props => `1px solid ${props.borderColor}`};
+    border-bottom: ${props => `1px solid ${props.bordercolor}`};
   }
 
   :hover > .cell {
     transition: all 100ms ease-in-out;
     cursor: pointer;
-    background-color: ${props => props.cellHover};
+    background-color: ${props => props.cellhover};
   }
 `;
 

@@ -1,23 +1,7 @@
 import React from 'react';
 import { faker } from '@faker-js/faker';
 
-import {
-  Value,
-  MultipleValue,
-  ValueText,
-  Label,
-  List,
-  ListItem,
-  Divider,
-  Spacer,
-  Header,
-  Heading,
-  SubHeading,
-  IndentationLabel,
-  IndentationList,
-  IndentValue,
-  IndentLabel,
-} from './index';
+import { Value, MultipleValue, ValueText, Label, List, ListItem, Divider, Spacer, Header, Heading, SubHeading } from './index';
 
 export default {
   title: 'components/DescriptionList',
@@ -101,68 +85,5 @@ export const WithStacks = () => (
       <ValueText>Barber shop 2</ValueText>
       <ValueText>Barber shop 3</ValueText>
     </MultipleValue>
-  </List>
-);
-
-export const WithIndentation = () => (
-  <List>
-    <ListItem>
-      <Header>
-        <Heading>Header of facility data</Heading>
-        <SubHeading>{faker.random.words(6)}</SubHeading>
-      </Header>
-    </ListItem>
-    <Divider />
-    <Label>Facility name</Label>
-    <Value>HardCut</Value>
-    <Divider />
-    <Label>Facility slug</Label>
-    <Value>hard-cut</Value>
-    <Spacer />
-    <ListItem>
-      <Header>
-        <Heading>Header of facility data 2</Heading>
-        <SubHeading>{faker.random.words(6)}</SubHeading>
-      </Header>
-    </ListItem>
-    <Divider />
-    <Label>Facility name</Label>
-    <Value>HardCut</Value>
-    <Divider />
-    <Label>Facility slug</Label>
-    <Value>hard-cut</Value>
-    <Divider />
-    <Label>Facility description</Label>
-    <Value>{faker.random.words(40)}</Value>
-    <Divider />
-    <IndentationLabel>
-      <Header>
-        <Heading>Header of subsection</Heading>
-        <SubHeading>{faker.random.words(6)}</SubHeading>
-      </Header>
-    </IndentationLabel>
-    <IndentationList>
-      <IndentLabel>Facility currency</IndentLabel>
-      <IndentValue>EUR</IndentValue>
-      <IndentLabel>Facility currency</IndentLabel>
-      <IndentValue>EUR</IndentValue>
-      <IndentLabel>Facility business category</IndentLabel>
-      <IndentValue>Barber shop</IndentValue>
-    </IndentationList>
-    <Divider />
-    <IndentationLabel>
-      <Header>
-        <Heading>Header of subsection 2</Heading>
-        <SubHeading>{faker.random.words(6)}</SubHeading>
-      </Header>
-    </IndentationLabel>
-    <IndentationList>
-      <IndentLabel>Facility currency</IndentLabel>
-      <IndentValue>EUR</IndentValue>
-      <IndentLabel>Facility currency</IndentLabel>
-      <IndentValue>EUR</IndentValue>
-      <IndentLabel>Facility business category</IndentLabel>
-      <IndentValue>Barber shop</IndentValue>
-    </IndentationList>
   </List>
 );

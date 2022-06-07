@@ -29,10 +29,6 @@ const Table = () => {
         keepPreviousData: true,
       }}
       fallback={<Skeleton />}
-      errorFallback={({ error }) => {
-        console.log(error);
-        return <h1>ERROR</h1>;
-      }}
     >
       {({ data: { collection, meta } }) => (
         <CollectionStoreProvider value={store}>

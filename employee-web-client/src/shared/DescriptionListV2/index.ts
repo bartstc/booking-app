@@ -9,4 +9,3 @@ export { Header } from './Header';
 export { Heading } from './Heading';
 export { SubHeading } from './SubHeading';
 export { ValueText } from './ValueText';
-export { IndentationList, IndentationLabel, IndentValue, IndentLabel } from './IndentationList';

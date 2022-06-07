@@ -1,17 +1,9 @@
 import React, { Fragment } from 'react';
 import { useIntl } from 'react-intl';
 
-import {
-  List,
-  Divider,
-  IndentationLabel,
-  IndentationList,
-  IndentLabel,
-  IndentValue,
-  Header,
-  Heading,
-  SubHeading,
-} from 'shared/DescriptionListV2';
+import { Divider, Header, Heading, SubHeading } from 'shared/DescriptionListV2';
+import { Value, Label, List, IndentLabel, IndentList } from 'shared/IndentiationList';
+
 import { contactTypeMessages } from 'utils/messages';
 
 import { BusinessCategoryDegreeType, IFacility } from '../../application/types';
@@ -32,7 +24,7 @@ const FacilityBody = ({ facility }: IProps) => {
 
   return (
     <List spacingY={4}>
-      <IndentationLabel>
+      <IndentLabel>
         <Header>
           <Heading>
             {formatMessage({
@@ -47,53 +39,53 @@ const FacilityBody = ({ facility }: IProps) => {
             })}
           </SubHeading>
         </Header>
-      </IndentationLabel>
-      <IndentationList>
-        <IndentLabel>
+      </IndentLabel>
+      <IndentList>
+        <Label>
           {formatMessage({
             id: 'facility-name',
             defaultMessage: 'Facility name',
           })}
-        </IndentLabel>
-        <IndentValue>{facility.name}</IndentValue>
-        <IndentLabel>
+        </Label>
+        <Value>{facility.name}</Value>
+        <Label>
           {formatMessage({
             id: 'facility-slug',
             defaultMessage: 'Facility slug',
           })}
-        </IndentLabel>
-        <IndentValue>{facility.slug}</IndentValue>
-        <IndentLabel>
+        </Label>
+        <Value>{facility.slug}</Value>
+        <Label>
           {formatMessage({
             id: 'description',
             defaultMessage: 'Description',
           })}
-        </IndentLabel>
-        <IndentValue>{facility.description}</IndentValue>
-        <IndentLabel>
+        </Label>
+        <Value>{facility.description}</Value>
+        <Label>
           {formatMessage({
             id: 'applicable-currency',
             defaultMessage: 'Applicable Currency',
           })}
-        </IndentLabel>
-        <IndentValue textTransform='uppercase'>{facility.currency}</IndentValue>
-        <IndentLabel>
+        </Label>
+        <Value textTransform='uppercase'>{facility.currency}</Value>
+        <Label>
           {formatMessage({
             id: 'main-business-category',
             defaultMessage: 'Main business category',
           })}
-        </IndentLabel>
-        <IndentValue>{mainBusinessCategory}</IndentValue>
-        <IndentLabel>
+        </Label>
+        <Value>{mainBusinessCategory}</Value>
+        <Label>
           {formatMessage({
             id: 'subordinate-business-categories',
             defaultMessage: 'Subordinate business categories',
           })}
-        </IndentLabel>
-        <IndentValue>{subordinateBusinessCategories.join(', ')}</IndentValue>
-      </IndentationList>
+        </Label>
+        <Value>{subordinateBusinessCategories.join(', ')}</Value>
+      </IndentList>
       <Divider />
-      <IndentationLabel>
+      <IndentLabel>
         <Header>
           <Heading>
             {formatMessage({
@@ -108,19 +100,19 @@ const FacilityBody = ({ facility }: IProps) => {
             })}
           </SubHeading>
         </Header>
-      </IndentationLabel>
-      <IndentationList>
+      </IndentLabel>
+      <IndentList>
         {facility.workingDays.length > 0
           ? facility.workingDays.map(day => (
               <>
-                <IndentLabel>{formatMessage(weekDayMessages[day.dayName])}</IndentLabel>
-                <IndentValue>{day.hours.map(hours => `${hours.until} - ${hours.to}`).join(', ')}</IndentValue>
+                <Label>{formatMessage(weekDayMessages[day.dayName])}</Label>
+                <Value>{day.hours.map(hours => `${hours.until} - ${hours.to}`).join(', ')}</Value>
               </>
             ))
           : '---'}
-      </IndentationList>
+      </IndentList>
       <Divider />
-      <IndentationLabel>
+      <IndentLabel>
         <Header>
           <Heading>
             {formatMessage({
@@ -135,26 +127,26 @@ const FacilityBody = ({ facility }: IProps) => {
             })}
           </SubHeading>
         </Header>
-      </IndentationLabel>
-      <IndentationList>
+      </IndentLabel>
+      <IndentList>
         {facility.contacts.map(contact => (
           <Fragment key={contact.type}>
-            <IndentLabel>{formatMessage(contactTypeMessages[contact.type])}</IndentLabel>
-            <IndentValue>{contact.value}</IndentValue>
+            <Label>{formatMessage(contactTypeMessages[contact.type])}</Label>
+            <Value>{contact.value}</Value>
           </Fragment>
         ))}
-        <IndentLabel>
+        <Label>
           {formatMessage({
             id: 'address',
             defaultMessage: 'Address',
           })}
-        </IndentLabel>
-        <IndentValue>{address}</IndentValue>
-      </IndentationList>
+        </Label>
+        <Value>{address}</Value>
+      </IndentList>
       {facility.contactPerson && (
         <>
           <Divider />
-          <IndentationLabel>
+          <IndentLabel>
             <Header>
               <Heading>
                 {formatMessage({
@@ -169,30 +161,30 @@ const FacilityBody = ({ facility }: IProps) => {
                 })}
               </SubHeading>
             </Header>
-          </IndentationLabel>
-          <IndentationList>
-            <IndentLabel>
+          </IndentLabel>
+          <IndentList>
+            <Label>
               {formatMessage({
                 id: 'name',
                 defaultMessage: 'Name',
               })}
-            </IndentLabel>
-            <IndentValue>{facility.contactPerson.name}</IndentValue>
-            <IndentLabel>
+            </Label>
+            <Value>{facility.contactPerson.name}</Value>
+            <Label>
               {formatMessage({
                 id: 'phone-number',
                 defaultMessage: 'Phone number',
               })}
-            </IndentLabel>
-            <IndentValue>{facility.contactPerson.phone}</IndentValue>
-            <IndentLabel>
+            </Label>
+            <Value>{facility.contactPerson.phone}</Value>
+            <Label>
               {formatMessage({
                 id: 'email-address',
                 defaultMessage: 'Email',
               })}
-            </IndentLabel>
-            <IndentValue>{facility.contactPerson.email}</IndentValue>
-          </IndentationList>
+            </Label>
+            <Value>{facility.contactPerson.email}</Value>
+          </IndentList>
         </>
       )}
     </List>
