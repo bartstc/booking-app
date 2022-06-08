@@ -7,7 +7,6 @@ import { ActivateOfferErrors } from './ActivateOffer.errors';
 import { ActivateOfferCommand } from './ActivateOffer.command';
 import { FacilityRepository, Offer, OfferRepository } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { OfferIsAlreadyActiveGuard } from '../../guards';
 import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 import { IAmqpService } from '../../../../../amqp';
 import { FacilitiesEvent, OfferActivatedEvent } from '../../../domain/events';
@@ -15,14 +14,14 @@ import { FacilitiesEvent, OfferActivatedEvent } from '../../../domain/events';
 export type ActivateOfferResponse = Either<
   | AppError.UnexpectedError
   | ActivateOfferErrors.FacilityNotFoundError
-  | ActivateOfferErrors.OfferNotFoundError
-  | OfferIsAlreadyActiveGuard,
+  | ActivateOfferErrors.OfferNotFoundError,
   Result<void>
 >;
 
 @CommandHandler(ActivateOfferCommand)
 export class ActivateOfferHandler
-  implements ICommandHandler<ActivateOfferCommand, ActivateOfferResponse> {
+  implements ICommandHandler<ActivateOfferCommand, ActivateOfferResponse>
+{
   constructor(
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
@@ -51,7 +50,7 @@ export class ActivateOfferHandler
       }
 
       if (offer.isActive) {
-        return left(new OfferIsAlreadyActiveGuard());
+        return right(Result.ok());
       }
 
       offer.activate();

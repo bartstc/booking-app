@@ -1,12 +1,7 @@
 import { CommandBus } from '@nestjs/cqrs';
-import { Controller, Inject, Logger, Param, Patch, Res } from '@nestjs/common';
+import { Controller, Inject, Param, Patch, Res } from '@nestjs/common';
 import { Response } from 'express';
-import {
-  ApiMethodNotAllowedResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { BaseController } from 'shared/core';
 
@@ -15,7 +10,6 @@ import {
   ActivateOfferErrors,
   ActivateOfferResponse,
 } from 'modules/facilities/application/command/activateOffer';
-import { OfferIsAlreadyActiveGuard } from '../../../application/guards';
 import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 import { ILoggerService } from '../../../../../logger';
 
@@ -34,7 +28,6 @@ export class ActivateOfferController extends BaseController {
   @ApiOkResponse()
   @ApiNotFoundResponse({ description: 'Facility not found' })
   @ApiNotFoundResponse({ description: 'Offer not found' })
-  @ApiMethodNotAllowedResponse({ description: 'Offer is already active' })
   async activateOffer(
     @Param('facilityId') facilityId: string,
     @Param('offerId') offerId: string,
@@ -53,8 +46,6 @@ export class ActivateOfferController extends BaseController {
           case ActivateOfferErrors.OfferNotFoundError:
           case ActivateOfferErrors.FacilityNotFoundError:
             return this.notFound(res, error.errorValue());
-          case OfferIsAlreadyActiveGuard:
-            return this.methodNotAllowed(res, error.errorValue());
           default:
             return this.fail(res, error.errorValue());
         }

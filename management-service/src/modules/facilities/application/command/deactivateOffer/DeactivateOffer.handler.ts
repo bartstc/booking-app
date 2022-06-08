@@ -7,7 +7,6 @@ import { DeactivateOfferErrors } from './DeactivateOffer.errors';
 import { DeactivateOfferCommand } from './DeactivateOffer.command';
 import { FacilityRepository, Offer, OfferRepository } from '../../../domain';
 import { FacilityKeys } from '../../../FacilityKeys';
-import { OfferIsAlreadyInactiveGuard } from '../../guards';
 import { InfrastructureKeys } from '../../../../../InfrastructureKeys';
 import { IAmqpService } from '../../../../../amqp';
 import { FacilitiesEvent, OfferDeactivatedEvent } from '../../../domain/events';
@@ -15,14 +14,14 @@ import { FacilitiesEvent, OfferDeactivatedEvent } from '../../../domain/events';
 export type DeactivateOfferResponse = Either<
   | AppError.UnexpectedError
   | DeactivateOfferErrors.FacilityNotFoundError
-  | DeactivateOfferErrors.OfferNotFoundError
-  | OfferIsAlreadyInactiveGuard,
+  | DeactivateOfferErrors.OfferNotFoundError,
   Result<void>
 >;
 
 @CommandHandler(DeactivateOfferCommand)
 export class DeactivateOfferHandler
-  implements ICommandHandler<DeactivateOfferCommand, DeactivateOfferResponse> {
+  implements ICommandHandler<DeactivateOfferCommand, DeactivateOfferResponse>
+{
   constructor(
     @Inject(FacilityKeys.FacilityRepository)
     private facilityRepository: FacilityRepository,
@@ -51,7 +50,7 @@ export class DeactivateOfferHandler
       }
 
       if (!offer.isActive) {
-        return left(new OfferIsAlreadyInactiveGuard());
+        return right(Result.ok());
       }
 
       offer.deactivate();
