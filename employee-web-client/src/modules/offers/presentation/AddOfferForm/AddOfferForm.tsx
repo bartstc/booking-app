@@ -44,10 +44,12 @@ const AddOfferForm = ({ onSubmit }: IProps) => {
         offerName: '',
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         duration: null as any,
-        price: {},
+        price: {
+          type: PriceModel.Constant,
+        },
       }}
     >
-      <SimpleGrid columns={6} spacingX={4}>
+      <SimpleGrid columns={6} spacingX={4} data-testid='debug-footer'>
         <InputField name='offerName' label={<FormattedMessage id='offer-name' defaultMessage='Offer name' />} id='offer-name' colSpan={6} />
         <InputField
           type='number'
@@ -62,7 +64,7 @@ const AddOfferForm = ({ onSubmit }: IProps) => {
           id='price-value'
           colSpan={{ base: 6, md: 5 }}
         >
-          <CurrencySelectField name='price.currency' moneyName='price.value' />
+          <CurrencySelectField name='price-currency' moneyName='price.value' />
         </MoneyField>
         <SelectField
           options={options}

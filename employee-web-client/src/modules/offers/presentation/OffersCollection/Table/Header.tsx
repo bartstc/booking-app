@@ -15,7 +15,7 @@ const Header = ({ collectionIds }: IProps) => {
   return (
     <GridHeader>
       <HeaderCell name='checkbox' withTooltip={false}>
-        <CheckboxParent items={collectionIds} />
+        <CheckboxParent label='offers' items={collectionIds} />
       </HeaderCell>
       <HeaderCell name='name'>{labels['name']}</HeaderCell>
       <HeaderCell name='status'>{labels['status']}</HeaderCell>

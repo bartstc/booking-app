@@ -3,7 +3,11 @@ import { Checkbox, CheckboxProps, chakra, useColorModeValue, useTheme } from '@c
 
 import { useCollectionStoreContextSelector } from './CollectionProvider';
 
-const CheckboxChild = (props: CheckboxProps) => {
+interface IProps extends CheckboxProps {
+  label: string;
+}
+
+const CheckboxChild = ({ label, ...props }: IProps) => {
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[300], colors.gray[800]);
 
@@ -16,6 +20,7 @@ const CheckboxChild = (props: CheckboxProps) => {
       <Checkbox
         colorScheme='primary'
         outline={`1px solid ${borderColor}`}
+        aria-label={`${label}-table-checkbox-child`}
         {...props}
         isChecked={includes(props.value as string)}
         onChange={e => {

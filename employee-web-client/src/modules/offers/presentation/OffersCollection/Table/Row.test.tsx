@@ -35,7 +35,7 @@ const renderRow = () => {
   renderWithProviders(
     <CollectionStoreProvider value={createCollectionStore<string>().getState()}>
       <GridTable count={1} id='offers' config={createTableConfigurationStore(offersTableConfig, 'offers').getState().config}>
-        <Row offer={offer} />
+        <Row offer={offer} index={0} />
       </GridTable>
     </CollectionStoreProvider>,
   );

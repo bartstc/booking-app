@@ -16,7 +16,7 @@ const CheckableCell = ({ value, ...props }: IProps) => {
 
   return (
     <TruncatedCell {...props}>
-      <CheckboxChild value={value} />
+      <CheckboxChild label='deprecated' value={value} />
     </TruncatedCell>
   );
 };

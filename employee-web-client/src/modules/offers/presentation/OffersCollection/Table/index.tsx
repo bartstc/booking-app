@@ -34,8 +34,8 @@ const Table = () => {
         <CollectionStoreProvider value={store}>
           <GridTable count={collection.length} id='offers' config={config}>
             <Header collectionIds={collection.map(offer => offer.offerId)} />
-            {collection.map(offer => (
-              <Row key={offer.offerId} offer={offer} />
+            {collection.map((offer, index) => (
+              <Row key={offer.offerId} index={index} offer={offer} />
             ))}
           </GridTable>
           <GridFooter meta={meta} collectionCount={collection.length} />

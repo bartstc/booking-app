@@ -6,13 +6,14 @@ import { useCollectionStoreContextSelector } from './CollectionProvider';
 
 interface IProps extends CheckboxProps {
   items: string[];
+  label: string;
 }
 
 const CheckboxParent = (props: IProps) => {
   const { colors } = useTheme();
   const borderColor = useColorModeValue(colors.gray[300], colors.gray[800]);
 
-  const { items: available } = props;
+  const { items: available, label } = props;
   const checked = useCollectionStoreContextSelector(store => store.items);
   const add = useCollectionStoreContextSelector(store => store.add);
   const remove = useCollectionStoreContextSelector(store => store.remove);
@@ -29,6 +30,7 @@ const CheckboxParent = (props: IProps) => {
       <Checkbox
         outline={`1px solid ${borderColor}`}
         colorScheme='primary'
+        aria-label={`${label}-table-checkbox-parent`}
         {...props}
         isChecked={allChecked}
         isIndeterminate={isIndeterminate}

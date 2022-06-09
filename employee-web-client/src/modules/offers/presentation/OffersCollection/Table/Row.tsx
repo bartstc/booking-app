@@ -11,12 +11,13 @@ import { IOffer } from '../../../application/types';
 
 interface IProps {
   offer: IOffer;
+  index: number;
 }
 
-const Row = ({ offer }: IProps) => {
+const Row = ({ offer, index }: IProps) => {
   return (
     <GridRow>
-      <CheckableRowCell name='checkbox' value={offer.offerId} />
+      <CheckableRowCell name='checkbox' value={offer.offerId} label={`offer-${index + 1}`} />
       <RowCell name='name' isBold>
         {offer.name}
       </RowCell>

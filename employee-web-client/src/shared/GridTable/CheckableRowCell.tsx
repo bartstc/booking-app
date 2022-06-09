@@ -7,9 +7,10 @@ import { RowCell } from './RowCell';
 interface IProps extends FlexProps {
   value: string;
   name: string;
+  label: string;
 }
 
-const CheckableRowCell = ({ value, ...props }: IProps) => {
+const CheckableRowCell = ({ value, label, ...props }: IProps) => {
   // const { colors } = useTheme();
 
   // const includes = useCollectionStoreContextSelector(store => store?.includes);
@@ -17,7 +18,7 @@ const CheckableRowCell = ({ value, ...props }: IProps) => {
 
   return (
     <RowCell {...props}>
-      <CheckboxChild value={value} />
+      <CheckboxChild label={label} value={value} />
     </RowCell>
   );
 };
