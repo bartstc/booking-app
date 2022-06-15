@@ -7,17 +7,13 @@ import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 import { PageDescription, PageHeader, PageHeading, PageSubheading } from 'shared/Layout';
 
-import { CreateScheduleModal } from 'modules/schedules/presentation';
+import { CreateScheduleModal, useCreateScheduleModalStore } from 'modules/schedules/presentation';
 import { useFacilityContextSelector } from 'modules/context';
 
-interface IProps {
-  onOpen: () => void;
-  onClose: () => void;
-  isOpen: boolean;
-}
-
-const Header = ({ onOpen, isOpen, onClose }: IProps) => {
+const Header = () => {
   const { formatMessage } = useIntl();
+
+  const onOpen = useCreateScheduleModalStore(store => store.onOpen);
   const facilityId = useFacilityContextSelector(state => state.facilityId);
 
   const title = formatMessage({
@@ -35,7 +31,7 @@ const Header = ({ onOpen, isOpen, onClose }: IProps) => {
           <FormattedMessage id='schedules-subheading' defaultMessage='Manage your schedules' />
         </PageSubheading>
       </PageDescription>
-      <CreateScheduleModal isOpen={isOpen} onClose={onClose} creatorId={facilityId} facilityId={facilityId} />
+      <CreateScheduleModal creatorId={facilityId} facilityId={facilityId} />
       {isMobileOnly ? (
         <IconButton
           onClick={onOpen}

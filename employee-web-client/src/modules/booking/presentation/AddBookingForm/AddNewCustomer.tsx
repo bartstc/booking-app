@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDisclosure } from '@chakra-ui/react';
 import { mdiAccount } from '@mdi/js';
 import { useIntl } from 'react-intl';
 
@@ -7,7 +6,7 @@ import { IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 
 import { IAddCustomerDto } from '../../../customers/application/types';
-import { AddCustomerModal } from '../../../customers/presentation';
+import { AddCustomerModal, useAddCustomerModalStore } from '../../../customers/presentation';
 
 interface IProps {
   isDisabled: boolean;
@@ -16,7 +15,7 @@ interface IProps {
 
 const AddNewCustomer = ({ isDisabled, onSuccess }: IProps) => {
   const { formatMessage } = useIntl();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const onOpen = useAddCustomerModalStore(store => store.onOpen);
 
   return (
     <>
@@ -32,7 +31,7 @@ const AddNewCustomer = ({ isDisabled, onSuccess }: IProps) => {
         mt='30.5px !important'
         isDisabled={isDisabled}
       />
-      <AddCustomerModal isOpen={isOpen} onClose={onClose} onSuccess={onSuccess} />
+      <AddCustomerModal onSuccess={onSuccess} />
     </>
   );
 };

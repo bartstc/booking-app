@@ -4,6 +4,7 @@ import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalFooter, Modal
 
 import { Button } from 'shared/Button';
 import { SubmitButton } from 'shared/Form';
+import { createModalStore } from 'shared/Modal';
 
 import { useFacilityContextSelector } from 'modules/context';
 import { useAddCustomer } from 'modules/customers/infrastructure/command';
@@ -13,12 +14,14 @@ import { useAddCustomerNotification } from '../AddCustomerForm/useAddCustomerNot
 import { IAddCustomerDto } from '../../application/types';
 
 interface IProps {
-  isOpen: boolean;
-  onClose: () => void;
   onSuccess?: (customerId: string, model: IAddCustomerDto) => void;
 }
 
-const AddCustomerModal = ({ isOpen, onClose, onSuccess }: IProps) => {
+export const useAddCustomerModalStore = createModalStore();
+
+const AddCustomerModal = ({ onSuccess }: IProps) => {
+  const [isOpen, onClose] = useAddCustomerModalStore(store => [store.isOpen, store.onClose]);
+
   const { facilityId } = useFacilityContextSelector();
 
   const [handler, isLoading] = useAddCustomer(facilityId);

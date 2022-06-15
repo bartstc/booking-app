@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
+import { createModalStore } from 'shared/Modal';
 
 import { ICreateScheduleDto } from 'modules/schedules/application/types';
 
@@ -11,14 +12,16 @@ import { useCreateSchedule } from '../../infrastructure/command';
 import { useCreateScheduleNotification, CreateScheduleForm } from '../CreateScheduleForm';
 
 interface IProps {
-  isOpen: boolean;
-  onClose: () => void;
   creatorId: string;
   facilityId: string;
   defaultData?: ICreateScheduleDto;
 }
 
-const CreateScheduleModal = ({ onClose, isOpen, creatorId, facilityId, defaultData }: IProps) => {
+export const useCreateScheduleModalStore = createModalStore();
+
+const CreateScheduleModal = ({ creatorId, facilityId, defaultData }: IProps) => {
+  const [isOpen, onClose] = useCreateScheduleModalStore(store => [store.isOpen, store.onClose]);
+
   const [create, isLoading] = useCreateSchedule(facilityId);
   const { showSuccessNotification, showFailureNotification } = useCreateScheduleNotification();
 

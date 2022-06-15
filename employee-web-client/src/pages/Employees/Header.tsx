@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDisclosure } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { mdiAccount } from '@mdi/js';
 import { isMobileOnly } from 'react-device-detect';
@@ -8,11 +7,11 @@ import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 import { PageDescription, PageHeader, PageHeading, PageSubheading } from 'shared/Layout';
 
-import { AddEmployeeModal } from 'modules/employees/presentation';
+import { AddEmployeeModal, useAddEmployeeModalStore } from 'modules/employees/presentation';
 
 const Header = () => {
   const { formatMessage } = useIntl();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const onOpen = useAddEmployeeModalStore(store => store.onOpen);
 
   const title = formatMessage({
     id: 'add-employee',
@@ -29,7 +28,7 @@ const Header = () => {
           <FormattedMessage id='employees-subheading' defaultMessage='Manage your employee list' />
         </PageSubheading>
       </PageDescription>
-      <AddEmployeeModal isOpen={isOpen} onClose={onClose} />
+      <AddEmployeeModal />
       {isMobileOnly ? (
         <IconButton
           colorScheme='primary'

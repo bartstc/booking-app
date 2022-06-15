@@ -4,18 +4,18 @@ import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalFooter, Modal
 
 import { Button } from 'shared/Button';
 import { SubmitButton } from 'shared/Form';
+import { createModalStore } from 'shared/Modal';
 
 import { useEnterpriseContextSelector } from 'modules/context';
 
 import { EmailAlreadyExistsError, useAddEmployee } from '../../infrastructure/command';
 import { AddEmployeeForm, useAddEmployeeNotification } from '../AddEmployeeForm';
 
-interface IProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+export const useAddEmployeeModalStore = createModalStore();
 
-const AddEmployeeModal = ({ isOpen, onClose }: IProps) => {
+const AddEmployeeModal = () => {
+  const [isOpen, onClose] = useAddEmployeeModalStore(store => [store.isOpen, store.onClose]);
+
   const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
 
   const [handler, isLoading] = useAddEmployee(enterpriseId);

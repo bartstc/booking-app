@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDisclosure } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { mdiAccount } from '@mdi/js';
 import { isMobileOnly } from 'react-device-detect';
@@ -8,11 +7,11 @@ import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 import { PageDescription, PageHeader, PageHeading, PageSubheading } from 'shared/Layout';
 
-import { AddCustomerModal } from 'modules/customers/presentation';
+import { AddCustomerModal, useAddCustomerModalStore } from 'modules/customers/presentation';
 
 const Header = () => {
   const { formatMessage } = useIntl();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const onOpen = useAddCustomerModalStore(store => store.onOpen);
 
   const title = formatMessage({
     id: 'add-customer',
@@ -29,7 +28,7 @@ const Header = () => {
           <FormattedMessage id='customers-subheading' defaultMessage='Manage your customer list' />
         </PageSubheading>
       </PageDescription>
-      <AddCustomerModal isOpen={isOpen} onClose={onClose} />
+      <AddCustomerModal />
       {isMobileOnly ? (
         <IconButton
           colorScheme='primary'

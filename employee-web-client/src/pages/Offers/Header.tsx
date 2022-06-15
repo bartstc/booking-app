@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDisclosure } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { mdiBook } from '@mdi/js';
 import { isMobileOnly } from 'react-device-detect';
@@ -8,11 +7,11 @@ import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 import { PageDescription, PageHeader, PageHeading, PageSubheading } from 'shared/Layout';
 
-import { AddOfferModal } from 'modules/offers/presentation';
+import { AddOfferModal, useAddOfferModalStore } from 'modules/offers/presentation';
 
 const Header = () => {
   const { formatMessage } = useIntl();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const onOpen = useAddOfferModalStore(store => store.onOpen);
 
   const title = formatMessage({
     id: 'add-offer',
@@ -29,7 +28,7 @@ const Header = () => {
           <FormattedMessage id='offers-subheading' defaultMessage='Manage your offer list' />
         </PageSubheading>
       </PageDescription>
-      <AddOfferModal isOpen={isOpen} onClose={onClose} />
+      <AddOfferModal />
       {isMobileOnly ? (
         <IconButton colorScheme='primary' variant='solid' title={title} icon={<Icon path={mdiBook} color='gray.800' />} onClick={onOpen} />
       ) : (

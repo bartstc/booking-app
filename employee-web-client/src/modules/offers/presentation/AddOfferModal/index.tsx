@@ -4,18 +4,18 @@ import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalFooter, Modal
 
 import { Button } from 'shared/Button';
 import { SubmitButton } from 'shared/Form';
+import { createModalStore } from 'shared/Modal';
 
 import { useFacilityContextSelector } from 'modules/context';
 
 import { AddOfferForm, useAddOfferNotification } from '../AddOfferForm';
 import { useAddOffer } from '../../infrastructure/command';
 
-interface IProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+export const useAddOfferModalStore = createModalStore();
 
-const AddOfferModal = ({ isOpen, onClose }: IProps) => {
+const AddOfferModal = () => {
+  const [isOpen, onClose] = useAddOfferModalStore(store => [store.isOpen, store.onClose]);
+
   const { facilityId } = useFacilityContextSelector();
 
   const [handler, isLoading] = useAddOffer(facilityId);
