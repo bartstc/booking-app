@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Dayjs } from 'dayjs';
 import { GridItem, HStack } from '@chakra-ui/react';
 import { mdiArrowLeft } from '@mdi/js';
@@ -22,13 +22,13 @@ interface IProps {
 
 const ScheduleDatePicker = ({ setWeek, trackedDay, endDate, startDate }: IProps) => {
   const { formatMessage } = useIntl();
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   return (
     <GridItem display={{ base: 'none', lg: 'block' }} colSpan={1} mt={2}>
       <HStack spacing={4} maxW='300px'>
         <IconButton
-          onClick={() => push(buildUrl(`/schedules`, DEFAULT_PARAMS))}
+          onClick={() => navigate(buildUrl(`/schedules`, DEFAULT_PARAMS))}
           variant='ghost'
           title={formatMessage({ id: 'bask-to-list', defaultMessage: 'Back to list' })}
           icon={<Icon path={mdiArrowLeft} />}

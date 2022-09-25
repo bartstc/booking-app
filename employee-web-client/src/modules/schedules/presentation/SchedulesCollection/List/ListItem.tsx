@@ -1,7 +1,7 @@
 import React from 'react';
 import { VStack, HStack, Heading, Avatar, useColorModeValue, Tag, TagLabel } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { FormattedDate } from 'shared/Date';
 
@@ -13,11 +13,11 @@ interface IProps {
 
 const ListItem = ({ schedule: { name, endDate, startDate, scheduleId } }: IProps) => {
   const background = useColorModeValue('gray.50', 'gray.700');
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   return (
     <HStack
-      onClick={() => push(`/schedules/${scheduleId}`)}
+      onClick={() => navigate(`/schedules/${scheduleId}`)}
       spacing={3}
       justify='space-between'
       align='start'

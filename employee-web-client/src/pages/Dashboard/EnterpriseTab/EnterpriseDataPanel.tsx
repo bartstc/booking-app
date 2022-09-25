@@ -1,7 +1,7 @@
 import React from 'react';
 import { HStack } from '@chakra-ui/react';
 import { useIntl } from 'react-intl';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { isMobileOnly } from 'react-device-detect';
 import { mdiContentSaveEdit } from '@mdi/js';
 
@@ -10,7 +10,7 @@ import { Icon } from 'shared/Icon';
 
 const EnterpriseDataPanel = () => {
   const { formatMessage } = useIntl();
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   const title = formatMessage({
     id: 'edit-enterprise-data',
@@ -21,14 +21,14 @@ const EnterpriseDataPanel = () => {
     <HStack w='100%' justify='flex-end'>
       {isMobileOnly ? (
         <IconButton
-          onClick={() => push('/dashboard/enterprise/edit')}
+          onClick={() => navigate('/dashboard/enterprise/edit')}
           colorScheme='gray'
           variant='solid'
           title={title}
           icon={<Icon path={mdiContentSaveEdit} />}
         />
       ) : (
-        <Button onClick={() => push('/dashboard/enterprise/edit')} colorScheme='gray' leftIcon={<Icon path={mdiContentSaveEdit} />}>
+        <Button onClick={() => navigate('/dashboard/enterprise/edit')} colorScheme='gray' leftIcon={<Icon path={mdiContentSaveEdit} />}>
           {title}
         </Button>
       )}

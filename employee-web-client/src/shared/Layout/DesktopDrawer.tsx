@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { HStack, Text, useColorModeValue, VStack, useTheme } from '@chakra-ui/react';
 import { mdiClose, mdiMenu } from '@mdi/js';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { NavButton, useGetLinks, NavIconButton } from './Navigation';
 import { UserMenu } from './UserMenu';
@@ -16,7 +16,7 @@ interface IProps {
 const DesktopDrawer = ({ toggle, extended }: IProps) => {
   const { formatMessage } = useIntl();
   const { colors } = useTheme();
-  const { push } = useHistory();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const links = useGetLinks();
   const background = useColorModeValue('white', '#141821');
@@ -45,13 +45,13 @@ const DesktopDrawer = ({ toggle, extended }: IProps) => {
           {links.map(({ label, to, path, signature }) => (
             <HStack w='100%' key={to} as='li'>
               {extended ? (
-                <NavButton onClick={() => push(`/${to}`)} path={path} isActive={pathname.includes(signature)}>
+                <NavButton onClick={() => navigate(`/${to}`)} path={path} isActive={pathname.includes(signature)}>
                   <Text pl={2} fontWeight='400' lineHeight='100%'>
                     {label}
                   </Text>
                 </NavButton>
               ) : (
-                <NavIconButton onClick={() => push(`/${to}`)} title={label} path={path} isActive={pathname.includes(signature)} />
+                <NavIconButton onClick={() => navigate(`/${to}`)} title={label} path={path} isActive={pathname.includes(signature)} />
               )}
             </HStack>
           ))}

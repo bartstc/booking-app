@@ -36,7 +36,7 @@
     "react-linkify": "^1.0.0-alpha",
     "react-number-format": "^4.4.1",
     "react-query": "^3.5.5",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.0",
     "react-select": "^3.1.1",
     "react-text-mask": "^5.4.3",
@@ -101,7 +101,7 @@
     "@types/react-big-calendar": "^0.30.0",
     "@types/react-datepicker": "^3.1.2",
     "@types/react-linkify": "^1.0.0",
-    "@types/react-router-dom": "^5.1.7",
+    "@types/react-router-dom": "^5.3.3",
     "@types/react-select": "^3.1.2",
     "@types/react-text-mask": "^5.4.6",
     "@types/yup": "^0.29.11",
@@ -120,6 +120,7 @@
     "prettier-eslint": "^12.0.0",
     "pretty-quick": "^3.1.0",
     "prop-types": "^15.8.1",
+    "storybook-addon-react-router-v6": "^0.2.1",
     "webpack": "^5.72.1"
   },
   "msw": {

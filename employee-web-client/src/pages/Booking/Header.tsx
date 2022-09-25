@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { isMobileOnly } from 'react-device-detect';
 import { mdiCalendar } from '@mdi/js';
 
@@ -10,7 +10,7 @@ import { PageDescription, PageHeader, PageHeading, PageSubheading } from 'shared
 
 const Header = () => {
   const { formatMessage } = useIntl();
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   const title = formatMessage({
     id: 'add-reservation',
@@ -29,14 +29,14 @@ const Header = () => {
       </PageDescription>
       {isMobileOnly ? (
         <IconButton
-          onClick={() => push('add-booking')}
+          onClick={() => navigate('/add-booking')}
           colorScheme='primary'
           variant='solid'
           title={title}
           icon={<Icon path={mdiCalendar} color='gray.800' />}
         />
       ) : (
-        <Button onClick={() => push('add-booking')} colorScheme='primary' leftIcon={<Icon path={mdiCalendar} />}>
+        <Button onClick={() => navigate('/add-booking')} colorScheme='primary' leftIcon={<Icon path={mdiCalendar} />}>
           {title}
         </Button>
       )}

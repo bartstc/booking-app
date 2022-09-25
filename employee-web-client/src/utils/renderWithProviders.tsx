@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider, setLogger } from 'react-query';
-import { useHistory, useLocation, BrowserRouter } from 'react-router-dom';
+import { useNavigate, useLocation, BrowserRouter, NavigateOptions } from 'react-router-dom';
 
 import { QueryParamsProvider } from '../shared/Params';
 import { theme } from '../theme';
@@ -32,17 +32,23 @@ type Options = {
 };
 
 const Providers = ({ children, route }: Options & { children: ReactNode }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     if (route) {
-      history.push(route);
+      navigate(route);
     }
   }, []);
 
   return (
-    <QueryParamsProvider location={location} history={history}>
+    <QueryParamsProvider
+      location={location}
+      history={{
+        push: navigate,
+        replace: (to: string, options?: NavigateOptions) => navigate(to, { replace: true, ...options }),
+      }}
+    >
       <ChakraProvider theme={theme}>
         <IntlProvider locale='en'>{children}</IntlProvider>
       </ChakraProvider>

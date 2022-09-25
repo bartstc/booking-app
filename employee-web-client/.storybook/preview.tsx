@@ -1,5 +1,5 @@
 import { IntlProvider } from 'react-intl';
-import { withReactQuery, withReactRouter, withSuspense } from '../src/utils/storybook';
+import { withReactQuery, withSuspense } from '../src/utils/storybook';
 
 const { theme } = require('../src/theme');
 
@@ -25,7 +25,6 @@ export const decorators = [
       {story()}
     </IntlProvider>
   ),
-  withReactRouter(),
   withReactQuery(),
   withSuspense(),
 ];

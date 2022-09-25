@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { GridItem, TruncatedCell } from 'shared/Grid';
 import { FormattedDate } from 'shared/Date';
@@ -11,10 +11,10 @@ interface IProps {
 }
 
 const Row = ({ schedule }: IProps) => {
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   return (
-    <GridItem onClick={() => push(`/schedules/${schedule.scheduleId}`)}>
+    <GridItem onClick={() => navigate(`/schedules/${schedule.scheduleId}`)}>
       <TruncatedCell>{schedule.name}</TruncatedCell>
       <TruncatedCell display={{ base: 'none', md: 'flex' }}>
         <FormattedDate value={schedule.startDate} format='DD MMM YYYY' />

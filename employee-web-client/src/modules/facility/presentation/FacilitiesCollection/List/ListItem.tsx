@@ -1,6 +1,6 @@
 import React from 'react';
 import { VStack, HStack, Heading, Text, Avatar, Tag, TagLabel, useColorModeValue } from '@chakra-ui/react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { ActionButtons } from '../ActionButtons';
 import { IFacility } from '../../../application/types';
@@ -10,12 +10,12 @@ interface IProps {
 }
 
 const ListItem = ({ facility: { address, name, contactPerson, slug } }: IProps) => {
-  const { push } = useHistory();
+  const navigate = useNavigate();
   const background = useColorModeValue('gray.50', 'gray.700');
 
   return (
     <HStack
-      onClick={() => push(`/dashboard/facilities/${slug}`)}
+      onClick={() => navigate(`/dashboard/facilities/${slug}`)}
       spacing={3}
       justify='space-between'
       align='start'

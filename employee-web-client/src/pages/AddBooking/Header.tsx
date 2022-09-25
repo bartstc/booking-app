@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { VStack } from '@chakra-ui/react';
 import { isMobileOnly } from 'react-device-detect';
 import { mdiCalendar } from '@mdi/js';
@@ -13,7 +13,7 @@ import { Breadcrumbs } from './Breadcrumbs';
 
 const Header = () => {
   const { formatMessage } = useIntl();
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   const title = formatMessage({
     id: 'back-to-calendar',
@@ -33,14 +33,14 @@ const Header = () => {
         </PageDescription>
         {isMobileOnly ? (
           <IconButton
-            onClick={() => push('bookings')}
+            onClick={() => navigate('/bookings')}
             colorScheme='primary'
             variant='solid'
             title={title}
             icon={<Icon path={mdiCalendar} color='gray.800' />}
           />
         ) : (
-          <Button onClick={() => push('bookings')} colorScheme='primary' leftIcon={<Icon path={mdiCalendar} />}>
+          <Button onClick={() => navigate('/bookings')} colorScheme='primary' leftIcon={<Icon path={mdiCalendar} />}>
             {title}
           </Button>
         )}

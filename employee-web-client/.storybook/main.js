@@ -6,6 +6,7 @@ module.exports = {
     '@storybook/addon-interactions',
     '@storybook/preset-create-react-app',
     '@chakra-ui/storybook-addon',
+    'storybook-addon-react-router-v6',
   ],
   features: {
     emotionAlias: false,

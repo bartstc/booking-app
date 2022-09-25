@@ -10,7 +10,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from '@chakra-ui/react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { NavButton, useGetLinks } from './Navigation';
 import { UserMenu } from './UserMenu';
@@ -22,7 +22,7 @@ interface IProps {
 }
 
 const MobileDrawer = ({ toggle, extended }: IProps) => {
-  const { push } = useHistory();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const background = useColorModeValue('white', 'gray.800');
   const links = useGetLinks();
@@ -36,7 +36,7 @@ const MobileDrawer = ({ toggle, extended }: IProps) => {
             <VStack as='ul' spacing={2} align='flex-start' width='100%'>
               {links.map(({ label, to, path, signature }) => (
                 <HStack w='100%' key={to} as='li'>
-                  <NavButton onClick={() => push(`/${to}`)} path={path} isActive={pathname.includes(signature)}>
+                  <NavButton onClick={() => navigate(`/${to}`)} path={path} isActive={pathname.includes(signature)}>
                     <Text pl={2} fontWeight='700' fontSize='md'>
                       {label}
                     </Text>
