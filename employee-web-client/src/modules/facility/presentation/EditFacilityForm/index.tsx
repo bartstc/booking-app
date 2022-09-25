@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { HStack, Divider, VStack } from '@chakra-ui/react';
 
@@ -17,8 +17,8 @@ import { CreateFacilityMapper } from '../../application';
 
 const EditFacilityForm = () => {
   const params = useParams<{ facilitySlug: string }>();
-  const { push } = useHistory();
-  const facility = useFacilityQuery(params.facilitySlug);
+  const navigate = useNavigate();
+  const facility = useFacilityQuery(params.facilitySlug!);
 
   const [handler, isLoading] = useUpdateFacility(facility.enterpriseId, facility.facilityId);
   const { showEditFailureNotification, showEditSuccessNotification } = useEditFacilityNotification();
@@ -30,7 +30,7 @@ const EditFacilityForm = () => {
         try {
           await handler(model);
           showEditSuccessNotification();
-          push(buildUrl(`dashboard/facilities`, DEFAULT_PARAMS));
+          navigate(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS));
         } catch {
           showEditFailureNotification();
         }
@@ -39,7 +39,7 @@ const EditFacilityForm = () => {
       <VStack w='100%' align='stretch' spacing={6}>
         <HStack justify='flex-end'>
           <SubmitButton isLoading={isLoading} />
-          <Button colorScheme='gray' ml={3} onClick={() => push(`dashboard/facilities/${facility.slug}`)}>
+          <Button colorScheme='gray' ml={3} onClick={() => navigate(`/dashboard/facilities/${facility.slug}`)}>
             <FormattedMessage id='cancel' defaultMessage='Cancel' />
           </Button>
         </HStack>

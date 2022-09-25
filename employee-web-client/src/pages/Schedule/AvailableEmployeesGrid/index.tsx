@@ -36,8 +36,8 @@ const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
 
   return (
     <FetchBoundary
-      queryKey={availabilitiesQueryKey(facilityId, params.scheduleId, { endTime, startTime })}
-      queryFn={() => availabilitiesQuery(facilityId, params.scheduleId, { endTime, startTime })}
+      queryKey={availabilitiesQueryKey(facilityId, params.scheduleId!, { endTime, startTime })}
+      queryFn={() => availabilitiesQuery(facilityId, params.scheduleId!, { endTime, startTime })}
     >
       {({ data: { collection: availabilities } }) => (
         <>
@@ -66,7 +66,7 @@ const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
                           dayDate={weekDate}
                           employeeId={employee.employeeId}
                           index={0}
-                          scheduleId={params.scheduleId}
+                          scheduleId={params.scheduleId!}
                         />
                       </AvailabilityCell>
                     );
@@ -78,7 +78,7 @@ const AvailableEmployeesGrid = ({ weekDates, isInRange }: IProps) => {
                         <FilledAvailabilityPopover
                           key={index}
                           index={index}
-                          scheduleId={params.scheduleId}
+                          scheduleId={params.scheduleId!}
                           employeeId={employee.employeeId}
                           dayDate={weekDate}
                           availabilities={availabilities}

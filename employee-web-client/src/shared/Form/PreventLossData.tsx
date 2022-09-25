@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useFormContext } from 'react-hook-form';
-import { useIntl } from 'react-intl';
+// import { useIntl } from 'react-intl';
 
 import { EventType, useEventListener } from 'hooks';
 
@@ -9,17 +9,17 @@ const PreventLossData = () => {
   const {
     formState: { isDirty },
   } = useFormContext();
-  const { formatMessage } = useIntl();
-  const { block } = useHistory();
+  // const { formatMessage } = useIntl();
+  // const { block } = useHistory();
 
   useEffect(() => {
-    const unblock = block(() => {
-      if (isDirty) {
-        return formatMessage({ id: 'prevent-loss-date-warning', defaultMessage: 'Form data will be lost. Are you sure?' });
-      }
-    });
+    // const unblock = block(() => {
+    //   if (isDirty) {
+    //     return formatMessage({ id: 'prevent-loss-date-warning', defaultMessage: 'Form data will be lost. Are you sure?' });
+    //   }
+    // });
 
-    return () => unblock();
+    // return () => unblock();
   }, [isDirty]);
 
   const handler = useCallback(

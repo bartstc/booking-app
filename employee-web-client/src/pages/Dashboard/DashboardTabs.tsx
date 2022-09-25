@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { TabList, TabPanel, TabPanels, Tabs as ChakraTabs, useBreakpointValue } from '@chakra-ui/react';
-import { useRouteMatch } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 import { TabLink } from 'shared/TabLink';
 import { buildUrl } from 'utils';
@@ -12,19 +12,19 @@ interface IProps {
 }
 
 const DashboardTabs = ({ children }: IProps) => {
-  const { path } = useRouteMatch();
+  const { pathname } = useLocation();
   const tabSize = useBreakpointValue({ base: 'sm', md: 'lg' });
 
   return (
     <ChakraTabs w='100%' size={tabSize}>
       <TabList>
-        <TabLink isActive={path.includes('dashboard/enterprise')} to={`/dashboard/enterprise`} fontWeight='500'>
+        <TabLink isActive={pathname.includes('dashboard/enterprise')} to={`/dashboard/enterprise`} fontWeight='500'>
           <FormattedMessage id='enterprise' defaultMessage='Enterprise' />
         </TabLink>
-        <TabLink isActive={path.includes('dashboard/facilities')} to={buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS)} fontWeight='500'>
+        <TabLink isActive={pathname.includes('dashboard/facilities')} to={buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS)} fontWeight='500'>
           <FormattedMessage id='facilities' defaultMessage='Facilities' />
         </TabLink>
-        <TabLink isActive={path.includes('dashboard/new-facility')} to={'/dashboard/new-facility'} fontWeight='500'>
+        <TabLink isActive={pathname.includes('dashboard/new-facility')} to={'/dashboard/new-facility'} fontWeight='500'>
           <FormattedMessage id='register-facility' defaultMessage='New facility' />
         </TabLink>
       </TabList>

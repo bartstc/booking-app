@@ -10,7 +10,7 @@ import { FacilityPanel } from './FacilityPanel';
 
 const FacilityTab = () => {
   const params = useParams<{ facilitySlug: string }>();
-  const facility = useFacilityQuery(params.facilitySlug);
+  const facility = useFacilityQuery(params.facilitySlug!);
 
   return (
     <DashboardTabs>

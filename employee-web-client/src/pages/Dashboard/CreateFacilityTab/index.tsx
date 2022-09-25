@@ -2,7 +2,7 @@ import React from 'react';
 import { Heading, HStack } from '@chakra-ui/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { mdiArrowLeft } from '@mdi/js';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useEmployeeContextSelector, useEnterpriseContextSelector } from 'modules/context';
 import { CreateFacilityForm } from 'modules/facility/presentation';
@@ -16,7 +16,7 @@ import { DashboardTabs } from '../DashboardTabs';
 
 const CreateFacilityTab = () => {
   const { formatMessage } = useIntl();
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
   const employeeId = useEmployeeContextSelector(state => state.employeeId);
@@ -25,7 +25,7 @@ const CreateFacilityTab = () => {
     <DashboardTabs>
       <HStack mb={{ base: 6, md: 10 }} m='0 auto' w='100%'>
         <IconButton
-          onClick={() => push(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS))}
+          onClick={() => navigate(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS))}
           variant='ghost'
           title={formatMessage({ id: 'bask-to-list', defaultMessage: 'Back to list' })}
           icon={<Icon path={mdiArrowLeft} />}

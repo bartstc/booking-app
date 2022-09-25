@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ButtonGroup, ButtonGroupProps } from '@chakra-ui/react';
 import Linkify from 'react-linkify';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { mdiClipboardArrowRightOutline } from '@mdi/js';
 
 import { Dropdown, DropdownItem } from 'shared/Dropdown';
@@ -17,7 +17,7 @@ interface IProps extends ButtonGroupProps {
 
 const ActionButtons = ({ slug, phone, email, url, ...props }: IProps) => {
   const { formatMessage } = useIntl();
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   const hideMoreButton = !email && !url && !phone;
 
@@ -26,7 +26,7 @@ const ActionButtons = ({ slug, phone, email, url, ...props }: IProps) => {
       <IconButton
         title={formatMessage({ id: 'go-to-details', defaultMessage: 'Go to details' })}
         path={mdiClipboardArrowRightOutline}
-        onClick={() => push(`/dashboard/facilities/${slug}`)}
+        onClick={() => navigate(`/dashboard/facilities/${slug}`)}
       />
       {!hideMoreButton && (
         <Dropdown>

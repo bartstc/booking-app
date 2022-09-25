@@ -1,7 +1,7 @@
 import React from 'react';
 import { HStack, VStack, Divider } from '@chakra-ui/react';
 import { FormattedMessage } from 'react-intl';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
@@ -14,7 +14,7 @@ import { useUpdateEnterprise } from 'modules/enterprise/infrastructure/command';
 import { ContactPersonInputs, EnterpriseForm, MetaInputs, useEditEnterpriseNotification } from '../EnterpriseForm';
 
 const EditEnterpriseForm = () => {
-  const { push } = useHistory();
+  const navigate = useNavigate();
   const enterpriseId = useEnterpriseContextSelector(state => state.enterpriseId);
   const enterprise = useEnterpriseQuery(enterpriseId);
 
@@ -28,7 +28,7 @@ const EditEnterpriseForm = () => {
         try {
           await handler(model);
           showUpdateSuccessNotification();
-          push('dashboard/enterprise');
+          navigate('/dashboard/enterprise');
         } catch (e) {
           showUpdateFailureNotification();
         }
@@ -37,7 +37,7 @@ const EditEnterpriseForm = () => {
       <VStack w='100%' align='stretch' spacing={6}>
         <HStack justify='flex-end'>
           <SubmitButton isLoading={isLoading} />
-          <Button colorScheme='gray' ml={3} onClick={() => push('dashboard/enterprise')}>
+          <Button colorScheme='gray' ml={3} onClick={() => navigate('/dashboard/enterprise')}>
             <FormattedMessage id='cancel' defaultMessage='Cancel' />
           </Button>
         </HStack>

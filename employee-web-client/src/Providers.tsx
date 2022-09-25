@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
 import { ChakraProvider } from '@chakra-ui/react';
-import { BrowserRouter as Router, useLocation, useHistory } from 'react-router-dom';
+import { BrowserRouter, NavigateOptions, useLocation, useNavigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { theme } from './theme';
@@ -15,11 +15,17 @@ interface IProps {
 const queryClient = new QueryClient();
 
 const ReactRouterQueryParamsProvider = ({ children }: { children: ReactNode }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   return (
-    <QueryParamsProvider location={location} history={history}>
+    <QueryParamsProvider
+      location={location}
+      history={{
+        push: navigate,
+        replace: (to: string, options?: NavigateOptions) => navigate(to, { replace: true, ...options }),
+      }}
+    >
       {children}
     </QueryParamsProvider>
   );
@@ -27,7 +33,7 @@ const ReactRouterQueryParamsProvider = ({ children }: { children: ReactNode }) =
 
 const Providers = ({ children }: IProps) => {
   return (
-    <Router>
+    <BrowserRouter>
       <ReactRouterQueryParamsProvider>
         <QueryClientProvider client={queryClient}>
           <ChakraProvider theme={theme}>
@@ -38,7 +44,7 @@ const Providers = ({ children }: IProps) => {
           </ChakraProvider>
         </QueryClientProvider>
       </ReactRouterQueryParamsProvider>
-    </Router>
+    </BrowserRouter>
   );
 };
 

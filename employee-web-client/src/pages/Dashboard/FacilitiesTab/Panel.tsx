@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Flex, HStack } from '@chakra-ui/react';
 import { isMobileOnly } from 'react-device-detect';
 import { mdiHomePlus } from '@mdi/js';
@@ -11,7 +11,7 @@ import { Icon } from 'shared/Icon';
 
 const Panel = () => {
   const { formatMessage } = useIntl();
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   const title = formatMessage({
     id: 'add-facility',
@@ -30,14 +30,14 @@ const Panel = () => {
       <HStack>
         {isMobileOnly ? (
           <IconButton
-            onClick={() => push('/dashboard/new-facility')}
+            onClick={() => navigate('/dashboard/new-facility')}
             ml={2}
             colorScheme='primary'
             title={title}
             icon={<Icon path={mdiHomePlus} color='gray.800' />}
           />
         ) : (
-          <Button onClick={() => push('/dashboard/new-facility')} colorScheme='primary' leftIcon={<Icon path={mdiHomePlus} />}>
+          <Button onClick={() => navigate('/dashboard/new-facility')} colorScheme='primary' leftIcon={<Icon path={mdiHomePlus} />}>
             {title}
           </Button>
         )}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { HStack, VStack, Divider } from '@chakra-ui/react';
 import { useQueryClient } from 'react-query';
@@ -24,7 +24,7 @@ interface IProps {
 
 const CreateFacilityForm = ({ enterpriseId, employeeId }: IProps) => {
   const queryClient = useQueryClient();
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   const [handler, isLoading] = useCreateFacility(enterpriseId, employeeId, async () => {
     await queryClient.invalidateQueries(employeeQueryKey(enterpriseId, employeeId));
@@ -37,7 +37,7 @@ const CreateFacilityForm = ({ enterpriseId, employeeId }: IProps) => {
         try {
           await handler(model);
           showCreateSuccessNotification();
-          push(buildUrl(`dashboard/facilities`, DEFAULT_PARAMS));
+          navigate(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS));
         } catch {
           showCreateFailureNotification();
         }
@@ -57,7 +57,7 @@ const CreateFacilityForm = ({ enterpriseId, employeeId }: IProps) => {
         </SectionContainer>
         <HStack justify='flex-end'>
           <SubmitButton form='create-facility' isLoading={isLoading} />
-          <Button colorScheme='gray' ml={3} onClick={() => push(buildUrl(`dashboard/facilities`, DEFAULT_PARAMS))}>
+          <Button colorScheme='gray' ml={3} onClick={() => navigate(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS))}>
             <FormattedMessage id='cancel' defaultMessage='Cancel' />
           </Button>
         </HStack>

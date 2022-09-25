@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 import { Spinner } from '../Spinner';
 import { Callback, Logout, LogoutCallback, SilentRenew } from './AuthRoutes';
@@ -9,16 +9,16 @@ const Home = lazy(() => import('../../pages/Home'));
 const PublicRoutes = () => {
   return (
     <Suspense fallback={<Spinner />}>
-      <Switch>
-        <Route path='/home' component={Home} />
+      <Routes>
+        <Route path='home' element={<Home />} />
 
-        <Route path='/signin-oidc' component={Callback} />
-        <Route path='/logout' component={Logout} />
-        <Route path='/logout-callback' component={LogoutCallback} />
-        <Route path='/silentrenew' component={SilentRenew} />
+        <Route path='signin-oidc' element={<Callback />} />
+        <Route path='logout' element={<Logout />} />
+        <Route path='logout-callback' element={<LogoutCallback />} />
+        <Route path='silentrenew' element={<SilentRenew />} />
 
-        <Route render={() => <Redirect to={'home'} />} />
-      </Switch>
+        <Route path='*' element={<Navigate to={'home'} />} />
+      </Routes>
     </Suspense>
   );
 };

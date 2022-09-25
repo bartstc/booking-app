@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { GridItem, HStack, SimpleGrid, VStack } from '@chakra-ui/react';
 
-import { Form, PreventLossData } from 'shared/Form';
+import { Form } from 'shared/Form';
 import { Button } from 'shared/Button';
 import { SectionContainer, SectionGrid, SectionHeader, SectionSubtitle, SectionTitle } from 'shared/DescriptionList';
 import { OptionType } from 'types';
@@ -89,7 +89,6 @@ const AddBookingForm = ({ onSubmit, facilityId, isLoading }: IProps) => {
             </SectionGrid>
             <BookedRecordFields />
           </SectionContainer>
-          <PreventLossData />
           <HStack w='100%' pt={{ base: 6, md: 8 }}>
             <Button isLoading={isLoading} type='submit' form='add-booking-form' colorScheme='green' size='lg'>
               <FormattedMessage id='confirm-booking' defaultMessage='Confirm booking' />

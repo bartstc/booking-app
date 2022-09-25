@@ -32,7 +32,7 @@ const Schedule = () => {
   const color = useColorModeValue('primary.500', 'primary.300');
   const weekTextColor = useColorModeValue('gray.500', 'gray.400');
 
-  const schedule = useScheduleQuery(facilityId, scheduleId);
+  const schedule = useScheduleQuery(facilityId, scheduleId!);
 
   const {
     saturday,

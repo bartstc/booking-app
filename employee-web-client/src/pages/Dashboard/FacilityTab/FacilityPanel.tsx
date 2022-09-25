@@ -1,7 +1,7 @@
 import React from 'react';
 import { HStack } from '@chakra-ui/react';
 import { useIntl } from 'react-intl';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { isMobileOnly } from 'react-device-detect';
 import { mdiArrowLeft, mdiContentSaveEdit } from '@mdi/js';
 
@@ -19,7 +19,7 @@ interface IProps {
 
 const FacilityPanel = ({ facility }: IProps) => {
   const { formatMessage } = useIntl();
-  const { push } = useHistory();
+  const navigate = useNavigate();
 
   const title = formatMessage({
     id: 'edit-facility-data',
@@ -29,7 +29,7 @@ const FacilityPanel = ({ facility }: IProps) => {
   return (
     <HStack w='100%' justify='space-between'>
       <IconButton
-        onClick={() => push(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS))}
+        onClick={() => navigate(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS))}
         variant='ghost'
         title={formatMessage({ id: 'bask-to-list', defaultMessage: 'Back to list' })}
         icon={<Icon path={mdiArrowLeft} />}
@@ -37,7 +37,7 @@ const FacilityPanel = ({ facility }: IProps) => {
       <HStack>
         {isMobileOnly ? (
           <IconButton
-            onClick={() => push(`/dashboard/facilities/${facility.slug}/edit`)}
+            onClick={() => navigate(`/dashboard/facilities/${facility.slug}/edit`)}
             colorScheme='gray'
             variant='solid'
             title={title}
@@ -45,7 +45,7 @@ const FacilityPanel = ({ facility }: IProps) => {
           />
         ) : (
           <Button
-            onClick={() => push(`/dashboard/facilities/${facility.slug}/edit`)}
+            onClick={() => navigate(`/dashboard/facilities/${facility.slug}/edit`)}
             colorScheme='gray'
             leftIcon={<Icon path={mdiContentSaveEdit} />}
           >
