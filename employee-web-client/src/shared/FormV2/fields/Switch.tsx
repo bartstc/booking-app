@@ -24,7 +24,7 @@ const Switch = ({ register: registerProp, onChange: onChangeProp, isChecked, chi
     rules: {
       required: {
         value: props.isRequired ?? false,
-        message: 'Pole jest wymagane.',
+        message: 'Field is required',
       },
       ...registerProp,
     },

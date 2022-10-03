@@ -1,30 +1,23 @@
-import { memo } from "react";
-import { useController } from "react-hook-form";
+import React, { memo } from 'react';
+import { useController } from 'react-hook-form';
 
-import {
-  Checkbox as CCheckBox,
-  CheckboxProps,
-  chakra,
-  GridItemProps,
-} from "@chakra-ui/react";
+import { Checkbox as CCheckBox, CheckboxProps, chakra, GridItemProps } from '@chakra-ui/react';
 
-import { useFormContextSelector } from "../FormProvider";
-import { mapGridProps, GridProp } from "../utils";
-import { IBasicFieldProps } from "./IBasicFieldProps";
-import { useErrorMessage } from "./useErrorMessage";
-import { useFormField } from "./useFormField";
-import { propsAreEqual } from "./utils";
+import { useFormContextSelector } from '../FormProvider';
+import { mapGridProps, GridProp } from '../utils';
+import { IBasicFieldProps } from './IBasicFieldProps';
+import { useErrorMessage } from './useErrorMessage';
+import { propsAreEqual } from './utils';
 
 export interface ICheckboxProps<Value = string>
   extends IBasicFieldProps,
-    Omit<CheckboxProps, "name" | "onChange" | "isChecked" | "defaultValue">,
+    Omit<CheckboxProps, 'name' | 'onChange' | 'isChecked' | 'defaultValue'>,
     Pick<GridItemProps, GridProp> {
-  onChange?(
-    setValue: (set: (value: Value) => Value) => void,
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void;
+  onChange?(setValue: (set: (value: Value) => Value) => void, event: React.ChangeEvent<HTMLInputElement>): void;
+
   isChecked?(value: Value): boolean;
-  size?: "sm" | "md";
+
+  size?: 'sm' | 'md';
   defaultValue?: Value;
 }
 
@@ -43,9 +36,7 @@ function Checkbox<Value = string>({
   rowStart,
   ...props
 }: ICheckboxProps<Value>) {
-  useFormField(props.name);
-
-  const control = useFormContextSelector((state) => state.control);
+  const control = useFormContextSelector(state => state.control);
   const {
     field: { value, onChange, onBlur, ref },
   } = useController({
@@ -55,12 +46,12 @@ function Checkbox<Value = string>({
     rules: {
       required: {
         value: props.isRequired ?? false,
-        message: "Pole jest wymagane.",
+        message: 'Pole jest wymagane.',
       },
       ...registerProp,
     },
   });
-  const setValue = useFormContextSelector((state) => state.setValue);
+  const setValue = useFormContextSelector(state => state.setValue);
   const error = useErrorMessage(props.name);
 
   const styles = mapGridProps({
@@ -79,12 +70,12 @@ function Checkbox<Value = string>({
       isInvalid={!!error}
       ref={ref}
       value={value}
-      onChange={(event) => {
+      onChange={event => {
         if (!onChangeProp) {
           return onChange(event);
         }
 
-        onChangeProp((set) => {
+        onChangeProp(set => {
           const newValue = set(value);
           setValue(props.name, newValue);
         }, event);
@@ -92,13 +83,7 @@ function Checkbox<Value = string>({
       onBlur={onBlur}
       isChecked={isChecked ? isChecked(value) : undefined}
     >
-      <chakra.div
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
-        fontSize={size}
-        color={!!error ? "red.500" : undefined}
-      >
+      <chakra.div display='flex' flexDirection='row' alignItems='center' fontSize={size} color={!!error ? 'red.500' : undefined}>
         {children}
       </chakra.div>
     </CCheckBox>

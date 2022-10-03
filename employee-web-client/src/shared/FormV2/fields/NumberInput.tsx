@@ -31,7 +31,7 @@ const NumberInput = ({ register, defaultValue, isDisabled, decimalScale, placeho
     rules: {
       required: {
         value: (autoValidation && props.isRequired) ?? false,
-        message: 'Pole jest wymagane.',
+        message: 'Field is required',
       },
       ...register,
     },

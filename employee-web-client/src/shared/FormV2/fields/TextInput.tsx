@@ -26,7 +26,7 @@ const TextInput = ({ register: registerProp, placeholder, defaultValue, isDisabl
         {...register(props.name, {
           required: {
             value: (autoValidation && props.isRequired) ?? false,
-            message: 'Pole jest wymagane.',
+            message: 'Field is required',
           },
           ...registerProp,
         })}

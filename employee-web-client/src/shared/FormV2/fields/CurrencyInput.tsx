@@ -1,44 +1,33 @@
-import { useEffect, useRef } from "react";
-import { useController } from "react-hook-form";
-import { NumberFormatValues } from "react-number-format";
+import React, { useEffect, useRef } from 'react';
+import { useController } from 'react-hook-form';
+import { NumberFormatValues } from 'react-number-format';
 
-import currencyJS from "currency.js";
+import currencyJS from 'currency.js';
 
-import { useFormContextSelector } from "../FormProvider";
-import { useConfigurationValue } from "../configuration";
-import { FormField, IFormFieldProps } from "../presentation";
-import { CurrencyInput as PresentationCurrencyInput } from "../presentation/CurrencyInput";
-import { IBasicFieldProps } from "./IBasicFieldProps";
-import { useErrorMessage } from "./useErrorMessage";
-import { useFormField } from "./useFormField";
+import { useFormContextSelector } from '../FormProvider';
+import { useConfigurationValue } from '../configuration';
+import { FormField, IFormFieldProps } from '../presentation';
+import { CurrencyInput as PresentationCurrencyInput } from '../presentation/CurrencyInput';
+import { IBasicFieldProps } from './IBasicFieldProps';
+import { useErrorMessage } from './useErrorMessage';
 
 interface IProps extends IBasicFieldProps, IFormFieldProps {
   currencyFieldName?: string;
   currency?: string;
   isDisabled?: boolean;
+
   onValueChange?(value: NumberFormatValues): void;
 }
 
-const CurrencyInput = ({
-  register,
-  currencyFieldName,
-  currency = "PLN",
-  defaultValue,
-  backgroundColor,
-  isDisabled,
-  onValueChange,
-  ...props
-}: IProps) => {
-  useFormField(props.name);
-
+const CurrencyInput = ({ register, currencyFieldName, currency = 'PLN', defaultValue, isDisabled, onValueChange, ...props }: IProps) => {
   const numberFormatValues = useRef<NumberFormatValues>({
     floatValue: undefined,
-    formattedValue: "",
-    value: "",
+    formattedValue: '',
+    value: '',
   });
-  const control = useFormContextSelector((state) => state.control);
-  const setValue = useFormContextSelector((state) => state.setValue);
-  const autoValidation = useConfigurationValue("autoValidation");
+  const control = useFormContextSelector(state => state.control);
+  const setValue = useFormContextSelector(state => state.setValue);
+  const autoValidation = useConfigurationValue('autoValidation');
   const error = useErrorMessage(props.name);
   const {
     field: { value, onChange, onBlur, ref },
@@ -49,7 +38,7 @@ const CurrencyInput = ({
     rules: {
       required: {
         value: (autoValidation && props.isRequired) ?? false,
-        message: "Pole jest wymagane.",
+        message: 'Pole jest wymagane.',
       },
       ...register,
     },
@@ -67,20 +56,14 @@ const CurrencyInput = ({
   }, [currency, currencyFieldName, props.name, setValue, value]);
 
   return (
-    <FormField
-      label={props.children ?? props.label}
-      isInvalid={!!error}
-      errorMessage={error}
-      {...props}
-    >
+    <FormField label={props.children ?? props.label} isInvalid={!!error} errorMessage={error} {...props}>
       <PresentationCurrencyInput
-        value={value ? currencyJS(value, { precision: 10 }).value : ""}
-        onValueChange={(values) => {
+        value={value ? currencyJS(value, { precision: 10 }).value : ''}
+        onValueChange={values => {
           numberFormatValues.current = values;
         }}
         onChange={() => {
-          const { floatValue, formattedValue, value } =
-            numberFormatValues.current;
+          const { floatValue, formattedValue, value } = numberFormatValues.current;
 
           if (onValueChange) {
             onValueChange({ floatValue, value, formattedValue });
@@ -93,8 +76,7 @@ const CurrencyInput = ({
         onBlur={onBlur}
         getInputRef={ref}
         currency={currency}
-        backgroundColor={backgroundColor}
-        isDisabled={isDisabled}
+        disabled={isDisabled}
       />
     </FormField>
   );

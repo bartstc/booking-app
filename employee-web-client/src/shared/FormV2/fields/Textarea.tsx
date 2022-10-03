@@ -20,7 +20,7 @@ const Textarea = ({ register: registerProp, placeholder, defaultValue, ...props 
         {...register(props.name, {
           required: {
             value: (autoValidation && props.isRequired) ?? false,
-            message: 'Pole jest wymagane.',
+            message: 'Field is required',
           },
           ...registerProp,
         })}

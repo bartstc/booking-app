@@ -28,7 +28,7 @@ const MaskedTextInput = ({ register: registerProp, placeholder, defaultValue, ..
     rules: {
       required: {
         value: (autoValidation && props.isRequired) ?? false,
-        message: 'Pole jest wymagane.',
+        message: 'Field is required',
       },
       ...registerProp,
     },
