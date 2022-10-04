@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useController } from 'react-hook-form';
 import { NumberFormatValues } from 'react-number-format';
 
@@ -12,21 +12,18 @@ import { IBasicFieldProps } from './IBasicFieldProps';
 import { useErrorMessage } from './useErrorMessage';
 
 interface IProps extends IBasicFieldProps, IFormFieldProps {
-  currencyFieldName?: string;
-  currency?: string;
   isDisabled?: boolean;
 
   onValueChange?(value: NumberFormatValues): void;
 }
 
-const CurrencyInput = ({ register, currencyFieldName, currency = 'PLN', defaultValue, isDisabled, onValueChange, ...props }: IProps) => {
+const MoneyInput = ({ register, defaultValue, isDisabled, onValueChange, ...props }: IProps) => {
   const numberFormatValues = useRef<NumberFormatValues>({
     floatValue: undefined,
     formattedValue: '',
     value: '',
   });
   const control = useFormContextSelector(state => state.control);
-  const setValue = useFormContextSelector(state => state.setValue);
   const autoValidation = useConfigurationValue('autoValidation');
   const error = useErrorMessage(props.name);
   const {
@@ -44,16 +41,16 @@ const CurrencyInput = ({ register, currencyFieldName, currency = 'PLN', defaultV
     },
   });
 
-  useEffect(() => {
-    if (!currencyFieldName) {
-      return;
-    }
-    if (!value) {
-      setValue(props.name, null);
-      return setValue(currencyFieldName, null);
-    }
-    setValue(currencyFieldName, currency);
-  }, [currency, currencyFieldName, props.name, setValue, value]);
+  // useEffect(() => {
+  //   if (!currencyFieldName) {
+  //     return;
+  //   }
+  //   if (!value) {
+  //     setValue(props.name, null);
+  //     return setValue(currencyFieldName, null);
+  //   }
+  //   setValue(currencyFieldName, currency);
+  // }, [currency, currencyFieldName, props.name, setValue, value]);
 
   return (
     <FormField label={props.children ?? props.label} isInvalid={!!error} errorMessage={error} {...props}>
@@ -75,11 +72,10 @@ const CurrencyInput = ({ register, currencyFieldName, currency = 'PLN', defaultV
         }}
         onBlur={onBlur}
         getInputRef={ref}
-        currency={currency}
         disabled={isDisabled}
       />
     </FormField>
   );
 };
 
-export { CurrencyInput };
+export { MoneyInput };

@@ -44,7 +44,7 @@ const AddOfferModal = () => {
           />
         </ModalBody>
         <ModalFooter>
-          <SubmitButton isLoading={isLoading} colorScheme='green' type='submit' form='add-offer-form' />
+          <SubmitButton isLoading={isLoading} colorScheme='green' form='add-offer-form' />
           <Button colorScheme='gray' ml={3} onClick={onClose}>
             <FormattedMessage id='close' defaultMessage='Close' />
           </Button>

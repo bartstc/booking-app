@@ -5,6 +5,7 @@ import { useConfigurationValue } from '../configuration';
 import { FormField, IFormFieldProps } from '../presentation';
 import { IBasicFieldProps } from './IBasicFieldProps';
 import { useErrorMessage } from './useErrorMessage';
+import { useController } from 'react-hook-form';
 
 export interface ITextProps extends IBasicFieldProps, IFormFieldProps {
   placeholder?: string;
@@ -14,22 +15,33 @@ export interface ITextProps extends IBasicFieldProps, IFormFieldProps {
 }
 
 const TextInput = ({ register: registerProp, placeholder, defaultValue, isDisabled, type, autofocus, ...props }: ITextProps) => {
-  const register = useFormContextSelector(state => state.register);
+  const control = useFormContextSelector(state => state.control);
   const error = useErrorMessage(props.name);
   const size = useConfigurationValue('size');
   const variant = useConfigurationValue('variant');
   const autoValidation = useConfigurationValue('autoValidation');
 
+  const {
+    field: { value, onChange, onBlur },
+  } = useController({
+    name: props.name,
+    control,
+    defaultValue,
+    rules: {
+      required: {
+        value: (autoValidation && props.isRequired) ?? false,
+        message: 'Field is required',
+      },
+      ...registerProp,
+    },
+  });
+
   return (
     <FormField {...props} size={size} label={props.children ?? props.label} isInvalid={!!error} errorMessage={error}>
       <Input
-        {...register(props.name, {
-          required: {
-            value: (autoValidation && props.isRequired) ?? false,
-            message: 'Field is required',
-          },
-          ...registerProp,
-        })}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
         type={type}
         placeholder={placeholder}
         defaultValue={defaultValue ?? ''}

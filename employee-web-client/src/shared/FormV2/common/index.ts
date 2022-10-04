@@ -5,3 +5,4 @@ export { createMaxLength } from './createMaxLength';
 export { PostCode } from './PostCode';
 export { inputMask } from './inputMask';
 export { PasswordInput } from './PasswordInput';
+export { CurrencyInput } from './CurrencyInput';

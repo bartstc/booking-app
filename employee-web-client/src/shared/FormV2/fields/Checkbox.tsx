@@ -83,7 +83,7 @@ function Checkbox<Value = string>({
       onBlur={onBlur}
       isChecked={isChecked ? isChecked(value) : undefined}
     >
-      <chakra.div display='flex' flexDirection='row' alignItems='center' fontSize={size} color={!!error ? 'red.500' : undefined}>
+      <chakra.div display='flex' flexDirection='row' alignItems='center' fontSize={size} color={error ? 'red.500' : undefined}>
         {children}
       </chakra.div>
     </CCheckBox>

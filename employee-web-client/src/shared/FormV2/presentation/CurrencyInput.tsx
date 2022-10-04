@@ -1,13 +1,10 @@
 import React, { forwardRef } from 'react';
 
-import { Input, InputGroup, InputRightElement, chakra } from '@chakra-ui/react';
+import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 
 import { INumberInputProps, NumberInput } from './NumberInput';
-import { Currency } from 'types';
 
-export interface ICurrencyInputProps extends INumberInputProps {
-  currency?: string;
-}
+export interface ICurrencyInputProps extends INumberInputProps {}
 
 const CurrencyInput = (props: ICurrencyInputProps) => {
   // @ts-ignore
@@ -19,11 +16,7 @@ const CustomInput = forwardRef((props: any, ref) => {
   return (
     <InputGroup>
       <Input fontSize='sm' _placeholder={{ color: 'gray.500' }} ref={ref} {...props} />
-      <InputRightElement mx={2} zIndex={0}>
-        <chakra.span fontSize='xs' color={props.value ? 'gray.700' : 'gray.400'}>
-          {props.currency ?? Currency.Eu}
-        </chakra.span>
-      </InputRightElement>
+      <InputRightElement mx={2} zIndex={0} />
     </InputGroup>
   );
 });

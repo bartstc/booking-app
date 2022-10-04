@@ -6,6 +6,4 @@ export type { UseFormMethods, UseFormOptions } from './useForm';
 export type { Selector } from './FormProvider';
 export type { IFormFieldProps } from './presentation';
 export * from './fields';
-export * from './index';
 export * from './common';
-export * from './index';

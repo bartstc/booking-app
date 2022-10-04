@@ -3,7 +3,9 @@ import NumberFormat, { NumberFormatProps } from 'react-number-format';
 
 import { Input } from '@chakra-ui/react';
 
-export interface INumberInputProps extends NumberFormatProps {}
+export interface INumberInputProps extends NumberFormatProps {
+  thousandSeparator?: boolean | string;
+}
 
 // eslint-disable-next-line react/display-name
 const NumberInput = forwardRef<unknown, INumberInputProps>(({ thousandSeparator = ' ', ...props }, ref) => {

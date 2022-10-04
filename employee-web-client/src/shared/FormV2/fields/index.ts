@@ -9,7 +9,7 @@ export type { ISelectProps } from './Select';
 export { Checkbox } from './Checkbox';
 export type { ICheckboxProps } from './Checkbox';
 export { Textarea } from './Textarea';
-export { CurrencyInput } from './CurrencyInput';
+export { MoneyInput } from './MoneyInput';
 export { Switch } from './Switch';
 export { useErrorMessage } from './useErrorMessage';
 export { NumberInput } from './NumberInput';
