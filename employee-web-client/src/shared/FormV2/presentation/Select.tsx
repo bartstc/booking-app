@@ -2,7 +2,7 @@ import React, { ComponentType } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import ReactSelect, { components, Props } from 'react-select';
 
-import { useFormControl } from '@chakra-ui/react';
+import { useFormControl, useColorModeValue, useTheme } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { omit } from 'lodash';
@@ -17,6 +17,16 @@ export interface ISelectProps<Value = any> extends Props<OptionType<Value>> {
 
 function Select<Value>(props: ISelectProps<Value>) {
   const { formatMessage } = useIntl();
+  const { colors } = useTheme();
+  const textColor = useColorModeValue(colors.gray[700], colors.white);
+  const focusColor = useColorModeValue(colors.blue[500], colors.blue[300]);
+  const boxShadowColor = useColorModeValue(colors.gray[200], colors.gray[600]);
+  const multiValueLabelBg = useColorModeValue(colors.gray[100], colors.gray[400]);
+  const listBgColor = useColorModeValue(colors.white, colors.gray[700]);
+  const selectedBgColor = useColorModeValue(colors.blue[500], colors.blue[300]);
+  const invalidColor = useColorModeValue(colors.red[500], colors.red[300]);
+  const placeholderColor = useColorModeValue(colors.gray[400], colors.gray[600]);
+  const inputColor = useColorModeValue(colors.gray[900], colors.gray[100]);
 
   return (
     <Container
@@ -31,6 +41,51 @@ function Select<Value>(props: ISelectProps<Value>) {
       components={{
         Input: CustomInput,
         ...props.components,
+      }}
+      styles={{
+        control: (base, { isFocused, isDisabled }) => ({
+          ...base,
+          opacity: isDisabled ? '.55' : '1',
+          backgroundColor: 'transparent',
+          border: 'none',
+          outline: 'none',
+          boxShadow: `0 0 0 ${isFocused || props.isInvalid ? '2px' : '1px'} ${
+            isFocused ? focusColor : props.isInvalid ? invalidColor : boxShadowColor
+          }`,
+        }),
+        singleValue: base => ({
+          ...base,
+          color: textColor,
+        }),
+        input: base => ({
+          ...base,
+          color: inputColor,
+        }),
+        indicatorsContainer: base => ({
+          ...base,
+          color: 'red',
+        }),
+        option: (base, { isSelected }) => ({
+          ...base,
+          backgroundColor: isSelected ? selectedBgColor : listBgColor,
+        }),
+        menu: base => ({
+          ...base,
+          backgroundColor: listBgColor,
+        }),
+        placeholder: base => ({
+          ...base,
+          color: placeholderColor,
+        }),
+        multiValueLabel: base => ({
+          ...base,
+          backgroundColor: multiValueLabelBg,
+        }),
+        multiValueRemove: base => ({
+          ...base,
+          backgroundColor: multiValueLabelBg,
+          borderRadius: '0',
+        }),
       }}
     />
   );

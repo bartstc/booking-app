@@ -1,6 +1,15 @@
 import React, { ReactElement, ReactNode } from 'react';
 
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel, GridItemProps, HStack } from '@chakra-ui/react';
+import {
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+  FormLabel,
+  GridItemProps,
+  HStack,
+  useColorModeValue,
+  useTheme,
+} from '@chakra-ui/react';
 import { mdiInformation } from '@mdi/js';
 import { kebabCase } from 'lodash';
 
@@ -45,6 +54,8 @@ const FormField = (props: IFormFieldProps) => {
     defaultValue,
     ...styledProps
   } = props;
+  const { colors } = useTheme();
+  const invalidColor = useColorModeValue(colors.red[500], colors.red[300]);
 
   const styles = mapGridProps({
     colSpan,
@@ -66,7 +77,7 @@ const FormField = (props: IFormFieldProps) => {
       {...styledProps}
     >
       <HStack spacing={0}>
-        <FormLabel fontSize='sm' color={isInvalid ? 'red.500' : undefined}>
+        <FormLabel fontSize='sm' color={isInvalid ? invalidColor : undefined}>
           {label}
         </FormLabel>
         {tip && (
