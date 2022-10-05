@@ -5,7 +5,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { FormProvider, useForm, TextInput, Select, NumberInput, MoneyInput, CurrencyInput } from 'shared/FormV2';
 
 import { IAddOfferDto, PriceModel } from '../../application/types';
-import { useAddOfferValidationSchema } from '../../application';
 import { useFacilityContextSelector } from '../../../context';
 
 interface IProps {
@@ -14,15 +13,14 @@ interface IProps {
 
 const AddOfferForm = ({ onSubmit }: IProps) => {
   const { formatMessage } = useIntl();
-  const schema = useAddOfferValidationSchema();
   const currency = useFacilityContextSelector(state => state.currency);
 
   const methods = useForm<IAddOfferDto>({
     defaultValues: {
       offerName: '',
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      duration: null as any,
+      duration: undefined,
       price: {
+        value: '',
         type: PriceModel.Constant,
         currency,
       },
@@ -55,7 +53,23 @@ const AddOfferForm = ({ onSubmit }: IProps) => {
           <TextInput name='offerName' colSpan={6} isRequired>
             <FormattedMessage id='offer-name' defaultMessage='Offer name' />
           </TextInput>
-          <NumberInput name='duration' colSpan={{ base: 4, md: 3 }} isRequired>
+          <NumberInput
+            name='duration'
+            colSpan={{ base: 6, md: 4 }}
+            isRequired
+            register={{
+              validate(duration: number) {
+                if (duration % 5 == 0) {
+                  return true;
+                }
+
+                return formatMessage({
+                  id: 'duration-invalid-format',
+                  defaultMessage: 'Invalid format: must be divisible by 5',
+                });
+              },
+            }}
+          >
             <FormattedMessage id='duration-of-offer-min' defaultMessage='Duration of the service (min)' />
           </NumberInput>
           <MoneyInput name='price.value' colSpan={{ base: 4, md: 4 }} isRequired>
