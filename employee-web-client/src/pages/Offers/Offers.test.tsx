@@ -1,13 +1,15 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import selectEvent from 'react-select-event';
 
 import { FacilityFixture, OfferFixture, renderWithProviders, mockResponseFactory, MetaFixture } from 'utils';
 import { managementMockService } from 'utils/mock';
 
-import { IOfferCollection, OfferStatus, PriceModel } from '../../modules/offers/application/types';
-import { offersQueryKey } from '../../modules/offers/infrastructure/query';
-import { FacilityProvider } from '../../modules/context/application';
+import { IOfferCollection, OfferStatus, PriceModel } from 'modules/offers/application/types';
+import { offersQueryKey } from 'modules/offers/infrastructure/query';
+import { FacilityProvider } from 'modules/context/application';
+
 import Offers from './index';
 import { Currency } from '../../types';
 
@@ -29,9 +31,9 @@ const newOffer = OfferFixture.createPermutation({
   status: OfferStatus.Active,
   duration: 60,
   price: {
-    value: '100.00',
-    type: PriceModel.Constant,
-    currency: Currency.Eu,
+    value: '100',
+    type: PriceModel.Variable,
+    currency: Currency.Pln,
   },
 });
 
@@ -43,34 +45,54 @@ const mockOffers = mockResponseFactory<IOfferCollection>(
   resp => managementMockService.get(offersQueryKey(FACILITY_ID)[0], resp),
 );
 
-it('should add new offer to the list', async function () {
-  mockOffers();
-  managementMockService.post(`facilities/${FACILITY_ID}/offers`, {
-    offerName: newOffer.name,
-    duration: newOffer.duration.toString(),
-    price: newOffer.price,
-  });
+// jest.setTimeout(10 * 1000);
 
-  renderView();
+it(
+  'should add new offer to the list',
+  async function () {
+    mockOffers();
+    managementMockService.post(`facilities/${FACILITY_ID}/offers`, {
+      offerName: newOffer.name,
+      duration: newOffer.duration.toString(),
+      price: newOffer.price,
+    });
 
-  const openCreateOfferDialogButton = await screen.getByText('Add offer');
-  userEvent.click(openCreateOfferDialogButton);
+    renderView();
 
-  expect(screen.getByText('Add new offer')).toBeInTheDocument();
+    await userEvent.click(screen.getByText('Add offer'));
 
-  // huge mistake - should be get by label text - bug within fields library
-  const offerNameInput = screen.getByTestId('offer-name').querySelector('#offer-name');
-  const durationInput = screen.getByTestId('duration').querySelector('#duration');
-  const priceValueInput = screen.getByTestId('price-value').querySelector('#price-value');
-  const priceCurrencyInput = screen.getByTestId('price-value').querySelector(`#price-currency`);
-  const priceTypeInput = screen.getByTestId('price-type').querySelector('#price-type');
+    const form = screen.getByTestId('add-offer-form');
+    expect(form).toBeInTheDocument();
 
-  expect(offerNameInput).toBeInTheDocument();
-  expect(durationInput).toBeInTheDocument();
-  expect(priceValueInput).toBeInTheDocument();
-  expect(priceCurrencyInput).toBeInTheDocument();
-  expect(priceTypeInput).toBeInTheDocument();
-});
+    const offerNameInput = screen.getByLabelText(/Offer name/);
+    const durationInput = screen.getByLabelText(/Duration of the service/);
+    const priceValueInput = screen.getByLabelText(/Service's value/);
+    const priceCurrencyInput = screen.getByLabelText(/Currency/);
+    const priceTypeInput = screen.getByLabelText(/Price type/);
+
+    expect(offerNameInput).toBeInTheDocument();
+    expect(durationInput).toBeInTheDocument();
+    expect(priceValueInput).toBeInTheDocument();
+    expect(priceCurrencyInput).toBeInTheDocument();
+    expect(priceTypeInput).toBeInTheDocument();
+
+    await userEvent.type(offerNameInput, newOffer.name);
+    await userEvent.type(durationInput, newOffer.duration.toString());
+    await userEvent.type(priceValueInput, newOffer.price.value);
+    await selectEvent.select(priceTypeInput, 'Variable');
+    await selectEvent.select(priceCurrencyInput, 'PLN');
+
+    const submitButton = screen.getByText('Submit');
+    await userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(form).not.toBeInTheDocument();
+      expect(screen.getByText('New offer added successfully')).toBeInTheDocument();
+    });
+    // screen.debug(undefined, 30000);
+  },
+  10 * 1000,
+);
 
 const renderView = () =>
   renderWithProviders(
