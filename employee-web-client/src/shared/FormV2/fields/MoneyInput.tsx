@@ -10,6 +10,7 @@ import { FormField, IFormFieldProps } from '../presentation';
 import { CurrencyInput as PresentationCurrencyInput } from '../presentation/CurrencyInput';
 import { IBasicFieldProps } from './IBasicFieldProps';
 import { useErrorMessage } from './useErrorMessage';
+import { kebabCase } from 'lodash';
 
 interface IProps extends IBasicFieldProps, IFormFieldProps {
   isDisabled?: boolean;
@@ -56,6 +57,7 @@ const MoneyInput = ({ register, defaultValue, isDisabled, onValueChange, ...prop
     <FormField label={props.children ?? props.label} isInvalid={!!error} errorMessage={error} {...props}>
       <PresentationCurrencyInput
         value={value ? currencyJS(value, { precision: 10 }).value : ''}
+        id={kebabCase(props.name)}
         onValueChange={values => {
           numberFormatValues.current = values;
         }}

@@ -18,7 +18,7 @@ const AddOfferForm = ({ onSubmit }: IProps) => {
   const methods = useForm<IAddOfferDto>({
     defaultValues: {
       offerName: '',
-      duration: undefined,
+      duration: '' as unknown as number,
       price: {
         value: '',
         type: PriceModel.Constant,
@@ -47,7 +47,7 @@ const AddOfferForm = ({ onSubmit }: IProps) => {
   ];
 
   return (
-    <chakra.form id='add-offer-form' noValidate onSubmit={methods.handleSubmit(onSubmit)}>
+    <chakra.form id='add-offer-form' data-testid='add-offer-form' noValidate onSubmit={methods.handleSubmit(onSubmit)}>
       <FormProvider {...methods}>
         <SimpleGrid columns={6} spacing={6} data-testid='debug-footer'>
           <TextInput name='offerName' colSpan={6} isRequired>

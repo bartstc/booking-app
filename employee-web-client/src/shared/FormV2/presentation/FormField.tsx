@@ -68,7 +68,6 @@ const FormField = (props: IFormFieldProps) => {
 
   return (
     <FormControl
-      id={kebabCase(name)}
       isRequired={isRequired}
       isInvalid={isInvalid}
       sx={styles}
@@ -77,7 +76,7 @@ const FormField = (props: IFormFieldProps) => {
       {...styledProps}
     >
       <HStack spacing={0}>
-        <FormLabel fontSize='sm' color={isInvalid ? invalidColor : undefined}>
+        <FormLabel htmlFor={kebabCase(name)} fontSize='sm' color={isInvalid ? invalidColor : undefined}>
           {label}
         </FormLabel>
         {tip && (

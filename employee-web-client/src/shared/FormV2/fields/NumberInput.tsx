@@ -1,6 +1,7 @@
 import React from 'react';
 import { useController } from 'react-hook-form';
 import { NumberFormatValues } from 'react-number-format';
+import { kebabCase } from "lodash";
 
 import currencyJS from 'currency.js';
 
@@ -41,6 +42,7 @@ const NumberInput = ({ register, defaultValue, isDisabled, decimalScale, placeho
     <FormField label={props.children ?? props.label} isInvalid={!!error} errorMessage={error} {...props}>
       <NumberInputPresentation
         value={value ? currencyJS(value, { precision: 10 }).value : ''}
+        id={kebabCase(props.name)}
         onValueChange={({ floatValue, value }: NumberFormatValues) => {
           if (floatValue === undefined) {
             return onChange(null);

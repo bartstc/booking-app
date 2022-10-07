@@ -1,4 +1,5 @@
 import React, { Input } from '@chakra-ui/react';
+import { kebabCase } from 'lodash';
 
 import { useFormContextSelector } from '../FormProvider';
 import { useConfigurationValue } from '../configuration';
@@ -14,7 +15,7 @@ export interface ITextProps extends IBasicFieldProps, IFormFieldProps {
   autofocus?: boolean;
 }
 
-const TextInput = ({ register: registerProp, placeholder, defaultValue, isDisabled, type, autofocus, ...props }: ITextProps) => {
+const TextInput = ({ register: registerProp, placeholder, isDisabled, type, autofocus, ...props }: ITextProps) => {
   const control = useFormContextSelector(state => state.control);
   const error = useErrorMessage(props.name);
   const size = useConfigurationValue('size');
@@ -26,7 +27,6 @@ const TextInput = ({ register: registerProp, placeholder, defaultValue, isDisabl
   } = useController({
     name: props.name,
     control,
-    defaultValue,
     rules: {
       required: {
         value: (autoValidation && props.isRequired) ?? false,
@@ -40,11 +40,12 @@ const TextInput = ({ register: registerProp, placeholder, defaultValue, isDisabl
     <FormField {...props} size={size} label={props.children ?? props.label} isInvalid={!!error} errorMessage={error}>
       <Input
         value={value}
+        id={kebabCase(props.name)}
         onChange={onChange}
         onBlur={onBlur}
         type={type}
         placeholder={placeholder}
-        defaultValue={defaultValue ?? ''}
+        // defaultValue={defaultValue ?? ''}
         size={size}
         variant={variant}
         fontSize='sm'

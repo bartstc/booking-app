@@ -96,7 +96,7 @@ const CustomInput = (props: any) => {
   const formControlProps = useFormControl<HTMLInputElement>({});
   const inputProps = omit(formControlProps, ['onBlur', 'onFocus']);
 
-  return <components.Input {...props} {...inputProps} name={props?.selectProps?.name} />;
+  return <components.Input {...props} {...inputProps} id={props.id} name={props?.selectProps?.name} />;
 };
 
 const Container = styled(ReactSelect)<ISelectProps>`

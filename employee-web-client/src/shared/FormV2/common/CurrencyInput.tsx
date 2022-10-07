@@ -1,5 +1,6 @@
 import React from 'react';
-import { chakra } from '@chakra-ui/react';
+import { FormattedMessage } from 'react-intl';
+
 import { Currency, OptionType } from 'types';
 import { Select, ISelectProps } from '../fields';
 
@@ -19,7 +20,7 @@ interface IProps extends Omit<ISelectProps<Currency>, 'options' | 'label' | 'chi
 const CurrencyInput = (props: IProps) => {
   return (
     <Select options={currencyOptions} isRequired {...props}>
-      <chakra.span>Currency</chakra.span>
+      <FormattedMessage id='currency-type' defaultMessage='Currency' />
     </Select>
   );
 };
