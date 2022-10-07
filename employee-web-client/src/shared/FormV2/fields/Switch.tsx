@@ -13,7 +13,7 @@ interface IProps<Value = string> extends IBasicFieldProps, Omit<SwitchProps, 'na
   isChecked?(value: Value): boolean;
 }
 
-const Switch = ({ register: registerProp, onChange: onChangeProp, isChecked, children, size, defaultValue, ...props }: IProps) => {
+const Switch = ({ register: registerProp, onChange: onChangeProp, isChecked, size, defaultValue, ...props }: IProps) => {
   const control = useFormContextSelector(state => state.control);
   const {
     field: { value, onChange, onBlur, ref },
@@ -47,6 +47,7 @@ const Switch = ({ register: registerProp, onChange: onChangeProp, isChecked, chi
           setValue(props.name, newValue);
         }, event);
       }}
+      size={size}
       onBlur={onBlur}
       isChecked={isChecked ? isChecked(value) : typeof value === 'boolean' ? value : undefined}
     />
