@@ -4,17 +4,18 @@ import { FormattedMessage } from 'react-intl';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { InputField } from 'react-hook-form-chakra-fields';
 
-import { ResponsiveRemoveButton } from 'shared/Buttons';
 import { Money } from 'shared/Money';
 import { FormattedDate } from 'shared/Date';
 import { SectionGrid, SectionHeader, SectionSubtitle, SectionTitle } from 'shared/DescriptionList';
 
+import { IOffer } from 'modules/offers/application/types';
+import { OfferSelectFieldAsync } from 'modules/offers/presentation';
+
 import { useFacilityContextSelector } from '../../../context';
 import { IAddBookingDto } from '../../application/types';
 import { SelectDateModal } from './SelectDateModal';
-import { IOffer } from '../../../offers/application/types';
-import { OfferSelectFieldAsync } from '../../../offers/presentation';
 import { Summary } from './Summary';
+import { RemoveButton } from './RemoveButton';
 
 const BookedRecordFields = () => {
   const facilityId = useFacilityContextSelector(state => state.facilityId);
@@ -111,7 +112,7 @@ const BookedRecordFields = () => {
                     />
                   </Box>
                   {!isFirst && (
-                    <ResponsiveRemoveButton
+                    <RemoveButton
                       onClick={() => {
                         setSelectedOffers(offers => offers.filter(offer => offer.fieldId !== field.id!));
                         remove(index);

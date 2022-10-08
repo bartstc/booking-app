@@ -11,7 +11,7 @@ interface IProps extends ChakraProps {
   onClick: () => void;
 }
 
-const ResponsiveRemoveButton = ({ onClick, ...props }: IProps) => {
+const RemoveButton = ({ onClick, ...props }: IProps) => {
   const { formatMessage } = useIntl();
 
   if (isMobile) {
@@ -33,4 +33,4 @@ const ResponsiveRemoveButton = ({ onClick, ...props }: IProps) => {
   );
 };
 
-export { ResponsiveRemoveButton };
+export { RemoveButton };

@@ -30,6 +30,6 @@ export const decorators = [
 ];
 
 if (typeof global.process === 'undefined') {
-  const { worker } = require('../src/mocks/msw.browser');
+  const { worker } = require('../src/utils/mock/msw.browser');
   worker.start();
 }

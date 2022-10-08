@@ -4,7 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
-import { server } from './mocks/msw.server';
+import { server } from './utils/mock/msw.server';
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());

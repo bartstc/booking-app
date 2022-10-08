@@ -4,8 +4,7 @@ import ReactDOM from 'react-dom';
 import { Logger, logHandler } from 'utils/logger';
 
 import reportWebVitals from './reportWebVitals';
-import { Providers } from './Providers';
-import { App } from './App';
+import { Providers, App } from './app';
 
 Logger.init(logHandler);
 

@@ -6,7 +6,7 @@ import { UrlService } from '../http/UrlService';
 type Callback<T> = () => T;
 
 const { parse } = new UrlService();
-const msw = () => (process.env.STORYBOOK === 'true' ? require('mocks/msw.browser').worker : require('mocks/msw.server').server);
+const msw = () => (process.env.STORYBOOK === 'true' ? require('utils/mock/msw.browser').worker : require('utils/mock/msw.server').server);
 
 const dictionary = new Map();
 

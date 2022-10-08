@@ -4,9 +4,9 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter, NavigateOptions, useLocation, useNavigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { theme } from './theme';
-import { QueryParamsProvider } from './shared/Params';
-import { AuthProvider, authService } from './modules/auth/application';
+import { theme } from '../theme';
+import { QueryParamsProvider } from '../shared/Params';
+import { AuthProvider, authService } from '../modules/auth/application';
 
 interface IProps {
   children: ReactNode;
