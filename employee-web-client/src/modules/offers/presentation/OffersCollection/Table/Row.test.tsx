@@ -22,10 +22,10 @@ describe('OffersCollection', function () {
     expect(screen.getByText('Active')).toBeInTheDocument();
   });
 
-  it('should open dialog with proper confirmation', function () {
+  it('should open dialog with proper confirmation', async function () {
     renderRow();
 
-    userEvent.click(screen.getByLabelText('Deactivate offer'));
+    await userEvent.click(screen.getByLabelText('Deactivate offer'));
 
     expect(screen.getByText('Are you sure to perform this operation? Offer will not be available.')).toBeInTheDocument();
   });

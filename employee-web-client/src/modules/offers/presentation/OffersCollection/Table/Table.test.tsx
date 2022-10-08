@@ -78,11 +78,11 @@ describe('OffersCollection', function () {
 
     // https://kentcdodds.com/blog/common-mistakes-with-react-testing-library#using-waitfor-to-wait-for-elements-that-can-be-queried-with-find
     const deactivateButton = await screen.findByLabelText('Deactivate offer');
-    userEvent.click(deactivateButton);
+    await userEvent.click(deactivateButton);
 
     expect(screen.getByText('Are you sure to perform this operation? Offer will not be available.')).toBeInTheDocument();
 
-    userEvent.click(screen.getByText('Submit'));
+    await userEvent.click(screen.getByText('Submit'));
 
     await waitFor(() => {
       expect(screen.getByText('Offer was successfully deactivated'));
