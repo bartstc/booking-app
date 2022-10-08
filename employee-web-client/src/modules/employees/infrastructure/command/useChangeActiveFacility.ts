@@ -21,10 +21,8 @@ export const useChangeActiveFacility = () => {
   const handler = (facilityId: string) => {
     return mutateAsync(facilityId)
       .then(async () => {
-        queryClient.setQueryData(employeeQueryKey(enterpriseId, employeeId), (data?: IEmployee) => {
-          if (!data) {
-            throw new Error(`Cache is empty for given key: ${employeeQueryKey(enterpriseId, employeeId)}`);
-          }
+        queryClient.setQueryData<IEmployee | undefined>(employeeQueryKey(enterpriseId, employeeId), (data) => {
+          if (!data) return;
 
           return {
             ...data,

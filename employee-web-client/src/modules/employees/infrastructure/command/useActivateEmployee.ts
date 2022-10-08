@@ -19,10 +19,8 @@ export const useActivateEmployee = (enterpriseId: string, employeeId: string) =>
   const handler = () => {
     return mutateAsync()
       .then(async () => {
-        await queryClient.setQueryData(employeesQueryKey(enterpriseId, params), (data?: IEmployeeCollection) => {
-          if (!data) {
-            throw new Error(`Cache is empty for given key: ${employeesQueryKey(enterpriseId, params)}`);
-          }
+        await queryClient.setQueryData<IEmployeeCollection | undefined>(employeesQueryKey(enterpriseId, params), (data) => {
+          if (!data) return;
 
           return {
             ...data,

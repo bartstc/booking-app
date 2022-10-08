@@ -19,14 +19,19 @@ export const useActivateOffer = (facilityId: string, offerId: string) => {
   const handler = () => {
     return mutateAsync()
       .then(async () => {
-        await queryClient.setQueryData(offersQueryKey(facilityId, params), (data?: IOfferCollection) => {
-          if (!data) {
-            throw new Error(`Cache is empty for given key: ${offersQueryKey(facilityId, params)}`);
-          }
+        await queryClient.setQueryData<IOfferCollection | undefined>(offersQueryKey(facilityId, params), data => {
+          if (!data) return;
 
           return {
             ...data,
-            collection: data.collection.map(offer => (offer.offerId === offerId ? { ...offer, status: OfferStatus.Active } : offer)),
+            collection: data.collection.map(offer =>
+              offer.offerId === offerId
+                ? {
+                    ...offer,
+                    status: OfferStatus.Active,
+                  }
+                : offer,
+            ),
           };
         });
       })

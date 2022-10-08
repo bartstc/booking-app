@@ -76,16 +76,22 @@ describe('OffersCollection', function () {
 
     renderTable();
 
+    await waitFor(() => {
+      expect(screen.getByText('Active')).toBeInTheDocument();
+    });
+
     // https://kentcdodds.com/blog/common-mistakes-with-react-testing-library#using-waitfor-to-wait-for-elements-that-can-be-queried-with-find
     const deactivateButton = await screen.findByLabelText('Deactivate offer');
     await userEvent.click(deactivateButton);
 
-    expect(screen.getByText('Are you sure to perform this operation? Offer will not be available.')).toBeInTheDocument();
+    const warningMessage = screen.getByText('Are you sure to perform this operation? Offer will not be available.');
+    expect(warningMessage).toBeInTheDocument();
 
     await userEvent.click(screen.getByText('Submit'));
 
     await waitFor(() => {
-      expect(screen.getByText('Offer was successfully deactivated'));
+      expect(warningMessage).not.toBeInTheDocument();
+      expect(screen.getByText('Offer was successfully deactivated')).toBeInTheDocument();
       expect(screen.getByText('Inactive')).toBeInTheDocument();
     });
   });
