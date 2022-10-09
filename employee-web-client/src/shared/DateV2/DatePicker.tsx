@@ -7,7 +7,7 @@ import { Input, InputGroup, InputLeftElement, useFormControl } from '@chakra-ui/
 import { css, Global } from '@emotion/react';
 import { mdiCalendar } from '@mdi/js';
 import pl from 'date-fns/locale/pl';
-import { theme } from 'theme';
+import { theme } from 'utils/theme';
 
 import { Icon } from 'shared/Icon';
 

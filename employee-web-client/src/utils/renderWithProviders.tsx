@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider, setLogger } from 'react-query';
 import { useNavigate, useLocation, BrowserRouter, NavigateOptions } from 'react-router-dom';
 
 import { QueryParamsProvider } from '../shared/Params';
-import { theme } from '../theme';
+import { theme } from './theme';
 
 // https://github.com/TkDodo/testing-react-query/tree/main/src/tests
 const createTestQueryClient = () =>

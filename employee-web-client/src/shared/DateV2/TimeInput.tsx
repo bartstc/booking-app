@@ -5,7 +5,7 @@ import MaskedInput from 'react-text-mask';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { mdiAlarm } from '@mdi/js';
 import { inRange } from 'lodash';
-import { theme } from 'theme';
+import { theme } from 'utils/theme';
 
 import { dayjs } from 'utils';
 

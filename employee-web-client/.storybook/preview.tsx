@@ -1,7 +1,7 @@
 import { IntlProvider } from 'react-intl';
 import { withReactQuery, withSuspense } from '../src/utils/storybook';
 
-const { theme } = require('../src/theme');
+const { theme } = require('../src/utils/theme');
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
