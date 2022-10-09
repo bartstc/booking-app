@@ -3,13 +3,14 @@ import ReactDatePicker, { registerLocale, ReactDatePickerProps } from 'react-dat
 import 'react-datepicker/dist/react-datepicker.css';
 import MaskedInput from 'react-text-mask';
 
-import { Input, InputGroup, InputLeftElement, useFormControl } from '@chakra-ui/react';
-import { css, Global } from '@emotion/react';
+import { Input, InputGroup, InputLeftElement, useFormControl, useColorMode, useColorModeValue, useTheme } from '@chakra-ui/react';
 import { mdiCalendar } from '@mdi/js';
 import pl from 'date-fns/locale/pl';
 import { theme } from 'utils/theme';
 
 import { Icon } from 'shared/Icon';
+
+import { DatePickerStyles } from './DatePickerStyles';
 
 registerLocale('pl', pl);
 
@@ -40,15 +41,30 @@ const CustomInput = forwardRef((props: any, ref) => {
 });
 
 const DatePicker = ({ customInputRef, ...props }: IDatePickerProps) => {
+  const { colors } = useTheme();
+  const { colorMode } = useColorMode();
+  const invalidColor = useColorModeValue(colors.red[500], colors.red[300]);
+  const validColor = useColorModeValue(colors.gray[200], colors.gray[600]);
+  const clearBtnBackground = useColorModeValue(colors.blue[500], colors.blue[300]);
+  const clearBtnColor = useColorModeValue(colors.white, colors.gray[900]);
+  const calendarBackground = useColorModeValue(colors.white, colors.gray[700]);
+  const calendarColor = useColorModeValue(colors.gray[700], colors.white);
+  const calendarSelectedBackground = useColorModeValue(colors.blue[500], colors.blue[300]);
+  const calendarDayHover = useColorModeValue(colors.gray[200], colors.gray[600]);
+
   return (
-    <>
-      <Global
-        styles={css`
-          .react-datepicker-popper {
-            z-index: 11;
-          }
-        `}
-      />
+    <DatePickerStyles
+      isDarkMode={colorMode === 'dark'}
+      isInvalid={props.isInvalid ?? false}
+      borderColor={props.isInvalid ? invalidColor : validColor}
+      focusColor={colors.blue[500]}
+      clearBtnColor={clearBtnColor}
+      clearBtnBackground={clearBtnBackground}
+      calendarBackground={calendarBackground}
+      calendarColor={calendarColor}
+      calendarSelectedBackground={calendarSelectedBackground}
+      calendarDayHover={calendarDayHover}
+    >
       <ReactDatePicker
         locale='pl'
         dateFormat='dd-MM-yyyy'
@@ -61,7 +77,7 @@ const DatePicker = ({ customInputRef, ...props }: IDatePickerProps) => {
         }
         {...props}
       />
-    </>
+    </DatePickerStyles>
   );
 };
 

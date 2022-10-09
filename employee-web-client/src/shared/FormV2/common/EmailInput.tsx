@@ -1,6 +1,8 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 
+import { TextValidator } from 'utils/validation';
+
 import { ITextProps, TextInput } from '../fields';
 
 interface IProps extends ITextProps {}
@@ -13,7 +15,7 @@ const EmailInput = (props: IProps) => {
       {...props}
       register={{
         pattern: {
-          value: /[^@]+@[^.]+\..+/,
+          value: TextValidator.emailRegex,
           message: formatMessage({
             id: 'email-input-error-pattern-message',
             defaultMessage: 'Invalid format',

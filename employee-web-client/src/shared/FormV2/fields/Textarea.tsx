@@ -1,5 +1,6 @@
 import React from 'react';
 import { Textarea as CTextarea } from '@chakra-ui/react';
+import { useController } from 'react-hook-form';
 
 import { useFormContextSelector } from '../FormProvider';
 import { useConfigurationValue } from '../configuration';
@@ -11,19 +12,29 @@ export interface IProps extends ITextProps {}
 
 const Textarea = ({ register: registerProp, placeholder, defaultValue, ...props }: ITextProps) => {
   const autoValidation = useConfigurationValue('autoValidation');
-  const register = useFormContextSelector(state => state.register);
+  const control = useFormContextSelector(state => state.control);
   const error = useErrorMessage(props.name);
+
+  const {
+    field: { value, onChange, onBlur },
+  } = useController({
+    name: props.name,
+    control,
+    rules: {
+      required: {
+        value: (autoValidation && props.isRequired) ?? false,
+        message: 'Field is required',
+      },
+      ...registerProp,
+    },
+  });
 
   return (
     <FormField {...props} label={props.children ?? props.label} isInvalid={!!error} errorMessage={error}>
       <CTextarea
-        {...register(props.name, {
-          required: {
-            value: (autoValidation && props.isRequired) ?? false,
-            message: 'Field is required',
-          },
-          ...registerProp,
-        })}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder}
         fontSize='sm'
         defaultValue={defaultValue ?? undefined}

@@ -1,7 +1,10 @@
 import React from 'react';
-import { useIntl } from "react-intl";
+import { useIntl } from 'react-intl';
 
-import { ITextProps, TextInput } from "../fields";
+import { TextValidator } from 'utils/validation';
+
+import { ITextProps, MaskedTextInput } from '../fields';
+import { masks } from '../../Form';
 
 interface IProps extends ITextProps {}
 
@@ -9,23 +12,23 @@ const PhoneInput = (props: IProps) => {
   const { formatMessage } = useIntl();
 
   return (
-    <TextInput
+    <MaskedTextInput
       {...props}
+      mask={masks.phone}
       register={{
         pattern: {
           /* eslint-disable no-useless-escape */
-          value:
-            /^(\+\d{1,3}(\s){0,1}\d+(\-\d+)*((\s)\/(\s)?(\+\d{1,3}\s)?\d+(\-\d+)*)*)$/,
+          value: TextValidator.phoneRegex,
           message: formatMessage({
-            id: "phone-input-error-pattern-message",
-            defaultMessage: "Invalid format",
+            id: 'phone-input-error-pattern-message',
+            defaultMessage: 'Invalid format',
           }),
         },
         maxLength: {
           value: 40,
           message: formatMessage({
-            id: "phone-input-error-max-message",
-            defaultMessage: "Max 40 characters",
+            id: 'phone-input-error-max-message',
+            defaultMessage: 'Max 40 characters',
           }),
         },
         ...props.register,
@@ -33,11 +36,11 @@ const PhoneInput = (props: IProps) => {
     >
       {!props.children
         ? formatMessage({
-            id: "phone-input-label",
-            defaultMessage: "Phone",
+            id: 'phone-input-label',
+            defaultMessage: 'Phone',
           })
         : props.children}
-    </TextInput>
+    </MaskedTextInput>
   );
 };
 

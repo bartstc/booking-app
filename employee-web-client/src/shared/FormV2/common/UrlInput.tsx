@@ -1,6 +1,8 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 
+import { TextValidator } from 'utils/validation';
+
 import { ITextProps, TextInput } from '../fields';
 
 interface IProps extends ITextProps {}
@@ -18,7 +20,7 @@ const UrlInput = (props: IProps) => {
       register={{
         pattern: {
           /* eslint-disable no-useless-escape */
-          value: /^(((http|HTTP|https|HTTPS|ftp|FTP|ftps|FTPS|sftp|SFTP):\/\/)|((w|W){3}(\d)?\.))[\w\?!\.\/:;,\-_=#+*%@&quot;\(\)&amp;]+/,
+          value: TextValidator.urlRegex,
           message: formatMessage({
             id: 'url-input-error-pattern-message',
             defaultMessage: 'Invalid format',

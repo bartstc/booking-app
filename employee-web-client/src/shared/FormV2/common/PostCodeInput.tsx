@@ -1,16 +1,18 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 
-import { ITextProps, TextInput } from '../fields';
+import { ITextProps, MaskedTextInput } from '../fields';
+import { masks } from '../../Form';
 
 interface IProps extends ITextProps {}
 
-const PostCode = ({ children, ...props }: IProps) => {
+const PostCodeInput = ({ children, ...props }: IProps) => {
   const { formatMessage } = useIntl();
 
   return (
-    <TextInput
+    <MaskedTextInput
       {...props}
+      mask={masks.postCode}
       register={{
         pattern: {
           value: /^\d{2}-\d{3}$/,
@@ -28,8 +30,8 @@ const PostCode = ({ children, ...props }: IProps) => {
             defaultMessage: 'Post code',
           })
         : children}
-    </TextInput>
+    </MaskedTextInput>
   );
 };
 
-export { PostCode };
+export { PostCodeInput };

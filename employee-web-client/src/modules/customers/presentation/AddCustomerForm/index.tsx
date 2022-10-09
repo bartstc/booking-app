@@ -1,82 +1,60 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { SimpleGrid } from '@chakra-ui/react';
-import { DateField, InputField, MaskedInputField } from 'react-hook-form-chakra-fields';
+import { SimpleGrid, chakra } from '@chakra-ui/react';
 
 import { ContactType } from 'types';
-import { Form, masks } from 'shared/Form';
-import { ContactsFields } from 'shared/Form/Implementations';
+import { FormProvider, useForm, TextInput, DateInput, Textarea, ContactInputs, PostCodeInput } from 'shared/FormV2';
 
 import { IAddCustomerDto } from '../../application/types';
-import { useAddCustomerValidationSchema } from '../../application';
 
 interface IProps {
   onSubmit: (model: IAddCustomerDto) => void;
 }
 
 const AddCustomerForm = ({ onSubmit }: IProps) => {
-  const schema = useAddCustomerValidationSchema();
+  const methods = useForm<IAddCustomerDto>({
+    defaultValues: {
+      fullName: '',
+      description: '',
+      birthDate: '',
+      address: {
+        postCode: '',
+        street: '',
+        city: '',
+      },
+      contacts: [
+        {
+          type: ContactType.Phone,
+          value: '',
+        },
+      ],
+    },
+  });
 
   return (
-    <Form<IAddCustomerDto>
-      id='add-customer-form'
-      schema={schema}
-      onSubmit={onSubmit}
-      defaultValues={{
-        fullName: '',
-        description: '',
-        birthDate: '',
-        address: {
-          postCode: '',
-          street: '',
-          city: '',
-        },
-        contacts: [
-          {
-            type: ContactType.Phone,
-            value: '',
-          },
-        ],
-      }}
-    >
-      <SimpleGrid columns={6} spacingX={4}>
-        <InputField name='fullName' label={<FormattedMessage id='full-name' defaultMessage='Full name' />} id='customer-name' colSpan={6} />
-        <DateField
-          name='birthDate'
-          label={<FormattedMessage id='birth-date' defaultMessage='Birth date' />}
-          id='birth-date'
-          colSpan={{ base: 4, md: 3 }}
-        />
-        <InputField
-          name='address.city'
-          label={<FormattedMessage id='city' defaultMessage='City' />}
-          id='address-city'
-          colSpan={{ base: 6, md: 4 }}
-        />
-        <InputField
-          name='address.street'
-          label={<FormattedMessage id='street' defaultMessage='Street' />}
-          id='address-street'
-          colSpan={{ base: 6, md: 4 }}
-        />
-        <MaskedInputField
-          name='address.postCode'
-          label={<FormattedMessage id='post-code' defaultMessage='Post code' />}
-          id='address-post-code'
-          mask={masks.postCode}
-          colSpan={{ base: 4, md: 3 }}
-        />
-        <InputField
-          name='description'
-          as='textarea'
-          required={false}
-          label={<FormattedMessage id='description' defaultMessage='Description' />}
-          id='customer-description'
-          colSpan={6}
-        />
-      </SimpleGrid>
-      <ContactsFields />
-    </Form>
+    <chakra.form id='add-customer-form' data-testid='add-customer-form' noValidate onSubmit={methods.handleSubmit(onSubmit)}>
+      <FormProvider {...methods}>
+        <SimpleGrid columns={6} spacing={6}>
+          <TextInput name='fullName' colSpan={6} isRequired>
+            <FormattedMessage id='full-name' defaultMessage='Full name' />
+          </TextInput>
+          <DateInput name='birthDate' colSpan={{ base: 4, md: 3 }} isRequired>
+            <FormattedMessage id='birth-date' defaultMessage='Birth date' />
+          </DateInput>
+          <TextInput name='address.city' colSpan={{ base: 6, md: 4 }} isRequired>
+            <FormattedMessage id='city' defaultMessage='City' />
+          </TextInput>
+          <TextInput name='address.street' colSpan={{ base: 6, md: 4 }} isRequired>
+            <FormattedMessage id='street' defaultMessage='Street' />
+          </TextInput>
+          <PostCodeInput name='address.postCode' colSpan={{ base: 6, md: 4 }} isRequired />
+          <Textarea name='description' colSpan={6}>
+            <FormattedMessage id='description' defaultMessage='Description' />
+          </Textarea>
+          <ContactInputs />
+        </SimpleGrid>
+      </FormProvider>
+    </chakra.form>
   );
 };
 
