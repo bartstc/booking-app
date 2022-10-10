@@ -1,6 +1,7 @@
 import React from 'react';
 import { useController } from 'react-hook-form';
 import MaskedInput, { MaskedInputProps } from 'react-text-mask';
+import { kebabCase } from 'lodash';
 
 import { Input } from '@chakra-ui/react';
 
@@ -42,6 +43,7 @@ const MaskedTextInput = ({ register: registerProp, placeholder, defaultValue, ..
         as={MaskedInput}
         onChange={onChange}
         value={value}
+        id={kebabCase(props.name)}
         onBlur={onBlur}
         ref={ref}
         placeholder={placeholder}

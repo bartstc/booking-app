@@ -1,6 +1,6 @@
 import React from 'react';
 import { useController } from 'react-hook-form';
-
+import { kebabCase } from "lodash";
 import { Switch as CSwitch, SwitchProps } from '@chakra-ui/react';
 
 import { useFormContextSelector } from '../FormProvider';
@@ -37,6 +37,7 @@ const Switch = ({ register: registerProp, onChange: onChangeProp, isChecked, siz
       isInvalid={!!error}
       ref={ref}
       value={value}
+      id={kebabCase(props.name)}
       onChange={event => {
         if (!onChangeProp) {
           return onChange(event);

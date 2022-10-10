@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { useController } from 'react-hook-form';
+import { kebabCase } from "lodash";
 
 import { mapInputTimeDate, mapOutputDate } from 'utils';
 
@@ -42,6 +43,7 @@ const DateTimeInput = memo(({ register, maxDate, minDate, todayButton, placehold
     <FormField {...props} label={props.children ?? props.label} isInvalid={!!error} errorMessage={error}>
       <DateTimePicker
         name={props.name}
+        id={kebabCase(props.name)}
         selected={mapOutputDate(value)}
         onChange={mapInputTimeDate(onChange)}
         onBlur={onBlur}

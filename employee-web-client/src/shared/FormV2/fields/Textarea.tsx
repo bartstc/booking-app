@@ -1,6 +1,7 @@
 import React from 'react';
 import { Textarea as CTextarea } from '@chakra-ui/react';
 import { useController } from 'react-hook-form';
+import { kebabCase } from 'lodash';
 
 import { useFormContextSelector } from '../FormProvider';
 import { useConfigurationValue } from '../configuration';
@@ -33,6 +34,7 @@ const Textarea = ({ register: registerProp, placeholder, defaultValue, ...props 
     <FormField {...props} label={props.children ?? props.label} isInvalid={!!error} errorMessage={error}>
       <CTextarea
         value={value}
+        id={kebabCase(props.name)}
         onChange={onChange}
         onBlur={onBlur}
         placeholder={placeholder}

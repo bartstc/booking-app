@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { useController } from 'react-hook-form';
+import { kebabCase } from 'lodash';
 
 import { mapInputDate, mapOutputDate } from 'utils';
 
@@ -32,7 +33,7 @@ const DateInput = memo(({ register, maxDate, minDate, todayButton, placeholder, 
     rules: {
       required: {
         value: (autoValidation && props.isRequired) ?? false,
-        message: 'Pole jest wymagane.',
+        message: 'Field is required',
       },
       ...register,
     },
@@ -42,6 +43,7 @@ const DateInput = memo(({ register, maxDate, minDate, todayButton, placeholder, 
     <FormField {...props} label={props.children ?? props.label} isInvalid={!!error} errorMessage={error}>
       <DatePicker
         name={props.name}
+        id={kebabCase(props.name)}
         selected={mapOutputDate(value)}
         onChange={mapInputDate(onChange)}
         onBlur={onBlur}

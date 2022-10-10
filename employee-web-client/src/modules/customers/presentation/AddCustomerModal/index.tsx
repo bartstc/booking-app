@@ -40,7 +40,7 @@ const AddCustomerModal = ({ onSuccess }: IProps) => {
             onSubmit={async model => {
               try {
                 const customerId = await handler(model);
-                if (onSuccess) onSuccess(customerId, model);
+                onSuccess?.(customerId, model);
                 showSuccessNotification();
               } catch (e) {
                 showFailureNotification();
