@@ -3,7 +3,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import selectEvent from 'react-select-event';
 
-import { FacilityFixture, OfferFixture, renderWithProviders, mockResponseFactory, MetaFixture } from 'utils';
+import { FacilityFixture, OfferFixture, renderWithProviders, mockResponseFactory, MetaFixture, muteConsoleBeforeEach } from 'utils';
 import { managementMockService } from 'utils/mock';
 
 import { IOfferCollection, OfferStatus, PriceModel } from 'modules/offers/application/types';
@@ -46,6 +46,7 @@ const mockOffers = mockResponseFactory<IOfferCollection>(
 );
 
 // jest.setTimeout(10 * 1000);
+muteConsoleBeforeEach();
 
 it(
   'should add new offer to the list',
@@ -70,12 +71,6 @@ it(
     const priceCurrencyInput = screen.getByLabelText(/Currency/);
     const priceTypeInput = screen.getByLabelText(/Price type/);
 
-    expect(offerNameInput).toBeInTheDocument();
-    expect(durationInput).toBeInTheDocument();
-    expect(priceValueInput).toBeInTheDocument();
-    expect(priceCurrencyInput).toBeInTheDocument();
-    expect(priceTypeInput).toBeInTheDocument();
-
     await userEvent.type(offerNameInput, newOffer.name);
     await userEvent.type(durationInput, newOffer.duration.toString());
     await userEvent.type(priceValueInput, newOffer.price.value);
@@ -89,7 +84,6 @@ it(
       expect(form).not.toBeInTheDocument();
       expect(screen.getByText('New offer added successfully')).toBeInTheDocument();
     });
-    // screen.debug(undefined, 30000);
   },
   10 * 1000,
 );

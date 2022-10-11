@@ -1,5 +1,5 @@
 import React from 'react';
-import { dayjs } from 'utils';
+import { dayjs, muteConsoleBeforeEach } from 'utils';
 import { pick } from 'lodash';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/react';
@@ -55,6 +55,8 @@ const mockCustomers = mockResponseFactory<ICustomerCollection>(
   resp => managementMockService.get(customersQueryKey(FACILITY_ID)[0], resp),
 );
 
+muteConsoleBeforeEach();
+
 it(
   'should add new customer to the list',
   async function () {
@@ -77,17 +79,8 @@ it(
     const streetInput = screen.getByLabelText(/Street/);
     const postCodeInput = screen.getByLabelText(/Post code/);
     const descriptionInput = screen.getByLabelText(/Description/);
-    const contactTypeInput = screen.getByLabelText(/Type/);
+    // const contactTypeInput = screen.getByLabelText(/Type/);
     const phoneInput = screen.getByLabelText(/Phone/);
-
-    expect(fullNameInput).toBeInTheDocument();
-    expect(birthDateInput).toBeInTheDocument();
-    expect(cityInput).toBeInTheDocument();
-    expect(streetInput).toBeInTheDocument();
-    expect(postCodeInput).toBeInTheDocument();
-    expect(descriptionInput).toBeInTheDocument();
-    expect(contactTypeInput).toBeInTheDocument();
-    expect(phoneInput).toBeInTheDocument();
 
     await userEvent.type(fullNameInput, newCustomer.fullName);
     await userEvent.type(birthDateInput, newCustomer.birthDate);
@@ -102,7 +95,6 @@ it(
     await userEvent.click(submitButton);
 
     await waitFor(() => {
-      screen.debug(undefined, 30000);
       expect(form).not.toBeInTheDocument();
       expect(screen.getByText('New customer added successfully')).toBeInTheDocument();
     });
