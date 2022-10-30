@@ -1,27 +1,26 @@
 import React, { Suspense } from 'react';
 import { Badge } from '@chakra-ui/react';
 import { useIntl } from 'react-intl';
-import { useReactTable, getCoreRowModel, createColumnHelper } from '@tanstack/react-table';
 
 import { useQueryParams } from 'shared/Params';
 import { ErrorBoundary } from 'shared/ErrorBoundary';
 import { ContactType } from 'types';
 import { useFormatDate } from 'shared/DateV2';
 import { ContactButtons } from 'shared/Contact';
-import { Th, Tr, Tbody, Thead, Tfoot, TableLoader, TableContainer, Table, Td } from 'shared/Table';
+import { Th, Tr, Tbody, Thead, Tfoot, TableLoader, TableContainer, Table, Td, useTable, createColumn } from 'shared/Table';
 
 import { ICustomer, ICustomerCollectionQueryParams } from '../../../application/types';
 import { useCustomersQuery } from '../../../infrastructure/query';
 import { useFacilityContextSelector } from '../../../../context';
 
-const columnHelper = createColumnHelper<ICustomer>();
+const columnBuilder = createColumn<ICustomer>();
 
-const useCols = () => {
+const useColumns = () => {
   const { formatMessage } = useIntl();
   const formatDate = useFormatDate();
 
   return [
-    columnHelper.accessor('fullName', {
+    columnBuilder.accessor('fullName', {
       id: 'full-name',
       cell: props => props.getValue(),
       header: formatMessage({
@@ -30,7 +29,7 @@ const useCols = () => {
       }),
       enableSorting: true,
     }),
-    columnHelper.accessor(() => 'bookings', {
+    columnBuilder.accessor(() => 'bookings', {
       id: 'bookings',
       cell: () => (
         <Badge variant='subtle' colorScheme='gray'>
@@ -43,7 +42,7 @@ const useCols = () => {
       }),
       enableSorting: false,
     }),
-    columnHelper.accessor(row => row.address, {
+    columnBuilder.accessor(row => row.address, {
       id: 'address',
       cell: props => `${props.getValue().city}, ${props.getValue().street}`,
       header: formatMessage({
@@ -52,7 +51,7 @@ const useCols = () => {
       }),
       enableSorting: false,
     }),
-    columnHelper.accessor(row => row.contacts, {
+    columnBuilder.accessor(row => row.contacts, {
       id: 'phone',
       header: formatMessage({
         id: 'phone',
@@ -61,7 +60,7 @@ const useCols = () => {
       cell: props => props.getValue().find(contact => contact.type === ContactType.Phone)?.value ?? '---',
       enableSorting: false,
     }),
-    columnHelper.accessor('birthDate', {
+    columnBuilder.accessor('birthDate', {
       id: 'birth-date',
       header: formatMessage({
         id: 'birth-date',
@@ -73,7 +72,7 @@ const useCols = () => {
         isNumeric: true,
       },
     }),
-    columnHelper.accessor(() => 'buttons', {
+    columnBuilder.accessor(() => 'buttons', {
       id: 'buttons',
       header: '',
       cell: props => (
@@ -90,13 +89,12 @@ const useCols = () => {
 const CustomersTableSuspense = () => {
   const { params } = useQueryParams<ICustomerCollectionQueryParams>();
   const { facilityId } = useFacilityContextSelector();
-  const columns = useCols();
+  const columns = useColumns();
 
   const { collection, meta } = useCustomersQuery(facilityId, params);
-  const table = useReactTable({
+  const table = useTable({
     columns,
     data: collection,
-    getCoreRowModel: getCoreRowModel(),
   });
 
   return (

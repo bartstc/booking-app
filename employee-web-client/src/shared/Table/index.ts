@@ -6,3 +6,4 @@ export { Th } from './Th';
 export { Tfoot } from './Tfoot';
 export { TableLoader } from './TableLoader';
 export { TableContainer } from './TableContainer';
+export { createColumn, useTable } from './useTable';
