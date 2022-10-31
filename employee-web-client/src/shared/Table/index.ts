@@ -10,3 +10,4 @@ export { TableLoader } from './TableLoader';
 export { TableContainer } from './TableContainer';
 export { CollectionPanel } from '../Collection/CollectionPanel';
 export { createColumn, useTable } from './useTable';
+export { DefaultTable } from './DefaultTable';

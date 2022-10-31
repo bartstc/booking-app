@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 
 import { useQueryParams } from 'shared/Params';
 import { ErrorBoundary } from 'shared/ErrorBoundary';
-import { Table, TableContainer, TableLoader, Tbody, Td, Tfoot, Th, Thead, Tr, useTable } from 'shared/Table';
+import { DefaultTable, TableContainer, TableLoader, Tfoot, useTable } from 'shared/Table';
 
 import { useEnterpriseContextSelector } from '../../../../context';
 import { IEmployeeCollectionQueryParams } from '../../../application/types';
@@ -25,26 +25,7 @@ const EmployeesTableSuspense = () => {
 
   return (
     <TableContainer count={collection.length}>
-      <Table>
-        <Thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <Tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <Th key={header.id} {...header} />
-              ))}
-            </Tr>
-          ))}
-        </Thead>
-        <Tbody>
-          {table.getRowModel().rows.map(row => (
-            <Tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <Td key={cell.id} {...cell} />
-              ))}
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
+      <DefaultTable table={table} />
       <Tfoot meta={meta} collectionCount={collection.length} />
     </TableContainer>
   );
