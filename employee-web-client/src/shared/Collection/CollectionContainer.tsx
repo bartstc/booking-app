@@ -5,7 +5,7 @@ interface IProps extends StackProps {}
 
 const CollectionContainer = ({ children, ...props }: IProps) => {
   return (
-    <VStack w='100%' pb={{ base: 4, md: 10 }} {...props}>
+    <VStack spacing={3} w='100%' pb={{ base: 4, md: 10 }} {...props}>
       {children}
     </VStack>
   );
