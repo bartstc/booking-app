@@ -1,13 +1,19 @@
 import React, { ReactNode } from 'react';
 import { VStack } from '@chakra-ui/react';
+import { NoResultsState } from "../States";
 
 interface IProps {
   children: ReactNode;
+  count: number
 }
 
-const TableContainer = ({ children }: IProps) => {
+const TableContainer = ({ children, count }: IProps) => {
+  if (count === 0) {
+    return <NoResultsState />;
+  }
+
   return (
-    <VStack spacing={1} display='stretch' w='100%' fontSize='sm'>
+    <VStack spacing={1} display='stretch' w='100%'>
       {children}
     </VStack>
   );

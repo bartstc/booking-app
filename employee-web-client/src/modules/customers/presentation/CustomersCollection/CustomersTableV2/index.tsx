@@ -104,7 +104,7 @@ const CustomersTableSuspense = () => {
   });
 
   return (
-    <TableContainer>
+    <TableContainer count={collection.length}>
       <Table>
         <Thead>
           {table.getHeaderGroups().map(headerGroup => (
