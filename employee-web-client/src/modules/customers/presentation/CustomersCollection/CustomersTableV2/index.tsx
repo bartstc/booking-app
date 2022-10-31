@@ -91,7 +91,9 @@ const CustomersTableSuspense = () => {
   const { facilityId } = useFacilityContextSelector();
   const columns = useColumns();
 
-  const { collection, meta } = useCustomersQuery(facilityId, params);
+  const { collection, meta } = useCustomersQuery(facilityId, params, {
+    keepPreviousData: true,
+  });
   const table = useTable({
     columns,
     data: collection,

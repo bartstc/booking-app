@@ -22,6 +22,7 @@ function Th<TData>(header: IProps<TData>) {
 
   return (
     <ChakraTh
+      p='12px 18px'
       key={header.id}
       isNumeric={meta?.isNumeric}
       borderBottom={isActive ? `1px solid ${activeBorderColor} !important` : `1px solid ${borderColor}`}

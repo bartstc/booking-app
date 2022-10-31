@@ -1,16 +1,16 @@
 import React from 'react';
-import { Skeleton as ChSkeleton, SkeletonProps, VStack } from '@chakra-ui/react';
+import { Skeleton, SkeletonProps, VStack } from '@chakra-ui/react';
 
 interface IProps extends SkeletonProps {}
 
 const TableLoader = (props: IProps) => {
   return (
     <VStack w='100%'>
-      <ChSkeleton w='100%' h='36px' {...props} />
+      <Skeleton w='100%' h='36px' {...props} />
       {Array.from(Array(10).keys()).map(value => (
-        <ChSkeleton key={value} w='100%' h='65px' {...props} />
+        <Skeleton key={value} w='100%' h='53px' {...props} />
       ))}
-      <ChSkeleton w='100%' h='45px' {...props} />
+      <Skeleton w='100%' h='45px' {...props} />
     </VStack>
   );
 };

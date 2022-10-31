@@ -7,7 +7,11 @@ interface IProps<TData> extends Cell<TData, unknown> {}
 function Td<TData>(cell: IProps<TData>) {
   const meta = cell.column.columnDef.meta;
 
-  return <ChakraTd isNumeric={meta?.isNumeric}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</ChakraTd>;
+  return (
+    <ChakraTd p='10px 18px' isNumeric={meta?.isNumeric}>
+      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+    </ChakraTd>
+  );
 }
 
 export { Td };
