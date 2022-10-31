@@ -38,6 +38,7 @@ const SortableCell = ({ children, name, isNumeric, withTooltip = true, ...props 
   return (
     <HStack
       isTruncated
+      textTransform='uppercase'
       fontWeight='600'
       p='0.7rem 0.5rem'
       pr={isNumeric ? '1rem' : '0.5rem'}
@@ -81,6 +82,7 @@ const Cell = ({ children, name, isNumeric, withTooltip = true, ...props }: ICell
   return (
     <HStack
       isTruncated
+      textTransform='uppercase'
       fontWeight='600'
       p='0.7rem 0.5rem'
       minH='57px'

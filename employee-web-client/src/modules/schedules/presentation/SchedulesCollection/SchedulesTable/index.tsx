@@ -1,21 +1,17 @@
 import React, { Suspense } from 'react';
 
-import { useQueryParams } from 'shared/Params';
 import { ErrorBoundary } from 'shared/ErrorBoundary';
-import { Tfoot, TableLoader, TableContainer, useTable, DefaultTable } from 'shared/Table';
+import { TableLoader, TableContainer, useTable, DefaultTable } from 'shared/Table';
 
-import { ICustomerCollectionQueryParams } from '../../../application/types';
-import { useCustomersQuery } from '../../../infrastructure/query';
+import { useSchedulesQuery } from '../../../infrastructure/query';
 import { useFacilityContextSelector } from '../../../../context';
 import { useColumns } from './useColumns';
 
-const CustomersTableSuspense = () => {
-  const { params } = useQueryParams<ICustomerCollectionQueryParams>();
+const SchedulesTableSuspense = () => {
   const { facilityId } = useFacilityContextSelector();
 
   const columns = useColumns();
-
-  const { collection, meta } = useCustomersQuery(facilityId, params, {
+  const { collection } = useSchedulesQuery(facilityId, {
     keepPreviousData: true,
   });
   const table = useTable({
@@ -26,19 +22,18 @@ const CustomersTableSuspense = () => {
   return (
     <TableContainer count={collection.length}>
       <DefaultTable table={table} />
-      <Tfoot meta={meta} collectionCount={collection.length} />
     </TableContainer>
   );
 };
 
-const CustomersTable = () => {
+const SchedulesTable = () => {
   return (
     <ErrorBoundary>
       <Suspense fallback={<TableLoader />}>
-        <CustomersTableSuspense />
+        <SchedulesTableSuspense />
       </Suspense>
     </ErrorBoundary>
   );
 };
 
-export { CustomersTable };
+export { SchedulesTable };

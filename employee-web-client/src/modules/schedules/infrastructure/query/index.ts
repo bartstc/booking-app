@@ -1,3 +1,3 @@
 export { scheduleQuery, scheduleQueryKey, useScheduleQuery } from './scheduleQuery';
-export { schedulesQuery, schedulesQueryKey } from './schedulesQuery';
+export { schedulesQuery, schedulesQueryKey, useSchedulesQuery } from './schedulesQuery';
 export { availabilitiesQueryKey, useAvailabilitiesQuery, availabilitiesQuery } from './availabilitiesQuery';

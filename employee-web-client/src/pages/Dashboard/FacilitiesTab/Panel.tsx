@@ -1,12 +1,13 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
-import { Flex, HStack } from '@chakra-ui/react';
+import { ButtonGroup } from '@chakra-ui/react';
 import { isMobileOnly } from 'react-device-detect';
 import { mdiHomePlus } from '@mdi/js';
 
 import { ClearFiltersIconButton, FiltersInput } from 'shared/Filters';
 import { Button, IconButton } from 'shared/Button';
+import { CollectionPanel } from 'shared/Collection';
 import { Icon } from 'shared/Icon';
 
 const Panel = () => {
@@ -19,7 +20,7 @@ const Panel = () => {
   });
 
   return (
-    <Flex justify='space-between' w='100%'>
+    <CollectionPanel>
       <FiltersInput
         placeholder={`${formatMessage({
           id: 'search-facility-name',
@@ -27,7 +28,7 @@ const Panel = () => {
         })}...`}
         filterName='name'
       />
-      <HStack>
+      <ButtonGroup>
         {isMobileOnly ? (
           <IconButton
             onClick={() => navigate('/dashboard/new-facility')}
@@ -42,8 +43,8 @@ const Panel = () => {
           </Button>
         )}
         <ClearFiltersIconButton ml={4} />
-      </HStack>
-    </Flex>
+      </ButtonGroup>
+    </CollectionPanel>
   );
 };
 

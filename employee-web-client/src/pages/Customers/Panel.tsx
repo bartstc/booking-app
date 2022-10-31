@@ -1,14 +1,15 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { HStack } from '@chakra-ui/react';
+import { ButtonGroup } from '@chakra-ui/react';
 
 import { ClearFiltersIconButton, FiltersInput } from 'shared/Filters';
+import { CollectionPanel } from 'shared/Collection';
 
 const Panel = () => {
   const { formatMessage } = useIntl();
 
   return (
-    <HStack minH='56px' justify='space-between' w='100%'>
+    <CollectionPanel>
       <FiltersInput
         placeholder={`${formatMessage({
           id: 'search-customer-name',
@@ -16,10 +17,10 @@ const Panel = () => {
         })}...`}
         filterName='fullName'
       />
-      <HStack>
-        <ClearFiltersIconButton ml={4} />
-      </HStack>
-    </HStack>
+      <ButtonGroup>
+        <ClearFiltersIconButton />
+      </ButtonGroup>
+    </CollectionPanel>
   );
 };
 

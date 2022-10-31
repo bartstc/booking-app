@@ -10,6 +10,7 @@ import { Button, IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
 import { Confirm } from 'shared/Confirm';
 import { TableConfigButton } from 'shared/GridTable';
+import { CollectionPanel } from 'shared/Collection';
 
 import { useNotImplementedYet } from 'hooks';
 
@@ -37,7 +38,7 @@ const OffersCollectionToolbox = () => {
   }
 
   return (
-    <HStack minH='56px' justify='space-between' w='100%'>
+    <CollectionPanel>
       <FiltersInput
         placeholder={`${formatMessage({
           id: 'search-employee-name-or-position',
@@ -58,7 +59,7 @@ const OffersCollectionToolbox = () => {
           </>
         )}
       </HStack>
-    </HStack>
+    </CollectionPanel>
   );
 };
 

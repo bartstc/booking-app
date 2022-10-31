@@ -1,7 +1,7 @@
 import React from 'react';
 import { isMobile } from 'react-device-detect';
 
-import { Table } from './Table';
+import { SchedulesTable } from './SchedulesTable';
 import { List } from './List';
 
 const SchedulesCollection = () => {
@@ -9,7 +9,7 @@ const SchedulesCollection = () => {
     return <List />;
   }
 
-  return <Table />;
+  return <SchedulesTable />;
 };
 
 export { SchedulesCollection };
