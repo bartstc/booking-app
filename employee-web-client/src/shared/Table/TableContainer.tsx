@@ -7,7 +7,7 @@ interface IProps {
 
 const TableContainer = ({ children }: IProps) => {
   return (
-    <VStack display='stretch' w='100%' fontSize='sm'>
+    <VStack spacing={1} display='stretch' w='100%' fontSize='sm'>
       {children}
     </VStack>
   );

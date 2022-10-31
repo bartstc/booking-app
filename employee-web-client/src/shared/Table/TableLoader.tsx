@@ -10,7 +10,7 @@ const TableLoader = (props: IProps) => {
       {Array.from(Array(10).keys()).map(value => (
         <Skeleton key={value} w='100%' h='53px' {...props} />
       ))}
-      <Skeleton w='100%' h='45px' {...props} />
+      <Skeleton w='100%' h='41px' {...props} />
     </VStack>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { Input, InputGroup, InputLeftElement, InputRightElement, InputProps } from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement, InputRightElement, InputProps, Center } from '@chakra-ui/react';
 import { mdiClose, mdiMagnify } from '@mdi/js';
 
 import { useFilterInput } from './useFilterInput';
@@ -27,7 +27,11 @@ const FiltersInput = ({ filterName = 'query', ...props }: IProps) => {
         <IconButton
           display={value ? 'block' : 'none'}
           size='sm'
-          icon={<Icon path={mdiClose} color='gray.500' />}
+          icon={
+            <Center>
+              <Icon path={mdiClose} color='gray.500' />
+            </Center>
+          }
           title={formatMessage({ id: 'clear', defaultMessage: 'Clear' })}
           onClick={() => onChange('')}
         />
