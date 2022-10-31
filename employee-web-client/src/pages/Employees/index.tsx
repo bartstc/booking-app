@@ -1,8 +1,8 @@
 import React from 'react';
-import { VStack } from '@chakra-ui/react';
 
 import { PageContainer } from 'shared/Layout/Page';
 import { withErrorBoundary } from 'shared/ErrorBoundary';
+import { CollectionContainer } from 'shared/Collection';
 
 import { EmployeesCollection } from 'modules/employees/presentation';
 
@@ -13,10 +13,10 @@ const Employees = () => {
   return (
     <PageContainer>
       <Header />
-      <VStack w='100%' maxW='1200px' pb={{ base: 4, md: 10 }}>
+      <CollectionContainer>
         <Panel />
         <EmployeesCollection />
-      </VStack>
+      </CollectionContainer>
     </PageContainer>
   );
 };

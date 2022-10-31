@@ -28,7 +28,6 @@ const useColumns = () => {
         defaultMessage: 'Full name',
       }),
       enableSorting: true,
-      enableHiding: false,
     }),
     columnBuilder.accessor(() => 'bookings', {
       id: 'bookings',
@@ -60,7 +59,6 @@ const useColumns = () => {
       }),
       cell: props => props.getValue().find(contact => contact.type === ContactType.Phone)?.value ?? '---',
       enableSorting: false,
-      enableHiding: false,
     }),
     columnBuilder.accessor('birthDate', {
       id: 'birth-date',
@@ -81,7 +79,6 @@ const useColumns = () => {
         <ContactButtons contacts={props.row.original.contacts} subject={formatMessage({ id: 'customer', defaultMessage: 'customer' })} />
       ),
       enableSorting: false,
-      enableHiding: false,
       meta: {
         isNumeric: true,
       },
