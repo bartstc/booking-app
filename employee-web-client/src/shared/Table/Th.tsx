@@ -27,7 +27,7 @@ function Th<TData>(header: IProps<TData>) {
       isNumeric={meta?.isNumeric}
       borderBottom={isActive ? `1px solid ${activeBorderColor} !important` : `1px solid ${borderColor}`}
       cursor={isSortable ? 'pointer' : 'inherit'}
-      onClick={change}
+      onClick={isSortable ? change : undefined}
     >
       {header.column.id === 'buttons' ? null : (
         <HStack float={meta?.isNumeric ? 'right' : 'left'} color={textColor}>

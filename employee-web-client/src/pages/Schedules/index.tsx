@@ -1,7 +1,6 @@
 import React from 'react';
-import { VStack } from '@chakra-ui/react';
-
 import { PageContainer } from 'shared/Layout/Page';
+import { CollectionContainer } from 'shared/Collection';
 
 import { SchedulesCollection } from 'modules/schedules/presentation';
 
@@ -11,9 +10,9 @@ const Schedules = () => {
   return (
     <PageContainer>
       <Header />
-      <VStack w='100%' maxW='1200px' pb={{ base: 4, md: 10 }}>
+      <CollectionContainer>
         <SchedulesCollection />
-      </VStack>
+      </CollectionContainer>
     </PageContainer>
   );
 };
