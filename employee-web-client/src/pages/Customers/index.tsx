@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PageWrapper } from 'shared/Layout';
+import { PageContainer } from 'shared/Layout';
 import { withErrorBoundary } from 'shared/ErrorBoundary';
 import { CustomersCollection } from 'modules/customers/presentation';
 import { CollectionContainer } from 'shared/Collection';
@@ -10,13 +10,13 @@ import { Panel } from './Panel';
 
 const Customers = () => {
   return (
-    <PageWrapper>
+    <PageContainer>
       <Header />
       <CollectionContainer>
         <Panel />
         <CustomersCollection />
       </CollectionContainer>
-    </PageWrapper>
+    </PageContainer>
   );
 };
 

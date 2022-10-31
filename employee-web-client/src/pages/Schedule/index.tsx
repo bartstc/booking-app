@@ -11,7 +11,7 @@ import { useScheduleQuery } from 'modules/schedules/infrastructure/query';
 import { RangeWeekDatesProvider } from 'modules/schedules/presentation';
 import { useFacilityContextSelector } from 'modules/context';
 
-import { PageWrapper } from 'shared/Layout/Page';
+import { PageContainer } from 'shared/Layout/Page';
 import { withErrorBoundary } from 'shared/ErrorBoundary';
 import { FormattedDate } from 'shared/Date';
 import { IconButton } from 'shared/Button';
@@ -62,7 +62,7 @@ const Schedule = () => {
   }, [startTime, endTime]);
 
   return (
-    <PageWrapper maxW='1600px'>
+    <PageContainer maxW='1600px'>
       <Header schedule={schedule} />
       <VStack w='100%' spacing={0}>
         <SimpleGrid w='100%' columns={3} spacingX={4}>
@@ -100,7 +100,7 @@ const Schedule = () => {
           <AvailableEmployeesGrid isInRange={isInRange} weekDates={weekDates} />
         </RangeWeekDatesProvider>
       </VStack>
-    </PageWrapper>
+    </PageContainer>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
 
-import { PageWrapper } from 'shared/Layout/Page';
+import { PageContainer } from 'shared/Layout/Page';
 
 import { AddBookingForm, useAddBookingNotification } from 'modules/booking/presentation';
 import { useAddBooking } from 'modules/booking/infrastructure/command';
@@ -15,7 +15,7 @@ const AddBooking = () => {
   const { showFailureNotification, showSuccessNotification } = useAddBookingNotification();
 
   return (
-    <PageWrapper maxW='1300px'>
+    <PageContainer maxW='1300px'>
       <Header />
       <Box w='100%'>
         <AddBookingForm
@@ -31,7 +31,7 @@ const AddBooking = () => {
           isLoading={isLoading}
         />
       </Box>
-    </PageWrapper>
+    </PageContainer>
   );
 };
 

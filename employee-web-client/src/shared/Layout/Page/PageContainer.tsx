@@ -5,7 +5,7 @@ interface IProps extends StackProps {
   children: ReactNode;
 }
 
-const PageWrapper = ({ children, ...props }: IProps) => {
+const PageContainer = ({ children, ...props }: IProps) => {
   return (
     <VStack
       spacing={{ base: 10, md: 16 }}
@@ -22,4 +22,4 @@ const PageWrapper = ({ children, ...props }: IProps) => {
   );
 };
 
-export { PageWrapper };
+export { PageContainer };

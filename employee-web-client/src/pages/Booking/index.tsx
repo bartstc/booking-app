@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PageWrapper } from 'shared/Layout/Page';
+import { PageContainer } from 'shared/Layout/Page';
 
 import { withErrorBoundary } from 'shared/ErrorBoundary';
 
@@ -15,10 +15,10 @@ export interface BookingPageQueryParams {
 
 const Booking = () => {
   return (
-    <PageWrapper maxW='1600px' spacing={4}>
+    <PageContainer maxW='1600px' spacing={4}>
       <Header />
       <CustomCalendar />
-    </PageWrapper>
+    </PageContainer>
   );
 };
 
