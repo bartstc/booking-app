@@ -1,7 +1,9 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
-import { ErrorBoundary } from 'shared/ErrorBoundary';
-import { TableLoader, TableContainer, useTable, DefaultTable } from 'shared/Table';
+import { compose } from 'utils';
+
+import { withErrorBoundary } from 'shared/ErrorBoundary';
+import { TableContainer, useTable, DefaultTable, withTableSuspense } from 'shared/Table';
 
 import { useSchedulesQuery } from '../../../infrastructure/query';
 import { useFacilityContextSelector } from '../../../../context';
@@ -26,14 +28,4 @@ const SchedulesTableSuspense = () => {
   );
 };
 
-const SchedulesTable = () => {
-  return (
-    <ErrorBoundary>
-      <Suspense fallback={<TableLoader />}>
-        <SchedulesTableSuspense />
-      </Suspense>
-    </ErrorBoundary>
-  );
-};
-
-export { SchedulesTable };
+export const SchedulesTable = compose(withErrorBoundary, withTableSuspense)(SchedulesTableSuspense);

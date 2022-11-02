@@ -1,8 +1,10 @@
-import React, { Suspense } from 'react';
+import React from 'react';
+
+import { compose } from 'utils';
 
 import { useQueryParams } from 'shared/Params';
-import { ErrorBoundary } from 'shared/ErrorBoundary';
-import { Tfoot, TableLoader, TableContainer, useTable, DefaultTable } from 'shared/Table';
+import { withErrorBoundary } from 'shared/ErrorBoundary';
+import { Tfoot, TableContainer, useTable, DefaultTable, withTableSuspense } from 'shared/Table';
 
 import { ICustomerCollectionQueryParams } from '../../../application/types';
 import { useCustomersQuery } from '../../../infrastructure/query';
@@ -31,14 +33,4 @@ const CustomersTableSuspense = () => {
   );
 };
 
-const CustomersTable = () => {
-  return (
-    <ErrorBoundary>
-      <Suspense fallback={<TableLoader />}>
-        <CustomersTableSuspense />
-      </Suspense>
-    </ErrorBoundary>
-  );
-};
-
-export { CustomersTable };
+export const CustomersTable = compose(withErrorBoundary, withTableSuspense)(CustomersTableSuspense);

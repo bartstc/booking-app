@@ -1,8 +1,10 @@
-import React, { Suspense } from 'react';
+import React from 'react';
+
+import { compose } from 'utils';
 
 import { useQueryParams } from 'shared/Params';
-import { ErrorBoundary } from 'shared/ErrorBoundary';
-import { DefaultTable, TableContainer, TableLoader, Tfoot, useTable } from 'shared/Table';
+import { withErrorBoundary } from 'shared/ErrorBoundary';
+import { DefaultTable, TableContainer, Tfoot, useTable, withTableSuspense } from 'shared/Table';
 
 import { useEnterpriseContextSelector } from '../../../../context';
 import { IEmployeeCollectionQueryParams } from '../../../application/types';
@@ -31,14 +33,4 @@ const EmployeesTableSuspense = () => {
   );
 };
 
-const EmployeesTable = () => {
-  return (
-    <ErrorBoundary>
-      <Suspense fallback={<TableLoader />}>
-        <EmployeesTableSuspense />
-      </Suspense>
-    </ErrorBoundary>
-  );
-};
-
-export { EmployeesTable };
+export const EmployeesTable = compose(withErrorBoundary, withTableSuspense)(EmployeesTableSuspense);

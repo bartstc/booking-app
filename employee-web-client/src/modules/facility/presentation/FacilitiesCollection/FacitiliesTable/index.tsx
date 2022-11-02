@@ -1,8 +1,10 @@
-import React, { Suspense } from 'react';
+import React from 'react';
+
+import { compose } from 'utils';
 
 import { useQueryParams } from 'shared/Params';
-import { ErrorBoundary } from 'shared/ErrorBoundary';
-import { DefaultTable, TableContainer, TableLoader, Tfoot, useTable } from 'shared/Table';
+import { withErrorBoundary } from 'shared/ErrorBoundary';
+import { DefaultTable, TableContainer, Tfoot, useTable, withTableSuspense } from 'shared/Table';
 
 import { IFacilityCollectionQueryParams } from '../../../application/types';
 import { useEnterpriseContextSelector } from '../../../../context';
@@ -31,14 +33,4 @@ const FacilitiesTableSuspense = () => {
   );
 };
 
-const FacilitiesTable = () => {
-  return (
-    <ErrorBoundary>
-      <Suspense fallback={<TableLoader />}>
-        <FacilitiesTableSuspense />
-      </Suspense>
-    </ErrorBoundary>
-  );
-};
-
-export { FacilitiesTable };
+export const FacilitiesTable = compose(withErrorBoundary, withTableSuspense)(FacilitiesTableSuspense);
