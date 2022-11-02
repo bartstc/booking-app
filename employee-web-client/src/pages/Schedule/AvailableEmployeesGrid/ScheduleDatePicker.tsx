@@ -6,8 +6,6 @@ import { GridItem, HStack } from '@chakra-ui/react';
 import { mdiArrowLeft } from '@mdi/js';
 import { DateInput } from 'react-hook-form-chakra-fields';
 
-import { buildUrl } from 'utils';
-import { DEFAULT_PARAMS } from 'utils/constant';
 import { dayjs } from 'utils/dayjs';
 
 import { IconButton } from 'shared/Button';
@@ -28,9 +26,9 @@ const ScheduleDatePicker = ({ setWeek, trackedDay, endDate, startDate }: IProps)
     <GridItem display={{ base: 'none', lg: 'block' }} colSpan={1} mt={2}>
       <HStack spacing={4} maxW='300px'>
         <IconButton
-          onClick={() => navigate(buildUrl(`/schedules`, DEFAULT_PARAMS))}
+          onClick={() => navigate(`/schedules`)}
           variant='ghost'
-          title={formatMessage({ id: 'bask-to-list', defaultMessage: 'Back to list' })}
+          title={formatMessage({ id: 'back-to-list', defaultMessage: 'Back to list' })}
           icon={<Icon path={mdiArrowLeft} />}
         />
         <DateInput

@@ -11,9 +11,6 @@ import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
 import { SectionContainer } from 'shared/DescriptionList';
 
-import { buildUrl } from 'utils';
-import { DEFAULT_PARAMS } from 'utils/constant';
-
 import { ContactPersonInputs, AddressInputs, WorkingHoursInputs, MetaInputs, ContactsInputs, FacilityForm } from '../FacilityForm';
 import { useCreateFacilityNotification } from './useCreateFacilityNotification';
 
@@ -37,7 +34,7 @@ const CreateFacilityForm = ({ enterpriseId, employeeId }: IProps) => {
         try {
           await handler(model);
           showCreateSuccessNotification();
-          navigate(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS));
+          navigate(`/dashboard/facilities`);
         } catch {
           showCreateFailureNotification();
         }
@@ -57,7 +54,7 @@ const CreateFacilityForm = ({ enterpriseId, employeeId }: IProps) => {
         </SectionContainer>
         <HStack justify='flex-end'>
           <SubmitButton form='create-facility' isLoading={isLoading} />
-          <Button colorScheme='gray' ml={3} onClick={() => navigate(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS))}>
+          <Button colorScheme='gray' ml={3} onClick={() => navigate(`/dashboard/facilities`)}>
             <FormattedMessage id='cancel' defaultMessage='Cancel' />
           </Button>
         </HStack>

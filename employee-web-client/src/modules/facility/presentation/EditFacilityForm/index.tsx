@@ -5,8 +5,6 @@ import { HStack, Divider, VStack } from '@chakra-ui/react';
 
 import { useFacilityQuery } from 'modules/facility/infrastructure/query';
 import { useUpdateFacility } from 'modules/facility/infrastructure/command';
-import { buildUrl } from 'utils';
-import { DEFAULT_PARAMS } from 'utils/constant';
 import { SubmitButton } from 'shared/Form';
 import { Button } from 'shared/Button';
 import { SectionContainer } from 'shared/DescriptionList';
@@ -30,7 +28,7 @@ const EditFacilityForm = () => {
         try {
           await handler(model);
           showEditSuccessNotification();
-          navigate(buildUrl(`/dashboard/facilities`, DEFAULT_PARAMS));
+          navigate(`/dashboard/facilities`);
         } catch {
           showEditFailureNotification();
         }

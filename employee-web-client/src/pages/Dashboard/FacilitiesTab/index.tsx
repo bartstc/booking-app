@@ -1,7 +1,10 @@
 import React from 'react';
 import { VStack } from '@chakra-ui/react';
 
+import { withPaginationParamsCorrector } from 'shared/Params';
+
 import { FacilitiesCollection } from 'modules/facility/presentation';
+import { DEFAULT_PARAMS } from 'utils/constant';
 
 import { DashboardTabs } from '../DashboardTabs';
 import { Panel } from './Panel';
@@ -17,4 +20,4 @@ const FacilitiesTab = () => {
   );
 };
 
-export default FacilitiesTab;
+export default withPaginationParamsCorrector(DEFAULT_PARAMS)(FacilitiesTab);

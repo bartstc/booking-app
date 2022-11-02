@@ -1,9 +1,6 @@
 import { useIntl } from 'react-intl';
 import { mdiAccountMultiple, mdiBookMultiple, mdiCalendarCheck, mdiClipboardTextSearch, mdiCalendarWeek, mdiLan } from '@mdi/js';
 
-import { buildUrl } from 'utils';
-import { DEFAULT_PARAMS } from 'utils/constant';
-
 export const useGetLinks = () => {
   const { formatMessage } = useIntl();
 
@@ -23,7 +20,7 @@ export const useGetLinks = () => {
         id: 'schedules',
         defaultMessage: 'Schedules',
       }),
-      to: buildUrl('schedules', DEFAULT_PARAMS),
+      to: 'schedules',
       signature: 'schedules',
     },
     {
@@ -41,7 +38,7 @@ export const useGetLinks = () => {
         id: 'customers',
         defaultMessage: 'Customers',
       }),
-      to: buildUrl('customers', DEFAULT_PARAMS),
+      to: 'customers',
       signature: 'customers',
     },
     {
@@ -50,7 +47,7 @@ export const useGetLinks = () => {
         id: 'employees',
         defaultMessage: 'Employees',
       }),
-      to: buildUrl('employees', DEFAULT_PARAMS),
+      to: 'employees',
       signature: 'employees',
     },
     {
@@ -59,7 +56,7 @@ export const useGetLinks = () => {
         id: 'offers',
         defaultMessage: 'Offers',
       }),
-      to: buildUrl('offers', DEFAULT_PARAMS),
+      to: 'offers',
       signature: 'offers',
     },
   ];

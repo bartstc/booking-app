@@ -1,11 +1,17 @@
 import React from 'react';
 
+import { compose } from 'utils';
+
+import { CollectionContainer } from 'shared/Collection';
+import { withErrorBoundary } from 'shared/ErrorBoundary';
+import { withPaginationParamsCorrector } from 'shared/Params';
 import { PageContainer } from 'shared/Layout/Page';
+
 import { OffersCollection } from 'modules/offers/presentation';
+import { OFFER_COLLECTION_DEFAULT_PARAMS } from 'modules/offers/application';
+import { OffersCollectionToolbox } from 'modules/offers/presentation/OffersCollection/OffersCollectionToolbox';
 
 import { Header } from './Header';
-import { OffersCollectionToolbox } from '../../modules/offers/presentation/OffersCollection/OffersCollectionToolbox';
-import { CollectionContainer } from '../../shared/Collection';
 
 const Offers = () => {
   return (
@@ -19,4 +25,4 @@ const Offers = () => {
   );
 };
 
-export default Offers;
+export default compose(withErrorBoundary, withPaginationParamsCorrector(OFFER_COLLECTION_DEFAULT_PARAMS))(Offers);

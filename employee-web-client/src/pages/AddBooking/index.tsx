@@ -2,6 +2,7 @@ import React from 'react';
 import { Box } from '@chakra-ui/react';
 
 import { PageContainer } from 'shared/Layout/Page';
+import { withErrorBoundary } from 'shared/ErrorBoundary';
 
 import { AddBookingForm, useAddBookingNotification } from 'modules/booking/presentation';
 import { useAddBooking } from 'modules/booking/infrastructure/command';
@@ -35,4 +36,4 @@ const AddBooking = () => {
   );
 };
 
-export default AddBooking;
+export default withErrorBoundary(AddBooking);
