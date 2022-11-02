@@ -1,4 +1,4 @@
-import React, { ReactNode, Suspense, useEffect } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -31,15 +31,15 @@ type Options = {
   route?: string;
 };
 
-const Providers = ({ children, route }: Options & { children: ReactNode }) => {
+const Providers = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    if (route) {
-      navigate(route);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (route) {
+  //     navigate(route);
+  //   }
+  // }, []);
 
   return (
     <QueryParamsProvider
@@ -56,29 +56,27 @@ const Providers = ({ children, route }: Options & { children: ReactNode }) => {
   );
 };
 
-export function renderWithProviders(ui: React.ReactElement, options: Options = {}) {
+export function renderWithProviders(ui: React.ReactElement, options: Options = { route: '/' }) {
+  window.history.pushState({}, 'Test page', options.route);
   const testQueryClient = createTestQueryClient();
 
   const { rerender, ...result } = render(
-    <BrowserRouter>
-      <Providers {...options}>
-        <Suspense fallback={() => <div>Loading...</div>}>
-          <QueryClientProvider client={testQueryClient}>{ui}</QueryClientProvider>
-        </Suspense>
-      </Providers>
-    </BrowserRouter>,
+    <Providers>
+      <Suspense fallback={() => <div>Loading...</div>}>
+        <QueryClientProvider client={testQueryClient}>{ui}</QueryClientProvider>
+      </Suspense>
+    </Providers>,
+    { wrapper: BrowserRouter },
   );
   return {
     ...result,
     rerender: (rerenderUi: React.ReactElement) =>
       rerender(
-        <BrowserRouter>
-          <Providers {...options}>
-            <Suspense fallback={() => <div>Loading...</div>}>
-              <QueryClientProvider client={testQueryClient}>{rerenderUi}</QueryClientProvider>
-            </Suspense>
-          </Providers>
-        </BrowserRouter>,
+        <Providers>
+          <Suspense fallback={() => <div>Loading...</div>}>
+            <QueryClientProvider client={testQueryClient}>{rerenderUi}</QueryClientProvider>
+          </Suspense>
+        </Providers>,
       ),
   };
 }

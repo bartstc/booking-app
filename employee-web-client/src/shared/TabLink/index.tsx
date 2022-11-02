@@ -5,10 +5,11 @@ import { Link, useLocation } from 'react-router-dom';
 interface IProps extends ChakraProps {
   children: ReactNode | string;
   to: string;
+  id: string;
   isActive?: boolean;
 }
 
-const TabLink = ({ children, to, isActive, ...props }: IProps) => {
+const TabLink = ({ children, to, isActive, id, ...props }: IProps) => {
   const { pathname } = useLocation();
 
   const tabFontSize = useBreakpointValue({ base: 'sm', md: 'md' });
@@ -22,7 +23,7 @@ const TabLink = ({ children, to, isActive, ...props }: IProps) => {
   const active = isActive ?? to.includes(pathname);
 
   return (
-    <Link to={to}>
+    <Link to={to} id={id} data-testid={id}>
       <StyledTab
         fontSize={tabFontSize}
         border='2px'

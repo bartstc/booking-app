@@ -24,36 +24,34 @@ const EditEnterpriseTab = lazy(() => import('../../pages/Dashboard/EditEnterpris
 
 const PrivateRoutes = () => {
   return (
-    <Layout>
-      <Suspense fallback={<Spinner />}>
-        <Routes>
-          <Route path='bookings' element={<Booking />} />
-          <Route path='add-booking' element={<AddBooking />} />
-          <Route path='customers' element={<Customers />} />
-          <Route path='employees' element={<Employees />} />
-          <Route path='offers' element={<Offers />} />
-          <Route path='schedules' element={<Schedules />} />
-          <Route path='schedules/:scheduleId' element={<Schedule />} />
+    <Suspense fallback={<Spinner />}>
+      <Routes>
+        <Route path='bookings' element={<Booking />} />
+        <Route path='add-booking' element={<AddBooking />} />
+        <Route path='customers' element={<Customers />} />
+        <Route path='employees' element={<Employees />} />
+        <Route path='offers' element={<Offers />} />
+        <Route path='schedules' element={<Schedules />} />
+        <Route path='schedules/:scheduleId' element={<Schedule />} />
 
-          <Route path='dashboard' element={<Dashboard />}>
-            <Route path='enterprise/edit' element={<EditEnterpriseTab />} />
-            <Route path='new-facility' element={<CreateFacilityTab />} />
-            <Route path='facilities/:facilitySlug/edit' element={<EditFacilityTab />} />
-            <Route path='facilities/:facilitySlug' element={<FacilityTab />} />
-            <Route path='enterprise' element={<ReadEnterpriseTab />} />
-            <Route path='facilities' element={<FacilitiesTab />} />
-            <Route path='*' element={<Navigate to='enterprise' />} />
-          </Route>
+        <Route path='dashboard' element={<Dashboard />}>
+          <Route path='enterprise/edit' element={<EditEnterpriseTab />} />
+          <Route path='new-facility' element={<CreateFacilityTab />} />
+          <Route path='facilities/:facilitySlug/edit' element={<EditFacilityTab />} />
+          <Route path='facilities/:facilitySlug' element={<FacilityTab />} />
+          <Route path='enterprise' element={<ReadEnterpriseTab />} />
+          <Route path='facilities' element={<FacilitiesTab />} />
+          <Route path='*' element={<Navigate to='enterprise' />} />
+        </Route>
 
-          <Route path='signin-oidc' element={<Callback />} />
-          <Route path='logout' element={<Logout />} />
-          <Route path='logout-callback' element={<LogoutCallback />} />
-          <Route path='silentrenew' element={<SilentRenew />} />
+        <Route path='signin-oidc' element={<Callback />} />
+        <Route path='logout' element={<Logout />} />
+        <Route path='logout-callback' element={<LogoutCallback />} />
+        <Route path='silentrenew' element={<SilentRenew />} />
 
-          <Route path='*' element={<Navigate to={'dashboard/enterprise'} />} />
-        </Routes>
-      </Suspense>
-    </Layout>
+        <Route path='*' element={<Navigate to={'dashboard/enterprise'} />} />
+      </Routes>
+    </Suspense>
   );
 };
 
