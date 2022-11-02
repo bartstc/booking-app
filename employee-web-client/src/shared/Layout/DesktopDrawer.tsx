@@ -42,19 +42,23 @@ const DesktopDrawer = ({ toggle, extended }: IProps) => {
       />
       <VStack justify='space-between' width='100%' height='100%' pb={10} pt={20}>
         <VStack spacing={4} as='ul' px='20px' align='flex-start' width='100%' overflow='hidden'>
-          {links.map(({ label, to, path, signature }) => (
-            <HStack w='100%' key={to} as='li'>
-              {extended ? (
-                <NavButton onClick={() => navigate(`/${to}`)} path={path} isActive={pathname.includes(signature)}>
-                  <Text pl={2} fontWeight='400' lineHeight='100%'>
-                    {label}
-                  </Text>
-                </NavButton>
-              ) : (
-                <NavIconButton onClick={() => navigate(`/${to}`)} title={label} path={path} isActive={pathname.includes(signature)} />
-              )}
-            </HStack>
-          ))}
+          {links.map(({ label, to, path, signature }) => {
+            const isActive = pathname.includes(signature);
+
+            return (
+              <HStack w='100%' key={to} as='li'>
+                {extended ? (
+                  <NavButton onClick={isActive ? undefined : () => navigate(`/${to}`)} path={path} isActive={isActive}>
+                    <Text pl={2} fontWeight='400' lineHeight='100%'>
+                      {label}
+                    </Text>
+                  </NavButton>
+                ) : (
+                  <NavIconButton onClick={isActive ? undefined : () => navigate(`/${to}`)} title={label} path={path} isActive={isActive} />
+                )}
+              </HStack>
+            );
+          })}
         </VStack>
         <VStack px='20px' align='flex-start' w='100%'>
           <VStack align='flex-start' w='100%'>
