@@ -6,7 +6,7 @@ import { screen, waitFor } from '@testing-library/react';
 
 import { ContactType } from 'types';
 import { managementMockService } from 'utils/mock';
-import { CustomerFixture, FacilityFixture, MetaFixture, mockResponseFactory, renderWithProviders } from 'utils';
+import { CustomerFixture, FacilityFixture, MetaFixture, renderWithProviders } from 'utils';
 import { IAddCustomerDto, ICustomerCollection } from 'modules/customers/application/types';
 import { customersQueryKey } from 'modules/customers/infrastructure/query';
 import { FacilityProvider } from 'modules/context/application';
@@ -47,25 +47,20 @@ const newCustomer = CustomerFixture.createPermutation({
   ],
 });
 
-const mockCustomers = mockResponseFactory<ICustomerCollection>(
-  {
-    meta: MetaFixture.createPermutation({ total: 2 }),
-    collection: [existingCustomer],
-  },
-  resp => managementMockService.get(customersQueryKey(FACILITY_ID)[0], resp),
+managementMockService.post<IAddCustomerDto>(
+  `facilities/${FACILITY_ID}/customers`,
+  pick(newCustomer, ['fullName', 'birthDate', 'address', 'contacts', 'description']) as IAddCustomerDto,
 );
+managementMockService.get<ICustomerCollection>(customersQueryKey(FACILITY_ID)[0], {
+  meta: MetaFixture.createPermutation({ total: 2 }),
+  collection: [existingCustomer],
+});
 
 muteConsoleBeforeEach();
 
 it(
   'should add new customer to the list',
   async function () {
-    mockCustomers();
-    managementMockService.post<IAddCustomerDto>(
-      `facilities/${FACILITY_ID}/customers`,
-      pick(newCustomer, ['fullName', 'birthDate', 'address', 'contacts', 'description']) as IAddCustomerDto,
-    );
-
     renderView();
 
     await userEvent.click(screen.getByText('Add customer'));

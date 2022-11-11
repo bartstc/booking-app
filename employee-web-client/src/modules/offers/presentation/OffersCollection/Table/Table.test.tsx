@@ -41,7 +41,7 @@ describe('OffersCollection', function () {
     const { collection } = mockOffers();
     renderTable();
 
-    expect(screen.getByTestId('loading-skeleton')).toBeInTheDocument();
+    expect(screen.getByTestId('table-loader')).toBeInTheDocument();
 
     await waitFor(() => {
       collection.forEach(offer => {

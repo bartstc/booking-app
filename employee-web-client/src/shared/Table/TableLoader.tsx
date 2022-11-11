@@ -5,7 +5,7 @@ interface IProps extends SkeletonProps {}
 
 const TableLoader = (props: IProps) => {
   return (
-    <VStack w='100%'>
+    <VStack data-testid='table-loader' w='100%'>
       <Skeleton w='100%' h='36px' {...props} />
       {Array.from(Array(10).keys()).map(value => (
         <Skeleton key={value} w='100%' h='53px' {...props} />

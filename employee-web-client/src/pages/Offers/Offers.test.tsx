@@ -1,9 +1,9 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import selectEvent from 'react-select-event';
 
-import { FacilityFixture, OfferFixture, renderWithProviders, mockResponseFactory, MetaFixture, muteConsoleBeforeEach } from 'utils';
+import { FacilityFixture, OfferFixture, renderWithProviders, MetaFixture, muteConsoleBeforeEach } from 'utils';
 import { managementMockService } from 'utils/mock';
 
 import { IOfferCollection, OfferStatus, PriceModel } from 'modules/offers/application/types';
@@ -16,18 +16,25 @@ import { Currency } from '../../types';
 const FACILITY_ID = '1';
 const OFFER_ID_1 = '123';
 const OFFER_ID_2 = '456';
+const OFFER_ID_3 = '789';
 
 const facility = FacilityFixture.createPermutation({ facilityId: FACILITY_ID });
-const existingOffer = OfferFixture.createPermutation({
+const existingOffer1 = OfferFixture.createPermutation({
   facilityId: FACILITY_ID,
   offerId: OFFER_ID_1,
-  name: 'First offer',
+  name: 'Existing offer',
+  status: OfferStatus.Active,
+});
+const existingOffer2 = OfferFixture.createPermutation({
+  facilityId: FACILITY_ID,
+  offerId: OFFER_ID_2,
+  name: 'Existing offer',
   status: OfferStatus.Active,
 });
 const newOffer = OfferFixture.createPermutation({
   facilityId: FACILITY_ID,
-  offerId: OFFER_ID_2,
-  name: 'Brand new offer',
+  offerId: OFFER_ID_3,
+  name: 'New offer',
   status: OfferStatus.Active,
   duration: 60,
   price: {
@@ -37,13 +44,15 @@ const newOffer = OfferFixture.createPermutation({
   },
 });
 
-const mockOffers = mockResponseFactory<IOfferCollection>(
-  {
-    meta: MetaFixture.createPermutation({ total: 2 }),
-    collection: [existingOffer],
-  },
-  resp => managementMockService.get(offersQueryKey(FACILITY_ID)[0], resp),
-);
+managementMockService.post(`facilities/${FACILITY_ID}/offers`, {
+  offerName: newOffer.name,
+  duration: newOffer.duration.toString(),
+  price: newOffer.price,
+});
+managementMockService.get<IOfferCollection>(offersQueryKey(FACILITY_ID)[0], {
+  meta: MetaFixture.createPermutation({ total: 3 }),
+  collection: [existingOffer1, existingOffer2, newOffer],
+});
 
 // jest.setTimeout(10 * 1000);
 muteConsoleBeforeEach();
@@ -51,14 +60,14 @@ muteConsoleBeforeEach();
 it(
   'should add new offer to the list',
   async function () {
-    mockOffers();
-    managementMockService.post(`facilities/${FACILITY_ID}/offers`, {
-      offerName: newOffer.name,
-      duration: newOffer.duration.toString(),
-      price: newOffer.price,
+    managementMockService.getOnce<IOfferCollection>(offersQueryKey(FACILITY_ID)[0], {
+      meta: MetaFixture.createPermutation({ total: 2 }),
+      collection: [existingOffer1, existingOffer2],
     });
 
     renderView();
+    await waitForElementToBeRemoved(screen.queryByTestId('table-loader'));
+    expect(screen.getAllByText('Existing offer').length).toBe(2);
 
     await userEvent.click(screen.getByText('Add offer'));
 
@@ -83,6 +92,7 @@ it(
     await waitFor(() => {
       expect(form).not.toBeInTheDocument();
       expect(screen.getByText('New offer added successfully')).toBeInTheDocument();
+      expect(screen.queryByText('New offer')).toBeInTheDocument();
     });
   },
   10 * 1000,

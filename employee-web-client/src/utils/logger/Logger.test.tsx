@@ -3,6 +3,9 @@ import { fireEvent, render } from '@testing-library/react';
 
 import { Logger } from './index';
 import { LogLevel } from './Logger';
+import { muteConsoleBeforeEach } from "../muteConsoleBeforeEach";
+
+muteConsoleBeforeEach();
 
 const ThrowableComponent = () => {
   return (

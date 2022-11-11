@@ -44,6 +44,25 @@ class MockService {
     };
   }
 
+  public getOnce<R>(url: string, reply: R | Callback<R>): Function {
+    const data: any = reply instanceof Function ? reply() : reply;
+    const endpoint = parse(this.host, url);
+
+    const handler = rest.get(endpoint, (req, res, ctx) => {
+      if (data?.status) {
+        return res.once(ctx.status(500), ctx.json(data));
+      }
+
+      return res.once(ctx.status(200), ctx.json(data));
+    });
+
+    msw().use(handler);
+
+    return () => {
+      throw Error('Not implemented clear function');
+    };
+  }
+
   public post<R>(url: string, reply: R | Callback<R>): Function {
     const data: any = reply instanceof Function ? reply() : reply;
     const handler = rest.post(parse(this.host, url), (req, res, ctx) => {
