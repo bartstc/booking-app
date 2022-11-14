@@ -3,13 +3,15 @@ import React from 'react';
 import { compose } from 'utils';
 
 import { withErrorBoundary } from 'shared/ErrorBoundary';
-import { TableContainer, useTable, DefaultTable, withTableSuspense } from 'shared/Table';
+import { TableContainer, useTable, withTableSuspense, Table, Th, Tbody, Td, Thead, Tr } from 'shared/Table';
 
 import { useSchedulesQuery } from '../../../infrastructure/query';
 import { useFacilityContextSelector } from '../../../../context';
 import { useColumns } from './useColumns';
+import { useNavigate } from 'react-router-dom';
 
 const SchedulesTableSuspense = () => {
+  const navigate = useNavigate();
   const { facilityId } = useFacilityContextSelector();
 
   const columns = useColumns();
@@ -23,7 +25,26 @@ const SchedulesTableSuspense = () => {
 
   return (
     <TableContainer count={collection.length}>
-      <DefaultTable table={table} />
+      <Table>
+        <Thead>
+          {table.getHeaderGroups().map(headerGroup => (
+            <Tr key={headerGroup.id}>
+              {headerGroup.headers.map(header => (
+                <Th key={header.id} {...header} />
+              ))}
+            </Tr>
+          ))}
+        </Thead>
+        <Tbody>
+          {table.getRowModel().rows.map(row => (
+            <Tr key={row.id} cursor='pointer' onClick={() => navigate(`/schedules/${row.original.scheduleId}`)}>
+              {row.getVisibleCells().map(cell => (
+                <Td key={cell.id} {...cell} />
+              ))}
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
     </TableContainer>
   );
 };
