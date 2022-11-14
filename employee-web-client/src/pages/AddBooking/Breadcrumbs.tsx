@@ -12,7 +12,7 @@ const Breadcrumbs = () => {
     <Box w='100%'>
       <Breadcrumb fontSize='md' spacing='8px' separator={<BreadcrumbIcon />}>
         <BreadcrumbItem>
-          <BreadcrumbLink as={Link} to={'bookings'}>
+          <BreadcrumbLink as={Link} to={'/bookings'}>
             <FormattedMessage id='calendar' defaultMessage='Calendar' />
           </BreadcrumbLink>
         </BreadcrumbItem>

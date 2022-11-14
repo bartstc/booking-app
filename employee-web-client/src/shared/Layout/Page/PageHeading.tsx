@@ -5,7 +5,7 @@ interface IProps extends HeadingProps {}
 
 const PageHeading = ({ children, ...props }: IProps) => {
   return (
-    <Heading as='h1' lineHeight={8} fontWeight='600' {...props}>
+    <Heading as='h1' fontWeight='600' {...props}>
       {children}
     </Heading>
   );
