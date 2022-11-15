@@ -1,5 +1,6 @@
 import { IntlProvider } from 'react-intl';
 import { withReactQuery, withSuspense } from '../src/utils/storybook';
+import { withRouter } from 'storybook-addon-react-router-v6';
 
 const { theme } = require('../src/utils/theme');
 
@@ -25,6 +26,7 @@ export const decorators = [
       {story()}
     </IntlProvider>
   ),
+  withRouter,
   withReactQuery(),
   withSuspense(),
 ];
