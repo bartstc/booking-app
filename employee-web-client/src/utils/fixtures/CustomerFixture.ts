@@ -1,10 +1,11 @@
 import { createFixture } from './fixture';
 import { ICustomer } from '../../modules/customers/application/types';
+import { dayjs } from '../dayjs';
 
 export const CustomerFixture = createFixture<ICustomer>({
   customerId: '',
   facilityId: '',
-  birthDate: '',
+  birthDate: dayjs().format(),
   fullName: 'John DOe',
   description: null,
   isSystemic: false,

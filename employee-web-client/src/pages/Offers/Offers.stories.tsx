@@ -2,6 +2,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { within, userEvent, waitForElementToBeRemoved, screen } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import selectEvent from 'react-select-event';
 
 import { withParams } from 'utils/storybook';
 import { managementMockService } from 'utils/mock';
@@ -13,7 +14,6 @@ import { IOfferCollection, OfferStatus, PriceModel } from 'modules/offers/applic
 import { offersQueryKey } from 'modules/offers/infrastructure/query';
 import { FacilityProvider } from 'modules/context/application';
 import Offers from './index';
-import selectEvent from 'react-select-event';
 
 const FACILITY_ID = generateID();
 const OFFER_ID_1 = generateID();
@@ -87,8 +87,8 @@ const Template: ComponentStory<typeof Offers> = () => {
   );
 };
 
-export const OffersTable = Template.bind({});
-OffersTable.decorators = [
+export const OffersList = Template.bind({});
+OffersList.decorators = [
   Story => {
     managementMockService.get<IOfferCollection>(offersQueryKey(FACILITY_ID)[0], {
       meta: MetaFixture.createPermutation({ total: 2 }),
@@ -100,7 +100,7 @@ OffersTable.decorators = [
 ];
 
 export const AddNewOffer = Template.bind({});
-AddNewOffer.decorators = OffersTable.decorators;
+AddNewOffer.decorators = OffersList.decorators;
 AddNewOffer.play = async ({ canvasElement }) => {
   within(canvasElement);
 
@@ -127,12 +127,13 @@ AddNewOffer.play = async ({ canvasElement }) => {
   await userEvent.click(screen.getByText('Submit'));
 
   await waitForElementToBeRemoved(form);
+
   await expect(screen.getByText('New offer added successfully')).toBeInTheDocument();
   await expect(screen.getAllByText('New offer').length).toBeGreaterThan(0);
 };
 
-export const EmptyOffersTable = Template.bind({});
-EmptyOffersTable.decorators = [
+export const EmptyOffersList = Template.bind({});
+EmptyOffersList.decorators = [
   Story => {
     managementMockService.get<IOfferCollection>(offersQueryKey(FACILITY_ID)[0], {
       meta: MetaFixture.createPermutation({ total: 0 }),
