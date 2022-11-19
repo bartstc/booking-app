@@ -10,6 +10,7 @@ module.exports = {
   ],
   features: {
     emotionAlias: false,
+    interactionsDebugger: true,
   },
   framework: '@storybook/react',
   core: {
