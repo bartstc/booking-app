@@ -3,13 +3,14 @@ import { useIntl } from 'react-intl';
 import { ButtonGroup, chakra } from '@chakra-ui/react';
 
 import { List, IndentList, IndentLabel } from 'shared/IndentiationList';
-import { Header, Heading, SubHeading, Divider } from 'shared/DescriptionListV2';
+import { Header, Heading, SubHeading, Divider, ListItem } from 'shared/DescriptionListV2';
 import { useForm, FormProvider } from 'shared/FormV2';
 
 import { useFacilityFormStore } from '../createFacilityFormStore';
 import { PreviousStepButton } from '../PreviousStepButton';
 import { NextStepButton } from '../NextStepButton';
 import { BaseInfoStepInputs } from './BaseInfoStepInputs';
+import { FormStepHeader } from '../FormStepHeader';
 import { CreateFacilityFormDto } from '../../../application/types';
 
 const BaseInfoStep = () => {
@@ -31,13 +32,26 @@ const BaseInfoStep = () => {
     >
       <FormProvider {...methods}>
         <List>
+          <ListItem>
+            <FormStepHeader>
+              {formatMessage({
+                id: 'add-facility-step-one',
+                defaultMessage: "Step 1: Basic facility's data",
+              })}
+            </FormStepHeader>
+          </ListItem>
           <IndentLabel>
             <Header>
-              <Heading>{formatMessage({ id: 'facility-base-data', defaultMessage: 'Base information' })}</Heading>
+              <Heading>
+                {formatMessage({
+                  id: 'facility-base-data',
+                  defaultMessage: 'Base information',
+                })}
+              </Heading>
               <SubHeading>
                 {formatMessage({
                   id: 'facility-base-data-description',
-                  defaultMessage: 'Base data about facility.This fields identifies your facility in the system and on the market.',
+                  defaultMessage: 'Base data about facility. This fields identifies your facility in the system and on the market.',
                 })}
               </SubHeading>
             </Header>

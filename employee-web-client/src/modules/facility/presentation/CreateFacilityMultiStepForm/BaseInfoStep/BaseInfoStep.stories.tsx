@@ -1,14 +1,15 @@
+import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { BaseInfoStep } from './index';
+import { BaseInfoStep as BaseInfoStepComponent } from './index';
 
 export default {
   title: 'modules/facility/AddFacilityForm/BaseInfoStep',
-  component: BaseInfoStep,
-} as ComponentMeta<typeof BaseInfoStep>;
+  component: BaseInfoStepComponent,
+} as ComponentMeta<typeof BaseInfoStepComponent>;
 
-const Template: ComponentStory<typeof BaseInfoStep> = () => {
-  return <BaseInfoStep />;
+const Template: ComponentStory<typeof BaseInfoStepComponent> = () => {
+  return <BaseInfoStepComponent />;
 };
 
-export const Default = Template.bind({});
+export const BaseInfoStep = Template.bind({});
