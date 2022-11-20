@@ -25,8 +25,8 @@ const BaseInfoStep = () => {
 
   return (
     <chakra.form
-      id='add-facility-base-info-step'
-      data-testid='add-facility-base-info-step'
+      id='add-facility-first-step'
+      data-testid='add-facility-first-step'
       noValidate
       onSubmit={methods.handleSubmit(model => setData(model))}
     >
