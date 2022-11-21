@@ -56,7 +56,7 @@ const ContactInputs = ({ prefix = 'contacts' }: IProps) => {
                   colorScheme='red'
                   path={mdiDelete}
                   onClick={() => remove(index)}
-                  mt='32px !important'
+                  mt='30px !important'
                 />
               </GridItem>
             )}

@@ -2,19 +2,19 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { ButtonGroup, chakra } from '@chakra-ui/react';
 
-import { FormProvider, useForm } from 'shared/FormV2';
-import { Divider, Header, Heading, ListItem, SubHeading } from 'shared/DescriptionListV2';
+import { ContactType } from 'types';
+import { ContactInputs, FormProvider, useForm } from 'shared/FormV2';
 import { IndentLabel, IndentList, List } from 'shared/IndentiationList';
+import { Divider, Header, Heading, ListItem, SubHeading } from 'shared/DescriptionListV2';
 
-import { CreateFacilityFormDto, WeekDay } from '../../../application/types';
+import { useFacilityFormStore } from '../createFacilityFormStore';
+import { CreateFacilityFormDto } from '../../../application/types';
 import { FormStepHeader } from '../FormStepHeader';
 import { PreviousStepButton } from '../PreviousStepButton';
 import { NextStepButton } from '../NextStepButton';
-import { useFacilityFormStore } from '../createFacilityFormStore';
-import { WorkingHoursInputs } from './WorkingHoursInputs';
-import { AddressInputs } from './AddressInputs';
+import { ContactPersonInputs } from './ContactPersonInputs';
 
-const WorkingDaysAndAddressStep = () => {
+const ContactStep = () => {
   const { formatMessage } = useIntl();
   const step = useFacilityFormStore(store => store.step);
   const data = useFacilityFormStore(store => store.data);
@@ -23,13 +23,17 @@ const WorkingDaysAndAddressStep = () => {
   const methods = useForm<Partial<CreateFacilityFormDto>>({
     defaultValues: {
       ...data,
-      availability:
-        data.availability && data.availability.length > 0
-          ? data.availability
+      contacts:
+        data.contacts && data.contacts.length > 0
+          ? data.contacts
           : [
               {
-                dayName: WeekDay.Monday,
-                hours: { until: '', to: '' },
+                type: ContactType.Phone,
+                value: '',
+              },
+              {
+                type: ContactType.Email,
+                value: '',
               },
             ],
     },
@@ -37,8 +41,8 @@ const WorkingDaysAndAddressStep = () => {
 
   return (
     <chakra.form
-      id='add-facility-second-step'
-      data-testid='add-facility-second-step'
+      id='add-facility-third-step'
+      data-testid='add-facility-third-step'
       noValidate
       onSubmit={methods.handleSubmit(model => setData(model))}
     >
@@ -47,8 +51,8 @@ const WorkingDaysAndAddressStep = () => {
           <ListItem>
             <FormStepHeader>
               {formatMessage({
-                id: 'add-facility-step-two',
-                defaultMessage: 'Step 2: Working hours and address',
+                id: 'add-facility-step-three',
+                defaultMessage: 'Step 3: Contact and administration info',
               })}
             </FormStepHeader>
           </ListItem>
@@ -56,40 +60,40 @@ const WorkingDaysAndAddressStep = () => {
             <Header>
               <Heading>
                 {formatMessage({
-                  id: 'working-hours',
-                  defaultMessage: 'Working hours',
+                  id: 'contact',
+                  defaultMessage: 'Contact',
                 })}
               </Heading>
               <SubHeading>
                 {formatMessage({
-                  id: 'working-hours-description',
-                  defaultMessage: 'The facility opens during the week.',
+                  id: 'facility-contact-description',
+                  defaultMessage: 'The contact list necessary for communication between the facility and its customers.',
                 })}
               </SubHeading>
             </Header>
           </IndentLabel>
           <IndentList columns={12} spacingY={6}>
-            <WorkingHoursInputs />
+            <ContactInputs />
           </IndentList>
           <Divider />
           <IndentLabel>
             <Header>
               <Heading>
                 {formatMessage({
-                  id: 'address',
-                  defaultMessage: 'Address',
+                  id: 'facility-contact-person',
+                  defaultMessage: 'Contact person',
                 })}
               </Heading>
               <SubHeading>
                 {formatMessage({
-                  id: 'facility-address-description',
-                  defaultMessage: 'The exact location of your facility.',
+                  id: 'contact-person-description-info',
+                  defaultMessage: 'Data of the person who can be contacted by the booking service administrator.',
                 })}
               </SubHeading>
             </Header>
           </IndentLabel>
           <IndentList columns={6} spacingY={6}>
-            <AddressInputs />
+            <ContactPersonInputs />
           </IndentList>
           <Divider />
           <IndentLabel>
@@ -104,4 +108,4 @@ const WorkingDaysAndAddressStep = () => {
   );
 };
 
-export { WorkingDaysAndAddressStep };
+export { ContactStep };
