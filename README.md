@@ -101,7 +101,7 @@ To fully test both client applications (and thus the entire microservices system
 - OIDC Client
 - React Query
 - React Hook Form
-- RxJS
+- Zustand
 - Storybook
 - Mock Service Worker (MSW)
 - React Testing Library (RTL)
