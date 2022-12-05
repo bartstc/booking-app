@@ -40,4 +40,25 @@ export const CreateFacilityMapper = {
       })),
     };
   },
+  formToModel(form: CreateFacilityFormDto): IFacility {
+    return {
+      ...omit(form, ['facilityName', 'facilityDescription', 'mainBusinessCategory', 'subordinateBusinessCategories', 'availability']),
+      name: form.facilityName,
+      description: form.facilityDescription ?? null,
+      businessCategories: [
+        {
+          type: form.mainBusinessCategory,
+          degree: BusinessCategoryDegreeType.Main,
+        },
+        ...(form.subordinateBusinessCategories ?? []).map(type => ({
+          type,
+          degree: BusinessCategoryDegreeType.Subordinate,
+        })),
+      ],
+      workingDays: form.availability.map(availability => ({
+        dayName: availability.dayName,
+        hours: [availability.hours],
+      })),
+    } as unknown as IFacility;
+  },
 };

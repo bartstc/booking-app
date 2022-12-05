@@ -8,7 +8,7 @@ export const FacilityFixture = createFixture<IFacility>({
   slug: 'hardcut-barber',
   currency: Currency.Eu,
   name: 'Hardcut Barber',
-  description: null,
+  description: "Lorem ipsum dolor",
   address: {
     city: 'Gdynia',
     postCode: '80-800',
@@ -20,7 +20,10 @@ export const FacilityFixture = createFixture<IFacility>({
       hours: [{ until: '9.00', to: '17.00' }],
     },
   ],
-  businessCategories: [{ degree: BusinessCategoryDegreeType.Main, type: BusinessCategoryType.Barber }],
+  businessCategories: [
+    { degree: BusinessCategoryDegreeType.Main, type: BusinessCategoryType.Barber },
+    { degree: BusinessCategoryDegreeType.Subordinate, type: BusinessCategoryType.Hairdresser },
+  ],
   contacts: [
     {
       type: ContactType.Email,

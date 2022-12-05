@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 
 import { Divider, Header, Heading, SubHeading } from 'shared/DescriptionListV2';
@@ -11,9 +11,10 @@ import { weekDayMessages } from '../../application/messages';
 
 interface IProps {
   facility: IFacility;
+  children?: ReactNode;
 }
 
-const FacilityBody = ({ facility }: IProps) => {
+const FacilityBody = ({ facility, children }: IProps) => {
   const { formatMessage } = useIntl();
 
   const mainBusinessCategory = facility.businessCategories.find(category => category.degree === BusinessCategoryDegreeType.Main)?.type;
@@ -24,6 +25,7 @@ const FacilityBody = ({ facility }: IProps) => {
 
   return (
     <List spacingY={4}>
+      {children}
       <IndentLabel>
         <Header>
           <Heading>
