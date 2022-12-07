@@ -9,10 +9,12 @@ const FormStepProgressBar = () => {
   const getProgress = () => {
     switch (step) {
       case FacilityFormStep.Base_info:
-        return 33.33;
+        return 25;
       case FacilityFormStep.Working_hours:
-        return 66.66;
+        return 50;
       case FacilityFormStep.Contact:
+        return 75;
+      case FacilityFormStep.Summary:
         return 100;
     }
   };

@@ -8,7 +8,7 @@ interface IProps extends GridItemProps {
 
 const ListItem = ({ children, ...props }: IProps) => {
   return (
-    <GridItem colSpan={3} {...props}>
+    <GridItem colStart={1} colEnd={-1} {...props}>
       {children}
     </GridItem>
   );

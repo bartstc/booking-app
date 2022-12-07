@@ -5,6 +5,7 @@ export enum FacilityFormStep {
   Base_info = 'base info',
   Working_hours = 'working hours',
   Contact = 'contact',
+  Summary = 'summary',
 }
 
 type FacilityFormStore = {
@@ -35,7 +36,9 @@ export const useFacilityFormStore = create<FacilityFormStore>((set, get) => {
           case FacilityFormStep.Working_hours:
             return FacilityFormStep.Contact;
           case FacilityFormStep.Contact:
-            return FacilityFormStep.Contact;
+            return FacilityFormStep.Summary;
+          case FacilityFormStep.Summary:
+            return FacilityFormStep.Summary;
         }
       };
 
@@ -44,7 +47,7 @@ export const useFacilityFormStore = create<FacilityFormStore>((set, get) => {
       });
     },
     previous() {
-      const getNextStep = () => {
+      const getPrevStep = () => {
         switch (get().step) {
           case FacilityFormStep.Base_info:
             return FacilityFormStep.Base_info;
@@ -52,11 +55,13 @@ export const useFacilityFormStore = create<FacilityFormStore>((set, get) => {
             return FacilityFormStep.Base_info;
           case FacilityFormStep.Contact:
             return FacilityFormStep.Working_hours;
+          case FacilityFormStep.Summary:
+            return FacilityFormStep.Contact;
         }
       };
 
       set({
-        step: getNextStep(),
+        step: getPrevStep(),
       });
     },
   };

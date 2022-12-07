@@ -20,7 +20,7 @@ const NextStepButton = ({ formStep }: IProps) => {
       variant='solid'
       colorScheme='primary'
       id={`go-to-${kebabCase(formStep)}`}
-      isDisabled={step === FacilityFormStep.Contact}
+      isDisabled={step === FacilityFormStep.Summary}
       type='submit'
       rightIcon={<ChevronRightIcon />}
     >
