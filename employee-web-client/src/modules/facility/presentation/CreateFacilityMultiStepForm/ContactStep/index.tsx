@@ -1,24 +1,24 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { ButtonGroup, chakra } from '@chakra-ui/react';
+import { ButtonGroup } from '@chakra-ui/react';
 
 import { ContactType } from 'types';
 import { ContactInputs, FormProvider, useForm } from 'shared/FormV2';
 import { IndentLabel, IndentList, List } from 'shared/IndentiationList';
 import { Divider, Header, Heading, ListItem, SubHeading } from 'shared/DescriptionListV2';
 
-import { useFacilityFormStore } from '../createFacilityFormStore';
 import { CreateFacilityFormDto } from '../../../application/types';
+import { useFacilityFormStore } from '../createFacilityFormStore';
 import { FormStepHeader } from '../FormStepHeader';
 import { PreviousStepButton } from '../PreviousStepButton';
 import { NextStepButton } from '../NextStepButton';
 import { ContactPersonInputs } from './ContactPersonInputs';
+import { Form } from '../Form';
 
 const ContactStep = () => {
   const { formatMessage } = useIntl();
   const step = useFacilityFormStore(store => store.step);
   const data = useFacilityFormStore(store => store.data);
-  const setData = useFacilityFormStore(store => store.setData);
 
   const methods = useForm<Partial<CreateFacilityFormDto>>({
     defaultValues: {
@@ -40,13 +40,8 @@ const ContactStep = () => {
   });
 
   return (
-    <chakra.form
-      id='add-facility-third-step'
-      data-testid='add-facility-third-step'
-      noValidate
-      onSubmit={methods.handleSubmit(model => setData(model))}
-    >
-      <FormProvider {...methods}>
+    <FormProvider {...methods}>
+      <Form id='add-facility-third-step'>
         <List>
           <ListItem>
             <FormStepHeader>
@@ -103,8 +98,8 @@ const ContactStep = () => {
             </ButtonGroup>
           </IndentLabel>
         </List>
-      </FormProvider>
-    </chakra.form>
+      </Form>
+    </FormProvider>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { ButtonGroup, chakra } from '@chakra-ui/react';
+import { ButtonGroup } from '@chakra-ui/react';
 
 import { FormProvider, useForm } from 'shared/FormV2';
 import { Divider, Header, Heading, ListItem, SubHeading } from 'shared/DescriptionListV2';
@@ -13,12 +13,12 @@ import { NextStepButton } from '../NextStepButton';
 import { useFacilityFormStore } from '../createFacilityFormStore';
 import { WorkingHoursInputs } from './WorkingHoursInputs';
 import { AddressInputs } from './AddressInputs';
+import { Form } from '../Form';
 
 const WorkingDaysAndAddressStep = () => {
   const { formatMessage } = useIntl();
   const step = useFacilityFormStore(store => store.step);
   const data = useFacilityFormStore(store => store.data);
-  const setData = useFacilityFormStore(store => store.setData);
 
   const methods = useForm<Partial<CreateFacilityFormDto>>({
     defaultValues: {
@@ -36,13 +36,8 @@ const WorkingDaysAndAddressStep = () => {
   });
 
   return (
-    <chakra.form
-      id='add-facility-second-step'
-      data-testid='add-facility-second-step'
-      noValidate
-      onSubmit={methods.handleSubmit(model => setData(model))}
-    >
-      <FormProvider {...methods}>
+    <FormProvider {...methods}>
+      <Form id='add-facility-second-step'>
         <List>
           <ListItem>
             <FormStepHeader>
@@ -99,8 +94,8 @@ const WorkingDaysAndAddressStep = () => {
             </ButtonGroup>
           </IndentLabel>
         </List>
-      </FormProvider>
-    </chakra.form>
+      </Form>
+    </FormProvider>
   );
 };
 

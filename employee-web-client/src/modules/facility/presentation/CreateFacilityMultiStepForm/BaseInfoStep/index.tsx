@@ -1,36 +1,31 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { ButtonGroup, chakra } from '@chakra-ui/react';
+import { ButtonGroup } from '@chakra-ui/react';
 
 import { List, IndentList, IndentLabel } from 'shared/IndentiationList';
 import { Header, Heading, SubHeading, Divider, ListItem } from 'shared/DescriptionListV2';
 import { useForm, FormProvider } from 'shared/FormV2';
 
+import { CreateFacilityFormDto } from '../../../application/types';
 import { useFacilityFormStore } from '../createFacilityFormStore';
 import { PreviousStepButton } from '../PreviousStepButton';
 import { NextStepButton } from '../NextStepButton';
 import { BaseInfoStepInputs } from './BaseInfoStepInputs';
 import { FormStepHeader } from '../FormStepHeader';
-import { CreateFacilityFormDto } from '../../../application/types';
+import { Form } from '../Form';
 
 const BaseInfoStep = () => {
   const { formatMessage } = useIntl();
   const step = useFacilityFormStore(store => store.step);
   const data = useFacilityFormStore(store => store.data);
-  const setData = useFacilityFormStore(store => store.setData);
 
   const methods = useForm<Partial<CreateFacilityFormDto>>({
     defaultValues: data,
   });
 
   return (
-    <chakra.form
-      id='add-facility-first-step'
-      data-testid='add-facility-first-step'
-      noValidate
-      onSubmit={methods.handleSubmit(model => setData(model))}
-    >
-      <FormProvider {...methods}>
+    <FormProvider {...methods}>
+      <Form id='add-facility-first-step'>
         <List>
           <ListItem>
             <FormStepHeader>
@@ -67,8 +62,8 @@ const BaseInfoStep = () => {
             </ButtonGroup>
           </IndentLabel>
         </List>
-      </FormProvider>
-    </chakra.form>
+      </Form>
+    </FormProvider>
   );
 };
 
