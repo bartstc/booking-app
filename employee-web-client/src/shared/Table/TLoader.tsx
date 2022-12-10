@@ -3,7 +3,7 @@ import { Skeleton, SkeletonProps, VStack } from '@chakra-ui/react';
 
 interface IProps extends SkeletonProps {}
 
-const TableLoader = (props: IProps) => {
+const TLoader = (props: IProps) => {
   return (
     <VStack data-testid='table-loader' w='100%'>
       <Skeleton w='100%' h='36px' {...props} />
@@ -15,4 +15,4 @@ const TableLoader = (props: IProps) => {
   );
 };
 
-export { TableLoader };
+export { TLoader };

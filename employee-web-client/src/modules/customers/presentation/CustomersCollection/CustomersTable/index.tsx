@@ -4,7 +4,7 @@ import { compose } from 'utils';
 
 import { useQueryParams } from 'shared/Params';
 import { withErrorBoundary } from 'shared/ErrorBoundary';
-import { Tfoot, TableContainer, useTable, DefaultTable, withTableSuspense } from 'shared/Table';
+import { Tfoot, TContainer, useTable, DefaultTable, withTableSuspense } from 'shared/Table';
 
 import { ICustomerCollectionQueryParams } from '../../../application/types';
 import { useCustomersQuery } from '../../../infrastructure/query';
@@ -26,10 +26,10 @@ const CustomersTableSuspense = () => {
   });
 
   return (
-    <TableContainer count={collection.length}>
+    <TContainer count={collection.length}>
       <DefaultTable table={table} />
       <Tfoot meta={meta} collectionCount={collection.length} />
-    </TableContainer>
+    </TContainer>
   );
 };
 

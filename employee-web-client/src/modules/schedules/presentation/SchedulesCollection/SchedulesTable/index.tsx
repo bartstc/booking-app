@@ -3,7 +3,7 @@ import React from 'react';
 import { compose } from 'utils';
 
 import { withErrorBoundary } from 'shared/ErrorBoundary';
-import { TableContainer, useTable, withTableSuspense, Table, Th, Tbody, Td, Thead, Tr } from 'shared/Table';
+import { TContainer, useTable, withTableSuspense, Table, Th, Tbody, Td, Thead, Tr } from 'shared/Table';
 
 import { useSchedulesQuery } from '../../../infrastructure/query';
 import { useFacilityContextSelector } from '../../../../context';
@@ -24,7 +24,7 @@ const SchedulesTableSuspense = () => {
   });
 
   return (
-    <TableContainer count={collection.length}>
+    <TContainer count={collection.length}>
       <Table>
         <Thead>
           {table.getHeaderGroups().map(headerGroup => (
@@ -45,7 +45,7 @@ const SchedulesTableSuspense = () => {
           ))}
         </Tbody>
       </Table>
-    </TableContainer>
+    </TContainer>
   );
 };
 

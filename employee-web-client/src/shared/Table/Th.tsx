@@ -9,16 +9,16 @@ import { SortingType, useSort } from 'hooks';
 interface IProps<TData> extends Header<TData, unknown> {}
 
 function Th<TData>(header: IProps<TData>) {
-  const { currentSortType, change } = useSort(camelCase(header.column.id));
   const { colors } = useTheme();
   const textColor = useColorModeValue('gray.600', 'gray.400');
   const borderColor = useColorModeValue(colors.gray[300], colors.gray[700]);
   const activeBorderColor = useColorModeValue(colors.primary[500], colors.primary[500]);
+
+  const { currentSortType, change } = useSort(camelCase(header.column.id));
   const isSortable = header.column.getCanSort();
+  const isActive = currentSortType !== SortingType.DEFAULT;
 
   const meta = header.column.columnDef.meta;
-
-  const isActive = currentSortType !== SortingType.DEFAULT;
 
   return (
     <ChakraTh

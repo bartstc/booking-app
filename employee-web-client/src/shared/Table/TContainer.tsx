@@ -7,7 +7,7 @@ interface IProps {
   count: number
 }
 
-const TableContainer = ({ children, count }: IProps) => {
+const TContainer = ({ children, count }: IProps) => {
   if (count === 0) {
     return <NoResultsState />;
   }
@@ -19,4 +19,4 @@ const TableContainer = ({ children, count }: IProps) => {
   );
 };
 
-export { TableContainer };
+export { TContainer };

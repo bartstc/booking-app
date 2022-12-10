@@ -4,7 +4,7 @@ import { compose } from 'utils';
 
 import { useQueryParams } from 'shared/Params';
 import { withErrorBoundary } from 'shared/ErrorBoundary';
-import { DefaultTable, TableContainer, Tfoot, useTable, withTableSuspense } from 'shared/Table';
+import { DefaultTable, TContainer, Tfoot, useTable, withTableSuspense } from 'shared/Table';
 
 import { IFacilityCollectionQueryParams } from '../../../application/types';
 import { useEnterpriseContextSelector } from '../../../../context';
@@ -26,10 +26,10 @@ const FacilitiesTableSuspense = () => {
   });
 
   return (
-    <TableContainer count={collection.length}>
+    <TContainer count={collection.length}>
       <DefaultTable table={table} />
       <Tfoot meta={meta} collectionCount={collection.length} />
-    </TableContainer>
+    </TContainer>
   );
 };
 
