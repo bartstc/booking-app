@@ -19,7 +19,7 @@ const StyledTbody = styled(ChakraTbody)<{
   cellhover: string;
 }>`
   tr:hover {
-    transition: all 100ms ease-in-out;
+    transition: all 200ms ease-in-out;
     background-color: ${props => props.cellhover};
   }
 `;
