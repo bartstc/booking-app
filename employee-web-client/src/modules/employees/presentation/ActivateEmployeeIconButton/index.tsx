@@ -39,6 +39,7 @@ const ActivateEmployeeIconButton = ({ enterpriseId, employeeId, ...props }: IPro
         title={formatMessage({ id: 'activate-employee', defaultMessage: 'Activate employee' })}
         path={mdiLockOpenVariantOutline}
         onClick={onOpen}
+        size='sm'
         {...props}
       />
     </>

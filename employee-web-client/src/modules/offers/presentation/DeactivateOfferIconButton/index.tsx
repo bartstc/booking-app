@@ -45,6 +45,7 @@ const DeactivateOfferIconButton = ({ facilityId, offerId, ...props }: IProps) =>
         title={formatMessage({ id: 'deactivate-offer', defaultMessage: 'Deactivate offer' })}
         path={mdiLockOutline}
         onClick={onOpen}
+        size='sm'
         {...props}
       />
     </>

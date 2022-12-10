@@ -15,7 +15,7 @@ const IconButton = ({
   variant = 'ghost',
   colorScheme = 'gray',
   path = mdiAlertCircle,
-  icon = <Icon path={path} size='24px' />,
+  icon = <Icon path={path} size='20px' />,
   title,
   id,
   onClick,
@@ -30,6 +30,7 @@ const IconButton = ({
         icon={icon}
         aria-label={title}
         id={id}
+        size='sm'
         data-testid={id}
         onClick={e => {
           if (onClick) {

@@ -39,9 +39,10 @@ const Dropdown = ({ placement = PlacementType.BOTTOM_END, children }: IProps) =>
           e.stopPropagation();
         }}
         background='none'
+        size='sm'
       >
         <Center>
-          <Icon path={mdiDotsVertical} color={iconColor} size='24px' />
+          <Icon path={mdiDotsVertical} color={iconColor} size='20px' />
         </Center>
       </MenuButton>
       <MenuList mt='-20px' borderColor={borderColor} bg={bg}>

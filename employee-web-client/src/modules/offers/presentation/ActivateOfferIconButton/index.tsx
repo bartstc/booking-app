@@ -39,6 +39,7 @@ const ActivateOfferIconButton = ({ offerId, facilityId, ...props }: IProps) => {
         title={formatMessage({ id: 'activate-offer', defaultMessage: 'Activate offer' })}
         path={mdiLockOpenVariantOutline}
         onClick={onOpen}
+        size='sm'
         {...props}
       />
     </>

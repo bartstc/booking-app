@@ -44,6 +44,7 @@ const DeactivateEmployeeIconButton = ({ enterpriseId, employeeId, ...props }: IP
         title={formatMessage({ id: 'deactivate-employee', defaultMessage: 'Deactivate employee' })}
         path={mdiLockOutline}
         onClick={onOpen}
+        size='sm'
         {...props}
       />
     </>
