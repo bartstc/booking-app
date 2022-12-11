@@ -12,7 +12,7 @@ const BaseInfoStepInputs = () => {
 
   return (
     <>
-      <TextInput name='offerName' colSpan={{ base: 6, md: 4 }} isRequired>
+      <TextInput name='facilityName' colSpan={{ base: 6, md: 4 }} isRequired>
         {formatMessage({ id: 'facility-name', defaultMessage: 'Facility name' })}
       </TextInput>
       <TextInput name='slug' colSpan={{ base: 6, md: 4 }} isRequired>

@@ -4,3 +4,4 @@ export { ContactPersonInputs } from './ContactPersonInputs';
 export { AddressInputs } from './AddressInputs';
 export { WorkingHoursInputs } from './WorkingHoursInputs';
 export { ContactsInputs } from './ContactsInputs';
+export { useCreateFacilityNotification } from './useCreateFacilityNotification';

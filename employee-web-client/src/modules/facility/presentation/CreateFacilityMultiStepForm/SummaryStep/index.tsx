@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import { ButtonGroup } from '@chakra-ui/react';
 
@@ -11,9 +11,12 @@ import { CreateFacilityMapper } from '../../../application';
 import { FacilityBody } from '../../FacilityBody';
 import { FormStepHeader } from '../FormStepHeader';
 import { PreviousStepButton } from '../PreviousStepButton';
-import { SubmitButton } from '../SubmitButton';
 
-const SummaryStep = () => {
+interface IProps {
+  children: ReactNode;
+}
+
+const SummaryStep = ({ children }: IProps) => {
   const { formatMessage } = useIntl();
   const data = useFacilityFormStore(store => store.data);
   const step = useFacilityFormStore(store => store.step);
@@ -36,7 +39,7 @@ const SummaryStep = () => {
       <IndentLabel>
         <ButtonGroup>
           <PreviousStepButton formStep={step} />
-          <SubmitButton />
+          {children}
         </ButtonGroup>
       </IndentLabel>
     </List>

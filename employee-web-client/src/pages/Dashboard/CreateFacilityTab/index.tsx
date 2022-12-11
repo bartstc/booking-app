@@ -1,11 +1,11 @@
 import React from 'react';
-import { Heading, HStack } from '@chakra-ui/react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { HStack } from '@chakra-ui/react';
+import { useIntl } from 'react-intl';
 import { mdiArrowLeft } from '@mdi/js';
 import { useNavigate } from 'react-router-dom';
 
 import { useEmployeeContextSelector, useEnterpriseContextSelector } from 'modules/context';
-import { CreateFacilityForm } from 'modules/facility/presentation';
+import { CreateFacilityMultiStepForm } from 'modules/facility/presentation';
 
 import { IconButton } from 'shared/Button';
 import { Icon } from 'shared/Icon';
@@ -28,11 +28,12 @@ const CreateFacilityTab = () => {
           title={formatMessage({ id: 'back-to-list', defaultMessage: 'Back to list' })}
           icon={<Icon path={mdiArrowLeft} />}
         />
-        <Heading pl={3} as='h2' fontWeight='500' fontSize={{ base: 'xl', md: '2xl' }}>
-          <FormattedMessage id='register-new-facility' defaultMessage='Register new facility' />
-        </Heading>
       </HStack>
-      <CreateFacilityForm enterpriseId={enterpriseId} employeeId={employeeId} />
+      <CreateFacilityMultiStepForm
+        enterpriseId={enterpriseId}
+        employeeId={employeeId}
+        onSuccess={() => navigate(`/dashboard/facilities`)}
+      />
     </DashboardTabs>
   );
 };

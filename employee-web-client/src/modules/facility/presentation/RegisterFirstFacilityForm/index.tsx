@@ -1,16 +1,13 @@
 import React from 'react';
-import { useQueryClient } from 'react-query';
 import { HStack, VStack, Divider } from '@chakra-ui/react';
 
-import { useCreateFacility } from 'modules/facility/infrastructure/command';
+import { useRegisterFacility } from 'modules/facility/infrastructure/command';
 
 import { SubmitButton } from 'shared/Form';
 import { SectionContainer } from 'shared/DescriptionList';
 
 import { ContactPersonInputs, AddressInputs, WorkingHoursInputs, MetaInputs, ContactsInputs, FacilityForm } from '../FacilityForm';
-import { useCreateFacilityNotification } from '../CreateFacilityForm/useCreateFacilityNotification';
-import { IEmployee } from '../../../employees/application/types';
-import { employeeByEmailQueryKey } from '../../../employees/infrastructure/query';
+import { useCreateFacilityNotification } from '../FacilityForm';
 
 interface IProps {
   enterpriseId: string;
@@ -19,21 +16,7 @@ interface IProps {
 }
 
 const RegisterFirstFacilityForm = ({ enterpriseId, employeeId, employeeEmail }: IProps) => {
-  const queryClient = useQueryClient();
-
-  const [handler, isLoading] = useCreateFacility(enterpriseId, employeeId, async facilityId => {
-    await queryClient.setQueryData<IEmployee | undefined>(employeeByEmailQueryKey(employeeEmail), data => {
-      if (!data) return;
-
-      return {
-        ...data,
-        scope: {
-          ...data.scope,
-          facilityIds: [facilityId],
-        },
-      };
-    });
-  });
+  const [handler, isLoading] = useRegisterFacility(enterpriseId, employeeId, employeeEmail);
 
   const { showCreateFailureNotification, showCreateSuccessNotification } = useCreateFacilityNotification();
 

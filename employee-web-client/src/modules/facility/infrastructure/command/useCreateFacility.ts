@@ -1,19 +1,24 @@
+import { useQueryClient } from 'react-query';
+
 import { Logger, LogLevel } from 'utils/logger';
 import { managementHttpService } from 'utils/http';
 import { useMutation } from 'shared/Suspense';
+import { employeeQueryKey } from 'modules/employees/infrastructure/query';
 
 import { CreateFacilityDto, CreateFacilityFormDto } from '../../application/types';
 import { CreateFacilityMapper } from '../../application';
 
-export const useCreateFacility = (enterpriseId: string, creatorId: string, onSuccess?: (facilityId: string) => Promise<void>) => {
-  const { mutateAsync, isLoading } = useMutation<{ facilityId: string }, CreateFacilityDto>(model => {
+export const useCreateFacility = (enterpriseId: string, creatorId: string) => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isLoading } = useMutation<{ facilityId: string }, CreateFacilityDto | Partial<CreateFacilityFormDto>>(model => {
     return managementHttpService.post(`enterprises/${enterpriseId}/facilities`, { ...model, creatorId });
   });
 
-  const handler = (model: CreateFacilityFormDto) => {
-    return mutateAsync(CreateFacilityMapper.formToDto(model))
-      .then(async ({ facilityId }) => {
-        if (onSuccess) await onSuccess(facilityId);
+  const handler = (model: CreateFacilityFormDto | Partial<CreateFacilityFormDto>) => {
+    return mutateAsync(CreateFacilityMapper.formToDto(model as CreateFacilityFormDto))
+      .then(async () => {
+        await queryClient.invalidateQueries(employeeQueryKey(enterpriseId, creatorId));
       })
       .catch(e => {
         Logger.log({

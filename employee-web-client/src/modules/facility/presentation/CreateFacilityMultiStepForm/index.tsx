@@ -7,8 +7,15 @@ import { BaseInfoStep } from './BaseInfoStep';
 import { WorkingDaysAndAddressStep } from './WorkingDaysAndAddressStep';
 import { ContactStep } from './ContactStep';
 import { SummaryStep } from './SummaryStep';
+import { SubmitButton } from './SubmitButton';
 
-const CreateFacilityMultiStepForm = () => {
+interface IProps {
+  enterpriseId: string;
+  employeeId: string;
+  onSuccess?: () => void;
+}
+
+const CreateFacilityMultiStepForm = (props: IProps) => {
   const step = useFacilityFormStore(store => store.step);
 
   return (
@@ -17,7 +24,11 @@ const CreateFacilityMultiStepForm = () => {
       {step === FacilityFormStep.Base_info && <BaseInfoStep />}
       {step === FacilityFormStep.Working_hours && <WorkingDaysAndAddressStep />}
       {step === FacilityFormStep.Contact && <ContactStep />}
-      {step === FacilityFormStep.Summary && <SummaryStep />}
+      {step === FacilityFormStep.Summary && (
+        <SummaryStep>
+          <SubmitButton {...props} />
+        </SummaryStep>
+      )}
     </VStack>
   );
 };
