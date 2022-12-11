@@ -14,6 +14,7 @@ import { IOfferCollection, OfferStatus, PriceModel } from 'modules/offers/applic
 import { offersQueryKey } from 'modules/offers/infrastructure/query';
 import { FacilityProvider } from 'modules/context/application';
 import Offers from './index';
+import { OfferFormPO } from './OfferForm.po';
 
 const FACILITY_ID = generateID();
 const OFFER_ID_1 = generateID();
@@ -103,9 +104,9 @@ export const AddNewOffer = Template.bind({});
 AddNewOffer.decorators = OffersList.decorators;
 AddNewOffer.play = async ({ canvasElement }) => {
   within(canvasElement);
+  // const offerFormPo = OfferFormPO.render(canvasElement)
 
   await waitForElementToBeRemoved(screen.queryByTestId('table-loader'));
-  await expect(screen.getAllByText(/Existing offer/).length).toBe(2);
 
   await userEvent.click(screen.getByText('Add offer'));
 
