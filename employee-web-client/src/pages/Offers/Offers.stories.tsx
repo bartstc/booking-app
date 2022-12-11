@@ -1,8 +1,5 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { within, userEvent, waitForElementToBeRemoved, screen } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
-import selectEvent from 'react-select-event';
 
 import { withParams } from 'utils/storybook';
 import { managementMockService } from 'utils/mock';
@@ -103,34 +100,26 @@ OffersList.decorators = [
 export const AddNewOffer = Template.bind({});
 AddNewOffer.decorators = OffersList.decorators;
 AddNewOffer.play = async ({ canvasElement }) => {
-  within(canvasElement);
-  // const offerFormPo = OfferFormPO.render(canvasElement)
+  const offerFormPo = OfferFormPO.render(canvasElement);
 
-  await waitForElementToBeRemoved(screen.queryByTestId('table-loader'));
+  await offerFormPo.expectLoaderDisappeared();
 
-  await userEvent.click(screen.getByText('Add offer'));
+  await offerFormPo.openNewOfferForm();
 
-  const form = screen.getByTestId('add-offer-form');
-  await expect(form).toBeInTheDocument();
+  await offerFormPo.expectAddOfferFormAppeared();
 
-  const offerNameInput = screen.getByLabelText(/Offer name/);
-  const durationInput = screen.getByLabelText(/Duration of the service/);
-  const priceValueInput = screen.getByLabelText(/Service's value/);
-  const priceCurrencyInput = screen.getByLabelText(/Currency/);
-  const priceTypeInput = screen.getByLabelText(/Price type/);
+  await offerFormPo.setOfferName(newOffer.name);
+  await offerFormPo.setDuration(newOffer.duration);
+  await offerFormPo.setPriceValue(newOffer.price.value);
+  await offerFormPo.setPriceType('Variable');
+  await offerFormPo.setPriceCurrency('PLN');
 
-  await userEvent.type(offerNameInput, newOffer.name);
-  await userEvent.type(durationInput, newOffer.duration.toString());
-  await userEvent.type(priceValueInput, newOffer.price.value);
-  await selectEvent.select(priceTypeInput, 'Variable');
-  await selectEvent.select(priceCurrencyInput, 'PLN');
+  await offerFormPo.submitNewOffer();
 
-  await userEvent.click(screen.getByText('Submit'));
+  await offerFormPo.expectAddOfferFormDisappeared();
 
-  await waitForElementToBeRemoved(form);
-
-  await expect(screen.getByText('New offer added successfully')).toBeInTheDocument();
-  await expect(screen.getAllByText('New offer').length).toBeGreaterThan(0);
+  await offerFormPo.expectOfferNotificationAppeared();
+  await offerFormPo.expectNewOfferAdded('New offer');
 };
 
 export const EmptyOffersList = Template.bind({});

@@ -5,6 +5,7 @@ import selectEvent from 'react-select-event';
 export class OfferFormPO {
   private elements: {
     addOfferForm: HTMLElement;
+    addOfferButton: HTMLElement;
     offerNameInput: HTMLInputElement;
     durationInput: HTMLInputElement;
     priceValueInput: HTMLInputElement;
@@ -20,6 +21,9 @@ export class OfferFormPO {
 
     this.elements = {
       get addOfferForm() {
+        return screen.getByTestId('add-offer-form');
+      },
+      get addOfferButton() {
         return screen.getByText('Add offer');
       },
       get offerNameInput() {
@@ -69,6 +73,10 @@ export class OfferFormPO {
     await selectEvent.select(this.elements.priceCurrencyInput, value);
   }
 
+  async openNewOfferForm() {
+    await userEvent.click(this.elements.addOfferButton);
+  }
+
   async submitNewOffer() {
     await userEvent.click(this.elements.addOfferSubmitButton);
   }
@@ -77,11 +85,15 @@ export class OfferFormPO {
     await waitForElementToBeRemoved(this.elements.tableLoader);
   }
 
-  async expectCloseModal() {
+  async expectAddOfferFormAppeared() {
+    await expect(this.elements.addOfferForm).toBeInTheDocument();
+  }
+
+  async expectAddOfferFormDisappeared() {
     await waitForElementToBeRemoved(this.elements.addOfferForm);
   }
 
-  async expectNewOffer(offerName: string) {
+  async expectNewOfferAdded(offerName: string) {
     await expect(screen.getAllByText(offerName).length).toBeGreaterThan(0);
   }
 
