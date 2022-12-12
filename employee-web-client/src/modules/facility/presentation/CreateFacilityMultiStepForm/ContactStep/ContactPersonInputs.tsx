@@ -18,7 +18,9 @@ const ContactPersonInputs = () => {
       <MaskedTextInput name='contactPerson.fax' mask={masks.phone} colSpan={{ base: 6, md: 4 }} colStart={1} isRequired>
         {formatMessage({ id: 'fax-number', defaultMessage: 'Fax number' })}
       </MaskedTextInput>
-      <EmailInput name='contactPerson.email' colSpan={{ base: 6, md: 4 }} isRequired />
+      <EmailInput name='contactPerson.email' colSpan={{ base: 6, md: 4 }} isRequired>
+        {formatMessage({ id: 'contact-email-label', defaultMessage: 'Contact email' })}
+      </EmailInput>
     </>
   );
 };
