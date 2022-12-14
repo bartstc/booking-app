@@ -19,7 +19,7 @@ const GridFooter = ({ meta, collectionCount, ...props }: IProps) => {
     Number(meta.limit) === collectionCount ? Number(meta.offset) + Number(meta.limit) : Number(meta.offset) + collectionCount;
 
   return (
-    <HStack pt={2} w='100%' justify='space-between' {...props}>
+    <HStack w='100%' justify='space-between' {...props}>
       <Text color={color} fontSize='sm'>
         {formatMessage(
           { id: 'table-meta-summary', defaultMessage: '{offset} of {total} results' },
